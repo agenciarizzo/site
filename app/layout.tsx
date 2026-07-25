@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     siteName: "Agência Rizzo",
   },
-  // Staging nasce noindex; vira index no cutover (NEXT_PUBLIC_SITE_INDEXABLE=true).
+  // Produção indexa; preview e dev nascem noindex (ver INDEXABLE em lib/site.ts).
   robots: { index: INDEXABLE, follow: INDEXABLE },
 };
 

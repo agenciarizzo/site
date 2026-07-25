@@ -1,9 +1,19 @@
 // Constantes do site — contatos, WhatsApp por página, flags e schema.org base.
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://agenciarizzo.com.br";
 
-// Staging nasce NOIDEX. Só vira indexável no cutover do domínio
-// (setar NEXT_PUBLIC_SITE_INDEXABLE=true no projeto Vercel — ver CUTOVER_CHECKLIST.md).
-export const INDEXABLE = process.env.NEXT_PUBLIC_SITE_INDEXABLE === "true";
+// Host canônico = o que o servidor realmente devolve 200. Hoje o apex
+// `agenciarizzo.com.br` faz 308 pro `www` (redirect de domínio da Vercel), então o
+// canonical/sitemap/JSON-LD tem que apontar pro `www` — canonical que aponta pra URL
+// que redireciona é sinal fraco e gasta um hop em cada página. Se o primário virar o
+// apex no painel da Vercel, é só trocar esta linha (ou setar NEXT_PUBLIC_SITE_URL).
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.agenciarizzo.com.br";
+
+// Indexável em PRODUÇÃO; preview e dev nascem noindex.
+// A flag continua mandando quando presente: "false" trava até em produção (rollback
+// de emergência sem deploy), "true" libera em qualquer ambiente. Sem flag, quem decide
+// é o ambiente — assim o domínio real nunca mais nasce bloqueado por engano.
+const FLAG_INDEX = process.env.NEXT_PUBLIC_SITE_INDEXABLE;
+export const INDEXABLE =
+  FLAG_INDEX === "true" ? true : FLAG_INDEX === "false" ? false : process.env.VERCEL_ENV === "production";
 
 export const WHATS_NUMBER = "5562992586600";
 export const WHATS_LABEL = "(62) 99258-6600";

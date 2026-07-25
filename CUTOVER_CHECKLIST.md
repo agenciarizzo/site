@@ -1,44 +1,60 @@
-# ✈️ Checklist de cutover — virar `agenciarizzo.com.br` pro site novo
+# ✈️ Cutover de `agenciarizzo.com.br` — o que já virou e o que falta
 
-> O site novo fica em **staging** (URL do Vercel, `noindex`) até TODOS os itens abaixo
-> serem feitos **na mesma janela**. O site atual continua no ar até o item 6.
-> Referência da frente: rizzo-os → `docs/SITE_MANIFESTO_MAPA.md` (§3.4 e §8.5).
+> **O cutover JÁ ACONTECEU** — e aconteceu fora de ordem, sem esta lista. Descoberto em
+> 25/07/2026 ao investigar um PageSpeed que o cliente rodou no domínio (SEO 69): a página
+> medida era este site, não o antigo. Estado encontrado: apex fazendo 308 pro `www`, o
+> `www` servindo o deploy de produção deste repo, `robots.txt` com `Disallow: /`,
+> `noindex, nofollow` em toda página e **404 em toda URL do site antigo** — inclusive
+> `/montar-proposta-online.html`, a landing das campanhas de Google Ads.
+>
+> Este arquivo deixou de ser um plano e virou o registro do que foi corrigido e do que
+> continua aberto. Referência da frente: rizzo-os → `docs/SITE_MANIFESTO_MAPA.md`.
 
-## 1 · Conteúdo aprovado
-- [ ] Raphael validou home + 6 cartas + clientes + contato (copy e visual) no staging.
-- [ ] Lista de clientes exibidos conferida (todos já públicos no site atual / autorizados).
+## ✅ Já feito
 
-## 2 · Redirecionamentos 301 (em `next.config.ts`, ANTES de apontar o domínio)
-Inventário completo das URLs do site atual → destino no novo. Mínimo conhecido:
-- [ ] `/google-ads-medicos(.html)?` → `/cartas/google-ads`
-- [ ] `/redes-sociais(.html)?` → `/cartas/redes-sociais`
-- [ ] `/branding-medico(.html)?` → `/` (até existir carta de branding)
-- [ ] `/marketingmedicobrasilia(.html)?` → `/` *(fase 2: landing brasília)*
-- [ ] `/marketingmedicogoiania(.html)?` → `/` *(fase 2: landing goiânia)*
-- [ ] `/sobre`, `/portfolio` → `/` · `/clientes` → `/clientes` · `/contato` → `/contato`
-- [ ] `/montar-proposta-online.html` → **manter acessível** (landing de campanha) OU
-      redirecionar quando a decisão sair (§8.4 do mapa) — **as campanhas de Ads
-      apontam pra cá; não quebrar antes de trocar as landings nos anúncios.**
-- [ ] Rodar crawler no site atual (Screaming Frog/`wget --spider`) pra fechar o
-      inventário completo — nenhuma URL indexada pode ficar 404.
+- [x] **301 das URLs legadas** (`next.config.ts`, 18 regras, cada rota com e sem `.html`).
+      Conferido no ar: `/montar-proposta-online.html` → `/contato` e `/google-ads-medicos`
+      → `/cartas/google-ads` respondem 200 no destino.
+- [x] **Indexação destravada** — decisão do cliente em 25/07: destravar já, em vez de
+      voltar o site antigo. `INDEXABLE` (`lib/site.ts`) passou a decidir por `VERCEL_ENV`:
+      produção indexa, preview e dev seguem `noindex`. Trava de emergência sem deploy:
+      `NEXT_PUBLIC_SITE_INDEXABLE=false`.
+- [x] **`SITE_URL` no host que devolve 200** (`www`), pra canonical/sitemap/JSON-LD não
+      apontarem pra URL que redireciona.
+- [x] **Acessibilidade**: landmark `<main>` nas 4 páginas + contraste AA no microtexto.
 
-## 3 · Analytics & Ads
-- [ ] gtag (GA4) instalado no site novo + captura de GCLID (padrão do site atual).
-- [ ] Evento de conversão: clique no WhatsApp (todas as páginas).
-- [ ] Landings das campanhas ativas revisadas (apontar pro destino certo pós-cutover).
+## ⏳ Aberto
 
-## 4 · Search Console
-- [ ] Propriedade verificada; sitemap novo submetido no dia da virada.
-- [ ] Monitorar cobertura/404 diariamente na primeira semana.
+### 1 · Inventário completo de URLs (o maior risco restante)
+As 18 regras cobrem o **mínimo conhecido**. Falta o inventário real:
+- [ ] Exportar do Search Console as URLs indexadas do site antigo (Páginas → Indexadas).
+- [ ] Cruzar com as 18 regras; toda URL indexada sem regra está em 404 agora.
+- [ ] Monitorar "Não encontrada (404)" na Cobertura diariamente na primeira semana —
+      é o jeito mais rápido de achar o que ficou de fora.
 
-## 5 · Cloudflare (pago) na frente
-- [ ] Zona criada, plano pago ativo, DNS proxied → Vercel (CNAME), SSL Full (strict).
-- [ ] Cache/regras básicas; firewall padrão. (Decisão do cliente: Cloudflare pago.)
+### 2 · Search Console
+- [ ] Conferir se a propriedade é de domínio ou de prefixo `https://www.` — o `www` é o
+      host que responde 200; a propriedade precisa enxergar ele.
+- [ ] Submeter `https://www.agenciarizzo.com.br/sitemap.xml`.
+- [ ] Inspecionar a home e pedir indexação — força o recrawl e tira mais rápido do cache
+      o `noindex` que ficou servido enquanto a trava estava ligada.
 
-## 6 · A virada
-- [ ] Domínio apontado pro projeto Vercel (via Cloudflare).
-- [ ] `NEXT_PUBLIC_SITE_URL=https://agenciarizzo.com.br` e
-      `NEXT_PUBLIC_SITE_INDEXABLE=true` no Vercel → redeploy (**só aqui sai o noindex**).
-- [ ] Site antigo arquivado (backup), mas `montar-proposta-online.html` preservada
-      enquanto houver campanha apontando.
-- [ ] Smoke test: home, 6 cartas, clientes, contato, robots.txt, sitemap.xml, 301s.
+### 3 · Analytics & Ads
+- [ ] **gtag (GA4) não existe no site novo** — desde o cutover não há medição nenhuma.
+- [ ] Captura de GCLID (o site antigo tinha).
+- [ ] Evento de conversão no clique do WhatsApp (todas as páginas) — é a única conversão
+      do site; sem isso o Ads otimiza no escuro.
+- [ ] Landings das campanhas ativas: hoje `/montar-proposta-online.html` cai em 301 pro
+      `/contato`. Funciona, mas o certo é apontar o anúncio direto pro destino final.
+
+### 4 · Cloudflare (pago) na frente
+- [ ] Zona criada, plano pago ativo, DNS proxied → Vercel, SSL Full (strict).
+- [ ] Decidir o primário: hoje é `www` (apex → 308 → `www`). Se virar o apex, trocar o
+      default de `SITE_URL` em `lib/site.ts` na mesma janela.
+
+### 5 · Conteúdo
+- [ ] Raphael validar home + 6 cartas + clientes + contato (copy e visual) — está no ar
+      **indexável**, então correção de copy agora é correção em produção.
+- [ ] Números em ouro (`.carta-num`, `.passo .n`): `#F0A400` sobre papel = 1,83:1,
+      reprova no WCAG AA. Passar exige escurecer o ouro do visual aprovado — decisão de
+      identidade, pendente com o cliente.
