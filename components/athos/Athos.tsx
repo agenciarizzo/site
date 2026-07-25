@@ -1,0 +1,101 @@
+// Componentes da Linha Athos — server components, zero JS no cliente.
+// Panos SEMPRE via motor (lib/athos/panos.ts); html estático com data-pano (A1).
+import Image from "next/image";
+import { panoTiraOs } from "@/lib/athos/panos";
+import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS } from "@/lib/site";
+
+export function Band({ html, carta = false }: { html: string; carta?: boolean }) {
+  return <div className={carta ? "band-carta" : "band"} aria-hidden dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
+export function Header({ waText }: { waText: string }) {
+  return (
+    <header className="topo">
+      <a href="/" aria-label="Agência Rizzo — início">
+        <Image src="/logo_horizontal.png" alt="Agência Rizzo" width={182} height={30} priority />
+      </a>
+      <a className="top-wa" href={wa(waText)}>
+        WHATSAPP →
+      </a>
+    </header>
+  );
+}
+
+export function OsBlock({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="os">
+      <div className="tira" aria-hidden dangerouslySetInnerHTML={{ __html: panoTiraOs() }} />
+      <div className="inner">
+        <div className="wordmark">
+          <span className="light">Rizzo</span>
+          <span className="bold">OS</span> <span className="beta">BETA</span>
+        </div>
+        <p>{children}</p>
+      </div>
+    </div>
+  );
+}
+
+export function Fatos() {
+  return <div className="fatos">{FATOS}</div>;
+}
+
+export function CtaConversa({
+  titulo,
+  acento,
+  waText,
+  sub = "Do outro lado tem gente, não robô. A gente entende seu momento primeiro — e, fazendo sentido, a proposta vem por escrito, transparente.",
+}: {
+  titulo: string;
+  acento: string;
+  waText: string;
+  sub?: string;
+}) {
+  return (
+    <section className="cta">
+      <div className="wrap">
+        <h2>
+          {titulo}
+          <br />
+          <span className="acento">{acento}</span>
+        </h2>
+        <a className="btn-wa" href={wa(waText)}>
+          CHAMAR NO WHATSAPP&nbsp;&nbsp;→
+        </a>
+        <p className="sub">{sub}</p>
+        <div className="assin">
+          <Image src="/email/raphael-rizzo.jpg" alt="Raphael Rizzo" width={60} height={60} />
+          <div>
+            <div className="nome">Raphael Rizzo</div>
+            <div className="cargo">FUNDADOR · AGÊNCIA RIZZO</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer className="fim">
+      <div className="wm">
+        <span className="light">agência</span>
+        <span className="bar">|</span>
+        <b>rizzo</b>
+      </div>
+      <div>
+        {SOCIAIS.map((s, i) => (
+          <span key={s.nome}>
+            {i > 0 && " · "}
+            <a href={s.url} rel="noopener noreferrer" target="_blank">
+              {s.nome}
+            </a>
+          </span>
+        ))}
+      </div>
+      <div className="linha">
+        agenciarizzo.com.br · WhatsApp {WHATS_LABEL} · {ENDERECO} · CNPJ {CNPJ}
+      </div>
+    </footer>
+  );
+}

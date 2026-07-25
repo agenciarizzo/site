@@ -1,42 +1,251 @@
 @import "tailwindcss";
 
-/* NU Ultravioleta Design System */
+/* ============================================================
+   Linha Athos — tokens oficiais (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §2)
+   papel #F4EFE6 · ink #16130E · corpo #3A3628 · navy #0F172A (bloco RizzoOS)
+   teal #0097A7 (acento raro) · ouro #F0A400 (tempera) · amarelo #FFD200 (só sobre navy)
+   Tipografia: Roboto Slab (display) · Geist (voz única) · JetBrains Mono (kickers)
+   ============================================================ */
 @theme inline {
-  /* Base colours */
-  --color-background: #0A0A0A;
-  --color-foreground: #FAFAFA;
-
-  /* Brand palette */
-  --color-purple-primary: #7C3AED;
-  --color-purple-light: #A855F7;
-  --color-yellow-accent: #EAB308;
-
-  /* Neutral scale */
-  --color-neutral-900: #0A0A0A;
-  --color-neutral-800: #141414;
-  --color-neutral-700: #1F1F1F;
-  --color-neutral-600: #2A2A2A;
-  --color-neutral-500: #3D3D3D;
-  --color-neutral-400: #6B6B6B;
-  --color-neutral-300: #9B9B9B;
-  --color-neutral-200: #D4D4D4;
-  --color-neutral-100: #FAFAFA;
-
-  /* System font stack */
-  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --color-papel: #f4efe6;
+  --color-claro: #fbf9f3;
+  --color-ink: #16130e;
+  --color-corpo: #3a3628;
+  --color-navy: #0f172a;
+  --color-teal: #0097a7;
+  --color-cinza: #323c46;
+  --color-ouro: #f0a400;
+  --color-amarelo: #ffd200;
 }
 
 :root {
-  --background: #0A0A0A;
-  --foreground: #FAFAFA;
+  --papel: #f4efe6;
+  --claro: #fbf9f3;
+  --ink: #16130e;
+  --corpo: #3a3628;
+  --navy: #0f172a;
+  --teal: #0097a7;
+  --cinza: #323c46;
+  --ouro: #f0a400;
+  --amarelo: #ffd200;
+  --hairline: #e3dcc8;
 }
 
+* { box-sizing: border-box; }
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  margin: 0;
+  background: var(--papel);
+  color: var(--corpo);
+  font-family: var(--font-geist), "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+
+.slab { font-family: var(--font-slab), Rockwell, Georgia, serif; }
+.mono { font-family: var(--font-mono), "Courier New", monospace; }
+
+.wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.4rem; }
+
+/* faixas de azulejo (o motor entrega grid inline; o container dá a altura) */
+.band { height: clamp(130px, 19vw, 235px); overflow: hidden; }
+.band-carta { height: clamp(110px, 15vw, 190px); overflow: hidden; }
+
+.kicker {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: var(--teal);
+  text-transform: uppercase;
+}
+
+h1.display {
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: clamp(2.5rem, 7vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  font-weight: 800;
+  margin: 0;
+}
+h1.display .acento { color: var(--teal); }
+
+h2.sec {
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: clamp(1.35rem, 3vw, 1.7rem);
+  color: var(--ink);
+  line-height: 1.25;
+  font-weight: 700;
+  margin: 2.6rem 0 0.9rem;
+}
+h2.sec::before {
+  content: "";
+  display: block;
+  width: 26px;
+  height: 4px;
+  background: var(--ouro);
+  margin-bottom: 0.8rem;
+}
+
+.prosa p { margin: 0 0 1.05rem; }
+.prosa b, .prosa strong { color: var(--ink); font-weight: 700; }
+.lede { font-size: 1.16rem; font-weight: 300; }
+
+ul.crencas { list-style: none; margin: 1.4rem 0 0.4rem; padding: 0; }
+ul.crencas li { position: relative; padding: 0.45rem 0 0.45rem 1.6rem; }
+ul.crencas li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.95rem;
+  width: 10px;
+  height: 10px;
+  background: var(--ouro);
+}
+ul.crencas b { color: var(--ink); }
+
+/* passos numerados (como fazemos) */
+.passos { margin: 0.4rem 0 0; }
+.passo { display: flex; gap: 0.9rem; padding: 0.75rem 0; }
+.passo .n {
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  color: var(--ouro);
+  font-size: 0.95rem;
+  padding-top: 0.15rem;
+  min-width: 2.1rem;
+}
+.passo h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: 1.02rem; margin: 0 0 0.15rem; }
+.passo p { margin: 0; font-size: 0.98rem; }
+
+/* grid de mídias (home) */
+.cartas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin: 1.6rem 0 0; }
+a.carta-card {
+  background: var(--claro);
+  border: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(22, 19, 14, 0.1); }
+.card-pano { height: 52px; overflow: hidden; border-bottom: 1px solid var(--hairline); }
+.card-body { padding: 1.1rem 1.3rem; display: flex; flex-direction: column; gap: 0.45rem; flex: 1; }
+.carta-num { font-family: var(--font-mono), monospace; font-weight: 700; color: var(--ouro); font-size: 0.95rem; }
+.carta-card h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: 1.06rem; line-height: 1.3; margin: 0; }
+.carta-card p { font-size: 0.92rem; line-height: 1.55; margin: 0; }
+.ler { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.18em; color: var(--teal); margin-top: auto; padding-top: 0.6rem; text-transform: uppercase; }
+
+/* bloco RizzoOS (fundo navy é EXCLUSIVO deste registro — A4) */
+.os { background: var(--navy); color: var(--papel); margin: 3rem 0; }
+.os .tira { height: 44px; overflow: hidden; }
+.os .inner { padding: 2rem 2.2rem 2.4rem; }
+.os .wordmark {
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 1.5rem;
+  border-left: 5px solid var(--amarelo);
+  padding-left: 0.8rem;
+  line-height: 1;
+}
+.os .wordmark .light { font-weight: 300; }
+.os .wordmark .bold { font-weight: 800; color: var(--amarelo); }
+.os .wordmark .beta { font-family: var(--font-mono), monospace; font-size: 0.6rem; letter-spacing: 0.2em; opacity: 0.75; }
+.os p { margin: 1.1rem 0 0; }
+.os b { color: var(--amarelo); font-weight: 700; }
+
+/* caixa "quando não contratar" */
+.franqueza { border: 2px solid var(--navy); background: #fff; padding: 1.5rem 1.7rem; margin: 2.4rem 0 0; }
+.franqueza h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); margin: 0 0 0.6rem; font-size: 1.15rem; }
+.franqueza p { font-size: 0.98rem; margin: 0 0 0.7rem; }
+.franqueza p:last-child { margin-bottom: 0; }
+
+/* FAQ */
+.faq { margin: 0.6rem 0 0; }
+.faq details { border-top: 1px solid #dfd8c3; padding: 0.85rem 0; }
+.faq details:last-child { border-bottom: 1px solid #dfd8c3; }
+.faq summary { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); cursor: pointer; font-size: 1rem; }
+.faq details p { margin: 0.6rem 0 0; font-size: 0.97rem; }
+
+.fatos {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--cinza);
+  border-top: 1px solid #dfd8c3;
+  border-bottom: 1px solid #dfd8c3;
+  padding: 0.9rem 0;
+  margin: 2.6rem 0;
+  text-align: center;
+}
+
+/* CTA */
+.cta { text-align: center; padding: 1.4rem 0 3.4rem; }
+.cta h2 {
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: clamp(1.9rem, 5vw, 2.7rem);
+  color: var(--ink);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 2.6rem 0 0;
+}
+.cta h2::before { content: ""; display: block; width: 26px; height: 4px; background: var(--ouro); margin: 0 auto 0.9rem; }
+.cta .acento { color: var(--teal); }
+.btn-wa {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--amarelo);
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  padding: 1.05rem 2.2rem;
+  border-radius: 10px;
+  margin-top: 1.6rem;
+}
+.btn-wa:hover { background: #1a2742; }
+.cta .sub { font-size: 0.98rem; margin: 1rem auto 0; color: var(--corpo); max-width: 30rem; }
+
+.assin { display: flex; align-items: center; gap: 1rem; justify-content: center; margin-top: 2.2rem; }
+.assin img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--ouro); object-fit: cover; }
+.assin .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); text-align: left; }
+.assin .cargo { font-family: var(--font-mono), monospace; font-size: 0.66rem; letter-spacing: 0.14em; color: var(--cinza); margin-top: 3px; }
+
+/* header/footer */
+header.topo { display: flex; align-items: center; justify-content: space-between; max-width: 72rem; margin: 0 auto; padding: 1.6rem 1.4rem; }
+header.topo img { height: 30px; width: auto; display: block; }
+.top-wa {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 2px solid var(--ouro);
+  padding-bottom: 2px;
+}
+footer.fim { text-align: center; padding: 1.8rem 1.4rem 2.6rem; }
+footer.fim a { color: var(--teal); text-decoration: none; }
+.wm { font-family: var(--font-geist), Arial, sans-serif; font-size: 1.02rem; color: var(--corpo); margin-bottom: 0.7rem; }
+.wm .light { font-weight: 300; }
+.wm .bar { color: var(--amarelo); font-weight: 900; margin: 0 0.18rem; }
+.wm b { font-weight: 700; color: var(--ink); }
+footer.fim .linha { font-family: var(--font-mono), monospace; font-size: 0.68rem; letter-spacing: 0.08em; margin-top: 0.5rem; color: var(--cinza); }
+
+.hero { padding: 3.2rem 0 3rem; }
+.hero .kicker { margin-bottom: 1.2rem; }
+.hero .lede { margin-top: 1.5rem; max-width: 38rem; }
+article.corpo { padding: 2.6rem 0 3rem; }
+
+/* clientes */
+.clientes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.9rem; margin: 1.8rem 0 0; }
+.cliente { background: var(--claro); border: 1px solid var(--hairline); padding: 1rem 1.1rem; }
+.cliente .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); font-size: 0.98rem; }
+.cliente .meta { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--cinza); margin-top: 0.35rem; text-transform: uppercase; }
+
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+@media (max-width: 640px) {
+  .os .inner { padding: 1.5rem 1.3rem 1.8rem; }
 }

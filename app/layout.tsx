@@ -1,59 +1,38 @@
 import type { Metadata } from "next";
+import { Roboto_Slab, JetBrains_Mono, Geist } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import { localBusinessJsonLd } from "@/lib/seo";
+import { INDEXABLE, SITE_URL, ORG_JSONLD } from "@/lib/site";
+
+// Tipografia oficial da Linha Athos (self-hosted via next/font — zero request externo):
+// Roboto Slab (display) · Geist (voz única das duas marcas) · JetBrains Mono (kickers).
+const slab = Roboto_Slab({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-slab", display: "swap" });
+const geist = Geist({ subsets: ["latin"], weight: ["300", "400", "500", "700", "800"], variable: "--font-geist", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Agência de Marketing Médico Digital | Agência Rizzo",
+    default: "Marketing Médico — Agência Rizzo | Agenda cheia não é sorte, é estrutura",
     template: "%s | Agência Rizzo",
   },
   description:
-    "Agência Rizzo: marketing digital especializado para médicos e clínicas. Aumente sua captação de pacientes com estratégias comprovadas.",
-  metadataBase: new URL("https://agenciarizzo.com.br"),
-  alternates: {
-    canonical: "/",
-  },
+    "Há 13 anos cuidamos do marketing de médicos e clínicas. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico.",
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://agenciarizzo.com.br",
     siteName: "Agência Rizzo",
-    title: "Agência de Marketing Médico Digital | Agência Rizzo",
-    description:
-      "Marketing digital especializado para médicos e clínicas. Captação de pacientes, branding médico e presença digital.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Agência de Marketing Médico Digital | Agência Rizzo",
-    description:
-      "Marketing digital especializado para médicos e clínicas. Captação de pacientes, branding médico e presença digital.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  // Staging nasce noindex; vira index no cutover (NEXT_PUBLIC_SITE_INDEXABLE=true).
+  robots: { index: INDEXABLE, follow: INDEXABLE },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className="h-full antialiased scroll-smooth">
+    <html lang="pt-BR" className={`${slab.variable} ${geist.variable} ${mono.variable}`}>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }} />
       </head>
-      <body className="min-h-full flex flex-col bg-[#0A0A0A] text-[#FAFAFA]">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

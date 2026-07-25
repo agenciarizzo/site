@@ -1,74 +1,53 @@
+// Contato — sem formulário: a conversa começa no WhatsApp (decisão do §8 do mapa).
 import type { Metadata } from "next";
-import ContactForm from "@/components/sections/ContactForm";
+import { Header, CtaConversa, Footer, Band } from "@/components/athos/Athos";
+import { homeJanelas } from "@/lib/athos/panos";
+import { ENDERECO, WHATS_LABEL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contato",
+  title: "Contato — vamos conversar sobre a sua clínica",
   description:
-    "Entre em contato com a Agência Rizzo. Solicite uma consultoria gratuita de marketing médico digital para sua clínica ou consultório.",
+    "Fale com a Agência Rizzo pelo WhatsApp: uma conversa sobre o momento da sua clínica — e, fazendo sentido, a proposta vem por escrito, transparente.",
+  alternates: { canonical: "/contato" },
 };
 
+const WA = "Olá! Quero conversar sobre o marketing da minha clínica.";
+
 export default function ContatoPage() {
+  const [, j2] = homeJanelas();
   return (
-    <div className="py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-16 max-w-2xl">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#A855F7]">
-            Contato
-          </p>
-          <h1 className="mb-6 text-4xl font-bold text-[#FAFAFA] sm:text-5xl">
-            Vamos conversar sobre{" "}
-            <span className="text-[#A855F7]">sua clínica</span>
+    <>
+      <Header waText={WA} />
+      <section className="hero">
+        <div className="wrap">
+          <div className="kicker">Contato · Agência Rizzo</div>
+          <h1 className="display">
+            Do outro lado,
+            <br />
+            <span className="acento">tem gente.</span>
           </h1>
-          <p className="text-lg text-[#9B9B9B] leading-relaxed">
-            Preencha o formulário abaixo e um especialista entrará em contato em
-            até 24 horas para uma consultoria gratuita.
+          <p className="lede">
+            Sem formulário, sem robô, sem orçamento automático. Você conta o momento da sua clínica, a gente escuta —
+            e, fazendo sentido pros dois lados, a proposta vem por escrito, transparente.
           </p>
         </div>
+      </section>
 
-        <div className="grid gap-12 lg:grid-cols-3">
-          {/* Contact info */}
-          <div className="space-y-6">
-            <div className="rounded-xl border border-white/8 bg-[#141414] p-6">
-              <h3 className="mb-4 font-semibold text-[#FAFAFA]">
-                Informações de contato
-              </h3>
-              <div className="space-y-3 text-sm text-[#9B9B9B]">
-                <p>
-                  <span className="font-medium text-[#FAFAFA]">E-mail</span>
-                  <br />
-                  contato@agenciarizzo.com.br
-                </p>
-                <p>
-                  <span className="font-medium text-[#FAFAFA]">WhatsApp</span>
-                  <br />
-                  (11) 99999-0000
-                </p>
-                <p>
-                  <span className="font-medium text-[#FAFAFA]">Horário</span>
-                  <br />
-                  Segunda a sexta, 9h–18h
-                </p>
-              </div>
-            </div>
+      <Band html={j2} carta />
 
-            <div className="rounded-xl border border-white/8 bg-[#141414] p-6">
-              <h3 className="mb-2 font-semibold text-[#FAFAFA]">
-                Consultoria gratuita
-              </h3>
-              <p className="text-sm text-[#9B9B9B]">
-                Analisamos sua presença digital atual e apresentamos um plano
-                personalizado sem compromisso.
-              </p>
-            </div>
-          </div>
-
-          {/* Form */}
-          <div className="lg:col-span-2">
-            <ContactForm />
-          </div>
+      <article className="corpo prosa">
+        <div className="wrap">
+          <h2 className="sec">Onde estamos</h2>
+          <p>
+            {ENDERECO} — atendemos médicos e clínicas do Brasil inteiro.
+            <br />
+            WhatsApp: <b>{WHATS_LABEL}</b>
+          </p>
         </div>
-      </div>
-    </div>
+      </article>
+
+      <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA} />
+      <Footer />
+    </>
   );
 }
