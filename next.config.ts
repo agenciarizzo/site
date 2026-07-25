@@ -7,64 +7,120 @@ import type { NextConfig } from "next";
  * projeto — o apex faz 308 pro `www`, e o `www` serve este site. O site antigo saiu
  * do ar sem que os redirects existissem, ou seja, toda URL legada estava devolvendo
  * **404**, inclusive a landing das campanhas de Ads. Estes 301s param a sangria:
- * transformam 404 em redirecionamento pra página relevante, o que vale tanto pro
- * visitante quanto pro Google (404 perde o histórico da URL; 301 transfere).
+ * 404 descarta o histórico da URL; 301 transfere.
  *
- * Cada entrada cobre a forma com e sem `.html` (o site antigo tinha as duas).
- * O inventário completo ainda depende de um crawl do que está indexado no Search
- * Console — ver `CUTOVER_CHECKLIST.md` §2. Este é o mínimo conhecido.
+ * 3ª rodada — agora com o INVENTÁRIO REAL. As duas primeiras rodadas adivinharam a
+ * URL (1ª pelo nome do arquivo, 2ª pelo `<link rel="canonical">` dos HTMLs). Esta sai
+ * do relatório de páginas do Search Console: 49 URLs com impressão nos últimos 12
+ * meses. É a lista completa do que o Google conhece — não há mais o que adivinhar.
  *
- * ⚠️ CORREÇÃO 25/07 (2ª rodada): as primeiras regras de cidade estavam ERRADAS.
- * Foram escritas a partir do NOME DOS ARQUIVOS que o cliente tinha mandado
- * (`marketingmedicobrasilia.html`), mas o `<link rel="canonical">` dentro dos HTMLs
- * mostra que a URL real publicada era outra — `/marketing-medico-<cidade>/`. Ou seja,
- * a URL que de fato rankeava continuava em 404. Lição: a URL verdadeira é a do
- * canonical, não a do arquivo.
+ * Ordem importa: o Next aplica na ordem do array, então regra específica vem ANTES
+ * do curinga que a cobriria.
  */
+
+/** Rotas que também existiam com `.html` no site estático — geram as duas variantes. */
 const LEGADO: Array<{ de: string; para: string }> = [
+  // ── Serviços → a carta correspondente ────────────────────────────────────────
   { de: "/google-ads-medicos", para: "/cartas/google-ads" },
   { de: "/redes-sociais", para: "/cartas/redes-sociais" },
-  { de: "/branding-medico", para: "/" },
-  // Casam com a carta de Site & SEO — destino tópico exato, não paliativo.
   { de: "/sites-medicos", para: "/cartas/site-seo" },
   { de: "/seo-medico", para: "/cartas/site-seo" },
-  // A REDE DE CIDADES do site antigo (descoberta no bloco de links do rodapé das
-  // páginas de Goiânia): goiânia · brasília · anápolis · aracaju. Todas em `/` por
-  // enquanto — a landing de cidade da fase 2 é o destino definitivo, e é ela que
-  // transfere de verdade o histórico (redirect pra assunto diferente vira soft-404).
-  { de: "/marketing-medico-goiania", para: "/" },
-  { de: "/marketing-medico-brasilia", para: "/" },
+  { de: "/branding-medico", para: "/" },
+
+  // ── A REDE DE CIDADES ────────────────────────────────────────────────────────
+  // Depois da home, é o ativo orgânico da casa: 4 URLs somam ~53 mil impressões e
+  // 182 cliques em 12 meses. Vão pra "/" só POR ENQUANTO — o destino que transfere
+  // histórico de verdade é a landing de cidade da fase 2 (redirect pra assunto
+  // diferente vira soft-404 e não transfere nada).
+  // Havia canibalização nas DUAS cidades: dois pares de URLs pro mesmo conteúdo.
+  { de: "/marketing-medico-goiania", para: "/" }, //            17.208 impr · 39 cliques
+  { de: "/marketing-medico-em-goiania-goias", para: "/" }, //   19.885 impr · 25 cliques
+  { de: "/marketing-medico-brasilia", para: "/" }, //            9.290 impr · 85 cliques
+  { de: "/marketing-medico-brasilia-agencia-rizzo", para: "/" }, // 6.538 impr · 33 cliques
   { de: "/marketing-medico-anapolis", para: "/" },
   { de: "/marketing-medico-aracaju", para: "/" },
-  // Canonical alternativo que as versões 5–8 de Brasília declaravam.
-  { de: "/marketing-medico-brasilia-agencia-rizzo", para: "/" },
-  // Variantes sem hífen (nome dos arquivos) — mantidas por segurança, custo zero.
+  // Variantes sem hífen (nome dos arquivos) — custo zero, mantidas por segurança.
   { de: "/marketingmedicobrasilia", para: "/" },
   { de: "/marketingmedicogoiania", para: "/" },
+
+  // ── Institucional ────────────────────────────────────────────────────────────
+  { de: "/sobre", para: "/" },
+  { de: "/sobre-a-agencia-rizzo", para: "/" },
+  { de: "/home", para: "/" },
+  { de: "/protocolos-da-agencia-rizzo", para: "/" },
+  { de: "/agencia-marketing-medico-digital", para: "/" },
+  { de: "/portfolio", para: "/clientes" },
+  { de: "/clientes-ja-atendidos-pela-agencia-rizzo", para: "/clientes" },
+  { de: "/clientes", para: "/clientes" },
+  { de: "/agencia-marketing-medico-digital/contato-agencia-rizzo", para: "/contato" },
+  { de: "/contato", para: "/contato" },
+
+  // ── Conteúdo do blog antigo ──────────────────────────────────────────────────
+  { de: "/protocolo-google-ads-medicos-estrategias-eficazes", para: "/cartas/google-ads" },
+  { de: "/por-que-medicos-precisam-de-agencia-digital-riscos-de-ficar-sem-suporte-profissional", para: "/" },
   { de: "/blog", para: "/" },
   { de: "/sitemap", para: "/" },
-  { de: "/sobre", para: "/" },
-  { de: "/portfolio", para: "/clientes" },
-  { de: "/clientes", para: "/clientes" },
-  { de: "/contato", para: "/contato" },
-  // A landing das campanhas de Google Ads. Estava em 404 — ou seja, tráfego PAGO
-  // caindo em página inexistente e risco de reprovação do anúncio por destino
-  // quebrado. Mandar pro /contato é melhor que 404 em qualquer cenário; o destino
-  // definitivo sai quando as landings dos anúncios forem trocadas.
+  // Landing de conteúdo de um cliente (Imunocentro) hospedada no domínio da agência.
+  { de: "/IC/vacinas-brasilia", para: "/" },
+
+  // A landing das campanhas de Google Ads. Estava em 404 — tráfego PAGO caindo em
+  // página inexistente e risco de reprovação do anúncio por destino quebrado.
   { de: "/montar-proposta-online", para: "/contato" },
 ];
 
+/** Rotas exatas sem variante `.html`. */
+const EXATOS: Array<{ de: string; para: string }> = [
+  // Taxonomia do WordPress com destino tópico melhor que "/".
+  { de: "/tag/google-ads", para: "/cartas/google-ads" },
+  { de: "/category/google-ads", para: "/cartas/google-ads" },
+  { de: "/category/portfolio/cidades", para: "/clientes" },
+  { de: "/category/portfolio", para: "/clientes" },
+  // Sobra do WordPress: página movida pra lixeira que continuou indexada.
+  { de: "/agencia-marketing-medico-digital__trashed/blog", para: "/" },
+  // O sitemap do Yoast → o sitemap do site novo.
+  { de: "/sitemap_index.xml", para: "/sitemap.xml" },
+];
+
+/**
+ * Curingas pra cauda da taxonomia do WordPress. O Search Console lista 8 `/tag/` e 5
+ * `/category/` com impressão, mas o arquivo do WP gera muito mais — o curinga cobre
+ * o que não apareceu no relatório sem precisar enumerar. Vem DEPOIS dos exatos.
+ */
+const CURINGAS: Array<{ de: string; para: string }> = [
+  { de: "/tag/:resto*", para: "/" },
+  { de: "/category/:resto*", para: "/" },
+  // IDs de post do WP (`/arquivo/2112`, `/arquivo/2260`) — sem como saber o conteúdo.
+  { de: "/arquivo/:resto*", para: "/" },
+];
+
+/**
+ * FORA DE PROPÓSITO — `/agencia-marketing-medico-digital/politica-de-privacidade`.
+ * É página jurídica: mandar link de privacidade pra home é enganoso. E o site novo
+ * roda GA4 + Meta Pixel desde 25/07 sem política nem banner de cookies, então isto
+ * deixou de ser um 404 e virou lacuna de LGPD — precisa de página de verdade, não
+ * de redirect. Idem `/termos-uso`.
+ *
+ * Também fora: `/wp-content/uploads/**`. São imagens; redirecionar imagem pra página
+ * HTML é pior que o 404.
+ */
+
+// `statusCode: 301` em vez de `permanent: true` — o `permanent` do Next emite 308,
+// que o Google trata igual, mas 301 é o que crawler, Ads e planilha esperam ver.
+const r = (de: string, para: string) => ({ source: de, destination: para, statusCode: 301 });
+
 const nextConfig: NextConfig = {
   async redirects() {
-    return LEGADO.flatMap(({ de, para }) => {
-      // `/clientes` e `/contato` existem no site novo: só a variante .html redireciona.
-      const mesmaRota = de === para;
-      // `statusCode: 301` em vez de `permanent: true` — o `permanent` do Next emite
-      // 308, que o Google trata igual, mas 301 é o que crawler/Ads/planilha esperam.
-      const regras = [{ source: `${de}.html`, destination: para, statusCode: 301 }];
-      if (!mesmaRota) regras.push({ source: de, destination: para, statusCode: 301 });
-      return regras;
-    });
+    return [
+      ...LEGADO.flatMap(({ de, para }) => {
+        // `/clientes` e `/contato` existem no site novo: só a variante .html redireciona.
+        const mesmaRota = de === para;
+        const regras = [r(`${de}.html`, para)];
+        if (!mesmaRota) regras.push(r(de, para));
+        return regras;
+      }),
+      ...EXATOS.map(({ de, para }) => r(de, para)),
+      ...CURINGAS.map(({ de, para }) => r(de, para)),
+    ];
   },
 };
 
