@@ -18,6 +18,14 @@ export const INDEXABLE =
 export const WHATS_NUMBER = "5562992586600";
 export const WHATS_LABEL = "(62) 99258-6600";
 
+// Medição — IDs PÚBLICOS (aparecem no HTML de qualquer site que os use; não são segredo).
+// O token da Conversions API do Meta é SEGREDO e NÃO mora aqui: vai em env var da Vercel,
+// só server-side, quando a CAPI for ligada.
+export const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID ?? "G-M3F6YFGBKF";
+export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "570897230132103";
+/** Só mede em produção — preview e dev não sujam o relatório. */
+export const MEDIR = INDEXABLE;
+
 /** CTA único do site: WhatsApp com texto pré-preenchido POR PÁGINA (atribuição humana). */
 export function wa(text: string): string {
   return `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(text)}`;

@@ -1,6 +1,7 @@
 // Componentes da Linha Athos — server components, zero JS no cliente.
 // Panos SEMPRE via motor (lib/athos/panos.ts); html estático com data-pano (A1).
 import Image from "next/image";
+import Link from "next/link";
 import { panoTiraOs } from "@/lib/athos/panos";
 import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS } from "@/lib/site";
 
@@ -11,9 +12,9 @@ export function Band({ html, carta = false }: { html: string; carta?: boolean })
 export function Header({ waText }: { waText: string }) {
   return (
     <header className="topo">
-      <a href="/" aria-label="Agência Rizzo — início">
+      <Link href="/" aria-label="Agência Rizzo — início">
         <Image src="/logo_horizontal.png" alt="Agência Rizzo" width={182} height={30} priority />
-      </a>
+      </Link>
       <a className="top-wa" href={wa(waText)}>
         WHATSAPP →
       </a>
