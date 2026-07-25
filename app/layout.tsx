@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto_Slab, JetBrains_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { INDEXABLE, SITE_URL, ORG_JSONLD } from "@/lib/site";
+import { Medicao } from "@/components/Medicao";
 
 // Tipografia oficial da Linha Athos (self-hosted via next/font — zero request externo):
 // Roboto Slab (display) · Geist (voz única das duas marcas) · JetBrains Mono (kickers).
@@ -32,7 +33,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <Medicao />
+        {children}
+      </body>
     </html>
   );
 }
