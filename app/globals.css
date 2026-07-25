@@ -251,6 +251,10 @@ article.corpo { padding: 2.6rem 0 3rem; }
 .cliente { background: var(--claro); border: 1px solid var(--hairline); padding: 1rem 1.1rem; }
 .cliente .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); font-size: 0.98rem; }
 .cliente .meta { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--cinza); margin-top: 0.35rem; text-transform: uppercase; }
+.cliente.com-peca { padding: 0; overflow: hidden; }
+.cliente.com-peca .nome { padding: 0.9rem 1.1rem 0; }
+.cliente.com-peca .meta { padding: 0 1.1rem 1rem; margin-top: 0.3rem; }
+.cliente .peca { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--hairline); }
 
 /* prova das landings de cidade — nomes reais agrupados por especialidade */
 .provas { display: grid; grid-template-columns: repeat(auto-fill, minmax(238px, 1fr)); gap: 0.9rem; margin: 1.5rem 0 0; }
