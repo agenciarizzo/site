@@ -1,124 +1,117 @@
+// Home — a carta-mãe (protótipo v4 aprovado em rizzo-os/public/prototipos/manifesto-home.html).
+// Regra de tom (§2 do mapa): a página não fala de si — fala do mundo do médico.
 import type { Metadata } from "next";
-import Hero from "@/components/sections/Hero";
-import SocialProof from "@/components/sections/SocialProof";
-import Card from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import Link from "next/link";
+import { homeJanelas, panoCard } from "@/lib/athos/panos";
+import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
+import { CARTAS } from "@/content/cartas";
 
 export const metadata: Metadata = {
-  title: "Agência de Marketing Médico Digital | Agência Rizzo",
+  title: "Marketing Médico — Agência Rizzo | Agenda cheia não é sorte, é estrutura",
   description:
-    "Agência especializada em marketing médico digital. Ajudamos médicos e clínicas a crescer sua captação de pacientes com SEO, Google Ads e redes sociais.",
+    "Há 13 anos cuidamos do marketing de médicos e clínicas. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico. Fale com a gente no WhatsApp.",
+  alternates: { canonical: "/" },
 };
 
-const services = [
-  {
-    title: "SEO Médico",
-    description:
-      "Apareça nas primeiras posições do Google para pacientes buscando sua especialidade.",
-    badge: "Mais procurado",
-    href: "/servicos/seo-medico",
-  },
-  {
-    title: "Google Ads para Médicos",
-    description:
-      "Campanhas otimizadas para captar pacientes com o menor custo possível.",
-    href: "/servicos/google-ads-medico",
-  },
-  {
-    title: "Gestão de Redes Sociais",
-    description:
-      "Presença consistente no Instagram e LinkedIn, com conteúdo que educa e converte.",
-    href: "/servicos/gestao-redes-sociais",
-  },
-  {
-    title: "Branding Médico",
-    description:
-      "Identidade visual e posicionamento de marca que transmitem autoridade e confiança.",
-    href: "/servicos/branding-medico",
-  },
-  {
-    title: "Marketing de Conteúdo",
-    description:
-      "Blog médico e vídeos educativos que atraem pacientes orgânicos mês a mês.",
-    href: "/servicos/marketing-conteudo",
-  },
-  {
-    title: "Google Meu Negócio",
-    description:
-      "Otimização completa do perfil local para dominar buscas na sua cidade.",
-    href: "/servicos/google-meu-negocio",
-  },
-];
+const WA_HOME = "Olá! Estava no site da agência e quero conversar sobre a minha clínica.";
 
-export default function HomePage() {
+export default function Home() {
+  const [j1, j2, j3] = homeJanelas();
   return (
     <>
-      {/* Hero */}
-      <Hero
-        badge="Agência especializada em marketing médico"
-        title="Mais pacientes,"
-        highlight="mais resultado."
-        subtitle="Ajudamos médicos e clínicas a crescerem sua presença digital e captarem mais pacientes com estratégias comprovadas e conformes ao CFM."
-        primaryCta={{ label: "Falar com especialista", href: "/contato" }}
-        secondaryCta={{ label: "Ver portfólio", href: "/portfolio" }}
-      />
+      <Header waText={WA_HOME} />
 
-      {/* Social Proof */}
-      <SocialProof />
+      <section className="hero">
+        <div className="wrap">
+          <div className="kicker">Marketing médico · desde 2012</div>
+          <h1 className="display">
+            Agenda cheia
+            <br />
+            não é sorte.
+            <br />
+            <span className="acento">É estrutura.</span>
+          </h1>
+          <p className="lede">
+            Cuidamos do marketing de médicos e clínicas há 13 anos. Se aprendemos uma coisa nesse tempo, é essa:
+            paciente bom, chegando todo mês, não vem de promessa — vem de estrutura. Nesta página, o que pensamos e
+            como trabalhamos.
+          </p>
+        </div>
+      </section>
 
-      {/* Services Overview */}
-      <section className="py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#6B6B6B]">
-              Nossos serviços
-            </p>
-            <h2 className="text-3xl font-bold text-[#FAFAFA] sm:text-4xl">
-              Tudo que sua clínica precisa para{" "}
-              <span className="text-[#A855F7]">crescer online</span>
-            </h2>
-          </div>
+      <Band html={j1} />
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
-              <Card
-                key={service.title}
-                title={service.title}
-                description={service.description}
-                badge={service.badge}
-                href={service.href}
-              />
+      <article className="corpo prosa">
+        <div className="wrap">
+          <h2 className="sec">O jeito de encontrar um médico mudou</h2>
+          <p>
+            Até pouco tempo, quem procurava um especialista digitava no Google e clicava nos primeiros resultados. Isso
+            continua acontecendo — mas agora existe uma segunda porta: as inteligências artificiais. Todos os dias,
+            mais pacientes perguntam ao ChatGPT e ao Gemini &ldquo;qual o melhor especialista em…?&rdquo;. E as IAs não
+            indicam qualquer um: recomendam quem tem site rápido, conteúdo verdadeiro e presença construída com
+            constância.
+          </p>
+          <p>
+            Foi por isso que reorganizamos a agência inteira nos últimos anos: saímos do WordPress, passamos a
+            construir sites na mesma base tecnológica do Nubank e colocamos dados no centro de cada decisão de
+            conteúdo. Não por moda — porque é isso que faz um médico ser <b>achado</b>, <b>lido</b> e{" "}
+            <b>recomendado</b>.
+          </p>
+
+          <h2 className="sec">No que acreditamos</h2>
+          <ul className="crencas">
+            <li>
+              <b>Paciente orgânico é o melhor paciente.</b> Ele chega procurando você — e a estrutura é o que o traz,
+              todo mês, sem custo por clique.
+            </li>
+            <li>
+              <b>Anúncio bom fica barato quando a base é boa.</b> Índice de Qualidade não se compra; se constrói com
+              site rápido e conteúdo honesto.
+            </li>
+            <li>
+              <b>Conteúdo nasce de dado, não de achismo.</b> Tendência, busca e dados dizem o que o paciente quer saber
+              — a gente escuta antes de produzir.
+            </li>
+            <li>
+              <b>A ética do CFM não é limite. É vantagem</b> de quem sabe trabalhar dentro dela há 13 anos.
+            </li>
+          </ul>
+
+          <h2 className="sec">O que pensamos de cada mídia</h2>
+          <p>Cada mídia tem papel, hora e medida — nenhuma faz milagre sozinha. Aqui, a nossa visão sobre cada uma:</p>
+
+          <div className="cartas-grid">
+            {CARTAS.map((c) => (
+              <Link key={c.slug} href={`/cartas/${c.slug}`} className="carta-card">
+                <div className="card-pano" aria-hidden dangerouslySetInnerHTML={{ __html: panoCard(c.slug) }} />
+                <div className="card-body">
+                  <div className="carta-num">{c.num}</div>
+                  <h3>{c.midia}</h3>
+                  <p>{c.cardP}</p>
+                  <span className="ler">ler a nossa visão →</span>
+                </div>
+              </Link>
             ))}
           </div>
-
-          <div className="mt-10 text-center">
-            <Button href="/servicos" variant="outline">
-              Ver todos os serviços
-            </Button>
-          </div>
         </div>
-      </section>
+      </article>
 
-      {/* CTA Section */}
-      <section className="border-t border-white/5 py-20">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#A855F7]">
-            Pronto para crescer?
-          </p>
-          <h2 className="mb-6 text-3xl font-bold text-[#FAFAFA] sm:text-4xl">
-            Agende uma consultoria{" "}
-            <span className="text-[#EAB308]">gratuita</span>
-          </h2>
-          <p className="mb-10 text-[#9B9B9B]">
-            Analisamos sua presença digital e apresentamos um plano personalizado
-            para sua clínica sem compromisso.
-          </p>
-          <Button href="/contato" variant="primary" size="lg">
-            Quero minha consultoria gratuita
-          </Button>
-        </div>
-      </section>
+      <Band html={j2} />
+
+      <div className="wrap">
+        <OsBlock>
+          Todo cliente da agência vive dentro do <b>RizzoOS</b>, o sistema que construímos: planejamento anual,
+          produção, aprovação pelo WhatsApp, relatórios — e o cruzamento de tendências e dados que decide o próximo
+          conteúdo. Seu marketing deixa de ser um monte de peça solta e vira um sistema trabalhando pela sua
+          autoridade, todos os dias.
+        </OsBlock>
+        <Fatos />
+      </div>
+
+      <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA_HOME} />
+
+      <Band html={j3} />
+      <Footer />
     </>
   );
 }
-
