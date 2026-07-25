@@ -249,6 +249,23 @@ article.corpo { padding: 2.6rem 0 3rem; }
 .cliente .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); font-size: 0.98rem; }
 .cliente .meta { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--cinza); margin-top: 0.35rem; text-transform: uppercase; }
 
+/* prova das landings de cidade — nomes reais agrupados por especialidade */
+.provas { display: grid; grid-template-columns: repeat(auto-fill, minmax(238px, 1fr)); gap: 0.9rem; margin: 1.5rem 0 0; }
+.prova-grupo { background: var(--claro); border: 1px solid var(--hairline); padding: 1rem 1.15rem; }
+.prova-grupo h3 {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cinza);
+  margin: 0 0 0.55rem;
+  font-weight: 700;
+}
+.prova-grupo ul { list-style: none; margin: 0; padding: 0; }
+.prova-grupo li { font-size: 0.95rem; line-height: 1.5; padding: 0.14rem 0; color: var(--ink); }
+.prova-grupo a { color: var(--teal-texto); text-decoration: none; border-bottom: 1px solid var(--hairline); }
+.prova-grupo a:hover { border-bottom-color: var(--teal); }
+
 /* página jurídica (privacidade + termos) — subtítulo enumerado e nomes técnicos */
 .legal .legal-h3 {
   font-family: var(--font-slab), Rockwell, Georgia, serif;

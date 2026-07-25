@@ -29,19 +29,25 @@ const LEGADO: Array<{ de: string; para: string }> = [
 
   // ── A REDE DE CIDADES ────────────────────────────────────────────────────────
   // Depois da home, é o ativo orgânico da casa: 4 URLs somam ~53 mil impressões e
-  // 182 cliques em 12 meses. Vão pra "/" só POR ENQUANTO — o destino que transfere
-  // histórico de verdade é a landing de cidade da fase 2 (redirect pra assunto
-  // diferente vira soft-404 e não transfere nada).
-  // Havia canibalização nas DUAS cidades: dois pares de URLs pro mesmo conteúdo.
-  { de: "/marketing-medico-goiania", para: "/" }, //            17.208 impr · 39 cliques
-  { de: "/marketing-medico-em-goiania-goias", para: "/" }, //   19.885 impr · 25 cliques
+  // 182 cliques em 12 meses. Iam pra "/" só POR ENQUANTO, porque redirect pra assunto
+  // diferente vira soft-404 e não transfere nada.
+  //
+  // GOIÂNIA agora é PÁGINA DE VERDADE em `/marketing-medico-goiania` (a URL de 17.208
+  // impressões voltou a existir em vez de redirecionar — preserva mais histórico que
+  // qualquer 301). Por isso ela sai desta lista como origem e entra como DESTINO:
+  // a URL canibal (19.885 impressões, que era a maior órfã do inventário) consolida
+  // nela em vez de as duas serem jogadas fora.
+  { de: "/marketing-medico-em-goiania-goias", para: "/marketing-medico-goiania" }, // 19.885 impr · 25 cliques
+  { de: "/marketingmedicogoiania", para: "/marketing-medico-goiania" }, //             variante sem hífen
+  // `mesmaRota`: só a variante `.html` da própria URL redireciona pra rota real.
+  { de: "/marketing-medico-goiania", para: "/marketing-medico-goiania" }, //           17.208 impr · 39 cliques
+
   { de: "/marketing-medico-brasilia", para: "/" }, //            9.290 impr · 85 cliques
   { de: "/marketing-medico-brasilia-agencia-rizzo", para: "/" }, // 6.538 impr · 33 cliques
   { de: "/marketing-medico-anapolis", para: "/" },
   { de: "/marketing-medico-aracaju", para: "/" },
-  // Variantes sem hífen (nome dos arquivos) — custo zero, mantidas por segurança.
+  // Variante sem hífen (nome dos arquivos) — custo zero, mantida por segurança.
   { de: "/marketingmedicobrasilia", para: "/" },
-  { de: "/marketingmedicogoiania", para: "/" },
 
   // ── Institucional ────────────────────────────────────────────────────────────
   { de: "/sobre", para: "/" },

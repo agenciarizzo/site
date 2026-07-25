@@ -27,6 +27,12 @@ export const PANO_MIDIA: Record<string, { pattern: string; cores: string[]; seed
 
 export const TIRA_OS = { pattern: "trevo", cores: [AMARELO], escala: "longe", seed: 907, cols: 12, rows: 1 } as const;
 
+// Pano-assinatura por CIDADE (landings do §14.3, fatias 2 e 3). Seed = o DDD da praça,
+// pra ninguém precisar consultar tabela pra saber de quem é o pano: 62 Goiânia, 61 DF.
+export const PANO_CIDADE: Record<string, { pattern: string; cores: string[]; seed: number }> = {
+  "marketing-medico-goiania": { pattern: "meia-lua", cores: [TEAL, OURO], seed: 62 },
+};
+
 // A2 vira erro de build — nunca chega em produção pano fora do contrato.
 function assertA2(cores: string[], fundo: "papel" | "navy", onde: string) {
   if (!coresValidas(cores, fundo)) throw new Error(`A2 violada em ${onde}`);
@@ -35,6 +41,10 @@ assertA2([...HOME_FIELD.cores], "papel", "campo da home");
 assertA2([...TIRA_OS.cores], "navy", "tira RizzoOS");
 for (const [slug, p] of Object.entries(PANO_MIDIA)) {
   assertA2(p.cores, "papel", `pano da mídia ${slug}`);
+  if (!byId(p.pattern)) throw new Error(`pattern fora da biblioteca: ${p.pattern}`);
+}
+for (const [slug, p] of Object.entries(PANO_CIDADE)) {
+  assertA2(p.cores, "papel", `pano da cidade ${slug}`);
   if (!byId(p.pattern)) throw new Error(`pattern fora da biblioteca: ${p.pattern}`);
 }
 
@@ -55,6 +65,12 @@ export function panoCard(slug: string): string {
 /** Faixa grande da página da carta (mesmo pano da mídia, campo denso 10×2). */
 export function panoCarta(slug: string): string {
   const p = PANO_MIDIA[slug];
+  return pano(p.pattern, p.cores, "longe", p.seed, 10, 2);
+}
+
+/** Faixa da landing de cidade (mesmo formato denso da faixa das cartas). */
+export function panoCidade(slug: string): string {
+  const p = PANO_CIDADE[slug];
   return pano(p.pattern, p.cores, "longe", p.seed, 10, 2);
 }
 

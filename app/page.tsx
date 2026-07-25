@@ -94,6 +94,13 @@ export default function Home() {
               </Link>
             ))}
           </div>
+
+          <h2 className="sec">Onde a gente conhece o terreno</h2>
+          <p>
+            Atendemos médicos, clínicas e hospitais do Brasil inteiro. Há praças, porém, em que conhecemos rua, bairro e
+            concorrência de perto — e sobre elas escrevemos separado:{" "}
+            <Link href="/marketing-medico-goiania">marketing médico em Goiânia</Link>.
+          </p>
         </div>
       </article>
 

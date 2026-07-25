@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { CARTAS } from "@/content/cartas";
+import { CIDADES } from "@/content/cidades";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,5 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: 0.8,
   }));
-  return [...estaticas, ...cartas];
+  // Landings de cidade: prioridade alta porque são as URLs com mais histórico de
+  // impressão do domínio depois da home (§13.2 do mapa).
+  const cidades: MetadataRoute.Sitemap = CIDADES.map((c) => ({
+    url: `${SITE_URL}/${c.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.9,
+  }));
+  return [...estaticas, ...cartas, ...cidades];
 }
