@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Header, Fatos, CtaConversa, Footer, Band } from "@/components/athos/Athos";
 import { homeJanelas } from "@/lib/athos/panos";
 import { CLIENTES } from "@/content/clientes";
+import { getVitrine, imagemUrl, porNome } from "@/lib/showcase";
 
 export const metadata: Metadata = {
   title: "Clientes — médicos, clínicas e hospitais",
@@ -14,8 +15,14 @@ export const metadata: Metadata = {
 
 const WA = "Olá! Vi a página de clientes no site da agência e quero conversar sobre a minha clínica.";
 
-export default function ClientesPage() {
+export default async function ClientesPage() {
   const [, , j3] = homeJanelas();
+  // Vitrine lida do storage público NO BUILD (nunca do Dropbox, nunca em runtime).
+  // Enquanto não houver peça publicada, `itens` vem vazio e a página é a de sempre.
+  const { base, itens } = await getVitrine();
+  const peca = porNome(itens);
+  const chave = (s: string) =>
+    s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
   return (
     <>
       <Header waText={WA} />
@@ -38,12 +45,29 @@ export default function ClientesPage() {
       <article className="corpo">
         <div className="wrap">
           <div className="clientes-grid">
-            {CLIENTES.map((c) => (
-              <div className="cliente" key={c.nome}>
-                <div className="nome">{c.nome}</div>
-                {c.area && <div className="meta">{c.area}</div>}
-              </div>
-            ))}
+            {CLIENTES.map((c) => {
+              const p = peca.get(chave(c.nome));
+              return (
+                <div className={p ? "cliente com-peca" : "cliente"} key={c.nome}>
+                  {p && (
+                    // <img> cru de propósito: a peça já vem no tamanho certo do storage
+                    // e o site é SSG com ~zero JS — next/image traria o otimizador em
+                    // runtime e remotePatterns pro host do storage, sem ganho aqui.
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      className="peca"
+                      src={imagemUrl(base, p)}
+                      alt={`Site de ${c.nome}`}
+                      width={1600}
+                      height={1040}
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="nome">{c.nome}</div>
+                  {c.area && <div className="meta">{c.area}</div>}
+                </div>
+              );
+            })}
           </div>
           <p className="prosa">
             Boa parte dessa lista é hospital e rede — instituições em que cada linha de serviço disputa um mercado
