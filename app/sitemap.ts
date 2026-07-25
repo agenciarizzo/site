@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: SITE_URL, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE_URL}/clientes`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/contato`, changeFrequency: "yearly", priority: 0.5 },
+    { url: `${SITE_URL}/politica-privacidade`, changeFrequency: "yearly", priority: 0.2 },
   ];
   const cartas: MetadataRoute.Sitemap = CARTAS.map((c) => ({
     url: `${SITE_URL}/cartas/${c.slug}`,

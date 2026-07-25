@@ -63,6 +63,17 @@ const LEGADO: Array<{ de: string; para: string }> = [
   // Landing de conteúdo de um cliente (Imunocentro) hospedada no domínio da agência.
   { de: "/IC/vacinas-brasilia", para: "/" },
 
+  // ── Jurídico ─────────────────────────────────────────────────────────────────
+  // As duas URLs de sempre — linkadas no rodapé de todas as páginas do site antigo.
+  // Ficaram DE FORA das rodadas anteriores de propósito: mandar link de privacidade
+  // pra home é enganoso. Agora existe página de verdade, então elas têm destino certo.
+  { de: "/agencia-marketing-medico-digital/politica-de-privacidade", para: "/politica-privacidade" },
+  { de: "/politica-privacidade", para: "/politica-privacidade" },
+  { de: "/politica-de-privacidade", para: "/politica-privacidade" },
+  // Os termos moram na mesma página, na seção `#termos` — uma página só, dois assuntos.
+  { de: "/termos-uso", para: "/politica-privacidade#termos" },
+  { de: "/termos-de-uso", para: "/politica-privacidade#termos" },
+
   // A landing das campanhas de Google Ads. Estava em 404 — tráfego PAGO caindo em
   // página inexistente e risco de reprovação do anúncio por destino quebrado.
   { de: "/montar-proposta-online", para: "/contato" },
@@ -94,13 +105,13 @@ const CURINGAS: Array<{ de: string; para: string }> = [
 ];
 
 /**
- * FORA DE PROPÓSITO — `/agencia-marketing-medico-digital/politica-de-privacidade`.
- * É página jurídica: mandar link de privacidade pra home é enganoso. E o site novo
- * roda GA4 + Meta Pixel desde 25/07 sem política nem banner de cookies, então isto
- * deixou de ser um 404 e virou lacuna de LGPD — precisa de página de verdade, não
- * de redirect. Idem `/termos-uso`.
+ * RESOLVIDO — as URLs jurídicas (`/agencia-marketing-medico-digital/politica-de-
+ * privacidade` e `/termos-uso`) agora têm destino de verdade em `/politica-privacidade`,
+ * porque a página existe. Ficaram fora das rodadas anteriores por decisão consciente:
+ * enquanto não houvesse página, o redirect pra home seria enganoso — e o site roda GA4
+ * + Meta Pixel desde 25/07, o que fazia disso lacuna de LGPD, não um 404 qualquer.
  *
- * Também fora: `/wp-content/uploads/**`. São imagens; redirecionar imagem pra página
+ * SEGUE FORA: `/wp-content/uploads/**`. São imagens; redirecionar imagem pra página
  * HTML é pior que o 404.
  */
 
