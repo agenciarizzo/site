@@ -171,6 +171,9 @@ a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(2
 .faq details { border-top: 1px solid #dfd8c3; padding: 0.85rem 0; }
 .faq details:last-child { border-bottom: 1px solid #dfd8c3; }
 .faq summary { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); cursor: pointer; font-size: 1rem; }
+/* As perguntas da rede hospitalar são a busca literal de quem pergunta (minúscula
+   inclusive). O dado fica byte-exato pro JSON-LD; a maiúscula é só de apresentação. */
+.faq summary::first-letter { text-transform: uppercase; }
 .faq details p { margin: 0.6rem 0 0; font-size: 0.97rem; }
 
 .fatos {

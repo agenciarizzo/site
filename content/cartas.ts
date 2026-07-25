@@ -304,7 +304,7 @@ export const CARTAS: Carta[] = [
       },
       {
         q: "principais empresas para seo e mídia paga no setor hospitalar?",
-        a: "Não existe ranking oficial disso, e vale desconfiar de quem se apresenta como o primeiro de uma lista que ninguém publicou. O que dá para verificar antes de contratar: se a agência mostra casos do setor com nome, se raciocina por linha de serviço e não só por “especialidades”, se domina o Manual de Publicidade Médica, se entrega relatório por unidade, e se o site que ela constrói carrega rápido — porque SEO e mídia paga dividem a mesma base técnica. Somos uma das casas que atendem esse recorte, e essa é a régua que sugerimos aplicar também na gente.",
+        a: "Não existe ranking oficial disso, e vale desconfiar de quem se apresenta como o primeiro de uma lista que ninguém publicou. O que dá para verificar antes de contratar: se a agência mostra casos do setor com nome, se raciocina por linha de serviço e não só por “especialidades”, se domina o Manual de Publicidade Médica, se entrega relatório por unidade, e se o site que ela constrói carrega rápido — porque SEO e mídia paga dividem a mesma base técnica. Nessa régua a gente se apresenta pelo que dá para conferir: hospitais atendidos com nome, citados aqui mesmo; mídia paga escrita dentro do Manual de Publicidade Médica desde 2012; base técnica que faz o site carregar em milissegundos; e relatório por unidade e por linha de serviço.",
       },
       {
         q: "empresas especializadas em marketing de linhas de serviço hospitalar?",
