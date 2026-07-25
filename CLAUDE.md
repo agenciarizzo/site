@@ -26,8 +26,13 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
 5. **SSG puro, zero `"use client"`** salvo necessidade real justificada. Toda página:
    `metadata` + canonical + JSON-LD (cartas = Article + FAQPage; org SEM
    aggregateRating).
-6. **NOINDEX até o cutover:** `NEXT_PUBLIC_SITE_INDEXABLE` controla robots/meta.
-   NÃO setar `true` antes de completar o `CUTOVER_CHECKLIST.md`.
+6. **O domínio JÁ é este site** (desde 25/07/2026 — o apex faz 308 pro `www`). Produção
+   indexa; preview e dev nascem `noindex` (`INDEXABLE` em `lib/site.ts`, decide por
+   `VERCEL_ENV`). Trava de emergência sem deploy: `NEXT_PUBLIC_SITE_INDEXABLE=false`.
+   **URL nova ou renomeada = 301 da antiga em `next.config.ts` no MESMO PR** — o que
+   restou do site velho está indexado, e 404 em URL indexada joga o histórico dela
+   fora. Canonical/sitemap/JSON-LD saem de `SITE_URL`, que precisa ser o host que
+   devolve 200 (hoje `www`). O que ainda falta: `CUTOVER_CHECKLIST.md`.
 7. **Conteúdo das cartas** vive em `content/cartas.ts` (esqueleto: posição → como
    fazemos → RizzoOS → "quando NÃO contratar" → FAQ → conversa). Carta nova segue o
    esqueleto e o tom; mudanças de copy = commit próprio, fácil de revisar.
