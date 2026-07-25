@@ -31,6 +31,7 @@ export const TIRA_OS = { pattern: "trevo", cores: [AMARELO], escala: "longe", se
 // pra ninguém precisar consultar tabela pra saber de quem é o pano: 62 Goiânia, 61 DF.
 export const PANO_CIDADE: Record<string, { pattern: string; cores: string[]; seed: number }> = {
   "marketing-medico-goiania": { pattern: "meia-lua", cores: [TEAL, OURO], seed: 62 },
+  "marketing-medico-brasilia": { pattern: "leque", cores: [NAVY, OURO], seed: 61 },
 };
 
 // A2 vira erro de build — nunca chega em produção pano fora do contrato.

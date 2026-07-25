@@ -135,6 +135,111 @@ export const CIDADES: Cidade[] = [
     ],
     waText: "Olá! Vi a página de Goiânia no site da agência e quero conversar sobre a minha clínica.",
   },
+  {
+    slug: "marketing-medico-brasilia",
+    cidade: "Brasília",
+    uf: "DF",
+    titulo: "Marketing médico em Brasília",
+    descricao:
+      "Marketing médico em Brasília: como fazemos médicos, clínicas e hospitais serem encontrados por região do DF, pelo entorno goiano e pelas IAs — com site rápido, busca local e anúncio dentro do CFM.",
+    head: ["Marketing médico", "em Brasília.", "Aqui, região é tudo."],
+    lede:
+      "Asa Sul, Águas Claras, Taguatinga, Sobradinho — e o entorno goiano atravessando a divisa todo dia. Em Brasília o paciente não procura “no DF”: procura onde ele consegue chegar. Quem entende isso aparece na hora da decisão.",
+    posicao: [
+      "Brasília não é uma cidade só. O paciente que procura um especialista pode estar na Asa Sul, em Águas Claras, em Taguatinga ou em Sobradinho — e ele pesquisa com o nome da região onde consegue ser atendido, não com o nome do Distrito Federal. Quem escreve e anuncia como se o DF fosse um ponto único no mapa perde consulta para quem entendeu que a decisão do paciente é, antes de tudo, uma decisão de deslocamento.",
+      "Some a isso o entorno goiano: Valparaíso, Novo Gama, Luziânia, Águas Lindas. É gente que atravessa a divisa para operar ou fazer exame em Brasília, e que busca de um jeito próprio — cidade de origem junto do procedimento. Ignorar essa demanda é deixar agenda na mesa; perseguir sem estrutura é gastar verba com quem não vai conseguir vir. As duas coisas se resolvem com informação clara sobre onde você atende e como se chega até lá.",
+      "E existe uma segunda porta, nova: as inteligências artificiais. Cada vez mais paciente pergunta ao ChatGPT ou ao Gemini quem procurar em Brasília para um problema específico. A resposta é montada com o que essas máquinas conseguem ler — site rápido, dados organizados por especialidade, unidade e procedimento, conteúdo verdadeiro publicado com constância. Numa praça cheia de clínica com estrutura física excelente e site fraco, é exatamente aí que a diferença aparece.",
+    ],
+    como: [
+      {
+        t: "Buscar por região, não por “DF”",
+        d: "Asa Norte, Asa Sul, Sudoeste, Águas Claras, Taguatinga, Sobradinho: o site e a campanha falam a língua de quem procura onde consegue chegar, com o nome da região que a pessoa digita.",
+      },
+      {
+        t: "O entorno goiano no mapa da verba",
+        d: "Quem cruza a divisa para se tratar em Brasília é demanda real e se comporta diferente. Campanha e conteúdo tratam essa origem à parte, em vez de diluí-la no meio do DF.",
+      },
+      {
+        t: "Um perfil no Google por unidade",
+        d: "Clínica ou rede com mais de um endereço precisa de um perfil por unidade, com categoria, horário e avaliação em ordem. Em Brasília o mapa resolve muita consulta antes de a pessoa abrir o site.",
+      },
+      {
+        t: "Site que carrega e responde convênio",
+        d: "Uma página por especialidade, procedimento e unidade, com convênio e localização visíveis, carregando em milissegundos. A base que faz o Google entender você é a mesma que barateia o seu anúncio.",
+      },
+      {
+        t: "Anúncio escrito dentro do CFM",
+        d: "Texto dentro do Manual de Publicidade Médica: sem promessa de resultado, sem antes-e-depois, sem sensacionalismo. É o que mantém a campanha no ar enquanto a do concorrente é reprovada.",
+      },
+      {
+        t: "Constância e medição em rotina",
+        d: "Publicação e leitura de números todo mês, com relatório na sua mão. O que traz consulta, escala; o que não mexe na agenda, sai.",
+      },
+    ],
+    os:
+      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês — busca, mapa e anúncio no mesmo lugar. Em Brasília isso quer dizer enxergar de qual região do DF e de qual cidade do entorno vieram as consultas, e qual unidade recebeu cada uma.",
+    quandoNaoTitulo: "Quando NÃO é com a gente",
+    quandoNao: [
+      "Se a sua agenda em Brasília já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio — e a gente te diz isso antes de você assinar.",
+      "E se a ideia é comprar a primeira posição orgânica em “urologista Brasília” com verba de anúncio, não é assim que funciona: anúncio compra clique, não compra posição na busca. São duas contas diferentes, e a gente separa as duas na primeira conversa para você não pagar por uma esperando a outra.",
+    ],
+    provaTitulo: "Médicos, clínicas e hospitais de Brasília que construíram presença com a gente",
+    provaLede:
+      "Nomes reais, com o endereço do trabalho quando ele está no ar. É a régua que usamos pra falar de qualquer praça: se não houver caso pra mostrar, não há página.",
+    provas: [
+      {
+        especialidade: "Urologia e andrologia",
+        clientes: [
+          { nome: "Dr. Homero Ribeiro", site: "https://drhomeroribeiro.com.br" },
+          { nome: "UROS" },
+          { nome: "Dr. Rodrigo Villalva" },
+          { nome: "Dra. Rhaiana Gondim" },
+        ],
+      },
+      {
+        especialidade: "Cirurgia vascular e angiologia",
+        clientes: [
+          { nome: "Dr. Antonio Carlos de Souza", site: "https://drantoniocarlos.com.br" },
+          { nome: "Clínica AngioMedi", site: "https://angiomedi.com.br" },
+          { nome: "Clínica de Veias", site: "https://clinicadeveias.com.br" },
+          { nome: "Dr. Bruno Lorenção" },
+          { nome: "Dr. Davi Heckmann" },
+        ],
+      },
+      {
+        especialidade: "Oftalmologia",
+        clientes: [
+          { nome: "Hospital de Olhos de Sobradinho", site: "https://hosobradinho.com.br" },
+          { nome: "Hospital de Olhos do DF" },
+          { nome: "Oculare" },
+        ],
+      },
+      {
+        especialidade: "Cirurgia plástica",
+        clientes: [{ nome: "Hospital Daher" }, { nome: "Dra. Marcela Cammarota" }],
+      },
+      {
+        especialidade: "Ginecologia",
+        clientes: [
+          { nome: "Dra. Maria Eduarda Amaral", site: "https://www.dramariaeduardaamaral.com.br" },
+          { nome: "Dr. Pedro Rosa" },
+        ],
+      },
+      {
+        especialidade: "Reprodução humana",
+        clientes: [{ nome: "Bonvena", site: "https://bonvena.med.br" }, { nome: "Dr. Carlos Portocarrero" }],
+      },
+      { especialidade: "Cardiologia", clientes: [{ nome: "CBCOR" }, { nome: "MaxiCor" }] },
+      {
+        especialidade: "Cirurgia oncológica",
+        clientes: [{ nome: "Dra. Rayane Cardoso", site: "https://rayanecardoso.com.br" }],
+      },
+      { especialidade: "Neurologia e dor", clientes: [{ nome: "Dra. Verônica Beloni" }] },
+      { especialidade: "Otorrinolaringologia", clientes: [{ nome: "Clínica Inspire" }] },
+      { especialidade: "Pediatria e vacinação", clientes: [{ nome: "Imunocentro" }] },
+    ],
+    waText: "Olá! Vi a página de Brasília no site da agência e quero conversar sobre a minha clínica.",
+  },
 ];
 
 export const cidadeBySlug = (slug: string) => CIDADES.find((c) => c.slug === slug);

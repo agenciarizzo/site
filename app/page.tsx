@@ -99,7 +99,8 @@ export default function Home() {
           <p>
             Atendemos médicos, clínicas e hospitais do Brasil inteiro. Há praças, porém, em que conhecemos rua, bairro e
             concorrência de perto — e sobre elas escrevemos separado:{" "}
-            <Link href="/marketing-medico-goiania">marketing médico em Goiânia</Link>.
+            <Link href="/marketing-medico-goiania">marketing médico em Goiânia</Link> e{" "}
+            <Link href="/marketing-medico-brasilia">marketing médico em Brasília</Link>.
           </p>
         </div>
       </article>

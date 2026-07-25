@@ -42,12 +42,16 @@ const LEGADO: Array<{ de: string; para: string }> = [
   // `mesmaRota`: só a variante `.html` da própria URL redireciona pra rota real.
   { de: "/marketing-medico-goiania", para: "/marketing-medico-goiania" }, //           17.208 impr · 39 cliques
 
-  { de: "/marketing-medico-brasilia", para: "/" }, //            9.290 impr · 85 cliques
-  { de: "/marketing-medico-brasilia-agencia-rizzo", para: "/" }, // 6.538 impr · 33 cliques
+  // BRASÍLIA, mesma receita: a URL de 9.290 impressões e 85 cliques (o maior número de
+  // CLIQUES do domínio depois da home) volta a ser página, e a canibal aponta pra ela.
+  { de: "/marketing-medico-brasilia-agencia-rizzo", para: "/marketing-medico-brasilia" }, // 6.538 impr · 33 cliques
+  { de: "/marketingmedicobrasilia", para: "/marketing-medico-brasilia" }, //                 variante sem hífen
+  { de: "/marketing-medico-brasilia", para: "/marketing-medico-brasilia" }, //               9.290 impr · 85 cliques
+
+  // Anápolis e Aracaju seguem em "/" — a rede tinha quatro cidades, mas sem prova
+  // mínima real por praça não se publica landing (régua anti-doorway §3.3 do mapa).
   { de: "/marketing-medico-anapolis", para: "/" },
   { de: "/marketing-medico-aracaju", para: "/" },
-  // Variante sem hífen (nome dos arquivos) — custo zero, mantida por segurança.
-  { de: "/marketingmedicobrasilia", para: "/" },
 
   // ── Institucional ────────────────────────────────────────────────────────────
   { de: "/sobre", para: "/" },
