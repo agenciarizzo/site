@@ -32,13 +32,31 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    **URL nova ou renomeada = 301 da antiga em `next.config.ts` no MESMO PR** — o que
    restou do site velho está indexado, e 404 em URL indexada joga o histórico dela
    fora. Canonical/sitemap/JSON-LD saem de `SITE_URL`, que precisa ser o host que
-   devolve 200 (hoje `www`). O que ainda falta: `CUTOVER_CHECKLIST.md`.
+   devolve 200 (hoje `www`). `CUTOVER_CHECKLIST.md` está **defasado** (foi escrito com
+   18 regras e sem medição) — em divergência, o mapa vence.
 7. **Conteúdo das cartas** vive em `content/cartas.ts` (esqueleto: posição → como
    fazemos → RizzoOS → "quando NÃO contratar" → FAQ → conversa). Carta nova segue o
-   esqueleto e o tom; mudanças de copy = commit próprio, fácil de revisar.
-8. **Fase 2 (não iniciar sem o cliente pedir):** landings programáticas
-   serviço×especialidade×cidade com prova real do RizzoOS (Supabase) — régua
-   anti-doorway no §3.3 do mapa.
+   esqueleto e o tom; mudanças de copy = commit próprio, fácil de revisar. Carta de
+   **mídia** entra na grade da home; recorte de **público** (`eixo: "segmento"`, hoje
+   rede hospitalar) fica fora dela e é linkado por parágrafo próprio.
+8. **Landings de cidade moram NA URL antiga** (`content/cidades.ts` +
+   `components/CidadeLanding.tsx`; schema `Service` + `ItemList`, sem `FAQPage`).
+   `/marketing-medico-goiania` e `/marketing-medico-brasilia` são **páginas de verdade**
+   porque carregam 17.208 e 9.290 impressões de histórico — recriar na URL antiga
+   preserva mais que qualquer 301. **Nunca transformá-las de volta em origem de
+   redirect**: só a variante `.html` delas redireciona (o `mesmaRota` do
+   `next.config.ts` cuida disso), e as canibais consolidam nelas. Praça nova só ganha
+   landing com a **prova mínima real** da régua §3.3 — Anápolis e Aracaju seguem em 301
+   pra home justamente por não terem.
+9. **Prova = nome real, e só de quem já era público.** Entram os nomes do §12.2 do mapa
+   e a lista de `content/clientes.ts`; o resto depende do opt-in `site_showcase`. **Link
+   vivo só quando existe endereço no cadastro da agência** — nome sem endereço fica sem
+   link. Zero domínio adivinhado, zero `placehold.co`, zero foto relabelada, zero
+   `aggregateRating` (§12.3: foi isso que derrubou as páginas antigas).
+10. **Fase 2 (não iniciar sem o cliente pedir):** landings programáticas
+    serviço×especialidade×cidade com prova real do RizzoOS (Supabase) — régua
+    anti-doorway no §3.3 do mapa. Próxima da fila: `ortopedista × Goiânia` como
+    página-**filha** da landing de Goiânia, nunca como raiz.
 
 ## Comandos
 

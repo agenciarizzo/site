@@ -171,6 +171,9 @@ a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(2
 .faq details { border-top: 1px solid #dfd8c3; padding: 0.85rem 0; }
 .faq details:last-child { border-bottom: 1px solid #dfd8c3; }
 .faq summary { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); cursor: pointer; font-size: 1rem; }
+/* As perguntas da rede hospitalar são a busca literal de quem pergunta (minúscula
+   inclusive). O dado fica byte-exato pro JSON-LD; a maiúscula é só de apresentação. */
+.faq summary::first-letter { text-transform: uppercase; }
 .faq details p { margin: 0.6rem 0 0; font-size: 0.97rem; }
 
 .fatos {
@@ -248,6 +251,42 @@ article.corpo { padding: 2.6rem 0 3rem; }
 .cliente { background: var(--claro); border: 1px solid var(--hairline); padding: 1rem 1.1rem; }
 .cliente .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); font-size: 0.98rem; }
 .cliente .meta { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--cinza); margin-top: 0.35rem; text-transform: uppercase; }
+
+/* prova das landings de cidade — nomes reais agrupados por especialidade */
+.provas { display: grid; grid-template-columns: repeat(auto-fill, minmax(238px, 1fr)); gap: 0.9rem; margin: 1.5rem 0 0; }
+.prova-grupo { background: var(--claro); border: 1px solid var(--hairline); padding: 1rem 1.15rem; }
+.prova-grupo h3 {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cinza);
+  margin: 0 0 0.55rem;
+  font-weight: 700;
+}
+.prova-grupo ul { list-style: none; margin: 0; padding: 0; }
+.prova-grupo li { font-size: 0.95rem; line-height: 1.5; padding: 0.14rem 0; color: var(--ink); }
+.prova-grupo a { color: var(--teal-texto); text-decoration: none; border-bottom: 1px solid var(--hairline); }
+.prova-grupo a:hover { border-bottom-color: var(--teal); }
+
+/* página jurídica (privacidade + termos) — subtítulo enumerado e nomes técnicos */
+.legal .legal-h3 {
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  color: var(--ink);
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin: 1.6rem 0 0.4rem;
+}
+.legal code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.86em;
+  background: var(--claro);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 0.05em 0.32em;
+  color: var(--ink);
+}
+.legal a { color: var(--teal-texto); }
 
 :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
 @media (max-width: 640px) {

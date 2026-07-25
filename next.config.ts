@@ -29,19 +29,29 @@ const LEGADO: Array<{ de: string; para: string }> = [
 
   // ── A REDE DE CIDADES ────────────────────────────────────────────────────────
   // Depois da home, é o ativo orgânico da casa: 4 URLs somam ~53 mil impressões e
-  // 182 cliques em 12 meses. Vão pra "/" só POR ENQUANTO — o destino que transfere
-  // histórico de verdade é a landing de cidade da fase 2 (redirect pra assunto
-  // diferente vira soft-404 e não transfere nada).
-  // Havia canibalização nas DUAS cidades: dois pares de URLs pro mesmo conteúdo.
-  { de: "/marketing-medico-goiania", para: "/" }, //            17.208 impr · 39 cliques
-  { de: "/marketing-medico-em-goiania-goias", para: "/" }, //   19.885 impr · 25 cliques
-  { de: "/marketing-medico-brasilia", para: "/" }, //            9.290 impr · 85 cliques
-  { de: "/marketing-medico-brasilia-agencia-rizzo", para: "/" }, // 6.538 impr · 33 cliques
+  // 182 cliques em 12 meses. Iam pra "/" só POR ENQUANTO, porque redirect pra assunto
+  // diferente vira soft-404 e não transfere nada.
+  //
+  // GOIÂNIA agora é PÁGINA DE VERDADE em `/marketing-medico-goiania` (a URL de 17.208
+  // impressões voltou a existir em vez de redirecionar — preserva mais histórico que
+  // qualquer 301). Por isso ela sai desta lista como origem e entra como DESTINO:
+  // a URL canibal (19.885 impressões, que era a maior órfã do inventário) consolida
+  // nela em vez de as duas serem jogadas fora.
+  { de: "/marketing-medico-em-goiania-goias", para: "/marketing-medico-goiania" }, // 19.885 impr · 25 cliques
+  { de: "/marketingmedicogoiania", para: "/marketing-medico-goiania" }, //             variante sem hífen
+  // `mesmaRota`: só a variante `.html` da própria URL redireciona pra rota real.
+  { de: "/marketing-medico-goiania", para: "/marketing-medico-goiania" }, //           17.208 impr · 39 cliques
+
+  // BRASÍLIA, mesma receita: a URL de 9.290 impressões e 85 cliques (o maior número de
+  // CLIQUES do domínio depois da home) volta a ser página, e a canibal aponta pra ela.
+  { de: "/marketing-medico-brasilia-agencia-rizzo", para: "/marketing-medico-brasilia" }, // 6.538 impr · 33 cliques
+  { de: "/marketingmedicobrasilia", para: "/marketing-medico-brasilia" }, //                 variante sem hífen
+  { de: "/marketing-medico-brasilia", para: "/marketing-medico-brasilia" }, //               9.290 impr · 85 cliques
+
+  // Anápolis e Aracaju seguem em "/" — a rede tinha quatro cidades, mas sem prova
+  // mínima real por praça não se publica landing (régua anti-doorway §3.3 do mapa).
   { de: "/marketing-medico-anapolis", para: "/" },
   { de: "/marketing-medico-aracaju", para: "/" },
-  // Variantes sem hífen (nome dos arquivos) — custo zero, mantidas por segurança.
-  { de: "/marketingmedicobrasilia", para: "/" },
-  { de: "/marketingmedicogoiania", para: "/" },
 
   // ── Institucional ────────────────────────────────────────────────────────────
   { de: "/sobre", para: "/" },
@@ -62,6 +72,17 @@ const LEGADO: Array<{ de: string; para: string }> = [
   { de: "/sitemap", para: "/" },
   // Landing de conteúdo de um cliente (Imunocentro) hospedada no domínio da agência.
   { de: "/IC/vacinas-brasilia", para: "/" },
+
+  // ── Jurídico ─────────────────────────────────────────────────────────────────
+  // As duas URLs de sempre — linkadas no rodapé de todas as páginas do site antigo.
+  // Ficaram DE FORA das rodadas anteriores de propósito: mandar link de privacidade
+  // pra home é enganoso. Agora existe página de verdade, então elas têm destino certo.
+  { de: "/agencia-marketing-medico-digital/politica-de-privacidade", para: "/politica-privacidade" },
+  { de: "/politica-privacidade", para: "/politica-privacidade" },
+  { de: "/politica-de-privacidade", para: "/politica-privacidade" },
+  // Os termos moram na mesma página, na seção `#termos` — uma página só, dois assuntos.
+  { de: "/termos-uso", para: "/politica-privacidade#termos" },
+  { de: "/termos-de-uso", para: "/politica-privacidade#termos" },
 
   // A landing das campanhas de Google Ads. Estava em 404 — tráfego PAGO caindo em
   // página inexistente e risco de reprovação do anúncio por destino quebrado.
@@ -94,13 +115,13 @@ const CURINGAS: Array<{ de: string; para: string }> = [
 ];
 
 /**
- * FORA DE PROPÓSITO — `/agencia-marketing-medico-digital/politica-de-privacidade`.
- * É página jurídica: mandar link de privacidade pra home é enganoso. E o site novo
- * roda GA4 + Meta Pixel desde 25/07 sem política nem banner de cookies, então isto
- * deixou de ser um 404 e virou lacuna de LGPD — precisa de página de verdade, não
- * de redirect. Idem `/termos-uso`.
+ * RESOLVIDO — as URLs jurídicas (`/agencia-marketing-medico-digital/politica-de-
+ * privacidade` e `/termos-uso`) agora têm destino de verdade em `/politica-privacidade`,
+ * porque a página existe. Ficaram fora das rodadas anteriores por decisão consciente:
+ * enquanto não houvesse página, o redirect pra home seria enganoso — e o site roda GA4
+ * + Meta Pixel desde 25/07, o que fazia disso lacuna de LGPD, não um 404 qualquer.
  *
- * Também fora: `/wp-content/uploads/**`. São imagens; redirecionar imagem pra página
+ * SEGUE FORA: `/wp-content/uploads/**`. São imagens; redirecionar imagem pra página
  * HTML é pior que o 404.
  */
 

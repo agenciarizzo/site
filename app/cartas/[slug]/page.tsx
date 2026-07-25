@@ -121,7 +121,11 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
         </div>
       </article>
 
-      <CtaConversa titulo="Vamos conversar sobre" acento={`${c.midia.toLowerCase()} na sua clínica?`} waText={c.waText} />
+      <CtaConversa
+        titulo="Vamos conversar sobre"
+        acento={c.ctaAcento ?? `${c.midia.toLowerCase()} na sua clínica?`}
+        waText={c.waText}
+      />
       </main>
       <Footer />
     </>
