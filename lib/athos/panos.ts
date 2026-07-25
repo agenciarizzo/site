@@ -23,6 +23,8 @@ export const PANO_MIDIA: Record<string, { pattern: string; cores: string[]; seed
   "redes-sociais": { pattern: "reta", cores: [NAVY, OURO], seed: 104 },
   video: { pattern: "ventania", cores: [NAVY], seed: 105 },
   "tv-corporativa": { pattern: "quarto", cores: [TEAL, OURO], seed: 106 },
+  // Recorte de público (eixo "segmento"), não mídia — mas usa a mesma mecânica de pano.
+  "rede-hospitalar": { pattern: "circulo-triangulo", cores: [NAVY, TEAL], seed: 107 },
 };
 
 export const TIRA_OS = { pattern: "trevo", cores: [AMARELO], escala: "longe", seed: 907, cols: 12, rows: 1 } as const;

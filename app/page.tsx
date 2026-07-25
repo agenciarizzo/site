@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { homeJanelas, panoCard } from "@/lib/athos/panos";
 import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
-import { CARTAS } from "@/content/cartas";
+import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
 
 export const metadata: Metadata = {
   title: "Marketing Médico — Agência Rizzo | Agenda cheia não é sorte, é estrutura",
@@ -82,7 +82,7 @@ export default function Home() {
           <p>Cada mídia tem papel, hora e medida — nenhuma faz milagre sozinha. Aqui, a nossa visão sobre cada uma:</p>
 
           <div className="cartas-grid">
-            {CARTAS.map((c) => (
+            {CARTAS_MIDIA.map((c) => (
               <Link key={c.slug} href={`/cartas/${c.slug}`} className="carta-card">
                 <div className="card-pano" aria-hidden dangerouslySetInnerHTML={{ __html: panoCard(c.slug) }} />
                 <div className="card-body">
@@ -94,6 +94,18 @@ export default function Home() {
               </Link>
             ))}
           </div>
+
+          <h2 className="sec">Quando a instituição é uma rede</h2>
+          <p>
+            Hospital e rede não se comunicam como clínica grande: cada linha de serviço disputa um mercado próprio, o
+            corpo clínico é canal e a aprovação precisa passar por auditoria. Escrevemos separado o que pensamos sobre{" "}
+            {CARTAS_SEGMENTO.map((c) => (
+              <Link key={c.slug} href={`/cartas/${c.slug}`}>
+                marketing de rede hospitalar
+              </Link>
+            ))}
+            .
+          </p>
 
           <h2 className="sec">Onde a gente conhece o terreno</h2>
           <p>

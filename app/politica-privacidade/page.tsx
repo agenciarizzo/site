@@ -60,7 +60,8 @@ export default function PrivacidadePage() {
             </p>
             <p>
               Canal para qualquer pedido sobre dados — acesso, correção, exclusão ou dúvida:{" "}
-              <a href={wa(WA)}>WhatsApp {WHATS_LABEL}</a>, ou por carta ao endereço acima. Respondemos no prazo da lei.
+              <a href={wa(WA)}>WhatsApp {WHATS_LABEL}</a>, ou por correspondência ao endereço acima. Respondemos no
+              prazo da lei.
             </p>
 
             <h2 className="sec">O que este site coleta</h2>

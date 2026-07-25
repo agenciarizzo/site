@@ -45,6 +45,11 @@ export default function ClientesPage() {
               </div>
             ))}
           </div>
+          <p className="prosa">
+            Boa parte dessa lista é hospital e rede — instituições em que cada linha de serviço disputa um mercado
+            próprio. O que pensamos sobre isso está em{" "}
+            <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
+          </p>
           <Fatos />
           <p>
             <Link href="/">← Voltar pra visão geral</Link>
