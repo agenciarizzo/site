@@ -18,6 +18,7 @@ export default function ContatoPage() {
   return (
     <>
       <Header waText={WA} />
+      <main>
       <section className="hero">
         <div className="wrap">
           <div className="kicker">Contato · Agência Rizzo</div>
@@ -47,6 +48,7 @@ export default function ContatoPage() {
       </article>
 
       <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA} />
+      </main>
       <Footer />
     </>
   );

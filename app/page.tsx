@@ -21,6 +21,7 @@ export default function Home() {
     <>
       <Header waText={WA_HOME} />
 
+      <main>
       <section className="hero">
         <div className="wrap">
           <div className="kicker">Marketing médico · desde 2012</div>
@@ -111,6 +112,7 @@ export default function Home() {
       <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA_HOME} />
 
       <Band html={j3} />
+      </main>
       <Footer />
     </>
   );

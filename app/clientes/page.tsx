@@ -19,6 +19,7 @@ export default function ClientesPage() {
   return (
     <>
       <Header waText={WA} />
+      <main>
       <section className="hero">
         <div className="wrap">
           <div className="kicker">Clientes · desde 2012</div>
@@ -53,6 +54,7 @@ export default function ClientesPage() {
 
       <CtaConversa titulo="Sua clínica" acento="na próxima lista?" waText={WA} />
       <Band html={j3} />
+      </main>
       <Footer />
     </>
   );

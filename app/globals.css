@@ -29,6 +29,10 @@
   --ouro: #f0a400;
   --amarelo: #ffd200;
   --hairline: #e3dcc8;
+  /* teal do MICROTEXTO: o teal de marca (#0097A7) sobre papel dá 3,06:1 e reprova
+     no WCAG AA (mínimo 4,5:1 pra texto normal). Esta variante rende 4,69:1 e vale
+     SÓ pra texto pequeno — display/acentos/bordas/foco continuam no --teal. */
+  --teal-texto: #007681;
 }
 
 * { box-sizing: border-box; }
@@ -57,7 +61,7 @@ body {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.32em;
-  color: var(--teal);
+  color: var(--teal-texto);
   text-transform: uppercase;
 }
 
@@ -137,7 +141,7 @@ a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(2
 .carta-num { font-family: var(--font-mono), monospace; font-weight: 700; color: var(--ouro); font-size: 0.95rem; }
 .carta-card h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: 1.06rem; line-height: 1.3; margin: 0; }
 .carta-card p { font-size: 0.92rem; line-height: 1.55; margin: 0; }
-.ler { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.18em; color: var(--teal); margin-top: auto; padding-top: 0.6rem; text-transform: uppercase; }
+.ler { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.18em; color: var(--teal-texto); margin-top: auto; padding-top: 0.6rem; text-transform: uppercase; }
 
 /* bloco RizzoOS (fundo navy é EXCLUSIVO deste registro — A4) */
 .os { background: var(--navy); color: var(--papel); margin: 3rem 0; }
@@ -227,7 +231,7 @@ header.topo img { height: 30px; width: auto; display: block; }
   padding-bottom: 2px;
 }
 footer.fim { text-align: center; padding: 1.8rem 1.4rem 2.6rem; }
-footer.fim a { color: var(--teal); text-decoration: none; }
+footer.fim a { color: var(--teal-texto); text-decoration: none; }
 .wm { font-family: var(--font-geist), Arial, sans-serif; font-size: 1.02rem; color: var(--corpo); margin-bottom: 0.7rem; }
 .wm .light { font-weight: 300; }
 .wm .bar { color: var(--amarelo); font-weight: 900; margin: 0 0.18rem; }
