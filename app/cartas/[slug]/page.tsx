@@ -56,6 +56,7 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Header waText={c.waText} />
 
+      <main>
       <section className="hero">
         <div className="wrap">
           <div className="kicker">
@@ -121,6 +122,7 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
       </article>
 
       <CtaConversa titulo="Vamos conversar sobre" acento={`${c.midia.toLowerCase()} na sua clínica?`} waText={c.waText} />
+      </main>
       <Footer />
     </>
   );
