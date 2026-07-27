@@ -36,7 +36,7 @@ export const CARTAS: Carta[] = [
     slug: "site-seo",
     num: "01",
     midia: "Site & SEO",
-    titulo: "Site e SEO para médicos — prontos para o Google e para as IAs",
+    titulo: "Site e SEO para Médicos",
     descricao:
       "O site voltou a ser o centro do marketing médico: é ele que o Google lê e que as IAs citam. Como construímos sites médicos rápidos, estruturados e encontráveis.",
     cardP: "O site voltou a ser o centro. Agora ele responde ao Google — e às IAs.",
@@ -71,7 +71,7 @@ export const CARTAS: Carta[] = [
     slug: "google-ads",
     num: "02",
     midia: "Google Ads",
-    titulo: "Google Ads para médicos — tráfego pago dentro do CFM",
+    titulo: "Google Ads para Médicos",
     descricao:
       "Anúncio não conserta base ruim — mas multiplica a boa. Como fazemos Google Ads para médicos: intenção real, landing rápida, gestão semanal e conformidade CFM.",
     cardP: "Anúncio não conserta base ruim. Com estrutura boa, o clique fica barato.",
@@ -105,7 +105,7 @@ export const CARTAS: Carta[] = [
     slug: "meta-ads",
     num: "03",
     midia: "Meta Ads",
-    titulo: "Meta Ads para médicos — Instagram e Facebook com método",
+    titulo: "Meta Ads para Médicos",
     descricao:
       "O Google colhe demanda; o Meta planta. Como usamos Instagram e Facebook Ads para construir desejo e lembrança antes da busca — com criativo educativo e público certo.",
     cardP: "O desejo se planta antes da busca. Aqui é onde ele germina.",
@@ -139,7 +139,7 @@ export const CARTAS: Carta[] = [
     slug: "redes-sociais",
     num: "04",
     midia: "Redes Sociais",
-    titulo: "Gestão de redes sociais para médicos — autoridade em série",
+    titulo: "Redes Sociais para Médicos",
     descricao:
       "Autoridade médica se constrói em série, com constância — não em post solto. Como planejamos, produzimos e aprovamos o conteúdo do ano inteiro, dentro do CFM.",
     cardP: "Autoridade se constrói em série, com constância — não em post solto.",
@@ -173,7 +173,7 @@ export const CARTAS: Carta[] = [
     slug: "video",
     num: "05",
     midia: "Vídeo",
-    titulo: "Vídeo para médicos — a consulta antes da consulta",
+    titulo: "Vídeo para Médicos",
     descricao:
       "Quem explica bem atende paciente que já chega confiando. Como roteirizamos, gravamos e distribuímos vídeo médico sem fricção — do reels ao site.",
     cardP: "Quem explica bem atende paciente que já chega confiando.",
@@ -207,7 +207,7 @@ export const CARTAS: Carta[] = [
     slug: "tv-corporativa",
     num: "06",
     midia: "TV Corporativa",
-    titulo: "TV corporativa para clínicas — a mídia da sua sala de espera",
+    titulo: "TV Corporativa para Clínicas",
     descricao:
       "Sua sala de espera é mídia própria — e quase sempre desperdiçada. Como transformamos a TV da clínica em canal de educação e serviços, atualizado sem esforço.",
     cardP: "Sua sala de espera é mídia própria. A mais desperdiçada do consultório.",

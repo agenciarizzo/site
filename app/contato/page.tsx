@@ -5,7 +5,7 @@ import { homeJanelas } from "@/lib/athos/panos";
 import { ENDERECO, WHATS_LABEL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contato — vamos conversar sobre a sua clínica",
+  title: "Contato — converse sobre a sua clínica",
   description:
     "Fale com a Agência Rizzo pelo WhatsApp: uma conversa sobre o momento da sua clínica — e, fazendo sentido, a proposta vem por escrito, transparente.",
   alternates: { canonical: "/contato" },

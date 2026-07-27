@@ -7,7 +7,7 @@ import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/
 import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
 
 export const metadata: Metadata = {
-  title: "Marketing Médico — Agência Rizzo | Agenda cheia não é sorte, é estrutura",
+  title: "Agência de Marketing Médico | Agência Rizzo",
   description:
     "Há 13 anos cuidamos do marketing de médicos e clínicas. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico. Fale com a gente no WhatsApp.",
   alternates: { canonical: "/" },
@@ -75,6 +75,35 @@ export default function Home() {
             </li>
             <li>
               <b>A ética do CFM não é limite. É vantagem</b> de quem sabe trabalhar dentro dela há 13 anos.
+            </li>
+          </ul>
+
+          <h2 className="sec">Como escolher uma agência de marketing médico</h2>
+          <p>
+            Existe uma régua objetiva antes de qualquer contrato — cinco perguntas que valem para qualquer agência
+            que você for avaliar, incluindo esta:
+          </p>
+          <ul className="crencas">
+            <li>
+              <b>Ela mostra caso de verdade, com nome e link?</b> Prova social sem nome nem site pra conferir é
+              propaganda, não caso.
+            </li>
+            <li>
+              <b>Ela escreve dentro do CFM sem que você precise pedir?</b> Promessa de resultado e antes-e-depois
+              derrubam anúncio e colocam o seu registro em risco — quem entende de marketing médico já nasce
+              sabendo disso.
+            </li>
+            <li>
+              <b>Ela explica o método, ou só entrega a peça pronta?</b> Quem sabe o que está fazendo consegue te
+              dizer o porquê de cada decisão, não só o resultado visual.
+            </li>
+            <li>
+              <b>Ela te diz quando NÃO contratar?</b> Agência que só sabe dizer sim não está do seu lado — está do
+              lado do próprio contrato.
+            </li>
+            <li>
+              <b>O relatório é seu, todo mês, sem você precisar pedir?</b> Número que você só vê quando pergunta é
+              número que a agência preferia que você não visse.
             </li>
           </ul>
 
