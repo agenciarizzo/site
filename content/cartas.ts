@@ -326,6 +326,89 @@ export const CARTAS: Carta[] = [
     ctaAcento: "a sua instituição?",
     waText: "Olá! Li o que vocês pensam sobre marketing de rede hospitalar e quero conversar sobre a nossa instituição.",
   },
+  // Outro recorte de PÚBLICO, não de mídia (eixo "segmento"): a clínica com mais de um
+  // profissional é um problema diferente do médico individual (as 6 mídias acima) e do
+  // hospital (rede-hospitalar) — vende a marca E cada profissional ao mesmo tempo.
+  {
+    slug: "clinicas-e-consultorios",
+    num: "08",
+    eixo: "segmento",
+    midia: "Clínicas e consultórios",
+    titulo: "Marketing médico: clínicas e consultórios",
+    descricao:
+      "Clínica não é consultório de um médico só, nem hospital: tem recepção, mais de um profissional e agenda pra organizar. Como pensamos marketing médico para clínicas e consultórios — da recepção ao relatório.",
+    cardP: "Clínica não é consultório de um médico só. É recepção, equipe e agenda para organizar.",
+    head: ["Clínica não é", "um médico só.", "É um time por trás."],
+    lede:
+      "Entre o consultório de um médico só e o hospital com dezenas de linhas de serviço, existe a clínica: mais de um profissional, uma recepção, uma agenda para organizar — e uma marca que precisa falar por todos sem apagar nenhum.",
+    posicao: [
+      "A clínica tem um problema que nem o médico individual nem o hospital têm: precisa vender a marca E cada profissional dentro dela ao mesmo tempo. Paciente que procura “ginecologista perto de mim” decide primeiro pela clínica — pelo endereço, pelo convênio, pela facilidade de agenda — e só depois escolhe (ou aceita) qual profissional vai atender. Site e anúncio que falam só da marca, sem mostrar quem atende, perdem essa decisão; site que vira uma lista de currículos sem organização por especialidade perde a outra.",
+      "Isso muda a estrutura do site inteiro. Uma página por especialidade (quando a clínica tem mais de uma) ou uma página por profissional (quando a clínica é uma especialidade só, com equipe) — nunca as duas coisas misturadas numa lista genérica de “nossa equipe”. É essa organização que faz o Google e as inteligências artificiais entenderem quem atende o quê, e é a mesma organização que faz o paciente encontrar rápido o que procura.",
+      "Tem ainda a agenda: clínica com mais de um profissional tem mais de uma agenda pra encher, e elas não enchem no mesmo ritmo — a especialidade mais nova da casa ou o profissional recém-chegado começam do zero enquanto os outros já têm fila. Tratar a clínica inteira como um bloco único esconde esse descompasso; o anúncio e o conteúdo certos sabem apontar verba pra quem precisa, sem descuidar de quem já está cheio.",
+      "E existe a mesma régua de sempre: publicidade de clínica é publicidade médica, então segue o Manual de Publicidade Médica do CFM inteiro — nenhum profissional citado pode ter promessa de resultado ou antes-e-depois, mesmo dentro do site institucional da marca.",
+    ],
+    como: [
+      {
+        t: "Uma página por especialidade ou por profissional",
+        d: "Nunca as duas misturadas numa lista só — a organização certa depende de a clínica ter uma especialidade com equipe ou várias especialidades sob o mesmo teto.",
+      },
+      {
+        t: "Agenda por profissional, não só por clínica",
+        d: "Cada profissional tem seu próprio ritmo de ocupação; o anúncio e o conteúdo apontam verba pra quem precisa encher agenda, sem abandonar quem já está cheio.",
+      },
+      {
+        t: "Um perfil no Google por unidade",
+        d: "Clínica com mais de um endereço precisa de um perfil por unidade, com categoria, horário e avaliação em ordem — é o que resolve boa parte da busca antes do site.",
+      },
+      {
+        t: "Convênio e recepção visíveis",
+        d: "Convênio aceito, forma de agendamento e telefone da recepção aparecem sem o paciente precisar procurar — são as perguntas mais comuns antes de marcar.",
+      },
+      {
+        t: "Cada profissional com a própria voz",
+        d: "Presença de cada médico soma à marca da clínica sem se apagar nela — currículo, especialidade e conteúdo próprio dentro da mesma identidade visual.",
+      },
+      {
+        t: "Compliance do CFM na marca inteira",
+        d: "Nenhuma peça da clínica promete resultado ou usa antes-e-depois, mesmo quando fala da equipe como conjunto, não de um profissional específico.",
+      },
+    ],
+    os:
+      "A clínica com vários profissionais e vários calendários organiza tudo dentro do RizzoOS: planejamento por especialidade, aprovação pelo WhatsApp e relatório mensal separado por profissional e por unidade — sem depender de planilha paralela pra saber quem está com agenda vazia.",
+    quandoNaoTitulo: "Quando NÃO é a hora de investir em captação",
+    quandoNao: [
+      "Se a maioria dos profissionais da clínica já está com a agenda cheia, o problema não é falta de marketing — é falta de mais gente atendendo. Apontamos isso antes de vender campanha pra quem não tem quem receba o paciente novo.",
+      "E se a clínica está decidindo entre contratar um profissional novo e investir em divulgação, geralmente a ordem certa é contratar primeiro: divulgar uma vaga vazia é gastar verba pra decepcionar quem chegou.",
+    ],
+    faq: [
+      {
+        q: "O site precisa ter uma página pra cada profissional da clínica?",
+        a: "Depende do formato da clínica. Se ela é uma especialidade só com vários profissionais, sim — cada um com sua página. Se ela reúne várias especialidades, a organização principal costuma ser por especialidade, com o profissional aparecendo dentro dela. Decidimos isso olhando como o seu paciente busca, não por padrão fixo.",
+      },
+      {
+        q: "Como dividir a verba de anúncio entre os profissionais da clínica?",
+        a: "Pela agenda de cada um, não em partes iguais. Profissional novo ou com agenda mais vazia recebe mais verba de captação; quem já está com fila cheia recebe menos ou nenhuma — investir em quem não tem onde encaixar paciente novo é desperdício.",
+      },
+      {
+        q: "Clínica pequena, com dois ou três profissionais, também compensa?",
+        a: "Compensa, e costuma custar menos por resultado do que se cada profissional contratasse separado: o site, o perfil no Google e boa parte do conteúdo são compartilhados pela marca da clínica, e só o que é específico de cada um se separa.",
+      },
+      {
+        q: "Como fica a aprovação quando são vários profissionais decidindo?",
+        a: "Definimos um responsável pela aprovação — em geral quem administra a clínica — e cada profissional recebe só o que é dele pra revisar, pelo WhatsApp. Ninguém precisa aprovar o conteúdo dos colegas.",
+      },
+      {
+        q: "A clínica pode citar os profissionais por nome no site e no anúncio?",
+        a: "Pode e ajuda — nome e especialidade constroem confiança. O que não pode, pra nenhum profissional citado, é promessa de resultado, antes-e-depois ou uso do número de pacientes como propaganda — a mesma regra do CFM vale pra cada nome na página.",
+      },
+      {
+        q: "Vocês já atenderam clínicas com mais de um profissional?",
+        a: "Sim, desde 2012 — hoje isso inclui, entre outras, a Clínica de Veias, a Mulier, a Pelvi e o CDUS, cada uma organizada do jeito que a própria especialidade pede.",
+      },
+    ],
+    ctaAcento: "a sua clínica ou consultório?",
+    waText: "Olá! Li o que vocês pensam sobre marketing para clínicas e consultórios e quero conversar sobre a nossa clínica.",
+  },
 ];
 
 /** As 6 mídias da casa — a grade da home. Exclui os recortes de público (eixo "segmento"). */

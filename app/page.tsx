@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { homeJanelas, panoCard } from "@/lib/athos/panos";
 import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
-import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
+import { CARTAS_MIDIA } from "@/content/cartas";
 
 export const metadata: Metadata = {
   title: "Agência de Marketing Médico | Agência Rizzo",
@@ -124,16 +124,16 @@ export default function Home() {
             ))}
           </div>
 
-          <h2 className="sec">Quando a instituição é uma rede</h2>
+          <h2 className="sec">Quando o cliente não é um médico só</h2>
           <p>
             Hospital e rede não se comunicam como clínica grande: cada linha de serviço disputa um mercado próprio, o
             corpo clínico é canal e a aprovação precisa passar por auditoria. Escrevemos separado o que pensamos sobre{" "}
-            {CARTAS_SEGMENTO.map((c) => (
-              <Link key={c.slug} href={`/cartas/${c.slug}`}>
-                marketing de rede hospitalar
-              </Link>
-            ))}
-            .
+            <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
+          </p>
+          <p>
+            E quando são vários profissionais dividindo uma recepção e uma agenda só, o problema também é outro: a
+            marca precisa falar por todos sem apagar nenhum. É o que pensamos sobre{" "}
+            <Link href="/cartas/clinicas-e-consultorios">marketing para clínicas e consultórios</Link>.
           </p>
 
           <h2 className="sec">Onde a gente conhece o terreno</h2>
