@@ -36,7 +36,7 @@ export const CARTAS: Carta[] = [
     slug: "site-seo",
     num: "01",
     midia: "Site & SEO",
-    titulo: "Site e SEO para médicos — prontos para o Google e para as IAs",
+    titulo: "Site e SEO para Médicos",
     descricao:
       "O site voltou a ser o centro do marketing médico: é ele que o Google lê e que as IAs citam. Como construímos sites médicos rápidos, estruturados e encontráveis.",
     cardP: "O site voltou a ser o centro. Agora ele responde ao Google — e às IAs.",
@@ -71,7 +71,7 @@ export const CARTAS: Carta[] = [
     slug: "google-ads",
     num: "02",
     midia: "Google Ads",
-    titulo: "Google Ads para médicos — tráfego pago dentro do CFM",
+    titulo: "Google Ads para Médicos",
     descricao:
       "Anúncio não conserta base ruim — mas multiplica a boa. Como fazemos Google Ads para médicos: intenção real, landing rápida, gestão semanal e conformidade CFM.",
     cardP: "Anúncio não conserta base ruim. Com estrutura boa, o clique fica barato.",
@@ -105,7 +105,7 @@ export const CARTAS: Carta[] = [
     slug: "meta-ads",
     num: "03",
     midia: "Meta Ads",
-    titulo: "Meta Ads para médicos — Instagram e Facebook com método",
+    titulo: "Meta Ads para Médicos",
     descricao:
       "O Google colhe demanda; o Meta planta. Como usamos Instagram e Facebook Ads para construir desejo e lembrança antes da busca — com criativo educativo e público certo.",
     cardP: "O desejo se planta antes da busca. Aqui é onde ele germina.",
@@ -139,7 +139,7 @@ export const CARTAS: Carta[] = [
     slug: "redes-sociais",
     num: "04",
     midia: "Redes Sociais",
-    titulo: "Gestão de redes sociais para médicos — autoridade em série",
+    titulo: "Redes Sociais para Médicos",
     descricao:
       "Autoridade médica se constrói em série, com constância — não em post solto. Como planejamos, produzimos e aprovamos o conteúdo do ano inteiro, dentro do CFM.",
     cardP: "Autoridade se constrói em série, com constância — não em post solto.",
@@ -173,7 +173,7 @@ export const CARTAS: Carta[] = [
     slug: "video",
     num: "05",
     midia: "Vídeo",
-    titulo: "Vídeo para médicos — a consulta antes da consulta",
+    titulo: "Vídeo para Médicos",
     descricao:
       "Quem explica bem atende paciente que já chega confiando. Como roteirizamos, gravamos e distribuímos vídeo médico sem fricção — do reels ao site.",
     cardP: "Quem explica bem atende paciente que já chega confiando.",
@@ -207,7 +207,7 @@ export const CARTAS: Carta[] = [
     slug: "tv-corporativa",
     num: "06",
     midia: "TV Corporativa",
-    titulo: "TV corporativa para clínicas — a mídia da sua sala de espera",
+    titulo: "TV Corporativa para Clínicas",
     descricao:
       "Sua sala de espera é mídia própria — e quase sempre desperdiçada. Como transformamos a TV da clínica em canal de educação e serviços, atualizado sem esforço.",
     cardP: "Sua sala de espera é mídia própria. A mais desperdiçada do consultório.",
@@ -247,13 +247,13 @@ export const CARTAS: Carta[] = [
     num: "07",
     eixo: "segmento",
     midia: "Rede hospitalar",
-    titulo: "Marketing para hospitais e redes — linhas de serviço, corpo clínico e compliance",
+    titulo: "Marketing para Hospitais e Redes de Saúde",
     descricao:
-      "Hospital não se anuncia como clínica grande: cada linha de serviço disputa um mercado próprio. Como trabalhamos marketing de rede hospitalar — mapa por linha, corpo clínico como canal e aprovação que passa por auditoria.",
+      "Hospital e rede de saúde não se anunciam como clínica grande: cada linha de serviço disputa um mercado próprio. Como trabalhamos marketing para redes de saúde — mapa por linha, corpo clínico como canal e aprovação que passa por auditoria.",
     cardP: "Hospital não é clínica grande. Cada linha de serviço disputa um mercado próprio.",
     head: ["Hospital não é", "clínica grande.", "É muitas de uma vez."],
     lede:
-      "Uma rede não tem um mercado: tem um por linha de serviço. A oncologia disputa com centro de referência de outro estado; o pronto atendimento, com o hospital do bairro vizinho; a maternidade, com o obstetra que a paciente escolheu antes de escolher onde parir.",
+      "Uma rede de saúde não tem um mercado único: tem um por linha de serviço. A oncologia disputa com centro de referência de outro estado; o pronto atendimento, com o hospital do bairro vizinho; a maternidade, com o obstetra que a paciente escolheu antes de escolher onde parir.",
     posicao: [
       "Campanha institucional única fala com todos esses públicos ao mesmo tempo e não convence nenhum. É o erro mais comum e o mais caro: verba grande, peça bonita, e nenhuma linha de serviço com número diferente no fim do mês. O trabalho começa pela linha, não pela marca — cada uma com sua busca, seu ciclo de decisão e seu corpo clínico.",
       "Isso muda o site inteiro. Rede que lista “nossas especialidades” numa página perde a pergunta específica que a pessoa digitou, e é essa pergunta que o Google e as inteligências artificiais usam para decidir quem citar. Familiar pesquisando qual hospital faz determinada cirurgia, à uma da manhã, não quer conhecer a instituição: quer saber se ali se faz aquilo, com quem, em qual unidade e como se chega.",
@@ -322,15 +322,107 @@ export const CARTAS: Carta[] = [
         q: "onde encontrar serviços de marketing local para clínicas e hospitais?",
         a: "Marketing local resolve a maior parte da demanda em saúde, porque a pessoa escolhe onde consegue chegar. São três frentes: um perfil no Google por unidade, páginas que respondem à busca com o nome da região, e anúncio com raio de deslocamento real em vez de estado inteiro. Trabalhamos assim em Goiânia e em Brasília, onde conhecemos o terreno de perto, e atendemos instituições no Brasil inteiro pelo mesmo método.",
       },
+      {
+        q: "quanto tempo leva para uma rede de saúde ver resultado em marketing digital?",
+        a: "Varia por linha de serviço — uma linha nova no mercado demora mais que uma linha já madura e só mal comunicada. As primeiras leituras de busca aparecem em semanas; mudança de posição de verdade leva meses, e o caminho é medido, não prometido. Enquanto o orgânico constrói, mídia paga cobre a lacuna linha a linha.",
+      },
+      {
+        q: "como uma rede de saúde mede o retorno de cada linha de serviço separadamente?",
+        a: "Com relatório por unidade e por linha, não um número institucional único — porque um número só esconde a linha que está indo bem dentro da que está indo mal. É o que o RizzoOS organiza: busca, contato e agenda lidos linha a linha, mês a mês.",
+      },
     ],
     ctaAcento: "a sua instituição?",
     waText: "Olá! Li o que vocês pensam sobre marketing de rede hospitalar e quero conversar sobre a nossa instituição.",
+  },
+  // Outro recorte de PÚBLICO, não de mídia (eixo "segmento"): a clínica com mais de um
+  // profissional é um problema diferente do médico individual (as 6 mídias acima) e do
+  // hospital (rede-hospitalar) — vende a marca E cada profissional ao mesmo tempo.
+  {
+    slug: "clinicas-e-consultorios",
+    num: "08",
+    eixo: "segmento",
+    midia: "Clínicas e consultórios",
+    titulo: "Marketing médico: clínicas e consultórios",
+    descricao:
+      "Clínica não é consultório de um médico só, nem hospital: tem recepção, mais de um profissional e agenda pra organizar. Como pensamos marketing médico para clínicas e consultórios — da recepção ao relatório.",
+    cardP: "Clínica não é consultório de um médico só. É recepção, equipe e agenda para organizar.",
+    head: ["Clínica não é", "um médico só.", "É um time por trás."],
+    lede:
+      "Entre o consultório de um médico só e o hospital com dezenas de linhas de serviço, existe a clínica: mais de um profissional, uma recepção, uma agenda para organizar — e uma marca que precisa falar por todos sem apagar nenhum.",
+    posicao: [
+      "A clínica tem um problema que nem o médico individual nem o hospital têm: precisa vender a marca E cada profissional dentro dela ao mesmo tempo. Paciente que procura “ginecologista perto de mim” decide primeiro pela clínica — pelo endereço, pelo convênio, pela facilidade de agenda — e só depois escolhe (ou aceita) qual profissional vai atender. Site e anúncio que falam só da marca, sem mostrar quem atende, perdem essa decisão; site que vira uma lista de currículos sem organização por especialidade perde a outra.",
+      "Isso muda a estrutura do site inteiro. Uma página por especialidade (quando a clínica tem mais de uma) ou uma página por profissional (quando a clínica é uma especialidade só, com equipe) — nunca as duas coisas misturadas numa lista genérica de “nossa equipe”. É essa organização que faz o Google e as inteligências artificiais entenderem quem atende o quê, e é a mesma organização que faz o paciente encontrar rápido o que procura.",
+      "Tem ainda a agenda: clínica com mais de um profissional tem mais de uma agenda pra encher, e elas não enchem no mesmo ritmo — a especialidade mais nova da casa ou o profissional recém-chegado começam do zero enquanto os outros já têm fila. Tratar a clínica inteira como um bloco único esconde esse descompasso; o anúncio e o conteúdo certos sabem apontar verba pra quem precisa, sem descuidar de quem já está cheio.",
+      "E existe a mesma régua de sempre: publicidade de clínica é publicidade médica, então segue o Manual de Publicidade Médica do CFM inteiro — nenhum profissional citado pode ter promessa de resultado ou antes-e-depois, mesmo dentro do site institucional da marca.",
+    ],
+    como: [
+      {
+        t: "Uma página por especialidade ou por profissional",
+        d: "Nunca as duas misturadas numa lista só — a organização certa depende de a clínica ter uma especialidade com equipe ou várias especialidades sob o mesmo teto.",
+      },
+      {
+        t: "Agenda por profissional, não só por clínica",
+        d: "Cada profissional tem seu próprio ritmo de ocupação; o anúncio e o conteúdo apontam verba pra quem precisa encher agenda, sem abandonar quem já está cheio.",
+      },
+      {
+        t: "Um perfil no Google por unidade",
+        d: "Clínica com mais de um endereço precisa de um perfil por unidade, com categoria, horário e avaliação em ordem — é o que resolve boa parte da busca antes do site.",
+      },
+      {
+        t: "Convênio e recepção visíveis",
+        d: "Convênio aceito, forma de agendamento e telefone da recepção aparecem sem o paciente precisar procurar — são as perguntas mais comuns antes de marcar.",
+      },
+      {
+        t: "Cada profissional com a própria voz",
+        d: "Presença de cada médico soma à marca da clínica sem se apagar nela — currículo, especialidade e conteúdo próprio dentro da mesma identidade visual.",
+      },
+      {
+        t: "Compliance do CFM na marca inteira",
+        d: "Nenhuma peça da clínica promete resultado ou usa antes-e-depois, mesmo quando fala da equipe como conjunto, não de um profissional específico.",
+      },
+    ],
+    os:
+      "A clínica com vários profissionais e vários calendários organiza tudo dentro do RizzoOS: planejamento por especialidade, aprovação pelo WhatsApp e relatório mensal separado por profissional e por unidade — sem depender de planilha paralela pra saber quem está com agenda vazia.",
+    quandoNaoTitulo: "Quando NÃO é a hora de investir em captação",
+    quandoNao: [
+      "Se a maioria dos profissionais da clínica já está com a agenda cheia, o problema não é falta de marketing — é falta de mais gente atendendo. Apontamos isso antes de vender campanha pra quem não tem quem receba o paciente novo.",
+      "E se a clínica está decidindo entre contratar um profissional novo e investir em divulgação, geralmente a ordem certa é contratar primeiro: divulgar uma vaga vazia é gastar verba pra decepcionar quem chegou.",
+    ],
+    faq: [
+      {
+        q: "O site precisa ter uma página pra cada profissional da clínica?",
+        a: "Depende do formato da clínica. Se ela é uma especialidade só com vários profissionais, sim — cada um com sua página. Se ela reúne várias especialidades, a organização principal costuma ser por especialidade, com o profissional aparecendo dentro dela. Decidimos isso olhando como o seu paciente busca, não por padrão fixo.",
+      },
+      {
+        q: "Como dividir a verba de anúncio entre os profissionais da clínica?",
+        a: "Pela agenda de cada um, não em partes iguais. Profissional novo ou com agenda mais vazia recebe mais verba de captação; quem já está com fila cheia recebe menos ou nenhuma — investir em quem não tem onde encaixar paciente novo é desperdício.",
+      },
+      {
+        q: "Clínica pequena, com dois ou três profissionais, também compensa?",
+        a: "Compensa, e costuma custar menos por resultado do que se cada profissional contratasse separado: o site, o perfil no Google e boa parte do conteúdo são compartilhados pela marca da clínica, e só o que é específico de cada um se separa.",
+      },
+      {
+        q: "Como fica a aprovação quando são vários profissionais decidindo?",
+        a: "Definimos um responsável pela aprovação — em geral quem administra a clínica — e cada profissional recebe só o que é dele pra revisar, pelo WhatsApp. Ninguém precisa aprovar o conteúdo dos colegas.",
+      },
+      {
+        q: "A clínica pode citar os profissionais por nome no site e no anúncio?",
+        a: "Pode e ajuda — nome e especialidade constroem confiança. O que não pode, pra nenhum profissional citado, é promessa de resultado, antes-e-depois ou uso do número de pacientes como propaganda — a mesma regra do CFM vale pra cada nome na página.",
+      },
+      {
+        q: "Vocês já atenderam clínicas com mais de um profissional?",
+        a: "Sim, desde 2012 — hoje isso inclui, entre outras, a Clínica de Veias, a Mulier, a Pelvi e o CDUS, cada uma organizada do jeito que a própria especialidade pede.",
+      },
+    ],
+    ctaAcento: "a sua clínica ou consultório?",
+    waText: "Olá! Li o que vocês pensam sobre marketing para clínicas e consultórios e quero conversar sobre a nossa clínica.",
   },
 ];
 
 /** As 6 mídias da casa — a grade da home. Exclui os recortes de público (eixo "segmento"). */
 export const CARTAS_MIDIA = CARTAS.filter((c) => (c.eixo ?? "midia") === "midia");
-/** Recortes de público que seguem o mesmo esqueleto (hoje: rede hospitalar). */
+/** Recortes de público que seguem o mesmo esqueleto (rede hospitalar · clínicas e consultórios).
+ *  A home NÃO itera sobre esta lista: cada recorte tem parágrafo próprio lá (regra 7 do CLAUDE.md). */
 export const CARTAS_SEGMENTO = CARTAS.filter((c) => c.eixo === "segmento");
 
 export const bySlug = (slug: string) => CARTAS.find((c) => c.slug === slug);

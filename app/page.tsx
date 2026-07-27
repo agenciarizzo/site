@@ -4,10 +4,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { homeJanelas, panoCard } from "@/lib/athos/panos";
 import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
-import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
+import { CARTAS_MIDIA } from "@/content/cartas";
 
 export const metadata: Metadata = {
-  title: "Marketing Médico — Agência Rizzo | Agenda cheia não é sorte, é estrutura",
+  title: "Agência de Marketing Médico | Agência Rizzo",
   description:
     "Há 13 anos cuidamos do marketing de médicos e clínicas. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico. Fale com a gente no WhatsApp.",
   alternates: { canonical: "/" },
@@ -78,6 +78,36 @@ export default function Home() {
             </li>
           </ul>
 
+          <h2 className="sec">Como escolher uma agência de marketing médico</h2>
+          <p>
+            Existe uma régua objetiva antes de qualquer contrato — cinco perguntas que valem para qualquer agência
+            que você for avaliar, incluindo esta:
+          </p>
+          <ul className="crencas">
+            <li>
+              <b>Ela mostra caso de verdade, com nome e especialidade?</b> Prova social anônima — &ldquo;uma
+              clínica de oftalmologia&rdquo;, sem dizer qual — é propaganda, não caso: nome real é o que você
+              consegue conferir.
+            </li>
+            <li>
+              <b>Ela escreve dentro do CFM sem que você precise pedir?</b> Promessa de resultado e antes-e-depois
+              derrubam anúncio e colocam o seu registro em risco — quem entende de marketing médico já nasce
+              sabendo disso.
+            </li>
+            <li>
+              <b>Ela explica o método, ou só entrega a peça pronta?</b> Quem sabe o que está fazendo consegue te
+              dizer o porquê de cada decisão, não só o resultado visual.
+            </li>
+            <li>
+              <b>Ela te diz quando NÃO contratar?</b> Agência que só sabe dizer sim não está do seu lado — está do
+              lado do próprio contrato.
+            </li>
+            <li>
+              <b>O relatório é seu, todo mês, sem você precisar pedir?</b> Número que você só vê quando pergunta é
+              número que a agência preferia que você não visse.
+            </li>
+          </ul>
+
           <h2 className="sec">O que pensamos de cada mídia</h2>
           <p>Cada mídia tem papel, hora e medida — nenhuma faz milagre sozinha. Aqui, a nossa visão sobre cada uma:</p>
 
@@ -95,16 +125,16 @@ export default function Home() {
             ))}
           </div>
 
-          <h2 className="sec">Quando a instituição é uma rede</h2>
+          <h2 className="sec">Quando o cliente não é um médico só</h2>
           <p>
             Hospital e rede não se comunicam como clínica grande: cada linha de serviço disputa um mercado próprio, o
             corpo clínico é canal e a aprovação precisa passar por auditoria. Escrevemos separado o que pensamos sobre{" "}
-            {CARTAS_SEGMENTO.map((c) => (
-              <Link key={c.slug} href={`/cartas/${c.slug}`}>
-                marketing de rede hospitalar
-              </Link>
-            ))}
-            .
+            <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
+          </p>
+          <p>
+            E quando são vários profissionais dividindo uma recepção e uma agenda só, o problema também é outro: a
+            marca precisa falar por todos sem apagar nenhum. É o que pensamos sobre{" "}
+            <Link href="/cartas/clinicas-e-consultorios">marketing para clínicas e consultórios</Link>.
           </p>
 
           <h2 className="sec">Onde a gente conhece o terreno</h2>
@@ -113,6 +143,11 @@ export default function Home() {
             concorrência de perto — e sobre elas escrevemos separado:{" "}
             <Link href="/marketing-medico-goiania">marketing médico em Goiânia</Link> e{" "}
             <Link href="/marketing-medico-brasilia">marketing médico em Brasília</Link>.
+          </p>
+          <p>
+            Fora dessas praças, o método muda pouco: reunião por vídeo, peça aprovada pelo WhatsApp e relatório
+            dentro do RizzoOS — a mesma rotina de quem está aqui do lado. O que muda de cidade para cidade é o raio
+            do anúncio e o bairro que entra no texto, não o cuidado do trabalho.
           </p>
         </div>
       </article>

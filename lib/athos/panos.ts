@@ -23,11 +23,15 @@ export const PANO_MIDIA: Record<string, { pattern: string; cores: string[]; seed
   "redes-sociais": { pattern: "reta", cores: [NAVY, OURO], seed: 104 },
   video: { pattern: "ventania", cores: [NAVY], seed: 105 },
   "tv-corporativa": { pattern: "quarto", cores: [TEAL, OURO], seed: 106 },
-  // Recorte de público (eixo "segmento"), não mídia — mas usa a mesma mecânica de pano.
+  // Recortes de público (eixo "segmento"), não mídia — mas usam a mesma mecânica de pano.
   "rede-hospitalar": { pattern: "circulo-triangulo", cores: [NAVY, TEAL], seed: 107 },
+  "clinicas-e-consultorios": { pattern: "anel", cores: [TEAL, CINZA], seed: 108 },
 };
 
 export const TIRA_OS = { pattern: "trevo", cores: [AMARELO], escala: "longe", seed: 907, cols: 12, rows: 1 } as const;
+
+// Pano-assinatura do hub /marketing-medico (índice de todas as cartas).
+export const PANO_HUB = { pattern: "arco", cores: [CINZA, OURO], seed: 100 } as const;
 
 // Pano-assinatura por CIDADE (landings do §14.3, fatias 2 e 3). Seed = o DDD da praça,
 // pra ninguém precisar consultar tabela pra saber de quem é o pano: 62 Goiânia, 61 DF.
@@ -42,6 +46,8 @@ function assertA2(cores: string[], fundo: "papel" | "navy", onde: string) {
 }
 assertA2([...HOME_FIELD.cores], "papel", "campo da home");
 assertA2([...TIRA_OS.cores], "navy", "tira RizzoOS");
+assertA2([...PANO_HUB.cores], "papel", "pano do hub /marketing-medico");
+if (!byId(PANO_HUB.pattern)) throw new Error(`pattern fora da biblioteca: ${PANO_HUB.pattern}`);
 for (const [slug, p] of Object.entries(PANO_MIDIA)) {
   assertA2(p.cores, "papel", `pano da mídia ${slug}`);
   if (!byId(p.pattern)) throw new Error(`pattern fora da biblioteca: ${p.pattern}`);
@@ -75,6 +81,11 @@ export function panoCarta(slug: string): string {
 export function panoCidade(slug: string): string {
   const p = PANO_CIDADE[slug];
   return pano(p.pattern, p.cores, "longe", p.seed, 10, 2);
+}
+
+/** Faixa do hub /marketing-medico (mesmo formato denso das cartas). */
+export function panoHub(): string {
+  return pano(PANO_HUB.pattern, [...PANO_HUB.cores], "longe", PANO_HUB.seed, 10, 2);
 }
 
 /** Tira de trevo amarelo do bloco RizzoOS (sobre navy). */

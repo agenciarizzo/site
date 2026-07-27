@@ -91,6 +91,8 @@ const LEGADO: Array<{ de: string; para: string }> = [
 
 /** Rotas exatas sem variante `.html`. */
 const EXATOS: Array<{ de: string; para: string }> = [
+  // Hub novo: /cartas (sem slug) nunca foi página — só o índice por mídia existe agora.
+  { de: "/cartas", para: "/marketing-medico" },
   // Taxonomia do WordPress com destino tópico melhor que "/".
   { de: "/tag/google-ads", para: "/cartas/google-ads" },
   { de: "/category/google-ads", para: "/cartas/google-ads" },
