@@ -247,13 +247,13 @@ export const CARTAS: Carta[] = [
     num: "07",
     eixo: "segmento",
     midia: "Rede hospitalar",
-    titulo: "Marketing para hospitais e redes — linhas de serviço, corpo clínico e compliance",
+    titulo: "Marketing para Hospitais e Redes de Saúde",
     descricao:
-      "Hospital não se anuncia como clínica grande: cada linha de serviço disputa um mercado próprio. Como trabalhamos marketing de rede hospitalar — mapa por linha, corpo clínico como canal e aprovação que passa por auditoria.",
+      "Hospital e rede de saúde não se anunciam como clínica grande: cada linha de serviço disputa um mercado próprio. Como trabalhamos marketing para redes de saúde — mapa por linha, corpo clínico como canal e aprovação que passa por auditoria.",
     cardP: "Hospital não é clínica grande. Cada linha de serviço disputa um mercado próprio.",
     head: ["Hospital não é", "clínica grande.", "É muitas de uma vez."],
     lede:
-      "Uma rede não tem um mercado: tem um por linha de serviço. A oncologia disputa com centro de referência de outro estado; o pronto atendimento, com o hospital do bairro vizinho; a maternidade, com o obstetra que a paciente escolheu antes de escolher onde parir.",
+      "Uma rede de saúde não tem um mercado único: tem um por linha de serviço. A oncologia disputa com centro de referência de outro estado; o pronto atendimento, com o hospital do bairro vizinho; a maternidade, com o obstetra que a paciente escolheu antes de escolher onde parir.",
     posicao: [
       "Campanha institucional única fala com todos esses públicos ao mesmo tempo e não convence nenhum. É o erro mais comum e o mais caro: verba grande, peça bonita, e nenhuma linha de serviço com número diferente no fim do mês. O trabalho começa pela linha, não pela marca — cada uma com sua busca, seu ciclo de decisão e seu corpo clínico.",
       "Isso muda o site inteiro. Rede que lista “nossas especialidades” numa página perde a pergunta específica que a pessoa digitou, e é essa pergunta que o Google e as inteligências artificiais usam para decidir quem citar. Familiar pesquisando qual hospital faz determinada cirurgia, à uma da manhã, não quer conhecer a instituição: quer saber se ali se faz aquilo, com quem, em qual unidade e como se chega.",
@@ -321,6 +321,14 @@ export const CARTAS: Carta[] = [
       {
         q: "onde encontrar serviços de marketing local para clínicas e hospitais?",
         a: "Marketing local resolve a maior parte da demanda em saúde, porque a pessoa escolhe onde consegue chegar. São três frentes: um perfil no Google por unidade, páginas que respondem à busca com o nome da região, e anúncio com raio de deslocamento real em vez de estado inteiro. Trabalhamos assim em Goiânia e em Brasília, onde conhecemos o terreno de perto, e atendemos instituições no Brasil inteiro pelo mesmo método.",
+      },
+      {
+        q: "quanto tempo leva para uma rede de saúde ver resultado em marketing digital?",
+        a: "Varia por linha de serviço — uma linha nova no mercado demora mais que uma linha já madura e só mal comunicada. As primeiras leituras de busca aparecem em semanas; mudança de posição de verdade leva meses, e o caminho é medido, não prometido. Enquanto o orgânico constrói, mídia paga cobre a lacuna linha a linha.",
+      },
+      {
+        q: "como uma rede de saúde mede o retorno de cada linha de serviço separadamente?",
+        a: "Com relatório por unidade e por linha, não um número institucional único — porque um número só esconde a linha que está indo bem dentro da que está indo mal. É o que o RizzoOS organiza: busca, contato e agenda lidos linha a linha, mês a mês.",
       },
     ],
     ctaAcento: "a sua instituição?",
