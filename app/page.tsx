@@ -143,6 +143,11 @@ export default function Home() {
             <Link href="/marketing-medico-goiania">marketing médico em Goiânia</Link> e{" "}
             <Link href="/marketing-medico-brasilia">marketing médico em Brasília</Link>.
           </p>
+          <p>
+            Fora dessas praças, o método muda pouco: reunião por vídeo, peça aprovada pelo WhatsApp e relatório
+            dentro do RizzoOS — a mesma rotina de quem está aqui do lado. O que muda de cidade para cidade é o raio
+            do anúncio e o bairro que entra no texto, não o cuidado do trabalho.
+          </p>
         </div>
       </article>
 

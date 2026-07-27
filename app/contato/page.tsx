@@ -44,6 +44,10 @@ export default function ContatoPage() {
             <br />
             WhatsApp: <b>{WHATS_LABEL}</b>
           </p>
+          <p>
+            Não estar na mesma cidade não muda o processo: a conversa começa no WhatsApp do mesmo jeito, esteja
+            você em Anápolis ou em qualquer outro estado.
+          </p>
         </div>
       </article>
 
