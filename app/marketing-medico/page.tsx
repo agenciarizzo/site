@@ -110,7 +110,7 @@ export default function MarketingMedicoPage() {
             Nenhuma mídia sozinha entrega isso. Site e SEO fazem você ser encontrado; Google Ads acelera quem já
             decidiu procurar; Meta Ads planta a ideia em quem ainda nem sabia que precisava; redes sociais e vídeo
             constroem a confiança que faz o paciente escolher você antes mesmo da primeira consulta; TV corporativa
-            aproveita quem já está na sua sala de espera. Cada carta abaixo é a nossa posição sobre uma dessas
+            aproveita quem já está na sua sala de espera. O que vem abaixo é a nossa posição sobre cada uma dessas
             frentes — o que funciona, o que não funciona, e quando ela não é a prioridade.
           </p>
 
