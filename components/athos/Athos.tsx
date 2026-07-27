@@ -98,6 +98,8 @@ export function Footer() {
         agenciarizzo.com.br · WhatsApp {WHATS_LABEL} · {ENDERECO} · CNPJ {CNPJ}
       </div>
       <div className="linha">
+        <Link href="/sobre">Sobre</Link>
+        {" · "}
         <Link href="/politica-privacidade">Política de privacidade</Link>
         {" · "}
         <Link href="/politica-privacidade#termos">Termos de uso</Link>

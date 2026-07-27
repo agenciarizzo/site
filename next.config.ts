@@ -54,8 +54,10 @@ const LEGADO: Array<{ de: string; para: string }> = [
   { de: "/marketing-medico-aracaju", para: "/" },
 
   // ── Institucional ────────────────────────────────────────────────────────────
-  { de: "/sobre", para: "/" },
-  { de: "/sobre-a-agencia-rizzo", para: "/" },
+  // `/sobre` agora é PÁGINA DE VERDADE (§18 do mapa) — `mesmaRota` faz só o `.html`
+  // redirecionar; a canibal `/sobre-a-agencia-rizzo` consolida na URL nova.
+  { de: "/sobre", para: "/sobre" },
+  { de: "/sobre-a-agencia-rizzo", para: "/sobre" },
   { de: "/home", para: "/" },
   { de: "/protocolos-da-agencia-rizzo", para: "/" },
   { de: "/agencia-marketing-medico-digital", para: "/" },
@@ -96,6 +98,7 @@ const EXATOS: Array<{ de: string; para: string }> = [
   // Taxonomia do WordPress com destino tópico melhor que "/".
   { de: "/tag/google-ads", para: "/cartas/google-ads" },
   { de: "/category/google-ads", para: "/cartas/google-ads" },
+  { de: "/category/sobre", para: "/sobre" },
   { de: "/category/portfolio/cidades", para: "/clientes" },
   { de: "/category/portfolio", para: "/clientes" },
   // Sobra do WordPress: página movida pra lixeira que continuou indexada.
