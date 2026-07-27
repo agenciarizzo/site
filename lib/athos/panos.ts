@@ -33,6 +33,10 @@ export const TIRA_OS = { pattern: "trevo", cores: [AMARELO], escala: "longe", se
 // Pano-assinatura do hub /marketing-medico (índice de todas as cartas).
 export const PANO_HUB = { pattern: "arco", cores: [CINZA, OURO], seed: 100 } as const;
 
+// Pano-assinatura da página institucional /sobre — pattern "deco" (não usado em
+// nenhum outro pano da casa), navy sólido sobre papel, seed 109 na sequência do hub.
+export const PANO_SOBRE = { pattern: "deco", cores: [NAVY], seed: 109 } as const;
+
 // Pano-assinatura por CIDADE (landings do §14.3, fatias 2 e 3). Seed = o DDD da praça,
 // pra ninguém precisar consultar tabela pra saber de quem é o pano: 62 Goiânia, 61 DF.
 export const PANO_CIDADE: Record<string, { pattern: string; cores: string[]; seed: number }> = {
@@ -48,6 +52,8 @@ assertA2([...HOME_FIELD.cores], "papel", "campo da home");
 assertA2([...TIRA_OS.cores], "navy", "tira RizzoOS");
 assertA2([...PANO_HUB.cores], "papel", "pano do hub /marketing-medico");
 if (!byId(PANO_HUB.pattern)) throw new Error(`pattern fora da biblioteca: ${PANO_HUB.pattern}`);
+assertA2([...PANO_SOBRE.cores], "papel", "pano de /sobre");
+if (!byId(PANO_SOBRE.pattern)) throw new Error(`pattern fora da biblioteca: ${PANO_SOBRE.pattern}`);
 for (const [slug, p] of Object.entries(PANO_MIDIA)) {
   assertA2(p.cores, "papel", `pano da mídia ${slug}`);
   if (!byId(p.pattern)) throw new Error(`pattern fora da biblioteca: ${p.pattern}`);
@@ -86,6 +92,11 @@ export function panoCidade(slug: string): string {
 /** Faixa do hub /marketing-medico (mesmo formato denso das cartas). */
 export function panoHub(): string {
   return pano(PANO_HUB.pattern, [...PANO_HUB.cores], "longe", PANO_HUB.seed, 10, 2);
+}
+
+/** Faixa da página /sobre (mesmo formato denso do hub/cartas). */
+export function panoSobre(): string {
+  return pano(PANO_SOBRE.pattern, [...PANO_SOBRE.cores], "longe", PANO_SOBRE.seed, 10, 2);
 }
 
 /** Tira de trevo amarelo do bloco RizzoOS (sobre navy). */
