@@ -85,8 +85,9 @@ export default function Home() {
           </p>
           <ul className="crencas">
             <li>
-              <b>Ela mostra caso de verdade, com nome e link?</b> Prova social sem nome nem site pra conferir é
-              propaganda, não caso.
+              <b>Ela mostra caso de verdade, com nome e especialidade?</b> Prova social anônima — &ldquo;uma
+              clínica de oftalmologia&rdquo;, sem dizer qual — é propaganda, não caso: nome real é o que você
+              consegue conferir.
             </li>
             <li>
               <b>Ela escreve dentro do CFM sem que você precise pedir?</b> Promessa de resultado e antes-e-depois

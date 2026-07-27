@@ -421,7 +421,8 @@ export const CARTAS: Carta[] = [
 
 /** As 6 mídias da casa — a grade da home. Exclui os recortes de público (eixo "segmento"). */
 export const CARTAS_MIDIA = CARTAS.filter((c) => (c.eixo ?? "midia") === "midia");
-/** Recortes de público que seguem o mesmo esqueleto (hoje: rede hospitalar). */
+/** Recortes de público que seguem o mesmo esqueleto (rede hospitalar · clínicas e consultórios).
+ *  A home NÃO itera sobre esta lista: cada recorte tem parágrafo próprio lá (regra 7 do CLAUDE.md). */
 export const CARTAS_SEGMENTO = CARTAS.filter((c) => c.eixo === "segmento");
 
 export const bySlug = (slug: string) => CARTAS.find((c) => c.slug === slug);
