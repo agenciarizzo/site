@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Site da Agência Rizzo
 
-## Getting Started
+O site público da agência (`agenciarizzo.com.br`) — Next.js, SSG-first, ~zero JS no
+cliente, na Linha Athos.
 
-First, run the development server:
+**Antes de mexer, leia:**
+
+- [`CLAUDE.md`](CLAUDE.md) — as 10 regras da casa que não podem quebrar (tom, panos
+  pelo motor, tipografia, CTA único no WhatsApp, SSG puro, 301 de URL antiga, prova só
+  com nome real).
+- [`AGENTS.md`](AGENTS.md) — esta versão do Next.js tem quebras em relação ao que você
+  provavelmente conhece; a doc que vale é a de `node_modules/next/dist/docs/`.
+- **Fonte da verdade da frente:** repo `agenciarizzo/rizzo-os` →
+  `docs/SITE_MANIFESTO_MAPA.md` (conceito, decisões, medição, roadmap). Em divergência
+  entre qualquer texto daqui e o mapa, **o mapa vence**.
+
+## Como rodar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # servidor de desenvolvimento
+npm run build   # build de produção — valida a regra A2 dos panos (throw em build)
+npm run lint    # eslint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Rode `npm run build` antes de commitar: a validação de cor dos panos e a checagem de
+tipos só acontecem lá.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Como o conteúdo é organizado
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Onde | O que é |
+|---|---|
+| `content/cartas.ts` | O conteúdo editorial por mídia e por recorte de público (`/cartas/<slug>`). |
+| `content/cidades.ts` | As landings de praça, que moram nas URLs antigas com histórico de busca. |
+| `content/clientes.ts` | A prova nominal — só nome que já era público. |
+| `content/rizzoos.ts` | O conteúdo da página da plataforma (`/rizzoos`). |
+| `lib/athos/panos.ts` | Todo pano declarado (pattern + cores + escala + seed). |
+| `lib/athos/athosPatterns.js` | O motor gerativo — **cópia verbatim do rizzo-os, nunca editar aqui**. |
+| `lib/site.ts` | Contatos, `wa()`, flags de indexação e medição, schema da organização. |
+| `next.config.ts` | Os 301 das URLs do site antigo. URL nova ou renomeada entra aqui no mesmo PR. |
+| `public/og/` | As capas de compartilhamento (1200×630), geradas pelo motor da Linha Athos. |
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy: Vercel, automático a partir da `main`. Preview e dev nascem `noindex`; só
+produção indexa.

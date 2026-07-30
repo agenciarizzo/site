@@ -18,11 +18,17 @@ export const metadata: Metadata = {
   description:
     "Há 13 anos cuidamos do marketing de médicos e clínicas. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico.",
   metadataBase: new URL(SITE_URL),
+  // og:image default de todo o site. Sem ela, link colado no WhatsApp saía sem cartão
+  // — e o WhatsApp é o CTA único da casa. A capa é estática (public/og/), gerada pelo
+  // motor da Linha Athos; página que quiser a sua sobrescreve `openGraph` inteiro
+  // (o merge do Next é por objeto, não por campo — repetir type/locale/siteName lá).
   openGraph: {
     type: "website",
     locale: "pt_BR",
     siteName: "Agência Rizzo",
+    images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "Agência Rizzo — marketing médico" }],
   },
+  twitter: { card: "summary_large_image" },
   // Produção indexa; preview e dev nascem noindex (ver INDEXABLE em lib/site.ts).
   robots: { index: INDEXABLE, follow: INDEXABLE },
 };
