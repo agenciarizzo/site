@@ -146,7 +146,7 @@ export default function Home() {
           </p>
           <p>
             Fora dessas praças, o método muda pouco: reunião por vídeo, peça aprovada pelo WhatsApp e relatório
-            dentro do RizzoOS — a mesma rotina de quem está aqui do lado. O que muda de cidade para cidade é o raio
+            dentro do <Link href="/rizzoos">RizzoOS</Link> — a mesma rotina de quem está aqui do lado. O que muda de cidade para cidade é o raio
             do anúncio e o bairro que entra no texto, não o cuidado do trabalho.
           </p>
         </div>

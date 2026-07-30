@@ -22,7 +22,12 @@ export function Header({ waText }: { waText: string }) {
   );
 }
 
-export function OsBlock({ children }: { children: React.ReactNode }) {
+/**
+ * Bloco-âncora do RizzoOS. O link pra /rizzoos é aditivo e vale em toda página que
+ * usa o bloco — `link={false}` só na própria /rizzoos, pra não apontar pra si mesma.
+ * Vai dentro de <b> porque `.os b` é o amarelo sobre navy: é o que dá contraste ali.
+ */
+export function OsBlock({ children, link = true }: { children: React.ReactNode; link?: boolean }) {
   return (
     <div className="os">
       <div className="tira" aria-hidden dangerouslySetInnerHTML={{ __html: panoTiraOs() }} />
@@ -32,6 +37,13 @@ export function OsBlock({ children }: { children: React.ReactNode }) {
           <span className="bold">OS</span> <span className="beta">BETA</span>
         </div>
         <p>{children}</p>
+        {link && (
+          <p>
+            <b>
+              <Link href="/rizzoos">conhecer o RizzoOS &rarr;</Link>
+            </b>
+          </p>
+        )}
       </div>
     </div>
   );
@@ -99,6 +111,8 @@ export function Footer() {
       </div>
       <div className="linha">
         <Link href="/sobre">Sobre</Link>
+        {" · "}
+        <Link href="/rizzoos">RizzoOS</Link>
         {" · "}
         <Link href="/politica-privacidade">Política de privacidade</Link>
         {" · "}
