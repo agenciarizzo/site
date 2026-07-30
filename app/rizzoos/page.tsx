@@ -155,12 +155,16 @@ export default function RizzoOsPage() {
             <ul className="crencas">
               {ADIANTE.map((a) => (
                 <li key={a.t}>
-                  <b>{a.t}</b> <span className="kicker">em construção</span>
+                  {/* `em&nbsp;construção`: o rótulo é mono com letter-spacing e, no
+                      celular, "em construção" quebrava NO MEIO do rótulo ("em" numa
+                      linha, "construção" na outra) — justo o rótulo que carrega a
+                      honestidade do bloco. O nbsp faz o rótulo inteiro descer junto. */}
+                  <b>{a.t}</b> <span className="kicker">em&nbsp;construção</span>
                   <br />
                   {a.lastro}
                   {a.leia && (
                     <>
-                      {" "}
+                      <br />
                       <Link className="ler" href={`/cartas/${a.leia.slug}`}>
                         {a.leia.rotulo} →
                       </Link>

@@ -85,7 +85,10 @@ export const FRENTES: Frente[] = [
     t: "TV e vídeo: a sala de espera vira canal medível",
     d: "A tela da recepção fala com quem já está ali, sentado, esperando por você.",
     itens: [
-      "Canal de TV por um link, sem CMS de terceiro: dezenas de tipos de tela, na vertical e na horizontal.",
+      // Sem contagem: o anexo dizia "dezenas de tipos de slide", mas o código tem 12
+      // (src/lib/tv/types.ts) — "dezenas" seria número sem lastro (régua §19.2, a mesma
+      // que barrou "10 fontes" e "40 packs"). Enumerar o que existe é honesto e mais forte.
+      "Canal de TV por um link, sem CMS de terceiro: texto, foto, vídeo, peça das redes, clima, câmbio, trânsito e notícias — na vertical e na horizontal.",
       "“Mandar pra TV” em um clique, com QR pra quem está esperando.",
       "Ambiente ao vivo na tela: clima, câmbio, trânsito e notícias da região.",
       "Fila e chamada de senha pela mesma tela.",
