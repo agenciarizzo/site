@@ -31,7 +31,7 @@ const FAQ = [
   },
   {
     q: "Qual é o número de contato da Agência Rizzo?",
-    a: `O WhatsApp é ${WHATS_LABEL} — é por ele que toda conversa começa, sem formulário e sem robô.`,
+    a: `O WhatsApp é ${WHATS_LABEL}. Quem prefere já sair com número na mão monta a proposta online, em oito perguntas.`,
   },
   {
     q: "Desde quando a Agência Rizzo existe?",
@@ -152,7 +152,7 @@ export default function SobrePage() {
         </div>
       </article>
 
-      <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA} />
+      <CtaConversa titulo="Quanto custa" acento="para a sua clínica?" />
       </main>
       <FooterMapa atual="/sobre" proxima={["panorama", "clientes"]} />
     </>

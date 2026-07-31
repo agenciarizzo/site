@@ -23,13 +23,13 @@ export default function ContatoPage() {
         <div className="wrap">
           <div className="kicker">Contato · Agência Rizzo</div>
           <h1 className="display">
-            Do outro lado,
+            Vamos montar
             <br />
-            <span className="acento">tem gente.</span>
+            <span className="acento">a sua proposta.</span>
           </h1>
           <p className="lede">
-            Sem formulário, sem robô, sem orçamento automático. Você conta o momento da sua clínica, a gente escuta —
-            e, fazendo sentido pros dois lados, a proposta vem por escrito, transparente.
+            Oito perguntas sobre a sua clínica — especialidade, cidade, o que já existe e o que falta. A proposta
+            chega por escrito, com o preço aberto e sem compromisso.
           </p>
         </div>
       </section>
@@ -45,13 +45,13 @@ export default function ContatoPage() {
             WhatsApp: <b>{WHATS_LABEL}</b>
           </p>
           <p>
-            Não estar na mesma cidade não muda o processo: a conversa começa no WhatsApp do mesmo jeito, esteja
-            você em Anápolis ou em qualquer outro estado.
+            Não estar na mesma cidade não muda o processo: reunião por vídeo, aprovação pelo celular e relatório
+            no RizzoOS — esteja você em Anápolis ou em qualquer outro estado.
           </p>
         </div>
       </article>
 
-      <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA} />
+      <CtaConversa titulo="Vamos montar" acento="a sua proposta?" />
       </main>
       <FooterMapa atual="/contato" proxima={["panorama", "clientes"]} />
     </>

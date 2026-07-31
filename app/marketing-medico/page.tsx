@@ -151,7 +151,7 @@ export default function MarketingMedicoPage() {
         <Fatos />
       </div>
 
-      <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA} />
+      <CtaConversa titulo="Quanto custa" acento="para a sua clínica?" />
       </main>
       <FooterMapa atual="/marketing-medico" proxima={["seo", "clientes"]} />
     </>

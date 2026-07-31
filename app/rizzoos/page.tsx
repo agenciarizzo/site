@@ -200,10 +200,9 @@ export default function RizzoOsPage() {
         </article>
 
         <CtaConversa
-          titulo="Vamos conversar"
-          acento="sobre o que a sua clínica precisa?"
-          waText={WA}
-          sub="Do outro lado tem gente, não robô. A conversa começa pelo seu momento — e o acesso ao RizzoOS vem junto com o trabalho da agência, quando fizer sentido pros dois lados."
+          titulo="Quanto custa"
+          acento="o que a sua clínica precisa?"
+          sub="Oito perguntas sobre a sua clínica, no seu tempo. O acesso ao RizzoOS vem junto com o trabalho da agência, quando fizer sentido pros dois lados."
         />
       </main>
       <FooterMapa atual="/rizzoos" proxima={["panorama", "contato"]} />
