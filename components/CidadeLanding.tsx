@@ -149,6 +149,7 @@ export function CidadeLanding({ c }: { c: Cidade }) {
         </article>
 
         <CtaConversa
+          chave={`/${c.slug}`}
           titulo="Quanto custa"
           acento={`na sua clínica em ${c.cidade}?`}
         />

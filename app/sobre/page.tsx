@@ -152,7 +152,7 @@ export default function SobrePage() {
         </div>
       </article>
 
-      <CtaConversa titulo="Quanto custa" acento="para a sua clínica?" />
+      <CtaConversa chave={"/sobre"} titulo="Quanto custa" acento="para a sua clínica?" />
       </main>
       <FooterMapa atual="/sobre" proxima={["panorama", "clientes"]} />
     </>
