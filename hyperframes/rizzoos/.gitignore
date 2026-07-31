@@ -1,0 +1,5 @@
+# artefatos de revisão e de render — o que fica versionado é a FONTE da composição,
+# os ativos locais (fontes/GSAP) e o MP4 final, que mora em public/video/rizzoos/.
+snapshots/
+renders/
+.hyperframes/
