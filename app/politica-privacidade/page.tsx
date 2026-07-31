@@ -12,7 +12,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MenuTopo, FooterMapa, Band } from "@/components/athos/Athos";
-import { homeJanelas } from "@/lib/athos/panos";
+import { panoPrivacidade } from "@/lib/athos/panos";
 import { ENDERECO, CNPJ, WHATS_LABEL, GA4_ID, META_PIXEL_ID, SITE_URL, wa } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ const WA = "Olá! Tenho uma dúvida sobre privacidade e dados no site da agênci
 const ATUALIZADO = "25 de julho de 2026";
 
 export default function PrivacidadePage() {
-  const [, j2] = homeJanelas();
+  const faixa = panoPrivacidade();
   return (
     <>
       <MenuTopo atual="/politica-privacidade" waText={WA} />
@@ -48,7 +48,7 @@ export default function PrivacidadePage() {
           </div>
         </section>
 
-        <Band html={j2} carta />
+        <Band html={faixa} carta />
 
         <article className="corpo prosa legal">
           <div className="wrap">

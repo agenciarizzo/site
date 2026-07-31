@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MenuTopo, Fatos, CtaConversa, FooterMapa, Band } from "@/components/athos/Athos";
-import { homeJanelas } from "@/lib/athos/panos";
+import { panoClientes } from "@/lib/athos/panos";
 import { CLIENTES } from "@/content/clientes";
 import { getVitrine, imagemUrl, porNome } from "@/lib/showcase";
 import { mockupDe } from "@/lib/mockups";
@@ -17,10 +17,10 @@ export const metadata: Metadata = {
 const WA = "Olá! Vi a página de clientes no site da agência e quero conversar sobre a minha clínica.";
 
 export default async function ClientesPage() {
-  // O campo da home caiu de 3 janelas pra 2 (handoff de navegação, panos.ts) — a
-  // 3ª (j3) que fechava esta página deixou de existir; reaproveita a 2ª (j2), a
-  // mesma janela que /contato e /politica-privacidade já usam.
-  const [, j2] = homeJanelas();
+  // Pano próprio da página (regra "cada peça com o seu pano"): antes esta faixa
+  // era a 2ª janela da home, a MESMA que /contato e /politica-privacidade
+  // mostravam — três páginas com o azulejo de uma quarta.
+  const faixa = panoClientes();
   // Vitrine lida do storage público NO BUILD (nunca do Dropbox, nunca em runtime).
   // Enquanto não houver peça publicada, `itens` vem vazio e a página é a de sempre.
   const { base, itens } = await getVitrine();
@@ -91,7 +91,7 @@ export default async function ClientesPage() {
       </article>
 
       <CtaConversa chave={"/clientes"} titulo="Sua clínica" acento="na próxima lista?" />
-      <Band html={j2} />
+      <Band html={faixa} />
       </main>
       <FooterMapa atual="/clientes" proxima={["panorama", "contato"]} />
     </>
