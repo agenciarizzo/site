@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { panoCarta } from "@/lib/athos/panos";
-import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
+import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import { CARTAS, bySlug } from "@/content/cartas";
 import { SITE_URL } from "@/lib/site";
 
@@ -54,7 +54,7 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Header waText={c.waText} />
+      <MenuTopo atual={`/cartas/${c.slug}`} waText={c.waText} />
 
       <main>
       <section className="hero">
@@ -127,7 +127,7 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
         waText={c.waText}
       />
       </main>
-      <Footer />
+      <FooterMapa atual={`/cartas/${c.slug}`} proxima={["panorama", "contato"]} />
     </>
   );
 }

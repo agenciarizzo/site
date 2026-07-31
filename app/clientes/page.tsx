@@ -1,7 +1,7 @@
 // Clientes — a prova, levinha (SSG puro; nomes já públicos no site atual).
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header, Fatos, CtaConversa, Footer, Band } from "@/components/athos/Athos";
+import { MenuTopo, Fatos, CtaConversa, FooterMapa, Band } from "@/components/athos/Athos";
 import { homeJanelas } from "@/lib/athos/panos";
 import { CLIENTES } from "@/content/clientes";
 import { getVitrine, imagemUrl, porNome } from "@/lib/showcase";
@@ -16,7 +16,10 @@ export const metadata: Metadata = {
 const WA = "Olá! Vi a página de clientes no site da agência e quero conversar sobre a minha clínica.";
 
 export default async function ClientesPage() {
-  const [, , j3] = homeJanelas();
+  // O campo da home caiu de 3 janelas pra 2 (handoff de navegação, panos.ts) — a
+  // 3ª (j3) que fechava esta página deixou de existir; reaproveita a 2ª (j2), a
+  // mesma janela que /contato e /politica-privacidade já usam.
+  const [, j2] = homeJanelas();
   // Vitrine lida do storage público NO BUILD (nunca do Dropbox, nunca em runtime).
   // Enquanto não houver peça publicada, `itens` vem vazio e a página é a de sempre.
   const { base, itens } = await getVitrine();
@@ -25,7 +28,7 @@ export default async function ClientesPage() {
     s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
   return (
     <>
-      <Header waText={WA} />
+      <MenuTopo atual="/clientes" waText={WA} />
       <main>
       <section className="hero">
         <div className="wrap">
@@ -82,9 +85,9 @@ export default async function ClientesPage() {
       </article>
 
       <CtaConversa titulo="Sua clínica" acento="na próxima lista?" waText={WA} />
-      <Band html={j3} />
+      <Band html={j2} />
       </main>
-      <Footer />
+      <FooterMapa atual="/clientes" proxima={["panorama", "contato"]} />
     </>
   );
 }

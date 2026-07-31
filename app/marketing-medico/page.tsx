@@ -5,7 +5,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { panoHub, panoCard } from "@/lib/athos/panos";
-import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
+import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import { CARTAS } from "@/content/cartas";
 import { SITE_URL } from "@/lib/site";
 
@@ -73,7 +73,7 @@ export default function MarketingMedicoPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Header waText={WA} />
+      <MenuTopo atual="/marketing-medico" waText={WA} />
 
       <main>
       <section className="hero">
@@ -153,7 +153,7 @@ export default function MarketingMedicoPage() {
 
       <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA} />
       </main>
-      <Footer />
+      <FooterMapa atual="/marketing-medico" proxima={["seo", "clientes"]} />
     </>
   );
 }

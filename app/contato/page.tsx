@@ -1,6 +1,6 @@
 // Contato — sem formulário: a conversa começa no WhatsApp (decisão do §8 do mapa).
 import type { Metadata } from "next";
-import { Header, CtaConversa, Footer, Band } from "@/components/athos/Athos";
+import { MenuTopo, CtaConversa, FooterMapa, Band } from "@/components/athos/Athos";
 import { homeJanelas } from "@/lib/athos/panos";
 import { ENDERECO, WHATS_LABEL } from "@/lib/site";
 
@@ -17,7 +17,7 @@ export default function ContatoPage() {
   const [, j2] = homeJanelas();
   return (
     <>
-      <Header waText={WA} />
+      <MenuTopo atual="/contato" waText={WA} />
       <main>
       <section className="hero">
         <div className="wrap">
@@ -53,7 +53,7 @@ export default function ContatoPage() {
 
       <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA} />
       </main>
-      <Footer />
+      <FooterMapa atual="/contato" proxima={["panorama", "clientes"]} />
     </>
   );
 }

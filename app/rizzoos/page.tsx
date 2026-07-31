@@ -13,7 +13,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { panoRizzoOs } from "@/lib/athos/panos";
-import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
+import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import { FRENTES, GARANTIAS, ESCALA, ADIANTE } from "@/content/rizzoos";
 import { SITE_URL } from "@/lib/site";
 
@@ -63,7 +63,7 @@ export default function RizzoOsPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Header waText={WA} />
+      <MenuTopo atual="/rizzoos" waText={WA} />
 
       <main>
         <section className="hero">
@@ -206,7 +206,7 @@ export default function RizzoOsPage() {
           sub="Do outro lado tem gente, não robô. A conversa começa pelo seu momento — e o acesso ao RizzoOS vem junto com o trabalho da agência, quando fizer sentido pros dois lados."
         />
       </main>
-      <Footer />
+      <FooterMapa atual="/rizzoos" proxima={["panorama", "contato"]} />
     </>
   );
 }

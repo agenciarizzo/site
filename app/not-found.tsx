@@ -5,7 +5,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { panoHub } from "@/lib/athos/panos";
-import { Band, Header, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
+import { Band, MenuTopo, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 
 export const metadata: Metadata = {
   title: "Página não encontrada",
@@ -17,7 +17,7 @@ const WA = "Olá! Não achei o que procurava no site da agência e quero convers
 export default function NotFound() {
   return (
     <>
-      <Header waText={WA} />
+      <MenuTopo waText={WA} />
 
       <main>
         <section className="hero">
@@ -81,7 +81,7 @@ export default function NotFound() {
 
         <CtaConversa titulo="Prefere ir direto ao ponto?" acento="Chama a gente." waText={WA} />
       </main>
-      <Footer />
+      <FooterMapa proxima={["home", "contato"]} />
     </>
   );
 }

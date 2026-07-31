@@ -3,7 +3,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { homeJanelas, panoCard } from "@/lib/athos/panos";
-import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
+import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import { CARTAS_MIDIA } from "@/content/cartas";
 
 export const metadata: Metadata = {
@@ -16,10 +16,10 @@ export const metadata: Metadata = {
 const WA_HOME = "Olá! Estava no site da agência e quero conversar sobre a minha clínica.";
 
 export default function Home() {
-  const [j1, j2, j3] = homeJanelas();
+  const [j1, j2] = homeJanelas();
   return (
     <>
-      <Header waText={WA_HOME} />
+      <MenuTopo atual="/" waText={WA_HOME} />
 
       <main>
       <section className="hero">
@@ -165,10 +165,8 @@ export default function Home() {
       </div>
 
       <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA_HOME} />
-
-      <Band html={j3} />
       </main>
-      <Footer />
+      <FooterMapa atual="/" proxima={["panorama", "clientes"]} />
     </>
   );
 }
