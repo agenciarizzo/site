@@ -42,6 +42,53 @@ export const metadata: Metadata = {
 
 const WA = "Olá! Vi a página do RizzoOS no site da agência e quero conversar sobre a minha clínica.";
 
+/**
+ * Filme embutido — `<video>` NATIVO, mudo, em loop, com pôster.
+ *
+ * É HTML, não JavaScript: a regra 5 do CLAUDE.md (SSG puro, zero `"use client"`)
+ * continua intacta e a página não vira composição client-side. A fonte das duas
+ * peças vive em `hyperframes/rizzoos/`; o MP4 e o pôster são o que o build serve.
+ *
+ * O vídeo é REDUNDANTE POR DESENHO: tudo que ele encena continua escrito na
+ * página. Quem não o vê — leitor de tela, conexão ruim, `prefers-reduced-motion`,
+ * ou simplesmente quem não dá play — não perde informação nenhuma. Por isso o
+ * `aria-label`, a legenda visível e o `<img>` do pôster (que o CSS troca sozinho
+ * quando o visitante pede menos movimento).
+ *
+ * Mora aqui dentro, e não em `components/`, porque é peça desta página só.
+ */
+function Filme({ nome, titulo, legenda }: { nome: "ciclo" | "travas"; titulo: string; legenda: string }) {
+  const poster = `/video/rizzoos/${nome}.png`;
+  return (
+    <figure className="filme">
+      <video
+        className="filme-anda"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={poster}
+        aria-label={titulo}
+      >
+        {/* `media` na fonte: onde o navegador respeita a seleção por media query, quem
+            pediu menos movimento nem chega a baixar o MP4. Onde não respeita, o CSS
+            ainda troca o vídeo pelo pôster — a trava visual não depende disto. */}
+        <source
+          src={`/video/rizzoos/${nome}.mp4`}
+          type="video/mp4"
+          media="(prefers-reduced-motion: no-preference)"
+        />
+      </video>
+      {/* Pôster estático pra quem pediu `prefers-reduced-motion: reduce`. `next/image`
+          aqui só somaria JavaScript numa imagem que já nasce no tamanho exato. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="filme-parado" src={poster} alt={titulo} width={1280} height={720} />
+      <figcaption>{legenda}</figcaption>
+    </figure>
+  );
+}
+
 export default function RizzoOsPage() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -92,28 +139,40 @@ export default function RizzoOsPage() {
             <p>
               Ele morre no meio do caminho: o post que ficou esperando aprovação num grupo de WhatsApp, o anúncio que
               consumiu a verba num fim de semana sem ninguém olhar, o relatório que chega em PDF semanas depois e não
-              é aberto. Cada pedaço numa ferramenta diferente — e, quando alguma coisa falha, ninguém sabe dizer onde
-              a corrente arrebentou.
+              é aberto.
             </p>
             <p>
               Foi por isso que a agência parou de emendar ferramenta de terceiro e construiu a própria. O RizzoOS não
               é um mural de tarefas: é onde a peça nasce, é aprovada, vai ao ar no horário combinado, vira anúncio e
-              volta como número — com a verificação de CFM feita no caminho, não depois que já era.
+              volta como número — com a verificação de CFM feita no caminho, não depois que já era. E ele não é
+              vitrine: é a mesma ferramenta que a agência usa todo dia pra tocar a própria operação, com cada melhoria
+              registrada numa versão.
             </p>
-            <p>
-              E ele não é vitrine: é a mesma ferramenta que a agência usa todo dia pra tocar a própria operação. Cada
-              melhoria fica registrada numa versão — dá pra ver o que entrou e quando.
-            </p>
+
+            <Filme
+              nome="ciclo"
+              titulo="Uma peça, do combinado ao número: o plano do ano, a aprovação pelo celular, a publicação no horário, o anúncio e o painel."
+              legenda="O caminho de uma peça, do começo ao fim — é este ciclo que acontece dentro da plataforma."
+            />
 
             {FRENTES.map((f) => (
               <section key={f.t}>
                 <h2 className="sec">{f.t}</h2>
                 <p>{f.d}</p>
-                <ul className="crencas">
-                  {f.itens.map((i) => (
-                    <li key={i}>{i}</li>
-                  ))}
-                </ul>
+                {/* O inventário dobra; a linha de resumo e os links de carta NÃO.
+                    `<details>` é HTML nativo (zero JS) e o texto continua no DOM
+                    fechado — o Google lê os 37 marcadores como sempre leu. */}
+                <p className="resumo">{f.resumo}</p>
+                <details className="detalhe">
+                  <summary>
+                    o que já está no ar <i>({f.itens.length} itens)</i>
+                  </summary>
+                  <ul className="crencas">
+                    {f.itens.map((i) => (
+                      <li key={i}>{i}</li>
+                    ))}
+                  </ul>
+                </details>
                 {f.leia?.map((l) => (
                   <p key={l.slug}>
                     <Link className="ler" href={`/cartas/${l.slug}`}>
@@ -129,23 +188,37 @@ export default function RizzoOsPage() {
               Software que publica no lugar de gente precisa errar pouco e, quando errar, errar pro lado seguro. Estas
               travas não dependem de alguém lembrar delas:
             </p>
-            <ul className="crencas">
-              {GARANTIAS.map((g) => (
-                <li key={g.t}>
-                  <b>{g.t}</b> {g.d}
-                </li>
-              ))}
-            </ul>
+
+            <Filme
+              nome="travas"
+              titulo="As cinco travas do sistema: nunca publica em dobro, nunca publica atrasado, legenda vazia não vai ao ar, segredo nunca no navegador, testado antes de subir."
+              legenda="Cinco travas que não dependem de alguém lembrar delas."
+            />
+
+            <details className="detalhe">
+              <summary>
+                o que cada trava faz <i>({GARANTIAS.length} itens)</i>
+              </summary>
+              <ul className="crencas">
+                {GARANTIAS.map((g) => (
+                  <li key={g.t}>
+                    <b>{g.t}</b> {g.d}
+                  </li>
+                ))}
+              </ul>
+            </details>
 
             <h2 className="sec">A escala em que isso roda</h2>
             <p>Não é protótipo rodando numa clínica só:</p>
-            <ul className="crencas">
+            {/* Os 5 números já são curtos: não dobram, viram bloco compacto. */}
+            <div className="escala">
               {ESCALA.map((e) => (
-                <li key={e.n}>
-                  <b>{e.n}</b> {e.d}
-                </li>
+                <div key={e.n}>
+                  <b>{e.n}</b>
+                  <span>{e.d}</span>
+                </div>
               ))}
-            </ul>
+            </div>
 
             <h2 className="sec">O que ainda está em construção</h2>
             <p>
