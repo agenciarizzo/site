@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>O ciclo (vertical) — uma peça, do combinado ao número</title>
+
+    <!-- Runtime e fontes são ARQUIVO LOCAL (scripts/ativos.mjs): render determinístico
+         não busca nada na rede. Tipografia oficial da Linha Athos. -->
+    <link rel="stylesheet" href="assets/fontes.css" />
+    <script src="assets/gsap.min.js"></script>
+
+    <style>
+      /* Tokens da Linha Athos — os mesmos do irmão 16:9 e de app/globals.css do site.
+         SEM navy de fundo (A4) e SEM amarelo #FFD200 (A2: nunca sobre papel). */
+      :root {
+        --papel: #f4efe6;
+        --claro: #fbf9f3;
+        --ink: #16130e;
+        --corpo: #3a3628;
+        --cinza: #323c46;
+        --ouro: #f0a400;
+        --teal: #0097a7;
+        --tealtxt: #007681;
+        --hairline: #e3dcc8;
+        --rejunte: 10px;
+        --margem: 70px;
+
+        /* ============================================================
+           ESCALA DO QUADRO VERTICAL — e por que ela existe
+           ------------------------------------------------------------
+           O 16:9 foi autorado em px soltos (21 · 17 · 13 · 12…), sem
+           relação com a escala do Contrato e sem ninguém medir onde eles
+           aterrissam no olho. Num quadro de 1280 exibido a 315px, o
+           rótulo de 21px chega ao celular como 5,7px: ilegível.
+
+           A régua aqui é aritmética:
+               tamanho na tela = autorado × (largura da caixa ÷ largura do quadro)
+
+           Pior caso de celular: caixa de 315px (viewport 360) num quadro
+           de 1080 → fator 0,2917. Piso de 14px na tela ⇒ NENHUM degrau
+           abaixo de 48px. Todo `font-size` desta composição sai daqui —
+           `scripts/checar-legibilidade.mjs` reprova número solto e
+           reprova degrau abaixo do piso.
+           ============================================================ */
+        --t-titulo: 108px; /* slab display — a abertura            → 31,5px na tela */
+        --t-frase: 62px; /*   slab — a frase do anúncio            → 18,1px */
+        --t-carimbo: 62px; /* mono — o carimbo "aprovado"          → 18,1px */
+        --t-rotulo: 52px; /*  mono — o rótulo do beat              → 15,2px */
+        --t-selo: 50px; /*    mono — os destinos da publicação     → 14,6px */
+        --t-apoio: 48px; /*   mono — mês, nota, chip (O PISO)      → 14,0px */
+
+        --ls-rotulo: 0.18em;
+        --ls-selo: 0.1em;
+        --ls-nota: 0.16em;
+        --lh-titulo: 1.14;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--papel); }
+      body { font-family: "Geist", sans-serif; color: var(--corpo); }
+
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--papel); }
+
+      .cena { position: absolute; inset: 0; }
+      .quadro { position: absolute; inset: 0; }
+      /* O fundo mora num filho full-bleed, nunca no root: o compositor do render
+         pode descartar o background do próprio elemento raiz. */
+      .papel { position: absolute; inset: 0; background: var(--papel); }
+
+      /* rótulo de beat — mono, com a barrinha de ouro da casa */
+      .rotulo {
+        position: absolute; left: var(--margem); bottom: 120px;
+        font-family: "JetBrains Mono", monospace; font-weight: 700;
+        font-size: var(--t-rotulo); letter-spacing: var(--ls-rotulo); text-transform: uppercase;
+        color: var(--tealtxt); white-space: nowrap;
+      }
+      .rotulo i { display: block; width: 52px; height: 8px; background: var(--ouro); margin-bottom: 22px; }
+
+      /* microtexto de apoio */
+      .nota {
+        font-family: "JetBrains Mono", monospace; font-weight: 700;
+        font-size: var(--t-apoio); letter-spacing: var(--ls-nota); text-transform: uppercase; color: var(--cinza);
+      }
+
+      /* ---- peça: SEMPRE um azulejo do motor (nunca desenhado à mão) ---- */
+      .peca { position: absolute; background: var(--claro); border: 2px solid var(--hairline); padding: var(--rejunte); }
+      .peca > div { width: 100%; height: 100%; }
+
+      /* ---- beat 1 — abertura ----
+         É o hero da própria /rizzoos remontado em pé: régua, título e a faixa de
+         azulejo embaixo — a mesma leitura que a página faz no scroll. */
+      .titulo {
+        position: absolute; left: var(--margem); top: 420px; width: 940px;
+        font-family: "Roboto Slab", serif; font-weight: 800;
+        font-size: var(--t-titulo); line-height: var(--lh-titulo); letter-spacing: -0.025em; color: var(--ink);
+      }
+      .titulo span { display: block; }
+      .titulo em { font-style: normal; color: var(--teal); }
+      .regua { position: absolute; left: var(--margem); top: 360px; width: 52px; height: 9px; background: var(--ouro); }
+      .faixa { position: absolute; left: var(--margem); right: var(--margem); top: 1120px; }
+      /* As MESMAS 32 peças do motor que o 16:9 usa em 16 colunas × 2 fileiras, aqui
+         refluídas em 8 × 4 — grade é CSS, não geometria nova (o site já faz isso por
+         breakpoint: 6 · 10 · 16 · 20 colunas). */
+      .faixa [data-pano] {
+        display: grid !important; grid-template-rows: none !important; height: auto !important;
+        gap: var(--rejunte) !important; grid-template-columns: repeat(8, 1fr) !important;
+      }
+      .faixa [data-pano] > div { aspect-ratio: 1; }
+
+      /* ---- beat 2 — o ano ----
+         12 vagas não cabem em pé numa fileira só (o rótulo do mês, no piso de 48px,
+         pede ~106px por mês → 1.278px de fileira). Reorganiza em PILHA: 4 × 3, com o
+         mês embaixo da sua vaga. A grade dos meses é um overlay com as MESMAS linhas
+         e colunas, então cada rótulo cai debaixo do seu azulejo sem cálculo à mão. */
+      .ano {
+        position: absolute; left: var(--margem); top: 760px; width: 940px;
+        display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 283px);
+        gap: 32px 24px;
+      }
+      .ano > .vaga { width: 217px; height: 217px; align-self: start; background: var(--claro); outline: 2px solid var(--hairline); }
+      .ano .dentro, .ano .dentro > div { display: block; width: 100%; height: 100%; }
+      .meses {
+        position: absolute; left: var(--margem); top: 760px; width: 940px;
+        display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 283px);
+        gap: 32px 24px;
+      }
+      .meses > span {
+        width: 217px; align-self: end; text-align: center;
+        font-family: "JetBrains Mono", monospace; font-weight: 700;
+        font-size: var(--t-apoio); letter-spacing: 0.14em; color: var(--cinza);
+      }
+      /* a peça-herói para exatamente onde a cena 3 a mostra dentro do celular */
+      #c2 .peca, #c3 .peca { left: 350px; top: 300px; width: 380px; height: 380px; }
+
+      /* ---- beat 3 — celular ----
+         O aparelho ocupa o quadro em pé (é a leitura natural do formato): a peça mora
+         dentro dele, e carimbo e trilha descem pra baixo do aparelho em vez de ficarem
+         ao lado, como no 16:9. */
+      .fone { position: absolute; left: 280px; top: 200px; width: 520px; height: 920px; border: 5px solid var(--ink); border-radius: 46px; background: var(--claro); }
+      .fone .barra { position: absolute; left: 50%; top: 24px; width: 128px; height: 10px; border-radius: 5px; background: var(--ink); transform: translateX(-50%); opacity: 0.25; }
+      .linhas { position: absolute; left: 350px; top: 780px; width: 380px; }
+      .linhas b { display: block; height: 16px; background: var(--hairline); margin-bottom: 20px; }
+      .linhas b:nth-child(2) { width: 82%; }
+      .linhas b:nth-child(3) { width: 58%; }
+      .carimbo {
+        position: absolute; left: var(--margem); top: 1230px;
+        border: 7px solid var(--teal); color: var(--tealtxt); padding: 20px 40px;
+        font-family: "JetBrains Mono", monospace; font-weight: 700;
+        font-size: var(--t-carimbo); letter-spacing: 0.16em;
+        display: flex; align-items: center; gap: 26px;
+      }
+      .carimbo svg { width: 62px; height: 62px; flex: 0 0 auto; }
+      .trilha { position: absolute; left: var(--margem); top: 1420px; width: 940px; line-height: 1.9; }
+
+      /* ---- beat 4 — horário ----
+         O relógio em cima, os destinos embaixo: a leitura desce, que é como o polegar
+         anda no telefone. Os 8 selos ficam numa coluna só — em duas colunas o rótulo
+         mais longo ("google meu negócio") não caberia sem furar o piso de 48px, e o
+         §7.3 do plano é explícito: agrupar é melhor que cortar destino. */
+      .relogio { position: absolute; left: 100px; top: 210px; width: 300px; height: 300px; border: 8px solid var(--ink); border-radius: 50%; }
+      .relogio i { position: absolute; left: 50%; top: 13px; width: 8px; height: 30px; background: var(--ouro); margin-left: -4px; }
+      .relogio b { position: absolute; left: 50%; bottom: 50%; width: 9px; background: var(--ink); transform-origin: 50% 100%; margin-left: -4.5px; }
+      .relogio .pont { height: 78px; }
+      .relogio .min { height: 114px; }
+      #c4 .peca { left: 560px; top: 260px; width: 200px; height: 200px; }
+      .selos { position: absolute; left: var(--margem); top: 660px; width: 940px; }
+      .selo {
+        display: flex; align-items: center; gap: 26px; height: 96px; padding: 0 34px; margin-bottom: 18px;
+        border: 3px solid var(--hairline); background: var(--claro); color: var(--cinza);
+        font-family: "JetBrains Mono", monospace; font-weight: 700;
+        font-size: var(--t-selo); letter-spacing: var(--ls-selo); white-space: nowrap;
+      }
+      .selo svg { width: 34px; height: 34px; flex: 0 0 auto; }
+
+      /* ---- beat 5 — anúncio ---- */
+      #c5 .peca { left: 350px; top: 300px; width: 380px; height: 380px; }
+      .anuncio { position: absolute; left: var(--margem); top: 780px; width: 940px; }
+      .anuncio .chip {
+        display: inline-block; border: 3px solid var(--cinza); color: var(--cinza); padding: 10px 22px;
+        font-family: "JetBrains Mono", monospace; font-weight: 700;
+        font-size: var(--t-apoio); letter-spacing: 0.18em; text-transform: uppercase;
+      }
+      .anuncio h3 { font-family: "Roboto Slab", serif; font-weight: 800; font-size: var(--t-frase); color: var(--ink); margin: 34px 0 34px; line-height: 1.15; }
+      .anuncio b { display: block; height: 16px; background: var(--hairline); margin-bottom: 20px; }
+      .anuncio b:nth-of-type(2) { width: 72%; }
+      .verba { position: absolute; left: var(--margem); top: 1330px; width: 940px; }
+      .verba .trilho { height: 28px; background: var(--claro); border: 2px solid var(--hairline); position: relative; overflow: hidden; }
+      .verba .cheio { position: absolute; inset: 0; background: var(--ouro); transform-origin: 0 50%; }
+      .verba .nota { display: block; margin-top: 26px; }
+
+      /* ---- beat 6 — o número ---- */
+      .painel { position: absolute; left: var(--margem); top: 520px; width: 940px; background: var(--claro); border: 3px solid var(--hairline); padding: 54px 60px 60px; }
+      .lampadas { display: flex; gap: 24px; margin-bottom: 52px; }
+      .lampadas s { display: block; width: 38px; height: 38px; border-radius: 50%; border: 3px solid var(--hairline); background: transparent; }
+      .barras { display: flex; align-items: flex-end; gap: 26px; height: 560px; }
+      .barras u { display: block; flex: 1; height: 100%; background: var(--cinza); transform-origin: 50% 100%; }
+      .barras u:last-child { background: var(--ouro); }
+    </style>
+  </head>
+
+  <body>
+    <div
+      id="root"
+      data-composition-id="ciclo-v"
+      data-start="0"
+      data-width="1080"
+      data-height="1920"
+      data-duration="19.2"
+      data-fps="30"
+    >
+      <!-- ============ 1 · abertura ============ -->
+      <section class="clip cena" id="c1" data-start="0" data-duration="2.2" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="regua"></div>
+          <h1 class="titulo">
+            <span>Uma peça,</span><span>do combinado</span><span><em>ao número.</em></span>
+          </h1>
+          <div class="faixa"><!--PANO:faixa--><div data-pano="circulo-triangulo·longe·s87354" style="display:grid;grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(2,1fr);width:100%;height:100%;"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:transparent;transform:rotate(270deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:transparent;transform:rotate(180deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:transparent;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:transparent;transform:rotate(180deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:transparent;transform:rotate(180deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></div><!--/PANO:faixa--></div>
+        </div>
+      </section>
+
+      <!-- ============ 2 · o ano ============ -->
+      <section class="clip cena" id="c2" data-start="2.2" data-duration="3.8" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="ano"><!--PANO:ano--><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><!--/PANO:ano--></div>
+          <div class="meses">
+            <span>jan</span><span>fev</span><span>mar</span><span>abr</span><span>mai</span><span>jun</span>
+            <span>jul</span><span>ago</span><span>set</span><span>out</span><span>nov</span><span>dez</span>
+          </div>
+          <div class="peca"><!--PANO:peca--><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><!--/PANO:peca--></div>
+          <div class="rotulo"><i></i>o ano já nasce montado</div>
+        </div>
+      </section>
+
+      <!-- ============ 3 · celular ============ -->
+      <section class="clip cena" id="c3" data-start="6" data-duration="4.2" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="fone"><span class="barra"></span></div>
+          <div class="peca"><!--PANO:peca--><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><!--/PANO:peca--></div>
+          <div class="linhas"><b></b><b></b><b></b></div>
+          <div class="carimbo">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="3.4" stroke-linecap="square" />
+            </svg>
+            aprovado
+          </div>
+          <div class="trilha nota">trilha de auditoria<br />quem aprovou e quando</div>
+          <div class="rotulo"><i></i>aprovado do celular</div>
+        </div>
+      </section>
+
+      <!-- ============ 4 · horário ============ -->
+      <section class="clip cena" id="c4" data-start="10.2" data-duration="3.8" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="relogio"><i></i><b class="pont"></b><b class="min"></b></div>
+          <div class="peca"><!--PANO:peca--><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><!--/PANO:peca--></div>
+          <div class="selos">
+            <div class="selo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="3.6" stroke-linecap="square" />
+              </svg>
+              instagram
+            </div>
+            <div class="selo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="3.6" stroke-linecap="square" />
+              </svg>
+              facebook
+            </div>
+            <div class="selo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="3.6" stroke-linecap="square" />
+              </svg>
+              youtube
+            </div>
+            <div class="selo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="3.6" stroke-linecap="square" />
+              </svg>
+              tiktok
+            </div>
+            <div class="selo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="3.6" stroke-linecap="square" />
+              </svg>
+              linkedin
+            </div>
+            <div class="selo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="3.6" stroke-linecap="square" />
+              </svg>
+              google meu negócio
+            </div>
+            <div class="selo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="3.6" stroke-linecap="square" />
+              </svg>
+              wordpress
+            </div>
+            <div class="selo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="3.6" stroke-linecap="square" />
+              </svg>
+              site
+            </div>
+          </div>
+          <div class="rotulo"><i></i>publica no horário</div>
+        </div>
+      </section>
+
+      <!-- ============ 5 · anúncio ============ -->
+      <section class="clip cena" id="c5" data-start="14" data-duration="3.1" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="peca"><!--PANO:peca--><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><!--/PANO:peca--></div>
+          <div class="anuncio">
+            <span class="chip">patrocinado</span>
+            <h3>A mesma peça, agora anunciando.</h3>
+            <b></b><b></b>
+          </div>
+          <div class="verba">
+            <div class="trilho"><span class="cheio"></span></div>
+            <span class="nota">saldo em tempo real</span>
+          </div>
+          <div class="rotulo"><i></i>vira anúncio</div>
+        </div>
+      </section>
+
+      <!-- ============ 6 · o número ============ -->
+      <section class="clip cena" id="c6" data-start="17.1" data-duration="2.1" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="painel">
+            <div class="lampadas"><s></s><s></s><s></s></div>
+            <div class="barras"><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div>
+          </div>
+          <div class="rotulo"><i></i>e volta como número</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      /* ================================================================
+         O ciclo · VERTICAL · 19,2s · 1080×1920 · 30fps · MUDO.
+
+         REENQUADRAMENTO, não roteiro novo: os MESMOS seis beats do irmão
+         16:9, nos MESMOS tempos de corte (2,2 · 6 · 10,2 · 14 · 17,1),
+         com os mesmos rótulos. O que muda é a arrumação dentro do quadro
+         — cena que não cabe deitada sobe em pilha.
+
+         Corrente do filme: ESQUERDA, como no 16:9. Todo corte é um
+         cut-the-curve na corrente — a cena que sai acelera pra esquerda
+         (power4.in), o corte cai no meio do movimento e a que entra
+         continua a MESMA direção desacelerando (power4.out). A viagem é
+         parcial e proporcional: 130px de 1080 = os mesmos ~12% do quadro
+         que os 154px de 1280 davam no 16:9.
+
+         O CORTE DO LOOP (19,2s → 0s) é o mesmo corte, e é o que manda no
+         desenho da cena 1: no último quadro a cena 6 ainda está viajando,
+         e o quadro 0 precisa ter conteúdo em voo do outro lado. Por isso a
+         cena 1 NÃO começa do zero — as quatro primeiras colunas de azulejo
+         já estão de pé e a primeira linha do título já assentou.
+         ================================================================ */
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const VIAGEM = 130; // ~12% do quadro — viagem parcial, nunca sai de tela
+      const SAI = 0.28;
+      const ENTRA = 0.34;
+      const FIM = 19.2;
+      const COLS = 8; // a faixa reflui em 8 colunas (o 16:9 usa 16)
+      const JA_DE_PE = 4; // colunas de azulejo que o quadro 0 já mostra prontas
+
+      /** Costura de uma cena: entra em voo, sai acelerando. */
+      function costura(id, t0, t1, ultima) {
+        const q = "#" + id + " .quadro";
+        tl.set(q, { x: VIAGEM, opacity: 0.35 }, t0);
+        tl.to(q, { x: 0, opacity: 1, duration: ENTRA, ease: "power4.out" }, t0);
+        tl.to(q, { x: -VIAGEM, duration: SAI, ease: "power4.in" }, t1 - SAI);
+        // No meio do filme a cena morre no corte (a seguinte cobre o quadro).
+        // Na última, a opacidade PARA em 0.35 — o mesmo valor com que a cena 1
+        // nasce em t=0 —, senão o loop pisca papel vazio por dois quadros.
+        tl.to(q, { opacity: ultima ? 0.35 : 0, duration: ultima ? SAI : 0.26, ease: "none" }, t1 - SAI);
+      }
+
+      costura("c1", 0, 2.2);
+      costura("c2", 2.2, 6);
+      costura("c3", 6, 10.2);
+      costura("c4", 10.2, 14);
+      costura("c5", 14, 17.1);
+      costura("c6", 17.1, FIM, true);
+
+      /* ---------- 1 · abertura ----------
+         A onda de azulejo varre da esquerda pra direita (a mesma entrada que a
+         faixa da página faz sozinha no scroll) — só que já pegamos ela em
+         curso. Em cima dela, o resto do título chega em cascata: cada linha
+         parte antes de a anterior assentar. Com 8 colunas em vez de 16, o passo
+         da onda dobra (0,115s) pra ela levar o mesmo tempo de antes. */
+      gsap.set("#c1 .quadro", { x: VIAGEM, opacity: 0.35 });
+      gsap.utils.toArray("#c1 .faixa [data-pano] > div").forEach((peca, i) => {
+        const coluna = i % COLS;
+        if (coluna < JA_DE_PE) {
+          gsap.set(peca, { scale: 1, autoAlpha: 1 }); // já de pé no quadro 0
+          return;
+        }
+        const quando = (coluna - JA_DE_PE) * 0.115;
+        gsap.set(peca, { scale: 0.6, autoAlpha: 0 });
+        tl.set(peca, { scale: 0.6, autoAlpha: 0 }, 0);
+        tl.to(peca, { scale: 1, autoAlpha: 1, duration: 0.42, ease: "power4.out" }, quando);
+      });
+      gsap.set("#c1 .regua", { scaleX: 1, transformOrigin: "0 50%" });
+      gsap.set("#c1 .titulo span:nth-child(1)", { y: 0, autoAlpha: 1 });
+      gsap.set("#c1 .titulo span:nth-child(2), #c1 .titulo span:nth-child(3)", { y: 100, autoAlpha: 0 });
+      tl.set("#c1 .titulo span:nth-child(2), #c1 .titulo span:nth-child(3)", { y: 100, autoAlpha: 0 }, 0);
+      tl.to("#c1 .titulo span:nth-child(2)", { y: 0, autoAlpha: 1, duration: 0.17, ease: "power4.out" }, 0.14);
+      tl.to("#c1 .titulo span:nth-child(3)", { y: 0, autoAlpha: 1, duration: 0.15, ease: "expo.out" }, 0.29);
+
+      /* ---------- 2 · o ano ----------
+         Revelação encenada: as 12 peças do ano caem uma a uma (o ano nasce
+         montado), pausa, e UMA delas cresce — é a peça que o filme inteiro
+         vai seguir. Ela para exatamente no lugar e no tamanho em que a cena 3
+         a mostra dentro do celular: o corte 2→3 é um match cut.
+         A vaga de origem é a 4ª (linha 1, coluna 4): x 793, y 760, lado 217 —
+         daí o deslocamento de +443/+460 e a escala de 217/380. */
+      tl.set("#c2 .ano .dentro", { scale: 0.4, autoAlpha: 0 }, 2.2);
+      tl.to("#c2 .ano .dentro", { scale: 1, autoAlpha: 1, duration: 0.3, ease: "power4.out", stagger: 0.055 }, 2.3);
+      tl.set("#c2 .meses > span", { autoAlpha: 0 }, 2.2);
+      tl.to("#c2 .meses > span", { autoAlpha: 1, duration: 0.24, ease: "none", stagger: 0.055 }, 2.4);
+      // a peça herda o lugar do 4º mês e cresce dali; a grade recua pra 2º plano
+      // no mesmo quadro, senão a peça grande fica disputando espaço com o ano.
+      tl.set("#c2 .peca", { autoAlpha: 0, transformOrigin: "50% 50%", x: 443, y: 460, scale: 0.5711 }, 2.2);
+      tl.set("#c2 .peca", { autoAlpha: 1 }, 4.42);
+      tl.to("#c2 .ano, #c2 .meses", { autoAlpha: 0.32, duration: 0.38, ease: "none" }, 4.42);
+      tl.to("#c2 .peca", { x: 0, y: 0, scale: 1, duration: 0.62, ease: "power4.out" }, 4.42);
+
+      /* ---------- 3 · celular ----------
+         Vida de UI encenada: o cartão desliza pra aprovar, o carimbo bate no
+         mesmo quadro em que o deslize termina (efeito começa no quadro da
+         causa) e só então a linha da trilha de auditoria aparece.
+         O celular e o cartão CHEGAM PRONTOS no corte — a peça é a mesma da
+         cena 2, no mesmo lugar e no mesmo tamanho (match cut). */
+      tl.set("#c3 .linhas b", { scaleX: 0, transformOrigin: "0 50%" }, 6);
+      tl.to("#c3 .linhas b", { scaleX: 1, duration: 0.3, ease: "power4.out", stagger: 0.07 }, 6.34);
+      // o deslize de aprovar — a viagem cabe DENTRO do celular, o cartão nunca
+      // vaza pela borda do aparelho (peça 350→730 num aparelho de 280→800)
+      tl.to("#c3 .peca", { x: 24, rotate: 2.2, duration: 0.34, ease: "power3.in" }, 7.4);
+      tl.to("#c3 .peca", { x: 8, rotate: 0.6, duration: 0.5, ease: "power4.out" }, 7.74);
+      // o carimbo bate no quadro em que o deslize chega ao fim
+      tl.set("#c3 .carimbo", { autoAlpha: 0, scale: 1.7 }, 6);
+      tl.to("#c3 .carimbo", { autoAlpha: 1, scale: 1, duration: 0.26, ease: "power4.out" }, 7.74);
+      tl.set("#c3 .trilha", { autoAlpha: 0, y: 28 }, 6);
+      tl.to("#c3 .trilha", { autoAlpha: 1, y: 0, duration: 0.3, ease: "power4.out" }, 8.34);
+
+      /* ---------- 4 · horário ----------
+         O ponteiro varre até a marca; NO MESMO QUADRO em que ele bate, a peça
+         parte — causa e efeito sem intervalo. Ela desce até encostar na lista e
+         para ali: são os oito destinos que continuam a viagem, acendendo em
+         sequência. Oito selos com o mesmo passo dos três do 16:9 estourariam a
+         cena, então o passo cai de 0,16 pra 0,11 — a sequência inteira leva
+         0,77s e ainda sobra ar antes do corte. */
+      tl.set("#c4 .relogio .pont", { rotate: -104 }, 10.2);
+      tl.set("#c4 .relogio .min", { rotate: -212 }, 10.2);
+      tl.to("#c4 .relogio .min", { rotate: 0, duration: 1.02, ease: "power2.inOut" }, 10.6);
+      tl.to("#c4 .relogio .pont", { rotate: -18, duration: 1.02, ease: "power2.inOut" }, 10.6);
+      // a batida: um pulso curto na marca de ouro
+      tl.set("#c4 .relogio i", { scaleY: 1, transformOrigin: "50% 0%" }, 10.2);
+      tl.to("#c4 .relogio i", { scaleY: 2.1, duration: 0.1, ease: "power4.out" }, 11.62);
+      tl.to("#c4 .relogio i", { scaleY: 1, duration: 0.34, ease: "power4.out" }, 11.72);
+      // e a peça sai no mesmo quadro
+      tl.set("#c4 .peca", { autoAlpha: 0, x: -50 }, 10.2);
+      tl.to("#c4 .peca", { autoAlpha: 1, x: 0, duration: 0.3, ease: "power4.out" }, 10.9);
+      // Ela não some no caminho: encolhe e ENCOSTA na lista. Sumir deixaria um
+      // vazio no meio do quadro justo quando os destinos acendem.
+      tl.to("#c4 .peca", { x: -100, y: 270, scale: 0.62, duration: 0.78, ease: "power3.inOut" }, 11.62);
+      tl.set("#c4 .selo", { autoAlpha: 0, x: 46 }, 10.2);
+      gsap.utils.toArray("#c4 .selo").forEach((selo, i) => {
+        tl.to(selo, { autoAlpha: 1, x: 0, duration: 0.26, ease: "power4.out" }, 12.02 + i * 0.11);
+      });
+      tl.to("#c4 .selo", { borderColor: "#16130E", color: "#16130E", duration: 0.3, ease: "none", stagger: 0.11 }, 12.32);
+
+      /* ---------- 5 · anúncio ----------
+         O anúncio se monta em volta da MESMA peça, e a barra de verba corre
+         depois — sem número em tela (régua §19.2: nada fora das fontes).
+         A peça chega pronta no corte; o anúncio é que se monta em volta dela. */
+      tl.set("#c5 .anuncio > *", { autoAlpha: 0, y: 34 }, 14);
+      tl.to("#c5 .anuncio > *", { autoAlpha: 1, y: 0, duration: 0.28, ease: "power4.out", stagger: 0.08 }, 14.16);
+      tl.set("#c5 .verba", { autoAlpha: 0 }, 14);
+      tl.set("#c5 .verba .cheio", { scaleX: 0 }, 14);
+      tl.to("#c5 .verba", { autoAlpha: 1, duration: 0.22, ease: "none" }, 14.9);
+      tl.to("#c5 .verba .cheio", { scaleX: 0.62, duration: 0.94, ease: "power2.out" }, 15.02);
+
+      /* ---------- 6 · o número ----------
+         Fecho curto: o painel chega, a lâmpada do ritmo acende e as barras
+         sobem. Sem número em tela e sem cor fora da paleta da casa. */
+      tl.to("#c6 .lampadas s:nth-child(1)", { backgroundColor: "#0097A7", borderColor: "#0097A7", duration: 0.16, ease: "none" }, 17.34);
+      tl.to("#c6 .lampadas s:nth-child(2)", { borderColor: "#323C46", duration: 0.16, ease: "none" }, 17.46);
+      tl.to("#c6 .lampadas s:nth-child(3)", { borderColor: "#323C46", duration: 0.16, ease: "none" }, 17.58);
+      tl.set("#c6 .barras u", { scaleY: 0.08 }, 17.1);
+      tl.to(
+        "#c6 .barras u",
+        { scaleY: (i) => [0.3, 0.44, 0.38, 0.6, 0.55, 0.78, 1][i], duration: 0.44, ease: "power4.out", stagger: 0.06 },
+        17.34,
+      );
+
+      window.__timelines["ciclo-v"] = tl;
+    </script>
+  </body>
+</html>

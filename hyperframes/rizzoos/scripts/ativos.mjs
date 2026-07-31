@@ -6,7 +6,7 @@
 //
 //   node scripts/ativos.mjs
 //
-// Gera, em ciclo/assets/ e travas/assets/:
+// Gera, em <projeto>/assets/ dos QUATRO projetos (o par 16:9 e o par 9:16):
 //   gsap.min.js  — runtime de animação (npm gsap@3.14.2, o mesmo pin do scaffold)
 //   fontes.css   — Roboto Slab 800 · Geist 300/400/700 · JetBrains Mono 700,
 //                  subset latin, embutidas em base64 (zero request no render).
@@ -19,7 +19,9 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const RAIZ = dirname(dirname(fileURLToPath(import.meta.url)));
-const PROJETOS = ["ciclo", "travas"];
+// Os quatro: o par 16:9 (desktop) e o par 9:16 (celular). Os assets são os MESMOS
+// bytes nos quatro — a tipografia oficial não muda com a proporção do quadro.
+const PROJETOS = ["ciclo", "travas", "ciclo-v", "travas-v"];
 const GSAP_VERSAO = "3.14.2";
 
 // Só o subset latin: o pt-BR cabe inteiro nele e cada bloco a mais é peso morto.
