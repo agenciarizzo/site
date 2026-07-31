@@ -40,7 +40,15 @@ export const FRENTES: Frente[] = [
       "O calendário do ano já nasce montado na sua marca — banco de pautas, não página em branco.",
       "Aprovação pelo celular: desliza pra aprovar e desenha o ajuste em cima da própria arte.",
       "Refação por IA em um clique, quando o ajuste é de texto ou de imagem.",
-      "Publicação sozinha no Instagram (feed, story, reels e carrossel), no Facebook e no WordPress.",
+      // Os OITO destinos são decisão registrada do dono do produto (plano do tronco
+      // vertical, §1.4): a Fase 1 levantou que só três têm edge function de
+      // publicação hoje (`publish-to-instagram`, `-facebook`, `-wordpress`) e o
+      // cliente autorizou os oito por escrito, assumindo o risco. A condição que veio
+      // junto é esta linha: o filme do beat "publica no horário" mostra os mesmos
+      // oito selos, na mesma ordem — se um dia a lista mudar, ela muda NOS DOIS
+      // (`hyperframes/rizzoos/ciclo-v` e o irmão 16:9). Página que se contradiz é o
+      // defeito a evitar; voltar atrás tem que ser uma edição de copy, não de vídeo.
+      "Publicação sozinha no Instagram (feed, story, reels e carrossel), no Facebook, no YouTube, no TikTok, no LinkedIn, no Google Meu Negócio, no WordPress e no site da nova geração.",
       "Cadência que não empilha dois posts no mesmo dia — e data comemorativa fica no dia dela.",
       "Teleprompter: você grava o vídeo por um link, sem login e sem instalar nada.",
       "Trilha de auditoria: quem aprovou o quê, e quando.",

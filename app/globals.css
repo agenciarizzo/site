@@ -73,6 +73,17 @@
   --mono-2: 0.68rem; /* rótulo de navegação, endereço, linha do rodapé */
   --mono-3: 0.62rem; /* micro: meta de card, legal, "ler" */
 
+  /* Degrau de CELULAR do mono — dois degraus novos, com motivo (a regra 3 do
+     CLAUDE.md permite: "degrau novo só com motivo, declarado no :root").
+     O motivo, medido: a 390px o `summary` que abre o inventário aterrissa a
+     10,88px e o `p.resumo` a 11,52px — abaixo do piso de leitura de 14px que o
+     tronco da /rizzoos vertical fixou pra tipografia de filme. Os dois são texto
+     E controle de toque, então sobem no celular.
+     Sobem SÓ ESTES DOIS: `--mono-1`/`--mono-2` servem as 17 rotas do site, e
+     mexer na escala global é outro tronco, com varredura das 17. */
+  --mono-1-cel: 0.9rem; /* 14,4px — a linha de resumo do inventário */
+  --mono-2-cel: 0.875rem; /* 14px — o controle que abre o inventário */
+
   /* tracking — no e-mail o tamanho quase não muda e é o TRACKING que
      diz o papel do rótulo (3px no eyebrow · 2px no beta · 1,5px no
      cargo · 0,5px no rodapé fino). Mesma ideia aqui. */
@@ -634,6 +645,28 @@ p.resumo {
   letter-spacing: var(--ls-micro);
   color: var(--cinza);
   margin: 0.75rem 0 0.4rem;
+}
+
+/* ============================================================
+   O celular da /rizzoos (tronco "Página RizzoOS vertical")
+   ------------------------------------------------------------
+   O corte é 700px porque acima dele a coluna trava em 691px
+   (medido por CDP) — 700 é o degrau natural, não um número
+   escolhido no olho.
+
+   1. A CAIXA muda de proporção junto com o arquivo: o celular
+      recebe a peça 9:16 e o desktop a 16:9 (`<source media>` no
+      page.tsx). Sem isto a caixa reserva a altura errada e o
+      layout salta quando o vídeo troca.
+   2. Os dois degraus mono do inventário sobem pro piso de 14px
+      (motivo no :root) — e o `summary`, que é controle de toque,
+      ganha alvo maior junto.
+   ============================================================ */
+@media (max-width: 700px) {
+  .filme .filme-anda,
+  .filme .filme-parado { aspect-ratio: 9 / 16; }
+  p.resumo { font-size: var(--mono-1-cel); }
+  .detalhe > summary { font-size: var(--mono-2-cel); padding: 0.7rem 0; }
 }
 
 /* escala — os 5 números num bloco compacto (eles já são curtos; não dobram) */

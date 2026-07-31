@@ -91,7 +91,12 @@ const BLOCOS = {
   malha: () => grade(cheias(20, P.seed + 47), 5),
 };
 
-const ALVOS = ["ciclo/index.html", "travas/index.html"];
+// Os QUATRO projetos: o par 16:9 (desktop) e o par 9:16 (celular). O azulejo é o
+// mesmo nos quatro — mesma peça, mesma seed, mesmo par de cores. O que muda entre
+// as proporções é a GRADE (quantas colunas a faixa mostra), e isso é CSS na
+// composição, não geometria nova: o motor emite as mesmas 32 peças e o quadro
+// vertical as reflui em 8 colunas, como o site já faz por breakpoint.
+const ALVOS = ["ciclo/index.html", "travas/index.html", "ciclo-v/index.html", "travas-v/index.html"];
 let mudou = false;
 
 for (const alvo of ALVOS) {
