@@ -43,47 +43,58 @@ export const metadata: Metadata = {
 const WA = "Olá! Vi a página do RizzoOS no site da agência e quero conversar sobre a minha clínica.";
 
 /**
- * Filme embutido — `<video>` NATIVO, mudo, em loop, com pôster.
+ * Filme embutido — `<video>` NATIVO, mudo, em loop, em DUAS proporções.
  *
  * É HTML, não JavaScript: a regra 5 do CLAUDE.md (SSG puro, zero `"use client"`)
- * continua intacta e a página não vira composição client-side. A fonte das duas
+ * continua intacta e a página não vira composição client-side. A fonte das quatro
  * peças vive em `hyperframes/rizzoos/`; o MP4 e o pôster são o que o build serve.
+ *
+ * CADA TELA RECEBE A PEÇA DESENHADA PRA ELA. O 16:9 no celular era o defeito que
+ * abriu este tronco: a caixa cai pra 315px de largura e tudo dentro do filme
+ * aparece a 0,25× — o rótulo de 21px vira 5,7px, e o filme inteiro vira borrão.
+ * O `<source media>` resolve isso onde tem que ser resolvido, na seleção do
+ * arquivo: **cada visitante baixa UMA peça por filme**, nunca as duas.
  *
  * O vídeo é REDUNDANTE POR DESENHO: tudo que ele encena continua escrito na
  * página. Quem não o vê — leitor de tela, conexão ruim, `prefers-reduced-motion`,
  * ou simplesmente quem não dá play — não perde informação nenhuma. Por isso o
- * `aria-label`, a legenda visível e o `<img>` do pôster (que o CSS troca sozinho
- * quando o visitante pede menos movimento).
+ * `aria-label`, a legenda visível e o `<picture>` do pôster (que o CSS troca
+ * sozinho quando o visitante pede menos movimento).
  *
  * Mora aqui dentro, e não em `components/`, porque é peça desta página só.
  */
 function Filme({ nome, titulo, legenda }: { nome: "ciclo" | "travas"; titulo: string; legenda: string }) {
-  const poster = `/video/rizzoos/${nome}.png`;
+  const base = `/video/rizzoos/${nome}`;
   return (
     <figure className="filme">
-      <video
-        className="filme-anda"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster={poster}
-        aria-label={titulo}
-      >
+      {/* SEM atributo `poster`: ele é único e não varia por media query, então
+          apontá-lo pra qualquer um dos dois formatos (a) deitaria um quadro 16:9
+          dentro da caixa 9:16 do celular e (b) faria o telefone baixar um PNG do
+          formato que ele não usa. Quem carrega o quadro parado é o `<picture>`
+          abaixo, que escolhe a proporção certa e baixa só ela; enquanto o vídeo
+          não pinta, a caixa fica no papel da casa (`background` no globals.css),
+          que é o mesmo fundo dos filmes. */}
+      <video className="filme-anda" autoPlay muted loop playsInline preload="metadata" aria-label={titulo}>
         {/* `media` na fonte: onde o navegador respeita a seleção por media query, quem
             pediu menos movimento nem chega a baixar o MP4. Onde não respeita, o CSS
-            ainda troca o vídeo pelo pôster — a trava visual não depende disto. */}
+            ainda troca o vídeo pelo pôster — a trava visual não depende disto.
+            A ORDEM IMPORTA: o navegador fica na primeira fonte cujo `media` casa,
+            então o recorte de celular vem antes do caso geral. */}
         <source
-          src={`/video/rizzoos/${nome}.mp4`}
+          src={`${base}-v.mp4`}
           type="video/mp4"
-          media="(prefers-reduced-motion: no-preference)"
+          media="(max-width: 700px) and (prefers-reduced-motion: no-preference)"
         />
+        <source src={`${base}.mp4`} type="video/mp4" media="(prefers-reduced-motion: no-preference)" />
       </video>
-      {/* Pôster estático pra quem pediu `prefers-reduced-motion: reduce`. `next/image`
+      {/* Quadro parado pra quem pediu `prefers-reduced-motion: reduce`, na proporção
+          da tela. `<picture>` porque `<img>` escondido por `display:none` ainda é
+          baixado — com `source media` o navegador busca só o que serve. `next/image`
           aqui só somaria JavaScript numa imagem que já nasce no tamanho exato. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="filme-parado" src={poster} alt={titulo} width={1280} height={720} />
+      <picture>
+        <source media="(max-width: 700px)" srcSet={`${base}-v.png`} />
+        <img className="filme-parado" src={`${base}.png`} alt={titulo} width={1280} height={720} />
+      </picture>
       <figcaption>{legenda}</figcaption>
     </figure>
   );
