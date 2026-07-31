@@ -60,9 +60,11 @@
     tiles[i].style.setProperty("--d2", 1000 + passo * 20 + jitter + "ms");
   }
 
+  // Marca ANTES de montar: qualquer bug de replay se auto-limita a 1 — e, se não
+  // dá pra marcar (privado antigo que lê mas não escreve, quota cheia), o "1× pra
+  // sempre" não vale. Cortina que volta toda visita é presença defeituosa: sai.
+  try { ls.setItem(CHAVE, "1"); } catch { return; }
   document.body.appendChild(overlay);
-  // Marca NO INÍCIO da exibição: qualquer bug de replay se auto-limita a 1.
-  try { ls.setItem(CHAVE, "1"); } catch { /* já está no ar; segue */ }
 
   // Overlay preso é o único jeito desta peça quebrar o site — por isso TRÊS
   // saídas: o fim do fade do root, um failsafe de relógio (aba throttled,
