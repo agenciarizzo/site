@@ -387,8 +387,11 @@ footer.mapa .bloco nav h2 {
   margin: 0;
 }
 footer.mapa nav.colunas h2 { margin: 0 0 0.6rem; }
-footer.mapa nav.colunas .cols { columns: 4; column-gap: 1.6rem; font-size: 0.88rem; line-height: 1.85; }
-footer.mapa nav.colunas .cols a { display: block; }
+/* 4 colunas no desktop; coluna mínima de 9rem faz o navegador reduzir a contagem
+   sozinho em tela estreita — com `columns: 4` seco, "Anápolis–GO (sede)" estilhaçava
+   em 3 pedaços a 390px. `break-inside` segura cada link inteiro na sua coluna. */
+footer.mapa nav.colunas .cols { columns: 9rem 4; column-gap: 1.6rem; font-size: 0.88rem; line-height: 1.85; }
+footer.mapa nav.colunas .cols a { display: block; break-inside: avoid; }
 footer.mapa nav.linha { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.1rem; }
 footer.mapa nav.linha h2 { width: 8.5rem; flex: 0 0 auto; }
 footer.mapa nav.linha a { font-size: 0.9rem; }
