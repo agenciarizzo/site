@@ -18,9 +18,21 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    `lib/athos/panos.ts` com pattern + 1–2 cores + escala + seed (A1/A3); **A2 é
    validada em build** (`coresValidas` → throw): amarelo `#FFD200` NUNCA sobre papel;
    fundo navy é EXCLUSIVO do bloco RizzoOS (A4). Azulejo desenhado à mão = violação.
+   **Cada página com o SEU pano, sem repetir** (mesma régua da fila de e-mails —
+   rizzo-os → `ACESSO_MENU_CLIENTE_MAPA.md` §D.7): a distribuição roda de uma vez
+   sobre `ROTAS_COM_PANO` e só repete motivo depois de gastar a biblioteca inteira,
+   e aí com outro par de cores; `trevo` é reservado à tira do bloco RizzoOS e não
+   vira faixa de página. `scripts/checar-panos.mjs` reprova o build no repetido.
 3. **Tipografia oficial:** Roboto Slab (display) · Geist (corpo/UI/wordmarks) ·
    JetBrains Mono (kickers) — via `next/font`, self-hosted. Rockwell só no logo real
    (`public/logo_horizontal.png`). Ink sobre papel `#16130E`; corpo `#3A3628`.
+   **Tamanho e tracking saem da ESCALA** declarada no `:root` do `app/globals.css`
+   (`--slab-*`, `--corpo-*`, `--mono-*`, `--ls-*`, `--lh-*`) — base: a peça
+   Athos·Papel do e-mail (rizzo-os → `COMUNICADO_NOVA_STACK_MAPA.md` §4). Nada de
+   número solto no meio do CSS nem de tipo inline no `.tsx`:
+   `scripts/checar-tipografia.mjs` reprova o build. Degrau novo só com motivo,
+   declarado no `:root`. Teal é acento raro (A11): headline, links e foco — rótulo
+   e kicker são cinza, como o eyebrow do e-mail.
 4. **CTA único = WhatsApp com texto pré-preenchido POR PÁGINA** (`wa()` em
    `lib/site.ts`) — é a atribuição. Sem formulário, sem simulador de proposta.
 5. **SSG puro, zero `"use client"`** salvo necessidade real justificada. Toda página:

@@ -33,6 +33,61 @@
      no WCAG AA (mínimo 4,5:1 pra texto normal). Esta variante rende 4,69:1 e vale
      SÓ pra texto pequeno — display/acentos/bordas/foco continuam no --teal. */
   --teal-texto: #007681;
+
+  /* ============================================================
+     ESCALA TIPOGRÁFICA — base: a peça Athos·Papel do e-mail
+     (rizzo-os → docs/comunicados/2026-07-nova-stack/gerar-email.mjs,
+     spec no COMUNICADO_NOVA_STACK_MAPA.md §4).
+     ------------------------------------------------------------
+     O e-mail é a peça mais disciplinada da linha: ~14 valores de
+     tipo pra 18 papéis. O site tinha 25 tamanhos, 10 letter-spacings
+     e 9 line-heights soltos — mesmo papel escrito de 4 jeitos
+     (título de card em 1,02 · 1,06 · 1,1 · 1,15rem). Aqui o papel
+     escolhe o degrau; ninguém escreve número novo no meio do CSS.
+     `scripts/checar-tipografia.mjs` reprova o build se aparecer
+     tamanho ou tracking fora desta escala.
+
+     As fontes seguem a regra 3 do CLAUDE.md (Roboto Slab · Geist ·
+     JetBrains Mono) e a cor de título continua ink #16130E — o
+     e-mail usa navy porque é peça de caixa de entrada; o mapa
+     (§2, "quase-preto quente, NÃO navy") vence sobre papel.
+     ============================================================ */
+
+  /* display/títulos — Roboto Slab. e-mail: 33 · 21 · 17 · 16px */
+  --slab-1: clamp(2.5rem, 7vw, 4.4rem); /* headline da página (A5) */
+  --slab-2: clamp(1.9rem, 5vw, 2.7rem); /* headline do fecho/CTA */
+  --slab-3: clamp(1.35rem, 3vw, 1.7rem); /* título de seção (barra ouro) */
+  --slab-4: 1.08rem; /* título de card/caixa */
+  --slab-5: 1rem; /* título curto em linha (passo, FAQ, nome) */
+  --wordmark: 1.5rem; /* wordmark RizzoOS — construção oficial (A7) */
+
+  /* corpo — Geist. e-mail: 15 · 14 · 13px, razão ~0,93 entre degraus */
+  --corpo-lede: 1.16rem; /* abre-alas do hero */
+  --corpo-1: 1.0625rem; /* corpo (= os 17px de sempre) */
+  --corpo-2: 0.97rem; /* corpo secundário: caixa, FAQ, passo */
+  --corpo-3: 0.9rem; /* apoio: resumo de card, coluna de rodapé */
+
+  /* kickers e microtexto — JetBrains Mono. e-mail: 15 · 11 · 10 · 9px */
+  --mono-num: 0.94rem; /* o número (item numerado — papel do contrato) */
+  --mono-1: 0.72rem; /* kicker que abre a página (eyebrow) */
+  --mono-2: 0.68rem; /* rótulo de navegação, endereço, linha do rodapé */
+  --mono-3: 0.62rem; /* micro: meta de card, legal, "ler" */
+
+  /* tracking — no e-mail o tamanho quase não muda e é o TRACKING que
+     diz o papel do rótulo (3px no eyebrow · 2px no beta · 1,5px no
+     cargo · 0,5px no rodapé fino). Mesma ideia aqui. */
+  --ls-display: -0.025em; /* headline slab, que fecha */
+  --ls-kicker: 0.28em; /* eyebrow */
+  --ls-rotulo: 0.18em; /* rótulo de seção, beta, "ler" */
+  --ls-nav: 0.12em; /* navegação, cargo, meta */
+  --ls-micro: 0.06em; /* legal, rodapé fino, botão */
+
+  /* entrelinha */
+  --lh-display: 1.06;
+  --lh-titulo: 1.28;
+  --lh-corpo: 1.68;
+  --lh-apoio: 1.55;
+  --lh-lista: 1.85; /* colunas de link do rodapé-mapa */
 }
 
 * { box-sizing: border-box; }
@@ -42,8 +97,8 @@ body {
   background: var(--papel);
   color: var(--corpo);
   font-family: var(--font-geist), "Helvetica Neue", Arial, sans-serif;
-  font-size: 17px;
-  line-height: 1.7;
+  font-size: var(--corpo-1);
+  line-height: var(--lh-corpo);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -134,18 +189,18 @@ body {
 
 .kicker {
   font-family: var(--font-mono), monospace;
-  font-size: 0.72rem;
+  font-size: var(--mono-1);
   font-weight: 700;
-  letter-spacing: 0.32em;
-  color: var(--teal-texto);
+  letter-spacing: var(--ls-kicker);
+  color: var(--cinza);
   text-transform: uppercase;
 }
 
 h1.display {
   font-family: var(--font-slab), Rockwell, Georgia, serif;
-  font-size: clamp(2.5rem, 7vw, 4.4rem);
-  line-height: 1.04;
-  letter-spacing: -0.025em;
+  font-size: var(--slab-1);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
   color: var(--ink);
   font-weight: 800;
   margin: 0;
@@ -154,9 +209,9 @@ h1.display .acento { color: var(--teal); }
 
 h2.sec {
   font-family: var(--font-slab), Rockwell, Georgia, serif;
-  font-size: clamp(1.35rem, 3vw, 1.7rem);
+  font-size: var(--slab-3);
   color: var(--ink);
-  line-height: 1.25;
+  line-height: var(--lh-titulo);
   font-weight: 700;
   margin: 2.6rem 0 0.9rem;
 }
@@ -171,7 +226,7 @@ h2.sec::before {
 
 .prosa p { margin: 0 0 1.05rem; }
 .prosa b, .prosa strong { color: var(--ink); font-weight: 700; }
-.lede { font-size: 1.16rem; font-weight: 300; }
+.lede { font-size: var(--corpo-lede); font-weight: 300; }
 
 ul.crencas { list-style: none; margin: 1.4rem 0 0.4rem; padding: 0; }
 ul.crencas li { position: relative; padding: 0.45rem 0 0.45rem 1.6rem; }
@@ -193,12 +248,12 @@ ul.crencas b { color: var(--ink); }
   font-family: var(--font-mono), monospace;
   font-weight: 700;
   color: var(--ouro);
-  font-size: 0.95rem;
+  font-size: var(--mono-num);
   padding-top: 0.15rem;
   min-width: 2.1rem;
 }
-.passo h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: 1.02rem; margin: 0 0 0.15rem; }
-.passo p { margin: 0; font-size: 0.98rem; }
+.passo h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: var(--slab-5); margin: 0 0 0.15rem; }
+.passo p { margin: 0; font-size: var(--corpo-2); }
 
 /* grid de mídias (home) */
 .cartas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin: 1.6rem 0 0; }
@@ -215,10 +270,10 @@ a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(2
 /* topo do card: 1 fileira inteira (altura automática — nada de corte) */
 .card-pano { overflow: hidden; overflow: clip; border-bottom: 1px solid var(--hairline); padding: var(--rejunte); background: var(--papel); }
 .card-body { padding: 1.1rem 1.3rem; display: flex; flex-direction: column; gap: 0.45rem; flex: 1; }
-.carta-num { font-family: var(--font-mono), monospace; font-weight: 700; color: var(--ouro); font-size: 0.95rem; }
-.carta-card h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: 1.06rem; line-height: 1.3; margin: 0; }
-.carta-card p { font-size: 0.92rem; line-height: 1.55; margin: 0; }
-.ler { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.18em; color: var(--teal-texto); margin-top: auto; padding-top: 0.6rem; text-transform: uppercase; }
+.carta-num { font-family: var(--font-mono), monospace; font-weight: 700; color: var(--ouro); font-size: var(--mono-num); }
+.carta-card h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: var(--slab-4); line-height: var(--lh-titulo); margin: 0; }
+.carta-card p { font-size: var(--corpo-3); line-height: var(--lh-apoio); margin: 0; }
+.ler { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-rotulo); color: var(--teal-texto); margin-top: auto; padding-top: 0.6rem; text-transform: uppercase; }
 
 /* bloco RizzoOS (fundo navy é EXCLUSIVO deste registro — A4) */
 .os { background: var(--navy); color: var(--papel); margin: 3rem 0; }
@@ -226,37 +281,37 @@ a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(2
 .os .inner { padding: 2rem 2.2rem 2.4rem; }
 .os .wordmark {
   font-family: var(--font-geist), Arial, sans-serif;
-  font-size: 1.5rem;
+  font-size: var(--wordmark);
   border-left: 5px solid var(--amarelo);
   padding-left: 0.8rem;
   line-height: 1;
 }
 .os .wordmark .light { font-weight: 300; }
 .os .wordmark .bold { font-weight: 800; color: var(--amarelo); }
-.os .wordmark .beta { font-family: var(--font-mono), monospace; font-size: 0.6rem; letter-spacing: 0.2em; opacity: 0.75; }
+.os .wordmark .beta { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-rotulo); opacity: 0.75; }
 .os p { margin: 1.1rem 0 0; }
 .os b { color: var(--amarelo); font-weight: 700; }
 
 /* caixa "quando não contratar" */
 .franqueza { border: 2px solid var(--navy); background: #fff; padding: 1.5rem 1.7rem; margin: 2.4rem 0 0; }
-.franqueza h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); margin: 0 0 0.6rem; font-size: 1.15rem; }
-.franqueza p { font-size: 0.98rem; margin: 0 0 0.7rem; }
+.franqueza h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); margin: 0 0 0.6rem; font-size: var(--slab-4); }
+.franqueza p { font-size: var(--corpo-2); margin: 0 0 0.7rem; }
 .franqueza p:last-child { margin-bottom: 0; }
 
 /* FAQ */
 .faq { margin: 0.6rem 0 0; }
 .faq details { border-top: 1px solid #dfd8c3; padding: 0.85rem 0; }
 .faq details:last-child { border-bottom: 1px solid #dfd8c3; }
-.faq summary { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); cursor: pointer; font-size: 1rem; }
+.faq summary { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); cursor: pointer; font-size: var(--slab-5); }
 /* As perguntas da rede hospitalar são a busca literal de quem pergunta (minúscula
    inclusive). O dado fica byte-exato pro JSON-LD; a maiúscula é só de apresentação. */
 .faq summary::first-letter { text-transform: uppercase; }
-.faq details p { margin: 0.6rem 0 0; font-size: 0.97rem; }
+.faq details p { margin: 0.6rem 0 0; font-size: var(--corpo-2); }
 
 .fatos {
   font-family: var(--font-mono), monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
+  font-size: var(--mono-2);
+  letter-spacing: var(--ls-nav);
   color: var(--cinza);
   border-top: 1px solid #dfd8c3;
   border-bottom: 1px solid #dfd8c3;
@@ -298,10 +353,10 @@ a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(2
 
 .cta h2 {
   font-family: var(--font-slab), Rockwell, Georgia, serif;
-  font-size: clamp(1.9rem, 5vw, 2.7rem);
+  font-size: var(--slab-2);
   color: var(--ink);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: var(--lh-display);
   margin: 0;
 }
 .cta h2::before { content: ""; display: block; width: 26px; height: 4px; background: var(--ouro); margin: 0 auto 0.9rem; }
@@ -312,21 +367,21 @@ a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(2
   color: var(--amarelo);
   font-family: var(--font-geist), Arial, sans-serif;
   font-weight: 700;
-  font-size: 1.02rem;
-  letter-spacing: 0.03em;
+  font-size: var(--corpo-1);
+  letter-spacing: var(--ls-micro);
   text-decoration: none;
   padding: 1.05rem 2.2rem;
   border-radius: 10px;
   margin-top: 1.6rem;
 }
 .btn-wa:hover { background: #1a2742; }
-.cta .sub { font-size: 0.98rem; margin: 1rem auto 0; color: var(--corpo); max-width: 30rem; }
+.cta .sub { font-size: var(--corpo-2); margin: 1rem auto 0; color: var(--corpo); max-width: 30rem; }
 
 /* assinatura "quem assina" — hoje só na /sobre (saiu do CTA por decisão do dono) */
 .assin { display: flex; align-items: center; gap: 1rem; justify-content: center; margin-top: 2.2rem; }
 .assin img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--ouro); object-fit: cover; }
 .assin .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); text-align: left; }
-.assin .cargo { font-family: var(--font-mono), monospace; font-size: 0.66rem; letter-spacing: 0.14em; color: var(--cinza); margin-top: 3px; }
+.assin .cargo { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-nav); color: var(--cinza); margin-top: 3px; }
 
 
 /* header/footer */
@@ -334,8 +389,8 @@ header.topo { display: flex; align-items: center; justify-content: space-between
 header.topo img { height: 30px; width: auto; display: block; }
 .top-wa {
   font-family: var(--font-mono), monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  font-size: var(--mono-2);
+  letter-spacing: var(--ls-nav);
   color: var(--navy);
   text-decoration: none;
   border-bottom: 2px solid var(--ouro);
@@ -343,11 +398,11 @@ header.topo img { height: 30px; width: auto; display: block; }
 }
 footer.fim { text-align: center; padding: 1.8rem 1.4rem 2.6rem; }
 footer.fim a { color: var(--teal-texto); text-decoration: none; }
-.wm { font-family: var(--font-geist), Arial, sans-serif; font-size: 1.02rem; color: var(--corpo); margin-bottom: 0.7rem; }
+.wm { font-family: var(--font-geist), Arial, sans-serif; font-size: var(--corpo-1); color: var(--corpo); margin-bottom: 0.7rem; }
 .wm .light { font-weight: 300; }
 .wm .bar { color: var(--amarelo); font-weight: 900; margin: 0 0.18rem; }
 .wm b { font-weight: 700; color: var(--ink); }
-footer.fim .linha { font-family: var(--font-mono), monospace; font-size: 0.68rem; letter-spacing: 0.08em; margin-top: 0.5rem; color: var(--cinza); }
+footer.fim .linha { font-family: var(--font-mono), monospace; font-size: var(--mono-2); letter-spacing: var(--ls-micro); margin-top: 0.5rem; color: var(--cinza); }
 
 .hero { padding: 3.2rem 0 3rem; }
 .hero .kicker { margin-bottom: 1.2rem; }
@@ -357,8 +412,8 @@ article.corpo { padding: 2.6rem 0 3rem; }
 /* clientes */
 .clientes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.9rem; margin: 1.8rem 0 0; }
 .cliente { background: var(--claro); border: 1px solid var(--hairline); padding: 1rem 1.1rem; }
-.cliente .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); font-size: 0.98rem; }
-.cliente .meta { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--cinza); margin-top: 0.35rem; text-transform: uppercase; }
+.cliente .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); font-size: var(--slab-5); }
+.cliente .meta { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-nav); color: var(--cinza); margin-top: 0.35rem; text-transform: uppercase; }
 .cliente.com-peca { padding: 0; overflow: hidden; }
 .cliente.com-peca .nome { padding: 0.9rem 1.1rem 0; }
 .cliente.com-peca .meta { padding: 0 1.1rem 1rem; margin-top: 0.3rem; }
@@ -369,15 +424,15 @@ article.corpo { padding: 2.6rem 0 3rem; }
 .prova-grupo { background: var(--claro); border: 1px solid var(--hairline); padding: 1rem 1.15rem; }
 .prova-grupo h3 {
   font-family: var(--font-mono), monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-rotulo);
   text-transform: uppercase;
   color: var(--cinza);
   margin: 0 0 0.55rem;
   font-weight: 700;
 }
 .prova-grupo ul { list-style: none; margin: 0; padding: 0; }
-.prova-grupo li { font-size: 0.95rem; line-height: 1.5; padding: 0.14rem 0; color: var(--ink); }
+.prova-grupo li { font-size: var(--corpo-2); line-height: var(--lh-apoio); padding: 0.14rem 0; color: var(--ink); }
 .prova-grupo a { color: var(--teal-texto); text-decoration: none; border-bottom: 1px solid var(--hairline); }
 .prova-grupo a:hover { border-bottom-color: var(--teal); }
 
@@ -385,7 +440,7 @@ article.corpo { padding: 2.6rem 0 3rem; }
 .legal .legal-h3 {
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   color: var(--ink);
-  font-size: 1.02rem;
+  font-size: var(--slab-5);
   font-weight: 700;
   margin: 1.6rem 0 0.4rem;
 }
@@ -418,8 +473,8 @@ header.topo.menu { border-bottom: 1px solid var(--hairline); padding: 1.3rem 1.4
 header.topo.menu nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem 1.5rem; }
 header.topo.menu nav a {
   font-family: var(--font-mono), monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
+  font-size: var(--mono-2);
+  letter-spacing: var(--ls-nav);
   text-transform: uppercase;
   text-decoration: none;
   padding-bottom: 3px;
@@ -435,10 +490,10 @@ footer.mapa .leitura { border-top: 1px solid var(--hairline); padding: 2.4rem 1.
 footer.mapa .leitura .inner { max-width: 72rem; margin: 0 auto; }
 footer.mapa .leitura h2 {
   font-family: var(--font-mono), monospace;
-  font-size: 0.64rem;
-  letter-spacing: 0.2em;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-rotulo);
   text-transform: uppercase;
-  color: var(--teal-texto);
+  color: var(--cinza);
   font-weight: 700;
   margin: 0 0 1.1rem;
 }
@@ -453,9 +508,9 @@ footer.mapa a.prox {
   transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
 }
 footer.mapa a.prox:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(22, 19, 14, 0.1); }
-footer.mapa a.prox .kick { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ouro); margin-bottom: 0.5rem; }
-footer.mapa a.prox h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: 1.1rem; margin: 0 0 0.35rem; }
-footer.mapa a.prox p { font-size: 0.92rem; line-height: 1.55; margin: 0; }
+footer.mapa a.prox .kick { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-rotulo); text-transform: uppercase; color: var(--ouro); margin-bottom: 0.5rem; }
+footer.mapa a.prox h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: var(--slab-4); margin: 0 0 0.35rem; }
+footer.mapa a.prox p { font-size: var(--corpo-3); line-height: var(--lh-apoio); margin: 0; }
 
 /* rodapé-mapa · faixa 2 — bloco cinza (fecho do site; sem pano) */
 footer.mapa .bloco { background: var(--cinza); padding: 1.9rem 1.4rem 1.5rem; }
@@ -473,11 +528,11 @@ footer.mapa .identidade {
   border-bottom: 1px solid #46505a;
 }
 footer.mapa .identidade img { height: 26px; width: auto; display: block; }
-footer.mapa .identidade address { font-style: normal; font-family: var(--font-mono), monospace; font-size: 0.68rem; letter-spacing: 0.06em; color: #c6ccd2; }
+footer.mapa .identidade address { font-style: normal; font-family: var(--font-mono), monospace; font-size: var(--mono-2); letter-spacing: var(--ls-micro); color: #c6ccd2; }
 footer.mapa a.zap {
   font-family: var(--font-mono), monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
+  font-size: var(--mono-2);
+  letter-spacing: var(--ls-nav);
   text-transform: uppercase;
   font-weight: 700;
   background: var(--amarelo);
@@ -487,8 +542,8 @@ footer.mapa a.zap {
 footer.mapa a.zap:hover { background: #ffe45c; color: var(--navy); }
 footer.mapa .bloco nav h2 {
   font-family: var(--font-mono), monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-rotulo);
   text-transform: uppercase;
   color: var(--amarelo);
   font-weight: 700;
@@ -498,11 +553,11 @@ footer.mapa nav.colunas h2 { margin: 0 0 0.6rem; }
 /* 4 colunas no desktop; coluna mínima de 9rem faz o navegador reduzir a contagem
    sozinho em tela estreita — com `columns: 4` seco, "Anápolis–GO (sede)" estilhaçava
    em 3 pedaços a 390px. `break-inside` segura cada link inteiro na sua coluna. */
-footer.mapa nav.colunas .cols { columns: 9rem 4; column-gap: 1.6rem; font-size: 0.88rem; line-height: 1.85; }
+footer.mapa nav.colunas .cols { columns: 9rem 4; column-gap: 1.6rem; font-size: var(--corpo-3); line-height: var(--lh-lista); }
 footer.mapa nav.colunas .cols a { display: block; break-inside: avoid; }
 footer.mapa nav.linha { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.1rem; }
 footer.mapa nav.linha h2 { width: 8.5rem; flex: 0 0 auto; }
-footer.mapa nav.linha a { font-size: 0.9rem; }
+footer.mapa nav.linha a { font-size: var(--corpo-3); }
 footer.mapa .legal {
   padding-top: 0.9rem;
   border-top: 1px solid #46505a;
@@ -511,8 +566,8 @@ footer.mapa .legal {
   justify-content: space-between;
   gap: 0.5rem 1.4rem;
   font-family: var(--font-mono), monospace;
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-micro);
   color: #9aa3ac;
 }
 footer.mapa .legal .links { display: flex; flex-wrap: wrap; gap: 1.2rem; }
