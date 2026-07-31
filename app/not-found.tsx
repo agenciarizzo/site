@@ -79,7 +79,7 @@ export default function NotFound() {
           </div>
         </article>
 
-        <CtaConversa titulo="Prefere ir direto ao ponto?" acento="Chama a gente." waText={WA} />
+        <CtaConversa titulo="Não achou o que queria?" acento="Monte a sua proposta." />
       </main>
       <FooterMapa proxima={["home", "contato"]} />
     </>

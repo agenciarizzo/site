@@ -149,9 +149,8 @@ export function CidadeLanding({ c }: { c: Cidade }) {
         </article>
 
         <CtaConversa
-          titulo="Vamos conversar sobre"
-          acento={`a sua clínica em ${c.cidade}?`}
-          waText={c.waText}
+          titulo="Quanto custa"
+          acento={`na sua clínica em ${c.cidade}?`}
         />
       </main>
       <FooterMapa

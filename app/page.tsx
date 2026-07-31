@@ -40,7 +40,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Band html={j1} total={2} />
+      <Band html={j1} />
 
       <article className="corpo prosa">
         <div className="wrap">
@@ -152,7 +152,7 @@ export default function Home() {
         </div>
       </article>
 
-      <Band html={j2} janela={1} total={2} />
+      <Band html={j2} />
 
       <div className="wrap">
         <OsBlock>
@@ -164,7 +164,7 @@ export default function Home() {
         <Fatos />
       </div>
 
-      <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA_HOME} />
+      <CtaConversa titulo="Quanto custa" acento="para a sua clínica?" />
       </main>
       <FooterMapa atual="/" proxima={["panorama", "clientes"]} />
     </>

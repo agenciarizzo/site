@@ -90,7 +90,7 @@ export default async function ClientesPage() {
         </div>
       </article>
 
-      <CtaConversa titulo="Sua clínica" acento="na próxima lista?" waText={WA} />
+      <CtaConversa titulo="Sua clínica" acento="na próxima lista?" />
       <Band html={j2} />
       </main>
       <FooterMapa atual="/clientes" proxima={["panorama", "contato"]} />

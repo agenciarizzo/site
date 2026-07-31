@@ -42,10 +42,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <Medicao />
         {children}
-        {/* Pano vivo (Contrato Athos): sorteia o pano da visita e anima os azulejos.
-            Módulo estático em public/ — sem "use client", sem hidratação; se não
-            carregar, fica o pano-assinatura do servidor. */}
-        <script type="module" src="/athos/vivo.js" />
       </body>
     </html>
   );

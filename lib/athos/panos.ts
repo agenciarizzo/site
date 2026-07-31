@@ -1,119 +1,106 @@
 // Panos do site — TODOS gerados pelo motor oficial (lib/athos/athosPatterns.js,
-// cópia verbatim do rizzo-os). Regra A1: pano nomeado = pattern + 1–2 cores +
-// escala + seed; ninguém desenha azulejo à mão. A2 é validada em BUILD (throw).
-// Fonte da verdade da frente: rizzo-os → docs/SITE_MANIFESTO_MAPA.md (§2).
-// Contrato hardcodado no repo: content/athos-contract.json (A1–A11 + paleta + escalas).
-import { pano, panoContinuo, coresValidas, byId } from "./athosPatterns";
+// cópia verbatim do rizzo-os). Contrato da linha: content/athos-contract.json.
+//
+// NADA DE TABELA À MÃO (decisão do dono, 2026-07-31). Antes existia um registro
+// com pattern+cores+seed escritos um a um por página; agora a escolha é DERIVADA
+// da própria chave da página pelo motor: mesma rota → mesmo pano (o site não
+// muda a cada visita — ninguém fica dando reload), rotas diferentes → panos
+// diferentes, e página nova nasce com pano sem ninguém escolher nada.
+//
+// A2 continua sendo lei e é validada em build: amarelo #FFD200 nunca sobre papel;
+// fundo navy é exclusivo do bloco RizzoOS.
+import { pano, PATTERNS, coresValidas, byId } from "./athosPatterns";
 
 export const NAVY = "#0F172A";
 export const TEAL = "#0097A7";
 export const CINZA = "#323C46";
 export const OURO = "#F0A400";
+export const TANGERINA = "#E8930A";
 export const AMARELO = "#FFD200"; // A2: só sobre navy
 export const PAPEL = "#F4EFE6";
 export const INK = "#16130E";
 
-// Campo contínuo da HOME: 2 janelas do MESMO pano (hero + pós-corpo). Eram 3; o
-// handoff de navegação revogou a 3ª (pós-CTA) — "não voltar atrás".
-export const HOME_FIELD = { pattern: "virgula", cores: [TEAL, OURO], escala: "longe", seed: 2012, cols: 10, rows: 2, laminas: 2 } as const;
+/**
+ * Pares de cor válidos SOBRE PAPEL (zero amarelo — A2), na proporção da casa
+ * (A11: o escuro é o que mais aparece, o ouro tempera, o teal é o mais raro).
+ * A repetição do escuro É a proporção — não é descuido.
+ */
+const PARES_PAPEL: string[][] = [
+  [CINZA, OURO],
+  [NAVY, OURO],
+  [CINZA, TEAL],
+  [CINZA, OURO],
+  [NAVY, TANGERINA],
+  [NAVY, TEAL],
+  [CINZA, TANGERINA],
+  [NAVY, OURO],
+  [OURO, TEAL],
+  [CINZA, TEAL],
+];
 
-// Pano-assinatura por mídia (mesmos seeds do protótipo v4 — card da home = faixa da carta).
-export const PANO_MIDIA: Record<string, { pattern: string; cores: string[]; seed: number }> = {
-  "site-seo": { pattern: "triangulo", cores: [OURO, TEAL], seed: 101 },
-  "google-ads": { pattern: "concentricos", cores: [NAVY, OURO], seed: 102 },
-  "meta-ads": { pattern: "elos", cores: [TEAL], seed: 103 },
-  "redes-sociais": { pattern: "reta", cores: [NAVY, OURO], seed: 104 },
-  video: { pattern: "ventania", cores: [NAVY], seed: 105 },
-  "tv-corporativa": { pattern: "quarto", cores: [TEAL, OURO], seed: 106 },
-  // Recortes de público (eixo "segmento"), não mídia — mas usam a mesma mecânica de pano.
-  "rede-hospitalar": { pattern: "circulo-triangulo", cores: [NAVY, TEAL], seed: 107 },
-  "clinicas-e-consultorios": { pattern: "anel", cores: [TEAL, CINZA], seed: 108 },
-};
+/** Hash estável de string → inteiro (FNV-1a). Mesma chave, mesmo pano, sempre. */
+function hash(chave: string): number {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < chave.length; i++) {
+    h ^= chave.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h >>> 0;
+}
 
-export const TIRA_OS = { pattern: "trevo", cores: [AMARELO], escala: "longe", seed: 907, cols: 12, rows: 1 } as const;
+/** pattern + cores + seed de uma chave (rota, slug, nome de bloco). */
+export function panoDe(chave: string): { pattern: string; cores: string[]; seed: number } {
+  const h = hash(chave);
+  const ids = PATTERNS.map((p) => p.id);
+  const pattern = ids[h % ids.length];
+  const cores = PARES_PAPEL[(h >>> 8) % PARES_PAPEL.length];
+  const max = byId(pattern)?.maxCores ?? 2;
+  return { pattern, cores: cores.slice(0, max), seed: (h >>> 3) % 99991 };
+}
 
-// Pano-assinatura do hub /marketing-medico (índice de todas as cartas).
-export const PANO_HUB = { pattern: "arco", cores: [CINZA, OURO], seed: 100 } as const;
-
-// Pano-assinatura da página institucional /sobre — pattern "deco" (não usado em
-// nenhum outro pano da casa), navy sólido sobre papel, seed 109 na sequência do hub.
-export const PANO_SOBRE = { pattern: "deco", cores: [NAVY], seed: 109 } as const;
-
-// Pano-assinatura da página /rizzoos — pattern "disco" (o ponto centrado; nenhum outro
-// pano da casa o usa), navy + teal sobre papel, seed 110 na sequência do /sobre.
-// O navy aqui é MOTIVO sobre papel: fundo navy segue exclusivo do bloco RizzoOS (A4).
-export const PANO_RIZZOOS = { pattern: "disco", cores: [NAVY, TEAL], seed: 110 } as const;
-
-// Pano-assinatura por CIDADE (landings do §14.3, fatias 2 e 3). Seed = o DDD da praça,
-// pra ninguém precisar consultar tabela pra saber de quem é o pano: 62 Goiânia, 61 DF.
-export const PANO_CIDADE: Record<string, { pattern: string; cores: string[]; seed: number }> = {
-  "marketing-medico-goiania": { pattern: "meia-lua", cores: [TEAL, OURO], seed: 62 },
-  "marketing-medico-brasilia": { pattern: "leque", cores: [NAVY, OURO], seed: 61 },
-};
-
-// A2 vira erro de build — nunca chega em produção pano fora do contrato.
-function assertA2(cores: string[], fundo: "papel" | "navy", onde: string) {
+// A2 vira erro de build.
+export function assertA2(cores: string[], fundo: "papel" | "navy", onde: string) {
   if (!coresValidas(cores, fundo)) throw new Error(`A2 violada em ${onde}`);
 }
-assertA2([...HOME_FIELD.cores], "papel", "campo da home");
+for (const par of PARES_PAPEL) assertA2(par, "papel", `par de cor ${par.join("+")}`);
+
+// Tira do bloco RizzoOS: única assinatura fixa que sobra — amarelo sobre navy
+// (A2 exige o fundo escuro) e é marca do bloco, não faixa de página.
+export const TIRA_OS = { pattern: "trevo", cores: [AMARELO], escala: "longe", seed: 907, cols: 12, rows: 1 } as const;
 assertA2([...TIRA_OS.cores], "navy", "tira RizzoOS");
-assertA2([...PANO_HUB.cores], "papel", "pano do hub /marketing-medico");
-if (!byId(PANO_HUB.pattern)) throw new Error(`pattern fora da biblioteca: ${PANO_HUB.pattern}`);
-assertA2([...PANO_SOBRE.cores], "papel", "pano de /sobre");
-if (!byId(PANO_SOBRE.pattern)) throw new Error(`pattern fora da biblioteca: ${PANO_SOBRE.pattern}`);
-assertA2([...PANO_RIZZOOS.cores], "papel", "pano de /rizzoos");
-if (!byId(PANO_RIZZOOS.pattern)) throw new Error(`pattern fora da biblioteca: ${PANO_RIZZOOS.pattern}`);
-for (const [slug, p] of Object.entries(PANO_MIDIA)) {
-  assertA2(p.cores, "papel", `pano da mídia ${slug}`);
-  if (!byId(p.pattern)) throw new Error(`pattern fora da biblioteca: ${p.pattern}`);
-}
-for (const [slug, p] of Object.entries(PANO_CIDADE)) {
-  assertA2(p.cores, "papel", `pano da cidade ${slug}`);
-  if (!byId(p.pattern)) throw new Error(`pattern fora da biblioteca: ${p.pattern}`);
+
+/**
+ * Material de sobra pro CSS refluir: o protótipo da linha trabalha em 16–28
+ * colunas (as 10 de antes deixavam o azulejo estourado no desktop). Geramos
+ * 20×3 = 60 peças e o container corta em 2 fileiras, seja qual for a tela.
+ */
+const COLS = 20;
+const ROWS = 3;
+
+/** Faixa de página/seção — pano derivado da chave. */
+export function panoFaixa(chave: string): string {
+  const p = panoDe(chave);
+  return pano(p.pattern, p.cores, "longe", p.seed, COLS, ROWS);
 }
 
-/** As 2 janelas do campo contínuo da home (HTML estático do motor). */
-export function homeJanelas(): string[] {
-  return panoContinuo(HOME_FIELD.pattern, [...HOME_FIELD.cores], HOME_FIELD.escala, HOME_FIELD.seed, HOME_FIELD.laminas, {
-    cols: HOME_FIELD.cols,
-    rows: HOME_FIELD.rows,
-  });
-}
-
-/** Mini-pano do card de uma mídia (home). */
-export function panoCard(slug: string): string {
-  const p = PANO_MIDIA[slug];
-  return pano(p.pattern, p.cores, "longe", p.seed, 6, 1);
-}
-
-/** Faixa grande da página da carta (mesmo pano da mídia, campo denso 10×2). */
-export function panoCarta(slug: string): string {
-  const p = PANO_MIDIA[slug];
-  return pano(p.pattern, p.cores, "longe", p.seed, 10, 2);
-}
-
-/** Faixa da landing de cidade (mesmo formato denso da faixa das cartas). */
-export function panoCidade(slug: string): string {
-  const p = PANO_CIDADE[slug];
-  return pano(p.pattern, p.cores, "longe", p.seed, 10, 2);
-}
-
-/** Faixa do hub /marketing-medico (mesmo formato denso das cartas). */
-export function panoHub(): string {
-  return pano(PANO_HUB.pattern, [...PANO_HUB.cores], "longe", PANO_HUB.seed, 10, 2);
-}
-
-/** Faixa da página /sobre (mesmo formato denso do hub/cartas). */
-export function panoSobre(): string {
-  return pano(PANO_SOBRE.pattern, [...PANO_SOBRE.cores], "longe", PANO_SOBRE.seed, 10, 2);
-}
-
-/** Faixa da página /rizzoos (mesmo formato denso do hub/cartas). */
-export function panoRizzoOs(): string {
-  return pano(PANO_RIZZOOS.pattern, [...PANO_RIZZOOS.cores], "longe", PANO_RIZZOOS.seed, 10, 2);
+/** Mini-pano do card de mídia (topo do card). */
+export function panoCard(chave: string): string {
+  const p = panoDe(chave);
+  return pano(p.pattern, p.cores, "longe", p.seed, 8, 2);
 }
 
 /** Tira de trevo amarelo do bloco RizzoOS (sobre navy). */
 export function panoTiraOs(): string {
   return pano(TIRA_OS.pattern, [...TIRA_OS.cores], TIRA_OS.escala, TIRA_OS.seed, TIRA_OS.cols, TIRA_OS.rows);
 }
+
+// --- Mesma API de antes pras páginas, agora sem tabela nenhuma ---
+/** As 2 faixas da home. */
+export function homeJanelas(): string[] {
+  return [panoFaixa("/"), panoFaixa("/ 2")];
+}
+export const panoCarta = (slug: string) => panoFaixa(`/cartas/${slug}`);
+export const panoCidade = (slug: string) => panoFaixa(`/${slug}`);
+export const panoHub = () => panoFaixa("/marketing-medico");
+export const panoSobre = () => panoFaixa("/sobre");
+export const panoRizzoOs = () => panoFaixa("/rizzoos");

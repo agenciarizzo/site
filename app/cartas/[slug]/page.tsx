@@ -122,9 +122,8 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
       </article>
 
       <CtaConversa
-        titulo="Vamos conversar sobre"
+        titulo="Quanto custa"
         acento={c.ctaAcento ?? `${c.midia.toLowerCase()} na sua clínica?`}
-        waText={c.waText}
       />
       </main>
       <FooterMapa atual={`/cartas/${c.slug}`} proxima={["panorama", "contato"]} />

@@ -52,27 +52,35 @@ body {
 
 .wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.4rem; }
 
-/* Faixas de azulejo — Contrato Athos: azulejo QUADRADO, sempre INTEIRO.
-   A altura nasce da grade (cols × rows), nunca de um clamp que esticava o
-   azulejo (height:100% + rows 1fr fazia arco virar elipse) e podava a trama.
-   O motor fica intocado; é esta camada que impõe o quadrado. */
-.band, .band-carta { height: auto; }
-.band [data-pano], .band-carta [data-pano] { height: auto !important; grid-template-rows: none !important; }
+/* Faixas de azulejo — Contrato Athos.
+   Azulejo QUADRADO e INTEIRO: a peça nunca é esticada (era o clamp de altura que
+   virava arco em elipse). O número de COLUNAS é do CSS por largura de tela —
+   16 a 20 no desktop, como o protótipo da linha (as 10 de antes deixavam o
+   azulejo estourado); o motor manda material de sobra e o container corta em
+   2 fileiras. A altura sai de `vw`, que é a largura real da faixa (full-bleed). */
+.band, .band-carta { overflow: hidden; }
+.band [data-pano], .band-carta [data-pano] {
+  display: grid !important;
+  grid-template-rows: none !important;
+  grid-template-columns: repeat(var(--cols), 1fr) !important;
+  height: auto !important;
+}
 .band [data-pano] > div, .band-carta [data-pano] > div { aspect-ratio: 1; }
 
-/* Entrada dos azulejos (pano vivo): onda da esquerda com acaso por peça.
-   Só anima quando o vivo.js assume (classe) e a banda entra na viewport;
-   sem JS ou com reduced-motion, o pano aparece pronto. */
-.band [data-pano].vivo-anim > div, .band-carta [data-pano].vivo-anim > div { opacity: 0; transform: scale(0.55); }
-.band [data-pano].vivo-anim.vivo-in > div, .band-carta [data-pano].vivo-anim.vivo-in > div {
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
-  transition-delay: var(--vd, 0ms);
+/* colunas × altura de 2 fileiras, por largura de tela */
+.band, .band-carta { --cols: 6; height: calc(200vw / 6); }
+@media (min-width: 560px)  { .band, .band-carta { --cols: 10; height: calc(200vw / 10); } }
+@media (min-width: 900px)  { .band, .band-carta { --cols: 16; height: calc(200vw / 16); } }
+@media (min-width: 1400px) { .band, .band-carta { --cols: 20; height: calc(200vw / 20); } }
+
+/* mini-pano do card: 8 colunas, 1 fileira visível */
+.card-pano [data-pano] {
+  display: grid !important;
+  grid-template-rows: none !important;
+  grid-template-columns: repeat(8, 1fr) !important;
+  height: auto !important;
 }
-@media (prefers-reduced-motion: reduce) {
-  .band [data-pano].vivo-anim > div, .band-carta [data-pano].vivo-anim > div { opacity: 1; transform: none; transition: none; }
-}
+.card-pano [data-pano] > div { aspect-ratio: 1; }
 
 .kicker {
   font-family: var(--font-mono), monospace;
@@ -234,10 +242,12 @@ a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(2
 .btn-wa:hover { background: #1a2742; }
 .cta .sub { font-size: 0.98rem; margin: 1rem auto 0; color: var(--corpo); max-width: 30rem; }
 
+/* assinatura "quem assina" — hoje só na /sobre (saiu do CTA por decisão do dono) */
 .assin { display: flex; align-items: center; gap: 1rem; justify-content: center; margin-top: 2.2rem; }
 .assin img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--ouro); object-fit: cover; }
 .assin .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); text-align: left; }
 .assin .cargo { font-family: var(--font-mono), monospace; font-size: 0.66rem; letter-spacing: 0.14em; color: var(--cinza); margin-top: 3px; }
+
 
 /* header/footer */
 header.topo { display: flex; align-items: center; justify-content: space-between; max-width: 72rem; margin: 0 auto; padding: 1.6rem 1.4rem; }
@@ -429,17 +439,3 @@ footer.mapa .legal .links { display: flex; flex-wrap: wrap; gap: 1.2rem; }
 footer.mapa .legal a { color: #c6ccd2; }
 footer.mapa .legal a:hover { color: var(--amarelo); }
 
-/* 2ª porta do funil no CTA — link quieto sob o botão de WhatsApp (porta quente).
-   Mesma gramática do .top-wa: mono, sublinhado ouro, sobe pra teal no hover. */
-.cta .prop-alt { margin-top: 0.9rem; }
-.cta .prop-alt a {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--teal-texto);
-  text-decoration: none;
-  border-bottom: 2px solid var(--ouro);
-  padding-bottom: 2px;
-}
-.cta .prop-alt a:hover { color: var(--teal); border-bottom-color: var(--teal); }

@@ -6,32 +6,13 @@ import { panoTiraOs } from "@/lib/athos/panos";
 import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS, PROPOSTA_URL } from "@/lib/site";
 
 /**
- * Faixa de pano. O HTML do servidor é o pano-assinatura da página (fallback sem
- * JS e primeiro paint); o `public/athos/vivo.js` troca pelo SORTEIO da visita
- * (Contrato Athos: pattern+cores+seed por exibição, cache por sessão) e anima a
- * entrada dos azulejos. `janela`/`total` = fatias do MESMO campo na página.
+ * Faixa de pano — HTML estático do servidor, zero JS. O número de colunas é do
+ * CSS por largura de tela (16–20 no desktop, como o protótipo da linha, contra
+ * as 10 que deixavam o azulejo estourado); o motor entrega material de sobra e
+ * o container corta em 2 fileiras.
  */
-export function Band({
-  html,
-  carta = false,
-  janela = 0,
-  total = 1,
-}: {
-  html: string;
-  carta?: boolean;
-  janela?: number;
-  total?: number;
-}) {
-  return (
-    <div
-      className={carta ? "band-carta" : "band"}
-      aria-hidden
-      data-pano-vivo=""
-      data-janela={janela}
-      data-total={total}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
+export function Band({ html, carta = false }: { html: string; carta?: boolean }) {
+  return <div className={carta ? "band-carta" : "band"} aria-hidden dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 export function Header({ waText }: { waText: string }) {
@@ -78,15 +59,20 @@ export function Fatos() {
   return <div className="fatos">{FATOS}</div>;
 }
 
+/**
+ * Fecho de página: UM destino — montar a proposta. Sem assinatura, sem foto e
+ * sem WhatsApp (decisão do dono, 2026-07-31): o CTA é a porta do funil, não um
+ * cartão de visita. `waText` continua na assinatura por compatibilidade das
+ * páginas que o passam; a porta quente vive no menu e no rodapé.
+ */
 export function CtaConversa({
   titulo,
   acento,
-  waText,
-  sub = "Oito perguntas, no seu tempo — a proposta vem por escrito, transparente. E do outro lado tem gente, não robô.",
+  sub = "Oito perguntas sobre a sua clínica, no seu tempo. A proposta chega por escrito, com o preço aberto.",
 }: {
   titulo: string;
   acento: string;
-  waText: string;
+  waText?: string;
   sub?: string;
 }) {
   return (
@@ -97,22 +83,10 @@ export function CtaConversa({
           <br />
           <span className="acento">{acento}</span>
         </h2>
-        {/* Foco principal do funil: montar a proposta (24/7, no app). A porta quente
-            continua logo abaixo — WhatsApp com texto próprio da página (atribuição). */}
         <a className="btn-wa" data-cta="proposta" href={PROPOSTA_URL}>
           MONTAR A MINHA PROPOSTA&nbsp;&nbsp;→
         </a>
-        <p className="prop-alt">
-          <a href={wa(waText)}>prefere conversar? chama no WhatsApp →</a>
-        </p>
         <p className="sub">{sub}</p>
-        <div className="assin">
-          <Image src="/email/raphael-rizzo.jpg" alt="Raphael Rizzo" width={60} height={60} />
-          <div>
-            <div className="nome">Raphael Rizzo</div>
-            <div className="cargo">FUNDADOR · AGÊNCIA RIZZO</div>
-          </div>
-        </div>
       </div>
     </section>
   );
