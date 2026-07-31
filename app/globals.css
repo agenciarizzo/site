@@ -598,8 +598,8 @@ footer.mapa .legal a:hover { color: var(--amarelo); }
   .filme .filme-parado { display: block; }
 }
 .filme figcaption {
-  font-size: 0.92rem;
-  line-height: 1.6;
+  font-size: var(--corpo-3);
+  line-height: var(--lh-apoio);
   color: var(--corpo);
   margin-top: 0.7rem;
   padding-left: 0.9rem;
@@ -610,8 +610,8 @@ footer.mapa .legal a:hover { color: var(--amarelo); }
 .detalhe { margin: 1.1rem 0 0.2rem; }
 .detalhe > summary {
   font-family: var(--font-mono), monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
+  font-size: var(--mono-2);
+  letter-spacing: var(--ls-rotulo);
   text-transform: uppercase;
   font-weight: 700;
   color: var(--teal-texto);
@@ -621,7 +621,7 @@ footer.mapa .legal a:hover { color: var(--amarelo); }
   border-bottom: 1px solid var(--hairline);
   list-style-position: inside;
 }
-.detalhe > summary i { font-style: normal; color: var(--cinza); letter-spacing: 0.1em; }
+.detalhe > summary i { font-style: normal; color: var(--cinza); letter-spacing: var(--ls-nav); }
 .detalhe[open] > summary { border-bottom-color: transparent; }
 .detalhe > summary:hover { color: var(--teal); }
 .detalhe ul.crencas { margin-top: 0.8rem; }
@@ -629,9 +629,9 @@ footer.mapa .legal a:hover { color: var(--amarelo); }
 /* a linha que fica visível com o inventário fechado */
 p.resumo {
   font-family: var(--font-mono), monospace;
-  font-size: 0.72rem;
-  line-height: 1.9;
-  letter-spacing: 0.06em;
+  font-size: var(--mono-1);
+  line-height: var(--lh-lista);
+  letter-spacing: var(--ls-micro);
   color: var(--cinza);
   margin: 0.75rem 0 0.4rem;
 }
@@ -642,10 +642,10 @@ p.resumo {
 .escala b {
   display: block;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
-  font-size: 1.5rem;
+  font-size: var(--slab-3);
   font-weight: 800;
   color: var(--ink);
-  line-height: 1.1;
+  line-height: var(--lh-display);
 }
-.escala span { display: block; font-size: 0.9rem; line-height: 1.5; margin-top: 0.3rem; }
+.escala span { display: block; font-size: var(--corpo-3); line-height: var(--lh-apoio); margin-top: 0.3rem; }
 
