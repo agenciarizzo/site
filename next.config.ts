@@ -86,9 +86,11 @@ const LEGADO: Array<{ de: string; para: string }> = [
   { de: "/termos-uso", para: "/politica-privacidade#termos" },
   { de: "/termos-de-uso", para: "/politica-privacidade#termos" },
 
-  // A landing das campanhas de Google Ads. Estava em 404 — tráfego PAGO caindo em
-  // página inexistente e risco de reprovação do anúncio por destino quebrado.
-  { de: "/montar-proposta-online", para: "/contato" },
+  // A landing das campanhas de Google Ads. O funil de duas portas (rizzo-os →
+  // docs/FUNIL_ENTRADA_MAPA.md, fatia 1) devolveu o qualificador 24/7 em
+  // app.agenciarizzo.com.br/proposta — a URL com histórico de Ads volta a cair
+  // num formulário de verdade, não num beco (/contato era paliativo).
+  { de: "/montar-proposta-online", para: "https://app.agenciarizzo.com.br/proposta" },
 ];
 
 /** Rotas exatas sem variante `.html`. */

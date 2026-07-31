@@ -5,9 +5,10 @@
 // desde o cutover não havia GA4, Pixel nem captura de GCLID. Trazer isso pro código
 // resolve de vez — não depende mais de o domínio estar atrás da Cloudflare.
 //
-// O que NÃO veio junto: o widget de chat. Ele oferece "Montar Proposta Online" e diz que
-// os sites são "WordPress otimizados" — as duas coisas contradizem as regras desta frente
-// (CTA único = WhatsApp, sem proposta automática; e o comunicado do fim do WordPress).
+// O que NÃO veio junto: o widget de chat. Ele dizia que os sites são "WordPress
+// otimizados" (contradiz o comunicado do fim do WordPress) e oferecia proposta em
+// widget — o funil real tem duas portas (FUNIL_ENTRADA_MAPA §5): WhatsApp e o
+// /proposta do APP; o site só aponta, nunca embute formulário.
 import Script from "next/script";
 import { GA4_ID, META_PIXEL_ID, MEDIR } from "@/lib/site";
 
@@ -27,17 +28,21 @@ const CAPTURA_CLIQUE_PAGO = `
 })();
 `;
 
-// A ÚNICA conversão deste site é o clique no WhatsApp — não há formulário. Um listener
-// delegado na fase de captura pega todos os links wa.me (header, CTA, rodapé, cartas)
-// sem precisar de onClick em componente nenhum, e leva junto o identificador do anúncio
-// que trouxe a pessoa. gtag usa sendBeacon, então o evento sobrevive à navegação.
-const CONVERSAO_WHATSAPP = `
+// As conversões deste site: clique no WhatsApp (porta quente) e clique no "montar
+// proposta" (porta fria 24/7 do app — rizzo-os → docs/FUNIL_ENTRADA_MAPA.md §5).
+// Um listener delegado na fase de captura pega todos os links wa.me e os marcados
+// com data-cta="proposta" (CTA, rodapé), sem onClick em componente nenhum, e leva
+// junto o identificador do anúncio que trouxe a pessoa. gtag usa sendBeacon, então
+// o evento sobrevive à navegação. O evento whatsapp_click preserva nome e payload
+// de sempre — histórico do GA4 não quebra.
+const CONVERSAO_CTA = `
 (function(){
   document.addEventListener('click', function(e){
     var alvo = e.target;
     if (!alvo || typeof alvo.closest !== 'function') return;
-    var link = alvo.closest('a[href*="wa.me"]');
+    var link = alvo.closest('a[href*="wa.me"], a[data-cta="proposta"]');
     if (!link) return;
+    var proposta = link.getAttribute('data-cta') === 'proposta';
     var p = { pagina: window.location.pathname, destino: link.getAttribute('href') };
     try{
       ['gclid','gbraid','wbraid','fbclid'].forEach(function(k){
@@ -46,9 +51,15 @@ const CONVERSAO_WHATSAPP = `
       });
     }catch(err){}
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'whatsapp_click', whatsapp: p });
-    if (typeof window.gtag === 'function') window.gtag('event', 'whatsapp_click', p);
-    if (typeof window.fbq === 'function') window.fbq('track', 'Contact');
+    if (proposta) {
+      window.dataLayer.push({ event: 'proposta_click', proposta: p });
+      if (typeof window.gtag === 'function') window.gtag('event', 'proposta_click', p);
+      if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+    } else {
+      window.dataLayer.push({ event: 'whatsapp_click', whatsapp: p });
+      if (typeof window.gtag === 'function') window.gtag('event', 'whatsapp_click', p);
+      if (typeof window.fbq === 'function') window.fbq('track', 'Contact');
+    }
   }, true);
 })();
 `;
@@ -87,8 +98,8 @@ export function Medicao() {
       <Script id="ar-meta-pixel" strategy="afterInteractive">
         {META_PIXEL}
       </Script>
-      <Script id="ar-conversao-whatsapp" strategy="afterInteractive">
-        {CONVERSAO_WHATSAPP}
+      <Script id="ar-conversao-cta" strategy="afterInteractive">
+        {CONVERSAO_CTA}
       </Script>
     </>
   );

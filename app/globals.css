@@ -410,3 +410,18 @@ footer.mapa .legal {
 footer.mapa .legal .links { display: flex; flex-wrap: wrap; gap: 1.2rem; }
 footer.mapa .legal a { color: #c6ccd2; }
 footer.mapa .legal a:hover { color: var(--amarelo); }
+
+/* 2ª porta do funil no CTA — link quieto sob o botão de WhatsApp (porta quente).
+   Mesma gramática do .top-wa: mono, sublinhado ouro, sobe pra teal no hover. */
+.cta .prop-alt { margin-top: 0.9rem; }
+.cta .prop-alt a {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-texto);
+  text-decoration: none;
+  border-bottom: 2px solid var(--ouro);
+  padding-bottom: 2px;
+}
+.cta .prop-alt a:hover { color: var(--teal); border-bottom-color: var(--teal); }
