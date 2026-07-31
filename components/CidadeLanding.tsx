@@ -7,7 +7,7 @@
 // páginas antigas (§12.3).
 import Link from "next/link";
 import { panoCidade } from "@/lib/athos/panos";
-import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
+import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa, type CardRef } from "@/components/athos/Athos";
 import type { Cidade } from "@/content/cidades";
 import { SITE_URL } from "@/lib/site";
 
@@ -59,7 +59,7 @@ export function CidadeLanding({ c }: { c: Cidade }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(cidadeJsonLd(c)) }}
       />
-      <Header waText={c.waText} />
+      <MenuTopo atual={`/${c.slug}`} waText={c.waText} />
 
       <main>
         <section className="hero">
@@ -154,7 +154,14 @@ export function CidadeLanding({ c }: { c: Cidade }) {
           waText={c.waText}
         />
       </main>
-      <Footer />
+      <FooterMapa
+        atual={`/${c.slug}`}
+        proxima={
+          c.slug === "marketing-medico-goiania"
+            ? (["seo", "brasilia"] as [CardRef, CardRef])
+            : (["seo", "goiania"] as [CardRef, CardRef])
+        }
+      />
     </>
   );
 }

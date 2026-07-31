@@ -121,3 +121,7 @@ export function Footer() {
     </footer>
   );
 }
+
+// Navegação nova (handoff rodapé/navegação) — reexport pra manter 1 import por página.
+export { MenuTopo } from "./MenuTopo";
+export { FooterMapa, type CardRef } from "./FooterMapa";

@@ -11,7 +11,7 @@
 // privacidade pra home é enganoso, e era o que estava acontecendo desde o cutover.
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header, Footer, Band } from "@/components/athos/Athos";
+import { MenuTopo, FooterMapa, Band } from "@/components/athos/Athos";
 import { homeJanelas } from "@/lib/athos/panos";
 import { ENDERECO, CNPJ, WHATS_LABEL, GA4_ID, META_PIXEL_ID, SITE_URL, wa } from "@/lib/site";
 
@@ -29,7 +29,7 @@ export default function PrivacidadePage() {
   const [, j2] = homeJanelas();
   return (
     <>
-      <Header waText={WA} />
+      <MenuTopo atual="/politica-privacidade" waText={WA} />
 
       <main>
         <section className="hero">
@@ -251,7 +251,7 @@ export default function PrivacidadePage() {
           </div>
         </article>
       </main>
-      <Footer />
+      <FooterMapa atual="/politica-privacidade" proxima={["home", "contato"]} />
     </>
   );
 }

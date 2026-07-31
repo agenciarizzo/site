@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { panoSobre } from "@/lib/athos/panos";
-import { Band, Header, OsBlock, Fatos, CtaConversa, Footer } from "@/components/athos/Athos";
+import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import { ENDERECO, CNPJ, WHATS_LABEL, SITE_URL } from "@/lib/site";
 
 const DESCRICAO =
@@ -68,7 +68,7 @@ export default function SobrePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Header waText={WA} />
+      <MenuTopo atual="/sobre" waText={WA} />
 
       <main>
       <section className="hero">
@@ -154,7 +154,7 @@ export default function SobrePage() {
 
       <CtaConversa titulo="Vamos conversar" acento="sobre a sua clínica?" waText={WA} />
       </main>
-      <Footer />
+      <FooterMapa atual="/sobre" proxima={["panorama", "clientes"]} />
     </>
   );
 }
