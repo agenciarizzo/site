@@ -31,6 +31,13 @@ export function wa(text: string): string {
   return `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
+/**
+ * 2ª porta do funil (rizzo-os → docs/FUNIL_ENTRADA_MAPA.md §5): o qualificador
+ * 24/7 que mora no APP, não no site — o site continua SSG puro e só aponta.
+ * Porta quente (WhatsApp) continua sendo o CTA primário de toda página.
+ */
+export const PROPOSTA_URL = "https://app.agenciarizzo.com.br/proposta";
+
 export const ENDERECO = "Rua Barão do Rio Branco, 531, sala 101 · Anápolis–GO";
 export const CNPJ = "15.728.480/0001-89";
 

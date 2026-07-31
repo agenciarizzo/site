@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { panoTiraOs } from "@/lib/athos/panos";
-import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS } from "@/lib/site";
+import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS, PROPOSTA_URL } from "@/lib/site";
 
 export function Band({ html, carta = false }: { html: string; carta?: boolean }) {
   return <div className={carta ? "band-carta" : "band"} aria-hidden dangerouslySetInnerHTML={{ __html: html }} />;
@@ -75,6 +75,13 @@ export function CtaConversa({
         <a className="btn-wa" href={wa(waText)}>
           CHAMAR NO WHATSAPP&nbsp;&nbsp;→
         </a>
+        {/* 2ª porta do funil (FUNIL_ENTRADA_MAPA §5): quem prefere se atender sozinho,
+            24/7, monta a proposta no app — o site aponta, não embute formulário. */}
+        <p className="prop-alt">
+          <a data-cta="proposta" href={PROPOSTA_URL}>
+            ou monte a sua proposta online →
+          </a>
+        </p>
         <p className="sub">{sub}</p>
         <div className="assin">
           <Image src="/email/raphael-rizzo.jpg" alt="Raphael Rizzo" width={60} height={60} />

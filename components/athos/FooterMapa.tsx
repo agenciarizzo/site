@@ -12,7 +12,7 @@
 // porque nunca aparece sobre papel. O navy segue exclusivo do bloco RizzoOS (Athos.tsx).
 import Image from "next/image";
 import Link from "next/link";
-import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS } from "@/lib/site";
+import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, PROPOSTA_URL } from "@/lib/site";
 
 export type CardRef = "seo" | "clientes" | "panorama" | "contato" | "goiania" | "brasilia" | "home";
 
@@ -159,6 +159,10 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
             <Link href="/contato" aria-current={cur("/contato")}>
               Contato
             </Link>
+            {/* 2ª porta do funil — mora no app (FUNIL_ENTRADA_MAPA §5); data-cta = medição. */}
+            <a data-cta="proposta" href={PROPOSTA_URL}>
+              Montar proposta
+            </a>
           </nav>
           <div className="legal">
             <div>
