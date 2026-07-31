@@ -5,8 +5,33 @@ import Link from "next/link";
 import { panoTiraOs } from "@/lib/athos/panos";
 import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS, PROPOSTA_URL } from "@/lib/site";
 
-export function Band({ html, carta = false }: { html: string; carta?: boolean }) {
-  return <div className={carta ? "band-carta" : "band"} aria-hidden dangerouslySetInnerHTML={{ __html: html }} />;
+/**
+ * Faixa de pano. O HTML do servidor é o pano-assinatura da página (fallback sem
+ * JS e primeiro paint); o `public/athos/vivo.js` troca pelo SORTEIO da visita
+ * (Contrato Athos: pattern+cores+seed por exibição, cache por sessão) e anima a
+ * entrada dos azulejos. `janela`/`total` = fatias do MESMO campo na página.
+ */
+export function Band({
+  html,
+  carta = false,
+  janela = 0,
+  total = 1,
+}: {
+  html: string;
+  carta?: boolean;
+  janela?: number;
+  total?: number;
+}) {
+  return (
+    <div
+      className={carta ? "band-carta" : "band"}
+      aria-hidden
+      data-pano-vivo=""
+      data-janela={janela}
+      data-total={total}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
 }
 
 export function Header({ waText }: { waText: string }) {
@@ -57,7 +82,7 @@ export function CtaConversa({
   titulo,
   acento,
   waText,
-  sub = "Do outro lado tem gente, não robô. A gente entende seu momento primeiro — e, fazendo sentido, a proposta vem por escrito, transparente.",
+  sub = "Oito perguntas, no seu tempo — a proposta vem por escrito, transparente. E do outro lado tem gente, não robô.",
 }: {
   titulo: string;
   acento: string;
@@ -72,15 +97,13 @@ export function CtaConversa({
           <br />
           <span className="acento">{acento}</span>
         </h2>
-        <a className="btn-wa" href={wa(waText)}>
-          CHAMAR NO WHATSAPP&nbsp;&nbsp;→
+        {/* Foco principal do funil: montar a proposta (24/7, no app). A porta quente
+            continua logo abaixo — WhatsApp com texto próprio da página (atribuição). */}
+        <a className="btn-wa" data-cta="proposta" href={PROPOSTA_URL}>
+          MONTAR A MINHA PROPOSTA&nbsp;&nbsp;→
         </a>
-        {/* 2ª porta do funil (FUNIL_ENTRADA_MAPA §5): quem prefere se atender sozinho,
-            24/7, monta a proposta no app — o site aponta, não embute formulário. */}
         <p className="prop-alt">
-          <a data-cta="proposta" href={PROPOSTA_URL}>
-            ou monte a sua proposta online →
-          </a>
+          <a href={wa(waText)}>prefere conversar? chama no WhatsApp →</a>
         </p>
         <p className="sub">{sub}</p>
         <div className="assin">

@@ -52,9 +52,27 @@ body {
 
 .wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.4rem; }
 
-/* faixas de azulejo (o motor entrega grid inline; o container dá a altura) */
-.band { height: clamp(130px, 19vw, 235px); overflow: hidden; }
-.band-carta { height: clamp(110px, 15vw, 190px); overflow: hidden; }
+/* Faixas de azulejo — Contrato Athos: azulejo QUADRADO, sempre INTEIRO.
+   A altura nasce da grade (cols × rows), nunca de um clamp que esticava o
+   azulejo (height:100% + rows 1fr fazia arco virar elipse) e podava a trama.
+   O motor fica intocado; é esta camada que impõe o quadrado. */
+.band, .band-carta { height: auto; }
+.band [data-pano], .band-carta [data-pano] { height: auto !important; grid-template-rows: none !important; }
+.band [data-pano] > div, .band-carta [data-pano] > div { aspect-ratio: 1; }
+
+/* Entrada dos azulejos (pano vivo): onda da esquerda com acaso por peça.
+   Só anima quando o vivo.js assume (classe) e a banda entra na viewport;
+   sem JS ou com reduced-motion, o pano aparece pronto. */
+.band [data-pano].vivo-anim > div, .band-carta [data-pano].vivo-anim > div { opacity: 0; transform: scale(0.55); }
+.band [data-pano].vivo-anim.vivo-in > div, .band-carta [data-pano].vivo-anim.vivo-in > div {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+  transition-delay: var(--vd, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .band [data-pano].vivo-anim > div, .band-carta [data-pano].vivo-anim > div { opacity: 1; transform: none; transition: none; }
+}
 
 .kicker {
   font-family: var(--font-mono), monospace;
