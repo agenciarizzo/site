@@ -574,3 +574,78 @@ footer.mapa .legal .links { display: flex; flex-wrap: wrap; gap: 1.2rem; }
 footer.mapa .legal a { color: #c6ccd2; }
 footer.mapa .legal a:hover { color: var(--amarelo); }
 
+/* ============================================================
+   Filme embutido + inventário dobrado (/rizzoos)
+   ------------------------------------------------------------
+   O `<video>` é nativo: mudo, em loop, com pôster. Zero JS, zero
+   biblioteca — a regra 5 (SSG puro) continua de pé.
+   ============================================================ */
+.filme { margin: 1.8rem 0 0.6rem; }
+.filme .filme-anda,
+.filme .filme-parado {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--papel);
+  border: 1px solid var(--hairline);
+}
+/* Quem pede menos movimento recebe o quadro parado — a mesma disciplina que a
+   onda de entrada dos azulejos já aplica. Sem JS: o CSS troca os dois. */
+.filme .filme-parado { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .filme .filme-anda { display: none; }
+  .filme .filme-parado { display: block; }
+}
+.filme figcaption {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--corpo);
+  margin-top: 0.7rem;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--ouro);
+}
+
+/* inventário dobrado — `<details>` nativo; o texto continua no DOM fechado */
+.detalhe { margin: 1.1rem 0 0.2rem; }
+.detalhe > summary {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--teal-texto);
+  cursor: pointer;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  list-style-position: inside;
+}
+.detalhe > summary i { font-style: normal; color: var(--cinza); letter-spacing: 0.1em; }
+.detalhe[open] > summary { border-bottom-color: transparent; }
+.detalhe > summary:hover { color: var(--teal); }
+.detalhe ul.crencas { margin-top: 0.8rem; }
+
+/* a linha que fica visível com o inventário fechado */
+p.resumo {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  line-height: 1.9;
+  letter-spacing: 0.06em;
+  color: var(--cinza);
+  margin: 0.75rem 0 0.4rem;
+}
+
+/* escala — os 5 números num bloco compacto (eles já são curtos; não dobram) */
+.escala { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.9rem; margin: 1.4rem 0 0.4rem; }
+.escala > div { background: var(--claro); border: 1px solid var(--hairline); padding: 0.9rem 1.1rem; }
+.escala b {
+  display: block;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.escala span { display: block; font-size: 0.9rem; line-height: 1.5; margin-top: 0.3rem; }
+
