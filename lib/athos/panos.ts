@@ -2,6 +2,7 @@
 // cópia verbatim do rizzo-os). Regra A1: pano nomeado = pattern + 1–2 cores +
 // escala + seed; ninguém desenha azulejo à mão. A2 é validada em BUILD (throw).
 // Fonte da verdade da frente: rizzo-os → docs/SITE_MANIFESTO_MAPA.md (§2).
+// Contrato hardcodado no repo: content/athos-contract.json (A1–A11 + paleta + escalas).
 import { pano, panoContinuo, coresValidas, byId } from "./athosPatterns";
 
 export const NAVY = "#0F172A";

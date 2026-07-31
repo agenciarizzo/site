@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build && node scripts/checar-navegacao.mjs",
+    "dev": "node scripts/preparar-athos-vivo.mjs && next dev",
+    "build": "node scripts/preparar-athos-vivo.mjs && next build && node scripts/checar-navegacao.mjs",
     "start": "next start",
     "lint": "eslint"
   },

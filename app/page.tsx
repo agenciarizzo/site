@@ -40,7 +40,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Band html={j1} />
+      <Band html={j1} total={2} />
 
       <article className="corpo prosa">
         <div className="wrap">
@@ -152,7 +152,7 @@ export default function Home() {
         </div>
       </article>
 
-      <Band html={j2} />
+      <Band html={j2} janela={1} total={2} />
 
       <div className="wrap">
         <OsBlock>

@@ -1,0 +1,87 @@
+{
+ "version": 1,
+ "name": "Contrato da Linha Athos — AR (paralelo)",
+ "parent": "pack-contract.json",
+ "principle": "Contrato PARALELO: só a linha AR/Athos audita aqui — o contrato global fica intocado. Amarra o que a linha estudou e que o padrão hardcodado dos templates não abarca: pano nomeado gerado por motor, headline multilinha com acento, dupla marca, carrossel longo contínuo e lâmina conceitual.",
+ "escopo": "Packs da marca própria (ar-pack.json e derivados da Linha Athos). Clientes seguem no contrato global.",
+ "engine": "athosPatterns.js",
+ "fontes": [
+  "Guia de Design.dc.html (regras de pano R1–R6 da linha)",
+  "Athos - galeria.dc.html (biblioteca + código gerador)",
+  "Linha Visual Rizzo - exploracao copy.dc.html (lâminas de referência)"
+ ],
+ "paleta": {
+  "motivo": ["#0F172A", "#0097A7", "#323C46", "#F0A400", "#E8930A", "#FFD200"],
+  "fundos": {
+   "papel": ["#F4EFE6", "#FBF9F3", "#FFFFFF", "#F1EEE4"],
+   "navy": ["#0F172A"]
+  },
+  "restricao": "Amarelo #FFD200 só sobre navy/cinza — nunca sobre papel/branco."
+ },
+ "escalas": {
+  "longe": "tile ~135px (8×8 em 1080) — textura de fundo, leitura à distância",
+  "medio": "tile ~216px (5×5 em 1080) — faixas e bandas padrão",
+  "perto": "tile ~360px (3×3 em 1080) — o tile é a obra; lâminas-respiro"
+ },
+ "patterns": [
+  { "id": "trevo", "num": "01", "name": "Trevo", "motivo": "quarto de círculo", "max_cores": 1 },
+  { "id": "leque", "num": "02", "name": "Leque & triângulo", "motivo": "arcos concêntricos + triângulo", "max_cores": 2 },
+  { "id": "circulo-triangulo", "num": "03", "name": "Círculo & triângulo", "motivo": "disco cheio + triângulo reto", "max_cores": 2 },
+  { "id": "concentricos", "num": "04", "name": "Círculos concêntricos", "motivo": "anéis de canto sobrepostos", "max_cores": 2 },
+  { "id": "discos", "num": "05", "name": "Discos esparsos", "motivo": "quartos e meios de círculo", "max_cores": 2 },
+  { "id": "ventania", "num": "06", "name": "Ventania", "motivo": "triângulo + traços curtos", "max_cores": 1 },
+  { "id": "deco", "num": "07", "name": "Déco", "motivo": "gravata, escada, meia-lua, hachura", "max_cores": 1 },
+  { "id": "elos", "num": "08", "name": "Elos", "motivo": "arcos duplos entrelaçados", "max_cores": 1 },
+  { "id": "virgula", "num": "09", "name": "Vírgula", "motivo": "arco fino de canto", "max_cores": 2 },
+  { "id": "arco", "num": "10", "name": "Arco", "motivo": "arco grosso de canto", "max_cores": 2 },
+  { "id": "meia-lua", "num": "11", "name": "Meia-lua", "motivo": "semicírculo de borda", "max_cores": 2 },
+  { "id": "reta", "num": "12", "name": "Reta inclinada", "motivo": "faixa diagonal", "max_cores": 2 },
+  { "id": "disco", "num": "13", "name": "Disco pontual", "motivo": "ponto central", "max_cores": 2 },
+  { "id": "anel", "num": "14", "name": "Anel", "motivo": "anel central", "max_cores": 2 },
+  { "id": "quarto", "num": "15", "name": "Quarto solto", "motivo": "quarto de disco 58%", "max_cores": 2 },
+  { "id": "triangulo", "num": "16", "name": "Triângulo solto", "motivo": "meia peça diagonal", "max_cores": 2 }
+ ],
+ "patterns_nota": "01–08 = panos compostos da galeria; 09–16 = motivos soltos do vocabulário (geometria das lâminas da exploração). Paleta = a da agência: navy #0F172A, teal #0097A7, cinza #323C46, gold #F0A400, tangerina #E8930A, amarelo #FFD200.",
+ "pano_meta": {
+  "desc": "Toda peça com azulejo declara o pano por metadado — a arte é derivável, nunca desenhada à mão.",
+  "shape": { "pattern": "id da biblioteca", "cores": "1–2 hex da paleta.motivo", "escala": "longe|medio|perto", "seed": "inteiro (reproduz o acaso)", "posicao": "topo|rodape|lateral|fundo", "janela": "opcional — índice no pano contínuo (carrossel longo)" }
+ },
+ "rules": [
+  { "id": "A1", "name": "Pano nomeado", "desc": "Faixa/pano referenciado por NOME da galeria + escala + dupla de cores + seed. O motor (athosPatterns.js) gera a banda; peça não desenha azulejo à mão. Mix solto de motivos é violação." },
+  { "id": "A2", "name": "1 motivo · 1–2 cores", "desc": "Um padrão por pano, no máximo duas cores da paleta de motivo. Amarelo só sobre navy — nunca sobre papel." },
+  { "id": "A3", "name": "Rotação 90° + acaso", "desc": "Só rotações de 90° e colocação por rng semeado. O seed registrado reproduz o pano; nunca alinhar em padrão fechado." },
+  { "id": "A4", "name": "Fundo papel ou navy", "desc": "Pano vive sobre papel (#F4EFE6/creme/branco/quente) ou navy (#0F172A). O motivo é a cor; o fundo mostra o vazio. Fundo navy é EXCLUSIVO do registro RizzoOS — a agência (Athos·Papel) vive no papel; navy no papel da agência só como cor de motivo ou bloco." },
+  { "id": "A5", "name": "Headline multilinha", "desc": "UM slot de headline: quebras com \\n e última linha (ou trecho **) em cor de acento. Nunca l1/l2/l3 como campos separados." },
+  { "id": "A6", "name": "Dupla marca", "desc": "Registro é dimensão oficial: agencia (papel, logo Rockwell real) × rizzoos (navy #0F172A, wordmark barra-dourada + beta). Toda lâmina declara brand." },
+  { "id": "A7", "name": "Logo real, nunca reconstruído", "desc": "Marca = logo Rockwell real (public/logo_*.png) OU wordmark RizzoOS (barra dourada + Rizzo light + OS bold gold + beta). Wordmark da agência reconstruído em outra fonte é violação." },
+  { "id": "A8", "name": "Carrossel longo contínuo", "desc": "Substitui o R4 global NESTA linha: 5–10 lâminas cujas janelas são fatias contíguas de UM campo de azulejo (panoContinuo). Conteúdo minimalista: capa (headline 3 linhas) → 1 ideia/≤2 linhas por lâmina → lâminas-respiro só de padrão → CTA. Leitor B+C (setas ‹cinza/›dourada + dots + n/N) continua valendo." },
+  { "id": "A9", "name": "Lâmina conceitual", "desc": "Papel do contrato: tipografia gigante lowercase, ≤3 palavras por linha, azulejo como coprotagonista. Sem moldura de museu nem legenda pomposa — é azulejo de rua." },
+  { "id": "A10", "name": "Escala por distância de leitura", "desc": "Longe = textura, médio = faixa, perto = o tile é a obra (respiro). A escala declarada bate com o papel da lâmina." },
+  { "id": "A11", "name": "Proporção de cor", "desc": "Quando colorido, a proporção da casa: o escuro (cinza #323C46 / navy) é o que mais aparece, o ouro tempera, o teal é a cor mais rara — acento, não campo. Lâmina toda branca/papel vazio também não é a linha: toda lâmina carrega bloco de cor ou pano." }
+ ],
+ "papeis_lamina": [
+  { "id": "capa", "desc": "Headline 3 linhas (última em acento) + pano em faixa" },
+  { "id": "item_numerado", "desc": "num JetBrains Mono + kicker + headline multilinha + desc curta" },
+  { "id": "conceitual", "desc": "lowercase gigante, ≤3 palavras/linha, azulejo coprotagonista (A9)" },
+  { "id": "respiro", "desc": "quase só padrão, escala perto, no máximo 1 linha de texto" },
+  { "id": "celular_azulejo", "desc": "o device é o azulejo — moldura de celular preenchida por pano" },
+  { "id": "cta", "desc": "convite curto + wordmark/logo + contato" }
+ ],
+ "herda_do_global": {
+  "vocabulary": true,
+  "tokens_required": true,
+  "rules": ["R1", "R2", "R3", "R5", "R6", "R7", "R8", "R9"],
+  "substitui": { "R4": "A8 — carrossel longo contínuo no lugar do canônico 1+5+1" }
+ },
+ "auditoria": {
+  "alvo": "ar-pack.json",
+  "checks": [
+   "Toda peça com banda de azulejo no html declara pano_meta válido (pattern da biblioteca, 1–2 cores da paleta, escala, seed)",
+   "Amarelo nunca em pano sobre fundo papel",
+   "register declarado em toda peça (Athos·Papel ou RizzoOS·Navy)",
+   "Slots só do vocabulário global — sem l1/l2/l3",
+   "brand_tokens.logos light/dark/symbol presentes (arquivo real, não reconstrução)",
+   "Peças de carrossel compartilham pattern+cores+seed (janelas do mesmo campo)"
+  ]
+ }
+}
