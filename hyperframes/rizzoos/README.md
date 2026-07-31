@@ -1,14 +1,24 @@
-# Os dois filmes da `/rizzoos`
+# Os filmes da `/rizzoos` — dois títulos, quatro peças
 
-Fonte das duas peças que a página `/rizzoos` embute como `<video>`. Plano do tronco:
-repo `agenciarizzo/rizzo-os` → `docs/SITE_RIZZOOS_MOVIMENTO_MAPA.md`.
+Fonte das peças que a página `/rizzoos` embute como `<video>`. Planos dos troncos:
+repo `agenciarizzo/rizzo-os` → `docs/SITE_RIZZOOS_MOVIMENTO_MAPA.md` (as 16:9) e
+`docs/SITE_RIZZOOS_VERTICAL_MAPA.md` (as 9:16).
 
-| Projeto  | Peça                              | Duração | Sai em                              |
-| -------- | --------------------------------- | ------- | ----------------------------------- |
-| `ciclo/` | **O ciclo** — uma peça, do combinado ao número | 19,2s | `public/video/rizzoos/ciclo.{mp4,png}`  |
-| `travas/`| **As travas** — o que o sistema garante sozinho | 14,0s | `public/video/rizzoos/travas.{mp4,png}` |
+**Dois títulos × duas proporções.** Cada visitante baixa UMA peça por título: o
+`<source media>` da página corta em 700px — o celular pega a 9:16, o desktop a 16:9.
+O 16:9 no celular era o defeito que criou o par vertical: a caixa cai pra 315px e
+tudo dentro do filme aparece a 0,25×.
 
-Os dois: 1280×720 · 30 fps · H.264 `yuv420p` · **sem faixa de áudio** · loop costurado.
+| Projeto     | Peça                                            | Quadro    | Duração | Sai em                                    |
+| ----------- | ----------------------------------------------- | --------- | ------- | ----------------------------------------- |
+| `ciclo/`    | **O ciclo** — uma peça, do combinado ao número   | 1280×720  | 19,2s   | `public/video/rizzoos/ciclo.{mp4,png}`    |
+| `travas/`   | **As travas** — o que o sistema garante sozinho  | 1280×720  | 14,0s   | `public/video/rizzoos/travas.{mp4,png}`   |
+| `ciclo-v/`  | O ciclo, **em pé** — mesmos 6 beats              | 1080×1920 | 19,2s   | `public/video/rizzoos/ciclo-v.{mp4,png}`  |
+| `travas-v/` | As travas, **em pé** — mesmas 5 vinhetas         | 1080×1920 | 14,0s   | `public/video/rizzoos/travas-v.{mp4,png}` |
+
+Os quatro: 30 fps · H.264 `yuv420p` · **sem faixa de áudio** · loop costurado.
+Teto: **≤ 1,5 MB por arquivo** e **≤ 3,0 MB por dispositivo** (o dispositivo baixa
+duas peças, não quatro).
 
 ## Regras que não podem quebrar aqui dentro
 
@@ -34,20 +44,40 @@ Os dois: 1280×720 · 30 fps · H.264 `yuv420p` · **sem faixa de áudio** · lo
 ## Como regerar
 
 ```bash
-node scripts/ativos.mjs            # baixa GSAP + fontes → ciclo/assets e travas/assets
+node scripts/ativos.mjs            # baixa GSAP + fontes → assets/ dos QUATRO projetos
 node scripts/panos.mjs             # injeta os azulejos do motor nas composições
 node scripts/panos.mjs --check     # falha se as composições estiverem fora de sincronia
+node scripts/checar-legibilidade.mjs   # piso de 14px na tela do celular (só o par 9:16)
 
 npx hyperframes check ciclo        # lint + runtime + layout + movimento + contraste
 npx hyperframes snapshot ciclo --at 0,1.9,4.9,7.8,11.9,15.9,19.15   # contact sheet
 
 npx hyperframes render ciclo  -o ../../public/video/rizzoos/ciclo.mp4  --quality high
 npx hyperframes render travas -o ../../public/video/rizzoos/travas.mp4 --quality high
+
+# O par vertical leva `--crf 24`: 1080×1920 tem 2,25× os pixels do 720p, e no
+# `--quality high` seco o ciclo saía com 2,3 MB — acima do teto de 1,5 MB por
+# arquivo. CRF é o lugar certo de resolver isso (encode único, sem geração
+# perdida de recomprimir um MP4 já comprimido).
+npx hyperframes render ciclo-v  -o ../../public/video/rizzoos/ciclo-v.mp4  --quality high --crf 24
+npx hyperframes render travas-v -o ../../public/video/rizzoos/travas-v.mp4 --quality high --crf 24
 ```
 
-O pôster de cada filme é um quadro do próprio vídeo (`snapshot --at`), reduzido a
-paleta indexada de 64 cores — arte chapada não perde nada e o arquivo cai pela metade.
-Ele é **também** o que aparece pra quem pede `prefers-reduced-motion: reduce`.
+O pôster de cada filme é um quadro do próprio vídeo, reduzido a paleta indexada de
+64 cores — arte chapada não perde nada e o arquivo cai pela metade. Ele é **também**
+o que aparece pra quem pede `prefers-reduced-motion: reduce`, e a página escolhe a
+proporção certa por `<picture>` + `source media`:
+
+```bash
+# o quadro é o mesmo dos irmãos 16:9: a cena de abertura já composta
+for p in ciclo-v:1.8 travas-v:2.2; do
+  n=${p%:*}; t=${p#*:}
+  ffmpeg -y -ss $t -i ../../public/video/rizzoos/$n.mp4 -frames:v 1 \
+    -vf "palettegen=max_colors=64:stats_mode=single" /tmp/pal-$n.png
+  ffmpeg -y -ss $t -i ../../public/video/rizzoos/$n.mp4 -i /tmp/pal-$n.png -frames:v 1 \
+    -lavfi "[0:v][1:v]paletteuse=dither=none" ../../public/video/rizzoos/$n.png
+done
+```
 
 ## Costura (por que os cortes são assim)
 
