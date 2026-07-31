@@ -296,3 +296,114 @@ article.corpo { padding: 2.6rem 0 3rem; }
 @media (max-width: 640px) {
   .os .inner { padding: 1.5rem 1.3rem 1.8rem; }
 }
+
+/* ============================================================
+   Navegação nova (handoff rodapé/navegação, rizzo-os PR #1356):
+   menu do topo (header.topo.menu) + rodapé-mapa (footer.mapa).
+   Aditivo: header.topo e footer.fim antigos ficam intactos até o
+   PR de limpeza, depois da adoção completa.
+   Paleta do bloco escuro (§5 do handoff): fundo --cinza; rótulo
+   --amarelo (A2: legítimo sobre fundo escuro, nunca sobre papel);
+   link #EDE9DF; endereço/legal #C6CCD2/#9AA3AC; divisória #46505A.
+   ============================================================ */
+header.topo.menu { border-bottom: 1px solid var(--hairline); padding: 1.3rem 1.4rem; flex-wrap: wrap; gap: 0.9rem 1.6rem; }
+header.topo.menu nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem 1.5rem; }
+header.topo.menu nav a {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  color: var(--cinza);
+}
+header.topo.menu nav a:hover { color: var(--teal); border-bottom-color: var(--teal); }
+header.topo.menu nav a[aria-current="page"] { color: var(--ink); font-weight: 700; border-bottom-color: var(--ouro); }
+header.topo.menu nav a.wa { color: var(--navy); font-weight: 700; border-bottom-color: var(--ouro); }
+
+/* rodapé-mapa · faixa 1 — próxima leitura (papel) */
+footer.mapa .leitura { border-top: 1px solid var(--hairline); padding: 2.4rem 1.4rem; }
+footer.mapa .leitura .inner { max-width: 72rem; margin: 0 auto; }
+footer.mapa .leitura h2 {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal-texto);
+  font-weight: 700;
+  margin: 0 0 1.1rem;
+}
+footer.mapa .leitura .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+footer.mapa a.prox {
+  background: var(--claro);
+  border: 1px solid var(--hairline);
+  padding: 1.2rem 1.3rem;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+footer.mapa a.prox:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(22, 19, 14, 0.1); }
+footer.mapa a.prox .kick { font-family: var(--font-mono), monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ouro); margin-bottom: 0.5rem; }
+footer.mapa a.prox h3 { font-family: var(--font-slab), Rockwell, Georgia, serif; color: var(--ink); font-size: 1.1rem; margin: 0 0 0.35rem; }
+footer.mapa a.prox p { font-size: 0.92rem; line-height: 1.55; margin: 0; }
+
+/* rodapé-mapa · faixa 2 — bloco cinza (fecho do site; sem pano) */
+footer.mapa .bloco { background: var(--cinza); padding: 1.9rem 1.4rem 1.5rem; }
+footer.mapa .bloco .inner { max-width: 72rem; margin: 0 auto; display: flex; flex-direction: column; gap: 1.1rem; }
+footer.mapa .bloco a { color: #ede9df; text-decoration: none; }
+footer.mapa .bloco a:hover { color: var(--amarelo); }
+footer.mapa .bloco a[aria-current="page"] { color: #fff; font-weight: 700; }
+footer.mapa .identidade {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.6rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid #46505a;
+}
+footer.mapa .identidade img { height: 26px; width: auto; display: block; }
+footer.mapa .identidade address { font-style: normal; font-family: var(--font-mono), monospace; font-size: 0.68rem; letter-spacing: 0.06em; color: #c6ccd2; }
+footer.mapa a.zap {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: var(--amarelo);
+  color: var(--navy);
+  padding: 0.55rem 1rem;
+}
+footer.mapa a.zap:hover { background: #ffe45c; color: var(--navy); }
+footer.mapa .bloco nav h2 {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+  font-weight: 700;
+  margin: 0;
+}
+footer.mapa nav.colunas h2 { margin: 0 0 0.6rem; }
+footer.mapa nav.colunas .cols { columns: 4; column-gap: 1.6rem; font-size: 0.88rem; line-height: 1.85; }
+footer.mapa nav.colunas .cols a { display: block; }
+footer.mapa nav.linha { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.1rem; }
+footer.mapa nav.linha h2 { width: 8.5rem; flex: 0 0 auto; }
+footer.mapa nav.linha a { font-size: 0.9rem; }
+footer.mapa .legal {
+  padding-top: 0.9rem;
+  border-top: 1px solid #46505a;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.4rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: #9aa3ac;
+}
+footer.mapa .legal .links { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+footer.mapa .legal a { color: #c6ccd2; }
+footer.mapa .legal a:hover { color: var(--amarelo); }

@@ -12,8 +12,9 @@ export const AMARELO = "#FFD200"; // A2: só sobre navy
 export const PAPEL = "#F4EFE6";
 export const INK = "#16130E";
 
-// Campo contínuo da HOME: 3 janelas do MESMO pano (hero/meio/rodapé) — v4 aprovado.
-export const HOME_FIELD = { pattern: "virgula", cores: [TEAL, OURO], escala: "longe", seed: 2012, cols: 10, rows: 2, laminas: 3 } as const;
+// Campo contínuo da HOME: 2 janelas do MESMO pano (hero + pós-corpo). Eram 3; o
+// handoff de navegação revogou a 3ª (pós-CTA) — "não voltar atrás".
+export const HOME_FIELD = { pattern: "virgula", cores: [TEAL, OURO], escala: "longe", seed: 2012, cols: 10, rows: 2, laminas: 2 } as const;
 
 // Pano-assinatura por mídia (mesmos seeds do protótipo v4 — card da home = faixa da carta).
 export const PANO_MIDIA: Record<string, { pattern: string; cores: string[]; seed: number }> = {
@@ -70,7 +71,7 @@ for (const [slug, p] of Object.entries(PANO_CIDADE)) {
   if (!byId(p.pattern)) throw new Error(`pattern fora da biblioteca: ${p.pattern}`);
 }
 
-/** As 3 janelas do campo contínuo da home (HTML estático do motor). */
+/** As 2 janelas do campo contínuo da home (HTML estático do motor). */
 export function homeJanelas(): string[] {
   return panoContinuo(HOME_FIELD.pattern, [...HOME_FIELD.cores], HOME_FIELD.escala, HOME_FIELD.seed, HOME_FIELD.laminas, {
     cols: HOME_FIELD.cols,
