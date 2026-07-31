@@ -200,6 +200,7 @@ export default function RizzoOsPage() {
         </article>
 
         <CtaConversa
+          chave={"/rizzoos"}
           titulo="Quanto custa"
           acento="o que a sua clínica precisa?"
           sub="Oito perguntas sobre a sua clínica, no seu tempo. O acesso ao RizzoOS vem junto com o trabalho da agência, quando fizer sentido pros dois lados."

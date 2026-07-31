@@ -51,7 +51,7 @@ export default function ContatoPage() {
         </div>
       </article>
 
-      <CtaConversa titulo="Vamos montar" acento="a sua proposta?" />
+      <CtaConversa chave={"/contato"} titulo="Vamos montar" acento="a sua proposta?" />
       </main>
       <FooterMapa atual="/contato" proxima={["panorama", "clientes"]} />
     </>

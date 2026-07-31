@@ -83,10 +83,18 @@ export function panoFaixa(chave: string): string {
   return pano(p.pattern, p.cores, "longe", p.seed, COLS, ROWS);
 }
 
-/** Mini-pano do card de mídia (topo do card). */
-export function panoCard(chave: string): string {
+/** Mini-pano do card de mídia: MESMO pano da carta que o card anuncia
+ *  (§3.3 do handoff — "o card anuncia a faixa que o leitor vai ver"). */
+export function panoCard(slug: string): string {
+  const p = panoDe(`/cartas/${slug}`);
+  return pano(p.pattern, p.cores, "longe", p.seed, 8, 1);
+}
+
+/** Campo do bloco de CTA: o pano da própria página em peça miúda (estilo 6d
+ *  do carrossel — campo atrás, painel de papel na frente). */
+export function panoCta(chave: string): string {
   const p = panoDe(chave);
-  return pano(p.pattern, p.cores, "longe", p.seed, 8, 2);
+  return pano(p.pattern, p.cores, "longe", p.seed, 32, 8);
 }
 
 /** Tira de trevo amarelo do bloco RizzoOS (sobre navy). */

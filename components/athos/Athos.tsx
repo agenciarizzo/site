@@ -2,7 +2,7 @@
 // Panos SEMPRE via motor (lib/athos/panos.ts); html estático com data-pano (A1).
 import Image from "next/image";
 import Link from "next/link";
-import { panoTiraOs } from "@/lib/athos/panos";
+import { panoTiraOs, panoCta } from "@/lib/athos/panos";
 import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS, PROPOSTA_URL } from "@/lib/site";
 
 /**
@@ -68,16 +68,21 @@ export function Fatos() {
 export function CtaConversa({
   titulo,
   acento,
+  chave = "/",
   sub = "Oito perguntas sobre a sua clínica, no seu tempo. A proposta chega por escrito, com o preço aberto.",
 }: {
   titulo: string;
   acento: string;
+  /** rota da página — define o azulejo do campo atrás do painel */
+  chave?: string;
   waText?: string;
   sub?: string;
 }) {
   return (
     <section className="cta">
-      <div className="wrap">
+      {/* campo de azulejo miúdo atrás (6d: campo + painel de papel na frente) */}
+      <div className="cta-pano" aria-hidden dangerouslySetInnerHTML={{ __html: panoCta(chave) }} />
+      <div className="painel">
         <h2>
           {titulo}
           <br />

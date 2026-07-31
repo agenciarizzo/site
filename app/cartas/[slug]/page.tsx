@@ -122,6 +122,7 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
       </article>
 
       <CtaConversa
+        chave={`/cartas/${c.slug}`}
         titulo="Quanto custa"
         acento={c.ctaAcento ?? `${c.midia.toLowerCase()} na sua clínica?`}
       />

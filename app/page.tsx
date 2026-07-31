@@ -164,7 +164,7 @@ export default function Home() {
         <Fatos />
       </div>
 
-      <CtaConversa titulo="Quanto custa" acento="para a sua clínica?" />
+      <CtaConversa chave={"/"} titulo="Quanto custa" acento="para a sua clínica?" />
       </main>
       <FooterMapa atual="/" proxima={["panorama", "clientes"]} />
     </>
