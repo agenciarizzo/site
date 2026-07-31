@@ -209,3 +209,16 @@ export const panoRizzoOs = () => panoFaixa("/rizzoos");
 export const panoClientes = () => panoFaixa("/clientes");
 export const panoContato = () => panoFaixa("/contato");
 export const panoPrivacidade = () => panoFaixa("/politica-privacidade");
+
+/** Cortina da Abertura Athos (intro de 1ª visita da home — IntroAbertura):
+ *  o pano da PRÓPRIA home em corte de tela cheia — 12×7 na horizontal e 5×9
+ *  na vertical (células quase quadradas em 16:9 e 9:16; 129 peças ao todo).
+ *  Mesmo pattern·cores·seed de panoDe("/"): nenhum motivo virgem é consumido
+ *  — a cortina é a mesma peça da página, não uma assinatura nova. */
+export function panoAbertura(): { h: string; v: string } {
+  const p = panoDe("/");
+  return {
+    h: pano(p.pattern, p.cores, "longe", p.seed, 12, 7),
+    v: pano(p.pattern, p.cores, "longe", p.seed, 5, 9),
+  };
+}

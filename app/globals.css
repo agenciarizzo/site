@@ -686,3 +686,68 @@ p.resumo {
 }
 .escala span { display: block; font-size: var(--corpo-3); line-height: var(--lh-apoio); margin-top: 0.3rem; }
 
+/* ============================================================
+   Abertura Athos — a cortina de 1ª visita da home
+   (rizzo-os → docs/SITE_ABERTURA_ATHOS_MAPA.md)
+   ------------------------------------------------------------
+   O DOM só existe se /athos/abertura.js decidir montá-lo (1× na
+   vida do navegador); este bloco é a partitura. Três movimentos,
+   ~1,65s no total: assentamento (onda diagonal de azulejos,
+   delay por peça via --d), beat (o logo assina), recolhida
+   (peças saem via --d2 enquanto o root faz fade — e o
+   animationend DESTE fade é o que manda o JS remover tudo).
+   O overlay é pointer-events:none do primeiro ao último frame:
+   a página por baixo nasce pronta e clicável — não há "skip"
+   porque não há espera.
+   Anima-se SÓ o div EXTERNO de cada azulejo: o interno carrega a
+   rotação A3 do motor e não ganha transform daqui.
+   `abertura-sai` é `forwards` DE PROPÓSITO: com `both`, o fill
+   reverso dela (opacity:1 desde t=0) mascararia a entrada.
+   Zero texto novo = zero degrau de tipografia.
+   ============================================================ */
+.abertura {
+  --abre-ease: cubic-bezier(0.2, 0.7, 0.25, 1);
+  position: fixed;
+  inset: 0;
+  z-index: 60; /* o CSS do site não tem NENHUM outro z-index; 60 é folga, não disputa */
+  background: var(--papel);
+  pointer-events: none;
+  animation: abertura-fecha 450ms var(--abre-ease) 1200ms both;
+}
+.abertura-pano { position: absolute; inset: 0; }
+/* rejunte na cor do papel — azulejo colado não é azulejo (Contrato Athos) */
+.abertura [data-pano] { gap: var(--rejunte); padding: var(--rejunte); }
+.abertura [data-pano] > div {
+  animation:
+    abertura-entra 380ms var(--abre-ease) var(--d, 0ms) both,
+    abertura-sai 300ms var(--abre-ease) var(--d2, 1100ms) forwards;
+}
+.abertura-logo {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  animation: abertura-assina 380ms var(--abre-ease) 500ms both;
+}
+@keyframes abertura-entra {
+  from { opacity: 0; transform: scale(0.55); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes abertura-sai {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: scale(1.05); }
+}
+@keyframes abertura-assina {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes abertura-fecha {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+/* cinto-e-suspensório: o JS já sai no reduce sem montar nada; se algum dia a
+   preferência mudar com a cortina no ar, ela some no ato. */
+@media (prefers-reduced-motion: reduce) {
+  .abertura { display: none; }
+}
+

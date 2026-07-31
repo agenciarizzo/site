@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { homeJanelas, panoCard } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
+import { IntroAbertura } from "@/components/athos/IntroAbertura";
 import { CARTAS_MIDIA } from "@/content/cartas";
 
 export const metadata: Metadata = {
@@ -167,6 +168,7 @@ export default function Home() {
       <CtaConversa chave={"/"} titulo="Quanto custa" acento="para a sua clínica?" />
       </main>
       <FooterMapa atual="/" proxima={["panorama", "clientes"]} />
+      <IntroAbertura />
     </>
   );
 }
