@@ -161,7 +161,7 @@ export default function RizzoOsPage() {
                 <p>{f.d}</p>
                 {/* O inventário dobra; a linha de resumo e os links de carta NÃO.
                     `<details>` é HTML nativo (zero JS) e o texto continua no DOM
-                    fechado — o Google lê os 39 marcadores como sempre leu. */}
+                    fechado — o Google lê os 37 marcadores como sempre leu. */}
                 <p className="resumo">{f.resumo}</p>
                 <details className="detalhe">
                   <summary>
