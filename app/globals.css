@@ -601,13 +601,16 @@ footer.mapa .legal a:hover { color: var(--amarelo); }
   background: var(--papel);
   border: 1px solid var(--hairline);
 }
-/* Quem pede menos movimento recebe o quadro parado — a mesma disciplina que a
-   onda de entrada dos azulejos já aplica. Sem JS: o CSS troca os dois. */
-.filme .filme-parado { display: none; }
-@media (prefers-reduced-motion: reduce) {
-  .filme .filme-anda { display: none; }
-  .filme .filme-parado { display: block; }
-}
+/* A TROCA É AO CONTRÁRIO DO QUE PARECE: o quadro parado é o estado PADRÃO, e o
+   vídeo só aparece quando o `/athos/filme.js` já escolheu a peça da tela e
+   marcou a figura com `data-filme="ok"`.
+   Assim: sem JS (ou com `prefers-reduced-motion: reduce`, quando o script sai
+   sem fazer nada) fica o pôster, que o `<picture>` já entrega na proporção
+   certa — e o `<video>`, sem `src`, não baixa arquivo nenhum. */
+.filme .filme-anda { display: none; }
+.filme .filme-parado { display: block; }
+.filme[data-filme="ok"] .filme-anda { display: block; }
+.filme[data-filme="ok"] .filme-parado { display: none; }
 .filme figcaption {
   font-size: var(--corpo-3);
   line-height: var(--lh-apoio);
@@ -655,9 +658,10 @@ p.resumo {
    escolhido no olho.
 
    1. A CAIXA muda de proporção junto com o arquivo: o celular
-      recebe a peça 9:16 e o desktop a 16:9 (`<source media>` no
-      page.tsx). Sem isto a caixa reserva a altura errada e o
-      layout salta quando o vídeo troca.
+      recebe a peça 9:16 e o desktop a 16:9 (quem escolhe o arquivo
+      é o `/athos/filme.js`; o `<source media>` do `<video>` NÃO
+      funciona por viewport). Sem isto a caixa reserva a altura
+      errada e o layout salta quando o vídeo troca.
    2. Os dois degraus mono do inventário sobem pro piso de 14px
       (motivo no :root) — e o `summary`, que é controle de toque,
       ganha alvo maior junto.

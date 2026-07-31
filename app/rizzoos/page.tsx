@@ -45,21 +45,29 @@ const WA = "Olá! Vi a página do RizzoOS no site da agência e quero conversar 
 /**
  * Filme embutido — `<video>` NATIVO, mudo, em loop, em DUAS proporções.
  *
- * É HTML, não JavaScript: a regra 5 do CLAUDE.md (SSG puro, zero `"use client"`)
- * continua intacta e a página não vira composição client-side. A fonte das quatro
- * peças vive em `hyperframes/rizzoos/`; o MP4 e o pôster são o que o build serve.
- *
  * CADA TELA RECEBE A PEÇA DESENHADA PRA ELA. O 16:9 no celular era o defeito que
  * abriu este tronco: a caixa cai pra 315px de largura e tudo dentro do filme
  * aparece a 0,25× — o rótulo de 21px vira 5,7px, e o filme inteiro vira borrão.
- * O `<source media>` resolve isso onde tem que ser resolvido, na seleção do
- * arquivo: **cada visitante baixa UMA peça por filme**, nunca as duas.
+ *
+ * QUEM ESCOLHE O ARQUIVO É `/athos/filme.js`, E NÃO `<source media>`. Medido: o
+ * Chrome NÃO avalia media query de viewport na seleção de recurso de `<video>`
+ * (só honra o que independe de viewport, tipo `prefers-reduced-motion`). Com a
+ * janela em 500px, `matchMedia('(max-width: 700px)')` dava `true`, a fonte
+ * vertical era a PRIMEIRA — e o `currentSrc` saía `ciclo.mp4`: o celular tocava
+ * o 16:9 na caixa 9:16 e baixava os QUATRO arquivos (3,36 MB, acima do teto de
+ * 3,0 por aparelho). Dois `<video>` trocados por CSS com `preload="none"` também
+ * foi testado e é pior — `autoplay` anula o `preload` e os dois descem.
+ *
+ * O script é arquivo estático de `public/` — NÃO é `"use client"` e não entra no
+ * bundle do React, então a página continua SSG. É o primeiro JS de cliente do
+ * site, e existe porque nenhum caminho sem JS entrega o arquivo certo E um
+ * download só.
  *
  * O vídeo é REDUNDANTE POR DESENHO: tudo que ele encena continua escrito na
- * página. Quem não o vê — leitor de tela, conexão ruim, `prefers-reduced-motion`,
- * ou simplesmente quem não dá play — não perde informação nenhuma. Por isso o
- * `aria-label`, a legenda visível e o `<picture>` do pôster (que o CSS troca
- * sozinho quando o visitante pede menos movimento).
+ * página. Sem JS, o `<video>` nunca ganha `src` — não baixa nada — e o que fica
+ * é o `<picture>` do quadro parado, que escolhe a proporção certa sozinho
+ * (`media` em `<source>` de `<picture>` funciona de verdade). Quem pede
+ * `prefers-reduced-motion: reduce` para no mesmo lugar.
  *
  * Mora aqui dentro, e não em `components/`, porque é peça desta página só.
  */
@@ -67,30 +75,26 @@ function Filme({ nome, titulo, legenda }: { nome: "ciclo" | "travas"; titulo: st
   const base = `/video/rizzoos/${nome}`;
   return (
     <figure className="filme">
-      {/* SEM atributo `poster`: ele é único e não varia por media query, então
-          apontá-lo pra qualquer um dos dois formatos (a) deitaria um quadro 16:9
-          dentro da caixa 9:16 do celular e (b) faria o telefone baixar um PNG do
-          formato que ele não usa. Quem carrega o quadro parado é o `<picture>`
-          abaixo, que escolhe a proporção certa e baixa só ela; enquanto o vídeo
-          não pinta, a caixa fica no papel da casa (`background` no globals.css),
-          que é o mesmo fundo dos filmes. */}
-      <video className="filme-anda" autoPlay muted loop playsInline preload="metadata" aria-label={titulo}>
-        {/* `media` na fonte: onde o navegador respeita a seleção por media query, quem
-            pediu menos movimento nem chega a baixar o MP4. Onde não respeita, o CSS
-            ainda troca o vídeo pelo pôster — a trava visual não depende disto.
-            A ORDEM IMPORTA: o navegador fica na primeira fonte cujo `media` casa,
-            então o recorte de celular vem antes do caso geral. */}
-        <source
-          src={`${base}-v.mp4`}
-          type="video/mp4"
-          media="(max-width: 700px) and (prefers-reduced-motion: no-preference)"
-        />
-        <source src={`${base}.mp4`} type="video/mp4" media="(prefers-reduced-motion: no-preference)" />
-      </video>
-      {/* Quadro parado pra quem pediu `prefers-reduced-motion: reduce`, na proporção
-          da tela. `<picture>` porque `<img>` escondido por `display:none` ainda é
-          baixado — com `source media` o navegador busca só o que serve. `next/image`
-          aqui só somaria JavaScript numa imagem que já nasce no tamanho exato. */}
+      {/* Sem `src` e sem `poster` no HTML: os dois entram pelo script, já no
+          formato certo. É isso que garante UM download por filme — o navegador
+          não tem o que buscar até saber qual é a peça desta tela. */}
+      <video
+        className="filme-anda"
+        muted
+        loop
+        playsInline
+        preload="none"
+        aria-label={titulo}
+        data-v={`${base}-v.mp4`}
+        data-h={`${base}.mp4`}
+        data-poster-v={`${base}-v.png`}
+        data-poster-h={`${base}.png`}
+      />
+      {/* Quadro parado: o fallback sem JS E o destino de quem pediu
+          `prefers-reduced-motion: reduce`, na proporção da tela. `<picture>`
+          porque `<img>` escondido por `display:none` ainda é baixado — com
+          `source media` o navegador busca só o que serve. `next/image` aqui só
+          somaria JavaScript numa imagem que já nasce no tamanho exato. */}
       <picture>
         <source media="(max-width: 700px)" srcSet={`${base}-v.png`} />
         <img className="filme-parado" src={`${base}.png`} alt={titulo} width={1280} height={720} />
@@ -291,6 +295,11 @@ export default function RizzoOsPage() {
         />
       </main>
       <FooterMapa atual="/rizzoos" proxima={["panorama", "contato"]} />
+      {/* Arquivo estático de `public/`, NÃO `"use client"`: escolhe a peça da tela
+          (9:16 ou 16:9) e baixa só ela. `defer` porque o filme não é o LCP — o `h1`
+          é — e nada acima da dobra depende disto. Ver o cabeçalho de `Filme` e o
+          comentário do próprio `filme.js` pro porquê de não dar pra fazer sem JS. */}
+      <script src="/athos/filme.js" defer />
     </>
   );
 }
