@@ -18,6 +18,14 @@ export interface Frente {
   d: string;
   /** Capacidades já em produção — cada uma com prova no inventário §2. */
   itens: string[];
+  /**
+   * A linha de resumo que fica VISÍVEL quando o inventário está dobrado
+   * (`<details>` fechado). Não é copy nova: é o próprio `itens` reduzido aos seus
+   * nomes, separados por ponto médio — quem passa o olho já sabe o que tem lá
+   * dentro, e nenhuma afirmação nova entra na página por causa da dobra.
+   * Régua §19.2: sem número, sem superlativo, sem promessa.
+   */
+  resumo: string;
   /** Cartas de mídia que continuam a conversa (rota existente do site). */
   leia?: { slug: string; rotulo: string }[];
 }
@@ -26,6 +34,8 @@ export const FRENTES: Frente[] = [
   {
     t: "Conteúdo: do calendário do ano ao post no ar",
     d: "A parte que mais trava numa clínica é a que menos precisa travar — sair do combinado e ir pro ar.",
+    resumo:
+      "calendário do ano · aprovação pelo celular · publicação sozinha · teleprompter · trilha de auditoria",
     itens: [
       "O calendário do ano já nasce montado na sua marca — banco de pautas, não página em branco.",
       "Aprovação pelo celular: desliza pra aprovar e desenha o ajuste em cima da própria arte.",
@@ -40,6 +50,8 @@ export const FRENTES: Frente[] = [
   {
     t: "Studio: design e identidade que não fogem da marca",
     d: "Peça bonita que não parece sua não serve. O desenho nasce dentro da sua identidade, não ao lado dela.",
+    resumo:
+      "linhas visuais próprias · motor de identidade · oficina de imagem por IA · verificação de CFM",
     itens: [
       "20+ linhas visuais próprias, cada uma validada por teste automático.",
       "Motor de identidade: logo sempre legível sobre qualquer fundo, ênfase tipográfica, várias fotos por arte.",
@@ -55,6 +67,8 @@ export const FRENTES: Frente[] = [
   {
     t: "Mídia paga: Google Ads, Meta e a verba à vista",
     d: "Anúncio de clínica lida com dinheiro e com dado de paciente. As duas coisas pedem cuidado de banco, não de planilha.",
+    resumo:
+      "credencial no servidor · campanha completa numa tacada · saldo em tempo real · verba sem repasse",
     itens: [
       "Credenciais nunca passam pelo navegador: quem fala com o Google e com a Meta é o servidor.",
       "Campanha completa numa tacada — verba, grupo, palavras e anúncio. Ou entra tudo, ou não entra nada.",
@@ -71,6 +85,8 @@ export const FRENTES: Frente[] = [
   {
     t: "Inteligência: painel vivo, relatório e comentários",
     d: "Número que você só vê quando pergunta é número que chegou tarde. Aqui ele chega antes, e classificado.",
+    resumo:
+      "painel em semáforo · alerta antecipado · relatório por API · central de comentários · concierge semanal",
     itens: [
       "Painel de comando em semáforo: verde, amarelo e vermelho, sem precisar interpretar planilha.",
       "Alerta antecipado de queda e de verba acabando — antes de estourar, não depois.",
@@ -84,6 +100,8 @@ export const FRENTES: Frente[] = [
   {
     t: "TV e vídeo: a sala de espera vira canal medível",
     d: "A tela da recepção fala com quem já está ali, sentado, esperando por você.",
+    resumo:
+      "canal por um link · ambiente ao vivo · fila e chamada de senha · prova de exibição",
     itens: [
       // Sem contagem: o anexo dizia "dezenas de tipos de slide", mas o código tem 12
       // (src/lib/tv/types.ts) — "dezenas" seria número sem lastro (régua §19.2, a mesma
@@ -103,6 +121,8 @@ export const FRENTES: Frente[] = [
   {
     t: "Entrada: como o trabalho começa",
     d: "O começo costuma custar semanas de reunião. Aqui ele começa pelo material que a sua clínica já tem.",
+    resumo:
+      "onboarding de um paste · deck de kickoff · plano do ano como fonte da verdade · meus materiais",
     itens: [
       "Onboarding de um paste: o sistema varre o material que você já tem, extrai a marca e monta o roadmap do ano.",
       "Deck de kickoff pronto pra reunião de início.",
