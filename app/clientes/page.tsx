@@ -198,9 +198,24 @@ export default async function ClientesPage() {
             Quem passou por aqui, por área de atuação. Nem todo nome segue em contrato hoje — é o histórico do
             trabalho, não a lista do mês.
           </p>
+          {/*
+            O índice das áreas. NÃO é enfeite: a 390px a lista tem 43 grupos e ~13.800px
+            de altura — sem um jeito de pular, achar "Odontologia" é rolar 20 telas.
+            Fica FORA do `.carteira` de propósito: o invariante do §24.5 é que nome de
+            cliente não vira link (não há endereço no dado pra linkar), e aqui nenhum
+            nome é link — estes âncoras apontam pra dentro da própria página.
+          */}
+          <nav className="carteira-indice" aria-label="Áreas da carteira">
+            {grupos.map((g) => (
+              <a href={`#area-${chave(g.area)}`} key={g.area}>
+                {g.area}
+              </a>
+            ))}
+          </nav>
+
           <div className="carteira">
             {grupos.map((g) => (
-              <section className="carteira-grupo" key={g.area}>
+              <section className="carteira-grupo" id={`area-${chave(g.area)}`} key={g.area}>
                 <h3>{g.area}</h3>
                 <ul>
                   {g.itens.map((c) => (

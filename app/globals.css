@@ -764,8 +764,24 @@ p.resumo {
    Aditivo: `.clientes-grid`/`.cliente*` (a grade de cima) ficam
    exatamente como estavam — nenhum seletor daqui os alcança.
    ============================================================ */
+/* Índice das áreas — o mapa da lista, não decoração. Fora do `.carteira` porque
+   o invariante é que NOME de cliente não vira link; estes âncoras apontam pra
+   dentro da própria página. */
+.carteira-indice { display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; margin: 1.5rem 0 0; }
+.carteira-indice a {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--cinza);
+  text-decoration: none;
+  background: var(--claro);
+  border: 1px solid var(--hairline);
+  padding: 0.34rem 0.6rem;
+}
+.carteira-indice a:hover { color: var(--teal-texto); border-color: var(--teal); }
 .carteira { margin: 1.7rem 0 0.6rem; }
-.carteira-grupo { border-top: 1px solid var(--hairline); padding: 1.05rem 0 0.35rem; }
+.carteira-grupo { border-top: 1px solid var(--hairline); padding: 1.05rem 0 0.35rem; scroll-margin-top: 1rem; }
 .carteira-grupo h3 {
   font-family: var(--font-mono), monospace;
   font-size: var(--mono-3);
@@ -795,12 +811,15 @@ p.resumo {
   .carteira-grupo ul { columns: 2; }
 }
 @media (max-width: 640px) {
-  /* Coluna única, e a praça sobe pra linha do nome: em bloco, cada nome custava
-     três linhas de altura e a lista virava metro de scroll. O degrau é o
-     `--mono-2-cel` (14px), o piso de leitura que o :root já declarou pro celular —
-     `--mono-3` aterrissaria a 9,9px aqui. */
+  /* Coluna única. Nome e praça sobem pro degrau de leitura de 14px do celular, e
+     o índice vira alvo de toque. */
   .carteira-grupo ul { columns: 1; }
+  .carteira-indice a { font-size: var(--mono-2-cel); letter-spacing: var(--ls-micro); }
   .carteira-nome { padding-bottom: 0.7rem; }
-  .carteira-nome .praca { display: inline; font-size: var(--mono-2-cel); }
-  .carteira-nome .praca::before { content: " · "; }
+  /* A praça fica na PRÓPRIA linha, no degrau de leitura de 14px do :root
+     (`--mono-3` aterrissaria a 9,9px aqui). Inline foi medido e reprovado duas vezes:
+     solta, ela quebra no meio da cidade (`RIO DE / JANEIRO/RJ`); com `nowrap`,
+     `JUAZEIRO DO NORTE/CE` mede 232px e empurra a página pra 397px de largura —
+     scroll horizontal no celular. Em linha própria não faz nem uma coisa nem outra. */
+  .carteira-nome .praca { font-size: var(--mono-2-cel); line-height: var(--lh-titulo); }
 }
