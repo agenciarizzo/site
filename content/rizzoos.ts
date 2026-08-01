@@ -5,6 +5,9 @@
 //  · Número público só sai das fontes canônicas: PLANEJAMENTO_ESTRATEGICO_RIZZO_2026
 //    §2.1 (200+ atendidos · 40+ ativas · 9 fontes ao vivo · 40 GMB · 20+ linhas) e
 //    RIZZOOS_FEATURES_INVENTARIO §0. Em dúvida, corta. Nunca "10 fontes", nunca "40 packs".
+//    · EXCEÇÃO com lastro melhor que a fonte: "atendidos" subiu pra 250+ quando a
+//      carteira nominal entrou no repo (content/carteira.ts). O 200+ do §2.1 é anterior
+//      à contagem; o número novo é decisão do cliente e tem lista por trás. Não reverter.
 //  · Status é sagrado: o que não está pronto vai no ADIANTE, sempre com o rótulo de
 //    construção E a linha de lastro (o que já existe × o que falta).
 //  · Zero superlativo (nem como meta declarada), zero promessa de resultado, zero
@@ -167,7 +170,7 @@ export const GARANTIAS: { t: string; d: string }[] = [
 
 /** Escala — TODOS os números aqui saem do §2.1 do planejamento (régua §19.2 do mapa). */
 export const ESCALA: { n: string; d: string }[] = [
-  { n: "200+", d: "clínicas e médicos atendidos na história da agência." },
+  { n: "250+", d: "clínicas e médicos atendidos na história da agência." },
   { n: "40+", d: "clínicas de especialidade ativas hoje." },
   { n: "9", d: "fontes de dados lidas ao vivo, traduzidas pra mesma língua." },
   { n: "40", d: "perfis de Google Meu Negócio monitorados na Central de Comentários." },
