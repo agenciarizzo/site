@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>A parede é sua. A mão é nossa. — em pé</title>
+
+    <!-- Runtime e fontes são ARQUIVO LOCAL (scripts/ativos.mjs): render determinístico
+         não busca nada na rede. Tipografia oficial da Linha Athos. -->
+    <link rel="stylesheet" href="assets/fontes.css" />
+    <script src="assets/gsap.min.js"></script>
+
+    <style>
+      /* Tokens da Linha Athos — os mesmos do irmão 16:9 e de app/globals.css.
+         SEM navy de fundo (A4) e SEM amarelo #FFD200 (A2: nunca sobre papel). */
+      :root {
+        --papel: #f4efe6;
+        --claro: #fbf9f3;
+        --ink: #16130e;
+        --corpo: #3a3628;
+        --cinza: #323c46;
+        --ouro: #f0a400;
+        --teal: #0097a7;
+        --tealtxt: #007681;
+        --hairline: #e3dcc8;
+        --rejunte: 10px;
+        --margem: 70px;
+
+        /* ============================================================
+           ESCALA DO QUADRO EM PÉ
+           ------------------------------------------------------------
+               tamanho na tela = autorado × (largura da caixa ÷ largura do quadro)
+
+           Pior caso de celular: caixa de 315px (viewport 360) num quadro de
+           1080 → fator 0,2917. Piso de 14px na tela ⇒ NENHUM degrau abaixo
+           de 48px. Os NOMES são os mesmos do irmão 16:9.
+           ============================================================ */
+        --t-titulo: 108px; /* slab display — a abertura             → 31,5px na tela */
+        --t-rotulo: 52px; /*  mono — o rótulo do beat               → 15,2px */
+
+        --ls-rotulo: 0.18em;
+        --lh-titulo: 1.14;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--papel); }
+      body { font-family: "Geist", sans-serif; color: var(--corpo); }
+
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--papel); }
+
+      .cena { position: absolute; inset: 0; }
+      .quadro { position: absolute; inset: 0; }
+      /* O fundo mora num filho full-bleed, nunca no root: o compositor do render
+         pode descartar o background do próprio elemento raiz. */
+      .papel { position: absolute; inset: 0; background: var(--papel); }
+
+      /* Rótulo de beat — mono, com a barrinha de ouro da casa.
+         SEM `nowrap`: no quadro em pé o rótulo mais longo não cabe numa linha só
+         com o tipo no piso, e a saída certa é QUEBRAR EM PALAVRA, nunca encolher
+         o tipo (§5.1 do doc-mapa). */
+      .rotulo {
+        position: absolute; left: var(--margem); bottom: 116px; width: 940px;
+        font-family: "JetBrains Mono", monospace; font-weight: 700;
+        font-size: var(--t-rotulo); letter-spacing: var(--ls-rotulo); text-transform: uppercase;
+        line-height: 1.42; color: var(--tealtxt);
+      }
+      .rotulo i { display: block; width: 52px; height: 9px; background: var(--ouro); margin-bottom: 22px; }
+
+      /* ============================================================
+         O VOCABULÁRIO DO PANO — as mesmas seis palavras (§2.3).
+         ============================================================ */
+
+      /* 1 · VAGA — o contorno vazio, o combinado que precede o trabalho */
+      .vaga { position: relative; background: var(--claro); border: 2px solid var(--hairline); }
+      /* 2 · PEÇA ASSENTADA — o azulejo do motor na sua vaga, no esquadro */
+      .vaga .dentro { position: relative; z-index: 1; }
+      .vaga .dentro, .vaga .dentro > div { display: block; width: 100%; height: 100%; }
+      /* 6 · ACENTO — UMA peça por quadro; neste filme, só no beat da regra */
+      .vaga.acento { border-color: var(--teal); }
+      .vaga.acento .dentro { background: #e6f2f4; }
+      /* A MARCA NA VAGA — não confundir com o ACENTO: é a cor da CASA na parede
+         inteira, uniforme (o assunto do beat 2), não o destaque de uma peça. */
+      .parede.marca > .vaga { border-color: var(--ouro); }
+
+      /* 5 · PAREDE — peças em grade. O `z-index: 0` fecha a grade num contexto de
+            empilhamento próprio: sem ele o `z-index` das peças em voo escapa e
+            passa por cima do texto. */
+      .parede { position: absolute; z-index: 0; display: grid; gap: var(--rejunte); }
+      .parede > .vaga { aspect-ratio: 1; }
+
+      /* a peça avulsa: a que chega fora de esquadro e é recolhida */
+      .peca { position: absolute; background: var(--claro); border: 3px solid var(--hairline); }
+      .peca > div { width: 100%; height: 100%; }
+
+      /* ---- beat 1 — a abertura ----
+         MESMA quebra de linha do irmão 16:9: duas linhas, uma frase em cada. */
+      .titulo {
+        position: absolute; left: var(--margem); top: 300px; width: 940px;
+        font-family: "Roboto Slab", serif; font-weight: 800;
+        font-size: var(--t-titulo); line-height: var(--lh-titulo); letter-spacing: -0.025em; color: var(--ink);
+      }
+      .titulo span { display: block; }
+      .titulo em { font-style: normal; color: var(--teal); }
+      .regua { position: absolute; left: var(--margem); top: 240px; width: 52px; height: 9px; background: var(--ouro); }
+      #c1 .parede { left: var(--margem); top: 700px; width: 940px; grid-template-columns: repeat(6, 1fr); }
+
+      /* ---- beat 2 — a marca antes do desenho ---- */
+      #c2 .parede { left: var(--margem); top: 420px; width: 940px; grid-template-columns: repeat(6, 1fr); }
+
+      /* ---- beat 3 — peça nova, mesma casa ----
+         Quinze motivos em 3 × 5 (o deitado usa 5 × 3): grade e pilha é a única
+         coisa que muda entre as proporções. */
+      #c3 .parede { left: 160px; top: 250px; width: 760px; grid-template-columns: repeat(3, 1fr); }
+
+      /* ---- beat 4 — a regra da profissão ---- */
+      #c4 .parede { left: var(--margem); top: 300px; width: 940px; grid-template-columns: repeat(6, 1fr); }
+      #c4 .peca { left: 386.67px; top: 775px; width: 148.33px; height: 148.33px; }
+
+      /* ---- beat 5 — a parede fecha: daqui ela vai até a borda do quadro ---- */
+      #c5 .parede { left: 0; top: 420px; width: 1080px; grid-template-columns: repeat(6, 1fr); }
+    </style>
+  </head>
+
+  <body>
+    <div
+      id="root"
+      data-composition-id="parede-v"
+      data-start="0"
+      data-width="1080"
+      data-height="1920"
+      data-duration="14"
+      data-fps="30"
+    >
+      <!-- ============ 1 · a abertura ============ -->
+      <section class="clip cena" id="c1" data-start="0" data-duration="2.8" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="regua"></div>
+          <h1 class="titulo"><span>A parede é sua.</span><span><em>A mão é nossa.</em></span></h1>
+          <div class="parede marca"><!--PANO:parede--><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><!--/PANO:parede--></div>
+        </div>
+      </section>
+
+      <!-- ============ 2 · a marca antes do desenho ============ -->
+      <section class="clip cena" id="c2" data-start="2.8" data-duration="2.9" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="parede marca"><!--PANO:parede--><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><!--/PANO:parede--></div>
+          <div class="rotulo"><i></i>a sua marca entra antes do desenho</div>
+        </div>
+      </section>
+
+      <!-- ============ 3 · peça nova, mesma casa ============ -->
+      <section class="clip cena" id="c3" data-start="5.7" data-duration="2.8" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="parede"><!--PANO:variedade--><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(42% 42% at 50% 50%, transparent 0 71.42857142857143%, #323C46 71.42857142857143% 99%, transparent 99.6%) no-repeat, radial-gradient(17% 17% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(100% 100% at 0% 100%, transparent 0 66%, #323C46 66% 80%, transparent 80.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(100% 100% at 0% 100%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(#323C46,#323C46) 50% 50%/15% 46% no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg, #323C46 0 8%, transparent 8% 21%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(#323C46,#323C46) 100% 0%/13% 13% no-repeat, radial-gradient(100% 100% at 0% 100%, transparent 0 54%, #323C46 54% 64%, transparent 64.5%) no-repeat, radial-gradient(100% 100% at 0% 100%, transparent 0 71%, #323C46 71% 81%, transparent 81.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(circle at 0% 100%, transparent 0 48%, #F0A400 50% 60%, transparent 62%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(circle at 0% 100%, transparent 0 42%, #F0A400 44% 62%, transparent 64%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 100%, #F0A400 0 70%, transparent 72%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(115deg, transparent 0 32%, #F0A400 34% 56%, transparent 58%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, #F0A400 0 30%, transparent 32%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, transparent 0 26%, #F0A400 28% 42%, transparent 44%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(circle at 0% 100%, #F0A400 0 58%, transparent 60%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to bottom right, #F0A400 0 50%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><!--/PANO:variedade--></div>
+          <div class="rotulo"><i></i>peça nova, mesma casa</div>
+        </div>
+      </section>
+
+      <!-- ============ 4 · a regra da profissão ============ -->
+      <section class="clip cena" id="c4" data-start="8.5" data-duration="2.8" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="parede"><!--PANO:parede--><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><!--/PANO:parede--></div>
+          <div class="peca"><!--PANO:peca--><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div><!--/PANO:peca--></div>
+          <div class="rotulo"><i></i>e a regra da sua profissão vem junto</div>
+        </div>
+      </section>
+
+      <!-- ============ 5 · a parede fecha ============ -->
+      <section class="clip cena" id="c5" data-start="11.3" data-duration="2.7" data-track-index="1">
+        <div class="quadro">
+          <div class="papel"></div>
+          <div class="parede"><!--PANO:parede--><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(90deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #F0A400 0 99%, transparent 99.5%) no-repeat;transform:rotate(180deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(34% 34% at 50% 50%, #323C46 0 99%, transparent 99.5%) no-repeat;transform:rotate(270deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #323C46 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><div class="vaga"><span class="dentro"><div style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(to top right, #F0A400 0 49.6%, transparent 50%) no-repeat;transform:rotate(0deg)"></div></div></span></div><!--/PANO:parede--></div>
+          <div class="rotulo"><i></i>todo mês, sem você ter que puxar</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      /* ================================================================
+         A parede é sua. A mão é nossa. — EM PÉ.
+         14,0s · 1080×1920 · 30fps · MUDO (sem faixa de áudio).
+
+         MESMOS BEATS, MESMA ORDEM, MESMOS RÓTULOS do irmão 16:9 — o que
+         muda entre as proporções é GRADE e PILHA, nunca conteúdo (§4.3 do
+         doc-mapa). A Lei do Assentamento, os dois verbos e a costura estão
+         explicados por extenso no cabeçalho de `ciclo/index.html`.
+         ================================================================ */
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const VIAGEM = 130; // ~12% do quadro — viagem parcial da CENA
+      const SAI = 0.28;
+      const ENTRA = 0.34;
+      const FIM = 14;
+
+      const CHEGA = 168;
+      const POUSO = 0.46;
+
+      /** Jitter determinístico — a mão humana no ritmo, nunca no desenho. */
+      const jitter = (i) => ((i * 7) % 5) * 0.012;
+
+      function costura(id, t0, t1, ultima) {
+        const q = "#" + id + " .quadro";
+        tl.set(q, { x: VIAGEM, opacity: 0.35 }, t0);
+        tl.to(q, { x: 0, opacity: 1, duration: ENTRA, ease: "power4.out" }, t0);
+        tl.to(q, { x: -VIAGEM, duration: SAI, ease: "power4.in" }, t1 - SAI);
+        tl.to(q, { opacity: ultima ? 0.35 : 0, duration: ultima ? SAI : 0.26, ease: "none" }, t1 - SAI);
+      }
+
+      costura("c1", 0, 2.8);
+      costura("c2", 2.8, 5.7);
+      costura("c3", 5.7, 8.5);
+      costura("c4", 8.5, 11.3);
+      costura("c5", 11.3, FIM, true);
+
+      /** ASSENTAR — o único jeito de uma peça aparecer neste filme. */
+      function assentar(cena, t0, cols, quando) {
+        gsap.utils.toArray(cena + " .parede > .vaga").forEach((vaga, i) => {
+          const dentro = vaga.querySelector(".dentro");
+          const t = quando(i % cols, Math.floor(i / cols), i);
+          if (t === null) {
+            tl.set(dentro, { x: 0, autoAlpha: 1 }, t0);
+            return;
+          }
+          tl.set(dentro, { x: CHEGA, autoAlpha: 0 }, t0);
+          tl.to(dentro, { x: 0, autoAlpha: 1, duration: POUSO, ease: "power4.out" }, t);
+        });
+      }
+
+      /* ---------- 1 · a abertura ----------
+         A parede entra JÁ EM CURSO no quadro 0 — e as primeiras peças chegam
+         ASSENTADAS, nunca brotando. As vagas já estão todas no ouro da casa. */
+      gsap.set("#c1 .quadro", { x: VIAGEM, opacity: 0.35 });
+      assentar("#c1", 0, 6, (col, lin, i) => (col < 3 ? null : (col - 3) * 0.13 + lin * 0.05 + jitter(i)));
+      gsap.set("#c1 .titulo span:nth-child(1)", { x: 0, autoAlpha: 1 });
+      gsap.set("#c1 .titulo span:nth-child(2)", { x: 108, autoAlpha: 0 });
+      tl.set("#c1 .titulo span:nth-child(2)", { x: 108, autoAlpha: 0 }, 0);
+      tl.to("#c1 .titulo span:nth-child(2)", { x: 0, autoAlpha: 1, duration: 0.34, ease: "power4.out" }, 0.18);
+      gsap.set("#c1 .regua", { scaleX: 1, transformOrigin: "0 50%" });
+
+      /* ---------- 2 · a marca antes do desenho ----------
+         As VAGAS chegam compostas no corte e já estão no par de cores da marca —
+         a parede inteira, uniforme. As peças é que assentam DENTRO delas. */
+      assentar("#c2", 2.8, 6, (col, lin, i) => 3.02 + col * 0.09 + lin * 0.048 + jitter(i));
+
+      /* ---------- 3 · peça nova, mesma casa ----------
+         Quinze motivos DIFERENTES assentam lado a lado e a parede continua lendo
+         como uma casa só. Quem costura é o rejunte constante. */
+      assentar("#c3", 5.7, 3, (col, lin, i) => 5.92 + (col + lin) * 0.1 + jitter(i));
+
+      /* ---------- 4 · a regra da profissão ----------
+         O SEGUNDO VERBO. Uma peça chega fora de esquadro e fica pendente. Em vez
+         de ser esquadrada, ela é RECOLHIDA — sai na mesma corrente em que chegou.
+         A VAGA FICA e a peça seguinte assenta nela, no esquadro.
+
+         Os dois `set` no mesmo instante são intencionais: o segundo sobrescreve o
+         primeiro, que é como a vaga 21 sai do estado "assentada" que o
+         `assentar()` dá a todas. */
+      assentar("#c4", 8.5, 6, () => null);
+      tl.set("#c4 .parede > .vaga:nth-child(21) .dentro", { x: CHEGA, autoAlpha: 0 }, 8.5);
+      tl.set("#c4 .parede > .vaga:nth-child(21)", { borderColor: "#0097A7" }, 8.5);
+      // a peça chega — fora de esquadro, e para. Pendente.
+      tl.set("#c4 .peca", { x: CHEGA * 1.6, autoAlpha: 0, rotate: -9, transformOrigin: "50% 50%" }, 8.5);
+      tl.to("#c4 .peca", { x: 0, autoAlpha: 1, duration: 0.52, ease: "power4.out" }, 8.86);
+      // ---- e ela NÃO é esquadrada: é RECOLHIDA, na mesma corrente ----
+      tl.to("#c4 .peca", { x: -CHEGA * 2.2, autoAlpha: 0, duration: 0.5, ease: "power4.in" }, 9.7);
+      // a vaga fica, e a peça seguinte assenta nela — no esquadro
+      tl.to(
+        "#c4 .parede > .vaga:nth-child(21) .dentro",
+        { x: 0, autoAlpha: 1, duration: POUSO, ease: "power4.out" },
+        10.26,
+      );
+      tl.to("#c4 .parede > .vaga:nth-child(21)", { borderColor: "#e3dcc8", duration: 0.24, ease: "none" }, 10.62);
+
+      /* ---------- 5 · a parede fecha ----------
+         As últimas vagas assentam em cascata ATÉ A BORDA do quadro — o fecho do
+         mês. E no fim o rejunte respira UMA vez: um pulso só, com começo e fim,
+         que é a pontuação da parede assentada (não é respiração de fundo — isso
+         seria movimento sem performance, e a lista do §2.4 reprova). */
+      assentar("#c5", 11.3, 6, (col, lin, i) => (col < 2 ? null : 11.52 + (col - 2) * 0.11 + lin * 0.04 + jitter(i)));
+      tl.set("#c5 .parede", { transformOrigin: "50% 50%" }, 11.3);
+      tl.to("#c5 .parede", { scale: 1.014, duration: 0.16, ease: "power2.out" }, 13.02);
+      tl.to("#c5 .parede", { scale: 1, duration: 0.34, ease: "power2.inOut" }, 13.18);
+
+      window.__timelines["parede-v"] = tl;
+    </script>
+  </body>
+</html>

@@ -17,18 +17,24 @@
 // tem 315px. Num quadro de 1080, o fator é 0,2917 — então o piso de 14px na tela
 // exige 48px autorados. É isso que este script reprova.
 //
-// DOIS REGIMES, e a diferença é decisão de escopo, não descuido:
+// UM REGIME SÓ, NOS QUATRO — e é isto que mudou.
 //
-//   · REPROVA o par 9:16 (`ciclo-v`, `travas-v`) — são eles que o celular recebe,
-//     e o piso existe por causa do celular.
-//   · RETRATA (sem reprovar) o par 16:9 — o §3.1 do plano deste tronco declara
-//     `ciclo/` e `travas/` INTOCADOS: o desktop está aprovado pelo cliente e mexer
-//     nele é risco sem pedido. O retrato fica impresso mesmo assim porque medir é
-//     barato e quem for revisitar o desktop merece o número, não a surpresa.
+// Até a reautoria havia dois: o par 9:16 reprovava e o par 16:9 só era RETRATADO,
+// porque o plano do tronco vertical declarava `ciclo/`+`travas/` intocados. Era
+// débito ACEITO, não conformidade: o 16:9 aterrissava entre 6,5 e 12,4px na tela.
+// Reautorando os quatro, a razão do débito desapareceu — e com ela a isenção.
 //
-// Além do piso, o script exige o que o defeito original expôs: todo `font-size` sai
-// de um degrau declarado no `:root` da composição. Número solto no meio do CSS é o
-// mesmo pecado que o #18 travou na página — aqui ele reprova também.
+// O script exige QUATRO coisas, e reprova nos quatro projetos:
+//
+//   1. nenhum tipo abaixo do piso onde ele ATERRISSA (14px na tela do visitante);
+//   2. todo `font-size` sai de um degrau `--t-*` declarado no `:root` — número
+//      solto no meio do CSS é o mesmo pecado que o #18 travou na página;
+//   3. degrau declarado que ninguém usa é escala mentindo sobre si mesma;
+//   4. o CONJUNTO DE NOMES de degrau é idêntico nos DOIS QUADROS DO MESMO FILME.
+//      Esta é a trava nova: `ciclo` e `ciclo-v` contam a mesma história em duas
+//      proporções, então divergir de escala entre elas passa a ser impossível por
+//      descuido. Os filmes são pares independentes — cada um declara a escala de
+//      que precisa —, mas dentro de um par os nomes têm que bater.
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -45,10 +51,10 @@ const PISO_TELA = 14;
  * qual caixa — o `<source media>` da página decide isso com o corte em 700px.
  */
 const ALVOS = [
-  { arquivo: "ciclo-v/index.html", quadro: 1080, caixa: 315, onde: "celular @360", reprova: true },
-  { arquivo: "travas-v/index.html", quadro: 1080, caixa: 315, onde: "celular @360", reprova: true },
-  { arquivo: "ciclo/index.html", quadro: 1280, caixa: 691, onde: "desktop ≥768", reprova: false },
-  { arquivo: "travas/index.html", quadro: 1280, caixa: 691, onde: "desktop ≥768", reprova: false },
+  { arquivo: "ciclo-v/index.html", quadro: 1080, caixa: 315, onde: "celular @360", par: "ciclo" },
+  { arquivo: "parede-v/index.html", quadro: 1080, caixa: 315, onde: "celular @360", par: "parede" },
+  { arquivo: "ciclo/index.html", quadro: 1280, caixa: 691, onde: "desktop ≥768", par: "ciclo" },
+  { arquivo: "parede/index.html", quadro: 1280, caixa: 691, onde: "desktop ≥768", par: "parede" },
 ];
 
 /** Só o `<style>` da composição — o HTML injetado pelo motor não declara tipo. */
@@ -82,10 +88,8 @@ for (const alvo of ALVOS) {
     for (const m of r.corpo.matchAll(/(--t-[a-z0-9-]+)\s*:\s*([\d.]+)px/g)) degraus.set(m[1], Number(m[2]));
   }
 
-  // 2. todo font-size da composição, resolvido.
-  //    No par 9:16 o valor TEM que vir de um degrau do :root. No par 16:9 (retrato)
-  //    o px solto é o retrato — foi ele que criou o defeito, e reprovar aqui seria
-  //    pedir edição num arquivo que o §3.1 declara intocável.
+  // 2. todo font-size da composição, resolvido. O valor TEM que vir de um degrau
+  //    do :root — nos QUATRO projetos.
   const usos = [];
   const usados = new Set();
   for (const r of regras(css)) {
@@ -95,24 +99,17 @@ for (const alvo of ALVOS) {
       if (ref && degraus.has(ref[1])) {
         usados.add(ref[1]);
         usos.push({ seletor: r.seletor, token: ref[1], px: degraus.get(ref[1]) });
-        continue;
-      }
-      const solto = valor.match(/^([\d.]+)px$/);
-      if (ref && alvo.reprova) {
+      } else if (ref) {
         erros.push(`${alvo.arquivo} — ${r.seletor}: usa ${ref[1]}, que não está declarado no :root`);
-      } else if (alvo.reprova) {
+      } else {
         erros.push(`${alvo.arquivo} — ${r.seletor}: font-size: ${valor} (número solto; declare um degrau no :root)`);
-      } else if (solto) {
-        usos.push({ seletor: r.seletor, token: "(solto)", px: Number(solto[1]) });
       }
     }
   }
 
   // 3. degrau declarado que ninguém usa é escala mentindo sobre si mesma
-  if (alvo.reprova) {
-    for (const [token] of degraus) {
-      if (!usados.has(token)) erros.push(`${alvo.arquivo} — ${token} está no :root mas ninguém usa`);
-    }
+  for (const [token] of degraus) {
+    if (!usados.has(token)) erros.push(`${alvo.arquivo} — ${token} está no :root mas ninguém usa`);
   }
 
   // 4. a conta
@@ -121,26 +118,47 @@ for (const alvo of ALVOS) {
     const tela = u.px * fator;
     const fura = tela < PISO_TELA;
     linhas.push({ ...u, tela, fura });
-    if (fura && alvo.reprova) {
+    if (fura) {
       erros.push(
         `${alvo.arquivo} — ${u.seletor}: ${u.px}px viram ${tela.toFixed(1)}px na caixa de ${alvo.caixa} ` +
           `(piso ${PISO_TELA}px ⇒ mínimo ${piso.toFixed(0)}px autorados)`,
       );
     }
   }
-  retratos.push({ nome, alvo, fator, piso, linhas });
+  retratos.push({ nome, alvo, fator, piso, linhas, degraus });
+}
+
+// 5. A TRAVA NOVA: dentro de um par (o mesmo filme em duas proporções), o CONJUNTO
+//    DE NOMES de degrau tem que ser idêntico. `ciclo` e `ciclo-v` contam a mesma
+//    história em dois enquadramentos: se um declara um degrau que o outro não tem,
+//    a escala divergiu — e divergência de escala entre as proporções foi
+//    exatamente o defeito que abriu o tronco vertical.
+for (const par of [...new Set(ALVOS.map((a) => a.par))]) {
+  const lados = retratos.filter((r) => r.alvo.par === par);
+  if (lados.length !== 2) continue;
+  const [a, b] = lados;
+  for (const [um, outro] of [
+    [a, b],
+    [b, a],
+  ]) {
+    for (const [token] of um.degraus) {
+      if (!outro.degraus.has(token)) {
+        erros.push(
+          `par "${par}" — ${token} está no :root de ${um.alvo.arquivo} e falta em ${outro.alvo.arquivo} ` +
+            "(o conjunto de nomes de degrau tem que ser o MESMO nos dois quadros do filme)",
+        );
+      }
+    }
+  }
 }
 
 // ---------- retrato ----------
 for (const r of retratos) {
-  const marca = r.alvo.reprova ? "TRAVA" : "retrato (INTOCADO — §3.1 do plano)";
   console.log(
     `\n${r.nome} — quadro ${r.alvo.quadro} · caixa ${r.alvo.caixa} (${r.alvo.onde}) · ` +
-      `fator ${r.fator.toFixed(4)} · piso ${r.piso.toFixed(0)}px autorados · ${marca}`,
+      `fator ${r.fator.toFixed(4)} · piso ${r.piso.toFixed(0)}px autorados · TRAVA`,
   );
-  // No par 16:9 não há degrau: cada linha é um px solto, então a chave inclui o
-  // valor — senão os onze soltos colapsariam num "(solto)" só.
-  const chave = (l) => (l.token === "(solto)" ? `${l.token}:${l.px}` : l.token);
+  const chave = (l) => l.token;
   const vistos = new Set();
   for (const l of [...r.linhas].sort((a, b) => b.px - a.px)) {
     if (vistos.has(chave(l))) continue;
@@ -163,10 +181,10 @@ if (erros.length > 0) {
   process.exit(1);
 }
 
-const travados = retratos.filter((r) => r.alvo.reprova);
-const degraus = travados.reduce((n, r) => n + new Set(r.linhas.map((l) => l.token)).size, 0);
-const menor = Math.min(...travados.flatMap((r) => r.linhas.map((l) => l.tela)));
+const degrausTotal = retratos.reduce((n, r) => n + r.degraus.size, 0);
+const menor = Math.min(...retratos.flatMap((r) => r.linhas.map((l) => l.tela)));
 console.log(
-  `\n✓ Legibilidade no celular: ${degraus} degraus nas ${travados.length} peças verticais, ` +
-    `o menor aterrissando a ${menor.toFixed(1)}px — piso de ${PISO_TELA}px respeitado.`,
+  `\n✓ Legibilidade nas QUATRO peças: ${degrausTotal} degraus, o menor aterrissando a ` +
+    `${menor.toFixed(1)}px — piso de ${PISO_TELA}px respeitado, zero número solto, ` +
+    "e a escala dos dois quadros de cada filme com os mesmos nomes.",
 );

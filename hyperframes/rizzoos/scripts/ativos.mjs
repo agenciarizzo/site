@@ -21,7 +21,7 @@ import { fileURLToPath } from "node:url";
 const RAIZ = dirname(dirname(fileURLToPath(import.meta.url)));
 // Os quatro: o par 16:9 (desktop) e o par 9:16 (celular). Os assets são os MESMOS
 // bytes nos quatro — a tipografia oficial não muda com a proporção do quadro.
-const PROJETOS = ["ciclo", "travas", "ciclo-v", "travas-v"];
+const PROJETOS = ["ciclo", "parede", "ciclo-v", "parede-v"];
 const GSAP_VERSAO = "3.14.2";
 
 // Só o subset latin: o pt-BR cabe inteiro nele e cada bloco a mais é peso morto.
