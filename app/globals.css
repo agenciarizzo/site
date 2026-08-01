@@ -751,3 +751,56 @@ p.resumo {
   .abertura { display: none; }
 }
 
+
+/* ============================================================
+   Carteira — a lista inteira desde 2012, agrupada por área
+   (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §24.4, fatia 2).
+
+   Diretório, não vitrine: sem card, sem imagem, sem link. O grupo
+   é uma faixa com rótulo em cima, e os nomes fluem em colunas —
+   240 nomes em caixinhas com borda, uma por nome, viravam metros
+   de moldura vazia no celular.
+
+   Aditivo: `.clientes-grid`/`.cliente*` (a grade de cima) ficam
+   exatamente como estavam — nenhum seletor daqui os alcança.
+   ============================================================ */
+.carteira { margin: 1.7rem 0 0.6rem; }
+.carteira-grupo { border-top: 1px solid var(--hairline); padding: 1.05rem 0 0.35rem; }
+.carteira-grupo h3 {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-rotulo);
+  text-transform: uppercase;
+  color: var(--cinza);
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+.carteira-grupo ul { list-style: none; margin: 0; padding: 0; columns: 3; column-gap: 1.7rem; }
+.carteira-nome {
+  break-inside: avoid;
+  font-size: var(--corpo-2);
+  line-height: var(--lh-apoio);
+  color: var(--ink);
+  padding: 0 0 0.55rem;
+}
+.carteira-nome .praca {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--cinza);
+}
+@media (max-width: 900px) {
+  .carteira-grupo ul { columns: 2; }
+}
+@media (max-width: 640px) {
+  /* Coluna única, e a praça sobe pra linha do nome: em bloco, cada nome custava
+     três linhas de altura e a lista virava metro de scroll. O degrau é o
+     `--mono-2-cel` (14px), o piso de leitura que o :root já declarou pro celular —
+     `--mono-3` aterrissaria a 9,9px aqui. */
+  .carteira-grupo ul { columns: 1; }
+  .carteira-nome { padding-bottom: 0.7rem; }
+  .carteira-nome .praca { display: inline; font-size: var(--mono-2-cel); }
+  .carteira-nome .praca::before { content: " · "; }
+}
