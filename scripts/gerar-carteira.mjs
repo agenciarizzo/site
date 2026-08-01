@@ -22,9 +22,11 @@
 //     real errado é pior que publicar o registro duplicado.
 //  3. MESCLA SEMÂNTICA — nenhum normalizador pega, então vai na mão, uma entrada por
 //     par (§24.3, achado 3). Hoje: 1 par. A regra do sobrevivente é a MESMA do item 2.
-//  4. ÁREA PRIMÁRIA — 8 registros trazem área composta (`Ortopedia, Medicina da Dor`,
-//     `Saúde da Mulher/Nutrição`). Fica o primeiro termo. Isso funde 8 grupos de 1 nome
-//     em grupos que já existiam: 55 → 47 áreas, 27 → 20 grupos de nome único.
+//  4. ÁREA PRIMÁRIA — 9 registros trazem área composta (`Ortopedia, Medicina da Dor`,
+//     `Saúde da Mulher/Nutrição`). Fica o primeiro termo. Isso funde grupos de 1 nome
+//     em grupos que já existiam: 55 → 47 áreas, 27 → 20 grupos de nome único (contado
+//     nos 259 da fonte; depois do dedupe do item 2/3 o arquivo fica com 46 áreas e 19
+//     grupos de nome único — a mescla do Auricélio leva junto a área `Neurocirurgia`).
 //     Nenhum nome se perde — só o rótulo do grupo muda.
 //  5. OCULTOS PRESERVADOS — o `OCULTOS` do arquivo já gerado é lido e reescrito
 //     VERBATIM. Sem isso, rodar o script de novo apagaria em silêncio os nomes que o

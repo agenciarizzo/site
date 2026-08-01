@@ -199,8 +199,9 @@ export default async function ClientesPage() {
             trabalho, não a lista do mês.
           </p>
           {/*
-            O índice das áreas. NÃO é enfeite: a 390px a lista tem 43 grupos e ~13.800px
-            de altura — sem um jeito de pular, achar "Odontologia" é rolar 20 telas.
+            O índice das áreas. NÃO é enfeite: a 390px a lista tem 43 grupos e 15.641px
+            de altura (a página inteira, 21.490px) — sem um jeito de pular, achar
+            "Odontologia" é rolar 18 telas. Com ele, o grupo alvo aterrissa a 16px do topo.
             Fica FORA do `.carteira` de propósito: o invariante do §24.5 é que nome de
             cliente não vira link (não há endereço no dado pra linkar), e aqui nenhum
             nome é link — estes âncoras apontam pra dentro da própria página.
