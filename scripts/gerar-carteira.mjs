@@ -51,11 +51,19 @@ const chave = (s) =>
 /** Quantos caracteres do nome carregam diacrítico (o desempate do item 2). */
 const acentos = (s) => (s.normalize("NFD").match(/\p{Diacritic}/gu) || []).length;
 
-// ── 3. mescla semântica: pares que são a mesma pessoa/casa e nenhuma normalização pega
+// ── 3. mescla semântica: pares que são a mesma pessoa/casa e nenhuma normalização pega.
+// Sobrevivente e descartado DECLARADOS, um a um — nada de heurística: as duas grafias
+// do Auricélio empatam em acento, então a regra do item 2 não decidiria nada aqui.
 const MESCLAS = [
-  // Mesmo neurocirurgião, Recife/PE. O registro curto é o que traz a grafia acentuada
-  // e a área específica (Neurocirurgia, contra o balde genérico do outro).
-  ["Dr. Auricelio Batista Cezar Júnior", "Dr. Auricélio Junior"],
+  {
+    // Mesma pessoa, Recife/PE (§24.3, achado 3). Fica a forma completa, que identifica
+    // melhor num rol público de nomes.
+    // ⚠️ Custo declarado: o registro descartado trazia área `Neurocirurgia` e o que fica
+    // traz `Medicina Especializada` — o nome não se perde, a granularidade da área sim.
+    // Não sintetizamos um registro híbrido: cada linha da carteira é uma linha da fonte.
+    fica: "Dr. Auricelio Batista Cezar Júnior",
+    sai: "Dr. Auricélio Junior",
+  },
 ];
 
 function lerRegistros() {
@@ -98,14 +106,12 @@ function deduplicar(registros) {
     else if (acentos(r.nome) > acentos(atual.nome)) porChave.set(k, r);
   }
 
-  // 3. mescla semântica declarada
-  for (const [a, b] of MESCLAS) {
-    const ka = chave(a);
-    const kb = chave(b);
-    const ra = porChave.get(ka);
-    const rb = porChave.get(kb);
-    if (!ra || !rb) throw new Error(`mescla declarada não encontrada na fonte: "${a}" × "${b}"`);
-    porChave.delete(acentos(ra.nome) >= acentos(rb.nome) ? kb : ka);
+  // 3. mescla semântica declarada — aborta se a fonte mudar e o par sumir, em vez de
+  // seguir em silêncio publicando a mesma pessoa duas vezes.
+  for (const { fica, sai } of MESCLAS) {
+    if (!porChave.has(chave(fica)) || !porChave.has(chave(sai)))
+      throw new Error(`mescla declarada não encontrada na fonte: "${fica}" × "${sai}"`);
+    porChave.delete(chave(sai));
   }
 
   // 6. ordem pela chave ASCII — reprodutível em qualquer máquina

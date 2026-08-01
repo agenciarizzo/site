@@ -96,7 +96,7 @@ export default function SobrePage() {
           <h2 className="sec">Para quem trabalhamos</h2>
           <p>
             A Agência Rizzo cuida do marketing de quem atua em saúde — médico individual, clínica ou rede hospitalar.
-            Já são mais de 200 médicos e clínicas atendidos, por site e SEO, Google Ads, Meta Ads, redes sociais,
+            Já são mais de 250 médicos e clínicas atendidos, por site e SEO, Google Ads, Meta Ads, redes sociais,
             vídeo e TV corporativa: mídias diferentes, o mesmo objetivo — estrutura que traz paciente todo mês, não
             campanha avulsa que depende de sorte.
           </p>

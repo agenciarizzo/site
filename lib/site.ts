@@ -48,7 +48,7 @@ export const SOCIAIS = [
 ];
 
 export const FATOS =
-  "DESDE 2012 · +200 MÉDICOS E CLÍNICAS · GOOGLE PARTNER · VIVÊNCIA HOSPITALAR REAL (ONA/ISO) · ANÁPOLIS–GO · ATUAÇÃO NACIONAL";
+  "DESDE 2012 · +250 MÉDICOS E CLÍNICAS · GOOGLE PARTNER · VIVÊNCIA HOSPITALAR REAL (ONA/ISO) · ANÁPOLIS–GO · ATUAÇÃO NACIONAL";
 
 /** Organization schema — SEM aggregateRating fabricado (decisão registrada no mapa). */
 export const ORG_JSONLD = {
