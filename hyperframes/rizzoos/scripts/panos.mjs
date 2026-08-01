@@ -19,7 +19,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { pano, tiles, tileHtml, byId, PATTERNS, coresValidas } from "../../../lib/athos/athosPatterns.js";
+import { tiles, tileHtml, byId, PATTERNS, coresValidas } from "../../../lib/athos/athosPatterns.js";
 
 const RAIZ = dirname(dirname(fileURLToPath(import.meta.url)));
 const CHECK = process.argv.includes("--check");
@@ -55,6 +55,13 @@ const P = panoDe("/rizzoos");
 if (!coresValidas(P.cores, "papel")) throw new Error(`A2 violada: ${P.cores.join("+")} sobre papel`);
 
 /**
+ * Os motivos da biblioteca que o beat "peça nova, mesma casa" mostra lado a lado.
+ * São os do motor, menos `trevo` — que é reservado à tira do bloco RizzoOS e não
+ * vira faixa (regra 2 do CLAUDE.md do site). Um motivo por vaga.
+ */
+const MOTIVOS = PATTERNS.map((p) => p.id).filter((id) => id !== "trevo");
+
+/**
  * Peças avulsas do motor, já SEM as em branco.
  * `circulo-triangulo` tem 3 peças vazias em 11 (é a respiração do pano) — ótimo numa
  * faixa, inútil quando a peça é o herói do quadro. Filtrar não desenha nada: escolhe
@@ -66,29 +73,44 @@ function cheias(n, seed) {
     .slice(0, n);
 }
 
-const grade = (ts, cols) =>
-  `<div data-pano="${P.pattern}·longe·s${P.seed}" style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:var(--rejunte);width:100%;height:100%">${ts
-    .map(tileHtml)
-    .join("")}</div>`;
+/**
+ * A VAGA — o primeiro dos seis termos do vocabulário (§2.3 do doc-mapa).
+ *
+ * Cada peça do motor vem embrulhada num contorno vazio. A vaga é o que já está no
+ * quadro quando a cena entra (o corte nunca cai numa tela vazia) e é ela que dá a
+ * leitura de "isto foi combinado": a peça está preenchendo um lugar que já era dela.
+ *
+ * O que anima é SEMPRE o `.dentro`, nunca o azulejo: o motor escreve um `transform:
+ * rotate()` próprio em cada peça, e mexer nele apagaria a rotação que ele sorteou.
+ */
+const emVagas = (ts) =>
+  ts.map((t) => `<div class="vaga"><span class="dentro">${tileHtml(t)}</span></div>`).join("");
 
 /** O que cada marcador recebe. Toda saída sai de `pano()`/`tiles()` — nada à mão. */
 const BLOCOS = {
-  // faixa larga do quadro de abertura/fecho (16 colunas × 2 fileiras, como o site)
-  faixa: () => pano(P.pattern, P.cores, "longe", P.seed, 16, 2),
   // a peça-herói: UMA peça do motor, a que atravessa o filme inteiro
   peca: () => tileHtml(cheias(1, P.seed)[0]),
-  // as 12 peças do ano (uma por mês). Cada peça vem embrulhada numa VAGA: a vaga
-  // já está no quadro quando a cena entra (o corte nunca cai numa tela vazia) e o
-  // que anima é o `dentro`, sem encostar no `transform` que o motor já escreveu no
-  // azulejo — mexer nele apagaria a rotação da peça.
-  ano: () =>
-    cheias(12, P.seed + 11)
-      .map((t) => `<div class="vaga"><span class="dentro">${tileHtml(t)}</span></div>`)
-      .join(""),
-  // as 3 peças que disputam/publicam
-  trio: () => cheias(3, P.seed + 29).map(tileHtml).join(""),
-  // a malha de testes (5×4)
-  malha: () => grade(cheias(20, P.seed + 47), 5),
+  // A PAREDE do quadro deitado — 12 colunas × 3 fileiras. É o ano da clínica: a
+  // mesma parede aparece no beat de abertura (como faixa baixa) e no beat do ano
+  // (aberta no meio do quadro). Mesmo marcador nos dois lugares = mesmas peças, o
+  // que é justamente a continuidade que a cena quer.
+  parede: () => emVagas(cheias(36, P.seed + 11)),
+  // A PAREDE do quadro em pé — 6 × 8. Bloco próprio porque a contagem muda com a
+  // proporção (§4.3): a grade é a única coisa que difere entre os dois quadros.
+  paredev: () => emVagas(cheias(48, P.seed + 11)),
+  // A FILA dos oito destinos: uma vaga por destino, o nome em mono ao lado (§5.2).
+  fila: () => emVagas(cheias(8, P.seed + 29)),
+  // "PEÇA NOVA, MESMA CASA" — o motor emitindo VARIEDADE: motivos diferentes da
+  // biblioteca, no MESMO par de cores e no mesmo rejunte. É o que costura a parede
+  // como uma casa só, e é 100% motor (nenhuma forma nossa). `trevo` fica de fora:
+  // ele é reservado à tira do bloco RizzoOS (regra 2 do CLAUDE.md do site).
+  variedade: () =>
+    emVagas(
+      MOTIVOS.map((id, i) => {
+        const max = byId(id)?.maxCores ?? 2;
+        return tiles(id, P.cores.slice(0, max), P.seed + 61 + i * 7, 8).filter((t) => t.bg !== "transparent")[0];
+      }).filter(Boolean),
+    ),
 };
 
 // Os QUATRO projetos: o par 16:9 (desktop) e o par 9:16 (celular). O azulejo é o
@@ -96,7 +118,7 @@ const BLOCOS = {
 // as proporções é a GRADE (quantas colunas a faixa mostra), e isso é CSS na
 // composição, não geometria nova: o motor emite as mesmas 32 peças e o quadro
 // vertical as reflui em 8 colunas, como o site já faz por breakpoint.
-const ALVOS = ["ciclo/index.html", "travas/index.html", "ciclo-v/index.html", "travas-v/index.html"];
+const ALVOS = ["ciclo/index.html", "parede/index.html", "ciclo-v/index.html", "parede-v/index.html"];
 let mudou = false;
 
 for (const alvo of ALVOS) {

@@ -71,7 +71,7 @@ const WA = "Olá! Vi a página do RizzoOS no site da agência e quero conversar 
  *
  * Mora aqui dentro, e não em `components/`, porque é peça desta página só.
  */
-function Filme({ nome, titulo, legenda }: { nome: "ciclo" | "travas"; titulo: string; legenda: string }) {
+function Filme({ nome, titulo, legenda }: { nome: "ciclo" | "parede"; titulo: string; legenda: string }) {
   const base = `/video/rizzoos/${nome}`;
   return (
     <figure className="filme">
@@ -166,8 +166,8 @@ export default function RizzoOsPage() {
 
             <Filme
               nome="ciclo"
-              titulo="Uma peça, do combinado ao número: o plano do ano, a aprovação pelo celular, a publicação no horário, o anúncio e o painel."
-              legenda="O caminho de uma peça, do começo ao fim — é este ciclo que acontece dentro da plataforma."
+              titulo="O ano da sua clínica, uma peça por vez: o ano combinado, a peça que você aprova, a publicação nos oito destinos, o alcance de quem ainda não conhece a clínica e o retorno chegando sem você perguntar."
+              legenda="O caminho de uma peça, do combinado ao retorno."
             />
 
             {FRENTES.map((f) => (
@@ -198,17 +198,20 @@ export default function RizzoOsPage() {
               </section>
             ))}
 
+            {/* O segundo filme fecha o bloco das FRENTES em vez de ilustrar as
+                travas: ele não fala mais de due diligence — fala do que acontece
+                com a MARCA da clínica quando o trabalho é contínuo. */}
+            <Filme
+              nome="parede"
+              titulo="A parede é sua, a mão é nossa: a marca entra antes do desenho, peças diferentes na mesma casa, o que a regra da profissão não permite não entra, e a parede fecha todo mês."
+              legenda="A marca é da clínica; o trabalho de assentar é da agência."
+            />
+
             <h2 className="sec">O que o sistema garante sozinho</h2>
             <p>
               Software que publica no lugar de gente precisa errar pouco e, quando errar, errar pro lado seguro. Estas
               travas não dependem de alguém lembrar delas:
             </p>
-
-            <Filme
-              nome="travas"
-              titulo="As cinco travas do sistema: nunca publica em dobro, nunca publica atrasado, legenda vazia não vai ao ar, segredo nunca no navegador, testado antes de subir."
-              legenda="Cinco travas que não dependem de alguém lembrar delas."
-            />
 
             <details className="detalhe">
               <summary>
