@@ -1,20 +1,22 @@
 # Os filmes da `/rizzoos` — dois títulos, quatro peças
 
-Fonte das peças que a página `/rizzoos` embute como `<video>`. Planos dos troncos:
-repo `agenciarizzo/rizzo-os` → `docs/SITE_RIZZOOS_MOVIMENTO_MAPA.md` (as 16:9) e
-`docs/SITE_RIZZOOS_VERTICAL_MAPA.md` (as 9:16).
+Fonte das peças que a página `/rizzoos` embute como `<video>`. Plano em vigor:
+repo `agenciarizzo/rizzo-os` → **`docs/SITE_RIZZOOS_PANO_VIVO_MAPA.md`** (a reautoria
+na voz do pano — é ele que manda). Histórico: `SITE_RIZZOOS_MOVIMENTO_MAPA.md` (as
+16:9) e `SITE_RIZZOOS_VERTICAL_MAPA.md` (as 9:16).
 
-**Dois títulos × duas proporções.** Cada visitante baixa UMA peça por título: o
-`<source media>` da página corta em 700px — o celular pega a 9:16, o desktop a 16:9.
-O 16:9 no celular era o defeito que criou o par vertical: a caixa cai pra 315px e
-tudo dentro do filme aparece a 0,25×.
+**Dois títulos × duas proporções.** Cada visitante baixa UMA peça por título — quem
+escolhe o arquivo é `public/athos/filme.js`, não `<source media>` (o Chrome não avalia
+media query de viewport na seleção de recurso de `<video>`; site#21). O 16:9 no celular
+era o defeito que criou o par vertical: a caixa cai pra 315px e tudo dentro do filme
+aparece a 0,29×.
 
-| Projeto     | Peça                                            | Quadro    | Duração | Sai em                                    |
-| ----------- | ----------------------------------------------- | --------- | ------- | ----------------------------------------- |
-| `ciclo/`    | **O ciclo** — uma peça, do combinado ao número   | 1280×720  | 19,2s   | `public/video/rizzoos/ciclo.{mp4,png}`    |
-| `travas/`   | **As travas** — o que o sistema garante sozinho  | 1280×720  | 14,0s   | `public/video/rizzoos/travas.{mp4,png}`   |
-| `ciclo-v/`  | O ciclo, **em pé** — mesmos 6 beats              | 1080×1920 | 19,2s   | `public/video/rizzoos/ciclo-v.{mp4,png}`  |
-| `travas-v/` | As travas, **em pé** — mesmas 5 vinhetas         | 1080×1920 | 14,0s   | `public/video/rizzoos/travas-v.{mp4,png}` |
+| Projeto      | Peça                                                  | Quadro    | Duração | Sai em                                     |
+| ------------ | ----------------------------------------------------- | --------- | ------- | ------------------------------------------ |
+| `ciclo/`     | **O ano da sua clínica, uma peça por vez** — 6 beats   | 1280×720  | 19,2s   | `public/video/rizzoos/ciclo.{mp4,png}`     |
+| `parede/`    | **A parede é sua. A mão é nossa.** — 5 beats           | 1280×720  | 14,0s   | `public/video/rizzoos/parede.{mp4,png}`    |
+| `ciclo-v/`   | O ano da sua clínica, **em pé** — mesmos 6 beats       | 1080×1920 | 19,2s   | `public/video/rizzoos/ciclo-v.{mp4,png}`   |
+| `parede-v/`  | A parede é sua, **em pé** — mesmos 5 beats             | 1080×1920 | 14,0s   | `public/video/rizzoos/parede-v.{mp4,png}`  |
 
 Os quatro: 30 fps · H.264 `yuv420p` · **sem faixa de áudio** · loop costurado.
 Teto: **≤ 1,5 MB por arquivo** e **≤ 3,0 MB por dispositivo** (o dispositivo baixa
@@ -37,8 +39,16 @@ duas peças, não quatro).
 4. **Mudo por desenho.** Sem locução, sem trilha (regra ⚖️ da casa).
 5. **Nenhum número em tela** fora das fontes canônicas do §19.2 do
    `SITE_MANIFESTO_MAPA.md`; nada do roadmap encenado como pronto; zero nome de
-   cliente; toda UI que aparece é mock da nossa própria ferramenta.
-6. **Render determinístico:** GSAP e as fontes são arquivo local em `<projeto>/assets/`.
+   cliente.
+6. **ZERO UI de mentira.** Não entra celular desenhado, cartão, carimbo, relógio,
+   moldura de anúncio, barra de verba, semáforo, gráfico de barras nem selo com
+   ícone de marca. Quem conta a história é o azulejo — e ele obedece à **Lei do
+   Assentamento** (§2.1 do doc-mapa): nenhuma peça se move por vontade própria;
+   ela CHEGA na corrente (esquerda), desacelera e para numa VAGA que já estava no
+   quadro. Dois verbos, e só dois: **assentar** e **recolher**. Mão, cursor, dedo,
+   avatar e boneco desenhados são violação — trocar mock-UI por mock-mão é o mesmo
+   defeito com outra fantasia.
+7. **Render determinístico:** GSAP e as fontes são arquivo local em `<projeto>/assets/`.
    Nada é buscado na rede em tempo de render.
 
 ## Como regerar
@@ -47,20 +57,20 @@ duas peças, não quatro).
 node scripts/ativos.mjs            # baixa GSAP + fontes → assets/ dos QUATRO projetos
 node scripts/panos.mjs             # injeta os azulejos do motor nas composições
 node scripts/panos.mjs --check     # falha se as composições estiverem fora de sincronia
-node scripts/checar-legibilidade.mjs   # piso de 14px na tela do celular (só o par 9:16)
+node scripts/checar-legibilidade.mjs   # piso de 14px onde o tipo ATERRISSA — reprova nos QUATRO
 
 npx hyperframes check ciclo        # lint + runtime + layout + movimento + contraste
-npx hyperframes snapshot ciclo --at 0,1.9,4.9,7.8,11.9,15.9,19.15   # contact sheet
+npx hyperframes snapshot ciclo --at 0,3.2,6.9,9.6,12,15.5,18.3   # contact sheet
 
 npx hyperframes render ciclo  -o ../../public/video/rizzoos/ciclo.mp4  --quality high
-npx hyperframes render travas -o ../../public/video/rizzoos/travas.mp4 --quality high
+npx hyperframes render parede -o ../../public/video/rizzoos/parede.mp4 --quality high
 
 # O par vertical leva `--crf 24`: 1080×1920 tem 2,25× os pixels do 720p, e no
 # `--quality high` seco o ciclo saía com 2,3 MB — acima do teto de 1,5 MB por
 # arquivo. CRF é o lugar certo de resolver isso (encode único, sem geração
 # perdida de recomprimir um MP4 já comprimido).
 npx hyperframes render ciclo-v  -o ../../public/video/rizzoos/ciclo-v.mp4  --quality high --crf 24
-npx hyperframes render travas-v -o ../../public/video/rizzoos/travas-v.mp4 --quality high --crf 24
+npx hyperframes render parede-v -o ../../public/video/rizzoos/parede-v.mp4 --quality high --crf 24
 ```
 
 O pôster de cada filme é um quadro do próprio vídeo, reduzido a paleta indexada de
@@ -69,8 +79,10 @@ o que aparece pra quem pede `prefers-reduced-motion: reduce`, e a página escolh
 proporção certa por `<picture>` + `source media`:
 
 ```bash
-# o quadro é o mesmo dos irmãos 16:9: a cena de abertura já composta
-for p in ciclo-v:1.8 travas-v:2.2; do
+# O quadro escolhido tem que estar com a PAREDE JÁ ASSENTADA — nunca no meio de
+# uma onda: é ele que vê quem pede `prefers-reduced-motion`, e uma parede pela
+# metade lê como erro de carregamento, não como desenho.
+for p in ciclo:1.5 parede:1.9 ciclo-v:1.5 parede-v:1.9; do
   n=${p%:*}; t=${p#*:}
   ffmpeg -y -ss $t -i ../../public/video/rizzoos/$n.mp4 -frames:v 1 \
     -vf "palettegen=max_colors=64:stats_mode=single" /tmp/pal-$n.png
