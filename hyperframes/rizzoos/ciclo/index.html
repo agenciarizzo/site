@@ -268,7 +268,7 @@
            (b) o JITTER determinístico da onda — (i*7)%5, irregular o
                bastante pra não parecer régua, e determinístico porque
                render determinístico é invariante técnico;
-           (c) a HESITAÇÃO antes do gesto que decide — 8 quadros de
+           (c) a HESITAÇÃO antes do gesto que decide — 9 quadros de
                quietude no beat 3. Máquina não hesita; quem trabalha, sim.
 
          ---- A COSTURA ----
@@ -390,7 +390,7 @@
          O gesto que decide, e o único momento parado do filme.
 
          A peça chega FORA DE ESQUADRO (rotacionada fora do grid) e fica ali,
-         pendente. Então vem a HESITAÇÃO: 8 quadros (0,267s) em que NADA se move
+         pendente. Então vem a HESITAÇÃO: 9 quadros (0,300s) em que NADA se move
          no quadro inteiro — é ela que faz o gesto seguinte ler como decisão de
          alguém, e não como passo de uma esteira. Só depois a peça é ESQUADRADA:
          encaixa no rejunte e acende. Antes disso ela está pendente; depois, está
@@ -469,11 +469,18 @@
          salto. TRÊS peças ficam: as que foram tratadas no mês. Delas, UMA carrega
          o acento (um por quadro, sempre). Sem número, sem semáforo, sem barra. */
       const FICAM = [16, 27, 32]; // 0-based: as três que não recolhem
+      const ACENTO = 16; // a que o filme vem seguindo desde o beat 2 — ela FICA acesa
       gsap.utils.toArray("#c6 .parede > .vaga").forEach((vaga, i) => {
         const dentro = vaga.querySelector(".dentro");
         if (FICAM.includes(i)) {
           tl.set(dentro, { x: 0, autoAlpha: 1 }, 17.1);
-          tl.to(vaga, { borderColor: "#16130E", duration: 0.26, ease: "none" }, 17.86 + FICAM.indexOf(i) * 0.12);
+          // As outras duas fecham em ink: "permanecer assentada" — não "estar sendo
+          // tratada agora". O ACENTO não entra aqui: se entrasse, o teal morreria em
+          // 17,86s e o último segundo do filme (que é o corte do loop) fecharia com
+          // as três iguais — nenhum acento em vez de um.
+          if (i !== ACENTO) {
+            tl.to(vaga, { borderColor: "#16130E", duration: 0.26, ease: "none" }, 17.86 + FICAM.indexOf(i) * 0.12);
+          }
           return;
         }
         const col = i % COLS;

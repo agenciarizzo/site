@@ -402,11 +402,17 @@
          foram tratadas no mês. Delas, UMA carrega o acento. */
       const COLS6 = 8;
       const FICAM = [19, 28, 34]; // 0-based: as três que não recolhem
+      const ACENTO = 19; // a que o filme vem seguindo desde o beat 2 — ela FICA acesa
       gsap.utils.toArray("#c6 .parede > .vaga").forEach((vaga, i) => {
         const dentro = vaga.querySelector(".dentro");
         tl.set(dentro, { x: 0, autoAlpha: 1 }, 17.1);
         if (FICAM.includes(i)) {
-          tl.to(vaga, { borderColor: "#16130E", duration: 0.26, ease: "none" }, 17.86 + FICAM.indexOf(i) * 0.12);
+          // As outras duas fecham em ink; o ACENTO fica. Se ele entrasse aqui, o teal
+          // morreria em 17,86s e o último segundo (o corte do loop) fecharia com as
+          // três iguais — nenhum acento em vez de um.
+          if (i !== ACENTO) {
+            tl.to(vaga, { borderColor: "#16130E", duration: 0.26, ease: "none" }, 17.86 + FICAM.indexOf(i) * 0.12);
+          }
           return;
         }
         tl.to(

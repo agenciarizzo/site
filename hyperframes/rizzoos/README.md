@@ -62,16 +62,25 @@ node scripts/checar-legibilidade.mjs   # piso de 14px onde o tipo ATERRISSA — 
 npx hyperframes check ciclo        # lint + runtime + layout + movimento + contraste
 npx hyperframes snapshot ciclo --at 0,3.2,6.9,9.6,12,15.5,18.3   # contact sheet
 
-npx hyperframes render ciclo  -o ../../public/video/rizzoos/ciclo.mp4  --quality high
-npx hyperframes render parede -o ../../public/video/rizzoos/parede.mp4 --quality high
+# O CRF NÃO É OPCIONAL EM NENHUM DOS QUATRO, e os dois pares levam valores
+# DIFERENTES — quem regerar sem eles estoura o teto e só descobre depois.
+# Por quê: uma parede de azulejo é muito mais informação por quadro que a UI que
+# ela substituiu. No `--quality high` seco o par deitado sai com 2,88 MB (`ciclo`)
+# e 2,61 MB (`parede`), quase o dobro do teto de 1,5 MB por arquivo — e 61% desse
+# peso está nos SEIS keyframes dos cortes, não no movimento. CRF é o lugar certo
+# de resolver isso (encode único, sem geração perdida de recomprimir um MP4 já
+# comprimido); cortar beat seria a alavanca errada.
+npx hyperframes render ciclo  -o ../../public/video/rizzoos/ciclo.mp4  --quality high --crf 24
+npx hyperframes render parede -o ../../public/video/rizzoos/parede.mp4 --quality high --crf 24
 
-# O par vertical leva `--crf 24`: 1080×1920 tem 2,25× os pixels do 720p, e no
-# `--quality high` seco o ciclo saía com 2,3 MB — acima do teto de 1,5 MB por
-# arquivo. CRF é o lugar certo de resolver isso (encode único, sem geração
-# perdida de recomprimir um MP4 já comprimido).
-npx hyperframes render ciclo-v  -o ../../public/video/rizzoos/ciclo-v.mp4  --quality high --crf 24
-npx hyperframes render parede-v -o ../../public/video/rizzoos/parede-v.mp4 --quality high --crf 24
+# O par em pé leva 28, não 24: 1080×1920 tem 2,25× os pixels do 720p.
+npx hyperframes render ciclo-v  -o ../../public/video/rizzoos/ciclo-v.mp4  --quality high --crf 28
+npx hyperframes render parede-v -o ../../public/video/rizzoos/parede-v.mp4 --quality high --crf 28
 ```
+
+Pesos que estes comandos produzem (confira depois de regerar — o teto é duro):
+`ciclo` 0,91 MB · `parede` 0,86 MB · `ciclo-v` 1,08 MB · `parede-v` 0,86 MB
+⇒ desktop 1,77 MB · celular 1,95 MB, ambos sob os 3,0 MB por aparelho.
 
 O pôster de cada filme é um quadro do próprio vídeo, reduzido a paleta indexada de
 64 cores — arte chapada não perde nada e o arquivo cai pela metade. Ele é **também**
