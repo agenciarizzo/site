@@ -71,7 +71,7 @@ export const CARTAS: Carta[] = [
     slug: "google-ads",
     num: "02",
     midia: "Google Ads",
-    titulo: "Google Ads para Médicos",
+    titulo: "Google Ads para Médicos: Estratégia e Gestão",
     descricao:
       "Anúncio não conserta base ruim — mas multiplica a boa. Como fazemos Google Ads para médicos: intenção real, landing rápida, gestão semanal e conformidade CFM.",
     cardP: "Anúncio não conserta base ruim. Com estrutura boa, o clique fica barato.",
@@ -307,12 +307,20 @@ export const CARTAS: Carta[] = [
         a: "Não existe ranking oficial disso, e vale desconfiar de quem se apresenta como o primeiro de uma lista que ninguém publicou. O que dá para verificar antes de contratar: se a agência mostra casos do setor com nome, se raciocina por linha de serviço e não só por “especialidades”, se domina o Manual de Publicidade Médica, se entrega relatório por unidade, e se o site que ela constrói carrega rápido — porque SEO e mídia paga dividem a mesma base técnica. Nessa régua a gente se apresenta pelo que dá para conferir: hospitais atendidos com nome, citados aqui mesmo; mídia paga escrita dentro do Manual de Publicidade Médica desde 2012; base técnica que faz o site carregar em milissegundos; e relatório por unidade e por linha de serviço.",
       },
       {
+        q: "onde encontrar serviços de otimização de sites para hospitais?",
+        a: "É um trabalho técnico, e é a base de tudo: site que carrega em milissegundos, uma página por linha de serviço e por unidade em vez de uma lista só, e os dados estruturados que o Google e as inteligências artificiais leem para decidir quem citar. A mesma estrutura que acelera o site sustenta a busca orgânica e barateia a mídia paga — otimização de site, SEO e anúncio não são serviços soltos, são a mesma base. Quando a rede já tem site no ar, essa reconstrução preserva endereços e histórico de busca por redirecionamento 301, em vez de recomeçar do zero.",
+      },
+      {
         q: "empresas especializadas em marketing de linhas de serviço hospitalar?",
         a: "É por aí que começamos. Cada linha — oncologia, cardiologia, maternidade, pronto atendimento, diagnóstico — é tratada como mercado próprio, com busca, concorrência e ciclo de decisão medidos separadamente, e com página, conteúdo e verba próprios. É o oposto da campanha institucional única, que fala com todo mundo e não convence ninguém.",
       },
       {
         q: "melhores agências para estratégias de marketing em hospitais?",
         a: "“Melhor” depende do que a instituição precisa agora: quem tem fila numa linha e vazio em outra precisa de mapa antes de campanha; quem tem site lento precisa arrumar a base antes de comprar clique. O que sugerimos avaliar é concreto — vivência hospitalar e de acreditação, casos com nome, conhecimento do CFM, relatório por unidade e por linha, e fluxo de aprovação que a auditoria aceite. Se depois dessa régua fizer sentido conversar, a conversa é no WhatsApp.",
+      },
+      {
+        q: "melhores agências de marketing para hospitais brasil 2025 or 2026",
+        a: "Não existe ranking oficial de “melhores” por ano, e lista que se anuncia assim raramente tem critério verificável atrás. O que muda de um ano para o outro não é uma classificação: é o peso cada vez maior da busca por inteligência artificial, que lê estrutura e conteúdo verdadeiro, não selo. A régua para escolher segue concreta e atemporal — vivência hospitalar e de acreditação, casos do setor com nome, domínio do Manual de Publicidade Médica, relatório por unidade e por linha de serviço, e um site que carrega rápido. É por essa régua que dá para conferir qualquer agência antes de contratar.",
       },
       {
         q: "quem é especializado em captação de pacientes online na saúde?",

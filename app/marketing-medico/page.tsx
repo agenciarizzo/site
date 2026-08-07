@@ -41,6 +41,18 @@ const FAQ = [
     q: "O trabalho muda entre um médico individual, uma clínica e uma rede hospitalar?",
     a: "Muda bastante. Médico individual compete em nome próprio; clínica soma equipe e recepção sob uma marca só; rede hospitalar tem uma linha de serviço disputando um mercado por vez. O método é o mesmo — busca, estrutura, constância —, mas a unidade de trabalho muda, e por isso escrevemos separado sobre cada recorte.",
   },
+  {
+    q: "“Mkt médico” é a mesma coisa que marketing médico?",
+    a: "É. “Mkt” é só a abreviação de marketing que muita gente usa na hora de buscar — “mkt médico”, “mkt saúde” e “marketing médico” procuram a mesma coisa: um médico, uma clínica ou um hospital serem encontrados por quem precisa deles, dentro das regras do CFM. Tudo o que está aqui vale para os dois jeitos de escrever.",
+  },
+  {
+    q: "empresas com foco em marketing de relacionamento e indicação médica?",
+    a: "Indicação ainda é a forma mais forte de um paciente chegar — e, na saúde, ela se constrói por reputação e presença, não se compra. O que o marketing faz é sustentar essa reputação onde ela acontece hoje: um perfil no Google organizado e com avaliações reais em ordem, conteúdo que responde as dúvidas da sua especialidade, e um site que faz quem foi indicado encontrar você rápido e confiar antes da consulta. Marketing de relacionamento em medicina é reforçar o boca a boca com estrutura, sempre dentro do que o CFM permite.",
+  },
+  {
+    q: "que agência de seo no brasil tem experiência com o setor de saúde?",
+    a: "SEO em saúde tem uma camada a mais que SEO comum: publicidade médica é regulada, então o conteúdo que rankeia precisa ser verdadeiro e informativo, sem promessa de resultado — e é justamente isso que o Google e as inteligências artificiais premiam. Trabalhamos só com saúde desde 2012, de médico individual a rede hospitalar, e a mesma base técnica que faz o site carregar rápido é a que sustenta o SEO e barateia a mídia paga. Atendemos de perto em Goiânia e Brasília, e instituições no Brasil inteiro pelo mesmo método.",
+  },
 ];
 
 export default function MarketingMedicoPage() {
