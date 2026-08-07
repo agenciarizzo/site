@@ -13,6 +13,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, PROPOSTA_URL } from "@/lib/site";
+import { COMBOS } from "@/content/combos";
 
 export type CardRef = "seo" | "clientes" | "panorama" | "contato" | "goiania" | "brasilia" | "home";
 
@@ -142,6 +143,20 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
               Clientes atendidos
             </Link>
           </nav>
+          {/* Especialidades: só entra quando existe página de especialidade no ar
+              (§21.6 do mapa — "o bloco não entra enquanto não houver página"). Derivado
+              de COMBOS, então cada combo novo aparece aqui sozinho — e é o que garante
+              que TODA página linka a filha (o checar-navegacao.mjs exige). */}
+          {COMBOS.length > 0 && (
+            <nav className="linha" aria-label="Especialidades por cidade">
+              <h2>Especialidades</h2>
+              {COMBOS.map((c) => (
+                <Link key={c.rota} href={c.rota} aria-current={cur(c.rota)}>
+                  {c.especialidade.charAt(0).toUpperCase() + c.especialidade.slice(1)} em {c.cidade}
+                </Link>
+              ))}
+            </nav>
+          )}
           <nav className="linha" aria-label="Site">
             <h2>Site</h2>
             <Link href="/" aria-current={cur("/")}>

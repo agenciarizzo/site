@@ -447,6 +447,24 @@ article.corpo { padding: 2.6rem 0 3rem; }
 .prova-grupo a { color: var(--teal-texto); text-decoration: none; border-bottom: 1px solid var(--hairline); }
 .prova-grupo a:hover { border-bottom-color: var(--teal); }
 
+/* Link interno em TEXTO CORRIDO precisa parecer link — cor + sublinhado + peso.
+   Antes herdava a cor do corpo sem decoração e ficava invisível. Escopado a
+   `.prosa p a` de propósito: NÃO toca menu, botões, cards (a.carta-card) nem as
+   listas de prova (que têm borda própria) — só o link dentro de parágrafo. */
+.prosa p a { color: var(--teal-texto); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; font-weight: 500; }
+.prosa p a:hover { color: var(--teal); text-decoration-thickness: 2px; }
+.volta { margin: 0 0 1.3rem; }
+
+/* Galeria de peças dos combos Fase 2 (a prova visual da régua §3.3). */
+.vitrine { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 0.9rem; margin: 0.6rem 0 1.5rem; }
+.vitrine img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--hairline); background: #fff; }
+
+/* Lista de clientes nomeados do combo (prova por nome, ao lado da prova por peça). */
+.prova-cli { list-style: none; padding: 0; margin: 0.4rem 0 1.4rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.15rem; }
+.prova-cli li { font-size: var(--corpo-2); }
+.prova-cli a { color: var(--teal-texto); text-decoration: none; border-bottom: 1px solid var(--hairline); }
+.prova-cli a:hover { border-bottom-color: var(--teal); }
+
 /* página jurídica (privacidade + termos) — subtítulo enumerado e nomes técnicos */
 .legal .legal-h3 {
   font-family: var(--font-slab), Rockwell, Georgia, serif;

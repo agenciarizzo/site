@@ -21,6 +21,7 @@
 import { pano, panoContinuo, PATTERNS, coresValidas, byId } from "./athosPatterns";
 import { CARTAS } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
+import { COMBOS } from "@/content/combos";
 
 export const NAVY = "#0F172A";
 export const TEAL = "#0097A7";
@@ -88,6 +89,8 @@ export const ROTAS_COM_PANO: readonly string[] = [
   "/politica-privacidade",
   ...CARTAS.map((c) => `/cartas/${c.slug}`),
   ...CIDADES.map((c) => `/${c.slug}`),
+  // Combos Fase 2 (especialidade × cidade) — páginas-filhas que também carregam faixa.
+  ...COMBOS.map((c) => c.rota),
 ].sort();
 
 /**
@@ -203,6 +206,7 @@ export function homeJanelas(): string[] {
 }
 export const panoCarta = (slug: string) => panoFaixa(`/cartas/${slug}`);
 export const panoCidade = (slug: string) => panoFaixa(`/${slug}`);
+export const panoCombo = (rota: string) => panoFaixa(rota);
 export const panoHub = () => panoFaixa("/marketing-medico");
 export const panoSobre = () => panoFaixa("/sobre");
 export const panoRizzoOs = () => panoFaixa("/rizzoos");

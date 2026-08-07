@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { CARTAS } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
+import { COMBOS } from "@/content/combos";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -25,5 +26,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: 0.9,
   }));
-  return [...estaticas, ...cartas, ...cidades];
+  // Combos Fase 2 (especialidade × cidade): filhas das landings de cidade.
+  const combos: MetadataRoute.Sitemap = COMBOS.map((c) => ({
+    url: `${SITE_URL}${c.rota}`,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+  return [...estaticas, ...cartas, ...cidades, ...combos];
 }
