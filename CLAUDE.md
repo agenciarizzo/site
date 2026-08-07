@@ -70,6 +70,30 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
     anti-doorway no §3.3 do mapa. Próxima da fila: `ortopedista × Goiânia` como
     página-**filha** da landing de Goiânia, nunca como raiz.
 
+## Fluxo de desenvolvimento (adaptado das regras do rizzo-os — 2026-08-07)
+
+O `rizzo-os` roda um ciclo de 3 fases em 3 conversas/modelos; aqui a régua é a mesma,
+**adaptada ao site**: repo menor, SSG, e os checadores de build já mecanizam boa parte
+da revisão — então pode rodar num flow só.
+
+1. **Sempre pra `main`.** Toda entrega vai pra produção: `npm run build` **verde** (os 4
+   checadores — tipografia · navegação · panos · vitrine — são a rede de segurança que o
+   preview daria) → merge na `main`. O cliente valida **em produção**; produção indexa.
+   Trava de emergência sem deploy: `NEXT_PUBLIC_SITE_INDEXABLE=false`.
+2. **As 3 fases, como disciplina:** **Plano** (a solicitação vira plano contra o mapa —
+   rizzo-os → `SITE_MANIFESTO_MAPA.md`, a fonte da verdade da frente — com critério de
+   aceite e os arquivos que vai tocar) → **Execução** (implementa no escopo; **aditivo >
+   reescrita**: arquivo novo em vez de reescrever, registry cresce ADICIONANDO linha,
+   proibido "passar a vassoura" fora da entrega) → **Revisão** (relê o diff COMPLETO
+   contra o critério + build verde ANTES do merge).
+3. **Se não dá pra fazer corretamente, não faz.** Ausência honesta > presença defeituosa
+   — é a mesma régua anti-doorway (§3.3). Recurso meia-boca sai de escopo e o motivo vai
+   pro mapa; critério de aceite verde num resultado ruim = o critério estava errado.
+4. **Autônomo e contínuo:** ao concluir uma entrega, seguir pro próximo passo de maior
+   valor; só pausar em ambiguidade real de produto ou risco irreversível.
+5. **Fonte da verdade dura no doc, não no chat:** decisão que precisa sobreviver vai pro
+   mapa (rizzo-os → `SITE_MANIFESTO_MAPA.md`) + `MAPAS.md` — a conversa é efêmera.
+
 ## Comandos
 
 ```bash
