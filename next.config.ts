@@ -107,6 +107,13 @@ const EXATOS: Array<{ de: string; para: string }> = [
   { de: "/agencia-marketing-medico-digital__trashed/blog", para: "/" },
   // O sitemap do Yoast → o sitemap do site novo.
   { de: "/sitemap_index.xml", para: "/sitemap.xml" },
+  // O sitemap do site ESTÁTICO anterior. Diferente dos outros 404 legados, este não é
+  // página: é o arquivo que segue REGISTRADO como sitemap no Search Console (medido em
+  // 404 em 31/07 — rizzo-os → docs/SITE_MANIFESTO_MAPA.md §23.2), e sitemap registrado
+  // que devolve 404 continua alimentando o índice com URLs mortas. O Google segue 301 de
+  // sitemap, então esta linha faz a inscrição velha passar a ler o sitemap novo sozinha —
+  // sem depender de alguém lembrar de trocar a inscrição na mão (§23.6-1).
+  { de: "/sitemap-estatico.xml", para: "/sitemap.xml" },
 ];
 
 /**
