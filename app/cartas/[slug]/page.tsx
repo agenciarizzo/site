@@ -100,12 +100,9 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
 
           <OsBlock>{c.os}</OsBlock>
 
-          {pecas.length > 0 && (
-            <>
-              <h2 className="sec">O trabalho, na parede</h2>
-              <PortfolioPecas pecas={pecas} />
-            </>
-          )}
+          {/* Título e âncora vêm de dentro do componente (ele devolve null sem peça),
+              senão a carta mostraria dois "O trabalho, na parede". */}
+          <PortfolioPecas pecas={pecas} />
 
           <div className="franqueza">
             <h3>{c.quandoNaoTitulo}</h3>

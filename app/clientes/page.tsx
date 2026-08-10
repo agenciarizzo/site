@@ -10,7 +10,7 @@ import Link from "next/link";
 import { MenuTopo, Fatos, CtaConversa, FooterMapa, Band } from "@/components/athos/Athos";
 import { panoClientes } from "@/lib/athos/panos";
 import { CLIENTES } from "@/content/clientes";
-import { PORTFOLIO } from "@/content/portfolio";
+import { PORTFOLIO, chave } from "@/content/portfolio";
 import { PortfolioPecas } from "@/components/PortfolioPecas";
 import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
 import { getVitrine, imagemUrl, porNome } from "@/lib/showcase";
@@ -26,9 +26,12 @@ export const metadata: Metadata = {
 
 const WA = "Olá! Vi a página de clientes no site da agência e quero conversar sobre a minha clínica.";
 
-/** Chave de comparação: sem acento, sem pontuação, minúscula. */
-const chave = (s: string) =>
-  s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+/*
+ * `chave()` (comparação: sem acento, sem pontuação, minúscula) mudou de casa pro
+ * content/portfolio.ts, de onde vem importada: a parede precisa dela pro
+ * `parede-<chave>`, e duas cópias da mesma normalização acabariam divergindo do
+ * `area-<chave>` que esta página usa aqui embaixo.
+ */
 
 /**
  * Duas formas do mesmo nome (§24.3, achado 2): a grade de cima usa a curta
@@ -133,6 +136,30 @@ export default async function ClientesPage() {
         name: nome,
       })),
     },
+    // As peças da parede como ImageObject — é o que dá à busca por imagem o nome do
+    // cliente e a linha de contexto de cada composição. Sai junto com a seção quando
+    // o registry está vazio: schema de lista vazia é resíduo, não dado.
+    ...(PORTFOLIO.length > 0
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Peças do acervo da Agência Rizzo publicadas nesta página",
+            itemListOrder: "https://schema.org/ItemListUnordered",
+            numberOfItems: PORTFOLIO.length,
+            itemListElement: PORTFOLIO.map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "ImageObject",
+                name: p.cliente,
+                description: p.contexto,
+                contentUrl: `${SITE_URL}${p.imagem}`,
+              },
+            })),
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -193,9 +220,8 @@ export default async function ClientesPage() {
             <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
           </p>
 
-          <h2 className="sec" id="pecas">
-            O trabalho, na parede
-          </h2>
+          {/* O h2 e a âncora #pecas vêm DE DENTRO do componente: sem peça no
+              registry a seção inteira deixa de existir, sem sobrar título órfão. */}
           <PortfolioPecas pecas={PORTFOLIO} />
 
           <h2 className="sec" id="carteira">

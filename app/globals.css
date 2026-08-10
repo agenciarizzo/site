@@ -842,13 +842,91 @@ p.resumo {
   .carteira-nome .praca { font-size: var(--mono-2-cel); line-height: var(--lh-titulo); }
 }
 
-/* ── Portfólio do acervo: composições/mockups prontos ─────────────────────────
-   (2026-08-11, regra do cliente: post cru não entra; a unidade é a COMPOSIÇÃO.)
-   O card é papel: a composição, e embaixo UMA linha de legenda escrita pra
-   palavra-chave (nome público + serviço·especialidade·praça). Aditivo. */
-.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 1.8rem 1.5rem; margin: 1.3rem 0 2.2rem; align-items: start; }
-.peca-mockup { margin: 0; background: #fff; border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 2px rgba(22, 19, 14, 0.05), 0 16px 32px -22px rgba(22, 19, 14, 0.45); }
-.peca-mockup img { display: block; width: 100%; height: auto; }
-.peca-mockup figcaption { display: grid; gap: 0.15rem; padding: 0.75rem 0.95rem 0.85rem; border-top: 1px solid var(--hairline); }
-.peca-cliente { color: var(--ink); font-weight: 600; font-size: var(--corpo-3); }
-.peca-contexto { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-nav); text-transform: uppercase; color: var(--corpo); }
+/* ── Portfólio do acervo: a PAREDE AGRUPADA ───────────────────────────────────
+   (2026-08-11, regra do cliente: post cru não entra; a unidade é a COMPOSIÇÃO.
+   Padrão de apresentação desenhado e escolhido pelo cliente — opção 4a do handoff
+   rizzo-os → design_handoff_parede_portfolio/, §16.5 do ACERVO_PLANO_PAGINAS_MAPA.)
+
+   O card de 320px com raio e sombra saiu junto com a grade: a peça agora é uma
+   LINHA de 104px dentro de um grupo por especialidade, no MESMO vocabulário da
+   carteira aqui embaixo (hairline no topo, h3 mono, mesmos paddings) — a página
+   passa a ter um desenho só. Raio 0, sombra nenhuma. */
+.parede { margin: 1.1rem 0 2.2rem; }
+.parede-intro { margin: 0 0 0.4rem; }
+.parede-grupo { border-top: 1px solid var(--hairline); padding: 1.05rem 0 0.35rem; scroll-margin-top: 1rem; }
+.parede-grupo h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-rotulo);
+  text-transform: uppercase;
+  color: var(--cinza);
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+.parede-grupo h3 .conta { color: var(--ouro); }
+.parede-itens { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem 1.25rem; }
+/* padding + margin negativa: a área de hover cresce sem mexer no ritmo da grade. */
+.parede-peca { display: grid; grid-template-columns: 104px 1fr; gap: 0.8rem; align-items: start; padding: 7px; margin: -7px; transition: background 140ms ease; }
+.parede-peca:hover { background: var(--claro); }
+.parede-texto { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+.peca-nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; font-size: var(--slab-5); line-height: var(--lh-titulo); color: var(--ink); }
+.peca-linha { font-size: var(--corpo-3); line-height: var(--lh-apoio); }
+.peca-meta { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-nav); text-transform: uppercase; color: var(--cinza); }
+.peca-zoom { display: block; width: 100%; border: 1px solid var(--hairline); background: #fff; cursor: zoom-in; transition: border-color 140ms ease; }
+.peca-zoom:hover { border-color: var(--teal); }
+.peca-zoom img { display: block; width: 100%; height: auto; }
+
+/* Grupo de UMA peça (4c): a miniatura dobra e a linha toma a largura inteira —
+   em duas colunas ela ficaria órfã, com meia seção vazia do lado. */
+.parede-grupo.unica .parede-itens { grid-template-columns: 1fr; }
+.parede-grupo.unica .parede-peca { grid-template-columns: 208px 1fr; gap: 1.4rem; }
+.parede-grupo.unica .peca-nome { font-size: var(--slab-4); }
+.parede-grupo.unica .peca-linha { font-size: var(--corpo-2); }
+
+/* Lightbox SEM JavaScript: `:target`. Cada peça tem URL própria (dá pra mandar no
+   WhatsApp) e o fechar volta pra #pecas. z-index 61 porque o único outro z-index
+   do site é o 60 da cortina Athos. Cores do bloco escuro do rodapé-mapa (§5 do
+   handoff de navegação): legenda #C6CCD2, divisória #46505A. */
+.peca-lightbox { display: none; }
+.peca-lightbox:target {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.9rem;
+  position: fixed;
+  inset: 0;
+  z-index: 61;
+  margin: 0;
+  padding: 2.5rem 3rem;
+  background: rgba(22, 19, 14, 0.93);
+}
+.peca-lightbox img { display: block; max-width: 100%; max-height: 74vh; width: auto; height: auto; object-fit: contain; background: #fff; border: 1px solid #46505a; }
+.peca-lightbox figcaption { display: grid; gap: 0.25rem; max-width: 40rem; text-align: center; }
+.peca-lightbox figcaption .peca-nome { font-size: var(--slab-4); color: var(--papel); }
+.peca-lightbox figcaption .peca-meta { font-size: var(--mono-2); color: #c6ccd2; }
+.peca-fechar {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.3rem;
+  padding: 0.55rem 0.8rem;
+  background: var(--amarelo);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  /* Uma coluna; a miniatura de 104px continua legível. A peça única volta pros
+     104px: a 390px, 208px de imagem deixariam ~115px pro nome do cliente. */
+  .parede-itens { grid-template-columns: 1fr; }
+  .parede-grupo.unica .parede-peca { grid-template-columns: 104px 1fr; gap: 0.8rem; }
+  .peca-lightbox:target { padding: 3.4rem 1.2rem 1.2rem; }
+  .peca-fechar { top: 0.8rem; right: 0.9rem; }
+}
