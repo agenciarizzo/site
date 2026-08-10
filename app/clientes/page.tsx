@@ -10,6 +10,8 @@ import Link from "next/link";
 import { MenuTopo, Fatos, CtaConversa, FooterMapa, Band } from "@/components/athos/Athos";
 import { panoClientes } from "@/lib/athos/panos";
 import { CLIENTES } from "@/content/clientes";
+import { PORTFOLIO } from "@/content/portfolio";
+import { PortfolioPecas } from "@/components/PortfolioPecas";
 import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
 import { getVitrine, imagemUrl, porNome } from "@/lib/showcase";
 import { mockupDe } from "@/lib/mockups";
@@ -190,6 +192,15 @@ export default async function ClientesPage() {
             próprio. O que pensamos sobre isso está em{" "}
             <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
           </p>
+
+          <h2 className="sec" id="pecas">
+            Peças do trabalho, direto do arquivo
+          </h2>
+          <p className="prosa">
+            Trabalho real, do jeito que foi publicado — e com o nome de quem recebeu. Algumas peças são de contratos
+            de hoje; outras, de períodos anteriores.
+          </p>
+          <PortfolioPecas pecas={PORTFOLIO} />
 
           <h2 className="sec" id="carteira">
             A carteira, desde 2012
