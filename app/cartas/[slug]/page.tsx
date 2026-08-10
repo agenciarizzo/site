@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
 import { panoCarta } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import { CARTAS, bySlug } from "@/content/cartas";
+import { pecasDaCarta } from "@/content/portfolio";
+import { PortfolioPecas } from "@/components/PortfolioPecas";
 import { SITE_URL } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -28,6 +30,7 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
   const { slug } = await params;
   const c = bySlug(slug);
   if (!c) notFound();
+  const pecas = pecasDaCarta(slug);
 
   const jsonLd = [
     {
@@ -96,6 +99,13 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
           </div>
 
           <OsBlock>{c.os}</OsBlock>
+
+          {pecas.length > 0 && (
+            <>
+              <h2 className="sec">O trabalho, na parede</h2>
+              <PortfolioPecas pecas={pecas} />
+            </>
+          )}
 
           <div className="franqueza">
             <h3>{c.quandoNaoTitulo}</h3>
