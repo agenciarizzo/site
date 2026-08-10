@@ -194,12 +194,8 @@ export default async function ClientesPage() {
           </p>
 
           <h2 className="sec" id="pecas">
-            Peças do trabalho, direto do arquivo
+            O trabalho, na parede
           </h2>
-          <p className="prosa">
-            Trabalho real, do jeito que foi publicado — e com o nome de quem recebeu. Algumas peças são de contratos
-            de hoje; outras, de períodos anteriores.
-          </p>
           <PortfolioPecas pecas={PORTFOLIO} />
 
           <h2 className="sec" id="carteira">

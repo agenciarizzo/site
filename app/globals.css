@@ -841,3 +841,14 @@ p.resumo {
      scroll horizontal no celular. Em linha própria não faz nem uma coisa nem outra. */
   .carteira-nome .praca { font-size: var(--mono-2-cel); line-height: var(--lh-titulo); }
 }
+
+/* ── Portfólio do acervo: composições/mockups prontos ─────────────────────────
+   (2026-08-11, regra do cliente: post cru não entra; a unidade é a COMPOSIÇÃO.)
+   O card é papel: a composição, e embaixo UMA linha de legenda escrita pra
+   palavra-chave (nome público + serviço·especialidade·praça). Aditivo. */
+.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 1.8rem 1.5rem; margin: 1.3rem 0 2.2rem; align-items: start; }
+.peca-mockup { margin: 0; background: #fff; border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 2px rgba(22, 19, 14, 0.05), 0 16px 32px -22px rgba(22, 19, 14, 0.45); }
+.peca-mockup img { display: block; width: 100%; height: auto; }
+.peca-mockup figcaption { display: grid; gap: 0.15rem; padding: 0.75rem 0.95rem 0.85rem; border-top: 1px solid var(--hairline); }
+.peca-cliente { color: var(--ink); font-weight: 600; font-size: var(--corpo-3); }
+.peca-contexto { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-nav); text-transform: uppercase; color: var(--corpo); }
