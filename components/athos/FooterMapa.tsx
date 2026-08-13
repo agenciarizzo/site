@@ -5,9 +5,13 @@
 // Coluna "Cidades" só lista praça que TEM página no ar (Goiânia, Brasília);
 // Anápolis é a sede e aponta pra home — mesmo destino do 301 de
 // /marketing-medico-anapolis (next.config.ts), não uma landing própria.
-// Bloco "Especialidades" (colunas, mesmo formato de Cidades) NÃO entra enquanto
-// não existirem páginas de especialidade — é a ordem do próprio handoff, não um
-// corte deste componente.
+// Bloco "Especialidades" (colunas, mesmo formato de Cidades) ENTROU em 2026-08-13,
+// junto com as 19 páginas de /marketing-medico/<slug> (§16.8 do rizzo-os →
+// docs/ACERVO_PLANO_PAGINAS_MAPA.md) — era a condição que o próprio handoff punha.
+// É ele que faz TODA página alcançar as 19 (o checar-navegacao exige o grafo N×N).
+// O bloco derivado de COMBOS, que já existia, virou "Especialidade × cidade": são
+// coisas diferentes (aquele é filho de landing de praça) e dois <h2> "Especialidades"
+// no mesmo rodapé confundiriam leitor e leitor de tela.
 // A2: o amarelo #FFD200 aqui é rótulo/link sobre fundo cinza escuro — legítimo,
 // porque nunca aparece sobre papel. O navy segue exclusivo do bloco RizzoOS (Athos.tsx).
 import Image from "next/image";
@@ -15,6 +19,7 @@ import Link from "next/link";
 import { WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, PROPOSTA_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
 import { COMBOS } from "@/content/combos";
+import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
 
 export type CardRef = "seo" | "clientes" | "panorama" | "contato" | "goiania" | "brasilia" | "home";
 
@@ -146,13 +151,27 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
               Clientes atendidos
             </Link>
           </nav>
-          {/* Especialidades: só entra quando existe página de especialidade no ar
-              (§21.6 do mapa — "o bloco não entra enquanto não houver página"). Derivado
-              de COMBOS, então cada combo novo aparece aqui sozinho — e é o que garante
+          {/* As 19 casas das peças do acervo — mesmo formato de Cidades (colunas),
+              derivado do registry: página nova em content/especialidades.ts aparece
+              aqui sozinha, e é isso que mantém o grafo N×N do checar-navegacao. */}
+          {ESPECIALIDADES.length > 0 && (
+            <nav className="colunas" aria-label="Especialidades atendidas">
+              <h2>Especialidades</h2>
+              <div className="cols">
+                {ESPECIALIDADES.map((e) => (
+                  <Link key={e.slug} href={rotaEspecialidade(e.slug)} aria-current={cur(rotaEspecialidade(e.slug))}>
+                    {e.espec}
+                  </Link>
+                ))}
+              </div>
+            </nav>
+          )}
+          {/* Especialidade × cidade: as filhas das landings de praça. Derivado de
+              COMBOS, então cada combo novo aparece aqui sozinho — e é o que garante
               que TODA página linka a filha (o checar-navegacao.mjs exige). */}
           {COMBOS.length > 0 && (
             <nav className="linha" aria-label="Especialidades por cidade">
-              <h2>Especialidades</h2>
+              <h2>Especialidade × cidade</h2>
               {COMBOS.map((c) => (
                 <Link key={c.rota} href={c.rota} aria-current={cur(c.rota)}>
                   {c.especialidade.charAt(0).toUpperCase() + c.especialidade.slice(1)} em {c.cidade}
