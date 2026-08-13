@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { CARTAS } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
 import { COMBOS } from "@/content/combos";
+import { ESPECIALIDADES_INDEXAVEIS, rotaEspecialidade } from "@/content/especialidades";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -32,5 +33,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: 0.7,
   }));
-  return [...estaticas, ...cartas, ...cidades, ...combos];
+  // Páginas de especialidade: SÓ as que já têm prova (≥4 peças). As que nascem com
+  // menos ficam fora do sitemap E com `robots noindex, follow` (régua §3.3) — entram
+  // aqui sozinhas quando a curadoria tirar o `noindex` do registry.
+  const especialidades: MetadataRoute.Sitemap = ESPECIALIDADES_INDEXAVEIS.map((e) => ({
+    url: `${SITE_URL}${rotaEspecialidade(e.slug)}`,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+  return [...estaticas, ...cartas, ...cidades, ...combos, ...especialidades];
 }

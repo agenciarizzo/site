@@ -900,6 +900,12 @@ p.resumo {
 .parede-grupo.unica .peca-nome { font-size: var(--slab-4); }
 .parede-grupo.unica .peca-linha { font-size: var(--corpo-2); }
 
+/* Vitrine da página de especialidade (§16.8): a MESMA parede, cortada em 4 + 3 —
+   as 4 primeiras na grade de 2 colunas, o resto na coluna única de 208px. São dois
+   `.parede-grupo` porque o `.unica` mora nele; mas é UM bloco só pro leitor, então o
+   segundo não repete o hairline nem o respiro de topo de grupo novo. */
+.vitrine-espec .parede-grupo + .parede-grupo { border-top: 0; padding-top: 0; }
+
 /* Lightbox SEM JavaScript: `:target`. Cada peça tem URL própria (dá pra mandar no
    WhatsApp) e o fechar volta pra #pecas. z-index 61 porque o único outro z-index
    do site é o 60 da cortina Athos. Cores do bloco escuro do rodapé-mapa (§5 do

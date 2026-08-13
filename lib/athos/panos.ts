@@ -22,6 +22,7 @@ import { pano, panoContinuo, PATTERNS, coresValidas, byId } from "./athosPattern
 import { CARTAS } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
 import { COMBOS } from "@/content/combos";
+import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
 
 export const NAVY = "#0F172A";
 export const TEAL = "#0097A7";
@@ -91,6 +92,11 @@ export const ROTAS_COM_PANO: readonly string[] = [
   ...CIDADES.map((c) => `/${c.slug}`),
   // Combos Fase 2 (especialidade × cidade) — páginas-filhas que também carregam faixa.
   ...COMBOS.map((c) => c.rota),
+  // Páginas de especialidade (§16.8): DERIVADAS do registry, como as cartas e as
+  // praças. Entram 19 rotas de uma vez, então a distribuição remaneja o motivo de
+  // algumas páginas que ordenam depois — é esperado, não é defeito: o pano continua
+  // saindo do motor e continua único por página (quem cobra é o checar-panos.mjs).
+  ...ESPECIALIDADES.map((e) => rotaEspecialidade(e.slug)),
 ].sort();
 
 /**
@@ -207,6 +213,7 @@ export function homeJanelas(): string[] {
 export const panoCarta = (slug: string) => panoFaixa(`/cartas/${slug}`);
 export const panoCidade = (slug: string) => panoFaixa(`/${slug}`);
 export const panoCombo = (rota: string) => panoFaixa(rota);
+export const panoEspecialidade = (slug: string) => panoFaixa(rotaEspecialidade(slug));
 export const panoHub = () => panoFaixa("/marketing-medico");
 export const panoSobre = () => panoFaixa("/sobre");
 export const panoRizzoOs = () => panoFaixa("/rizzoos");
