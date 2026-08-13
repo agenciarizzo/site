@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { panoTiraOs, panoCta } from "@/lib/athos/panos";
-import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS, PROPOSTA_URL } from "@/lib/site";
+import { WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS, PROPOSTA_URL } from "@/lib/site";
+import { ROTA_PORTAO } from "@/lib/nav";
 
 /**
  * Faixa de pano — HTML estático do servidor, zero JS. O número de colunas é do
@@ -21,9 +22,10 @@ export function Header({ waText }: { waText: string }) {
       <Link href="/" aria-label="Agência Rizzo — início">
         <Image src="/logo_horizontal.png" alt="Agência Rizzo" width={182} height={30} priority />
       </Link>
-      <a className="top-wa" href={wa(waText)}>
+      {/* Também pelo portão: nenhum wa.me solto no site (lib/nav.ts). */}
+      <Link className="top-wa" href={ROTA_PORTAO} data-wa={waText}>
         WHATSAPP →
-      </a>
+      </Link>
     </header>
   );
 }

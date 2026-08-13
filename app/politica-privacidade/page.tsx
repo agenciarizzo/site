@@ -13,7 +13,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MenuTopo, FooterMapa, Band } from "@/components/athos/Athos";
 import { panoPrivacidade } from "@/lib/athos/panos";
-import { ENDERECO, CNPJ, WHATS_LABEL, GA4_ID, META_PIXEL_ID, SITE_URL, wa } from "@/lib/site";
+import { ENDERECO, CNPJ, WHATS_LABEL, GA4_ID, META_PIXEL_ID, SITE_URL } from "@/lib/site";
+import { ROTA_PORTAO } from "@/lib/nav";
 
 export const metadata: Metadata = {
   title: "Política de privacidade e termos de uso",
@@ -60,7 +61,7 @@ export default function PrivacidadePage() {
             </p>
             <p>
               Canal para qualquer pedido sobre dados — acesso, correção, exclusão ou dúvida:{" "}
-              <a href={wa(WA)}>WhatsApp {WHATS_LABEL}</a>, ou por correspondência ao endereço acima. Respondemos no
+              <Link href={ROTA_PORTAO} data-wa={WA}>WhatsApp {WHATS_LABEL}</Link>, ou por correspondência ao endereço acima. Respondemos no
               prazo da lei.
             </p>
 
@@ -83,11 +84,13 @@ export default function PrivacidadePage() {
               e que o botão de WhatsApp foi clicado. A Meta usa cookies próprios e é operadora desse tratamento.
             </p>
 
-            <h3 className="legal-h3">3 · O evento de clique no WhatsApp</h3>
+            <h3 className="legal-h3">3 · Os eventos de clique nos botões de conversa</h3>
             <p>
-              É a única conversão medida no site. Quando você clica em qualquer botão ou link de WhatsApp, registramos
-              o clique, a página em que ele aconteceu e o destino — não o conteúdo da conversa, que acontece fora do
-              site.
+              Quando você clica em um botão de WhatsApp, registramos o clique, a página em que ele aconteceu e o
+              destino — não o conteúdo da conversa, que acontece fora do site. O caminho tem dois passos e cada um
+              gera o seu evento: o botão leva a uma tela de confirmação (<Link href="/whatsapp">a tela de conversa</Link>
+              ), e é no botão de dentro dela que a conversa abre de fato. O mesmo vale para o botão de montar proposta,
+              que leva para o nosso aplicativo.
             </p>
 
             <h3 className="legal-h3">4 · Identificadores de clique de anúncio no seu navegador</h3>
@@ -101,7 +104,16 @@ export default function PrivacidadePage() {
               site no navegador.
             </p>
 
-            <h3 className="legal-h3">5 · Registros técnicos da hospedagem</h3>
+            <h3 className="legal-h3">5 · O texto que abre a conversa</h3>
+            <p>
+              Cada página tem uma frase própria para abrir o WhatsApp — é o que nos diz de onde você veio. Quando você
+              clica no botão, ficam guardados no <i>sessionStorage</i> do seu navegador a frase (<code>ar_wa_texto</code>
+              ) e o endereço da página em que você clicou (<code>ar_wa_pagina</code>), para que a tela de confirmação
+              abra a conversa certa e para sabermos qual página gerou o contato. É armazenamento de sessão: some quando
+              você fecha a aba.
+            </p>
+
+            <h3 className="legal-h3">6 · Registros técnicos da hospedagem</h3>
             <p>
               O site é hospedado na Vercel, que mantém registros técnicos de acesso (endereço IP, identificação do
               navegador, endereço solicitado e horário) para segurança, prevenção de abuso e diagnóstico de falhas.
@@ -109,7 +121,8 @@ export default function PrivacidadePage() {
 
             <p>
               A medição descrita nos itens 1 a 4 <b>só roda no site publicado</b>. Ambientes de desenvolvimento e de
-              pré-visualização não medem nada.
+              pré-visualização não medem nada. O item 5 não é medição: existe para a conversa abrir com o assunto
+              certo, e vale em qualquer ambiente.
             </p>
 
             <h2 className="sec">O que este site NÃO coleta</h2>
@@ -130,6 +143,11 @@ export default function PrivacidadePage() {
             </ul>
 
             <h2 className="sec">Quando você clica no WhatsApp</h2>
+            <p>
+              Antes de abrir a conversa aparece uma tela pedindo que você confirme que é uma pessoa. Ela existe para
+              proteger o atendimento de mensagens automáticas — não há desafio, não há captcha e nenhum outro serviço
+              recebe dado seu nesse passo: é um clique de confirmação, e nada além dele é registrado.
+            </p>
             <p>
               O clique abre uma conversa no WhatsApp com um texto já escrito, que indica de qual página você veio. A
               partir daí a conversa acontece dentro do WhatsApp, sob a política de privacidade da Meta, e o que você
@@ -178,7 +196,7 @@ export default function PrivacidadePage() {
               incompleto ou desatualizado; anonimização, bloqueio ou eliminação de dado desnecessário ou tratado fora
               da lei; portabilidade; informação sobre com quem compartilhamos; e oposição a tratamento feito com base
               no legítimo interesse. Para exercer qualquer um deles, chame no{" "}
-              <a href={wa(WA)}>WhatsApp {WHATS_LABEL}</a>.
+              <Link href={ROTA_PORTAO} data-wa={WA}>WhatsApp {WHATS_LABEL}</Link>.
             </p>
 
             <h2 className="sec">Como recusar a medição</h2>

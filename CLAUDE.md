@@ -33,8 +33,19 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    `scripts/checar-tipografia.mjs` reprova o build. Degrau novo só com motivo,
    declarado no `:root`. Teal é acento raro (A11): headline, links e foco — rótulo
    e kicker são cinza, como o eyebrow do e-mail.
-4. **CTA único = WhatsApp com texto pré-preenchido POR PÁGINA** (`wa()` em
-   `lib/site.ts`) — é a atribuição. Sem formulário, sem simulador de proposta.
+4. **Duas portas, e as duas em destaque** (rizzo-os → `FUNIL_ENTRADA_MAPA.md` §5).
+   Registro único das duas + do menu do topo: **`lib/nav.ts`** — item de menu, rótulo
+   de CTA e rota do portão entram AÍ, nunca no componente. A porta **fria 24/7** é
+   "montar proposta agora" (`PROPOSTA_URL`, mora no app); a **quente** é o WhatsApp
+   com **texto pré-preenchido POR PÁGINA** — é a atribuição.
+   **NENHUM link do site aponta direto pro `wa.me`:** todo caminho passa pelo portão
+   anti-robô **`/whatsapp`** (`noindex, nofollow` + `Disallow` no robots.txt), que só
+   revela o destino depois da confirmação humana — o texto da página viaja no
+   `data-wa` do botão e o portão o resgata (`GuardaOrigem`). Em Ads/Meta, **conversão
+   é `whatsapp_click` (disparado DENTRO do portão) e `proposta_click`**;
+   `portao_whatsapp` é passo de funil e **não pode ser marcado como conversão** — é
+   justamente o clique que um robô de campanha dá. Sem formulário, sem simulador de
+   proposta.
 5. **SSG puro, zero `"use client"`** salvo necessidade real justificada. Toda página:
    `metadata` + canonical + JSON-LD (cartas = Article + FAQPage; org SEM
    aggregateRating).

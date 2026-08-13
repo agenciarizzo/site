@@ -3,6 +3,7 @@ import { Roboto_Slab, JetBrains_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { INDEXABLE, SITE_URL, ORG_JSONLD } from "@/lib/site";
 import { Medicao } from "@/components/Medicao";
+import { GuardaOrigem } from "@/components/GuardaOrigem";
 
 // Tipografia oficial da Linha Athos (self-hosted via next/font — zero request externo):
 // Roboto Slab (display) · Geist (voz única das duas marcas) · JetBrains Mono (kickers).
@@ -41,6 +42,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <Medicao />
+        {/* Fora da Medicao: a atribuição do texto do WhatsApp vale também em
+            preview e dev, onde a medição não roda. */}
+        <GuardaOrigem />
         {children}
       </body>
     </html>
