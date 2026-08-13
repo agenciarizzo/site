@@ -12,7 +12,8 @@
 // porque nunca aparece sobre papel. O navy segue exclusivo do bloco RizzoOS (Athos.tsx).
 import Image from "next/image";
 import Link from "next/link";
-import { wa, WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, PROPOSTA_URL } from "@/lib/site";
+import { WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, PROPOSTA_URL } from "@/lib/site";
+import { ROTA_PORTAO } from "@/lib/nav";
 import { COMBOS } from "@/content/combos";
 
 export type CardRef = "seo" | "clientes" | "panorama" | "contato" | "goiania" | "brasilia" | "home";
@@ -92,9 +93,11 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
             <address>
               {ENDERECO} · <a href="tel:+5562992586600">{WHATS_LABEL}</a> · seg a sex 9h–18h
             </address>
-            <a className="zap" href={wa(WA_RODAPE)}>
+            {/* Passa pelo portão anti-robô, como todo caminho pro WhatsApp
+                (lib/nav.ts); o texto da conversa viaja no data-wa. */}
+            <Link className="zap" href={ROTA_PORTAO} data-wa={WA_RODAPE}>
               WhatsApp →
-            </a>
+            </Link>
           </div>
           <nav className="colunas" aria-label="Cidades atendidas">
             <h2>Cidades</h2>

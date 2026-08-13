@@ -372,20 +372,27 @@ a.carta-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(2
 }
 .cta h2::before { content: ""; display: block; width: 26px; height: 4px; background: var(--ouro); margin: 0 auto 0.9rem; }
 .cta .acento { color: var(--teal); }
+/* O botão do fecho é o destino da página inteira — e estava do tamanho de um
+   link de rodapé (2026-08-13). Subiu um degrau de tipo (--corpo-1 → --corpo-lede,
+   ambos já no :root), ganhou corpo, sombra e um pequeno levantar no hover. Cor
+   sem novidade: navy com amarelo é o par mais forte da casa e o amarelo só
+   aparece sobre escuro, como manda a A2. */
 .btn-wa {
   display: inline-block;
   background: var(--navy);
   color: var(--amarelo);
   font-family: var(--font-geist), Arial, sans-serif;
-  font-weight: 700;
-  font-size: var(--corpo-1);
+  font-weight: 800;
+  font-size: var(--corpo-lede);
   letter-spacing: var(--ls-micro);
   text-decoration: none;
-  padding: 1.05rem 2.2rem;
+  padding: 1.15rem 2.6rem;
   border-radius: 10px;
-  margin-top: 1.6rem;
+  margin-top: 1.7rem;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.26);
+  transition: transform 0.15s ease-out, background 0.15s ease-out;
 }
-.btn-wa:hover { background: #1a2742; }
+.btn-wa:hover { background: #1a2742; transform: translateY(-2px); }
 .cta .sub { font-size: var(--corpo-2); margin: 1rem auto 0; color: var(--corpo); max-width: 30rem; }
 
 /* assinatura "quem assina" — hoje só na /sobre (saiu do CTA por decisão do dono) */
@@ -498,21 +505,28 @@ article.corpo { padding: 2.6rem 0 3rem; }
    --amarelo (A2: legítimo sobre fundo escuro, nunca sobre papel);
    link #EDE9DF; endereço/legal #C6CCD2/#9AA3AC; divisória #46505A.
    ============================================================ */
-header.topo.menu { border-bottom: 1px solid var(--hairline); padding: 1.3rem 1.4rem; flex-wrap: wrap; gap: 0.9rem 1.6rem; }
-header.topo.menu nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem 1.5rem; }
+/* O rótulo do menu é TEXTO, não etiqueta (2026-08-13): era JetBrains Mono
+   maiúsculo em --mono-2 (10,9px) com --ls-nav de tracking — o degrau mais miúdo da
+   escala, na fonte mais estreita, esparramado. Virou Geist em --corpo-2 (15,5px),
+   caixa de frase, cor ink: mesma escala, degrau que já existia, e agora se lê de
+   relance. O ouro continua sendo quem marca a página atual. */
+header.topo.menu { border-bottom: 1px solid var(--hairline); padding: 1.15rem 1.4rem; flex-wrap: wrap; gap: 0.8rem 2rem; }
+header.topo.menu nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.3rem 1.5rem; flex: 1 1 auto; }
 header.topo.menu nav a {
-  font-family: var(--font-mono), monospace;
-  font-size: var(--mono-2);
-  letter-spacing: var(--ls-nav);
-  text-transform: uppercase;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: var(--corpo-2);
+  font-weight: 500;
   text-decoration: none;
-  padding-bottom: 3px;
+  padding-bottom: 4px;
   border-bottom: 2px solid transparent;
-  color: var(--cinza);
+  color: var(--ink);
 }
-header.topo.menu nav a:hover { color: var(--teal); border-bottom-color: var(--teal); }
+header.topo.menu nav a:hover { color: var(--teal-texto); border-bottom-color: var(--teal); }
 header.topo.menu nav a[aria-current="page"] { color: var(--ink); font-weight: 700; border-bottom-color: var(--ouro); }
-header.topo.menu nav a.wa { color: var(--navy); font-weight: 700; border-bottom-color: var(--ouro); }
+/* `margin-left: auto`: quando a barra é estreita demais e o bloco de ação cai pra
+   segunda linha, ele continua alinhado à direita — e não muda nada quando cabe tudo
+   numa linha só. */
+header.topo.menu .acoes { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem; margin-left: auto; }
 
 /* rodapé-mapa · faixa 1 — próxima leitura (papel) */
 footer.mapa .leitura { border-top: 1px solid var(--hairline); padding: 2.4rem 1.4rem; }
@@ -930,3 +944,96 @@ p.resumo {
   .peca-lightbox:target { padding: 3.4rem 1.2rem 1.2rem; }
   .peca-fechar { top: 0.8rem; right: 0.9rem; }
 }
+
+/* ============================================================
+   CTAs em destaque + o portão anti-robô (2026-08-13)
+   ------------------------------------------------------------
+   Pedido do dono, antes de subir PMax: "dar mais destaque aos CTAs" e
+   "WhatsApp com tela anti-spam — não quero robô convertendo".
+
+   Três peças, nesta ordem de importância:
+   1. os dois botões do topo (`.btn-proposta` sólido, `.btn-zap` contornado);
+   2. a BARRA FIXA do celular, onde o topo não cabe e o polegar manda;
+   3. o portão (`/whatsapp`), com o destino atrás de um `:checked`.
+
+   Paleta sem estreia: navy + amarelo (o par mais forte, e o amarelo só sobre
+   escuro — A2) e o ouro como tempera. O verde do WhatsApp NÃO entra: quem
+   nomeia o botão é o glifo, e cor de fora da linha aqui seria a única do site.
+   Tipografia sem degrau novo: --corpo-2 e --corpo-3 já serviam a casa.
+   ============================================================ */
+.btn-zap,
+.btn-proposta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: var(--corpo-3);
+  font-weight: 700;
+  letter-spacing: var(--ls-micro);
+  text-decoration: none;
+  padding: 0.62rem 1.05rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: transform 0.15s ease-out, background 0.15s ease-out, color 0.15s ease-out;
+}
+.btn-zap svg,
+.btn-zap-grande svg { width: 1.15em; height: 1.15em; flex: 0 0 auto; }
+
+/* porta quente — contornada: acompanha, não disputa com a porta fria */
+.btn-zap { background: #fff; color: var(--navy); border: 2px solid var(--navy); padding: calc(0.62rem - 2px) calc(1.05rem - 2px); }
+.btn-zap:hover { background: var(--navy); color: var(--amarelo); }
+
+/* porta fria 24/7 — o botão que o dono pediu em destaque */
+.btn-proposta { background: var(--navy); color: var(--amarelo); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.24); }
+.btn-proposta:hover { background: #1a2742; transform: translateY(-1px); }
+
+/* barra fixa do celular: no desktop ela não existe (os botões moram no topo) */
+.barra-cta { display: none; }
+@media (max-width: 760px) {
+  .barra-cta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* 50: abaixo da cortina Athos (60) e do lightbox (61) — sem disputa */
+    z-index: 50;
+    padding: 0.55rem 0.7rem calc(0.55rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(244, 239, 230, 0.97);
+    border-top: 1px solid var(--hairline);
+    box-shadow: 0 -6px 20px rgba(22, 19, 14, 0.1);
+  }
+  .barra-cta a { justify-content: center; padding-top: 0.8rem; padding-bottom: 0.8rem; }
+  /* o rodapé não pode nascer debaixo da barra */
+  body { padding-bottom: 4.6rem; }
+  /* no celular quem carrega a ação é a barra; o topo fica só com marca e menu */
+  header.topo.menu .acoes { display: none; }
+}
+
+/* ── O portão (/whatsapp) ─────────────────────────────────────────────────────
+   O destino real mora atrás do `:checked` — CSS puro, sem JS e sem estado. Robô
+   que varre link não encontra `wa.me` clicável, e o evento de conversão só existe
+   no clique de dentro daqui (Medicao.tsx). */
+.portao {
+  background: var(--claro);
+  border: 1px solid var(--hairline);
+  border-left: 5px solid var(--ouro);
+  padding: 1.6rem 1.7rem 1.7rem;
+  margin: 0.6rem 0 1.4rem;
+}
+.portao-trava { width: 1.35rem; height: 1.35rem; accent-color: var(--teal); vertical-align: -0.25rem; margin: 0 0.6rem 0 0; cursor: pointer; }
+.portao-selo { color: var(--ink); font-weight: 700; cursor: pointer; }
+.portao-porta { display: none; }
+.portao-trava:checked ~ .portao-porta { display: block; }
+.btn-zap-grande { display: inline-flex; align-items: center; gap: 0.55rem; margin-top: 1.3rem; }
+/* Os dois seletores abaixo levam o element/classe de fora junto (`article.`,
+   `.prosa p`) porque é com essa especificidade que `article.corpo` e `.prosa p`
+   estão declarados lá em cima — sem isso a regra nova não ganha. */
+/* folga pra sombra do botão não encostar na linha do número */
+.prosa p.portao-nota { font-size: var(--corpo-2); margin: 1.5rem 0 0; }
+.prosa p.portao-alt { font-size: var(--corpo-2); margin: 0; }
+/* a tela é de passagem: o portão sobe pra perto da chamada, sem o respiro de
+   página de leitura que o `article.corpo` reserva */
+article.portao-corpo { padding-top: 0.4rem; }

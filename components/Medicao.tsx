@@ -35,15 +35,28 @@ const CAPTURA_CLIQUE_PAGO = `
 // junto o identificador do anúncio que trouxe a pessoa. gtag usa sendBeacon, então
 // o evento sobrevive à navegação. O evento whatsapp_click preserva nome e payload
 // de sempre — histórico do GA4 não quebra.
+//
+// 2026-08-13 — o `whatsapp_click` MUDOU DE LUGAR, e isso é o ponto da entrega: o
+// único `wa.me` que existe no site agora é o botão de dentro do portão
+// (`/whatsapp`), atrás de uma confirmação humana. O botão que LEVA ao portão
+// (`a[data-wa]`, no topo, na barra do celular e no rodapé) dispara
+// `portao_whatsapp`, que é passo de funil e NÃO deve ser marcado como conversão —
+// é exatamente ele que um robô de campanha clicaria. Em Ads/Meta, conversão é
+// `whatsapp_click` e `proposta_click`; `portao_whatsapp` serve pra medir quanta
+// gente desiste no portão.
 const CONVERSAO_CTA = `
 (function(){
   document.addEventListener('click', function(e){
     var alvo = e.target;
     if (!alvo || typeof alvo.closest !== 'function') return;
-    var link = alvo.closest('a[href*="wa.me"], a[data-cta="proposta"]');
+    var link = alvo.closest('a[href*="wa.me"], a[data-cta="proposta"], a[data-wa]');
     if (!link) return;
     var proposta = link.getAttribute('data-cta') === 'proposta';
+    var portao = link.hasAttribute('data-wa');
     var p = { pagina: window.location.pathname, destino: link.getAttribute('href') };
+    // no portão, a página que gerou a conversa é a de ORIGEM, não a porta
+    var origem = link.getAttribute('data-origem');
+    if (origem) p.origem = origem;
     try{
       ['gclid','gbraid','wbraid','fbclid'].forEach(function(k){
         var v = localStorage.getItem('ar_'+k);
@@ -51,7 +64,10 @@ const CONVERSAO_CTA = `
       });
     }catch(err){}
     window.dataLayer = window.dataLayer || [];
-    if (proposta) {
+    if (portao) {
+      window.dataLayer.push({ event: 'portao_whatsapp', portao: p });
+      if (typeof window.gtag === 'function') window.gtag('event', 'portao_whatsapp', p);
+    } else if (proposta) {
       window.dataLayer.push({ event: 'proposta_click', proposta: p });
       if (typeof window.gtag === 'function') window.gtag('event', 'proposta_click', p);
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
