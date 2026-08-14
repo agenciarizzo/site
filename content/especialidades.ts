@@ -250,9 +250,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-otorrinolaringologia-brasilia-folder-institucional",
       "marketing-medico-otorrinolaringologia-brasilia-portfolio-digital",
       "marketing-medico-otorrinolaringologia-brasilia-sinalizacao-clinica",
+      "marketing-medico-otorrinolaringologia-brasilia-portfolio-impresso",
     ],
     areasCarteira: ["Otorrinolaringologia"],
-    noindex: true,
     waText:
       "Olá! Vi a página de marketing para otorrinolaringologia no site da agência e quero conversar sobre a clínica.",
   },
@@ -273,9 +273,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-reproducao-humana-brasilia-ebook-fertilidade",
       "marketing-medico-ginecologia-brasilia-site",
       "marketing-medico-menopausa-salvador-site",
+      "marketing-medico-ginecologia-brasilia-portfolio-impresso",
     ],
     areasCarteira: ["Saúde da Mulher", "Ginecologia", "Medicina Reprodutiva", "Endoscopia Ginecológica", "Mastologia"],
-    noindex: true,
     waText:
       "Olá! Vi a página de marketing para saúde da mulher no site da agência e quero conversar sobre o meu consultório.",
   },
@@ -296,9 +296,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-vascular-brasilia-folder-lipedema",
       "marketing-medico-cirurgia-vascular-goiania-portfolio-impresso",
       "marketing-medico-vascular-brasilia-cartao-virtual",
+      "marketing-medico-vascular-brasilia-anuncio",
     ],
     areasCarteira: ["Medicina Vascular"],
-    noindex: true,
     waText:
       "Olá! Vi a página de marketing para angiologia e cirurgia vascular no site da agência e quero conversar sobre o meu consultório.",
   },
