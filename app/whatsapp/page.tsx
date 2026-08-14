@@ -102,7 +102,7 @@ export default function PortaoPage() {
             </div>
 
             <p className="portao-alt">
-              Prefere tudo por escrito, com o preço aberto? São oito perguntas sobre a sua clínica, no seu tempo —{" "}
+              Prefere tudo por escrito, com o preço aberto? É um cadastro rápido, o código chega no seu e-mail —{" "}
               <a data-cta="proposta" href={PROPOSTA_URL}>
                 {CTA_PROPOSTA.toLowerCase()}
               </a>

@@ -71,7 +71,7 @@ export function CtaConversa({
   titulo,
   acento,
   chave = "/",
-  sub = "Oito perguntas sobre a sua clínica, no seu tempo. A proposta chega por escrito, com o preço aberto.",
+  sub = "Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote da sua clínica na hora, com o preço aberto.",
 }: {
   titulo: string;
   acento: string;

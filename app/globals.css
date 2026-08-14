@@ -234,6 +234,18 @@ h2.sec::before {
   background: var(--ouro);
   margin-bottom: 0.8rem;
 }
+/* Degrau abaixo do h2 de seção — nasceu nos blocos de sintoma da /rizzoos (§41
+   do mapa), onde um h2 agrupa cinco sub-blocos. Mesmo degrau de `.franqueza h3`
+   e `.carta-card h3` (--slab-4), SEM a marca de ouro: é ela que separa o nível
+   de seção do nível de bloco a olho, sem inventar tamanho novo. */
+h3.sec {
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: var(--slab-4);
+  color: var(--ink);
+  line-height: var(--lh-titulo);
+  font-weight: 700;
+  margin: 2rem 0 0.7rem;
+}
 
 .prosa p { margin: 0 0 1.05rem; }
 .prosa b, .prosa strong { color: var(--ink); font-weight: 700; }

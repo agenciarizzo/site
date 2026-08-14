@@ -1,24 +1,27 @@
-// /rizzoos — a página da plataforma (§19 do mapa): o que o RizzoOS já faz pela
-// clínica, o que ele garante sozinho, em que escala roda e o que ainda está em
-// construção. Não é uma carta (não segue content/cartas.ts) e não vende sistema
-// avulso — o CTA é o WhatsApp de sempre.
+// /rizzoos — a página da plataforma (§19 e §41 do mapa), na forma SINTOMA →
+// RESPOSTA: as frases que o médico já disse sobre a agência anterior, e o que o
+// sistema faz a respeito de cada uma. Não é uma carta (não segue
+// content/cartas.ts) e não vende sistema avulso.
 //
-// Tom (§19.4): o RizzoOS é assunto legítimo; o que continua proibido é a página
-// comentar a mecânica DESTE site. Todo número sai do §19.2 do mapa; nada do
-// roadmap aparece sem o rótulo de construção.
+// Tom (§19.4 + §41): o RizzoOS é assunto legítimo; o que continua proibido é a
+// página comentar a mecânica DESTE site — e, desde o §41, também a própria
+// mecânica do produto. Fora daqui: contagem de recurso, roadmap, versão, teste
+// automático, número de escala solto no corpo (a prova mora na tarja `Fatos`).
 //
 // Schema: Service (Organization já é global via app/layout.tsx). SEM FAQPage —
 // não há pergunta literal do Search Console para este tema, e FAQ inventada é
-// exatamente o antipadrão que derrubou as páginas antigas (§17.4).
+// exatamente o antipadrão que derrubou as páginas antigas (§17.4). As frases dos
+// blocos são sintoma em 1ª pessoa, NÃO pergunta: transformá-las em FAQPage seria
+// fabricar exatamente o que o §17.4 proíbe.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { panoRizzoOs } from "@/lib/athos/panos";
-import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
-import { FRENTES, GARANTIAS, ESCALA, ADIANTE } from "@/content/rizzoos";
+import { Band, MenuTopo, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
+import { BLOCOS } from "@/content/rizzoos";
 import { SITE_URL } from "@/lib/site";
 
 const DESCRICAO =
-  "Planejamento do ano, aprovação pelo celular, publicação no horário, anúncio e relatório: o que o RizzoOS, a plataforma da Agência Rizzo, já faz pela sua clínica.";
+  "Agência que atrasa, some no fim de semana, manda peça por e-mail e não mostra o gasto: o que o RizzoOS, a plataforma da Agência Rizzo, faz a respeito de cada uma dessas queixas.";
 
 // Título medido: 40 caracteres + " | Agência Rizzo" (16) = 56 renderizados, dentro
 // do teto de 60 da régua de CTR (§16.3, fatia A). Keyword-first: quem procura busca
@@ -141,7 +144,8 @@ export default function RizzoOsPage() {
             <p className="lede">
               Planejar o ano, produzir a peça, aprovar, publicar no horário, anunciar e medir o que voltou: tudo isso
               acontece dentro do RizzoOS, a plataforma que a agência desenvolveu do zero pra cuidar da presença de
-              quem atende paciente. Aqui, o que ela já faz — e o que ainda não faz.
+              quem atende paciente. Nesta página, ela é apresentada pelo avesso — pelas queixas que você talvez já
+              tenha tido de uma agência.
             </p>
           </div>
         </section>
@@ -160,8 +164,7 @@ export default function RizzoOsPage() {
               Foi por isso que a agência parou de emendar ferramenta de terceiro e construiu a própria. O RizzoOS não
               é um mural de tarefas: é onde a peça nasce, é aprovada, vai ao ar no horário combinado, vira anúncio e
               volta como número — com a verificação de CFM feita no caminho, não depois que já era. E ele não é
-              vitrine: é a mesma ferramenta que a agência usa todo dia pra tocar a própria operação, com cada melhoria
-              registrada numa versão.
+              vitrine: é a mesma ferramenta que a agência usa todo dia pra tocar a própria operação.
             </p>
 
             <Filme
@@ -170,25 +173,29 @@ export default function RizzoOsPage() {
               legenda="O caminho de uma peça, do combinado ao retorno."
             />
 
-            {FRENTES.map((f) => (
-              <section key={f.t}>
-                <h2 className="sec">{f.t}</h2>
-                <p>{f.d}</p>
-                {/* O inventário dobra; a linha de resumo e os links de carta NÃO.
-                    `<details>` é HTML nativo (zero JS) e o texto continua no DOM
-                    fechado — o Google lê os 37 marcadores como sempre leu. */}
-                <p className="resumo">{f.resumo}</p>
-                <details className="detalhe">
-                  <summary>
-                    o que já está no ar <i>({f.itens.length} itens)</i>
-                  </summary>
-                  <ul className="crencas">
-                    {f.itens.map((i) => (
-                      <li key={i}>{i}</li>
-                    ))}
-                  </ul>
-                </details>
-                {f.leia?.map((l) => (
+            <h2 className="sec">Se você já disse alguma destas frases</h2>
+            <p>
+              Nenhuma delas é hipótese: são falas de médico que já trocou de agência. Do lado de cada uma, o que o
+              RizzoOS faz a respeito — nada de promessa, só o comportamento do sistema.
+            </p>
+
+            {/* Sem dobra e sem contagem: aqui a frase É o conteúdo. Esconder o
+                sintoma atrás de um `<details>` (como fazia o inventário antigo)
+                tiraria da vista justamente o que faz o médico se reconhecer. */}
+            {BLOCOS.map((b) => (
+              <section key={b.t}>
+                <h3 className="sec">{b.t}</h3>
+                <p>{b.d}</p>
+                <ul className="crencas">
+                  {b.sintomas.map((s) => (
+                    <li key={s.f}>
+                      <b>&ldquo;{s.f}&rdquo;</b>
+                      <br />
+                      {s.r}
+                    </li>
+                  ))}
+                </ul>
+                {b.leia?.map((l) => (
                   <p key={l.slug}>
                     <Link className="ler" href={`/cartas/${l.slug}`}>
                       {l.rotulo} →
@@ -207,68 +214,12 @@ export default function RizzoOsPage() {
               legenda="A marca é da clínica; o trabalho de assentar é da agência."
             />
 
-            <h2 className="sec">O que o sistema garante sozinho</h2>
-            <p>
-              Software que publica no lugar de gente precisa errar pouco e, quando errar, errar pro lado seguro. Estas
-              travas não dependem de alguém lembrar delas:
-            </p>
-
-            <details className="detalhe">
-              <summary>
-                o que cada trava faz <i>({GARANTIAS.length} itens)</i>
-              </summary>
-              <ul className="crencas">
-                {GARANTIAS.map((g) => (
-                  <li key={g.t}>
-                    <b>{g.t}</b> {g.d}
-                  </li>
-                ))}
-              </ul>
-            </details>
-
-            <h2 className="sec">A escala em que isso roda</h2>
-            <p>Não é protótipo rodando numa clínica só:</p>
-            {/* Os 5 números já são curtos: não dobram, viram bloco compacto. */}
-            <div className="escala">
-              {ESCALA.map((e) => (
-                <div key={e.n}>
-                  <b>{e.n}</b>
-                  <span>{e.d}</span>
-                </div>
-              ))}
-            </div>
-
-            <h2 className="sec">O que ainda está em construção</h2>
-            <p>
-              Estas frentes não estão prontas, e ficam listadas com o rótulo até estarem. A régua aqui dentro é a
-              mesma que aplicamos na peça do cliente: o que não está pronto não é apresentado como pronto.
-            </p>
-            <ul className="crencas">
-              {ADIANTE.map((a) => (
-                <li key={a.t}>
-                  {/* `em&nbsp;construção`: o rótulo é mono com letter-spacing e, no
-                      celular, "em construção" quebrava NO MEIO do rótulo ("em" numa
-                      linha, "construção" na outra) — justo o rótulo que carrega a
-                      honestidade do bloco. O nbsp faz o rótulo inteiro descer junto. */}
-                  <b>{a.t}</b> <span className="kicker">em&nbsp;construção</span>
-                  <br />
-                  {a.lastro}
-                  {a.leia && (
-                    <>
-                      <br />
-                      <Link className="ler" href={`/cartas/${a.leia.slug}`}>
-                        {a.leia.rotulo} →
-                      </Link>
-                    </>
-                  )}
-                </li>
-              ))}
-            </ul>
-
-            <OsBlock link={false}>
-              Tudo isso vive num lugar só, no seu celular. Você entra, vê o que vem pela frente, aprova o que vai ao ar
-              e acompanha o mês fechando — sem depender de reunião marcada.
-            </OsBlock>
+            {/* Saíram daqui, no §41: "o que o sistema garante sozinho" (travas
+                descritas como engenharia — as que interessam ao médico viraram
+                resposta de sintoma), "a escala em que isso roda" (os números
+                repetiam a tarja `Fatos`, logo abaixo) e "o que ainda está em
+                construção" (roadmap é changelog: o que não existe não é
+                mencionado, nem pra dizer que vem). */}
 
             <div className="franqueza">
               <h3>O RizzoOS não se contrata sozinho</h3>
@@ -294,7 +245,7 @@ export default function RizzoOsPage() {
           chave={"/rizzoos"}
           titulo="Quanto custa"
           acento="o que a sua clínica precisa?"
-          sub="Oito perguntas sobre a sua clínica, no seu tempo. O acesso ao RizzoOS vem junto com o trabalho da agência, quando fizer sentido pros dois lados."
+          sub="Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote na hora. O acesso ao RizzoOS vem junto com o trabalho da agência, quando fizer sentido pros dois lados."
         />
       </main>
       <FooterMapa atual="/rizzoos" proxima={["panorama", "contato"]} />
