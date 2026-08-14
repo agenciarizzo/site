@@ -1,92 +1,122 @@
 // Conteúdo da página /rizzoos — a plataforma que a agência desenvolveu, apresentada
-// pro mundo do médico (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §19).
+// pro mundo do médico (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §19 e §41).
+//
+// A FORMA É SINTOMA → RESPOSTA (§41, decisão do cliente em 2026-08-14). A versão
+// anterior deste arquivo era um INVENTÁRIO: 37 recursos em fila, 5 garantias de
+// engenharia, 5 números de escala e 6 linhas de roadmap "em construção" — na
+// prática, um changelog. Médico não lê changelog. Ele reconhece a frase que já
+// disse sobre a agência anterior. Então cada item nasce da FRASE DO MÉDICO e só
+// depois diz o que o sistema faz a respeito.
 //
 // RÉGUA DE HONESTIDADE (§19.2 do mapa) — vale pra qualquer edição deste arquivo:
-//  · Número público só sai das fontes canônicas: PLANEJAMENTO_ESTRATEGICO_RIZZO_2026
-//    §2.1 (200+ atendidos · 40+ ativas · 9 fontes ao vivo · 40 GMB · 20+ linhas) e
-//    RIZZOOS_FEATURES_INVENTARIO §0. Em dúvida, corta. Nunca "10 fontes", nunca "40 packs".
-//    · EXCEÇÃO com lastro melhor que a fonte: "atendidos" subiu pra 250+ quando a
-//      carteira nominal entrou no repo (content/carteira.ts). O 200+ do §2.1 é anterior
-//      à contagem; o número novo é decisão do cliente e tem lista por trás. Não reverter.
-//  · Status é sagrado: o que não está pronto vai no ADIANTE, sempre com o rótulo de
-//    construção E a linha de lastro (o que já existe × o que falta).
-//  · Zero superlativo (nem como meta declarada), zero promessa de resultado, zero
-//    menção a proposta, zero nome de cliente — prova nominal mora em /clientes.
-//  · O Índice de Presença Digital JAMAIS é descrito como medição automática: hoje é manual.
+//  · Resposta de sintoma só entra com LASTRO no que já está em produção. Sintoma
+//    real sem lastro real fica FORA (é o caso do CRM — §41.3 do mapa): ausência
+//    honesta > presença defeituosa.
+//  · Zero superlativo (nem como meta declarada), zero promessa de resultado,
+//    zero nome de cliente — prova nominal mora em /clientes.
+//  · Zero metainformação: nada de contagem de recurso, nada de versão, nada de
+//    teste automático, nada de roadmap. O que não existe não é mencionado —
+//    nem pra dizer que está vindo.
+//  · Número público só sai das fontes canônicas, e nesta página ele mora na
+//    tarja `Fatos` (lib/site.ts), não no corpo. Em dúvida, corta.
+//  · O Índice de Presença Digital JAMAIS é descrito como medição automática.
 
-export interface Frente {
-  /** Título da frente, como o médico a reconhece. */
+export interface Bloco {
+  /** Título do bloco, dito pela dor — não pelo nome do módulo. */
   t: string;
-  /** O que ela resolve, em uma linha. */
+  /** Uma linha que enquadra o bloco antes das frases. */
   d: string;
-  /** Capacidades já em produção — cada uma com prova no inventário §2. */
-  itens: string[];
-  /**
-   * A linha de resumo que fica VISÍVEL quando o inventário está dobrado
-   * (`<details>` fechado). Não é copy nova: é o próprio `itens` reduzido aos seus
-   * nomes, separados por ponto médio — quem passa o olho já sabe o que tem lá
-   * dentro, e nenhuma afirmação nova entra na página por causa da dobra.
-   * Régua §19.2: sem número, sem superlativo, sem promessa.
-   */
-  resumo: string;
+  /** As frases do médico (`f`) e o que o sistema faz a respeito (`r`). */
+  sintomas: { f: string; r: string }[];
   /** Cartas de mídia que continuam a conversa (rota existente do site). */
   leia?: { slug: string; rotulo: string }[];
 }
 
-export const FRENTES: Frente[] = [
+export const BLOCOS: Bloco[] = [
   {
-    t: "Conteúdo: do calendário do ano ao post no ar",
-    d: "A parte que mais trava numa clínica é a que menos precisa travar — sair do combinado e ir pro ar.",
-    resumo:
-      "calendário do ano · aprovação pelo celular · publicação sozinha · teleprompter · trilha de auditoria",
-    itens: [
-      "O calendário do ano já nasce montado na sua marca — banco de pautas, não página em branco.",
-      "Aprovação pelo celular: desliza pra aprovar e desenha o ajuste em cima da própria arte.",
-      "Refação por IA em um clique, quando o ajuste é de texto ou de imagem.",
-      // Os OITO destinos são decisão registrada do dono do produto (plano do tronco
-      // vertical, §1.4): a Fase 1 levantou que só três têm edge function de
-      // publicação hoje (`publish-to-instagram`, `-facebook`, `-wordpress`) e o
-      // cliente autorizou os oito por escrito, assumindo o risco. A condição que veio
-      // junto é esta linha: o filme do beat "publica no horário" mostra os mesmos
-      // oito selos, na mesma ordem — se um dia a lista mudar, ela muda NOS DOIS
-      // (`hyperframes/rizzoos/ciclo-v` e o irmão 16:9). Página que se contradiz é o
-      // defeito a evitar; voltar atrás tem que ser uma edição de copy, não de vídeo.
-      "Publicação sozinha no Instagram (feed, story, reels e carrossel), no Facebook, no YouTube, no TikTok, no LinkedIn, no Google Meu Negócio, no WordPress e no site da nova geração.",
-      "Cadência que não empilha dois posts no mesmo dia — e data comemorativa fica no dia dela.",
-      "Teleprompter: você grava o vídeo por um link, sem login e sem instalar nada.",
-      "Trilha de auditoria: quem aprovou o quê, e quando.",
-    ],
-    leia: [{ slug: "redes-sociais", rotulo: "o que pensamos de redes sociais" }],
-  },
-  {
-    t: "Studio: design e identidade que não fogem da marca",
-    d: "Peça bonita que não parece sua não serve. O desenho nasce dentro da sua identidade, não ao lado dela.",
-    resumo:
-      "linhas visuais próprias · motor de identidade · oficina de imagem por IA · verificação de CFM",
-    itens: [
-      "20+ linhas visuais próprias, cada uma validada por teste automático.",
-      "Motor de identidade: logo sempre legível sobre qualquer fundo, ênfase tipográfica, várias fotos por arte.",
-      "Oficina de imagem por IA em duas linguagens — foto e ilustração — com direção de cena.",
-      "Consentimento de IA por médico: é trava, não aviso. Sem o aceite, a peça não é gerada.",
-      // Descreve a verificação SEM citar os termos proibidos: numa página CFM-safe,
-      // repetir "cura"/"garantido"/"100%" — mesmo entre aspas, mesmo pra dizer que
-      // são bloqueados — é risco sem ganho. Em dúvida, corta (§19.2).
-      "Cada legenda passa pela verificação de CFM antes de ir ao ar: promessa de resultado, comparação de antes-e-depois e preço de procedimento não passam.",
-      "RT e assinatura em todo molde; legenda nunca sai sem chamada e sem aviso legal.",
+    t: "Some, atrasa, e você fica sem saber",
+    d: "O que mais desgasta não é o resultado — é não saber em que pé está.",
+    sintomas: [
+      {
+        f: "Minha agência atrasa.",
+        r: "O ano inteiro já está combinado no calendário, peça por peça, com data e horário. Na hora marcada, quem publica é o sistema. E se por algum motivo passar da hora, ele reagenda em vez de postar fora de hora — publicar é público e não tem volta.",
+      },
+      {
+        f: "Minha agência some.",
+        r: "Você não depende de alguém responder pra saber onde está o seu marketing: abre o aplicativo e vê o que já foi ao ar, o que vem esta semana e o que está parado esperando você.",
+      },
+      {
+        f: "Minha agência some no fim de semana.",
+        r: "Sábado, domingo e feriado a fila publica igual e o alerta de verba dispara igual. E quando precisa ser gente, o Mateus Rizzo recebe pelo WhatsApp e encaminha.",
+      },
+      {
+        f: "Não tem ninguém pra me atender e me lembrar das coisas.",
+        r: "Toda semana chega uma sugestão do que vale publicar, cruzando o calendário do ano, as datas da sua profissão e os números do mês. Você aceita, muda ou ignora.",
+      },
+      {
+        f: "Minha agência não tem alerta nenhum.",
+        r: "Verba acabando, queda de desempenho, peça travada esperando aprovação: o aviso sai antes, não no relatório do mês seguinte.",
+      },
     ],
   },
   {
-    t: "Mídia paga: Google Ads, Meta e a verba à vista",
-    d: "Anúncio de clínica lida com dinheiro e com dado de paciente. As duas coisas pedem cuidado de banco, não de planilha.",
-    resumo:
-      "credencial no servidor · campanha completa numa tacada · saldo em tempo real · verba sem repasse",
-    itens: [
-      "Credenciais nunca passam pelo navegador: quem fala com o Google e com a Meta é o servidor.",
-      "Campanha completa numa tacada — verba, grupo, palavras e anúncio. Ou entra tudo, ou não entra nada.",
-      "Saldo em tempo real, com alerta de verba baixa ou zerada e a mensagem já escrita.",
-      "Verba transparente, sem repasse: o dinheiro sai de você direto pro Google; boleto e nota ficam no portal.",
-      "Vitrine de campanhas: você liga, pausa e vê o gasto ao vivo.",
-      "Conversão medida por paciente, com LGPD por desenho — o nome do paciente nunca cruza pra fora.",
+    t: "Aprovar virou trabalho — e trabalho seu",
+    d: "Quem atende paciente o dia inteiro não tem meia hora pra caçar anexo em e-mail.",
+    sintomas: [
+      {
+        f: "A peça chega por e-mail e aprovar é um sofrimento.",
+        r: "No celular: desliza pra aprovar e, quando algo precisa mudar, você desenha o ajuste em cima da própria arte. Sem anexo, sem “versão final 3”.",
+      },
+      {
+        f: "Minha agência me manda cronograma em Excel.",
+        r: "O calendário do ano é uma tela, não uma planilha — e é a mesma tela onde você aprova.",
+      },
+      {
+        f: "Minha agência pede pra eu mandar tudo por e-mail. É uma burocracia.",
+        r: "O começo é um paste: o sistema varre o material que a clínica já tem, reconhece a marca e monta o plano do ano a partir dali.",
+      },
+      {
+        f: "Não existe um diretório com o que já foi feito pra mim.",
+        r: "Tudo o que foi produzido fica em “Meus materiais”, organizado e pronto pra baixar quando você precisar — inclusive depois.",
+      },
+      {
+        f: "Minha agência não tem teleprompter.",
+        r: "Tem. Você grava o vídeo por um link, lendo o texto na tela, sem instalar nada e sem login.",
+      },
+      {
+        f: "Ninguém sabe dizer quem aprovou aquilo.",
+        r: "Quem aprovou o quê, e quando, fica registrado. Não depende da memória de ninguém, nem da busca no histórico do grupo.",
+      },
+    ],
+  },
+  {
+    t: "O dinheiro do anúncio é seu — e tem que estar à vista",
+    d: "Anúncio de clínica mexe com dinheiro e com dado de paciente. As duas coisas pedem cuidado de banco, não de planilha.",
+    sintomas: [
+      {
+        f: "Minha agência não me mostra os gastos.",
+        r: "Saldo e gasto aparecem ao vivo na tela, campanha por campanha — não uma vez por mês, num slide.",
+      },
+      {
+        f: "Não recebo nota fiscal do que foi investido no Google.",
+        r: "A verba não passa pela agência: o pagamento sai de você direto pro Google. Boleto e nota ficam no portal, no seu nome.",
+      },
+      {
+        f: "Demora demais pra ligar e desligar a especialidade da campanha.",
+        r: "A vitrine de campanhas fica no seu acesso: você liga, pausa e acompanha o gasto de cada uma.",
+      },
+      {
+        f: "Minha agência só me traz boa notícia.",
+        r: "O painel é um semáforo, e ele tem vermelho. Queda e verba acabando viram aviso antecipado, não assunto do mês seguinte.",
+      },
+      {
+        f: "O relatório chega em PDF, semanas depois.",
+        r: "Os números são lidos direto da fonte, por integração, com um resumo escrito em cima deles pra dizer o que aconteceu no mês.",
+      },
+      {
+        f: "Minha agência quer a senha das minhas contas.",
+        r: "A conexão é por autorização, e o segredo fica no servidor — não num navegador, não numa planilha, não no computador de ninguém. As contas continuam suas.",
+      },
     ],
     leia: [
       { slug: "google-ads", rotulo: "o que pensamos de Google Ads" },
@@ -94,123 +124,57 @@ export const FRENTES: Frente[] = [
     ],
   },
   {
-    t: "Inteligência: painel vivo, relatório e comentários",
-    d: "Número que você só vê quando pergunta é número que chegou tarde. Aqui ele chega antes, e classificado.",
-    resumo:
-      "painel em semáforo · alerta antecipado · relatório por API · central de comentários · concierge semanal",
-    itens: [
-      "Painel de comando em semáforo: verde, amarelo e vermelho, sem precisar interpretar planilha.",
-      "Alerta antecipado de queda e de verba acabando — antes de estourar, não depois.",
-      "Relatórios automáticos por API: dado auditável direto da fonte, não garimpo de PDF.",
-      "Resumo escrito por IA em cima do número, pra dizer o que aconteceu no mês.",
-      "Manutenção mensal de cada canal, aprovável como um post.",
-      "Central de Comentários: todo comentário e avaliação num lugar, com a resposta já rascunhada na sua voz.",
-      "Concierge semanal: o que postar, cruzando calendário, datas da profissão e os números do mês.",
+    t: "A sua marca e o seu corpo clínico não são banco de imagem",
+    d: "Peça bonita que não parece sua não serve. E rosto de médico não se substitui por conveniência.",
+    sintomas: [
+      {
+        f: "Minha agência troca as fotos do meu corpo clínico.",
+        r: "Cada profissional tem ficha própria — nome, especialidade, registro e as fotos dele. Quando o tema é da especialidade dele, é ele que entra na peça.",
+      },
+      {
+        f: "Minha agência usa foto de IA, e eu já disse que não gosto de IA.",
+        r: "O consentimento de IA é por médico, e é trava, não aviso: sem o seu aceite, a peça não é gerada com IA.",
+      },
+      {
+        f: "Minha agência já trocou publicação de cliente.",
+        r: "A peça nasce presa ao cadastro da sua clínica. Antes de entrar na fila, o sistema confere a conta conectada e o texto — se o perfil não é o seu, ou se a legenda cita outra clínica, ele avisa antes de sair.",
+      },
+      {
+        f: "Escrevem coisa que o CFM não permite.",
+        r: "Toda legenda passa por verificação antes de ir ao ar: promessa de resultado, comparação de antes-e-depois e preço de procedimento não passam. Responsável técnico e aviso legal saem em todo molde.",
+      },
+      {
+        f: "Minha agência não registra as não conformidades.",
+        r: "Registra, no formato de quem conviveu com hospital: existe uma última revisão antes de publicar e, quando ela pega um erro, a peça volta pra refação e o erro vira registro com ação imediata e ação preventiva.",
+      },
     ],
+    leia: [{ slug: "redes-sociais", rotulo: "o que pensamos de redes sociais" }],
   },
   {
-    t: "TV e vídeo: a sala de espera vira canal medível",
-    d: "A tela da recepção fala com quem já está ali, sentado, esperando por você.",
-    resumo:
-      "canal por um link · ambiente ao vivo · fila e chamada de senha · prova de exibição",
-    itens: [
-      // Sem contagem: o anexo dizia "dezenas de tipos de slide", mas o código tem 12
-      // (src/lib/tv/types.ts) — "dezenas" seria número sem lastro (régua §19.2, a mesma
-      // que barrou "10 fontes" e "40 packs"). Enumerar o que existe é honesto e mais forte.
-      "Canal de TV por um link, sem CMS de terceiro: texto, foto, vídeo, peça das redes, clima, câmbio, trânsito e notícias — na vertical e na horizontal.",
-      "“Mandar pra TV” em um clique, com QR pra quem está esperando.",
-      "Ambiente ao vivo na tela: clima, câmbio, trânsito e notícias da região.",
-      "Fila e chamada de senha pela mesma tela.",
-      "Prova de exibição: o que ficou no ar, quando e por quanto tempo.",
-      "Biblioteca de vídeos, com importação do YouTube e do Instagram.",
+    t: "O que fica de fora quando a agência só olha o anúncio",
+    d: "A clínica não é só a campanha. É o site, a recepção, o mapa e o que respondem por você.",
+    sintomas: [
+      {
+        f: "Cuidam de Google Ads e de Meta, mas não mexem no meu site.",
+        r: "Todo mês tem manutenção de cada canal — inclusive o site, com Google Analytics, Search Console e Google Meu Negócio — e ela chega pra você aprovar como se fosse um post.",
+      },
+      {
+        f: "Minha agência publica só no Instagram.",
+        r: "A mesma peça aprovada vai pro Instagram (feed, story, reels e carrossel), pro Facebook, pro YouTube, pro TikTok, pro LinkedIn, pro Google Meu Negócio, pro WordPress e pro site da nova geração.",
+      },
+      {
+        f: "A TV da recepção passa o mesmo vídeo há dois anos.",
+        r: "A tela da recepção vira canal por um link: peça das redes, vídeo, clima, câmbio, trânsito e notícia da região, na vertical e na horizontal — com prova do que ficou no ar, quando e por quanto tempo. Fila e chamada de senha na mesma tela.",
+      },
+      {
+        f: "Comentário e avaliação ficam sem resposta.",
+        r: "Comentários e avaliações caem num lugar só, com a resposta já rascunhada na sua voz pra você aprovar ou reescrever.",
+      },
     ],
     leia: [
+      { slug: "site-seo", rotulo: "o que pensamos de site e SEO" },
       { slug: "tv-corporativa", rotulo: "o que pensamos de TV corporativa" },
       { slug: "video", rotulo: "o que pensamos de vídeo" },
     ],
-  },
-  {
-    t: "Entrada: como o trabalho começa",
-    d: "O começo costuma custar semanas de reunião. Aqui ele começa pelo material que a sua clínica já tem.",
-    resumo:
-      "onboarding de um paste · deck de kickoff · plano do ano como fonte da verdade · meus materiais",
-    itens: [
-      "Onboarding de um paste: o sistema varre o material que você já tem, extrai a marca e monta o roadmap do ano.",
-      "Deck de kickoff pronto pra reunião de início.",
-      "O plano do ano é a fonte da verdade — é dele que os geradores puxam, com o lema do ano junto.",
-      "Horas adicionais cronometradas e conciliação bancária, nativas.",
-      "“Meus materiais”: seus institucionais organizados pra baixar quando precisar.",
-    ],
-  },
-];
-
-/** As garantias de engenharia — cada uma é um comportamento do sistema, não uma intenção. */
-export const GARANTIAS: { t: string; d: string }[] = [
-  {
-    t: "Nunca publica em dobro.",
-    d: "Se dois processos disputam o mesmo post no mesmo segundo, só um vence — e o outro sabe que perdeu.",
-  },
-  {
-    t: "Nunca publica atrasado.",
-    d: "Passou da hora, o sistema reagenda em vez de postar fora de hora. Publicar é público e não tem volta.",
-  },
-  {
-    t: "Legenda vazia não vai ao ar.",
-    d: "Texto genérico ou em branco trava a publicação e pausa pra revisão, em vez de sair assim mesmo.",
-  },
-  {
-    t: "Segredo nunca no navegador.",
-    d: "Os tokens das suas contas de anúncio ficam no servidor. O navegador de ninguém — seu ou nosso — vê chave.",
-  },
-  {
-    t: "Rede de testes antes de cada entrega.",
-    d: "Os núcleos críticos são cobertos por centenas de testes automáticos que rodam antes de qualquer coisa subir.",
-  },
-];
-
-/** Escala — TODOS os números aqui saem do §2.1 do planejamento (régua §19.2 do mapa). */
-export const ESCALA: { n: string; d: string }[] = [
-  { n: "250+", d: "clínicas e médicos atendidos na história da agência." },
-  { n: "40+", d: "clínicas de especialidade ativas hoje." },
-  { n: "9", d: "fontes de dados lidas ao vivo, traduzidas pra mesma língua." },
-  { n: "40", d: "perfis de Google Meu Negócio monitorados na Central de Comentários." },
-  { n: "milhares", d: "de peças por ano planejadas, versionadas e auditadas." },
-];
-
-/**
- * O que ainda não está pronto. Regra dura (inventário §0, "status é sagrado"): cada
- * item sai com o rótulo de construção E a linha de lastro — o que já existe e o que
- * falta. Nada daqui pode ser apresentado como entregue.
- */
-export const ADIANTE: { t: string; lastro: string; leia?: { slug: string; rotulo: string } }[] = [
-  {
-    t: "Estúdio de vídeo por IA",
-    lastro: "O núcleo de corte e legenda já existe e é testado; falta a engine de montagem.",
-  },
-  {
-    t: "Nova geração de sites",
-    // A nuance da stack é regra (§6 do mapa do comunicado): a base compartilhada com o
-    // Nubank é o Next.js — e SÓ ele. Nada aqui afirma que o Nubank usa a mesma
-    // hospedagem, o mesmo banco ou a mesma CDN que a gente.
-    lastro:
-      "O padrão já está em produção: sites construídos na mesma base tecnológica do site do Nubank — o Next.js. O que falta é migrar a carteira, e migração aqui preserva endereço e histórico de busca.",
-    leia: { slug: "site-seo", rotulo: "o que pensamos de site e SEO" },
-  },
-  {
-    t: "Índice de Presença Digital",
-    lastro:
-      "O diagnóstico já é aplicado hoje, à mão, nas conversas e nos kickoffs; está virando módulo — ainda não mede sozinho.",
-  },
-  {
-    t: "Relatório que vira ação",
-    lastro: "Painel, relatórios e Studio já estão no ar, cada um no seu canto; falta a costura entre eles.",
-  },
-  {
-    t: "RizzoTV como produto",
-    lastro: "Modelos, prova de exibição e fila de senha já funcionam nos clientes que têm TV.",
-  },
-  {
-    t: "Atendimento no WhatsApp",
-    lastro: "A infraestrutura está escrita; falta religar a conexão oficial.",
   },
 ];

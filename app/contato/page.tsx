@@ -28,8 +28,8 @@ export default function ContatoPage() {
             <span className="acento">a sua proposta.</span>
           </h1>
           <p className="lede">
-            Oito perguntas sobre a sua clínica — especialidade, cidade, o que já existe e o que falta. A proposta
-            chega por escrito, com o preço aberto e sem compromisso.
+            Um cadastro rápido — nome, e-mail e WhatsApp. O código de acesso chega no seu e-mail e você monta o
+            pacote da sua clínica na hora, com o preço aberto e sem compromisso.
           </p>
         </div>
       </section>
