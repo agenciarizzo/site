@@ -18,11 +18,22 @@
 //    do topo e vira BARRA FIXA no rodapé da tela, sempre à mão.
 // 4. O WhatsApp NÃO abre mais o wa.me direto: aponta pro portão anti-robô
 //    (`/whatsapp`), levando o texto da página no `data-wa`. Motivo em `lib/nav.ts`.
+//
+// 2026-08-14 — item "Páginas" (dropdown `<details>` nativo, zero JS, mesmo padrão
+// do `.detalhe` da /rizzoos): o dono pediu acesso a TODAS as páginas não-legais
+// pelo menu, não só pelo rodapé-mapa. O painel espelha as seções do FooterMapa
+// (Especialidades/Cidades/Mídias/Quem atendemos/Especialidade×cidade) lendo os
+// MESMOS registries — página nova em qualquer um deles aparece aqui sozinha,
+// igual já acontece no rodapé. Política de privacidade/termos ficam de fora.
 import Image from "next/image";
 import Link from "next/link";
 import { PROPOSTA_URL } from "@/lib/site";
 import { MENU_TOPO, ROTA_PORTAO, CTA_PROPOSTA, CTA_WHATSAPP } from "@/lib/nav";
 import { IconeWhats } from "./IconeWhats";
+import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
+import { CIDADES } from "@/content/cidades";
+import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
+import { COMBOS } from "@/content/combos";
 
 /** Os dois botões, iguais no topo e na barra fixa do celular — um lugar só. */
 function Acoes({ waText }: { waText: string }) {
@@ -42,6 +53,86 @@ function Acoes({ waText }: { waText: string }) {
   );
 }
 
+/**
+ * "Páginas" — o inventário completo (menos as legais), num `<details>` nativo.
+ * Cada seção lê o registry de origem direto (o mesmo que o FooterMapa usa), então
+ * não existe uma 2ª lista pra esquecer de atualizar quando uma página nasce.
+ */
+function MenuPaginas({ atual }: { atual?: string }) {
+  const cur = (href: string) => (atual === href ? ("page" as const) : undefined);
+  return (
+    <details className="menu-tudo">
+      <summary>
+        Páginas
+        <i className="seta" aria-hidden="true">
+          ▾
+        </i>
+      </summary>
+      <div className="painel">
+        <nav aria-label="Especialidades atendidas">
+          <h3>Especialidades</h3>
+          {ESPECIALIDADES.map((e) => (
+            <Link key={e.slug} href={rotaEspecialidade(e.slug)} aria-current={cur(rotaEspecialidade(e.slug))}>
+              {e.espec}
+            </Link>
+          ))}
+        </nav>
+        <nav aria-label="Cidades atendidas">
+          <h3>Cidades</h3>
+          {CIDADES.map((c) => (
+            <Link key={c.slug} href={`/${c.slug}`} aria-current={cur(`/${c.slug}`)}>
+              {c.cidade}
+            </Link>
+          ))}
+          <Link href="/" aria-current={cur("/")}>
+            Anápolis–GO (sede)
+          </Link>
+        </nav>
+        <nav aria-label="Mídias de marketing médico">
+          <h3>Mídias</h3>
+          {CARTAS_MIDIA.map((c) => (
+            <Link key={c.slug} href={`/cartas/${c.slug}`} aria-current={cur(`/cartas/${c.slug}`)}>
+              {c.titulo}
+            </Link>
+          ))}
+        </nav>
+        <nav aria-label="Quem atendemos">
+          <h3>Quem atendemos</h3>
+          {CARTAS_SEGMENTO.map((c) => (
+            <Link key={c.slug} href={`/cartas/${c.slug}`} aria-current={cur(`/cartas/${c.slug}`)}>
+              {c.titulo}
+            </Link>
+          ))}
+          <Link href="/clientes" aria-current={cur("/clientes")}>
+            Clientes atendidos
+          </Link>
+        </nav>
+        {COMBOS.length > 0 && (
+          <nav aria-label="Especialidade por cidade">
+            <h3>
+              Especialidade{" × "}cidade
+            </h3>
+            {COMBOS.map((c) => (
+              <Link key={c.rota} href={c.rota} aria-current={cur(c.rota)}>
+                {c.especialidade.charAt(0).toUpperCase() + c.especialidade.slice(1)} em {c.cidade}
+              </Link>
+            ))}
+          </nav>
+        )}
+        <nav aria-label="Site">
+          <h3>Site</h3>
+          <Link href="/" aria-current={cur("/")}>
+            Visão geral
+          </Link>
+          <Link href="/contato" aria-current={cur("/contato")}>
+            Contato
+          </Link>
+        </nav>
+      </div>
+    </details>
+  );
+}
+
 /** `atual` = rota da página; dirige o aria-current (sublinhado ouro no item ativo). */
 export function MenuTopo({ atual, waText }: { atual?: string; waText: string }) {
   return (
@@ -56,6 +147,7 @@ export function MenuTopo({ atual, waText }: { atual?: string; waText: string }) 
               {i.rotulo}
             </Link>
           ))}
+          <MenuPaginas atual={atual} />
         </nav>
         <div className="acoes">
           <Acoes waText={waText} />
