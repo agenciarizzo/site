@@ -884,6 +884,49 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/2025/IN/sprint_1_IN_peca_grafica_cartao_virtual_u0/insumos/mockup_phone_IN.png",
   },
+  // Fatia 2 das páginas de especialidade (2026-08-13) — busca do conector Dropbox
+  // (§16.6-2), uma peça por página pra cruzar as 4 e destravar o índice.
+  {
+    cliente: "Clínica Inspire",
+    contexto: "Portfólio impresso para clínica de otorrinolaringologia e cirurgia de cabeça e pescoço — Brasília",
+    espec: "Otorrinolaringologia",
+    servico: "Portfólio impresso",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-otorrinolaringologia-brasilia-portfolio-impresso.webp",
+    largura: 1200,
+    altura: 874,
+    alt: "Folder trifold impresso da Clínica Inspire, otorrinolaringologia e cirurgia de cabeça e pescoço em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "/Clientes/_clientes_inativos/Clínica Inspire/Insumos/Design/2024/IS/sprint_2_IS_peca_grafica_portfolio/v1/apres/Impresso/Portfólio impresso - Clínica Inspire - Otorrinolaringologia e Cirurgia de Cabeça e Pescoço.pdf",
+  },
+  {
+    cliente: "Sense Ginecologia Ltda",
+    contexto: "Portfólio impresso para clínica de ginecologia e obstetrícia — Brasília",
+    espec: "Saúde da Mulher",
+    servico: "Portfólio impresso",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-ginecologia-brasilia-portfolio-impresso.webp",
+    largura: 1200,
+    altura: 805,
+    alt: "Folder trifold impresso da Sense Ginecologia, clínica de ginecologia e obstetrícia em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "/Clientes/_clientes_inativos/Sense Ginecologia/2022/SG/sprint_15_SG_peca_grafica_portfolio/insumos/sprint_15_SG_peca_grafica_portfolio_Prancheta 1.png",
+  },
+  {
+    cliente: "Clínica de Veias",
+    contexto: "Anúncio A3 sobre saúde vascular para clínica de angiologia e cirurgia vascular — Brasília",
+    espec: "Angiologia e Vascular",
+    servico: "Anúncio",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-vascular-brasilia-anuncio.webp",
+    largura: 867,
+    altura: 1200,
+    alt: "Anúncio A3 da Clínica de Veias sobre saúde vascular, angiologia e cirurgia vascular em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2023/CV/sprint_12_CV_peca_grafica_anuncio_a3_u0/v2/apres/Anúncio - Clínica de Veias A3.pdf",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
