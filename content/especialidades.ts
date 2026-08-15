@@ -276,11 +276,18 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Dentro do mesmo guarda-chuva convivem buscas muito diferentes. Menopausa é procurada por quem quer entender sintoma e qualidade de vida; reprodução humana é procurada por quem está numa jornada difícil e compara clínica com muito cuidado; endometriose e cirurgia ginecológica chegam por dor que já se arrasta. Cada uma dessas frentes merece a sua própria página, com a sua linguagem — juntar tudo em \"ginecologia e obstetrícia\" é falar com ninguém.",
       "E o cuidado ético é grande: nada de prometer gravidez, nada de estatística de sucesso sem lastro, nada de exposição de paciente. O que sustenta a agenda é presença constante, informação verdadeira e a indicação que nasce de quem foi bem atendida.",
     ],
+    // 7 de 7 (rodada 7). A grade mantém os 4 que já estavam lá; a coluna única
+    // recebe os 3 novos na ordem que evita eco (§16.8.6-7): o e-book do Portocarrero
+    // repete o canal do e-book da posição 1, então entra no MEIO da coluna — e as
+    // duas peças da Lúmina ficam separadas por ele, em vez de empilhadas.
     pecas: [
       "marketing-medico-reproducao-humana-brasilia-ebook-fertilidade",
       "marketing-medico-ginecologia-brasilia-site",
       "marketing-medico-menopausa-salvador-site",
       "marketing-medico-ginecologia-brasilia-portfolio-impresso",
+      "marketing-medico-ginecologia-brasilia-cartao-visita",
+      "marketing-medico-reproducao-humana-brasilia-ebook-inseminacao",
+      "marketing-medico-ginecologia-brasilia-receituario",
     ],
     areasCarteira: ["Saúde da Mulher", "Ginecologia", "Medicina Reprodutiva", "Endoscopia Ginecológica", "Mastologia"],
     waText:
