@@ -416,8 +416,16 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Existe muito espaço legítimo: explicar tecnicamente cada procedimento, falar de indicação e de contraindicação, mostrar estrutura, equipe e cuidado no pós-operatório. É conteúdo que responde à busca real do paciente e que nenhuma regra impede — e que serve tanto ao paciente estético quanto ao reparador, que costuma ficar esquecido na comunicação da especialidade.",
       "Identidade visual e material impresso pesam mais aqui do que na média: consultório de plástica é julgado pelo acabamento de tudo o que carrega o nome dele. Papelaria, apresentação e ambiente contam a mesma história que o site conta.",
     ],
-    pecas: ["marketing-medico-cirurgia-plastica-sao-paulo-papelaria"],
+    pecas: [
+      "marketing-medico-cirurgia-plastica-sao-paulo-portfolio-virtual",
+      "marketing-medico-cirurgia-plastica-sao-paulo-papelaria",
+      "marketing-medico-cirurgia-plastica-sao-paulo-cartao-de-visita",
+      "marketing-medico-cirurgia-plastica-sao-paulo-envelope",
+    ],
     areasCarteira: ["Cirurgia Plástica"],
+    // 4 peças, mas de UM cliente só — a régua anti-doorway do §3.3 conta prova, e quatro
+    // peças da mesma casa continuam sendo um caso, não um acervo. Segue noindex por
+    // decisão declarada (§16.8.4), agora travada no checar-portfolio.mjs (≥2 clientes).
     noindex: true,
     waText:
       "Olá! Vi a página de marketing para cirurgia plástica no site da agência e quero conversar sobre o meu consultório.",
@@ -454,7 +462,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Prevenção do câncer de pele é o conteúdo mais nobre da especialidade e o mais procurado por quem tem medo: explicar sinais, o que é a dermatoscopia, com que frequência revisar. É informação que salva e que constrói autoridade — sem prometer nada, sem mostrar caso de paciente.",
       "Na parte estética, a regra aperta: nada de antes-e-depois, nada de promessa, nada de preço em anúncio. Sobra o que de fato diferencia — explicar bem cada procedimento, mostrar estrutura e cuidado, e manter uma presença visual consistente, que numa especialidade tão visual é parte do argumento.",
     ],
-    pecas: ["marketing-medico-dermatologia-brasilia-papelaria"],
+    pecas: [
+      "marketing-medico-dermatologia-brasilia-papelaria",
+      "marketing-medico-dermatologia-brasilia-capa-redes-sociais",
+    ],
     areasCarteira: ["Dermatologia e Estética"],
     noindex: true,
     waText: "Olá! Vi a página de marketing para dermatologia no site da agência e quero conversar sobre o consultório.",
