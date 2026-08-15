@@ -956,6 +956,23 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/2024/FF/sprint_11_FF_peca_grafica_cartao_virtual/insumos/7fc616f24c9.png",
   },
+  // Correção do lote 2 (2026-08-15) — a peça excluída por grafia no §16.7-3 volta.
+  // A arte assina "Alfonso Soria Galvarro Vargas — Traumatologia e Cirurgia de Mão"
+  // (sobrenome composto), e o cliente confirmou: é o "Dr. Alfonso Soria" da carteira.
+  // Praça conferida na carteira (Porto Alegre/RS), não inferida da peça. Ver §16.9.
+  {
+    cliente: "Dr. Alfonso Soria",
+    contexto: "Guia de pós-operatório de túnel do carpo para ortopedista e cirurgião de mão — Porto Alegre",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Guia pós-operatório",
+    praca: "Porto Alegre/RS",
+    imagem: "/portfolio/marketing-medico-ortopedia-porto-alegre-guia-pos-operatorio.webp",
+    largura: 960,
+    altura: 1200,
+    alt: "Mockup de celular com o guia pós-operatório de síndrome do túnel do carpo do Dr. Alfonso Soria, ortopedista e cirurgião de mão em Porto Alegre",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2025/AS/sprint_7_AS_peca_grafica_folder_pos_operatorio/insumos/mockup.png",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
