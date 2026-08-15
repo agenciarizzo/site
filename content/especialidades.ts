@@ -110,6 +110,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-ortopedia-goiania-pasta-institucional",
       "marketing-medico-ortopedia-uruacu-cartao-virtual",
       "marketing-medico-ortopedia-goiania-ebook-artroplastia-quadril",
+      "marketing-medico-ortopedia-goiania-cartao-virtual-quadril",
       "marketing-medico-ortopedia-vitoria-banner-coluna",
       "marketing-medico-ortopedia-goiania-site-cirurgia-quadril",
       "marketing-medico-ortopedia-goiania-site-quadril-joelho",
@@ -339,6 +340,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     pecas: [
       "marketing-medico-gastroenterologia-brasilia-portfolio-digital",
       "marketing-medico-gastroenterologia-brasilia-folder-impresso",
+      "marketing-medico-gastroenterologia-brasilia-sinalizacao-marca",
     ],
     areasCarteira: ["Gastroenterologia"],
     noindex: true,

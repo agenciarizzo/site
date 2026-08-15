@@ -927,6 +927,35 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/2023/CV/sprint_12_CV_peca_grafica_anuncio_a3_u0/v2/apres/Anúncio - Clínica de Veias A3.pdf",
   },
+  // Rodada 3 (2026-08-15) — caça página-orientada do §16.8-8: alvos Nefrologia (seca,
+  // ver mapa) · Gastroenterologia · Ortopedia (completa em 7). Atribuição pela ARTE.
+  {
+    cliente: "IMED",
+    contexto: "Marca aplicada em sinalização de ambiente para clínica de gastroenterologia — Brasília",
+    espec: "Gastroenterologia",
+    servico: "Sinalização",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-gastroenterologia-brasilia-sinalizacao-marca.webp",
+    largura: 1200,
+    altura: 675,
+    alt: "Logo do IMED aplicado em sinalização de parede de ambiente, ao lado dos painéis de cor da identidade da clínica",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "/Clientes/_clientes_inativos/Imed - Endoscopia e Colonoscopia/2023/ED/sprint_16_ED_criacao_logo_u0/1 - propostas/v1/Apres/sprint_16_ED_criacao_logo_u0_2.png",
+  },
+  {
+    cliente: "Dr. Fernando Ferro",
+    contexto: "Cartão virtual para ortopedista especializado em quadril — Goiânia",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Cartão virtual",
+    praca: "Goiânia/GO",
+    imagem: "/portfolio/marketing-medico-ortopedia-goiania-cartao-virtual-quadril.webp",
+    largura: 976,
+    altura: 1200,
+    alt: "Mockup de celular com o cartão virtual do Dr. Fernando Ferro, ortopedista especializado em quadril em Goiânia",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2024/FF/sprint_11_FF_peca_grafica_cartao_virtual/insumos/7fc616f24c9.png",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
