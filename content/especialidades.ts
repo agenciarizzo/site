@@ -138,6 +138,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-oftalmologia-brasilia-banner-glaucoma",
       "marketing-medico-oftalmologia-brasilia-folder-trabeculoplastia",
       "marketing-hospital-oftalmologia-brasilia-banner-glaucoma",
+      "marketing-medico-oftalmologia-brasilia-outdoor-cirurgia-refrativa",
     ],
     areasCarteira: ["Oftalmologia"],
     waText:
@@ -162,6 +163,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-clinica-medica-rio-de-janeiro-folder-institucional",
       "marketing-clinica-medica-corrente-piaui-outdoor",
       "marketing-clinica-medica-pindamonhangaba-site",
+      "marketing-clinica-medica-corrente-piaui-site",
     ],
     areasCarteira: ["Saúde Geral"],
     waText: "Olá! Vi a página de marketing para clínica médica no site da agência e quero conversar sobre a clínica.",
@@ -185,6 +187,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-cirurgia-bariatrica-goiania-ebook",
       "marketing-medico-cirurgia-digestiva-goiania-ebook-gastrite",
       "marketing-medico-cirurgia-digestiva-goiania-site-diastase",
+      "marketing-medico-cirurgia-digestiva-goiania-site-jornada-bariatrica",
     ],
     areasCarteira: ["Cirurgia", "Cirurgia Geral"],
     waText:

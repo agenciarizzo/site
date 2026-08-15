@@ -1032,6 +1032,50 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/2025/DM/sprint_4_DM_padronizacao_redes_sociais/apres/sprint_4_DM_padronizacao_redes_sociais_1.jpg",
   },
+  // Rodada 5 (§16.8.5) — caça página-orientada nos 3 indexáveis que estavam a 2 do teto.
+  // A régua de número no pixel que vale aqui é a do §16.1-2 ④ (número SEM LASTRO), não
+  // "dígito no pixel": o outdoor abaixo diz "+ de 40 anos" e a Policlínica de Corrente,
+  // publicada desde o lote 1, diz "40 Anos cuidando da sua saúde". Medido, não suposto.
+  {
+    cliente: "Via Oftalmocenter",
+    contexto: "Outdoor de cirurgia refrativa a laser para clínica de oftalmologia — Brasília",
+    espec: "Oftalmologia",
+    servico: "Outdoor",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-oftalmologia-brasilia-outdoor-cirurgia-refrativa.webp",
+    largura: 1200,
+    altura: 768,
+    alt: "Outdoor da Via Oftalmocenter sobre cirurgia refrativa a laser, oftalmologia em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2026/VO/sprint_5_VO_peca_grafica_outdoor/insumos/outdoor com poste.jpg",
+  },
+  {
+    cliente: "Dr. Thiago Becker – Cirurgia Gástrica e Bariátrica",
+    contexto: "Landing page de jornada para pacientes de cirurgia bariátrica — Goiânia",
+    espec: "Cirurgia do Aparelho Digestivo",
+    servico: "Site",
+    praca: "Goiânia/GO",
+    imagem: "/portfolio/marketing-medico-cirurgia-digestiva-goiania-site-jornada-bariatrica.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Landing page do Dr. Thiago Becker para jornada de pacientes de cirurgia bariátrica em Goiânia",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "/Clientes/_clientes_inativos/Thiago Becker/2024/CK/sprint_17_CK_manutencao_site_jornada_online_u0/insumos/site_mockup_CK.jpg",
+  },
+  {
+    cliente: "Policlínica Corrente",
+    contexto: "Site de clínica multidisciplinar com consultas, exames e pequenas cirurgias — Corrente",
+    espec: "Clínica Médica",
+    servico: "Site",
+    praca: "Corrente/PI",
+    imagem: "/portfolio/marketing-clinica-medica-corrente-piaui-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Site da Policlínica de Corrente, clínica multidisciplinar em Corrente, no Piauí",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2024/PO/sprint_7_PO_site_atualizacao/insumos/site_landing_mockup.jpg",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
