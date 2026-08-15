@@ -973,6 +973,65 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/2025/AS/sprint_7_AS_peca_grafica_folder_pos_operatorio/insumos/mockup.png",
   },
+  // RODADA 4 (§16.8.4) — a caça por página. Cirurgia Plástica sai de 1 para 4 peças, todas
+  // do MESMO cliente: o acervo tem uma só pasta de cirurgião plástico (2022/MM), e as
+  // outras ~19 casas de plástica das listas públicas são anteriores a 2021, onde o
+  // Dropbox não alcança. É por isso que a página segue noindex mesmo com 4 — a régua
+  // nova de ≥2 clientes está no checar-portfolio.mjs.
+  {
+    cliente: "Dra. Mariana Alcantara",
+    contexto: "Portfólio virtual para cirurgia plástica — São Paulo",
+    espec: "Cirurgia Plástica",
+    servico: "Portfólio virtual",
+    praca: "São Paulo/SP",
+    imagem: "/portfolio/marketing-medico-cirurgia-plastica-sao-paulo-portfolio-virtual.webp",
+    largura: 1200,
+    altura: 1200,
+    alt: "Mockup de celular com o portfólio virtual da Dra. Mariana Alcantara, cirurgia plástica em São Paulo",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2022/MM/sprint_5_MM_peca_grafica_portfolio/v4/apres/Mockup.png",
+  },
+  {
+    cliente: "Dra. Mariana Alcantara",
+    contexto: "Cartão de visita para cirurgia plástica — São Paulo",
+    espec: "Cirurgia Plástica",
+    servico: "Cartão de visita",
+    praca: "São Paulo/SP",
+    imagem: "/portfolio/marketing-medico-cirurgia-plastica-sao-paulo-cartao-de-visita.webp",
+    largura: 1200,
+    altura: 857,
+    alt: "Cartões de visita impressos da Dra. Mariana Alcantara, cirurgia plástica em São Paulo",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2022/MM/sprint_4_MM_peca_grafica_papelaria/v3/mockup/Cartão de visita/cartão_de_visita_mockup.jpg",
+  },
+  {
+    cliente: "Dra. Mariana Alcantara",
+    contexto: "Envelope institucional para cirurgia plástica — São Paulo",
+    espec: "Cirurgia Plástica",
+    servico: "Papelaria",
+    praca: "São Paulo/SP",
+    imagem: "/portfolio/marketing-medico-cirurgia-plastica-sao-paulo-envelope.webp",
+    largura: 1200,
+    altura: 840,
+    alt: "Envelope institucional da Dra. Mariana Alcantara, cirurgia plástica em São Paulo",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2022/MM/sprint_4_MM_peca_grafica_papelaria/v3/mockup/Envelopes/envelope_grande_mockup.jpg",
+  },
+  // Capa de rede social passa no §16.6-4 (a moldura não afirma nada do cliente); o que
+  // não passa é tela de canal com contador. Aqui não há número no pixel.
+  {
+    cliente: "Dra. Daniela Machado",
+    contexto: "Capa de redes sociais para dermatologia, estética e saúde capilar — Brasília",
+    espec: "Dermatologia",
+    servico: "Padronização de redes sociais",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-dermatologia-brasilia-capa-redes-sociais.webp",
+    largura: 1200,
+    altura: 457,
+    alt: "Capa de rede social da Dra. Daniela Machado, dermatologia, estética e saúde capilar em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2025/DM/sprint_4_DM_padronizacao_redes_sociais/apres/sprint_4_DM_padronizacao_redes_sociais_1.jpg",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */

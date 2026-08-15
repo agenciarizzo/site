@@ -81,6 +81,8 @@ if (blocos.length === 0) erros.push("nenhuma peça encontrada em content/portfol
 const ancoras = new Map();
 /** basename do arquivo → espec da peça: é por aí que a página de especialidade cita. */
 const especPorBasename = new Map();
+/** basename → cliente: quem conta os DONOS das peças de uma página (régua §16.8.4). */
+const clientePorBasename = new Map();
 for (const bloco of blocos) {
   const campo = (nome) => bloco.match(new RegExp(`\\b${nome}:\\s*"([^"]*)"`))?.[1];
   const cliente = campo("cliente");
@@ -110,6 +112,7 @@ for (const bloco of blocos) {
       erros.push(`âncora #${ancora} repetida: ${imagem} e ${ancoras.get(ancora)} — o lightbox abriria a peça errada`);
     else ancoras.set(ancora, imagem);
     if (espec) especPorBasename.set(basenameDe(imagem), espec);
+    if (cliente) clientePorBasename.set(basenameDe(imagem), cliente);
   }
 
   for (const m of (bloco.match(/cartas:\s*\[([^\]]*)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g)) {
@@ -181,6 +184,12 @@ if (blocosPagina.length === 0 || blocosPagina.length !== quantosSlugs) {
 
 const MAX_PECAS_PAGINA = 7; // teto do §16.8-3 (acima disso, peça nova SUBSTITUI)
 const MIN_PECAS_INDEXAVEL = 4; // régua §3.3: abaixo disso a página nasce noindex
+// A régua §3.3 conta PROVA, e prova é acervo, não caso: quatro peças da mesma casa
+// continuam sendo um cliente só. Medido na rodada 4 (§16.8.4): as 10 páginas indexáveis
+// já tinham ≥2 clientes distintos e as 9 noindex tinham 1 — a régua sempre valeu, só
+// não estava escrita. Quem a expôs foi Cirurgia Plástica, a 1ª página a chegar a 4
+// peças com um dono só (o acervo tem uma pasta de cirurgião plástico).
+const MIN_CLIENTES_INDEXAVEL = 2;
 const slugsVistos = new Set();
 for (const bloco of blocosPagina) {
   const campo = (nome) => bloco.match(new RegExp(`\\b${nome}:\\s*"([^"]*)"`))?.[1];
@@ -227,6 +236,14 @@ for (const bloco of blocosPagina) {
       `${quem}: ${pecas.length} peça(s) e sem \`noindex: true\` — abaixo de ${MIN_PECAS_INDEXAVEL} a página nasce ` +
         "fora do índice (régua anti-doorway §3.3)",
     );
+
+  const donos = new Set(pecas.map((b) => clientePorBasename.get(b)).filter(Boolean));
+  if (donos.size < MIN_CLIENTES_INDEXAVEL && !noindex)
+    erros.push(
+      `${quem}: ${pecas.length} peça(s) de ${donos.size} cliente(s) e sem \`noindex: true\` — indexar exige ` +
+        `${MIN_PECAS_INDEXAVEL} peças de pelo menos ${MIN_CLIENTES_INDEXAVEL} clientes distintos; peça é prova, ` +
+        "mas peça de um dono só é um caso, não um acervo (§16.8.4)",
+    );
 }
 
 if (erros.length) {
@@ -241,5 +258,6 @@ console.log(
 );
 console.log(
   `✓ checar-portfolio: ${blocosPagina.length} página(s) de especialidade (${indexaveis} indexável(is), ` +
-    `${blocosPagina.length - indexaveis} noindex), peças curadas dentro do teto de ${MAX_PECAS_PAGINA} e áreas da carteira conferidas`,
+    `${blocosPagina.length - indexaveis} noindex), peças curadas dentro do teto de ${MAX_PECAS_PAGINA}, ` +
+    `toda indexável com ≥${MIN_CLIENTES_INDEXAVEL} clientes distintos, e áreas da carteira conferidas`,
 );
