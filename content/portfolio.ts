@@ -1238,6 +1238,32 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/_clientes_inativos/Cliaod/Design/2022/LI/sprint_11_LI_peca_grafica_panfleto/v4/mockup/mockup_panfleto.png",
   },
+  {
+    cliente: "Dra. Janina Huguenin",
+    contexto: "Envelope e papelaria de cirurgia oncológica — Rio de Janeiro",
+    espec: "Oncologia",
+    servico: "Papelaria",
+    praca: "Rio de Janeiro/RJ",
+    imagem: "/portfolio/marketing-medico-oncologia-rio-de-janeiro-papelaria-envelope.webp",
+    largura: 1200,
+    altura: 800,
+    alt: "Envelope frente e verso da Dra. Janina Huguenin, cirurgiã oncológica, com CRM-RJ, telefones e endereço do site",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2026/JH/sprint_10_JH_papelaria_envelope/apres/envelope_22x11cm.png",
+  },
+  {
+    cliente: "Otoplus Saúde Plena – Otorrinolaringologia",
+    contexto: "Folder do exame de avaliação endoscópica da deglutição — Brasília",
+    espec: "Otorrinolaringologia",
+    servico: "Folder educativo",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-otorrinolaringologia-brasilia-folder-exame-degluticao.webp",
+    largura: 1200,
+    altura: 840,
+    alt: "Folder da Otoplus sobre avaliação endoscópica da deglutição, com as unidades da Asa Sul e de Águas Claras e o responsável técnico",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/_clientes_inativos/OtoPlus/2021/OP/sprint_8_OP_folder_u0/apres/_frente e verso.png",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */

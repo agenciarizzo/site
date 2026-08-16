@@ -219,6 +219,11 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-oncologia-rio-de-janeiro-cartao-virtual",
       "marketing-medico-oncologia-brasilia-ebook-cancer-colo-utero",
       "marketing-medico-oncologia-rio-de-janeiro-cartao-visita",
+      // Rodada 10: 2ª peça da Janina, canal INÉDITO na página (papelaria). Entra em 5 —
+      // abre a coluna única SEM reordenar nada: a sequência resultante é CON · JH · RY ·
+      // CON · JH · RY · CON, com ZERO par adjacente e três casas distintas nos 208px.
+      // Com 7 peças nenhuma casa passa de 3, então o par do §16.8.9-7 não se aplica aqui.
+      "marketing-medico-oncologia-rio-de-janeiro-papelaria-envelope",
       "marketing-medico-oncologia-brasilia-site-cirurgia-oncologica",
       // Rodada 8: 2ª peça da CON. Vai pro fim — é a posição mais distante do panfleto
       // dela (1), que é o canal impresso vizinho. §16.8.7-6.
@@ -269,20 +274,25 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "É uma especialidade em que a constância vence a campanha pontual: procedimento eletivo — amígdala, septo, sinusite crônica — nasce da consulta de rotina, não de um anúncio. Estrutura que traz o volume de sempre é o que enche a agenda cirúrgica depois.",
     ],
     pecas: [
-      // Rodada 9: com a CLIAOD em 4 de 6, UM par adjacente é aritmeticamente inevitável
-      // (4 peças de uma casa em 6 posições, com só 2 outras casas). A ordem escolhe ONDE
-      // ele cai: na grade de miniatura (104px), nunca na coluna única de 208px — e de
-      // quebra desfaz o eco herdado do folder + portfólio digital em 1 e 2. §16.8.7-6.
+      // Rodada 10: a 7ª peça é da Otoplus (casa sub-representada), e a página passa a
+      // CLIAOD 4 · Otoplus 2 · Inspire 1. Com 4 de uma casa em 7 posições UM par adjacente
+      // segue inevitável: o maior conjunto independente do grafo de vizinhança da grade
+      // 2×2 + coluna única (1-2, 1-3, 2-4, 3-4, 3-5, 4-5, 5-6, 6-7) tem 3 vértices, não 4.
+      // Então a ordem escolhe ONDE ele cai — na grade de 104px, nunca na coluna única de
+      // 208px (§16.8.9-7) — e QUAIS peças o formam: folder institucional + mousepad são os
+      // dois canais mais distantes da casa (impresso institucional × brinde), o que mata o
+      // eco de CANAL que sobraria. O resto da distribuição sai sem nenhum outro par.
       // Reordenar pecas[] é curadoria declarada, não vassoura (§16.8.8-8).
       "marketing-medico-otorrinolaringologia-brasilia-folder-institucional",
-      "marketing-medico-otorrinolaringologia-brasilia-sinalizacao-clinica",
-      "marketing-medico-otorrinolaringologia-brasilia-portfolio-digital",
-      // Rodada 9: 4ª peça da CLIAOD, canal INÉDITO na página (panfleto).
-      "marketing-medico-otorrinolaringologia-brasilia-panfleto",
-      "marketing-medico-otorrinolaringologia-brasilia-portfolio-impresso",
-      // Rodada 8: 3ª peça da CLIAOD, mas canal INÉDITO na parede inteira (brinde). Vai
-      // pra coluna única, longe das duas dela na grade (1 e 2). §16.8.7-6.
       "marketing-medico-otorrinolaringologia-brasilia-mousepad",
+      "marketing-medico-otorrinolaringologia-brasilia-sinalizacao-clinica",
+      "marketing-medico-otorrinolaringologia-brasilia-portfolio-impresso",
+      "marketing-medico-otorrinolaringologia-brasilia-portfolio-digital",
+      // Rodada 10: 2ª peça da Otoplus, canal INÉDITO na página (folder de exame). Ganha a
+      // coluna única de 208px — é a peça mais vistosa da rodada e vem da casa que estava
+      // com uma só, então a posição grande trabalha contra o eco de casa.
+      "marketing-medico-otorrinolaringologia-brasilia-folder-exame-degluticao",
+      "marketing-medico-otorrinolaringologia-brasilia-panfleto",
     ],
     areasCarteira: ["Otorrinolaringologia"],
     waText:
