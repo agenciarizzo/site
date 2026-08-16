@@ -210,9 +210,15 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "E existe o encaminhamento, que em oncologia responde por muita coisa. Ser encontrado pelo colega que encaminha, com informação organizada sobre linhas de tratamento e localização das unidades, é parte do mesmo trabalho de estrutura — e é o que sustenta a agenda quando a campanha não está no ar.",
     ],
     pecas: [
+      // Rodada 9: a CON passa a 3 de 6, então a ORDEM tem de segurar o eco de casa
+      // (§16.8.7-6). O cartão de visita novo fecha a GRADE, ficando na diagonal do
+      // panfleto (1) — a distância máxima dentro do bloco de 2 colunas —, e o site da
+      // Rayane desce um degrau pra que a coluna única não abra e feche na mesma casa.
+      // Reordenar pecas[] é curadoria declarada, não vassoura (§16.8.8-8).
       "marketing-medico-oncologia-rio-de-janeiro-panfleto-unidade",
       "marketing-medico-oncologia-rio-de-janeiro-cartao-virtual",
       "marketing-medico-oncologia-brasilia-ebook-cancer-colo-utero",
+      "marketing-medico-oncologia-rio-de-janeiro-cartao-visita",
       "marketing-medico-oncologia-brasilia-site-cirurgia-oncologica",
       // Rodada 8: 2ª peça da CON. Vai pro fim — é a posição mais distante do panfleto
       // dela (1), que é o canal impresso vizinho. §16.8.7-6.
@@ -263,9 +269,16 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "É uma especialidade em que a constância vence a campanha pontual: procedimento eletivo — amígdala, septo, sinusite crônica — nasce da consulta de rotina, não de um anúncio. Estrutura que traz o volume de sempre é o que enche a agenda cirúrgica depois.",
     ],
     pecas: [
+      // Rodada 9: com a CLIAOD em 4 de 6, UM par adjacente é aritmeticamente inevitável
+      // (4 peças de uma casa em 6 posições, com só 2 outras casas). A ordem escolhe ONDE
+      // ele cai: na grade de miniatura (104px), nunca na coluna única de 208px — e de
+      // quebra desfaz o eco herdado do folder + portfólio digital em 1 e 2. §16.8.7-6.
+      // Reordenar pecas[] é curadoria declarada, não vassoura (§16.8.8-8).
       "marketing-medico-otorrinolaringologia-brasilia-folder-institucional",
-      "marketing-medico-otorrinolaringologia-brasilia-portfolio-digital",
       "marketing-medico-otorrinolaringologia-brasilia-sinalizacao-clinica",
+      "marketing-medico-otorrinolaringologia-brasilia-portfolio-digital",
+      // Rodada 9: 4ª peça da CLIAOD, canal INÉDITO na página (panfleto).
+      "marketing-medico-otorrinolaringologia-brasilia-panfleto",
       "marketing-medico-otorrinolaringologia-brasilia-portfolio-impresso",
       // Rodada 8: 3ª peça da CLIAOD, mas canal INÉDITO na parede inteira (brinde). Vai
       // pra coluna única, longe das duas dela na grade (1 e 2). §16.8.7-6.
