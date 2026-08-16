@@ -1212,6 +1212,32 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/_clientes_inativos/Cliaod/Design/2023/LI/sprint_13_LI_peca_grafica_mousepad_u0/insumos/sprint_13_LI_peca_grafica_mousepad_u0.png",
   },
+  {
+    cliente: "CON – Clínica Oncologia Hematologia",
+    contexto: "Cartão de visita para clínica de oncologia e hematologia — Rio de Janeiro",
+    espec: "Oncologia",
+    servico: "Cartão de visita",
+    praca: "Rio de Janeiro/RJ",
+    imagem: "/portfolio/marketing-medico-oncologia-rio-de-janeiro-cartao-visita.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Cartão de visita frente e verso da CON, com as quatro unidades de oncologia e hematologia no Rio de Janeiro",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/_clientes_inativos/CON – Oncologia, Hematologia e Centro de Infusão/2022/sprint_16_CO_peca_grafica_cartao_visita_u0/v1/apres/Mockup cartão de visita.jpg",
+  },
+  {
+    cliente: "CLIAOD – Otorrinolaringologia",
+    contexto: "Panfleto de consultas, exames e cirurgias de otorrino — Brasília",
+    espec: "Otorrinolaringologia",
+    servico: "Panfleto",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-otorrinolaringologia-brasilia-panfleto.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Panfleto frente e verso da CLIAOD, com a lista de exames e cirurgias de otorrinolaringologia e o endereço na Asa Sul",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/_clientes_inativos/Cliaod/Design/2022/LI/sprint_11_LI_peca_grafica_panfleto/v4/mockup/mockup_panfleto.png",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
