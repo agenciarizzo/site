@@ -1155,6 +1155,63 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/2021/CP/sprint_16_CP_peca_grafica_ebook/v2/mockup/mockup_e-book_CP.png",
   },
+  // Rodada 8 (§16.8.8) — as 3 que subiram. O ano NÃO foi o índice: a papelaria da
+  // Incordis está em 2025/IN, ano que nenhuma rodada tinha aberto (a rodada 7 mediu
+  // 2021/IN e 2022/IN e concluiu "sem veio"); a do CON e a da CLIAOD estão em
+  // _clientes_inativos/, entrada pelo NOME. Nos três casos o `apres` é PDF de gráfica e
+  // a composição publicável está no `insumos/mockup/` — §16.8.7-3.
+  {
+    cliente: "Incordis",
+    contexto: "Cartão de visita impresso para clínica de cardiologia — Brasília",
+    espec: "Cardiologia",
+    servico: "Cartão de visita",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-cardiologia-brasilia-cartao-visita.webp",
+    largura: 1200,
+    altura: 800,
+    alt: "Cartão de visita da Incordis, frente e verso, com endereço no Setor Médico Hospitalar Norte, em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2025/IN/sprint_1_IN_peca_grafica_papelaria/insumos/mockup/cartao de visitas_IN.png",
+  },
+  {
+    cliente: "Incordis",
+    contexto: "Pasta institucional para clínica de cardiologia — Brasília",
+    espec: "Cardiologia",
+    servico: "Pasta institucional",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-cardiologia-brasilia-pasta-institucional.webp",
+    largura: 1200,
+    altura: 840,
+    alt: "Pasta institucional da Incordis em degradê azul e cobre, cardiologia em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/2025/IN/sprint_1_IN_peca_grafica_papelaria/insumos/pasta_bolso_IN.png",
+  },
+  {
+    cliente: "CON – Clínica Oncologia Hematologia",
+    contexto: "Folder de orientação ao paciente em quimioterapia oral — Rio de Janeiro",
+    espec: "Oncologia",
+    servico: "Folder educativo",
+    praca: "Rio de Janeiro/RJ",
+    imagem: "/portfolio/marketing-medico-oncologia-rio-de-janeiro-folder-quimioterapia-oral.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Folder do programa de adesão à quimioterapia oral da CON, aberto e fechado, com as unidades no Rio de Janeiro",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/_clientes_inativos/CON – Oncologia, Hematologia e Centro de Infusão/2023/sprint_4_CO_peca_grafica_folder/insumos/mockup_folder_2dobras.png",
+  },
+  {
+    cliente: "CLIAOD – Otorrinolaringologia",
+    contexto: "Mousepad institucional para clínica de otorrinolaringologia — Brasília",
+    espec: "Otorrinolaringologia",
+    servico: "Brinde institucional",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-otorrinolaringologia-brasilia-mousepad.webp",
+    largura: 1200,
+    altura: 835,
+    alt: "Mousepad redondo da CLIAOD sobre mesa, com site e telefones da clínica de otorrinolaringologia em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/_clientes_inativos/Cliaod/Design/2023/LI/sprint_13_LI_peca_grafica_mousepad_u0/insumos/sprint_13_LI_peca_grafica_mousepad_u0.png",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
