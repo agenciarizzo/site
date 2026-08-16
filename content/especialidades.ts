@@ -214,6 +214,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-oncologia-rio-de-janeiro-cartao-virtual",
       "marketing-medico-oncologia-brasilia-ebook-cancer-colo-utero",
       "marketing-medico-oncologia-brasilia-site-cirurgia-oncologica",
+      // Rodada 8: 2ª peça da CON. Vai pro fim — é a posição mais distante do panfleto
+      // dela (1), que é o canal impresso vizinho. §16.8.7-6.
+      "marketing-medico-oncologia-rio-de-janeiro-folder-quimioterapia-oral",
     ],
     areasCarteira: ["Oncologia", "Oncologia Cirúrgica"],
     waText: "Olá! Vi a página de marketing para oncologia no site da agência e quero conversar sobre a clínica.",
@@ -232,10 +235,16 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Clínica com exame próprio tem uma vantagem que costuma ficar escondida: resolver consulta e exame no mesmo endereço é exatamente o que o paciente encaminhado procura. Deixar isso claro na primeira linha da página, sem promessa de resultado e sem número inventado, transforma uma busca genérica em consulta marcada.",
     ],
     pecas: [
+      // A página fica 4 de 6 na Incordis — é a única casa de cardiologia com pasta funda
+      // no acervo. A ORDEM segura o eco (§16.8.7-6): o cartão virtual sobe pra 3 e o
+      // portfólio impresso da MaxiCor FECHA a grade, de modo que a coluna única não
+      // comece emendada em Incordis.
       "marketing-medico-cardiologia-brasilia-folder-institucional",
       "marketing-medico-cardiologia-parauapebas-papelaria",
-      "marketing-medico-cardiologia-brasilia-portfolio-impresso",
       "marketing-medico-cardiologia-brasilia-cartao-virtual",
+      "marketing-medico-cardiologia-brasilia-portfolio-impresso",
+      "marketing-medico-cardiologia-brasilia-cartao-visita",
+      "marketing-medico-cardiologia-brasilia-pasta-institucional",
     ],
     areasCarteira: ["Cardiologia"],
     waText: "Olá! Vi a página de marketing para cardiologia no site da agência e quero conversar sobre a clínica.",
@@ -258,6 +267,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-otorrinolaringologia-brasilia-portfolio-digital",
       "marketing-medico-otorrinolaringologia-brasilia-sinalizacao-clinica",
       "marketing-medico-otorrinolaringologia-brasilia-portfolio-impresso",
+      // Rodada 8: 3ª peça da CLIAOD, mas canal INÉDITO na parede inteira (brinde). Vai
+      // pra coluna única, longe das duas dela na grade (1 e 2). §16.8.7-6.
+      "marketing-medico-otorrinolaringologia-brasilia-mousepad",
     ],
     areasCarteira: ["Otorrinolaringologia"],
     waText:
