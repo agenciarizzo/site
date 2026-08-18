@@ -8,9 +8,9 @@
 // consolidando as duas em vez de jogar as duas fora.
 //
 // ⚠️ RÉGUA DA PROVA (anti-doorway, §3.3 + a lição do §12.3): só entra nesta lista
-// cliente que JÁ ERA PÚBLICO — os nomes do inventário do §12.2, que estavam nas
-// páginas-keyword do site antigo. Cliente que não estava lá depende do opt-in
-// `site_showcase` (§10.4 / fatia 5b) e NÃO entra aqui. O campo `site` só é preenchido
+// cliente REAL da agência — o inventário do §12.2, a lista viva de clientes do Drive
+// e o acervo. `site_showcase` NÃO vale aqui: é campo de cliente vivo, da vitrine
+// automática, e ex-cliente não vira anônimo. O campo `site` só é preenchido
 // quando existe endereço no cadastro da própria agência; nome sem site fica sem link.
 // Proibido: foto relabelada por cidade, placeholder de enchimento, prova repetida entre
 // cidades pra "atingir meta" — foi exatamente isso que derrubou as páginas antigas.

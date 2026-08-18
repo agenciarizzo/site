@@ -4,8 +4,15 @@
 // régua §15.4/§20 ("só se nomeia quem já era público") é o build:
 //
 //   1. TODO `cliente` de content/portfolio.ts existe, com grafia EXATA, em uma das
-//      listas públicas do repo (carteira.ts · clientes.ts · cidades.ts). Nome fora
-//      da lista = build vermelho — não existe peça publicável de cliente não público.
+//      listas de clientes do repo (carteira.ts · clientes.ts · cidades.ts ·
+//      carteira-viva.ts). Nome fora das listas = build vermelho — não existe peça
+//      publicável de quem a agência não pode comprovar como cliente.
+//      ⚠️ 2026-08-18: a `carteira-viva.ts` entrou porque a régua antiga só reconhecia
+//      a página de clientes de 2024, e com isso cliente novo — e EX-cliente — ficava
+//      invisível pro portfólio, como se o trabalho não tivesse existido. A fonte agora
+//      inclui a lista viva do Drive, e cada linha de lá declara o `origem` que a
+//      comprova. `site_showcase` não manda aqui: é campo de cliente vivo, da vitrine
+//      automática do RizzoOS, não do acervo.
 //   2. TODA `imagem` declarada existe em public/ (prova que 404 não é prova).
 //   3. TODO slug em `cartas` existe em content/cartas.ts (peça não aponta pro vazio).
 //   4. TODA peça tem `espec` de LISTA FECHADA (§16.5 + handoff da Parede): as `area`
@@ -39,9 +46,15 @@ import { join } from "path";
 const ler = (p) => readFileSync(join(process.cwd(), p), "utf8");
 
 const nomesPublicos = new Set();
-for (const arq of ["content/carteira.ts", "content/clientes.ts", "content/cidades.ts"]) {
+for (const arq of [
+  "content/carteira.ts",
+  "content/clientes.ts",
+  "content/cidades.ts",
+  "content/carteira-viva.ts",
+]) {
   for (const m of ler(arq).matchAll(/nome:\s*"([^"]+)"/g)) nomesPublicos.add(m[1]);
 }
+
 
 const portfolio = ler("content/portfolio.ts");
 const cartas = new Set([...ler("content/cartas.ts").matchAll(/slug:\s*"([^"]+)"/g)].map((m) => m[1]));
@@ -78,6 +91,22 @@ const ancoraDa = (imagem) =>
     .replace(/^-|-$/g, "");
 
 const erros = [];
+// A carteira viva é a única das quatro listas que não vem de uma página já publicada,
+// então ela carrega a prova por linha: nome sem `origem` não é prova, é afirmação.
+{
+  const src = ler("content/carteira-viva.ts");
+  const corpo = src.slice(src.indexOf("export const CARTEIRA_VIVA"));
+  for (const bloco of corpo.matchAll(/\{[^{}]*\}/g)) {
+    const b = bloco[0];
+    const nome = b.match(/nome:\s*"([^"]+)"/)?.[1];
+    const origem = b.match(/origem:\s*\n?\s*"([^"]+)"/)?.[1];
+    if (!nome || !origem)
+      erros.push(
+        `carteira viva: entrada sem \`nome\` ou sem \`origem\` — ${b.replace(/\s+/g, " ").slice(0, 70)}`,
+      );
+  }
+}
+
 if (blocos.length === 0) erros.push("nenhuma peça encontrada em content/portfolio.ts — regex ou arquivo mudou de forma");
 
 const ancoras = new Map();
@@ -95,7 +124,10 @@ for (const bloco of blocos) {
   }
 
   if (cliente && !nomesPublicos.has(cliente))
-    erros.push(`"${cliente}" não está em nenhuma lista pública (carteira/clientes/cidades) — grafia exata exigida`);
+    erros.push(
+      `"${cliente}" não está em nenhuma lista de clientes do repo (carteira/clientes/cidades/carteira-viva) — ` +
+        "grafia exata exigida; se é cliente real fora da página antiga, declare em content/carteira-viva.ts com o `origem`",
+    );
 
   const espec = campo("espec");
   if (espec && !especsValidas.has(espec))
