@@ -268,6 +268,7 @@ for (const b of blocosVitrine) {
 
   // resolve o pool declarado do mesmo jeito que o componente resolve
   const mCarta = b.match(/fonte:\s*\{\s*carta:\s*"([^"]+)"\s*\}/);
+  const mPraca = b.match(/fonte:\s*\{\s*praca:\s*"([^"]+)"\s*\}/);
   const mServicos = b.match(/fonte:\s*\[([^\]]*)\]/);
   let pool;
   if (/fonte:\s*"\*"/.test(b)) {
@@ -275,6 +276,9 @@ for (const b of blocosVitrine) {
   } else if (mCarta) {
     pool = blocos.filter((x) => (x.match(/cartas:\s*\[([^\]]*)\]/) || [, ""])[1].includes(`"${mCarta[1]}"`));
     if (pool.length === 0) erros.push(`${quem}: a carta "${mCarta[1]}" não tem peça declarada em portfolio.ts`);
+  } else if (mPraca) {
+    pool = blocos.filter((x) => (x.match(/praca:\s*"([^"]*)"/) || [])[1] === mPraca[1]);
+    if (pool.length === 0) erros.push(`${quem}: a praça "${mPraca[1]}" não tem peça no portfolio.ts`);
   } else if (mServicos) {
     const servs = [...mServicos[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
     pool = blocos.filter((x) => servs.includes((x.match(/servico:\s*"([^"]*)"/) || [])[1]));
@@ -285,7 +289,7 @@ for (const b of blocosVitrine) {
     erros.push(`${quem}: \`fonte\` ausente ou em formato não reconhecido`);
     pool = [];
   }
-  if (pool.length === 0 && !mCarta && !mServicos) continue;
+  if (pool.length === 0 && !mCarta && !mPraca && !mServicos) continue;
   if (pool.length === 0) continue;
 
   // simula os giros: uma fila por cliente, no máximo uma peça de cada por giro

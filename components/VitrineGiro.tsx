@@ -59,6 +59,7 @@ export function poolDa(v: Vitrine): PecaPortfolio[] {
   const fonte = v.fonte;
   if (fonte === "*") return PORTFOLIO;
   if (Array.isArray(fonte)) return PORTFOLIO.filter((p) => fonte.includes(p.servico));
+  if ("praca" in fonte) return PORTFOLIO.filter((p) => p.praca === fonte.praca);
   return pecasDaCarta(fonte.carta);
 }
 

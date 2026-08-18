@@ -10,6 +10,8 @@ import { panoCidade } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa, type CardRef } from "@/components/athos/Athos";
 import type { Cidade } from "@/content/cidades";
 import { SITE_URL } from "@/lib/site";
+import { VitrineGiro } from "@/components/VitrineGiro";
+import { vitrinePorChave } from "@/content/vitrines";
 
 export function cidadeJsonLd(c: Cidade) {
   const url = `${SITE_URL}/${c.slug}`;
@@ -122,6 +124,13 @@ export function CidadeLanding({ c }: { c: Cidade }) {
                 </div>
               ))}
             </div>
+
+            {/* Os prints do trabalho da praça, logo abaixo dos nomes: o nome diz
+                QUEM, a peça mostra O QUÊ. Giros de até 7, um cliente por tela. */}
+            {(() => {
+              const v = vitrinePorChave(`cidade-${c.slug.replace("marketing-medico-", "")}`);
+              return v ? <VitrineGiro v={v} /> : null;
+            })()}
 
             <OsBlock>{c.os}</OsBlock>
 
