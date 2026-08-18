@@ -184,13 +184,25 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "O trabalho, na prática, é de estrutura: site que carrega rápido e responde a dúvida exata, material educativo que o paciente leva para casa e mostra à família, e uma presença constante que sustenta o encaminhamento de colegas — porque em cirurgia digestiva boa parte da agenda ainda chega por outro médico.",
     ],
     pecas: [
+      // Rodada 11 — 1ª vez que a régua de SUBSTITUIÇÃO do §16.8-3 é exercida: a
+      // página estava no teto de 7 com DUAS casas só (Becker 4 · Marangoni 3), e a
+      // Clínica Cirúrgica Taguatinga entra no lugar do folder do Becker — mesmo
+      // canal, casa nova. A página passa a 3 clientes distintos, que é o caminho
+      // pra régua de "um cliente por tela" sem perder o índice.
+      //
+      // A ordem é CALCULADA (§16.8.10-4), não escolhida no olho: com Becker em
+      // {1,4,6}, Marangoni em {2,3,7} e a Taguatinga em 5, o grafo de vizinhança da
+      // grade 2×2 + coluna única não tem NENHUMA aresta com casa repetida — e a
+      // distribuição de canais também fecha sem eco (portfólio · papelaria ·
+      // e-book · site ‖ folder · e-book · site).
       "marketing-medico-cirurgia-digestiva-goiania-portfolio-digital",
-      "marketing-medico-cirurgia-digestiva-goiania-folder-impresso",
-      "marketing-medico-cirurgia-bariatrica-goiania-ebook",
-      "marketing-medico-cirurgia-digestiva-goiania-ebook-gastrite",
-      "marketing-medico-cirurgia-digestiva-goiania-site-diastase",
-      "marketing-medico-cirurgia-digestiva-goiania-site-jornada-bariatrica",
       "marketing-medico-cirurgia-digestiva-goiania-pasta-institucional",
+      "marketing-medico-cirurgia-digestiva-goiania-ebook-gastrite",
+      "marketing-medico-cirurgia-digestiva-goiania-site-jornada-bariatrica",
+      // A peça nova ganha a coluna única de 208px: é a casa sub-representada.
+      "marketing-medico-cirurgia-digestiva-brasilia-folder-especialidades",
+      "marketing-medico-cirurgia-bariatrica-goiania-ebook",
+      "marketing-medico-cirurgia-digestiva-goiania-site-diastase",
     ],
     areasCarteira: ["Cirurgia", "Cirurgia Geral"],
     waText:
