@@ -9,6 +9,7 @@
 //
 // O `h2` mora AQUI dentro de propósito (4c): sem peça a seção não existe, e com o
 // título no page.tsx sobraria a barra ouro com nada embaixo.
+import { PecaLightbox } from "@/components/PecaLightbox";
 import { chave, type PecaPortfolio } from "@/content/portfolio";
 
 /**
@@ -53,6 +54,11 @@ export function PortfolioPecas({ pecas }: { pecas: PecaPortfolio[] }) {
   const grupos = agruparPecas(pecas);
   // A 1ª miniatura da seção é o LCP dela — é a única que não nasce `lazy`.
   const primeira = grupos[0].itens[0].imagem;
+  // As setas do lightbox andam pela parede INTEIRA, na ordem em que ela é
+  // renderizada — atravessando os grupos, pra que a navegação só termine na
+  // primeira e na última peça em vez de dar beco em cada especialidade.
+  const ordem = grupos.flatMap((g) => g.itens).map((p) => slugPeca(p.imagem));
+  const posicao = new Map(grupos.flatMap((g) => g.itens).map((p, i) => [p.imagem, i]));
 
   return (
     <>
@@ -95,20 +101,14 @@ export function PortfolioPecas({ pecas }: { pecas: PecaPortfolio[] }) {
                         {p.servico} · {p.praca}
                       </span>
                     </div>
-                    {/* Lightbox sem JavaScript: `display:none` até o `:target`. O
-                        fechar volta pra #pecas — a âncora da própria seção, sem salto.
-                        Mesmo src da miniatura: quando abre, a imagem já está em cache. */}
-                    <figure className="peca-lightbox" id={id}>
-                      <a className="peca-fechar" href="#pecas">
-                        Fechar
-                      </a>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.imagem} alt={p.alt} width={p.largura} height={p.altura} loading="lazy" />
-                      <figcaption>
-                        <span className="peca-nome">{p.cliente}</span>
-                        <span className="peca-meta">{p.contexto}</span>
-                      </figcaption>
-                    </figure>
+                    {/* Lightbox sem JavaScript: `display:none` até o `:target`. Mesmo
+                        src da miniatura — quando abre, a imagem já está em cache. */}
+                    <PecaLightbox
+                      p={p}
+                      id={id}
+                      anterior={ordem[posicao.get(p.imagem)! - 1]}
+                      proxima={ordem[posicao.get(p.imagem)! + 1]}
+                    />
                   </div>
                 );
               })}
