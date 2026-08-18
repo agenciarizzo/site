@@ -32,9 +32,10 @@ export interface Vitrine {
    *   - `"*"`            → o acervo inteiro (superfícies panorâmicas: home, hub, sobre)
    *   - `string[]`       → lista de `servico` do portfolio.ts
    *   - `{ carta: … }`   → o que a própria carta já declara no campo `cartas`
+   *   - `{ praca: … }`   → as peças daquela praça (grafia EXATA de `praca`)
    * Nada de casar por heurística (§24.9).
    */
-  fonte: string[] | "*" | { carta: string };
+  fonte: string[] | "*" | { carta: string } | { praca: string };
   /**
    * Quantos giros de até 7 o botão "ver outras peças" cicla. Cada giro tem no
    * máximo UMA peça por cliente, então mais giros = mais clientes expostos.
@@ -102,6 +103,20 @@ export const VITRINES: Vitrine[] = [
     linha: "Identidade que segura o perfil quando o paciente chega nele antes de chegar no site.",
     fonte: { carta: "redes-sociais" },
     giros: 1,
+  },
+  {
+    chave: "cidade-brasilia",
+    titulo: "Trabalho entregue em Brasília",
+    linha: "Consultório na Asa Sul, clínica em Águas Claras, hospital em Sobradinho — material que saiu daqui.",
+    fonte: { praca: "Brasília/DF" },
+    giros: 3,
+  },
+  {
+    chave: "cidade-goiania",
+    titulo: "Trabalho entregue em Goiânia",
+    linha: "Ortopedia, vascular, dermatologia — o que a clínica goiana entrega na mão do paciente.",
+    fonte: { praca: "Goiânia/GO" },
+    giros: 2,
   },
 ];
 
