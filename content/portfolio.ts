@@ -65,6 +65,25 @@ export interface PecaPortfolio {
  * viraria espec válida em silêncio — o gate afrouxa sem ninguém ver.
  */
 export const ESPECIALIDADES_EXTRA = [
+  // ⚠️ 2026-08-18 — esta lista passou a ser a lista fechada INTEIRA.
+  // Antes, metade do vocabulário vinha por tabela do `area` de content/clientes.ts,
+  // que é o rótulo do carrossel de LOGOS do topo do /clientes. Aquele campo fazia
+  // serviço duplo — enfeite e vocabulário — e a coisa estourou quando a grade foi
+  // reenquadrada na categorização do oráculo: "Medicina do Sono" virou "Medicina
+  // Especializada" no rótulo e três páginas da parede perderam o grupo delas.
+  // Enfeite não pode definir vocabulário. As 11 abaixo vieram de lá e agora moram
+  // aqui, onde são usadas.
+  "Urologia",
+  "Ortopedia e Traumatologia",
+  "Oftalmologia",
+  "Cardiologia",
+  "Otorrinolaringologia",
+  "Saúde da Mulher",
+  "Angiologia e Vascular",
+  "Dermatologia",
+  "Medicina do Sono",
+  "Diagnóstico por Imagem",
+  "Hospital", // eixo de rede; não ganha página (§8-7), mas agrupa na parede
   // A S2 Medica está na carteira como Saúde Geral, balde genérico do gerador, não
   // especialidade. Também cobre centro médico/policlínica sem recorte único.
   "Clínica Médica",

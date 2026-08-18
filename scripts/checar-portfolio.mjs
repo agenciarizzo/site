@@ -50,9 +50,11 @@ const cartas = new Set([...ler("content/cartas.ts").matchAll(/slug:\s*"([^"]+)"/
 // praça ("Angiologia e Vascular · Brasília" → "Angiologia e Vascular") + os extras
 // declarados no registry. Derivar em vez de copiar é o que impede as duas listas de
 // divergirem em silêncio.
-const especsValidas = new Set(
-  [...ler("content/clientes.ts").matchAll(/area:\s*"([^"]+)"/g)].map((m) => m[1].split("·")[0].trim()),
-);
+// A lista fechada mora INTEIRA em ESPECIALIDADES_EXTRA. Não se deriva mais do
+// `area` de content/clientes.ts: aquele campo é o rótulo do carrossel de logos, e
+// deixá-lo definir vocabulário fazia um enfeite derrubar grupo da parede quando
+// mudava (aconteceu em 2026-08-18, ao reenquadrar a grade no oráculo).
+const especsValidas = new Set();
 const extras = portfolio.match(/ESPECIALIDADES_EXTRA\s*=\s*\[([^\]]*)\]/);
 if (!extras) throw new Error("ESPECIALIDADES_EXTRA sumiu de content/portfolio.ts — a lista fechada perdeu a fonte");
 for (const m of extras[1].matchAll(/"([^"]+)"/g)) especsValidas.add(m[1]);
@@ -246,6 +248,57 @@ for (const bloco of blocosPagina) {
     );
 }
 
+// ---------- grade de clientes: vínculo com o ORÁCULO (2026-08-18) ----------
+// A grade do topo do /clientes vinha com área INVENTADA — "Mulier" como Saúde da
+// Mulher quando é Laboratório Clínico, "Janice Lamas" como Dermatologia quando é
+// Radiologia. Agora cada linha declara de qual registro do oráculo ela veio, e
+// aqui se cobra que o registro exista e que a área seja IGUAL à dele. Nome curto
+// sem vínculo não entra (§24.9: zero casamento por heurística).
+const clientesSrc = ler("content/clientes.ts");
+const oraculoSrc = ler("site-antigo-clientes.html");
+const oraculo = new Map();
+for (const m of oraculoSrc.matchAll(
+  /\{\s*name:\s*"((?:[^"\\]|\\.)*)",\s*type:\s*"[^"]*",\s*specialty:\s*"(?:[^"\\]|\\.)*",\s*area:\s*"([^"]*)"/g,
+)) {
+  oraculo.set(m[1], m[2]);
+}
+if (oraculo.size === 0) erros.push("site-antigo-clientes.html: não consegui ler nenhum registro — o oráculo é a fonte da grade");
+
+const gradeVistos = new Set();
+for (const bloco of clientesSrc.slice(clientesSrc.indexOf("export const CLIENTES")).matchAll(/\{[^{}]*\}/g)) {
+  const b = bloco[0];
+  const m = [
+    ,
+    (b.match(/nome:\s*"([^"]+)"/) || [])[1],
+    (b.match(/area:\s*"([^"]*)"/) || [])[1],
+    (b.match(/oraculo:\s*"((?:[^"\\]|\\.)*)"/) || [])[1],
+  ];
+  if (!m[1] || m[3] === undefined) {
+    erros.push(`grade /clientes: entrada sem \`nome\` ou sem \`oraculo\` — ${b.replace(/\s+/g, " ").slice(0, 70)}`);
+    continue;
+  }
+  const [, nome, area, deOnde] = m;
+  const quem = `grade /clientes "${nome}"`;
+  if (gradeVistos.has(nome)) erros.push(`${quem}: nome repetido na grade`);
+  gradeVistos.add(nome);
+  if (!oraculo.has(deOnde)) {
+    erros.push(`${quem}: \`oraculo: "${deOnde}"\` não existe em site-antigo-clientes.html`);
+    continue;
+  }
+  const areaOraculo = oraculo.get(deOnde);
+  if (area !== areaOraculo)
+    erros.push(
+      `${quem}: area "${area}" diverge do oráculo, que classifica "${deOnde}" como "${areaOraculo}" — ` +
+        "a categorização é copiada do oráculo, não reescrita",
+    );
+}
+const naGradeDeclarados = (clientesSrc.match(/oraculo:\s*"/g) || []).length;
+if (naGradeDeclarados !== gradeVistos.size)
+  erros.push(
+    `grade /clientes: ${naGradeDeclarados} vínculo(s) \`oraculo\` no arquivo mas ${gradeVistos.size} linha(s) casaram ` +
+      "o formato esperado — alguma entrada está sem `nome`/`area`, ou fora da ordem dos campos",
+  );
+
 // ---------- vitrines: as duas réguas do cliente (2026-08-18) ----------
 // "no máximo 7 peças por tela" e "nunca repetir um cliente mais do que uma vez".
 // A montagem dos giros garante isso por construção (uma fila por cliente), mas a
@@ -314,6 +367,10 @@ const indexaveis = blocosPagina.filter((b) => !/\bnoindex:\s*true/.test(b)).leng
 console.log(
   `✓ checar-portfolio: ${blocos.length} peça(s), todos os nomes públicos, imagens presentes, cartas válidas, ` +
     `espec na lista fechada (${especsValidas.size} valores), ${ancoras.size} âncora(s) sem colisão`,
+);
+console.log(
+  `✓ checar-portfolio: grade do /clientes com ${gradeVistos.size} nome(s), todos vinculados a um registro do ` +
+    `oráculo e com a categorização dele`,
 );
 console.log(
   `✓ checar-portfolio: ${chavesVitrine.size} vitrine(s) giratória(s), pool declarado resolvendo em peça real, ` +
