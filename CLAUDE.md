@@ -71,10 +71,15 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    `next.config.ts` cuida disso), e as canibais consolidam nelas. Praça nova só ganha
    landing com a **prova mínima real** da régua §3.3 — Anápolis e Aracaju seguem em 301
    pra home justamente por não terem.
-9. **Prova = nome real, e só de quem já era público.** Entram os nomes do §12.2 do mapa
-   e a lista de `content/clientes.ts`; o resto depende do opt-in `site_showcase`. **Link
-   vivo só quando existe endereço no cadastro da agência** — nome sem endereço fica sem
-   link. Zero domínio adivinhado, zero `placehold.co`, zero foto relabelada, zero
+9. **Prova = nome real de quem foi cliente de verdade.** A fonte é o cadastro da
+   própria agência: o §12.2 do mapa, `content/clientes.ts` e a **lista viva de clientes
+   do Drive** (doc "AR - Clientes", que é mais nova e mais completa que a página antiga).
+   ⚠️ **`site_showcase` NÃO decide portfólio.** É campo de cliente **vivo** — governa a
+   vitrine automática do RizzoOS (`lib/showcase.ts`), que lê dado comercial do cadastro.
+   Trabalho entregue a **ex-cliente** entra pelo nome real do mesmo jeito: a agência fez
+   a peça, a peça é dela, e o acervo é a prova. Ex-cliente não vira anônimo. **Link vivo
+   só quando existe endereço no cadastro da agência** — nome sem endereço fica sem link.
+   Zero domínio adivinhado, zero `placehold.co`, zero foto relabelada, zero
    `aggregateRating` (§12.3: foi isso que derrubou as páginas antigas).
 10. **Fase 2 (não iniciar sem o cliente pedir):** landings programáticas
     serviço×especialidade×cidade com prova real do RizzoOS (Supabase) — régua

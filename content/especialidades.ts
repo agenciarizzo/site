@@ -199,9 +199,21 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-cirurgia-digestiva-goiania-pasta-institucional",
       "marketing-medico-cirurgia-digestiva-goiania-ebook-gastrite",
       "marketing-medico-cirurgia-digestiva-goiania-site-jornada-bariatrica",
-      // A peça nova ganha a coluna única de 208px: é a casa sub-representada.
+      // Rodada 12 — a 4ª CASA entra: Meta Vita (Dr. Omar Loyola, Pelotas-RS), achada
+      // pela busca por NOME na lista viva de clientes do Drive, não por sigla. Sai o
+      // e-book do Becker — que era a 3ª peça dele E ecoava o canal do e-book da
+      // Marangoni na mesma tela. A página vai a QUATRO clientes distintos.
+      //
+      // Ordem CALCULADA (§16.8.10-4): Marangoni é a casa com 3 peças, então precisa
+      // ocupar o único conjunto independente de tamanho 3 — {2,3,7}. Sobram {1,4,5,6}
+      // para Becker (2), Taguatinga (1) e Meta Vita (1); as arestas ali são 4-5 e 5-6,
+      // e Becker em {1,4} não toca nenhuma delas. Resultado: ZERO aresta com casa
+      // repetida, e os canais também não ecoam (portfólio · papelaria · e-book · site
+      // ‖ cartão · folder · site).
+      //
+      // A casa nova ganha o slot 5, o primeiro da coluna de 208px.
+      "marketing-medico-cirurgia-digestiva-pelotas-cartao-visita",
       "marketing-medico-cirurgia-digestiva-brasilia-folder-especialidades",
-      "marketing-medico-cirurgia-bariatrica-goiania-ebook",
       "marketing-medico-cirurgia-digestiva-goiania-site-diastase",
     ],
     areasCarteira: ["Cirurgia", "Cirurgia Geral"],

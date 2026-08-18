@@ -1309,6 +1309,20 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/_clientes_inativos/Centro Digestivo de Brasília/2021/CC/sprint_7_CC_portfolio_servicos/apres/Mockups/Mockup 2.png",
   },
+  {
+    cliente: "Meta Vita",
+    contexto: "Cartão de visita de cirurgia bariátrica e do aparelho digestivo — Pelotas",
+    espec: "Cirurgia do Aparelho Digestivo",
+    servico: "Cartão de visita",
+    praca: "Pelotas/RS",
+    imagem: "/portfolio/marketing-medico-cirurgia-digestiva-pelotas-cartao-visita.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Cartão de visita frente e verso do Meta Vita, com as especialidades cirúrgicas, o endereço em Pelotas e o responsável técnico com CRM-RS e RQE",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "/Clientes/2026/OL/sprint_8_OL_peca_grafica_papelaria/apres/cartão de vistas/cartao_visita_imagem_meramante_ilustrativa.png",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
