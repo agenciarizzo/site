@@ -15,6 +15,7 @@
 import Link from "next/link";
 import { panoEspecialidade } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
+import { PecaLightbox } from "@/components/PecaLightbox";
 import { slugPeca } from "@/components/PortfolioPecas";
 import { PORTFOLIO, chave, type PecaPortfolio } from "@/content/portfolio";
 import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
@@ -110,7 +111,17 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
 }
 
 /** Uma peça da vitrine: miniatura + texto + o lightbox `:target` dela. */
-function Peca({ p, primeira }: { p: PecaPortfolio; primeira: boolean }) {
+function Peca({
+  p,
+  primeira,
+  anterior,
+  proxima,
+}: {
+  p: PecaPortfolio;
+  primeira: boolean;
+  anterior?: string;
+  proxima?: string;
+}) {
   const id = slugPeca(p.imagem);
   return (
     <div className="parede-peca">
@@ -131,17 +142,7 @@ function Peca({ p, primeira }: { p: PecaPortfolio; primeira: boolean }) {
           {p.servico} · {p.praca}
         </span>
       </div>
-      <figure className="peca-lightbox" id={id}>
-        <a className="peca-fechar" href="#pecas">
-          Fechar
-        </a>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={p.imagem} alt={p.alt} width={p.largura} height={p.altura} loading="lazy" />
-        <figcaption>
-          <span className="peca-nome">{p.cliente}</span>
-          <span className="peca-meta">{p.contexto}</span>
-        </figcaption>
-      </figure>
+      <PecaLightbox p={p} id={id} anterior={anterior} proxima={proxima} />
     </div>
   );
 }
@@ -152,6 +153,10 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
   // 4 + 3; com uma peça só, tudo vai pra coluna única (4c).
   const grade = pecas.length === 1 ? [] : pecas.slice(0, 4);
   const unicas = pecas.length === 1 ? pecas : pecas.slice(4);
+  // Ordem plana da página (grade e depois coluna única, que é como o leitor lê),
+  // pras setas do lightbox andarem de peça em peça sem sair da especialidade.
+  const ordem = pecas.map((p) => slugPeca(p.imagem));
+  const vizinhas = (i: number) => ({ anterior: ordem[i - 1], proxima: ordem[i + 1] });
   const grupos = nomesDa(e);
   // A âncora do grupo na parede do /clientes sai da MESMA `chave()` que o
   // PortfolioPecas usa — derivada da espec, nunca do slug da página (as duas grafias
@@ -205,7 +210,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
                 <section className="parede-grupo">
                   <div className="parede-itens">
                     {grade.map((p, i) => (
-                      <Peca key={p.imagem} p={p} primeira={i === 0} />
+                      <Peca key={p.imagem} p={p} primeira={i === 0} {...vizinhas(i)} />
                     ))}
                   </div>
                 </section>
@@ -214,7 +219,12 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
                 <section className="parede-grupo unica">
                   <div className="parede-itens">
                     {unicas.map((p, i) => (
-                      <Peca key={p.imagem} p={p} primeira={grade.length === 0 && i === 0} />
+                      <Peca
+                        key={p.imagem}
+                        p={p}
+                        primeira={grade.length === 0 && i === 0}
+                        {...vizinhas(pecas.length === 1 ? 0 : 4 + i)}
+                      />
                     ))}
                   </div>
                 </section>
