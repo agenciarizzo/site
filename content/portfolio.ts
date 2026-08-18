@@ -1283,6 +1283,32 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem: "/Clientes/_clientes_inativos/OtoPlus/2021/OP/sprint_8_OP_folder_u0/apres/_frente e verso.png",
   },
+  {
+    cliente: "Clínica Cirúrgica Taguatinga",
+    contexto: "Folder de especialidades cirúrgicas e corpo clínico — Brasília",
+    espec: "Cirurgia do Aparelho Digestivo",
+    servico: "Folder institucional",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-cirurgia-digestiva-brasilia-folder-especialidades.webp",
+    largura: 1200,
+    altura: 795,
+    alt: "Folder tri-fold aberto da Clínica Cirúrgica Taguatinga, com a lista de especialidades cirúrgicas e o corpo clínico",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/_clientes_inativos/Centro Digestivo de Brasília/2021/CC/sprint_6_CC_folder/apres/sprint_6_CC_folder_mockup.jpg",
+  },
+  {
+    cliente: "Clínica Cirúrgica Taguatinga",
+    contexto: "Portfólio impresso de cirurgia e exames — Brasília",
+    espec: "Cirurgia do Aparelho Digestivo",
+    servico: "Portfólio impresso",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-cirurgia-digestiva-brasilia-portfolio-impresso.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Portfólio impresso aberto da Clínica Cirúrgica Taguatinga, com a apresentação da clínica e as vantagens da unidade",
+    cartas: ["clinicas-e-consultorios"],
+    origem: "/Clientes/_clientes_inativos/Centro Digestivo de Brasília/2021/CC/sprint_7_CC_portfolio_servicos/apres/Mockups/Mockup 2.png",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
