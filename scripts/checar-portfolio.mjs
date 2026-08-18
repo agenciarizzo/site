@@ -246,6 +246,61 @@ for (const bloco of blocosPagina) {
     );
 }
 
+// ---------- vitrines: as duas réguas do cliente (2026-08-18) ----------
+// "no máximo 7 peças por tela" e "nunca repetir um cliente mais do que uma vez".
+// A montagem dos giros garante isso por construção (uma fila por cliente), mas a
+// trava existe pra que uma mudança no montador não passe calada — e pra cobrar
+// que todo pool DECLARADO resolva em peça de verdade (§⚖️: superfície sem pool
+// honesto não ganha vitrine de enchimento, e sim nenhuma).
+const vitrinesSrc = ler("content/vitrines.ts");
+const POR_GIRO = Number((vitrinesSrc.match(/export const POR_GIRO = (\d+)/) || [, "7"])[1]);
+const blocosVitrine = vitrinesSrc.split(/\n  \{\n/).slice(1);
+const chavesVitrine = new Set();
+for (const b of blocosVitrine) {
+  const chaveV = (b.match(/chave:\s*"([^"]+)"/) || [])[1];
+  if (!chaveV) continue;
+  const quem = `vitrine "${chaveV}"`;
+  if (chavesVitrine.has(chaveV)) erros.push(`${quem}: chave repetida — a âncora do giro colidiria`);
+  chavesVitrine.add(chaveV);
+
+  const giros = Number((b.match(/giros:\s*(\d+)/) || [, "0"])[1]);
+  if (!(giros >= 1)) erros.push(`${quem}: \`giros\` tem que ser ≥ 1`);
+
+  // resolve o pool declarado do mesmo jeito que o componente resolve
+  const mCarta = b.match(/fonte:\s*\{\s*carta:\s*"([^"]+)"\s*\}/);
+  const mServicos = b.match(/fonte:\s*\[([^\]]*)\]/);
+  let pool;
+  if (/fonte:\s*"\*"/.test(b)) {
+    pool = blocos;
+  } else if (mCarta) {
+    pool = blocos.filter((x) => (x.match(/cartas:\s*\[([^\]]*)\]/) || [, ""])[1].includes(`"${mCarta[1]}"`));
+    if (pool.length === 0) erros.push(`${quem}: a carta "${mCarta[1]}" não tem peça declarada em portfolio.ts`);
+  } else if (mServicos) {
+    const servs = [...mServicos[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+    pool = blocos.filter((x) => servs.includes((x.match(/servico:\s*"([^"]*)"/) || [])[1]));
+    for (const sv of servs)
+      if (!blocos.some((x) => (x.match(/servico:\s*"([^"]*)"/) || [])[1] === sv))
+        erros.push(`${quem}: serviço "${sv}" não existe em nenhuma peça do portfolio.ts`);
+  } else {
+    erros.push(`${quem}: \`fonte\` ausente ou em formato não reconhecido`);
+    pool = [];
+  }
+  if (pool.length === 0 && !mCarta && !mServicos) continue;
+  if (pool.length === 0) continue;
+
+  // simula os giros: uma fila por cliente, no máximo uma peça de cada por giro
+  const donosPool = pool.map((x) => (x.match(/cliente:\s*"([^"]*)"/) || [])[1]);
+  const clientesDistintos = new Set(donosPool).size;
+  const maiorGiro = Math.min(POR_GIRO, clientesDistintos);
+  if (maiorGiro > POR_GIRO)
+    erros.push(`${quem}: giro de ${maiorGiro} peças estoura o teto de ${POR_GIRO} por tela`);
+  if (clientesDistintos < 2 && giros >= 1)
+    erros.push(
+      `${quem}: o pool tem ${clientesDistintos} cliente(s) distinto(s) — com uma peça por cliente a vitrine ` +
+        "teria 1 item, o que não é vitrine (§⚖️: ausência honesta > presença defeituosa)",
+    );
+}
+
 if (erros.length) {
   console.error(`✗ checar-portfolio: ${erros.length} erro(s)`);
   for (const e of erros) console.error("  - " + e);
@@ -255,6 +310,10 @@ const indexaveis = blocosPagina.filter((b) => !/\bnoindex:\s*true/.test(b)).leng
 console.log(
   `✓ checar-portfolio: ${blocos.length} peça(s), todos os nomes públicos, imagens presentes, cartas válidas, ` +
     `espec na lista fechada (${especsValidas.size} valores), ${ancoras.size} âncora(s) sem colisão`,
+);
+console.log(
+  `✓ checar-portfolio: ${chavesVitrine.size} vitrine(s) giratória(s), pool declarado resolvendo em peça real, ` +
+    `teto de ${POR_GIRO} por tela e um cliente por tela`,
 );
 console.log(
   `✓ checar-portfolio: ${blocosPagina.length} página(s) de especialidade (${indexaveis} indexável(is), ` +

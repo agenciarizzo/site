@@ -7,8 +7,8 @@ import { notFound } from "next/navigation";
 import { panoCarta } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import { CARTAS, bySlug } from "@/content/cartas";
-import { pecasDaCarta } from "@/content/portfolio";
-import { PortfolioPecas } from "@/components/PortfolioPecas";
+import { VitrineGiro } from "@/components/VitrineGiro";
+import { vitrinePorChave } from "@/content/vitrines";
 import { SITE_URL } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -30,7 +30,6 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
   const { slug } = await params;
   const c = bySlug(slug);
   if (!c) notFound();
-  const pecas = pecasDaCarta(slug);
 
   const jsonLd = [
     {
@@ -102,7 +101,13 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
 
           {/* Título e âncora vêm de dentro do componente (ele devolve null sem peça),
               senão a carta mostraria dois "O trabalho, na parede". */}
-          <PortfolioPecas pecas={pecas} />
+          {/* Peças da carta em GIROS de até 7, um cliente por tela (régua do
+              cliente, 2026-08-18). Antes isto era a parede inteira: a carta de
+              clínicas e consultórios despejava 86 peças numa tela só. */}
+          {(() => {
+            const v = vitrinePorChave(`carta-${slug}`);
+            return v ? <VitrineGiro v={v} /> : null;
+          })()}
 
           <div className="franqueza">
             <h3>{c.quandoNaoTitulo}</h3>

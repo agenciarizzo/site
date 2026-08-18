@@ -1,6 +1,8 @@
 // Home — a carta-mãe (protótipo v4 aprovado em rizzo-os/public/prototipos/manifesto-home.html).
 // Regra de tom (§2 do mapa): a página não fala de si — fala do mundo do médico.
 import type { Metadata } from "next";
+import { VitrineGiro } from "@/components/VitrineGiro";
+import { vitrinePorChave } from "@/content/vitrines";
 import Link from "next/link";
 import { homeJanelas, panoCard } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
@@ -108,6 +110,8 @@ export default function Home() {
               número que a agência preferia que você não visse.
             </li>
           </ul>
+
+          {(() => { const v = vitrinePorChave("home"); return v ? <VitrineGiro v={v} /> : null; })()}
 
           <h2 className="sec">O que pensamos de cada mídia</h2>
           <p>Cada mídia tem papel, hora e medida — nenhuma faz milagre sozinha. Aqui, a nossa visão sobre cada uma:</p>

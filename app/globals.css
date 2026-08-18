@@ -980,6 +980,44 @@ p.resumo {
    segundo não repete o hairline nem o respiro de topo de grupo novo. */
 .vitrine-espec .parede-grupo + .parede-grupo { border-top: 0; padding-top: 0; }
 
+/* ============================================================
+   Vitrine giratória — peças fora da parede (2026-08-18)
+   ------------------------------------------------------------
+   Régua do cliente: no máximo 7 peças por TELA e nunca o mesmo cliente duas
+   vezes na mesma tela. Os giros resolvem as duas sem esconder acervo — o botão
+   "ver outras peças" cicla entre eles.
+
+   Sem JS: mostra o 1º giro quando nenhum está no `:target`, e só o alvo quando
+   há um. O `:has()` é o que permite esconder o 1º sem script.
+   ⚠️ Com um lightbox aberto (hash = #peca-…) nenhum giro casa `:target` e o 1º
+   reaparece atrás da cortina — invisível, e o `voltar` da peça devolve ao giro
+   dela. É de propósito.
+   ============================================================ */
+.giro { display: none; }
+.giros:not(:has(.giro:target)) .giro:first-child { display: block; }
+.giros .giro:target { display: block; }
+.giro-troca { display: flex; align-items: center; gap: 0.9rem; margin: 1rem 0 0; }
+.giro-btn {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  background: var(--ink);
+  color: var(--papel);
+  text-decoration: none;
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: background 140ms ease;
+}
+.giro-btn:hover { background: var(--teal); }
+.giro-conta {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  color: var(--cinza);
+}
+
 /* Lightbox SEM JavaScript: `:target`. Cada peça tem URL própria (dá pra mandar no
    WhatsApp) e o fechar volta pra #pecas. z-index 61 porque o único outro z-index
    do site é o 60 da cortina Athos. Cores do bloco escuro do rodapé-mapa (§5 do

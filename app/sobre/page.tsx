@@ -3,6 +3,8 @@
 // carta (não segue content/cartas.ts) e não é venda — o CTA é o WhatsApp de sempre.
 // Schema: AboutPage + FAQPage (Organization já é global via app/layout.tsx).
 import type { Metadata } from "next";
+import { VitrineGiro } from "@/components/VitrineGiro";
+import { vitrinePorChave } from "@/content/vitrines";
 import Image from "next/image";
 import Link from "next/link";
 import { panoSobre } from "@/lib/athos/panos";
@@ -119,6 +121,8 @@ export default function SobrePage() {
             Esse planejamento, aprovação e relatório vivem dentro do <b>RizzoOS</b> — no seu celular, sem depender de
             reunião marcada.
           </OsBlock>
+
+          {(() => { const v = vitrinePorChave("sobre"); return v ? <VitrineGiro v={v} /> : null; })()}
 
           <h2 className="sec">Onde ficamos</h2>
           <p>

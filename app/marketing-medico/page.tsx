@@ -3,6 +3,8 @@
 // Regra de tom (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §2): a página fala do
 // mundo do médico, não de si.
 import type { Metadata } from "next";
+import { VitrineGiro } from "@/components/VitrineGiro";
+import { vitrinePorChave } from "@/content/vitrines";
 import Link from "next/link";
 import { panoHub, panoCard } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
@@ -142,6 +144,8 @@ export default function MarketingMedicoPage() {
               </Link>
             ))}
           </div>
+
+          {(() => { const v = vitrinePorChave("hub"); return v ? <VitrineGiro v={v} /> : null; })()}
 
           <h2 className="sec">Perguntas frequentes sobre marketing médico</h2>
           <div className="faq">
