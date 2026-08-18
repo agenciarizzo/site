@@ -389,6 +389,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Aqui a régua ética pesa mais do que em qualquer campanha de captação: não se anuncia esperança, se organiza informação. É um trabalho de estrutura e constância, com pouco espaço para barulho.",
     ],
     pecas: [
+      "marketing-medico-nefrologia-brasilia-cartao-visita",
       "marketing-medico-nefrologia-valparaiso-goias-portfolio-digital",
       "marketing-medico-nefrologia-valparaiso-goias-folder-servicos",
     ],
@@ -469,7 +470,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Segunda opinião é o padrão, e ela é uma comparação direta de clareza. Entre um profissional que explica a conduta e outro que só mostra credencial, o paciente escolhe quem o deixa entender a própria decisão. É por isso que conteúdo bem feito rende mais aqui do que volume de anúncio.",
       "E vale a régua de sempre, com peso extra numa área de alta complexidade: sem promessa de resultado, sem exposição de caso, sem número que não se possa sustentar. A autoridade se constrói pela consistência do que se publica ao longo do tempo.",
     ],
-    pecas: ["marketing-medico-neurocirurgia-recife-site"],
+    pecas: [
+      "marketing-medico-neurocirurgia-recife-site",
+      "marketing-medico-neurocirurgia-rio-verde-portfolio-impresso",
+    ],
     areasCarteira: ["Neurologia"],
     noindex: true,
     waText:
@@ -515,7 +519,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "É uma jornada de meses, às vezes de anos, e a decisão de tentar mais um tratamento é emocional. Nada de promessa de fim da dor, nada de depoimento montado: o que funciona é descrever com honestidade o que cada procedimento pode aliviar, como é feito e o que se espera de melhora — inclusive quando a resposta é parcial.",
       "Encaminhamento de colegas — ortopedista, neurologista, reumatologista — sustenta boa parte da agenda. Comunicar-se com esses médicos, com material claro sobre o que a clínica faz, costuma render mais do que campanha ampla.",
     ],
-    pecas: ["marketing-medico-medicina-da-dor-araguaina-site"],
+    pecas: [
+      "marketing-medico-medicina-da-dor-araguaina-site",
+      "marketing-medico-medicina-da-dor-rio-verde-portfolio-virtual",
+    ],
     areasCarteira: ["Medicina da Dor"],
     noindex: true,
     waText:

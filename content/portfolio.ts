@@ -1323,6 +1323,48 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "/Clientes/2026/OL/sprint_8_OL_peca_grafica_papelaria/apres/cartão de vistas/cartao_visita_imagem_meramante_ilustrativa.png",
   },
+  {
+    cliente: "Dr. Thiago Hayashida",
+    contexto: "Cartão de visita de nefrologia e transplante renal — Brasília",
+    espec: "Nefrologia",
+    servico: "Cartão de visita",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-nefrologia-brasilia-cartao-visita.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Cartão de visita frente e verso do Dr. Thiago Hayashida, nefrologista, com o monograma dourado, o endereço no Brasil 21 em Brasília e o CRM-DF com RQE",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "/Clientes/2025/HY/sprint_6_HY_peca_grafica_papelaria/apres/cartao_visita_8,5x5,5cm_dr_thiago_hayashida.jpg",
+  },
+  {
+    cliente: "Dr. Flávio Viana Aleixo",
+    contexto: "Portfólio impresso de neurocirurgia e cirurgia da coluna — Rio Verde",
+    espec: "Neurocirurgia",
+    servico: "Portfólio impresso",
+    praca: "Rio Verde/GO",
+    imagem: "/portfolio/marketing-medico-neurocirurgia-rio-verde-portfolio-impresso.webp",
+    largura: 1200,
+    altura: 938,
+    alt: "Portfólio impresso do Dr. Flávio Viana Aleixo, com a capa da clínica Neuro Medular e as páginas internas que listam as doenças neurológicas atendidas",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "/Clientes/2022/FA/sprint_9_FA_peca_grafica_portfolio/v2/apres/impresso/mockup_portfolio.png",
+  },
+  {
+    cliente: "Dr. Flávio Viana Aleixo",
+    contexto: "Portfólio virtual de medicina da dor e coluna — Rio Verde",
+    espec: "Medicina da Dor",
+    servico: "Portfólio virtual",
+    praca: "Rio Verde/GO",
+    imagem: "/portfolio/marketing-medico-medicina-da-dor-rio-verde-portfolio-virtual.webp",
+    largura: 1200,
+    altura: 780,
+    alt: "Portfólio virtual do Dr. Flávio Viana Aleixo em três telas de celular, com a apresentação do médico e a tela de tratamento de dor na coluna",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "/Clientes/2022/FA/sprint_9_FA_peca_grafica_portfolio/v2/apres/virtual/mokup celular.png",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */

@@ -35,4 +35,9 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "Dr. Omar Loyola - Cirurgião do Aparelho Digestivo em Pelotas - RS (AR - Clientes, item 264)",
   },
+  {
+    nome: "Dr. Thiago Hayashida",
+    origem:
+      "HY - Dr. Thiago Hayashida - Nefrologia em Brasília (AR - Clientes, item 280)",
+  },
 ];
