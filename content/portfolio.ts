@@ -1456,6 +1456,20 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "Drive: sprint_7_GA_peca_grafica_panfleto (doc 1VaJd_D480FeyzEFFOFEJYWB9J5gMeuoTjciuVxU6_vc, arte embutida)",
   },
+  {
+    cliente: "Rodrigo Cruvinel – Cirurgião Plástico",
+    contexto: "E-book sobre cirurgia plástica pós-gestacional — Brasília",
+    espec: "Cirurgia Plástica",
+    servico: "E-book",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-cirurgia-plastica-brasilia-ebook-mommy-makeover.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Mockup de celular com a capa do e-book do Dr. Rodrigo Cruvinel sobre Mommy Makeover, a cirurgia plástica pós-gestacional",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_16_RC_peca_grafica_ebook (doc 1b0xzaUqQLpr6icDWITZN9g25Vq18vPVzSZ2ZwPNNGhk, arte embutida)",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */

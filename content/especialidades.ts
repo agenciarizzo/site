@@ -515,14 +515,17 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     pecas: [
       "marketing-medico-cirurgia-plastica-sao-paulo-portfolio-virtual",
       "marketing-medico-cirurgia-plastica-sao-paulo-papelaria",
+      "marketing-medico-cirurgia-plastica-brasilia-ebook-mommy-makeover",
       "marketing-medico-cirurgia-plastica-sao-paulo-cartao-de-visita",
       "marketing-medico-cirurgia-plastica-sao-paulo-envelope",
     ],
     areasCarteira: ["Cirurgia Plástica"],
-    // 4 peças, mas de UM cliente só — a régua anti-doorway do §3.3 conta prova, e quatro
-    // peças da mesma casa continuam sendo um caso, não um acervo. Segue noindex por
-    // decisão declarada (§16.8.4), agora travada no checar-portfolio.mjs (≥2 clientes).
-    noindex: true,
+    // 5 peças de 2 casas (rodada 15): o e-book do Rodrigo Cruvinel quebrou o “uma casa
+    // só” que segurava esta página em noindex desde o §16.8.4 — com ≥4 peças de ≥2
+    // clientes distintos ela passa a régua anti-doorway do §3.3 e INDEXA.
+    // Ordem CALCULADA (§16.8.10-4), não escolhida no olho: na grade de 2 colunas o slot 3
+    // é o de MAIS arestas (3), então a casa nova ali derruba de 3 para 2 as vizinhanças
+    // com casa repetida — o mínimo possível com 4 peças de uma casa só em 5 slots.
     waText:
       "Olá! Vi a página de marketing para cirurgia plástica no site da agência e quero conversar sobre o meu consultório.",
   },
