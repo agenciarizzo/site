@@ -1365,6 +1365,97 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "/Clientes/2022/FA/sprint_9_FA_peca_grafica_portfolio/v2/apres/virtual/mokup celular.png",
   },
+  // Rodada 14 (2026-08-19) — a arte veio do GOOGLE DRIVE, não do Dropbox (§16.8.13-5
+  // do doc-mapa): peça embutida no doc de sprint (export PDF → imagem original) ou,
+  // na Dra. Aline Mello, no Dropbox alcançado pelo link `scl` vivo do doc. `origem`
+  // registra o doc de sprint do Drive que prova a peça. Todas aprovadas pelo cliente
+  // peça a peça em 2026-08-19; a divisão de especialidade da Dra. Aline Mello
+  // (a arte assina Diagnóstico por Imagem E Medicina Fetal) foi decisão dele:
+  // portfólio → Saúde da Mulher.
+  {
+    cliente: "Maximagem",
+    contexto: "Panfleto de exames de imagem para clínica de diagnóstico — Valparaíso de Goiás",
+    espec: "Diagnóstico por Imagem",
+    servico: "Panfleto",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-diagnostico-imagem-valparaiso-goias-panfleto.webp",
+    largura: 1200,
+    altura: 960,
+    alt: "Mockup frente e verso do panfleto 10x15 da Maximagem, com os exames de imagem da unidade Valparaíso de Goiás",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_1_MX_peca_grafica_panfleto_u0 (doc 1J944oIzJ7ukK10V4FQVK8t8grxXAu5IKAdAK1c2blgc, arte embutida)",
+  },
+  {
+    cliente: "Centrus – Diagnóstico por imagem",
+    contexto: "Panfleto de exames com a rede de convênios da clínica de imagem — Taguatinga",
+    espec: "Diagnóstico por Imagem",
+    servico: "Panfleto",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-diagnostico-imagem-taguatinga-panfleto-convenios.webp",
+    largura: 1200,
+    altura: 844,
+    alt: "Mockup frente e verso do panfleto da Centrus em Taguatinga, com os exames de imagem e a lista de convênios atendidos",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_10_CT_peca_grafica_panfleto (doc 1iA1rDvVR-Rp2Uh95bLsV50frEBXRziDgtFLC8Jd4k_A, arte embutida)",
+  },
+  {
+    cliente: "Centrus – Diagnóstico por imagem",
+    contexto: "Adesivagem da porta principal da clínica de diagnóstico por imagem — Taguatinga",
+    espec: "Diagnóstico por Imagem",
+    servico: "Sinalização",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-diagnostico-imagem-taguatinga-adesivo-porta.webp",
+    largura: 1200,
+    altura: 842,
+    alt: "Arte da adesivagem aplicada na foto da porta de entrada da Centrus em Taguatinga, na opção azul-marinho",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_10_CT_peca_grafica_adesivo_porta_principal_u0 (doc 1DXxUpNHMh6izfLzFhElCQXtZgtFaOYPc1fUbQl-Nkcc, arte embutida, opção marinho)",
+  },
+  {
+    cliente: "CPAPS Terapia do Sono",
+    contexto: "Cartão de visita para clínica de terapia do sono — Brasília",
+    espec: "Medicina do Sono",
+    servico: "Cartão de visita",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-medicina-do-sono-brasilia-cartao-visita.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Mockup do cartão de visita da CPAPS Terapia do Sono, frente e verso, com as unidades Asa Sul e Taguatinga",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_1_CS_peca_grafica_cartao_visita (doc 1XB6pjPj2UhxXubvVKu59M1NVvr3DTZKCVyM2isRukfM, arte embutida)",
+  },
+  {
+    cliente: "Dra. Aline Mello",
+    contexto: "Portfólio impresso de ultrassonografia e medicina fetal — Ceres",
+    espec: "Saúde da Mulher",
+    servico: "Portfólio impresso",
+    praca: "Ceres/GO",
+    imagem: "/portfolio/marketing-medico-ultrassonografia-ceres-portfolio-impresso.webp",
+    largura: 1200,
+    altura: 805,
+    alt: "Face externa do portfólio dobra-carteira da Dra. Aline Mello aberto, com a apresentação da ultrassonografista e as duas clínicas de Ceres",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_3_AM_peca_grafica_portfolio → Dropbox ns:3888366609//Portfólio impresso - Dra. Aline Mello.pdf (render da face externa)",
+  },
+  {
+    cliente: "Gastrus Clínica",
+    contexto: "Panfleto educativo sobre plicoma para clínica de gastroenterologia — Taguatinga",
+    espec: "Gastroenterologia",
+    servico: "Panfleto",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-gastroenterologia-brasilia-panfleto-plicoma.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Mockup frente e verso do panfleto da Gastrus Clinic sobre plicoma, com a recepção da clínica em Taguatinga Norte no verso",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_7_GA_peca_grafica_panfleto (doc 1VaJd_D480FeyzEFFOFEJYWB9J5gMeuoTjciuVxU6_vc, arte embutida)",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */

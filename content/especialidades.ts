@@ -339,6 +339,14 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     // recebe os 3 novos na ordem que evita eco (§16.8.6-7): o e-book do Portocarrero
     // repete o canal do e-book da posição 1, então entra no MEIO da coluna — e as
     // duas peças da Lúmina ficam separadas por ele, em vez de empilhadas.
+    // Rodada 14 — 2ª SUBSTITUIÇÃO da régua §16.8-3: o portfólio da Dra. Aline Mello
+    // (a especialidade foi decisão do cliente — a arte assina Diagnóstico por Imagem
+    // E Medicina Fetal, e ele mandou pra cá, §16.8.11-7) entra no slot 7 no lugar do
+    // receituário da Lúmina: era a última instância em página da família
+    // timbrado/receituário (vetada 4× — §16.8.8-7 em diante), e a Lúmina segue
+    // presente no slot 5. A página vai a 7 casas distintas; o receituário segue na
+    // parede do /clientes. Aresta 6-7 (e-book × portfólio impresso): casas e canais
+    // distintos; o outro portfólio impresso (Sense, slot 4) não faz aresta com o 7.
     pecas: [
       "marketing-medico-reproducao-humana-brasilia-ebook-fertilidade",
       "marketing-medico-ginecologia-brasilia-site",
@@ -346,7 +354,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-ginecologia-brasilia-portfolio-impresso",
       "marketing-medico-ginecologia-brasilia-cartao-visita",
       "marketing-medico-reproducao-humana-brasilia-ebook-inseminacao",
-      "marketing-medico-ginecologia-brasilia-receituario",
+      "marketing-medico-ultrassonografia-ceres-portfolio-impresso",
     ],
     areasCarteira: ["Saúde da Mulher", "Ginecologia", "Medicina Reprodutiva", "Endoscopia Ginecológica", "Mastologia"],
     waText:
@@ -410,13 +418,19 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Exame é parte do serviço, não um detalhe: endoscopia e colonoscopia são o motivo de muitas buscas, e o paciente quer saber do preparo, da sedação, de quanto tempo sai o laudo. Clínica que resolve consulta e exame no mesmo endereço tem uma vantagem clara — desde que isso esteja dito de forma simples, onde ele procura.",
       "E há o encaminhamento entre colegas, que sustenta boa parte da agenda. Material institucional bem feito, com serviços e estrutura descritos sem exagero, é o que circula entre clínicas e é lido por quem decide para onde mandar o paciente.",
     ],
+    // Rodada 14: Gastrus Clínica é a 2ª casa (arte do Drive — §16.8.14 do doc-mapa)
+    // e a página indexa com 4 peças de 2 clientes. Casa nova no slot 1 (precedente
+    // Hayashida, §16.8.13-4); com o IMED em 3 de 4 slots, 2 arestas IMED-IMED são
+    // aritmeticamente inevitáveis (qualquer trio em C4 tem 2 arestas internas) —
+    // caem em 3-4 e 2-4, e o slot 2 (portfólio digital em celulares) separa o
+    // panfleto novo do folder impresso do IMED na fileira de cima.
     pecas: [
+      "marketing-medico-gastroenterologia-brasilia-panfleto-plicoma",
       "marketing-medico-gastroenterologia-brasilia-portfolio-digital",
       "marketing-medico-gastroenterologia-brasilia-folder-impresso",
       "marketing-medico-gastroenterologia-brasilia-sinalizacao-marca",
     ],
     areasCarteira: ["Gastroenterologia"],
-    noindex: true,
     waText:
       "Olá! Vi a página de marketing para gastroenterologia no site da agência e quero conversar sobre a clínica.",
   },
@@ -451,7 +465,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Depois vem a parte técnica que precisa ficar simples: como é a polissonografia, se pode ser feita em casa, quanto tempo demora o laudo, o que muda com o tratamento. Clínica que explica esse caminho passo a passo reduz a desistência entre a consulta e o exame — que é onde a agenda costuma vazar.",
       "É uma especialidade jovem no imaginário do paciente, e por isso educar ainda é o trabalho principal. Presença constante nas redes e no site, sem promessa de cura e sem número inventado, é o que constrói a lembrança para quando o incômodo virar decisão.",
     ],
-    pecas: ["marketing-medico-medicina-do-sono-balneario-camboriu-redes-sociais"],
+    // Rodada 14: CPAPS é a 2ª casa da página (arte do Drive — §16.8.14 do doc-mapa).
+    // A casa nova abre no slot 1 (precedente Hayashida, §16.8.13-4): o cartão em
+    // mockup é a peça mais nítida das duas. Segue noindex: 2 peças < 4.
+    pecas: [
+      "marketing-medico-medicina-do-sono-brasilia-cartao-visita",
+      "marketing-medico-medicina-do-sono-balneario-camboriu-redes-sociais",
+    ],
     areasCarteira: ["Medicina do Sono"],
     noindex: true,
     waText:
@@ -562,9 +582,20 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "O outro público é o médico que encaminha, e ele decide por outros critérios: qualidade do laudo, prazo, equipamento, facilidade de acesso à imagem. Material institucional dirigido a esse público — o que a clínica faz, com que estrutura, como o resultado chega — é um trabalho diferente do que se fala ao paciente, e costuma ser o mais esquecido.",
       "Nada disso precisa de promessa: em diagnóstico, o que convence é organização. Lista de exames clara, unidades e horários corretos, preparo explicado antes de a pessoa perguntar — e uma marca reconhecível em todos os pontos, do site à recepção.",
     ],
-    pecas: ["marketing-clinica-diagnostico-imagem-brasilia-site"],
+    // Rodada 14: Maximagem e Centrus destravam a página de uma vez (2 casas novas,
+    // arte vinda do Drive — §16.8.13-5/§16.8.14 do doc-mapa) e a página indexa com
+    // 4 peças de 3 clientes. Ordem CALCULADA (§16.8.10-4): as 2 peças da Centrus em
+    // {2,3}, a diagonal sem aresta da grade 2×2 — zero par de casa repetida. O eco
+    // de canal panfleto×panfleto cai em 2-4 (vertical da direita), inevitável com 2
+    // panfletos em 4 slots e a Centrus não-adjacente; as artes são visualmente
+    // distintas (superfície de madeira roxa × mockup flutuante azul).
+    pecas: [
+      "marketing-clinica-diagnostico-imagem-brasilia-site",
+      "marketing-clinica-diagnostico-imagem-taguatinga-panfleto-convenios",
+      "marketing-clinica-diagnostico-imagem-taguatinga-adesivo-porta",
+      "marketing-clinica-diagnostico-imagem-valparaiso-goias-panfleto",
+    ],
     areasCarteira: ["Diagnóstico Médico"],
-    noindex: true,
     waText:
       "Olá! Vi a página de marketing para clínica de diagnóstico por imagem no site da agência e quero conversar sobre a clínica.",
   },
