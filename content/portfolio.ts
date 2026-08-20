@@ -102,6 +102,10 @@ export const ESPECIALIDADES_EXTRA = [
   // grupo Hospital, §16.8-5 do doc-mapa).
   "Psiquiatria", // Clínica Sponte & Bedenken: o tríptico titula Especialidades › Psiquiatria
   "Cirurgia de Cabeça e Pescoço", // Dr. Pedro Tolentino: é como a carteira o nomeia
+  // Rodada 19 (2026-08-20) — lida na ARTE da peça que a estreia; aprovada pelo
+  // cliente ciente de que abre grupo novo (outros zeros odonto — Fagundes,
+  // Sorriso.com, Oral Prime — podem povoá-lo depois):
+  "Odontologia", // Clínica Dimas Dutra: o lockup assina Ortodontia e Odontopediatria
 ];
 
 /**
@@ -1688,6 +1692,106 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem:
       "Drive: sprint_13_CC_peca_grafica_folder_exames_u0 (export docx, imagem embutida); índice Dropbox /Clientes/_clientes_inativos/Centro Digestivo de Brasília/2024/CC/. A arte interna não assina — atribuição confirmada pelo cliente na aprovação da rodada 18",
+  },
+  // Rodada 19 (2026-08-20) — o Drive minerado na faixa útil (~1–7MB) contra os 198
+  // do ZERO; as 7 peças aprovadas pelo cliente uma a uma nesta sessão.
+  {
+    cliente: "Clínica Dimas Dutra",
+    contexto: "Portfólio digital de ortodontia e odontopediatria — Brasília",
+    espec: "Odontologia",
+    servico: "Portfólio digital",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-odontologia-brasilia-portfolio-digital.webp",
+    largura: 993,
+    altura: 595,
+    alt: "Mockup de tablet e páginas internas do portfólio digital da Clínica Dimas Dutra, ortodontia e odontopediatria em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_16_ΛΠ_peca_grafica_portfolio_dimas_dutra_u0 (export PDF, imagem embutida). O lockup do tablet assina Clínica Dimas Dutra · Ortodontia e Odontopediatria. Aprovada pelo cliente na rodada 19 ciente de que estreia o grupo Odontologia na parede",
+  },
+  {
+    cliente: "Clínica Janice Lamas Radiologia",
+    contexto: "Folder educativo de mamografia e câncer de mama — radiologia em Brasília",
+    espec: "Diagnóstico por Imagem",
+    servico: "Folder educativo",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-radiologia-brasilia-folder-cancer-de-mama.webp",
+    largura: 1200,
+    altura: 800,
+    alt: "Mockup do folder tríptico sobre câncer de mama e mamografia da Clínica Janice Lamas Radiologia, capa e miolo abertos",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_13_JN_peca_grafica_folder_outubro_rosa_u0 (export PDF, imagem embutida 2048px). A arte assina o logo Clínica Janice Lamas · Radiologia na capa. Aprovada pelo cliente na rodada 19 (página + parede)",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Folder de cirurgia segura — protocolo OMS explicado ao paciente",
+    espec: "Hospital",
+    servico: "Folder",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-folder-cirurgia-segura.webp",
+    largura: 1200,
+    altura: 795,
+    alt: "Mockup do folder tríptico Cirurgia Segura do Daher Hospital Lago Sul, capa com cirurgião paramentado e miolo aberto",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_5_HD_peca_grafica_folder_u0 (export PDF, imagem embutida 2048px). A sigla HD orienta e a ARTE atribui (§34): o logo da capa assina daher hospital lago sul. Aprovada pelo cliente na rodada 19 — e ele confirmou na aprovação que Hospital Daher e Daher Hospital Lago Sul são a MESMA casa (rebrand)",
+  },
+  {
+    cliente: "Clínica Donna",
+    contexto: "Cartão pré-natal de acompanhamento da gestação — Paracatu",
+    espec: "Saúde da Mulher",
+    servico: "Cartão pré-natal",
+    praca: "Paracatu/MG",
+    imagem: "/portfolio/marketing-clinica-ginecologia-paracatu-cartao-pre-natal.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Mockup do cartão pré-natal em quatro dobras da Clínica Donna, capa escura com o logo e miolo de acompanhamento",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_5_DN_peca_grafica_panfleto_pre_natal_u0 (export PDF, imagem embutida 2048px). A arte assina DONNA na capa. Aprovada pelo cliente na rodada 19 com o caveat declarado (o miolo é formulário de acompanhamento)",
+  },
+  {
+    cliente: "Dr. Rodolpho Lemes",
+    contexto: "Outdoor de ortopedia — ombro e cotovelo em Uruaçu",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Outdoor",
+    praca: "Uruaçu/GO",
+    imagem: "/portfolio/marketing-medico-ortopedia-uruacu-goias-outdoor.webp",
+    largura: 1200,
+    altura: 800,
+    alt: "Mockup de outdoor do Dr. Rodolpho Lemes de Oliveira, ortopedista de ombro e cotovelo em Uruaçu, com CRM e RQE na arte",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_7_RL_peca_grafica_outdoor_u0 (export PDF, imagem embutida 2048px). A arte assina Dr Rodolpho Lemes de Oliveira, CRM 21.308 · RQE 13.909, e cita o Hospital Edmundo Fernandes como local de atendimento. Aprovada pelo cliente na rodada 19",
+  },
+  {
+    cliente: "Visual Med Imperatriz",
+    contexto: "Folder de especialidades do centro médico integrado — Imperatriz",
+    espec: "Clínica Médica",
+    servico: "Folder",
+    praca: "Imperatriz/MA",
+    imagem: "/portfolio/marketing-clinica-medica-imperatriz-folder-especialidades.webp",
+    largura: 1200,
+    altura: 795,
+    alt: "Mockup do folder tríptico da Visual Med, centro médico integrado com oftalmologia e ginecologia e obstetrícia em Imperatriz",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_6_VM_peca_grafica_portfolio (export PDF, imagem embutida 2048px). A arte assina Visual Med · Centro Médico Integrado e lista Oftalmologia E Ginecologia/Obstetrícia — caso §16.8.11-7: o cliente decidiu Clínica Médica na aprovação da rodada 19",
+  },
+  {
+    cliente: "UROS",
+    contexto: "Folder da nova unidade de urologia em Taguatinga — robótica e oncologia",
+    espec: "Urologia",
+    servico: "Folder",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-urologia-brasilia-folder-nova-unidade.webp",
+    largura: 1200,
+    altura: 795,
+    alt: "Mockup do folder tríptico da UROS sobre a nova unidade em Taguatinga, capa e miolo abertos sobre mármore",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_7_UR_peca_grafica_folder (export PDF, imagem embutida 2048px). A arte assina o logo UROS (§34 — em 2022 a sigla UR era a UROS; no cadastro atual UR é a UroClínica Rio: sigla troca de dono, a arte decide). Aprovada pelo cliente na rodada 19",
   },
 ];
 

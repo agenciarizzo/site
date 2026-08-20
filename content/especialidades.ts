@@ -81,6 +81,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     // 7 de 10 (Urologia é o 1º caso real de curadoria — §16.8-3): um canal por linha,
     // do portfólio digital ao site. Ficaram fora o 2º cartão de visita, o 3º e-book e
     // o banner de campanha — repetiriam canal sem mostrar nada novo.
+    // ⚠️ Rodada 19 (2026-08-20): o TETO DE 7 CAIU por decisão do cliente na
+    // aprovação ("cancelar teto de 7. com o botão de veja mais não tem problema") —
+    // a 8ª em diante rende atrás do "Veja mais" (details sem JS) no
+    // EspecialidadeLanding; acima da dobra segue o 4+3 de sempre.
     pecas: [
       "marketing-medico-urologia-sao-paulo-portfolio",
       "marketing-medico-urologia-brasilia-mockup",
@@ -89,6 +93,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-urologia-porto-velho-portfolio-impresso",
       "marketing-medico-urologia-brasilia-folder-andrologia",
       "marketing-medico-urologia-brasilia-site-cirurgia-robotica",
+      "marketing-clinica-urologia-brasilia-folder-nova-unidade",
     ],
     areasCarteira: ["Urologia"],
     waText: "Olá! Vi a página de marketing para urologia no site da agência e quero conversar sobre o meu consultório.",
@@ -601,6 +606,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-clinica-diagnostico-imagem-taguatinga-panfleto-convenios",
       "marketing-clinica-diagnostico-imagem-taguatinga-adesivo-porta",
       "marketing-clinica-diagnostico-imagem-valparaiso-goias-panfleto",
+      // Rodada 19: Janice Lamas é a 4ª CASA da página. Slot 5 (coluna única) no
+      // grafo 4+1 (§16.8.18-9): as fronteiras 3-5 e 4-5 encostam em Centrus e
+      // Maximagem — nenhuma aresta de casa repetida com a Janice em 5.
+      "marketing-clinica-radiologia-brasilia-folder-cancer-de-mama",
     ],
     areasCarteira: ["Diagnóstico Médico"],
     waText:
