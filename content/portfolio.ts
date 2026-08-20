@@ -97,6 +97,11 @@ export const ESPECIALIDADES_EXTRA = [
   "Neurocirurgia", // Dr. Auricelio Batista Cezar Júnior: NEUROCIRURGIA no logo do site
   "Cirurgia Plástica", // Dra. Mariana Alcantara: pasta institucional de cirurgia plástica
   "Medicina da Dor", // Medicina da Dor, clínica da Dra. Ana Cristina Medanha em Araguaína
+  // Rodada 16 (2026-08-20) — cada uma lida na ARTE da peça que a estreia. Grupo de
+  // parede, NÃO página: especialidades.ts declara página uma a uma (precedente do
+  // grupo Hospital, §16.8-5 do doc-mapa).
+  "Psiquiatria", // Clínica Sponte & Bedenken: o tríptico titula Especialidades › Psiquiatria
+  "Cirurgia de Cabeça e Pescoço", // Dr. Pedro Tolentino: é como a carteira o nomeia
 ];
 
 /**
@@ -1469,6 +1474,67 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem:
       "Drive: sprint_16_RC_peca_grafica_ebook (doc 1b0xzaUqQLpr6icDWITZN9g25Vq18vPVzSZ2ZwPNNGhk, arte embutida)",
+  },
+  // ——— Rodada 16 (2026-08-20): o alvo virou CLIENTE, não página. As 4 abaixo são
+  // casas que estavam com ZERO peça na parede — denominador medido: 298 nomes nas 4
+  // listas do repo, 62 com prova viva antes desta leva. Achadas pela árvore por NOME
+  // do Dropbox (_clientes_inativos) e extraídas do doc de sprint do Drive (§16.8.14-1).
+  // Aprovadas pelo cliente peça a peça antes de entrar; 1 peça por cliente (decisão dele).
+  {
+    cliente: "Clínica Sponte & Bedenken – Psiquiatria e Psicologia",
+    contexto: "Portfólio impresso de clínica de psiquiatria e psicologia — São Paulo",
+    espec: "Psiquiatria",
+    servico: "Portfólio impresso",
+    praca: "São Paulo/SP",
+    imagem: "/portfolio/marketing-clinica-psiquiatria-sao-paulo-portfolio-impresso.webp",
+    largura: 1200,
+    altura: 960,
+    alt: "Mockup do portfólio impresso em tríptico da Clínica Sponte & Bedenken, aberto, com a lista de especialidades de psiquiatria e psicologia",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_8_SB_peca_grafica_portfolio (doc 19IjpOS_Cd-bgSciXa0C3C7Bv1E_eCOnm57NnRGa8bRI, arte embutida); indice: Dropbox _clientes_inativos/Clinica Nikolas Heine/2022/SB",
+  },
+  {
+    cliente: "Dr. Osei Akuamoa Júnior – Urologia e Andrologia",
+    contexto: "Folder impresso sobre urologia minimamente invasiva — Brasília",
+    espec: "Urologia",
+    servico: "Folder impresso",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-urologia-brasilia-folder-urologia-para-todos.webp",
+    largura: 1200,
+    altura: 840,
+    alt: "Mockup do folder impresso do Dr. Osei Akuamoa Júnior sobre urologia, aberto sobre uma mesa",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_4_OJ_dados_sensiveis_u0 (doc 1ITdc0GQP2gqYpYIvAssnrc0WthVbPvChGw5B0JQ6o_o, arte embutida); indice: Dropbox _clientes_inativos/Osei Akuamoa/2023/OJ",
+  },
+  {
+    cliente: "Dr. Heder Murari Borba",
+    contexto: "Portfólio virtual de urologista com expertise em transplante renal — Brasília",
+    espec: "Urologia",
+    servico: "Portfólio virtual",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-urologia-brasilia-portfolio-virtual-transplante.webp",
+    largura: 1200,
+    altura: 800,
+    alt: "Mockup de celular nas mãos com o portfólio virtual do Dr. Heder Murari Borba, urologia",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_15_HM_peca_grafica_portfolio (doc 1cZOlDxPrUfBrOwZCq1jfJDGmdZwycKfBhiDDmIcbAbs, arte embutida); indice: Dropbox _clientes_inativos/Heder Murari Borba",
+  },
+  {
+    cliente: "Dr. Pedro Tolentino – Cirurgia de Cabeça e Pescoço",
+    contexto: "E-book sobre câncer de tireoide — Brasília",
+    espec: "Cirurgia de Cabeça e Pescoço",
+    servico: "E-book",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-cabeca-pescoco-brasilia-ebook-cancer-tireoide.webp",
+    largura: 1200,
+    altura: 840,
+    alt: "Mockup de celular com a capa do e-book do Dr. Pedro Tolentino sobre câncer de tireoide",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_12_PL_peca_grafica_ebook (doc 1GdKH1ahvdG5_z3P_umys83cSneJFqrQSxBBPesyBzcc, arte embutida); indice: Dropbox _clientes_inativos/Pedro Tolentino/2024/PL",
   },
 ];
 
