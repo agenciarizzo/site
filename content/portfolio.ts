@@ -1536,6 +1536,99 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "Drive: sprint_12_PL_peca_grafica_ebook (doc 1GdKH1ahvdG5_z3P_umys83cSneJFqrQSxBBPesyBzcc, arte embutida); indice: Dropbox _clientes_inativos/Pedro Tolentino/2024/PL",
   },
+  // ── Rodada 17 (2026-08-20) — peça de SITE composta do site VIVO do cliente ───────
+  // Fonte nova, aberta no §16.8.16-9: os ~15 projetos de SITE DE CLIENTE da conta
+  // Vercel da agência. A peça NÃO é print cru: é o mesmo template de apresentação das
+  // 8 peças `-site` que já estavam na parede (geometria medida em pixel na peça da
+  // Policlínica Corrente), com o fundo na cor de marca lida do CSS do PRÓPRIO cliente.
+  // O site foi buildado do repo do cliente no MESMO commit que o Vercel serve em
+  // produção — no Eduardo Medeiros e na Elielma os hashes dos assets batem byte a
+  // byte com o HTML de produção. Atribuição pela ARTE (§34): quem nomeia é o
+  // <title>/<h1> do site, não o slug do projeto.
+  {
+    cliente: "Dr. Eduardo Medeiros",
+    contexto: "Site para ortopedia e cirurgia do quadril — Mossoró",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Site",
+    praca: "Mossoró/RN",
+    imagem: "/portfolio/marketing-medico-ortopedia-mossoro-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site do Dr. Eduardo Medeiros, ortopedista especialista em quadril em Mossoró",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto em-dr-eduardo-medeiros (www.dreduardoclrm.com.br), deploy de produção dpl_6XXdgAUkwnXNDyZsToKaB3YFDqGa = githubCommitSha f4a4ac4; repo agenciarizzo/EM---Dr.-Eduardo-Medeiros",
+  },
+  {
+    cliente: "Dr. Francisco José de Carvalho",
+    contexto: "Site para ortopedia e cirurgia do joelho — Vitória",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Site",
+    praca: "Vitória/ES",
+    imagem: "/portfolio/marketing-medico-ortopedia-vitoria-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site do Dr. Francisco José de Carvalho, ortopedista e cirurgião de joelho em Vitória",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto fc-dr-francisco-carvalho (www.drfranciscocarvalho.com), deploy de produção dpl_GsDpb8NNZMCXxSnsG3c6LAW7aW6Z; repo agenciarizzo/FC---Dr.-Francisco-Carvalho, commit b3ff7fd",
+  },
+  {
+    cliente: "Hospital de Olhos de Sobradinho",
+    contexto: "Site para hospital de olhos — Sobradinho, Brasília",
+    espec: "Oftalmologia",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site do Hospital de Olhos de Sobradinho, oftalmologia no DF",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto hos-sobradinho (www.hosobradinho.com.br), deploy de produção dpl_J4iPqTdLHUytJsJ1Eo8Kxh77HKWP; repo agenciarizzo/HOS-Sobradinho, commit 3fd49e0. O <title> do site assina \"Hospital de Olhos Salute Sobradinho (HOS)\" — confirma o rebrand do §15.1 que o clientes.ts já declara no `oraculo`",
+  },
+  {
+    cliente: "Angiomedi – Centro Integrado de Angiologia",
+    contexto: "Site para angiologia e tratamento de varizes — Brasília",
+    espec: "Angiologia e Vascular",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-angiologia-brasilia-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site da Angiomedi, angiologia e tratamento de varizes na Asa Sul em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto angiomedi (www.angiomedi.com.br), deploy de produção dpl_DqocLVThiirMNdfFvyWZbBE6Y3eP; repo agenciarizzo/Angiomedi, commit f9e7b35",
+  },
+  {
+    cliente: "Dra. Elielma Almeida",
+    contexto: "Site para saúde da mulher e reprodução humana — Brasília",
+    espec: "Saúde da Mulher",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-reproducao-humana-brasilia-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site da Dra. Elielma Almeida, saúde da mulher e reprodução humana em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto el-elielma-almeida-ferreira-de-morais, deploy de produção dpl_4pYdi2kevaqY19jNUjuL7zHY8fZi; repo agenciarizzo/EL---Elielma-Almeida-Ferreira-de-Morais, commit 2637a58 (hashes index-Kdgmv1vj.js e index-D39-iT_r.css batem com o HTML de produção)",
+  },
+  {
+    cliente: "InMed – Instituto de Medicina e Diagnóstico",
+    contexto: "Site para clínica médica com 20 especialidades e exames — Recanto das Emas",
+    espec: "Clínica Médica",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-medica-recanto-das-emas-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site do inmed, clínica médica no Recanto das Emas em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto inmed (www.inmedonline.com.br), deploy de produção dpl_3DSVxCxfGw4iu5z4FDppRhSTbQKK; repo agenciarizzo/inmed, commit 34aaa65",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */

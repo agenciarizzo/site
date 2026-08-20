@@ -40,4 +40,9 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "HY - Dr. Thiago Hayashida - Nefrologia em Brasília (AR - Clientes, item 280)",
   },
+  {
+    nome: "Dra. Elielma Almeida",
+    origem:
+      "Elielma Almeida Ferreira de — Saúde da Mulher, Brasília/DF (content/carteira.ts, linha gerada do site-antigo-clientes.html). MESMA CASA: o nome da página antiga está TRUNCADO no meio do sobrenome; a arte (o site vivo dela, projeto Vercel el-elielma-almeida-ferreira-de-morais) assina \"Dra. Elielma Almeida\". Precedente do par Meta Vita × Dr. Omar Loyola, no topo deste arquivo: a grafia da arte no `nome`, a da lista no `origem`. NÃO é cliente novo — não conta duas vezes no denominador",
+  },
 ];
