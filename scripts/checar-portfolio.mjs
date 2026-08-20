@@ -30,7 +30,9 @@
 //   6. `slug` único; `espec` da página existe no vocabulário fechado.
 //   7. TODO basename de `pecas` existe no PORTFOLIO **com a espec batendo** (peça de
 //      cardiologia na página de urologia é erro de curadoria, não de digitação), sem
-//      repetição na mesma página e no máximo 7 (o teto do §16.8-3).
+//      repetição na mesma página. (O teto de 7 CAIU na rodada 19 por decisão do
+//      cliente — ver o comentário em DOBRA_PECAS_PAGINA; a 8ª em diante rende
+//      atrás do "Veja mais".)
 //   8. TODA área de `areasCarteira` existe em content/carteira.ts, grafia exata.
 //   9. Página com menos de 4 peças DECLARA `noindex` (régua anti-doorway §3.3).
 //
@@ -224,7 +226,13 @@ if (blocosPagina.length === 0 || blocosPagina.length !== quantosSlugs) {
   );
 }
 
-const MAX_PECAS_PAGINA = 7; // teto do §16.8-3 (acima disso, peça nova SUBSTITUI)
+// ⚠️ O TETO DE 7 CAIU na rodada 19 (decisão do cliente na aprovação, 2026-08-20:
+// "cancelar teto de 7. com o botão de veja mais não tem problema"). Acima da
+// dobra a página segue no 4+3; da 8ª peça em diante o EspecialidadeLanding rende
+// atrás do "Veja mais" (<details> sem JS). O que ERA o teto vira só a linha de
+// corte da dobra — não é mais erro de build. As réguas de índice (≥4 peças e ≥2
+// clientes pra indexar) seguem intactas.
+const DOBRA_PECAS_PAGINA = 7;
 const MIN_PECAS_INDEXAVEL = 4; // régua §3.3: abaixo disso a página nasce noindex
 // A régua §3.3 conta PROVA, e prova é acervo, não caso: quatro peças da mesma casa
 // continuam sendo um cliente só. Medido na rodada 4 (§16.8.4): as 10 páginas indexáveis
@@ -256,8 +264,6 @@ for (const bloco of blocosPagina) {
 
   const pecas = lista("pecas");
   if (pecas.length === 0) erros.push(`${quem}: nenhuma peça — página de especialidade sem peça não é página`);
-  if (pecas.length > MAX_PECAS_PAGINA)
-    erros.push(`${quem}: ${pecas.length} peças — o teto é ${MAX_PECAS_PAGINA} (peça nova SUBSTITUI a mais fraca)`);
   if (new Set(pecas).size !== pecas.length) erros.push(`${quem}: peça repetida na mesma página (âncora duplicada)`);
   for (const b of pecas) {
     const especDaPeca = especPorBasename.get(b);
@@ -418,6 +424,6 @@ console.log(
 );
 console.log(
   `✓ checar-portfolio: ${blocosPagina.length} página(s) de especialidade (${indexaveis} indexável(is), ` +
-    `${blocosPagina.length - indexaveis} noindex), peças curadas dentro do teto de ${MAX_PECAS_PAGINA}, ` +
+    `${blocosPagina.length - indexaveis} noindex), dobra de ${DOBRA_PECAS_PAGINA} peças com "Veja mais" além dela, ` +
     `toda indexável com ≥${MIN_CLIENTES_INDEXAVEL} clientes distintos, e áreas da carteira conferidas`,
 );
