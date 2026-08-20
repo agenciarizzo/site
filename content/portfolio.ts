@@ -1629,6 +1629,66 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "Vercel: projeto inmed (www.inmedonline.com.br), deploy de produção dpl_3DSVxCxfGw4iu5z4FDppRhSTbQKK; repo agenciarizzo/inmed, commit 34aaa65",
   },
+  // Rodada 18 — fecha o instrumento Vercel (§16.8.17-10): os 3 projetos que faltavam
+  // dos 15, no mesmo template medido da rodada 17 (clone no commit do deploy de
+  // produção, buildado e servido em 127.0.0.1; cores do CSS do próprio cliente).
+  // As 4 peças (3 sites + 1 folder do Drive) aprovadas pelo cliente nesta sessão.
+  {
+    cliente: "Dra. Larissa Fouad",
+    contexto: "Site para oftalmologia e retina — Belo Horizonte",
+    espec: "Oftalmologia",
+    servico: "Site",
+    praca: "Belo Horizonte/MG",
+    imagem: "/portfolio/marketing-medico-oftalmologia-belo-horizonte-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site da Dra. Larissa Fouad, oftalmologista e especialista em retina em Belo Horizonte",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto li-dra-larissa (www.dralarissafouad.com.br), deploy de produção dpl_59W7hZGtT8PDinwh5oNUYCffFtKw = githubCommitSha 3e48a51; repo agenciarizzo/LI---Dra.-larissa (o HTML de produção referencia site.css?v=a4ea3a7f e site.js?v=dd0dd19d — os mesmos hashes do clone)",
+  },
+  {
+    cliente: "Dra. Marina Gressler",
+    contexto: "Site para urologia e cirurgia robótica — Porto Alegre",
+    espec: "Urologia",
+    servico: "Site",
+    praca: "Porto Alegre/RS",
+    imagem: "/portfolio/marketing-medico-urologia-porto-alegre-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site da Dra. Marina Gressler, urologista especialista em cirurgia robótica em Porto Alegre",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto mg, deploy de produção dpl_5dU9u1RvKX34yQJcnMtaCGniJfJP = githubCommitSha 7edef69; repo agenciarizzo/MG. O domínio dramarinagressleruro.com hoje é servido por host Google (build antigo, do AI Studio) — a peça sai do deploy Vercel, o trabalho mais novo da agência; aprovada pelo cliente ciente do achado (rodada 18)",
+  },
+  {
+    cliente: "UroClínica Rio",
+    contexto: "Site para clínica de urologia e cirurgia robótica — Rio de Janeiro",
+    espec: "Urologia",
+    servico: "Site",
+    praca: "Rio de Janeiro/RJ",
+    imagem: "/portfolio/marketing-clinica-urologia-rio-de-janeiro-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site da UroClínica Rio, urologia e cirurgia robótica na Barra da Tijuca e em Bonsucesso",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto uroclinicario (uroclinicario.com.br), deploy de produção dpl_DavJutnkoWDg9WyefJcJXEQr4q8L = githubCommitSha 9ba077b; repo agenciarizzo/uroclinicario (público)",
+  },
+  {
+    cliente: "Centro Digestivo de Brasília",
+    contexto: "Folder educativo de exames de endoscopia e colonoscopia — Brasília",
+    espec: "Gastroenterologia",
+    servico: "Folder educativo",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-endoscopia-brasilia-folder-exames.webp",
+    largura: 1200,
+    altura: 1799,
+    alt: "Mockup de folder impresso aberto sobre exames de endoscopia e colonoscopia, prevenção do câncer gástrico e colorretal",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_13_CC_peca_grafica_folder_exames_u0 (export docx, imagem embutida); índice Dropbox /Clientes/_clientes_inativos/Centro Digestivo de Brasília/2024/CC/. A arte interna não assina — atribuição confirmada pelo cliente na aprovação da rodada 18",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
