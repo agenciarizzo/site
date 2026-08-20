@@ -110,17 +110,25 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
   ];
 }
 
-/** Uma peça da vitrine: miniatura + texto + o lightbox `:target` dela. */
+/**
+ * Uma peça da vitrine: miniatura + texto + o lightbox `:target` dela.
+ * `lightbox: false` rende SÓ a miniatura — é o caso das peças atrás do "Veja
+ * mais": o lightbox delas é rendido FORA do `<details>` (overlay `position:
+ * fixed` funciona de qualquer ponto do DOM), senão a figura ficaria presa
+ * dentro do details fechado e o `:target` abriria no vazio.
+ */
 function Peca({
   p,
   primeira,
   anterior,
   proxima,
+  lightbox = true,
 }: {
   p: PecaPortfolio;
   primeira: boolean;
   anterior?: string;
   proxima?: string;
+  lightbox?: boolean;
 }) {
   const id = slugPeca(p.imagem);
   return (
@@ -142,7 +150,7 @@ function Peca({
           {p.servico} · {p.praca}
         </span>
       </div>
-      <PecaLightbox p={p} id={id} anterior={anterior} proxima={proxima} />
+      {lightbox && <PecaLightbox p={p} id={id} anterior={anterior} proxima={proxima} />}
     </div>
   );
 }
@@ -150,9 +158,14 @@ function Peca({
 export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
   const rota = rotaEspecialidade(e.slug);
   const pecas = pecasDa(e);
+  // Acima da dobra continua o 4 + 3 de sempre; da 8ª peça em diante vai pro
+  // "Veja mais" (decisão do cliente na rodada 19, 2026-08-20: "cancelar teto
+  // de 7. com o botão de veja mais não tem problema" — o teto do §16.8-3 caiu).
+  const visiveis = pecas.slice(0, 7);
+  const extras = pecas.slice(7);
   // 4 + 3; com uma peça só, tudo vai pra coluna única (4c).
-  const grade = pecas.length === 1 ? [] : pecas.slice(0, 4);
-  const unicas = pecas.length === 1 ? pecas : pecas.slice(4);
+  const grade = visiveis.length === 1 ? [] : visiveis.slice(0, 4);
+  const unicas = visiveis.length === 1 ? visiveis : visiveis.slice(4);
   // Ordem plana da página (grade e depois coluna única, que é como o leitor lê),
   // pras setas do lightbox andarem de peça em peça sem sair da especialidade.
   const ordem = pecas.map((p) => slugPeca(p.imagem));
@@ -229,7 +242,27 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
                   </div>
                 </section>
               )}
+              {extras.length > 0 && (
+                <details className="parede-mais">
+                  <summary>
+                    Veja mais {extras.length} {extras.length === 1 ? "peça" : "peças"} de {e.espec.toLowerCase()}
+                  </summary>
+                  <section className={extras.length === 1 ? "parede-grupo unica" : "parede-grupo"}>
+                    <div className="parede-itens">
+                      {extras.map((p) => (
+                        <Peca key={p.imagem} p={p} primeira={false} lightbox={false} />
+                      ))}
+                    </div>
+                  </section>
+                </details>
+              )}
             </div>
+            {/* Os lightboxes das peças do "Veja mais" moram FORA do details: são
+                overlay `:target` de tela inteira, e dentro do details fechado o
+                alvo abriria invisível. As setas seguem a ordem completa da página. */}
+            {extras.map((p, i) => (
+              <PecaLightbox key={p.imagem} p={p} id={slugPeca(p.imagem)} {...vizinhas(7 + i)} />
+            ))}
             <p>
               {totalNoAcervo > pecas.length ? (
                 <>

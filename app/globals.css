@@ -980,6 +980,32 @@ p.resumo {
    segundo não repete o hairline nem o respiro de topo de grupo novo. */
 .vitrine-espec .parede-grupo + .parede-grupo { border-top: 0; padding-top: 0; }
 
+/* "Veja mais" da vitrine de especialidade (rodada 19, 2026-08-20): o teto de 7
+   caiu por decisão do cliente ("cancelar teto de 7. com o botão de veja mais não
+   tem problema") — da 8ª peça em diante a página guarda atrás de um <details>
+   nativo, zero JS. O summary veste o mono de controle (mesmo papel do
+   .giro-btn); os lightboxes dessas peças moram fora do details. */
+.parede-mais summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-block;
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--teal);
+  border: 1px solid var(--hairline);
+  padding: 0.55rem 0.9rem;
+  margin: 0.6rem 0 0.2rem;
+  transition: border-color 140ms ease;
+}
+.parede-mais summary::-webkit-details-marker { display: none; }
+.parede-mais summary::before { content: "+ "; }
+.parede-mais[open] summary::before { content: "− "; }
+.parede-mais summary:hover { border-color: var(--teal); }
+.parede-mais[open] summary { margin-bottom: 0.8rem; }
+.parede-mais .parede-grupo { border-top: 0; padding-top: 0; }
+
 /* ============================================================
    Vitrine giratória — peças fora da parede (2026-08-18)
    ------------------------------------------------------------
