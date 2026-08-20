@@ -419,15 +419,19 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "E há o encaminhamento entre colegas, que sustenta boa parte da agenda. Material institucional bem feito, com serviços e estrutura descritos sem exagero, é o que circula entre clínicas e é lido por quem decide para onde mandar o paciente.",
     ],
     // Rodada 14: Gastrus Clínica é a 2ª casa (arte do Drive — §16.8.14 do doc-mapa)
-    // e a página indexa com 4 peças de 2 clientes. Casa nova no slot 1 (precedente
-    // Hayashida, §16.8.13-4); com o IMED em 3 de 4 slots, 2 arestas IMED-IMED são
-    // aritmeticamente inevitáveis (qualquer trio em C4 tem 2 arestas internas) —
-    // caem em 3-4 e 2-4, e o slot 2 (portfólio digital em celulares) separa o
-    // panfleto novo do folder impresso do IMED na fileira de cima.
+    // e a página indexa com 4 peças de 2 clientes. Rodada 18: Centro Digestivo de
+    // Brasília é a 3ª casa (folder de exames) e a página vai a 5 peças. Ordem
+    // CALCULADA no grafo 4+1 (§16.8.10-4: grade 2×2 `1-2, 3-4, 1-3, 2-4` +
+    // fronteira `3-5, 4-5`): com o IMED em 3 de 5, o conjunto independente máximo
+    // é 2 ⇒ 1 aresta IMED-IMED é forçada. IMED em {2, 3, 5} deixa exatamente UMA,
+    // na fronteira (3-5), entre dois canais distintos (folder impresso ×
+    // sinalização); casa nova no slot 1 (precedente Hayashida, §16.8.13-4) e
+    // Gastrus no slot 4 — diagonais, sem aresta entre elas.
     pecas: [
-      "marketing-medico-gastroenterologia-brasilia-panfleto-plicoma",
+      "marketing-clinica-endoscopia-brasilia-folder-exames",
       "marketing-medico-gastroenterologia-brasilia-portfolio-digital",
       "marketing-medico-gastroenterologia-brasilia-folder-impresso",
+      "marketing-medico-gastroenterologia-brasilia-panfleto-plicoma",
       "marketing-medico-gastroenterologia-brasilia-sinalizacao-marca",
     ],
     areasCarteira: ["Gastroenterologia"],

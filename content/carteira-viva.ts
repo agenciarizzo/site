@@ -45,4 +45,26 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "Elielma Almeida Ferreira de — Saúde da Mulher, Brasília/DF (content/carteira.ts, linha gerada do site-antigo-clientes.html). MESMA CASA: o nome da página antiga está TRUNCADO no meio do sobrenome; a arte (o site vivo dela, projeto Vercel el-elielma-almeida-ferreira-de-morais) assina \"Dra. Elielma Almeida\". Precedente do par Meta Vita × Dr. Omar Loyola, no topo deste arquivo: a grafia da arte no `nome`, a da lista no `origem`. NÃO é cliente novo — não conta duas vezes no denominador",
   },
+  // Rodada 18 (2026-08-20) — casas NOVAS (nenhuma grafia destas existe nas 4 listas;
+  // as 4 sobem o denominador). Peças aprovadas pelo cliente uma a uma nesta sessão.
+  {
+    nome: "Dra. Larissa Fouad",
+    origem:
+      "LI - Larissa Fouad Ibrahim (AR - Clientes, item 284). A arte (o site vivo dela, projeto Vercel li-dra-larissa, dralarissafouad.com.br) assina \"Dra. Larissa Fouad\" no <title>; cliente ativa no cadastro do RizzoOS (sigla LI, Oftalmologia, Belo Horizonte/MG)",
+  },
+  {
+    nome: "Dra. Marina Gressler",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla MG, fantasy_name Dra. Marina Gressler, Urologia — Disfunções Miccionais e Cirurgia Robótica, Porto Alegre/RS, status active. FORA do doc AR - Clientes (que para no item 287, anterior à entrada dela); a arte (site do projeto Vercel mg) assina \"Marina Gressler · Urologista\"",
+  },
+  {
+    nome: "UroClínica Rio",
+    origem:
+      "Uroclínica Rio - Urologia - Rio de Janeiro (AR - Clientes, item 270). A arte (site do projeto Vercel uroclinicario, uroclinicario.com.br) assina \"UroClínica Rio\" — 16 ocorrências no HTML; no cadastro do RizzoOS: sigla UR, UROCLÍNICA RIO SERVIÇOS MÉDICOS LTDA, ativa",
+  },
+  {
+    nome: "Centro Digestivo de Brasília",
+    origem:
+      "Confirmado pelo CLIENTE na aprovação da rodada 18 (2026-08-20): a arte do folder de exames (sprint_13_CC do Drive) não assina e o nome estava FORA de todas as listas — o cliente confirmou a casa e aprovou a entrada, adicionando a linha ao doc AR - Clientes (item novo após o 287). Índice: pasta /Clientes/_clientes_inativos/Centro Digestivo de Brasília/2024/CC/ no Dropbox",
+  },
 ];
