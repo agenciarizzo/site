@@ -68,7 +68,15 @@ const cartas = new Set([...ler("content/cartas.ts").matchAll(/slug:\s*"([^"]+)"/
 // deixá-lo definir vocabulário fazia um enfeite derrubar grupo da parede quando
 // mudava (aconteceu em 2026-08-18, ao reenquadrar a grade no oráculo).
 const especsValidas = new Set();
-const extras = portfolio.match(/ESPECIALIDADES_EXTRA\s*=\s*\[([^\]]*)\]/);
+// ⚠️ 2026-08-20 (rodada 17): esta leitura era a ÚNICA do arquivo que ainda lia
+// comentário como dado — exatamente o que o §16.6-6 proíbe e que o cabeçalho acima
+// promete. O comentário do registry cita `"Medicina do Sono" virou "Medicina
+// Especializada"`, e as aspas dele entravam na lista fechada: o gate anunciava 23
+// valores onde só 22 estavam declarados. O vazado de hoje era inofensivo (vinha com
+// quebra de linha no meio, não casava com nada), mas um comentário citando uma
+// especialidade REAL abriria o vocabulário em silêncio. `semComentarios` é declaração
+// de função — sobe por hoisting, dá pra usar antes da definição.
+const extras = semComentarios(portfolio).match(/ESPECIALIDADES_EXTRA\s*=\s*\[([^\]]*)\]/);
 if (!extras) throw new Error("ESPECIALIDADES_EXTRA sumiu de content/portfolio.ts — a lista fechada perdeu a fonte");
 for (const m of extras[1].matchAll(/"([^"]+)"/g)) especsValidas.add(m[1]);
 
