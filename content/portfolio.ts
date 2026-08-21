@@ -106,6 +106,12 @@ export const ESPECIALIDADES_EXTRA = [
   // cliente ciente de que abre grupo novo (outros zeros odonto — Fagundes,
   // Sorriso.com, Oral Prime — podem povoá-lo depois):
   "Odontologia", // Clínica Dimas Dutra: o lockup assina Ortodontia e Odontopediatria
+  // Rodada 20 (2026-08-20) — cada uma lida na ARTE da peça que a estreia; o cliente
+  // aprovou os 3 grupos novos em bloco na aprovação da rodada. Grupo de parede, NÃO
+  // página (precedente Hospital/Psiquiatria/Odontologia).
+  "Laboratório", // Bem Estar: a arte assina BEM ESTAR LABORATÓRIO (análises clínicas, Mineiros/GO)
+  "Infectologia", // Dra. Nilse Querino: a capa assina DRA. NILSE QUERINO · INFECTOLOGISTA
+  "Home Care", // MB Home Care: a arte assina MB HOME CARE · Assistência Médica Domiciliar
 ];
 
 /**
@@ -1792,6 +1798,178 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem:
       "Drive: sprint_7_UR_peca_grafica_folder (export PDF, imagem embutida 2048px). A arte assina o logo UROS (§34 — em 2022 a sigla UR era a UROS; no cadastro atual UR é a UroClínica Rio: sigla troca de dono, a arte decide). Aprovada pelo cliente na rodada 19",
+  },
+  // Rodada 20 (2026-08-20) — as sondas do corpus doc a doc, com a arte decidindo
+  // (§34); as 12 peças aprovadas pelo cliente em bloco nesta sessão, com os 3 grupos
+  // novos (Laboratório · Infectologia · Home Care) e a versão digital do Edmundo
+  // Fernandes escolhidos na aprovação.
+  {
+    cliente: "Dra. Marcela De Caroli",
+    contexto: "Panfleto de cirurgia vascular e endovascular — São Paulo",
+    espec: "Angiologia e Vascular",
+    servico: "Panfleto",
+    praca: "São Paulo/SP",
+    imagem: "/portfolio/marketing-medico-cirurgia-vascular-sao-paulo-panfleto.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Mockup do panfleto frente e verso da Dra. Marcela De Caroli, cirurgia vascular e endovascular em São Paulo",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_10_ML_peca_grafica_panfleto (export PDF, imagem embutida 2048px). A sigla ML mentiu (hipótese Mulier) e a ARTE atribui (§34): o monograma MC assina Dra. Marcela De Caroli · Cirurgia Vascular & Endovascular, CRM-SP no verso. Aprovada pelo cliente na rodada 20",
+  },
+  {
+    cliente: "Clínica IOT",
+    contexto: "Folder institucional de ortopedia e traumatologia — Asa Norte, Brasília",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Folder",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-ortopedia-brasilia-folder-institucional.webp",
+    largura: 1080,
+    altura: 1080,
+    alt: "Mockup do folder tríptico da Clínica IOT, ortopedia e traumatologia em Brasília, capa e miolo abertos",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_4_IT_peca_grafica_portfolio (export PDF, imagem embutida 1080px). A sigla IT mentiu (hipótese Iturama) e a ARTE atribui (§34): o lockup da capa assina CLÍNICA IOT · Ortopedia e Traumatologia em Brasília. Aprovada pelo cliente na rodada 20",
+  },
+  {
+    cliente: "Dr. Murilo Almeida",
+    contexto: "Folder de cirurgia de prótese de quadril — ortopedia em Goiânia",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Folder",
+    praca: "Goiânia/GO",
+    imagem: "/portfolio/marketing-medico-ortopedia-goiania-folder-protese-quadril.webp",
+    largura: 1200,
+    altura: 840,
+    alt: "Mockup do folder Cirurgia de Prótese de Quadril do Dr. Murilo Almeida, cirurgia do quadril",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_15_MA_peca_grafica_folder (export PDF, imagem embutida 2000px). A sigla MA mentiu (hipótese Maysa) e a ARTE atribui (§34): a capa assina Dr. Murilo Almeida · Cirurgia do Quadril; praça Goiânia pela carteira. Aprovada pelo cliente na rodada 20",
+  },
+  {
+    cliente: "Salus Ortopedia",
+    contexto: "E-book de doenças ortopédicas e tratamentos — Brasília",
+    espec: "Ortopedia e Traumatologia",
+    servico: "E-book",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-ortopedia-brasilia-ebook-doencas-ortopedicas.webp",
+    largura: 1200,
+    altura: 761,
+    alt: "Mockup de dois celulares com o e-book de doenças ortopédicas da Salus Ortopedia, capa e página interna",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_1_SL_peca_grafica_ebook_u0 (export PDF, imagem embutida 2048px). A ARTE atribui (§34): o topo do e-book assina o logo Salus · Ortopedia. Aprovada pelo cliente na rodada 20",
+  },
+  {
+    cliente: "Hospital Edmundo Fernandes",
+    contexto: "Portfólio digital do hospital geral de Uruaçu — Goiás",
+    espec: "Hospital",
+    servico: "Portfólio digital",
+    praca: "Uruaçu/GO",
+    imagem: "/portfolio/marketing-hospital-uruacu-goias-portfolio-digital.webp",
+    largura: 1200,
+    altura: 1200,
+    alt: "Mockup de celular com o portfólio digital do Hospital Edmundo Fernandes, hospital geral em Uruaçu, Goiás",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_3_HE_peca_grafica_folder (export PDF, imagem embutida 2048px). Hipótese HE confirmada pela ARTE (§34): a peça assina HOSPITAL EDMUNDO FERNANDES · Tecnologia a serviço da vida, Uruaçu (GO). O cliente escolheu na aprovação da rodada 20 a versão DIGITAL — o lockup do folder impresso do mesmo doc carrega o typo EDUMUNDO",
+  },
+  {
+    cliente: "MB Home Care – Assistência Médica Domiciliar",
+    contexto: "Panfleto de assistência médica domiciliar — home care em Brasília",
+    espec: "Home Care",
+    servico: "Panfleto",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-home-care-brasilia-panfleto.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Mockup do panfleto frente e verso da MB Home Care, assistência médica domiciliar em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_12_MB_peca_grafica_panfleto_u0 (export PDF, imagem embutida 2048px). Hipótese MB confirmada pela ARTE (§34): o lockup assina MB HOME CARE · Assistência Médica Domiciliar, Guará-DF. Aprovada pelo cliente na rodada 20, estreando o grupo Home Care",
+  },
+  {
+    cliente: "Dr. Tárik Jabour – Psiquiatra",
+    contexto: "E-book sobre transtornos de humor — psiquiatria em Juiz de Fora",
+    espec: "Psiquiatria",
+    servico: "E-book",
+    praca: "Juiz de Fora/MG",
+    imagem: "/portfolio/marketing-medico-psiquiatria-juiz-de-fora-ebook-transtornos-humor.webp",
+    largura: 1200,
+    altura: 800,
+    alt: "Mockup de celular com o e-book Transtornos de Humor do Dr. Tárik Jabour, psiquiatra em Juiz de Fora",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_14_TJ_peca_grafica_ebook (export PDF, imagem embutida 1500px). Hipótese TJ confirmada pela ARTE (§34): o rodapé da capa assina DR. TÁRIK JABOUR · Médico Psiquiatra. 2ª peça do grupo Psiquiatria. Aprovada pelo cliente na rodada 20",
+  },
+  {
+    cliente: "Dr. Manoel Ribeiro Jr",
+    contexto: "E-book sobre uveítes — oftalmologia em Brasília",
+    espec: "Oftalmologia",
+    servico: "E-book",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-uveites.webp",
+    largura: 1200,
+    altura: 1306,
+    alt: "Mockup de tablet e celular com o e-book sobre uveítes do Dr. Manoel Ribeiro Jr, oftalmologista em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_6_MR_peca_grafica_ebook (export PDF, imagem embutida 2048px). A capa carrega só o monograma C de íris; quem assina é a arte de divulgação do MESMO doc — Dr.Manoel Ribeiro Jr. (§34.4: a pasta herda). Aprovada pelo cliente na rodada 20 ciente do caveat",
+  },
+  {
+    cliente: "Dra. Mirian Helena Hoeschl Abreu",
+    contexto: "Folder de histeroscopia diagnóstica e cirúrgica — ginecologia em Brasília",
+    espec: "Saúde da Mulher",
+    servico: "Folder",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-ginecologia-brasilia-folder-histeroscopia.webp",
+    largura: 1200,
+    altura: 800,
+    alt: "Mockup do folder sobre histeroscopia da Dra. Mirian Hoeschl, ginecologista em Brasília, miolo aberto nas mãos",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_15_MH_peca_grafica_folder_histeroscopia_u0 (export PDF, imagem embutida 2048px). O miolo visível não carrega lockup; o RT impresso na arte assina Dra. Mirian Hoeschl - Ginecologia | CRM-DF 8899 (§34.4). Nome na grafia da carteira. Aprovada pelo cliente na rodada 20 ciente do caveat",
+  },
+  {
+    cliente: "Bem Estar",
+    contexto: "Cartaz de exames laboratoriais — laboratório de análises clínicas em Mineiros",
+    espec: "Laboratório",
+    servico: "Cartaz",
+    praca: "Mineiros/GO",
+    imagem: "/portfolio/marketing-laboratorio-mineiros-goias-cartaz-exames.webp",
+    largura: 1200,
+    altura: 1252,
+    alt: "Mockup de dois cartazes do Bem Estar Laboratório sobre exames de análises clínicas em Mineiros, Goiás",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_2_BE_peca_grafica_cartaz_a3_EXTRA (export PDF, imagem embutida 1963px). A ARTE atribui (§34): assina BEM ESTAR LABORATÓRIO, e o DDD 64 da peça casa com Mineiros/GO da carteira. Aprovada pelo cliente na rodada 20, estreando o grupo Laboratório",
+  },
+  {
+    cliente: "Dra. Nilse Querino – Infectologista",
+    contexto: "Portfólio impresso de infectologia — Salvador",
+    espec: "Infectologia",
+    servico: "Portfólio impresso",
+    praca: "Salvador/BA",
+    imagem: "/portfolio/marketing-medico-infectologia-salvador-portfolio-impresso.webp",
+    largura: 1200,
+    altura: 795,
+    alt: "Mockup do portfólio tríptico da Dra. Nilse Querino, infectologista, capa com monograma e miolo aberto",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_8_NQ_peca_grafica_portfolio (export PDF, mockups jpeg embutidos 2000px — doc de 0,34MB com arte, precedente dimas). A capa assina DRA. NILSE QUERINO · INFECTOLOGISTA (§34). Aprovada pelo cliente na rodada 20, estreando o grupo Infectologia",
+  },
+  {
+    cliente: "Cardio Mulher",
+    contexto: "Portfólio digital de cardiologia materno-fetal — mulheres e gestantes em Brasília",
+    espec: "Cardiologia",
+    servico: "Portfólio digital",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-cardiologia-brasilia-portfolio-digital.webp",
+    largura: 1200,
+    altura: 800,
+    alt: "Mockup de celular com o portfólio digital da Cardio Mulher, saúde cardiovascular de mulheres e gestantes em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_1_CM_peca_grafica_portfolio (2024-25, export PDF, imagem embutida 2048px). A ARTE atribui (§34): o lockup assina CARDIO MULHER · Cardiologia Materno-Fetal. Casa fora das 4 listas (LIMBO §16.8.18-1) — entra pela carteira-viva, aprovada pelo cliente na rodada 20",
   },
 ];
 
