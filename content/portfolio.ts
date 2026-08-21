@@ -112,10 +112,6 @@ export const ESPECIALIDADES_EXTRA = [
   "Laboratório", // Bem Estar: a arte assina BEM ESTAR LABORATÓRIO (análises clínicas, Mineiros/GO)
   "Infectologia", // Dra. Nilse Querino: a capa assina DRA. NILSE QUERINO · INFECTOLOGISTA
   "Home Care", // MB Home Care: a arte assina MB HOME CARE · Assistência Médica Domiciliar
-  // Rodada 21 (2026-08-21) — lida na ARTE da peça que a estreia; casa LIMBO aprovada
-  // pelo cliente (Ana Laura de Souza, ativa no cadastro do RizzoOS, sigla LU). Grupo de
-  // parede, NÃO página (precedente Hospital/Psiquiatria/Odontologia/Laboratório).
-  "Gerontologia", // Ana Laura de Souza: a arte assina ANA LAURA · GERONTÓLOGA & GESTORA EM SAÚDE
 ];
 
 /**
@@ -2058,20 +2054,6 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem:
       "Drive: sprint_16_DH_peca_grafica_portfolio_u0 (export PDF, capa de e-book já pronta embutida 2048px). A ARTE atribui (§34): assina Dr. Davi Heckmann · Angiorradiologia, Cirurgia Vascular e Endovascular",
-  },
-  {
-    cliente: "Ana Laura de Souza",
-    contexto: "Portfólio digital de gerontologia — Goiânia",
-    espec: "Gerontologia",
-    servico: "Portfólio digital",
-    praca: "Goiânia/GO",
-    imagem: "/portfolio/marketing-medico-gerontologia-goiania-portfolio-digital.webp",
-    largura: 1200,
-    altura: 1992,
-    alt: "Capa da identidade visual de Ana Laura de Souza, gerontóloga e gestora em saúde, em Goiânia",
-    cartas: ["clinicas-e-consultorios"],
-    origem:
-      "Drive: sprint_16_LU_peca_grafica_portfolio (export PDF, contact-sheet de carrossel embutido 1310px — qualidade reduzida, painel único recortado e ampliado, sem slide individual em alta disponível). A ARTE atribui (§34): assina ANA LAURA · GERONTÓLOGA & GESTORA EM SAÚDE, CRM Ana Laura de Souza e Silva. Casa fora das 4 listas (LIMBO) — entra pela carteira-viva; cliente ATIVA no cadastro do RizzoOS (sigla LU, Gerontologia, Goiânia/GO), confirmada pelo cliente na aprovação da rodada 21",
   },
 ];
 
