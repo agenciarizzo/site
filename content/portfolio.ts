@@ -112,6 +112,10 @@ export const ESPECIALIDADES_EXTRA = [
   "Laboratório", // Bem Estar: a arte assina BEM ESTAR LABORATÓRIO (análises clínicas, Mineiros/GO)
   "Infectologia", // Dra. Nilse Querino: a capa assina DRA. NILSE QUERINO · INFECTOLOGISTA
   "Home Care", // MB Home Care: a arte assina MB HOME CARE · Assistência Médica Domiciliar
+  // Rodada 21 (2026-08-21) — lida na ARTE da peça que a estreia; casa LIMBO aprovada
+  // pelo cliente (Ana Laura de Souza, ativa no cadastro do RizzoOS, sigla LU). Grupo de
+  // parede, NÃO página (precedente Hospital/Psiquiatria/Odontologia/Laboratório).
+  "Gerontologia", // Ana Laura de Souza: a arte assina ANA LAURA · GERONTÓLOGA & GESTORA EM SAÚDE
 ];
 
 /**
@@ -1970,6 +1974,104 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem:
       "Drive: sprint_1_CM_peca_grafica_portfolio (2024-25, export PDF, imagem embutida 2048px). A ARTE atribui (§34): o lockup assina CARDIO MULHER · Cardiologia Materno-Fetal. Casa fora das 4 listas (LIMBO §16.8.18-1) — entra pela carteira-viva, aprovada pelo cliente na rodada 20",
+  },
+  {
+    cliente: "Otorrino Center",
+    contexto: "Cartão virtual de otorrinolaringologista — Brasília",
+    espec: "Otorrinolaringologia",
+    servico: "Cartão virtual",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-otorrinolaringologia-brasilia-cartao-virtual.webp",
+    largura: 1200,
+    altura: 982,
+    alt: "Mockup de celular com o cartão virtual da Dra. Danielle Ramos Videira, otorrinolaringologista do Otorrino Center, em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_17_OC_peca_grafica_cartao_virtual (export PDF, 4 cartões embutidos 677×2048 cada, cru — sem mockup). A ARTE atribui (§34): assina OTORRINO CENTER, Asa Norte, Brasília. Cartão 1 (Dra. Danielle Ramos Videira) de 4; mockup de celular composto nesta rodada (moldura flat, sem foto de mão) a partir da arte longa, aprovado pelo cliente na rodada 21. Otorrino Center aprovado pra compor mockup na rodada 20",
+  },
+  {
+    cliente: "Sinapse Neurologia",
+    contexto: "Portfólio digital de neurologia e neurocirurgia — Brasília",
+    espec: "Neurocirurgia",
+    servico: "Portfólio digital",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-neurologia-brasilia-portfolio-digital.webp",
+    largura: 1200,
+    altura: 1200,
+    alt: "Mockup de celular com o portfólio digital da Sinapse Neurologia, clínica de neurologia, neurocirurgia, medicina do sono e psiquiatria em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_16_SN_peca_grafica_portfolio_u0 (export PDF, mockup de celular já pronto embutido 2048px). A ARTE atribui (§34): assina SINAPSE neurologia. Espec Neurocirurgia por decisão do cliente na rodada 21 (grupo já existente na parede)",
+  },
+  {
+    cliente: "Dr. Pedro Rosa – Ginecologia e Obstetrícia, Histeroscopia e Reprodução Humana",
+    contexto: "Portfólio digital de ginecologia e obstetrícia — Brasília",
+    espec: "Saúde da Mulher",
+    servico: "Portfólio digital",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-ginecologia-brasilia-portfolio-digital.webp",
+    largura: 1200,
+    altura: 900,
+    alt: "Mockup de celular com o portfólio digital do Dr. Pedro Rosa, ginecologia e obstetrícia, histeroscopia e reprodução humana em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_7_PR_peca_grafica_portfolio (export PDF, mockup de celular já pronto embutido 2048px). A ARTE atribui (§34): assina DR. PEDRO ROSA · Ginecologia & Obstetrícia · Histeroscopia e Reprodução Humana",
+  },
+  {
+    cliente: "Dr. Rodrigo Petros – Ortopedista e Traumatologista, Ombro e Cotovelo",
+    contexto: "Portfólio digital de ortopedia, ombro e cotovelo — Rio de Janeiro",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Portfólio digital",
+    praca: "Rio de Janeiro/RJ",
+    imagem: "/portfolio/marketing-medico-ortopedia-rio-de-janeiro-portfolio-digital.webp",
+    largura: 1200,
+    altura: 1200,
+    alt: "Mockup de celular com o portfólio digital do Dr. Rodrigo Petros, ortopedista especializado em ombro e cotovelo, no Rio de Janeiro",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_6_RP_peca_grafica_portfolio (export PDF, mockup de celular já pronto embutido 2048px). A ARTE atribui (§34): assina Dr. Rodrigo Petros, ombro e cotovelo, com o Cristo Redentor ao fundo",
+  },
+  {
+    cliente: "Dr. Carlos Magno",
+    contexto: "Portfólio digital de cirurgia do aparelho digestivo — Uruaçu",
+    espec: "Cirurgia do Aparelho Digestivo",
+    servico: "Portfólio digital",
+    praca: "Uruaçu/GO",
+    imagem: "/portfolio/marketing-medico-cirurgia-digestiva-uruacu-portfolio-digital.webp",
+    largura: 1200,
+    altura: 801,
+    alt: "Mockup de celular com o portfólio digital do Dr. Carlos Magno, cirurgião do aparelho digestivo, em Uruaçu",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_3_MG_peca_grafica_portfolio (export PDF, mockup de celular já pronto embutido 2048px). A ARTE atribui (§34): assina DR. CARLOS MAGNO · Seu cirurgião do aparelho digestivo",
+  },
+  {
+    cliente: "Dr. Davi Heckmann",
+    contexto: "E-book sobre tratamentos para doenças vasculares — Brasília",
+    espec: "Angiologia e Vascular",
+    servico: "E-book",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-vascular-brasilia-ebook.webp",
+    largura: 1200,
+    altura: 700,
+    alt: "Mockup de e-book do Dr. Davi Heckmann sobre tratamentos para doenças vasculares, em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_16_DH_peca_grafica_portfolio_u0 (export PDF, capa de e-book já pronta embutida 2048px). A ARTE atribui (§34): assina Dr. Davi Heckmann · Angiorradiologia, Cirurgia Vascular e Endovascular",
+  },
+  {
+    cliente: "Ana Laura de Souza",
+    contexto: "Portfólio digital de gerontologia — Goiânia",
+    espec: "Gerontologia",
+    servico: "Portfólio digital",
+    praca: "Goiânia/GO",
+    imagem: "/portfolio/marketing-medico-gerontologia-goiania-portfolio-digital.webp",
+    largura: 1200,
+    altura: 1992,
+    alt: "Capa da identidade visual de Ana Laura de Souza, gerontóloga e gestora em saúde, em Goiânia",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_16_LU_peca_grafica_portfolio (export PDF, contact-sheet de carrossel embutido 1310px — qualidade reduzida, painel único recortado e ampliado, sem slide individual em alta disponível). A ARTE atribui (§34): assina ANA LAURA · GERONTÓLOGA & GESTORA EM SAÚDE, CRM Ana Laura de Souza e Silva. Casa fora das 4 listas (LIMBO) — entra pela carteira-viva; cliente ATIVA no cadastro do RizzoOS (sigla LU, Gerontologia, Goiânia/GO), confirmada pelo cliente na aprovação da rodada 21",
   },
 ];
 
