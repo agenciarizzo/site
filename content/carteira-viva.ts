@@ -74,11 +74,16 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "Pasta /Clientes/_clientes_inativos/Cardio Mulher/ no índice do Dropbox (por NOME) + doc de sprint sprint_1_CM_peca_grafica_portfolio no Drive (2024-25, parent 2024-26). A arte assina CARDIO MULHER · Cardiologia Materno-Fetal, Brasília. Fora do AR - Clientes e das 4 listas do repo — o cliente aprovou a entrada na rodada 20 ciente de que é casa nova no denominador",
   },
-  // Rodada 21 (2026-08-21) — casa NOVA fora das 4 listas (LIMBO): sobe numerador E
-  // denominador. Peça aprovada pelo cliente nesta sessão.
+  // Rodada 21 (2026-08-21) — casa NOVA fora das 4 listas (LIMBO), confirmada pelo
+  // cliente. ⚠️ SEM PEÇA: a peça entrou na r21 (contact-sheet de carrossel em baixa
+  // resolução) e o cliente reprovou o resultado na rodada seguinte ("ficou ruim") —
+  // removida do portfolio.ts por decisão §⚖️ (ausência honesta > presença
+  // defeituosa). A casa continua REAL e registrada aqui pra sair do zero quando
+  // aparecer material melhor (o cliente citou logo e materiais próprios no Supabase/
+  // Dropbox sigla LU, ainda não localizados em alta resolução).
   {
     nome: "Ana Laura de Souza",
     origem:
-      "Cadastro do RizzoOS (tabela clients): sigla LU, nome legal Marisa Aparecida De Souza E Silva, fantasy_name \"Ana Laura de Souza\", Gerontologia, Goiânia/GO, status active (contrato 2025-09-02 a 2026-09-01) + doc de sprint sprint_16_LU_peca_grafica_portfolio no Drive. A arte assina ANA LAURA · GERONTÓLOGA & GESTORA EM SAÚDE, CRM \"Ana Laura de Souza e Silva\" no cartão de identidade. Fora do AR - Clientes e das 4 listas do repo — o cliente confirmou a casa (cliente atual, com logo e materiais próprios) na aprovação da rodada 21",
+      "Cadastro do RizzoOS (tabela clients): sigla LU, nome legal Marisa Aparecida De Souza E Silva, fantasy_name \"Ana Laura de Souza\", Gerontologia, Goiânia/GO, status active (contrato 2025-09-02 a 2026-09-01) + doc de sprint sprint_16_LU_peca_grafica_portfolio no Drive. A arte assina ANA LAURA · GERONTÓLOGA & GESTORA EM SAÚDE, CRM \"Ana Laura de Souza e Silva\" no cartão de identidade. Fora do AR - Clientes e das 4 listas do repo",
   },
 ];
