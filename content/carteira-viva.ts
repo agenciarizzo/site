@@ -67,4 +67,11 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "Confirmado pelo CLIENTE na aprovação da rodada 18 (2026-08-20): a arte do folder de exames (sprint_13_CC do Drive) não assina e o nome estava FORA de todas as listas — o cliente confirmou a casa e aprovou a entrada, adicionando a linha ao doc AR - Clientes (item novo após o 287). Índice: pasta /Clientes/_clientes_inativos/Centro Digestivo de Brasília/2024/CC/ no Dropbox",
   },
+  // Rodada 20 (2026-08-20) — casa NOVA fora das 4 listas (LIMBO §16.8.18-1: sobe
+  // numerador E denominador; o zero não mexe). Peça aprovada pelo cliente nesta sessão.
+  {
+    nome: "Cardio Mulher",
+    origem:
+      "Pasta /Clientes/_clientes_inativos/Cardio Mulher/ no índice do Dropbox (por NOME) + doc de sprint sprint_1_CM_peca_grafica_portfolio no Drive (2024-25, parent 2024-26). A arte assina CARDIO MULHER · Cardiologia Materno-Fetal, Brasília. Fora do AR - Clientes e das 4 listas do repo — o cliente aprovou a entrada na rodada 20 ciente de que é casa nova no denominador",
+  },
 ];

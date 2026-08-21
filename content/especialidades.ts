@@ -119,6 +119,12 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-ortopedia-vitoria-banner-coluna",
       "marketing-medico-ortopedia-goiania-site-cirurgia-quadril",
       "marketing-medico-ortopedia-goiania-site-quadril-joelho",
+      // Rodada 20: 3 casas novas da 8ª em diante, atrás do "Veja mais" (§16.8.19-3) —
+      // Clínica IOT · Dr. Murilo Almeida · Salus Ortopedia, três donos distintos em
+      // sequência (folder · folder · e-book), zero aresta de casa repetida.
+      "marketing-clinica-ortopedia-brasilia-folder-institucional",
+      "marketing-medico-ortopedia-goiania-folder-protese-quadril",
+      "marketing-clinica-ortopedia-brasilia-ebook-doencas-ortopedicas",
     ],
     areasCarteira: ["Ortopedia"],
     waText:
@@ -145,6 +151,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-hospital-oftalmologia-brasilia-banner-glaucoma",
       "marketing-medico-oftalmologia-brasilia-outdoor-cirurgia-refrativa",
       "marketing-medico-oftalmologia-brasilia-manual-marca",
+      // Rodada 20: casa nova (Dr. Manoel Ribeiro Jr) na 8ª, atrás do "Veja mais"
+      // (§16.8.19-3) — a página segue no 4+3 acima da dobra.
+      "marketing-medico-oftalmologia-brasilia-ebook-uveites",
     ],
     areasCarteira: ["Oftalmologia"],
     waText:
@@ -285,6 +294,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-cardiologia-brasilia-portfolio-impresso",
       "marketing-medico-cardiologia-brasilia-cartao-visita",
       "marketing-medico-cardiologia-brasilia-pasta-institucional",
+      // Rodada 20: casa nova (Cardio Mulher) fecha a grade no slot 7 — no fim da
+      // coluna única, vizinha só da pasta da Incordis (aresta 6-7 entre casas
+      // distintas), zero eco novo.
+      "marketing-clinica-cardiologia-brasilia-portfolio-digital",
     ],
     areasCarteira: ["Cardiologia"],
     waText: "Olá! Vi a página de marketing para cardiologia no site da agência e quero conversar sobre a clínica.",
@@ -360,6 +373,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-ginecologia-brasilia-cartao-visita",
       "marketing-medico-reproducao-humana-brasilia-ebook-inseminacao",
       "marketing-medico-ultrassonografia-ceres-portfolio-impresso",
+      // Rodada 20: casa nova (Dra. Mirian Hoeschl) na 8ª, atrás do "Veja mais"
+      // (§16.8.19-3); a página vai a 8 casas distintas.
+      "marketing-medico-ginecologia-brasilia-folder-histeroscopia",
     ],
     areasCarteira: ["Saúde da Mulher", "Ginecologia", "Medicina Reprodutiva", "Endoscopia Ginecológica", "Mastologia"],
     waText:
@@ -383,6 +399,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-cirurgia-vascular-goiania-portfolio-impresso",
       "marketing-medico-vascular-brasilia-cartao-virtual",
       "marketing-medico-vascular-brasilia-anuncio",
+      // Rodada 20: casa nova (Dra. Marcela De Caroli) abre a coluna única no slot 5 —
+      // a posição mais vistosa pro nome que estreia (precedente Hayashida/§16.8.13-4);
+      // fronteiras 3-5 e 4-5 encostam em casas distintas, zero eco.
+      "marketing-medico-cirurgia-vascular-sao-paulo-panfleto",
     ],
     areasCarteira: ["Medicina Vascular"],
     waText:
