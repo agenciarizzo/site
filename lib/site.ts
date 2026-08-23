@@ -50,13 +50,32 @@ export const SOCIAIS = [
 export const FATOS =
   "DESDE 2012 · +250 MÉDICOS E CLÍNICAS · GOOGLE PARTNER · VIVÊNCIA HOSPITALAR REAL (ONA/ISO) · ANÁPOLIS–GO · ATUAÇÃO NACIONAL";
 
-/** Organization schema — SEM aggregateRating fabricado (decisão registrada no mapa). */
+/**
+ * Organization schema — SEM aggregateRating fabricado (§12.3 do mapa: o
+ * "5.0 / 200 reviews" inventado estava nas 11 versões das páginas antigas, e
+ * marcação de avaliação fabricada é o que expõe a ação manual).
+ *
+ * Segue `Organization`, e NÃO `ProfessionalService`: esse tipo é deprecado no
+ * schema.org — trocar seria piorar com cara de melhoria.
+ */
 export const ORG_JSONLD = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  // Âncora de entidade: URI estável que outros blocos podem referenciar sem
+  // repetir a organização inteira. Fica no `#` da home porque a entidade é o
+  // negócio, não a página.
+  "@id": `${SITE_URL}/#organizacao`,
   name: "Agência Rizzo Marketing Médico Digital",
   url: SITE_URL,
   logo: `${SITE_URL}/logo_horizontal.png`,
+  // Uma linha, no tom da casa: o que a agência faz e pra quem. Sem promessa de
+  // resultado e sem número inventado (os dois antipadrões do §12.3).
+  description:
+    "Agência de marketing médico desde 2012: site, busca, anúncio e conteúdo para médicos, clínicas e hospitais, dentro das regras do CFM.",
+  // E.164, derivado do número único da casa — o mesmo que abre a conversa.
+  telephone: `+${WHATS_NUMBER}`,
+  // Sede em Anápolis–GO, atendimento nacional: é o que a tarja `Fatos` já diz.
+  areaServed: { "@type": "Country", name: "Brasil" },
   founder: { "@type": "Person", name: "Raphael Rizzo" },
   foundingDate: "2012",
   address: {
