@@ -74,7 +74,7 @@ export const COMBOS: Combo[] = [
     especialidade: "cirurgia vascular",
     titulo: "Marketing para cirurgia vascular em Goiânia",
     descricao:
-      "Marketing para cirurgião vascular em Goiânia: site rápido, busca local por procedimento e conteúdo que explica varizes, trombose e circulação — dentro do CFM, sem promessa de resultado.",
+      "Marketing para cirurgião vascular em Goiânia: site rápido, busca local por procedimento e conteúdo que explica varizes, trombose e circulação.",
     head: ["Em Goiânia, o paciente", "de vascular decide perto —", "e decide antes de te ligar."],
     lede:
       "Varizes e problemas de circulação raramente chegam pela emergência — chegam pela busca. Em Goiânia, quem trata bem disso é escolhido no momento em que o paciente decide procurar, e esse momento acontece no Google e no mapa.",

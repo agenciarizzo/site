@@ -12,7 +12,7 @@ import { CARTAS_MIDIA } from "@/content/cartas";
 export const metadata: Metadata = {
   title: "Agência de Marketing Médico | Agência Rizzo",
   description:
-    "Há 13 anos cuidamos do marketing de médicos e clínicas. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico. Fale com a gente no WhatsApp.",
+    "Há 13 anos cuidamos do marketing de médicos e clínicas: site rápido, conteúdo com dados e constância — a estrutura que enche a agenda de paciente.",
   alternates: { canonical: "/" },
 };
 

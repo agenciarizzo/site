@@ -12,7 +12,7 @@ import { CARTAS } from "@/content/cartas";
 import { SITE_URL } from "@/lib/site";
 
 const DESCRICAO =
-  "Marketing médico, explicado por mídia: site e SEO, Google Ads, Meta Ads, redes sociais, vídeo, TV corporativa e marketing para redes de saúde. O que fazemos e como, sem promessa de resultado.";
+  "Marketing médico explicado por mídia: site e SEO, Google Ads, Meta Ads, redes sociais, vídeo e TV corporativa. O que fazemos e como, sem promessa.";
 
 export const metadata: Metadata = {
   title: "Marketing Médico por Mídia",
