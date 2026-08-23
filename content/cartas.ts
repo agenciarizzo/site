@@ -107,7 +107,7 @@ export const CARTAS: Carta[] = [
     midia: "Meta Ads",
     titulo: "Meta Ads para Médicos",
     descricao:
-      "O Google colhe demanda; o Meta planta. Como usamos Instagram e Facebook Ads para construir desejo e lembrança antes da busca — com criativo educativo e público certo.",
+      "O Google colhe demanda; o Meta planta. Como usamos Instagram e Facebook Ads para construir desejo e lembrança antes da busca, com criativo educativo.",
     cardP: "O desejo se planta antes da busca. Aqui é onde ele germina.",
     head: ["O desejo se planta", "antes da busca.", "Aqui ele germina."],
     lede: "Ninguém acorda e busca “rinoplastia perto de mim” do nada. Antes disso existiu um caminho silencioso — e ele quase sempre passa pelo Instagram.",
@@ -249,7 +249,7 @@ export const CARTAS: Carta[] = [
     midia: "Rede hospitalar",
     titulo: "Marketing para Hospitais e Redes de Saúde",
     descricao:
-      "Hospital e rede de saúde não se anunciam como clínica grande: cada linha de serviço disputa um mercado próprio. Como trabalhamos marketing para redes de saúde — mapa por linha, corpo clínico como canal e aprovação que passa por auditoria.",
+      "Hospital não se anuncia como clínica grande: cada linha disputa um mercado próprio. Mapa por linha, corpo clínico como canal, aprovação por auditoria.",
     cardP: "Hospital não é clínica grande. Cada linha de serviço disputa um mercado próprio.",
     head: ["Hospital não é", "clínica grande.", "É muitas de uma vez."],
     lede:
@@ -353,7 +353,7 @@ export const CARTAS: Carta[] = [
     midia: "Clínicas e consultórios",
     titulo: "Marketing médico: clínicas e consultórios",
     descricao:
-      "Clínica não é consultório de um médico só, nem hospital: tem recepção, mais de um profissional e agenda pra organizar. Como pensamos marketing médico para clínicas e consultórios — da recepção ao relatório.",
+      "Clínica não é consultório de um médico só, nem hospital: tem recepção, equipe e agenda pra organizar. Marketing médico para clínicas, da recepção ao relatório.",
     cardP: "Clínica não é consultório de um médico só. É recepção, equipe e agenda para organizar.",
     head: ["Clínica não é", "um médico só.", "É um time por trás."],
     lede:

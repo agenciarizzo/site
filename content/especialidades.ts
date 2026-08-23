@@ -70,7 +70,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Urologia",
     titulo: "Marketing médico para urologia",
     descricao:
-      "Marketing para urologista: como um consultório de urologia é encontrado por quem adia a consulta — site, conteúdo sobre próstata, vasectomia e cirurgia, dentro do CFM.",
+      "Marketing para urologista: como um consultório de urologia é encontrado por quem adia a consulta — próstata, vasectomia e cirurgia, dentro do CFM.",
     lede:
       "Urologia é a especialidade que o paciente mais adia. Quando ele finalmente procura, procura sozinho, no celular, e lê tudo antes de dizer o nome pra alguém.",
     intro: [
@@ -101,9 +101,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "ortopedia-e-traumatologia",
     espec: "Ortopedia e Traumatologia",
-    titulo: "Marketing médico para ortopedia e traumatologia",
+    titulo: "Marketing para ortopedia e traumatologia",
     descricao:
-      "Marketing para ortopedista: como um consultório de ortopedia é encontrado por quem já sente dor há meses — site por procedimento, segunda opinião e conteúdo dentro do CFM.",
+      "Marketing para ortopedista: como um consultório de ortopedia é encontrado por quem já sente dor há meses — site por procedimento e conteúdo dentro do CFM.",
     lede:
       "Ninguém procura um ortopedista por curiosidade. Procura depois de meses de dor, com um exame na mão e o nome de uma cirurgia que ainda não entendeu.",
     intro: [
@@ -135,7 +135,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Oftalmologia",
     titulo: "Marketing médico para oftalmologia",
     descricao:
-      "Marketing para oftalmologista e clínica de olhos: como catarata, glaucoma e retina são procurados, e como campanha educativa e site organizado respondem — dentro do CFM.",
+      "Marketing para oftalmologista e clínica de olhos: como catarata, glaucoma e retina são procurados, e como um site organizado responde — dentro do CFM.",
     lede:
       "Em oftalmologia a agenda tem duas naturezas: a consulta de rotina, que se repete a vida inteira, e o procedimento que a pessoa decide uma vez só.",
     intro: [
@@ -162,7 +162,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "clinica-medica",
     espec: "Clínica Médica",
-    titulo: "Marketing para clínica médica e centro clínico",
+    titulo: "Marketing para clínica médica",
     descricao:
       "Marketing para clínica médica, policlínica e centro clínico: como uma casa com várias especialidades é encontrada, do mapa ao site — sem promessa de resultado.",
     lede:
@@ -187,9 +187,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "cirurgia-do-aparelho-digestivo",
     espec: "Cirurgia do Aparelho Digestivo",
-    titulo: "Marketing médico para cirurgia do aparelho digestivo",
+    titulo: "Marketing para cirurgia digestiva",
     descricao:
-      "Marketing para cirurgião do aparelho digestivo: bariátrica, hérnia, refluxo e vesícula — como o paciente pesquisa antes de decidir operar, dentro das regras do CFM.",
+      "Marketing para cirurgião do aparelho digestivo: bariátrica, hérnia, refluxo e vesícula — como o paciente pesquisa antes de decidir operar, dentro do CFM.",
     lede:
       "Operar o aparelho digestivo é decisão longa. Entre o primeiro sintoma e a cirurgia existem meses de leitura, e é neles que o paciente escolhe o cirurgião.",
     intro: [
@@ -239,7 +239,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Oncologia",
     titulo: "Marketing médico para oncologia",
     descricao:
-      "Marketing para oncologista e clínica de oncologia: como a família pesquisa depois do diagnóstico e o que uma comunicação séria precisa responder — dentro do CFM.",
+      "Marketing para oncologista e clínica de oncologia: como a família pesquisa depois do diagnóstico e o que uma comunicação séria responde — dentro do CFM.",
     lede:
       "Depois de um diagnóstico de câncer, quem pesquisa quase nunca é só o paciente. É a família inteira, no mesmo dia, com pressa.",
     intro: [
@@ -275,7 +275,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Cardiologia",
     titulo: "Marketing médico para cardiologia",
     descricao:
-      "Marketing para cardiologista e clínica de cardiologia: check-up, exame e acompanhamento — como ser encontrado por quem foi encaminhado, dentro das regras do CFM.",
+      "Marketing para cardiologista e clínica de cardiologia: check-up, exame e acompanhamento — como ser encontrado por quem foi encaminhado, dentro do CFM.",
     lede:
       "Cardiologia vive de retorno. O paciente que chega hoje por um exame volta por anos — e traz a família junto.",
     intro: [
@@ -345,7 +345,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Saúde da Mulher",
     titulo: "Marketing médico para saúde da mulher",
     descricao:
-      "Marketing para ginecologia, obstetrícia, reprodução humana e menopausa: como se constrói a confiança que faz uma paciente ficar por anos — dentro das regras do CFM.",
+      "Marketing para ginecologia, obstetrícia, reprodução humana e menopausa: como se constrói a confiança que faz uma paciente ficar por anos — dentro do CFM.",
     lede:
       "Saúde da mulher é a especialidade do vínculo longo: a paciente que escolhe bem fica anos, atravessa fases da vida e indica para as amigas.",
     intro: [
@@ -384,9 +384,9 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "angiologia-e-vascular",
     espec: "Angiologia e Vascular",
-    titulo: "Marketing médico para angiologia e cirurgia vascular",
+    titulo: "Marketing para angiologia e vascular",
     descricao:
-      "Marketing para angiologista e cirurgião vascular: varizes, lipedema e circulação — como o paciente decide perto de casa, com informação e sem promessa de resultado.",
+      "Marketing para angiologista e cirurgião vascular: varizes, lipedema e circulação — como o paciente decide perto de casa, sem promessa de resultado.",
     lede:
       "Varizes e problemas de circulação são adiados por anos. Quando a pessoa decide procurar, ela procura perto — e compara quem explica melhor.",
     intro: [
@@ -468,7 +468,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Nutrologia",
     titulo: "Marketing médico para nutrologia",
     descricao:
-      "Marketing para nutrólogo: como separar a especialidade médica do barulho da estética e ser encontrado por quem procura tratamento sério, dentro das regras do CFM.",
+      "Marketing para nutrólogo: como separar a especialidade médica do barulho da estética e ser encontrado por quem procura tratamento sério, dentro do CFM.",
     lede:
       "Nutrologia disputa atenção com o feed inteiro. É a especialidade onde a promessa fácil é mais barulhenta — e onde a sobriedade rende mais.",
     intro: [
@@ -604,7 +604,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "diagnostico-por-imagem",
     espec: "Diagnóstico por Imagem",
-    titulo: "Marketing para clínica de diagnóstico por imagem",
+    titulo: "Marketing para diagnóstico por imagem",
     descricao:
       "Marketing para clínica de imagem e laboratório: paciente com pedido na mão e médico que encaminha — os dois públicos que decidem onde o exame é feito.",
     lede:
