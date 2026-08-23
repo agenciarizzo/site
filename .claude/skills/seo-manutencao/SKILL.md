@@ -108,7 +108,7 @@ forma, declare ali, e alinhe os cinco sinais a ela — não padronize string por
 | Item | Regra |
 |---|---|
 | `<title>` | ≤ 60 caracteres **renderizados** |
-| `<meta description>` | ≤ 160 caracteres |
+| `<meta description>` | ≤ 180 caracteres (teto duro) · 155 é conforto, não regra |
 | `<h1>` | exatamente 1 por página |
 | Padrão de H1 | **categoria + gancho**, na mesma frase |
 | `og:image` | por página quando houver `next/og`; nunca uma imagem única global sem fallback declarado |
@@ -116,12 +116,31 @@ forma, declare ali, e alinhe os cinco sinais a ela — não padronize string por
 
 **Meça o título renderizado, não o campo.** Um `title.template` (`"%s | Agência Rizzo"`)
 soma caracteres em toda página. Auditar o campo e ignorar o template dá verde onde tem
-vermelho. O limite é orientativo — o Google corta por largura em pixel, não por caractere —
-mas 60/160 é a régua da casa e o checador cobra ela.
+vermelho.
+
+**Conte em CARACTERE, nunca em BYTE.** Em português cada acento custa 2 bytes em UTF-8:
+medir por byte infla a conta e produz falso positivo — foi assim que uma auditoria
+contou 9 títulos longos onde havia 5. Em JS, `[...s].length`; em Python, `len(s)` sobre
+`str` decodificada.
+
+**Por que 180 e não 155** (decidido em 23/08/2026, `agenciarizzo/site` PR #63):
+`description` não é fator de ranqueamento e o Google reescreve na maioria das vezes.
+Entre cortar a voz editorial e deixar a SERP truncar, a voz vale mais. 180 é o teto que
+reprova o build; 155 é conforto, e o checador **conta em voz alta** quantas estão na
+banda 156–180 pra a escolha não virar dívida silenciosa. Varrer 20 descrições pra
+uniformizar em 155 seria exatamente a normalização de voz que a seção J proíbe — se um
+dia tiver que ser, é entrega de copy própria, uma a uma.
 
 O padrão de H1 é `Marketing médico em Goiânia. De perto faz diferença.` — a categoria entra
 **somada** ao gancho, nunca no lugar dele. **Não toque na voz editorial:** frases curtas,
 ganchos, `<br/>` e `<span class="acento">` são deliberados.
+
+**Exceção nomeada — combo (especialidade × cidade):** ali o H1 **fala com o médico** e a
+keyword comercial mora no `<title>`. Motivo: a categoria na forma da query do paciente
+("Cirurgião vascular em Goiânia") faz a agência disputar busca com o próprio cliente
+citado na página — que tem site próprio — e entrega pitch de marketing pra quem
+procurava médico. As duas pontas perdem. Categoria + gancho segue valendo em home, hub
+e landing de cidade, que não citam cliente com site próprio.
 
 ### D · Schema — é aqui que a agência ganha
 
@@ -137,6 +156,16 @@ Três regras transversais:
    editorial pode ser escolha da casa. Aponte, cite os dois lados, e siga.
 
 Nunca `aggregateRating` fabricado. Foi isso que derrubou as páginas antigas.
+
+**Uma entidade, referenciada — não copiada.** A organização ganha `@id` estável
+(`${SITE_URL}/#organizacao`) e os blocos `Service`/`Article` apontam o `provider`/
+`publisher` pra esse `@id` em vez de repetir nome e URL. É a mesma técnica que a
+assinatura usa nos repos de cliente (§H): `@id` idêntico em toda ocorrência é o que
+costura tudo numa entidade só.
+
+**Propriedade tem que existir no tipo.** `inLanguage` em `Service` é inválido — mora em
+`CreativeWork`, e `Service` não herda de lá. Confira em `schema.org/<Tipo>`, aba
+"Properties from…", e mecanize com lista fechada por tipo.
 
 **Provoque aqui.** Se um repo tem `MedicalTest` e outro, com o mesmo tipo de serviço, não
 tem — a técnica já existe na casa; a ausência é escolha ou esquecimento, e você precisa
@@ -238,9 +267,13 @@ Rode nesta ordem e não pare no meio:
 3. **Provoque.** Escreva as perguntas de inconsistência **antes** de corrigir. Uma pergunta
    por inconsistência, com os dois lados citados.
 4. **Aplique** tudo que é `APLICAR`, um commit por seção do padrão.
-5. **Mecanize.** Desvio que se detecta por regra vira checador no build (`scripts/checar-seo.mjs`),
-   não item de checklist para reconferir na próxima sessão. **Auditoria que não vira teste
-   volta como trabalho.**
+5. **Mecanize.** Desvio que se detecta por regra vira checador no build, não item de
+   checklist para reconferir na próxima sessão. **Auditoria que não vira teste volta como
+   trabalho.** Uma regra, um lugar: regra em dois checadores diverge, e aí nenhum dos dois
+   é a verdade. Neste repo a divisão é `checar-navegacao.mjs` (alcançabilidade, degrau de
+   trilha, propriedade de schema, sitemap ∩ noindex, tetos de metadado, host único) e
+   `checar-seo.mjs` (canonical apontando pra própria rota, um h1, sitemap sem 404 e sem
+   salto de redirect).
 6. **Estacione** o resto em `PARKING.md`, com recomendação escrita.
 7. **Relatório final** no formato abaixo.
 
@@ -274,7 +307,7 @@ PRÓXIMO PASSO · o único item que eu faria a seguir
 
 - Toda URL do sitemap: `200`, sem redirect, sem `noindex`
 - Cinco sinais de host apontando para o mesmo lugar
-- Zero título renderizado acima de 60, zero descrição acima de 160
+- Zero título renderizado acima de 60, zero descrição acima de 180 (contando caractere)
 - Um `<h1>` por página, todos com categoria
 - `BreadcrumbList` em toda rota aninhada
 - Schema no mínimo do perfil, validado sem erro, correspondendo ao conteúdo visível

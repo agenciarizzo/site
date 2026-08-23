@@ -46,8 +46,9 @@ export interface Cidade {
   waText: string;
   /**
    * Data real da última revisão de conteúdo (ISO `AAAA-MM-DD`). Alimenta o
-   * `lastModified` do sitemap. Ausente = sem data, que é o correto: data fabricada
-   * no build muda a cada deploy e é sinal falso.
+   * `lastModified` do sitemap e, nas cartas, o `dateModified` do `Article`.
+   * Ausente = sem data, que é o correto: data fabricada no build muda a cada
+   * deploy e ensina o Google a ignorar a data do site inteiro.
    */
   atualizadoEm?: string;
 }
@@ -60,7 +61,7 @@ export const CIDADES: Cidade[] = [
     // O `%s | Agência Rizzo` do layout completa o título — não repetir a marca aqui.
     titulo: "Marketing médico em Goiânia",
     descricao:
-      "Marketing médico em Goiânia: como médicos e clínicas aparecem por bairro, por procedimento e pelas IAs — site rápido, busca local e anúncio dentro do CFM.",
+      "Marketing médico em Goiânia: como fazemos médicos e clínicas serem encontrados por bairro, por procedimento e pelas IAs — com site rápido, busca local e anúncio dentro do CFM.",
     head: ["Marketing médico", "em Goiânia.", "De perto faz diferença."],
     lede:
       "Goiânia tem especialista bom em quase toda esquina do Setor Oeste, do Marista e do Jardim Goiás. Numa cidade assim, ser encontrado deixa de ser detalhe: é o que separa a agenda que se enche sozinha da agenda que depende de indicação.",
@@ -147,7 +148,7 @@ export const CIDADES: Cidade[] = [
     uf: "DF",
     titulo: "Marketing médico em Brasília",
     descricao:
-      "Marketing médico em Brasília: como médicos, clínicas e hospitais aparecem por região do DF e pelas IAs — site rápido, busca local e anúncio dentro do CFM.",
+      "Marketing médico em Brasília: médicos, clínicas e hospitais encontrados por região do DF, pelo entorno goiano e pelas IAs — busca local dentro do CFM.",
     head: ["Marketing médico", "em Brasília.", "Aqui, região é tudo."],
     lede:
       "Asa Sul, Águas Claras, Taguatinga, Sobradinho — e o entorno goiano atravessando a divisa todo dia. Em Brasília o paciente não procura “no DF”: procura onde ele consegue chegar. Quem entende isso aparece na hora da decisão.",

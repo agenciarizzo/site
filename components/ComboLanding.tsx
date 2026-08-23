@@ -4,22 +4,17 @@
 // visual que a régua §3.3 pede pra combo — a landing de cidade prova por nome, o
 // combo prova por nome E peça).
 //
-// Schema (§3.2): BreadcrumbList + Service + ItemList. SEM aggregateRating (§12.3).
+// Schema (§3.2): Service + ItemList. SEM aggregateRating (§12.3).
 import Link from "next/link";
 import { panoCombo } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import type { Combo } from "@/content/combos";
 import { SITE_URL } from "@/lib/site";
-import { breadcrumbJsonLd, INICIO } from "@/lib/breadcrumb";
+import { breadcrumbJsonLd, hubCidade } from "@/lib/breadcrumb";
 
 export function comboJsonLd(c: Combo) {
   const url = `${SITE_URL}${c.rota}`;
   return [
-    breadcrumbJsonLd([
-      INICIO,
-      { nome: `Marketing médico em ${c.cidade}`, rota: `/${c.cidadeSlug}` },
-      { nome: c.especialidade, rota: c.rota },
-    ]),
     {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -27,7 +22,6 @@ export function comboJsonLd(c: Combo) {
       serviceType: "Marketing médico digital",
       description: c.descricao,
       url,
-      inLanguage: "pt-BR",
       provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
       areaServed: {
         "@type": "City",
@@ -49,6 +43,12 @@ export function comboJsonLd(c: Combo) {
         ...(cl.site ? { url: cl.site } : {}),
       })),
     },
+    // Combo é filho da landing de cidade (§13.3: cidade primeiro, nunca raiz) — a
+    // trilha diz isso com as mesmas palavras do link de volta que a página mostra.
+    breadcrumbJsonLd(hubCidade(c.cidadeSlug, c.cidade), {
+      nome: `Marketing para ${c.especialidade} em ${c.cidade}`,
+      rota: c.rota,
+    }),
   ];
 }
 

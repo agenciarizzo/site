@@ -31,8 +31,9 @@ export interface Carta {
   waText: string;
   /**
    * Data real da última revisão de conteúdo (ISO `AAAA-MM-DD`). Alimenta o
-   * `lastModified` do sitemap e o `dateModified` do schema. Ausente = sem data, que
-   * é o correto: data fabricada no build muda a cada deploy e é sinal falso.
+   * `lastModified` do sitemap e, nas cartas, o `dateModified` do `Article`.
+   * Ausente = sem data, que é o correto: data fabricada no build muda a cada
+   * deploy e ensina o Google a ignorar a data do site inteiro.
    */
   atualizadoEm?: string;
 }
@@ -113,7 +114,7 @@ export const CARTAS: Carta[] = [
     midia: "Meta Ads",
     titulo: "Meta Ads para Médicos",
     descricao:
-      "O Google colhe demanda; o Meta planta. Como usamos Instagram e Facebook Ads para construir desejo e lembrança antes da busca, com criativo educativo.",
+      "O Google colhe demanda; o Meta planta. Como usamos Instagram e Facebook Ads para construir desejo e lembrança antes da busca — com criativo educativo e público certo.",
     cardP: "O desejo se planta antes da busca. Aqui é onde ele germina.",
     head: ["O desejo se planta", "antes da busca.", "Aqui ele germina."],
     lede: "Ninguém acorda e busca “rinoplastia perto de mim” do nada. Antes disso existiu um caminho silencioso — e ele quase sempre passa pelo Instagram.",
@@ -255,7 +256,7 @@ export const CARTAS: Carta[] = [
     midia: "Rede hospitalar",
     titulo: "Marketing para Hospitais e Redes de Saúde",
     descricao:
-      "Hospital não se anuncia como clínica grande: cada linha disputa um mercado próprio. Mapa por linha, corpo clínico como canal, aprovação por auditoria.",
+      "Marketing hospitalar não é o da clínica grande: cada linha de serviço disputa um mercado. Mapa por linha, corpo clínico como canal, aprovação auditável.",
     cardP: "Hospital não é clínica grande. Cada linha de serviço disputa um mercado próprio.",
     head: ["Hospital não é", "clínica grande.", "É muitas de uma vez."],
     lede:
@@ -359,7 +360,7 @@ export const CARTAS: Carta[] = [
     midia: "Clínicas e consultórios",
     titulo: "Marketing médico: clínicas e consultórios",
     descricao:
-      "Clínica não é consultório de um médico só, nem hospital: tem recepção, equipe e agenda pra organizar. Marketing médico para clínicas, da recepção ao relatório.",
+      "Marketing para clínicas e consultórios: não é consultório de um médico só, nem hospital — tem recepção, mais de um profissional e agenda pra organizar.",
     cardP: "Clínica não é consultório de um médico só. É recepção, equipe e agenda para organizar.",
     head: ["Clínica não é", "um médico só.", "É um time por trás."],
     lede:

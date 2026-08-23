@@ -52,11 +52,11 @@ export const FATOS =
 
 /**
  * Autor das peças editoriais (D-02 do PARKING). Em saúde — conteúdo YMYL — o que o
- * Google pesa é procedência: quem escreveu, e se dá pra chegar nessa pessoa. Por isso
- * o `author` do Article é PESSOA e aponta pra /sobre, que é a página onde ela aparece
- * de verdade; o `publisher` continua sendo a organização.
+ * Google pesa é procedência: quem escreveu, e se dá pra chegar nessa pessoa. Vale
+ * SÓ nas cartas: são texto assinado. Página de especialidade é `Service`, não
+ * `Article` (§3.2 do mapa), e serviço não tem autor.
  *
- * Sem `sameAs`: perfil pessoal só entra aqui com endereço confirmado no cadastro da
+ * Sem `sameAs`: perfil pessoal só entra com endereço confirmado no cadastro da
  * agência (regra 9 — zero domínio adivinhado).
  */
 export const AUTOR_JSONLD = {
@@ -66,13 +66,32 @@ export const AUTOR_JSONLD = {
   jobTitle: "Fundador da Agência Rizzo",
 } as const;
 
-/** Organization schema — SEM aggregateRating fabricado (decisão registrada no mapa). */
+/**
+ * Organization schema — SEM aggregateRating fabricado (§12.3 do mapa: o
+ * "5.0 / 200 reviews" inventado estava nas 11 versões das páginas antigas, e
+ * marcação de avaliação fabricada é o que expõe a ação manual).
+ *
+ * Segue `Organization`, e NÃO `ProfessionalService`: esse tipo é deprecado no
+ * schema.org — trocar seria piorar com cara de melhoria.
+ */
 export const ORG_JSONLD = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  // Âncora de entidade: URI estável que outros blocos podem referenciar sem
+  // repetir a organização inteira. Fica no `#` da home porque a entidade é o
+  // negócio, não a página.
+  "@id": `${SITE_URL}/#organizacao`,
   name: "Agência Rizzo Marketing Médico Digital",
   url: SITE_URL,
   logo: `${SITE_URL}/logo_horizontal.png`,
+  // Uma linha, no tom da casa: o que a agência faz e pra quem. Sem promessa de
+  // resultado e sem número inventado (os dois antipadrões do §12.3).
+  description:
+    "Agência de marketing médico desde 2012: site, busca, anúncio e conteúdo para médicos, clínicas e hospitais, dentro das regras do CFM.",
+  // E.164, derivado do número único da casa — o mesmo que abre a conversa.
+  telephone: `+${WHATS_NUMBER}`,
+  // Sede em Anápolis–GO, atendimento nacional: é o que a tarja `Fatos` já diz.
+  areaServed: { "@type": "Country", name: "Brasil" },
   founder: { "@type": "Person", name: "Raphael Rizzo" },
   foundingDate: "2012",
   address: {

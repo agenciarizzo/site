@@ -1,7 +1,7 @@
 // Corpo das páginas de ESPECIALIDADE (`/marketing-medico/<slug>`) — a casa que
 // abriga as peças do acervo, desenhada no §16.8 do rizzo-os →
 // docs/ACERVO_PLANO_PAGINAS_MAPA.md (que é o 4b do handoff da parede, com as 3
-// emendas: kicker sem a palavra "carta", JSON-LD Article + ItemList sem FAQPage, e
+// emendas: kicker sem a palavra "carta", JSON-LD Service + ItemList sem FAQPage, e
 // o CTA passando pelo portão anti-robô).
 //
 // Server component puro: SSG, zero JS no cliente. O lightbox é `:target`, o mesmo
@@ -22,8 +22,8 @@ import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
 import { CIDADES } from "@/content/cidades";
 import { CARTAS_MIDIA } from "@/content/cartas";
 import { rotaEspecialidade, type PaginaEspecialidade } from "@/content/especialidades";
-import { AUTOR_JSONLD, SITE_URL } from "@/lib/site";
-import { breadcrumbJsonLd, INICIO, HUB_MIDIA } from "@/lib/breadcrumb";
+import { SITE_URL } from "@/lib/site";
+import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
 
 /** Basename do arquivo — é assim que o registry da página referencia a peça. */
 const basename = (imagem: string) => (imagem.split("/").pop() ?? "").replace(/\.[a-z0-9]+$/i, "");
@@ -75,35 +75,23 @@ function nomesDa(e: PaginaEspecialidade): GrupoCarteira[] {
 export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio[]) {
   const url = `${SITE_URL}${rotaEspecialidade(e.slug)}`;
   return [
-    breadcrumbJsonLd([INICIO, HUB_MIDIA, { nome: e.espec, rota: rotaEspecialidade(e.slug) }]),
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: `Marketing para ${e.espec}`,
-      description: e.descricao,
-      inLanguage: "pt-BR",
-      author: AUTOR_JSONLD,
-      ...(e.atualizadoEm ? { dateModified: e.atualizadoEm } : {}),
-      publisher: {
-        "@type": "Organization",
-        name: "Agência Rizzo Marketing Médico Digital",
-        logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_horizontal.png` },
-      },
-      mainEntityOfPage: url,
-    },
-    // D-01 do PARKING: a página é as duas coisas — texto autoral E oferta com a
-    // especialidade na URL. O `Article` fica (é o que descreve o texto) e o
-    // `Service` ENTRA junto, descrevendo a oferta. Aditivo: nada foi trocado.
+    // `Service`, não `Article` (§3.2 do mapa): a página não é texto assinado com data
+    // — é a oferta da agência para uma especialidade, com as peças entregues como
+    // prova. Mesmo tipo e mesmos campos das landings de cidade e de combo
+    // (CidadeLanding/ComboLanding), que já nasceram assim.
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      name: `Marketing médico para ${e.espec}`,
+      name: `Marketing para ${e.espec}`,
       serviceType: "Marketing médico digital",
       description: e.descricao,
       url,
-      inLanguage: "pt-BR",
       provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
-      audience: { "@type": "Audience", audienceType: `${e.espec}, clínicas e consultórios` },
+      // Página de especialidade não é de praça: o recorte é a especialidade, e o
+      // atendimento é nacional (a tarja `Fatos` diz o mesmo). Quem declara cidade é
+      // a landing de cidade e o combo.
+      areaServed: { "@type": "Country", name: "Brasil" },
+      audience: { "@type": "Audience", audienceType: `Médicos e clínicas de ${e.espec.toLowerCase()}` },
     },
     // As peças desta página como ImageObject (§16.5-4). Sem aggregateRating, sem
     // FAQPage: FAQ de enchimento é thin content e entra quando houver pergunta real.
@@ -124,6 +112,8 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
         },
       })),
     },
+    // A página é filha do hub pela própria URL; a trilha declara isso pro Google.
+    breadcrumbJsonLd(HUB_MARKETING, { nome: e.espec, rota: rotaEspecialidade(e.slug) }),
   ];
 }
 

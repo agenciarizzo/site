@@ -29,7 +29,6 @@ export function cidadeJsonLd(c: Cidade) {
       serviceType: "Marketing médico digital",
       description: c.descricao,
       url,
-      inLanguage: "pt-BR",
       provider: provedor,
       areaServed: {
         "@type": "City",

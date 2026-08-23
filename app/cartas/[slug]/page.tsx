@@ -1,6 +1,6 @@
 // Página de carta — 1 por mídia. Esqueleto canônico do §2 do mapa (rizzo-os):
 // posição → como fazemos → RizzoOS → "quando NÃO contratar" → FAQ → conversa.
-// SSG puro (generateStaticParams). Schema: BreadcrumbList + Article + FAQPage.
+// SSG puro (generateStaticParams). Schema: Article + FAQPage.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,7 +10,7 @@ import { CARTAS, bySlug } from "@/content/cartas";
 import { VitrineGiro } from "@/components/VitrineGiro";
 import { vitrinePorChave } from "@/content/vitrines";
 import { AUTOR_JSONLD, SITE_URL } from "@/lib/site";
-import { breadcrumbJsonLd, INICIO, HUB_MIDIA } from "@/lib/breadcrumb";
+import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
 
 export function generateStaticParams() {
   return CARTAS.map((c) => ({ slug: c.slug }));
@@ -33,7 +33,6 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
   if (!c) notFound();
 
   const jsonLd = [
-    breadcrumbJsonLd([INICIO, HUB_MIDIA, { nome: c.midia, rota: `/cartas/${c.slug}` }]),
     {
       "@context": "https://schema.org",
       "@type": "Article",
@@ -43,7 +42,7 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
       author: AUTOR_JSONLD,
       // Data só quando ela é VERDADEIRA (campo `atualizadoEm` da carta). Data
       // fabricada — `new Date()` no build, que muda a cada deploy — é pior que
-      // ausência: vira sinal falso de frescor.
+      // ausência: o Google aprende que a data do site não significa nada.
       ...(c.atualizadoEm ? { dateModified: c.atualizadoEm } : {}),
       publisher: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_horizontal.png` } },
       mainEntityOfPage: `${SITE_URL}/cartas/${c.slug}`,
@@ -57,6 +56,9 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
         acceptedAnswer: { "@type": "Answer", text: f.a },
       })),
     },
+    // ⚠️ O degrau do meio é o HUB, não "/cartas": `/cartas` não é página (só
+    // `app/cartas/[slug]`), e quem lista as cartas é o `/marketing-medico`.
+    breadcrumbJsonLd(HUB_MARKETING, { nome: c.midia, rota: `/cartas/${c.slug}` }),
   ];
 
   return (
