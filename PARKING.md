@@ -99,7 +99,10 @@ Formato e critério: `.claude/skills/seo-manutencao/SKILL.md`.
   robots e JSON-LD a partir de uma fonte só, e o checador cobra isso. O que **não** foi
   verificado é o servidor real.
 - **Por que não decidi:** exige rede contra o domínio em produção, e não se inventa
-  resultado de checagem que não rodou.
+  resultado de checagem que não rodou. **Tentado em 23/08/2026 numa sessão do Claude
+  Code na nuvem: a política de rede do ambiente recusa a conexão
+  (`connect_rejected`, 403 no CONNECT) — então este item não se resolve de dentro de
+  uma sessão remota, só da sua máquina ou de um runner com saída liberada.**
 - **Minha recomendação:** rodar uma vez e registrar no mapa:
   `curl -sIL https://agenciarizzo.com.br/ | grep -i '^HTTP\|^location'` e o mesmo para
   `https://www.agenciarizzo.com.br/sitemap.xml`. Se o primário virar o apex no painel da
