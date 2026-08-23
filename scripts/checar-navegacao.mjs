@@ -93,29 +93,57 @@ if (trilhasRuins > 0) {
 console.log(`✓ Trilhas: ${comTrilha} BreadcrumbList, todo degrau apontando pra rota que existe no build.`);
 
 // ————————————————————————————————————————————————————————————————————————
-// Passo 3 — `Service` só com propriedade que EXISTE em `Service`.
+// Passo 3 — os tipos de MAIOR contagem só com propriedade que EXISTE no tipo.
 //
-// Achado medindo o JSON-LD gerado contra o vocabulário do schema.org: as landings
-// declaravam `inLanguage`, que NÃO é propriedade de `Service` (ela mora em
-// `CreativeWork`/`Event`; `Service` não herda de nenhum dos dois). Era invisível
-// porque o build não valida schema e o idioma já vinha do `<html lang>`. A lista
-// abaixo é FECHADA: propriedade nova em `Service` entra aqui de propósito, depois
-// de conferida no schema.org — não por engano.
-const PROPS_SERVICE = new Set([
-  "@context", "@type", "@id", "name", "serviceType", "description", "url",
-  "provider", "areaServed", "audience", "offers", "hasOfferCatalog",
-]);
+// Achado original: as landings declaravam `inLanguage` em `Service`, que NÃO é
+// propriedade desse tipo (mora em `CreativeWork`/`Event`/`BroadcastService`; o
+// `Service` puro que este site emite não herda de nenhum dos três — confirmado em
+// schema.org/inLanguage, "Used on these types"). Era invisível porque nada validava
+// schema no build. Cada lista abaixo é FECHADA: propriedade nova no tipo entra aqui
+// de propósito, depois de conferida em schema.org/<Tipo> — não por engano.
+//
+// Conferida contra a fonte em 2026-08-23 (entrega F2 do §42), tipo a tipo — zero
+// propriedade inválida encontrada nos 4, zero propriedade válida em uso ficou de fora:
+//   · Service (23 blocos): "Properties from Service" + "Properties from Thing".
+//   · Organization (39 blocos): idem, em schema.org/Organization.
+//   · BreadcrumbList (28 blocos) e ItemList (24 blocos): ambas só usam propriedade de
+//     "Properties from ItemList" (BreadcrumbList não declara nenhuma própria — é só
+//     ItemList com semântica de trilha) — confirmado em schema.org/BreadcrumbList e
+//     schema.org/ItemList.
+// `@context`/`@type`/`@id` não são vocabulário do schema.org — são sintaxe JSON-LD
+// (RDF), válida em qualquer nó.
+//
+// Por que FAQPage/Article/CollectionPage/AboutPage ficam DE FORA (§42.8 do mapa tem o
+// texto completo): contagem baixa (10, 9, 1, 1 — o custo de uma propriedade errada
+// passar batida é pequeno) e formato mais simples (poucas propriedades, quase todas
+// herdadas de CreativeWork/Thing, com estrutura homogênea). Cobrir os 4 pra fechar o
+// conjunto todo viraria manutenção sem ganho proporcional — ausência de guarda aqui é
+// escolha, não descuido.
+const PROPS_POR_TIPO = {
+  Service: new Set([
+    "@context", "@type", "@id", "name", "serviceType", "description", "url",
+    "provider", "areaServed", "audience", "offers", "hasOfferCatalog",
+  ]),
+  Organization: new Set([
+    "@context", "@type", "@id", "name", "description", "url", "sameAs",
+    "address", "areaServed", "founder", "foundingDate", "logo", "telephone",
+  ]),
+  BreadcrumbList: new Set(["@context", "@type", "itemListElement"]),
+  ItemList: new Set(["@context", "@type", "name", "numberOfItems", "itemListElement", "itemListOrder"]),
+};
 let propsRuins = 0;
-let servicos = 0;
+const contagem = {};
 for (const pag of paginas) {
   const html = readFileSync(pag.arquivo, "utf8");
   for (const bloco of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     for (const obj of [JSON.parse(bloco[1].replace(/\\u003c/gi, "<"))].flat()) {
-      if (obj?.["@type"] !== "Service") continue;
-      servicos++;
+      const tipo = obj?.["@type"];
+      const propsPermitidas = PROPS_POR_TIPO[tipo];
+      if (!propsPermitidas) continue;
+      contagem[tipo] = (contagem[tipo] ?? 0) + 1;
       for (const prop of Object.keys(obj)) {
-        if (!PROPS_SERVICE.has(prop)) {
-          console.error(`✗ ${pag.rota}: "${prop}" não é propriedade de Service (schema.org).`);
+        if (!propsPermitidas.has(prop)) {
+          console.error(`✗ ${pag.rota}: "${prop}" não é propriedade de ${tipo} (schema.org).`);
           propsRuins++;
         }
       }
@@ -127,7 +155,8 @@ if (propsRuins > 0) {
   console.error(`\nSchema inválido: ${propsRuins} propriedade(s) fora do tipo — build reprovado.`);
   process.exit(1);
 }
-console.log(`✓ Schema: ${servicos} bloco(s) Service, toda propriedade existente no tipo.`);
+const resumoTipos = Object.entries(contagem).map(([t, n]) => `${n} ${t}`).join(", ");
+console.log(`✓ Schema: ${resumoTipos} — toda propriedade existente no tipo (lista fechada, 4 tipos).`);
 
 // ————————————————————————————————————————————————————————————————————————
 // Passo 4 — sitemap ∩ noindex = ∅.
