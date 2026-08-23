@@ -88,15 +88,67 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
 
 ## [D-01] O `provider` dos blocos `Service` não referencia o `@id` da organização
 
-- **Estado:** o `ORG_JSONLD` ganhou `@id` (`.../#organizacao`) nesta entrega, mas os
-  23 blocos `Service` seguem repetindo `provider: { "@type": "Organization", name,
-  url }` em vez de apontar pro `@id`.
-- **Por que não decidi:** o escopo mandava alterar **só o primeiro objeto** do array
-  de `especialidadeJsonLd()`, e trocar a forma do `provider` mexeria em
-  `CidadeLanding`, `ComboLanding` e `/rizzoos` junto — vassoura fora da entrega.
-- **Minha recomendação:** trocar os quatro `provider` por uma referência ao `@id` da
-  organização, num commit só. É o que o `@id` existe pra permitir: uma entidade,
-  referenciada, em vez de quatro cópias parciais.
+- **Estado:** o `ORG_JSONLD` ganhou `@id` (`.../#organizacao`) na F1, mas os 23 blocos
+  `Service` seguem repetindo `provider: { "@type": "Organization", name, url }` em vez
+  de apontar pro `@id`. **Ainda não fechado na F2** — motivo abaixo, ligado ao F-01.
+- **Por que não decidi:** o escopo da F1 mandava alterar **só o primeiro objeto** do
+  array de `especialidadeJsonLd()`, e trocar a forma do `provider` mexeria em
+  `CidadeLanding`, `ComboLanding` e `/rizzoos` junto — vassoura fora da entrega. A F2
+  recebeu instrução explícita de só fechar isto **se o validador hospedado confirmar**
+  que uma referência por `@id` resolve limpa dentro do mesmo documento — e não forçar
+  se ele reclamar de entidade não encontrada. Como o F-01 deixa **os dois validadores
+  hospedados inalcançáveis** neste ambiente, não há como cumprir essa condição agora:
+  forçar sem a confirmação seria exatamente o "meia-boca com critério verde" que a
+  régua §⚖️ do `CLAUDE.md` proíbe.
+- **Minha recomendação:** trocar os quatro `provider` por `{ "@id": "${SITE_URL}/#organizacao" }`,
+  num commit só, **assim que o F-01 destravar** (validador rodado pelo cliente, ou
+  sessão com o host liberado no proxy). É o que o `@id` existe pra permitir: uma
+  entidade, referenciada, em vez de quatro cópias parciais.
 - **Custo de não decidir:** baixo. Repetição é válida em schema.org; a referência é
   mais limpa e um pouco mais leve.
-- **Prazo sugerido:** próxima manutenção de SEO.
+- **Prazo sugerido:** assim que o F-01 resolver — não precisa de nova manutenção de
+  SEO só pra isto, é um commit de ~10 linhas.
+
+## [F-01] Os validadores HOSPEDADOS (Schema.org Validator, Rich Results Test) seguem inalcançáveis deste ambiente — mesmo com `schema.org` liberado
+
+- **Estado:** a F2 partiu da premissa "agora o schema.org está liberado" — e o domínio
+  **nu** `schema.org` de fato está (usado aqui pra conferir a lista fechada de
+  propriedades §42.8 direto na fonte). Mas os dois validadores pedidos são hosts
+  **diferentes**, e os dois seguem bloqueados pela política de egresso do ambiente:
+  `validator.schema.org` (`CONNECT` → 403) e `search.google.com` (`CONNECT` → 403,
+  onde mora o Rich Results Test). Testado por dois caminhos — `curl` direto e a
+  ferramenta de fetch da sessão — com o mesmo resultado: `EGRESS_BLOCKED`, "not
+  allowed by your organization's egress policy". Não é flake pra repetir: a régua do
+  proxy deste ambiente é explícita — "do not retry organization policy denials".
+- **Achado extra, independente:** mesmo destravando o proxy, o **preview da Vercel
+  também não seria alcançável de fora sem autenticação** — a URL do handoff
+  (`site-git-claude-site-seo-tecnico-eaux0j-rizzoos.vercel.app`) está atrás de Vercel
+  Authentication (SSO), confirmado tentando o fetch autenticado da própria integração
+  Vercel (`web_fetch_vercel_url` + `get_access_to_vercel_url`, com link de
+  compartilhamento gerado): a resposta é sempre um 302 pro `vercel.com/sso-api`, sem
+  completar o login. Um validador externo (Google, schema.org) bateria na mesma parede
+  — a menos que rode contra a **produção** depois do merge, que não carrega proteção.
+- **O que eu fiz no lugar (não é substituto, é o melhor disponível):** com
+  `schema.org` de fato alcançável, conferi manualmente — direto na fonte, não via
+  `schema-dts` gerado — **os 19 tipos e todas as propriedades em uso nos 135 blocos do
+  site inteiro** (não só as 6 páginas pedidas): `Organization`, `Service`, `ItemList`,
+  `BreadcrumbList`, `ListItem`, `Article`, `FAQPage`, `Question`, `Answer`,
+  `CollectionPage`, `AboutPage`, `WebSite`, `Audience`, `City`, `AdministrativeArea`,
+  `Country`, `Person`, `PostalAddress`, `ImageObject`. **Zero propriedade inválida em
+  qualquer um.** Isso é mais forte que o que o `schema-dts` da F1 provou (tipagem
+  gerada, podendo divergir da fonte) mas é **vocabulário, não elegibilidade de rich
+  result** — não confirma coisas que só o Rich Results Test vê (ex.: imagem mínima
+  pro rich result de `Article`, avisos de campo recomendado ausente).
+- **Minha recomendação:** isto é "ponto-chave que só olho humano valida" (gatilho de
+  checkpoint do `PRONTO_CHECKPOINTS_MAPA.md` no rizzo-os) — pede o **navegador do
+  cliente**, não uma sessão de agente. Depois do merge, com a `main` em produção:
+  colar `https://www.agenciarizzo.com.br/` (e as outras 5 URLs do §42, fatia 2, no
+  domínio de produção) em `validator.schema.org` e no Rich Results Test
+  (`search.google.com/test/rich-results`), e reportar erro × aviso. Alternativa mais
+  rápida pro agente: se um admin liberar `validator.schema.org` e `search.google.com`
+  no proxy de egresso desta conta, uma sessão futura roda os dois em minutos.
+- **Custo de não decidir agora:** o vocabulário está confirmado (o risco que o F-01 da
+  F1 descreveu — propriedade inexistente colada num tipo — está coberto pela conferência
+  manual acima). O que fica sem prova é a camada de cima: elegibilidade de rich result
+  e avisos que só o crawler do Google detecta.
+- **Prazo sugerido:** checkpoint pro cliente logo após o merge desta entrega.
