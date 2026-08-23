@@ -23,6 +23,7 @@ import { CIDADES } from "@/content/cidades";
 import { CARTAS_MIDIA } from "@/content/cartas";
 import { rotaEspecialidade, type PaginaEspecialidade } from "@/content/especialidades";
 import { SITE_URL } from "@/lib/site";
+import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
 
 /** Basename do arquivo — é assim que o registry da página referencia a peça. */
 const basename = (imagem: string) => (imagem.split("/").pop() ?? "").replace(/\.[a-z0-9]+$/i, "");
@@ -107,6 +108,8 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
         },
       })),
     },
+    // A página é filha do hub pela própria URL; a trilha declara isso pro Google.
+    breadcrumbJsonLd(HUB_MARKETING, { nome: e.espec, rota: rotaEspecialidade(e.slug) }),
   ];
 }
 
