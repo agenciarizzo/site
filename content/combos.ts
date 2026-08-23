@@ -50,6 +50,12 @@ export interface Combo {
   quandoNaoTitulo: string;
   quandoNao: string[];
   waText: string;
+  /**
+   * Data real da última revisão de conteúdo (ISO `AAAA-MM-DD`). Alimenta o
+   * `lastModified` do sitemap. Ausente = sem data, que é o correto: data fabricada
+   * no build muda a cada deploy e é sinal falso.
+   */
+  atualizadoEm?: string;
 }
 
 export const COMBOS: Combo[] = [

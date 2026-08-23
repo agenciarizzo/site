@@ -50,6 +50,22 @@ export const SOCIAIS = [
 export const FATOS =
   "DESDE 2012 · +250 MÉDICOS E CLÍNICAS · GOOGLE PARTNER · VIVÊNCIA HOSPITALAR REAL (ONA/ISO) · ANÁPOLIS–GO · ATUAÇÃO NACIONAL";
 
+/**
+ * Autor das peças editoriais (D-02 do PARKING). Em saúde — conteúdo YMYL — o que o
+ * Google pesa é procedência: quem escreveu, e se dá pra chegar nessa pessoa. Por isso
+ * o `author` do Article é PESSOA e aponta pra /sobre, que é a página onde ela aparece
+ * de verdade; o `publisher` continua sendo a organização.
+ *
+ * Sem `sameAs`: perfil pessoal só entra aqui com endereço confirmado no cadastro da
+ * agência (regra 9 — zero domínio adivinhado).
+ */
+export const AUTOR_JSONLD = {
+  "@type": "Person",
+  name: "Raphael Rizzo",
+  url: `${SITE_URL}/sobre`,
+  jobTitle: "Fundador da Agência Rizzo",
+} as const;
+
 /** Organization schema — SEM aggregateRating fabricado (decisão registrada no mapa). */
 export const ORG_JSONLD = {
   "@context": "https://schema.org",

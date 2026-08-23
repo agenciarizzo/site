@@ -22,7 +22,7 @@ import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
 import { CIDADES } from "@/content/cidades";
 import { CARTAS_MIDIA } from "@/content/cartas";
 import { rotaEspecialidade, type PaginaEspecialidade } from "@/content/especialidades";
-import { SITE_URL } from "@/lib/site";
+import { AUTOR_JSONLD, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd, INICIO, HUB_MIDIA } from "@/lib/breadcrumb";
 
 /** Basename do arquivo — é assim que o registry da página referencia a peça. */
@@ -82,13 +82,28 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
       headline: `Marketing para ${e.espec}`,
       description: e.descricao,
       inLanguage: "pt-BR",
-      author: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital" },
+      author: AUTOR_JSONLD,
+      ...(e.atualizadoEm ? { dateModified: e.atualizadoEm } : {}),
       publisher: {
         "@type": "Organization",
         name: "Agência Rizzo Marketing Médico Digital",
         logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_horizontal.png` },
       },
       mainEntityOfPage: url,
+    },
+    // D-01 do PARKING: a página é as duas coisas — texto autoral E oferta com a
+    // especialidade na URL. O `Article` fica (é o que descreve o texto) e o
+    // `Service` ENTRA junto, descrevendo a oferta. Aditivo: nada foi trocado.
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: `Marketing médico para ${e.espec}`,
+      serviceType: "Marketing médico digital",
+      description: e.descricao,
+      url,
+      inLanguage: "pt-BR",
+      provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
+      audience: { "@type": "Audience", audienceType: `${e.espec}, clínicas e consultórios` },
     },
     // As peças desta página como ImageObject (§16.5-4). Sem aggregateRating, sem
     // FAQPage: FAQ de enchimento é thin content e entra quando houver pergunta real.

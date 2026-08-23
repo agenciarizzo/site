@@ -29,6 +29,12 @@ export interface Carta {
   /** Acento do CTA. Sem isso o default é `<midia> na sua clínica?`, que não serve pra rede. */
   ctaAcento?: string;
   waText: string;
+  /**
+   * Data real da última revisão de conteúdo (ISO `AAAA-MM-DD`). Alimenta o
+   * `lastModified` do sitemap e o `dateModified` do schema. Ausente = sem data, que
+   * é o correto: data fabricada no build muda a cada deploy e é sinal falso.
+   */
+  atualizadoEm?: string;
 }
 
 export const CARTAS: Carta[] = [

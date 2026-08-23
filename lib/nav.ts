@@ -18,6 +18,9 @@
 /** A tela anti-robô. Todo caminho pro WhatsApp passa por aqui. */
 export const ROTA_PORTAO = "/whatsapp";
 
+/** Política de privacidade — linkada do rodapé e do aviso de cookie (E-01). */
+export const ROTA_PRIVACIDADE = "/politica-privacidade";
+
 export type ItemMenu = { href: string; rotulo: string };
 
 /**

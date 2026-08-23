@@ -1219,3 +1219,66 @@ p.resumo {
 /* a tela é de passagem: o portão sobe pra perto da chamada, sem o respiro de
    página de leitura que o `article.corpo` reserva */
 article.portao-corpo { padding-top: 0.4rem; }
+
+
+/* ── aviso de consentimento (E-01 do PARKING) ─────────────────────────────────
+   Faixa discreta no pé da tela, não modal: modal tapa a primeira dobra, atrasa o
+   LCP e transforma consentimento em reflexo de fechar janela. Papel e hairline,
+   como o resto da casa; o amarelo não aparece aqui porque o fundo é papel. */
+.consent {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.9rem 1.4rem;
+  padding: 0.9rem 1.4rem;
+  background: var(--claro);
+  border-top: 1px solid var(--hairline);
+  box-shadow: 0 -6px 24px rgba(22, 19, 14, 0.07);
+}
+.consent[hidden] { display: none; }
+.consent p {
+  margin: 0;
+  max-width: 44rem;
+  font-size: var(--corpo-3);
+  color: var(--corpo);
+}
+.consent a { color: var(--teal-texto); }
+.consent-acoes { display: flex; align-items: center; gap: 0.6rem; }
+.consent-aceita,
+.consent-recusa {
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: var(--corpo-3);
+  letter-spacing: var(--ls-micro);
+  border-radius: 8px;
+  cursor: pointer;
+  /* 44px de alvo de toque: o aviso é a única coisa fixa na tela e não pode virar
+     armadilha de dedo grande. */
+  min-height: 44px;
+  padding: 0.62rem 1.15rem;
+}
+.consent-aceita {
+  font-weight: 700;
+  background: var(--navy);
+  color: var(--amarelo);
+  border: 2px solid var(--navy);
+}
+.consent-aceita:hover { background: #1a2742; }
+.consent-recusa {
+  font-weight: 500;
+  background: transparent;
+  color: var(--cinza);
+  border: 1px solid var(--hairline);
+}
+.consent-recusa:hover { border-color: var(--cinza); }
+
+@media (max-width: 640px) {
+  .consent { justify-content: flex-start; }
+  .consent-acoes { width: 100%; }
+  .consent-aceita, .consent-recusa { flex: 1; justify-content: center; }
+}
