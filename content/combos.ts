@@ -39,7 +39,19 @@ export interface Combo {
   especialidade: string;
   titulo: string; // <title> keyword-first (o layout soma " | Agência Rizzo")
   descricao: string;
-  head: [string, string, string]; // H1 em 3 linhas, última em acento (A5)
+  /**
+   * H1 em 3 linhas, última em acento (A5).
+   *
+   * ⚠️ RÉGUA DO H1 DE COMBO (vale pra todo combo da Fase 2): o H1 fala com o
+   * MÉDICO, nunca com o paciente. A tentação é escrever nele a query do paciente
+   * ("cirurgião vascular em Goiânia") porque é o termo de maior volume — mas a
+   * página cita clientes da casa que têm site próprio (aqui, o Dr. Felipe
+   * Mendonça em drfelipevascular.com.br). Ranquear pra intenção de paciente
+   * significa disputar busca com o próprio cliente E entregar pitch de marketing
+   * pra quem procurava médico: as duas pontas perdem. A keyword comercial mora no
+   * `titulo`; o H1 carrega o gancho e endereça o médico ("você", "te", "o seu").
+   */
+  head: [string, string, string];
   lede: string;
   posicao: string[]; // 2–3 parágrafos ESCRITOS pro combo (nunca templatizados)
   vitrineTitulo: string;
@@ -63,7 +75,7 @@ export const COMBOS: Combo[] = [
     titulo: "Marketing para cirurgia vascular em Goiânia",
     descricao:
       "Marketing para cirurgião vascular em Goiânia: site rápido, busca local por procedimento e conteúdo que explica varizes, trombose e circulação — dentro do CFM, sem promessa de resultado.",
-    head: ["Cirurgião vascular", "em Goiânia:", "o paciente decide perto."],
+    head: ["Em Goiânia, o paciente", "de vascular decide perto —", "e decide antes de te ligar."],
     lede:
       "Varizes e problemas de circulação raramente chegam pela emergência — chegam pela busca. Em Goiânia, quem trata bem disso é escolhido no momento em que o paciente decide procurar, e esse momento acontece no Google e no mapa.",
     posicao: [
