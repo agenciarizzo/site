@@ -91,3 +91,81 @@ if (trilhasRuins > 0) {
   process.exit(1);
 }
 console.log(`✓ Trilhas: ${comTrilha} BreadcrumbList, todo degrau apontando pra rota que existe no build.`);
+
+// ————————————————————————————————————————————————————————————————————————
+// Passo 3 — `Service` só com propriedade que EXISTE em `Service`.
+//
+// Achado medindo o JSON-LD gerado contra o vocabulário do schema.org: as landings
+// declaravam `inLanguage`, que NÃO é propriedade de `Service` (ela mora em
+// `CreativeWork`/`Event`; `Service` não herda de nenhum dos dois). Era invisível
+// porque o build não valida schema e o idioma já vinha do `<html lang>`. A lista
+// abaixo é FECHADA: propriedade nova em `Service` entra aqui de propósito, depois
+// de conferida no schema.org — não por engano.
+const PROPS_SERVICE = new Set([
+  "@context", "@type", "@id", "name", "serviceType", "description", "url",
+  "provider", "areaServed", "audience", "offers", "hasOfferCatalog",
+]);
+let propsRuins = 0;
+let servicos = 0;
+for (const pag of paginas) {
+  const html = readFileSync(pag.arquivo, "utf8");
+  for (const bloco of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    for (const obj of [JSON.parse(bloco[1].replace(/\\u003c/gi, "<"))].flat()) {
+      if (obj?.["@type"] !== "Service") continue;
+      servicos++;
+      for (const prop of Object.keys(obj)) {
+        if (!PROPS_SERVICE.has(prop)) {
+          console.error(`✗ ${pag.rota}: "${prop}" não é propriedade de Service (schema.org).`);
+          propsRuins++;
+        }
+      }
+    }
+  }
+}
+
+if (propsRuins > 0) {
+  console.error(`\nSchema inválido: ${propsRuins} propriedade(s) fora do tipo — build reprovado.`);
+  process.exit(1);
+}
+console.log(`✓ Schema: ${servicos} bloco(s) Service, toda propriedade existente no tipo.`);
+
+// ————————————————————————————————————————————————————————————————————————
+// Passo 4 — sitemap ∩ noindex = ∅.
+//
+// Pedir indexação no sitemap e proibir na própria página é sinal contraditório: o
+// Google gasta rastreio pra descobrir que não devia. Hoje isso não pode divergir
+// nas especialidades (sitemap e `robots` leem o mesmo campo do registry), mas nada
+// protegia cartas, cidades e combos se um dia ganhassem `noindex`. Aqui a conta é
+// feita no que foi GERADO, então vale pra qualquer página, inclusive as futuras.
+const app = join(process.cwd(), ".next", "server", "app");
+const sitemapXml = readFileSync(join(app, "sitemap.xml.body"), "utf8");
+const noSitemap = new Set(
+  [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(/^https?:\/\/[^/]+/, "") || "/"),
+);
+
+// Em preview e dev o site inteiro nasce `noindex` de propósito (INDEXABLE em
+// lib/site.ts), e aí TODA página seria "contraditória" — o sinal some. Nesse modo
+// o passo se declara inerte em vez de reprovar o build ou passar fingindo que
+// conferiu. Em produção — que é onde a contradição custa rastreio — ele roda.
+// Pra exercitar localmente: NEXT_PUBLIC_SITE_INDEXABLE=true npm run build.
+const robotsTxt = readFileSync(join(app, "robots.txt.body"), "utf8");
+const buildIndexavel = !/^\s*Disallow:\s*\/\s*$/m.test(robotsTxt);
+
+if (!buildIndexavel) {
+  console.log(`○ Sitemap: ${noSitemap.size} URL(s) — build noindex (preview/dev), cruzamento não se aplica.`);
+} else {
+  let contraditorias = 0;
+  for (const pag of paginas) {
+    const html = readFileSync(pag.arquivo, "utf8");
+    const noindex = /<meta name="robots" content="[^"]*\bnoindex\b/.test(html);
+    if (noindex && noSitemap.has(pag.rota)) {
+      console.error(`✗ ${pag.rota}: está no sitemap.xml E nasce noindex — escolha uma.`);
+      contraditorias++;
+    }
+  }
+  if (contraditorias > 0) {
+    console.error(`\nSitemap contraditório: ${contraditorias} rota(s) — build reprovado.`);
+    process.exit(1);
+  }
+  console.log(`✓ Sitemap: ${noSitemap.size} URL(s), nenhuma delas noindex.`);
+}

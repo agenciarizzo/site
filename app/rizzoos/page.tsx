@@ -115,7 +115,6 @@ export default function RizzoOsPage() {
     serviceType: "Plataforma de marketing médico",
     description: DESCRICAO,
     url: `${SITE_URL}/rizzoos`,
-    inLanguage: "pt-BR",
     provider: {
       "@type": "Organization",
       name: "Agência Rizzo Marketing Médico Digital",

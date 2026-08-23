@@ -22,7 +22,6 @@ export function comboJsonLd(c: Combo) {
       serviceType: "Marketing médico digital",
       description: c.descricao,
       url,
-      inLanguage: "pt-BR",
       provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
       areaServed: {
         "@type": "City",

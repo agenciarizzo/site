@@ -86,7 +86,6 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
       serviceType: "Marketing médico digital",
       description: e.descricao,
       url,
-      inLanguage: "pt-BR",
       provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
       // Página de especialidade não é de praça: o recorte é a especialidade, e o
       // atendimento é nacional (a tarja `Fatos` diz o mesmo). Quem declara cidade é
