@@ -38,7 +38,14 @@ export interface PaginaEspecialidade {
   slug: string;
   /** Especialidade, grafia EXATA do vocabulário do content/portfolio.ts. */
   espec: string;
-  /** <title> keyword-first — o layout soma " | Agência Rizzo". */
+  /**
+   * <title> keyword-first — o layout soma " | Agência Rizzo" (16 CARACTERES), então
+   * este campo tem teto de 44 pra página ficar nos 60 que a SERP mostra.
+   *
+   * ⚠️ Conte em CARACTERE (`[...s].length` ou `s.length`), nunca em BYTE: em
+   * português cada acento custa 2 bytes em UTF-8, e medir por byte infla a conta —
+   * foi assim que uma auditoria de fora contou 9 títulos longos onde havia 5.
+   */
   titulo: string;
   descricao: string;
   /** Parágrafo do hero. */
@@ -101,7 +108,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "ortopedia-e-traumatologia",
     espec: "Ortopedia e Traumatologia",
-    titulo: "Marketing médico para ortopedia e traumatologia",
+    titulo: "Marketing para ortopedia e traumatologia",
     descricao:
       "Marketing para ortopedista: como um consultório de ortopedia é encontrado por quem já sente dor há meses — site por procedimento, segunda opinião e conteúdo dentro do CFM.",
     lede:
@@ -162,7 +169,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "clinica-medica",
     espec: "Clínica Médica",
-    titulo: "Marketing para clínica médica e centro clínico",
+    titulo: "Marketing para clínica médica",
     descricao:
       "Marketing para clínica médica, policlínica e centro clínico: como uma casa com várias especialidades é encontrada, do mapa ao site — sem promessa de resultado.",
     lede:
@@ -187,7 +194,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "cirurgia-do-aparelho-digestivo",
     espec: "Cirurgia do Aparelho Digestivo",
-    titulo: "Marketing médico para cirurgia do aparelho digestivo",
+    titulo: "Marketing médico para cirurgia digestiva",
     descricao:
       "Marketing para cirurgião do aparelho digestivo: bariátrica, hérnia, refluxo e vesícula — como o paciente pesquisa antes de decidir operar, dentro das regras do CFM.",
     lede:
@@ -384,7 +391,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "angiologia-e-vascular",
     espec: "Angiologia e Vascular",
-    titulo: "Marketing médico para angiologia e cirurgia vascular",
+    titulo: "Marketing médico para angiologia e vascular",
     descricao:
       "Marketing para angiologista e cirurgião vascular: varizes, lipedema e circulação — como o paciente decide perto de casa, com informação e sem promessa de resultado.",
     lede:
@@ -604,7 +611,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "diagnostico-por-imagem",
     espec: "Diagnóstico por Imagem",
-    titulo: "Marketing para clínica de diagnóstico por imagem",
+    titulo: "Marketing médico para diagnóstico por imagem",
     descricao:
       "Marketing para clínica de imagem e laboratório: paciente com pedido na mão e médico que encaminha — os dois públicos que decidem onde o exame é feito.",
     lede:
