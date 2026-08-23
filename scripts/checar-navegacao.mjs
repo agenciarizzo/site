@@ -169,3 +169,73 @@ if (!buildIndexavel) {
   }
   console.log(`✓ Sitemap: ${noSitemap.size} URL(s), nenhuma delas noindex.`);
 }
+
+// ————————————————————————————————————————————————————————————————————————
+// Passo 5 — limites de metadado, medidos em CARACTERE.
+//
+// ⚠️ CARACTERE, nunca BYTE: em português cada acento custa 2 bytes em UTF-8, e a
+// conta por byte infla tudo — foi assim que uma auditoria de fora encontrou 9
+// títulos longos onde havia 5, e 24 descrições longas onde havia 18.
+//
+// O teto de `title` é o que a SERP mostra. O de `description` é 180 (decisão desta
+// entrega): description não é fator de ranqueamento e o Google reescreve na maioria
+// das vezes, então a voz editorial vale mais que os caracteres a mais. As que estão
+// entre 156 e 180 são CONTADAS e mostradas, pra escolha seguir visível em vez de
+// virar dívida silenciosa.
+const TETO_TITLE = 60;
+const TETO_DESC = 180;
+const CONFORTO_DESC = 155;
+const texto = (s) =>
+  s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
+   .replace(/&#x27;|&#39;/g, "'").replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+   .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(+d));
+
+let longos = 0;
+let naBanda = 0;
+for (const pag of paginas) {
+  const html = readFileSync(pag.arquivo, "utf8");
+  const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/);
+  const d = html.match(/<meta name="description" content="([^"]*)"/);
+  const nTitle = t ? [...texto(t[1])].length : 0;
+  const nDesc = d ? [...texto(d[1])].length : 0;
+  if (nTitle > TETO_TITLE) {
+    console.error(`✗ ${pag.rota}: title com ${nTitle} caracteres (teto ${TETO_TITLE}).`);
+    longos++;
+  }
+  if (nDesc > TETO_DESC) {
+    console.error(`✗ ${pag.rota}: description com ${nDesc} caracteres (teto ${TETO_DESC}).`);
+    longos++;
+  } else if (nDesc > CONFORTO_DESC) {
+    naBanda++;
+  }
+}
+
+if (longos > 0) {
+  console.error(`\nMetadado fora do teto: ${longos} — build reprovado.`);
+  process.exit(1);
+}
+console.log(
+  `✓ Metadados: ${paginas.length} páginas, zero title acima de ${TETO_TITLE} e zero description acima de ${TETO_DESC} caracteres` +
+    ` (${naBanda} entre ${CONFORTO_DESC + 1} e ${TETO_DESC}, por decisão de voz).`,
+);
+
+// ————————————————————————————————————————————————————————————————————————
+// Passo 6 — host canônico: um só, em todos os sinais.
+//
+// Canonical que aponta pra host diferente do que o servidor entrega é sinal fraco e
+// gasta um hop por página. O host da casa mora em `SITE_URL` (lib/site.ts) e todo
+// sinal deriva dele; este passo confere que ninguém escreveu um host na mão.
+const hostDo = (u) => (u.match(/^https?:\/\/([^/]+)/) ?? [])[1];
+const hostsSitemap = new Set([...sitemapXml.matchAll(/<loc>(https?:\/\/[^/<]+)/g)].map((m) => hostDo(m[1])));
+const hostsPagina = new Set();
+for (const pag of paginas) {
+  const html = readFileSync(pag.arquivo, "utf8");
+  for (const m of html.matchAll(/rel="canonical" href="(https?:\/\/[^"]+)"/g)) hostsPagina.add(hostDo(m[1]));
+}
+const hosts = new Set([...hostsSitemap, ...hostsPagina]);
+if (hosts.size !== 1) {
+  console.error(`✗ Host canônico divergente entre canonical e sitemap: ${[...hosts].join(", ")}`);
+  console.error("\nSinais de host em desacordo — build reprovado.");
+  process.exit(1);
+}
+console.log(`✓ Host canônico: ${[...hosts][0]} — canonical e sitemap no mesmo host.`);
