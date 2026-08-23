@@ -10,6 +10,7 @@ import { CARTAS, bySlug } from "@/content/cartas";
 import { VitrineGiro } from "@/components/VitrineGiro";
 import { vitrinePorChave } from "@/content/vitrines";
 import { SITE_URL } from "@/lib/site";
+import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
 
 export function generateStaticParams() {
   return CARTAS.map((c) => ({ slug: c.slug }));
@@ -51,6 +52,9 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
         acceptedAnswer: { "@type": "Answer", text: f.a },
       })),
     },
+    // ⚠️ O degrau do meio é o HUB, não "/cartas": `/cartas` não é página (só
+    // `app/cartas/[slug]`), e quem lista as cartas é o `/marketing-medico`.
+    breadcrumbJsonLd(HUB_MARKETING, { nome: c.midia, rota: `/cartas/${c.slug}` }),
   ];
 
   return (

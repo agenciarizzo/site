@@ -141,7 +141,7 @@ export const CIDADES: Cidade[] = [
     uf: "DF",
     titulo: "Marketing médico em Brasília",
     descricao:
-      "Marketing médico em Brasília: como fazemos médicos, clínicas e hospitais serem encontrados por região do DF, pelo entorno goiano e pelas IAs — com site rápido, busca local e anúncio dentro do CFM.",
+      "Marketing médico em Brasília: médicos, clínicas e hospitais encontrados por região do DF, pelo entorno goiano e pelas IAs — busca local dentro do CFM.",
     head: ["Marketing médico", "em Brasília.", "Aqui, região é tudo."],
     lede:
       "Asa Sul, Águas Claras, Taguatinga, Sobradinho — e o entorno goiano atravessando a divisa todo dia. Em Brasília o paciente não procura “no DF”: procura onde ele consegue chegar. Quem entende isso aparece na hora da decisão.",
