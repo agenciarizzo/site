@@ -1,7 +1,7 @@
 // Corpo das páginas de ESPECIALIDADE (`/marketing-medico/<slug>`) — a casa que
 // abriga as peças do acervo, desenhada no §16.8 do rizzo-os →
 // docs/ACERVO_PLANO_PAGINAS_MAPA.md (que é o 4b do handoff da parede, com as 3
-// emendas: kicker sem a palavra "carta", JSON-LD Article + ItemList sem FAQPage, e
+// emendas: kicker sem a palavra "carta", JSON-LD Service + ItemList sem FAQPage, e
 // o CTA passando pelo portão anti-robô).
 //
 // Server component puro: SSG, zero JS no cliente. O lightbox é `:target`, o mesmo
@@ -75,19 +75,24 @@ function nomesDa(e: PaginaEspecialidade): GrupoCarteira[] {
 export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio[]) {
   const url = `${SITE_URL}${rotaEspecialidade(e.slug)}`;
   return [
+    // `Service`, não `Article` (§3.2 do mapa): a página não é texto assinado com data
+    // — é a oferta da agência para uma especialidade, com as peças entregues como
+    // prova. Mesmo tipo e mesmos campos das landings de cidade e de combo
+    // (CidadeLanding/ComboLanding), que já nasceram assim.
     {
       "@context": "https://schema.org",
-      "@type": "Article",
-      headline: `Marketing para ${e.espec}`,
+      "@type": "Service",
+      name: `Marketing para ${e.espec}`,
+      serviceType: "Marketing médico digital",
       description: e.descricao,
+      url,
       inLanguage: "pt-BR",
-      author: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital" },
-      publisher: {
-        "@type": "Organization",
-        name: "Agência Rizzo Marketing Médico Digital",
-        logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_horizontal.png` },
-      },
-      mainEntityOfPage: url,
+      provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
+      // Página de especialidade não é de praça: o recorte é a especialidade, e o
+      // atendimento é nacional (a tarja `Fatos` diz o mesmo). Quem declara cidade é
+      // a landing de cidade e o combo.
+      areaServed: { "@type": "Country", name: "Brasil" },
+      audience: { "@type": "Audience", audienceType: `Médicos e clínicas de ${e.espec.toLowerCase()}` },
     },
     // As peças desta página como ImageObject (§16.5-4). Sem aggregateRating, sem
     // FAQPage: FAQ de enchimento é thin content e entra quando houver pergunta real.
