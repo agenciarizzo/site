@@ -4,16 +4,22 @@
 // visual que a régua §3.3 pede pra combo — a landing de cidade prova por nome, o
 // combo prova por nome E peça).
 //
-// Schema (§3.2): Service + ItemList. SEM aggregateRating (§12.3).
+// Schema (§3.2): BreadcrumbList + Service + ItemList. SEM aggregateRating (§12.3).
 import Link from "next/link";
 import { panoCombo } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import type { Combo } from "@/content/combos";
 import { SITE_URL } from "@/lib/site";
+import { breadcrumbJsonLd, INICIO } from "@/lib/breadcrumb";
 
 export function comboJsonLd(c: Combo) {
   const url = `${SITE_URL}${c.rota}`;
   return [
+    breadcrumbJsonLd([
+      INICIO,
+      { nome: `Marketing médico em ${c.cidade}`, rota: `/${c.cidadeSlug}` },
+      { nome: c.especialidade, rota: c.rota },
+    ]),
     {
       "@context": "https://schema.org",
       "@type": "Service",

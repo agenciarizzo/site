@@ -23,6 +23,7 @@ import { CIDADES } from "@/content/cidades";
 import { CARTAS_MIDIA } from "@/content/cartas";
 import { rotaEspecialidade, type PaginaEspecialidade } from "@/content/especialidades";
 import { SITE_URL } from "@/lib/site";
+import { breadcrumbJsonLd, INICIO, HUB_MIDIA } from "@/lib/breadcrumb";
 
 /** Basename do arquivo — é assim que o registry da página referencia a peça. */
 const basename = (imagem: string) => (imagem.split("/").pop() ?? "").replace(/\.[a-z0-9]+$/i, "");
@@ -74,6 +75,7 @@ function nomesDa(e: PaginaEspecialidade): GrupoCarteira[] {
 export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio[]) {
   const url = `${SITE_URL}${rotaEspecialidade(e.slug)}`;
   return [
+    breadcrumbJsonLd([INICIO, HUB_MIDIA, { nome: e.espec, rota: rotaEspecialidade(e.slug) }]),
     {
       "@context": "https://schema.org",
       "@type": "Article",

@@ -1,6 +1,6 @@
 // Página de carta — 1 por mídia. Esqueleto canônico do §2 do mapa (rizzo-os):
 // posição → como fazemos → RizzoOS → "quando NÃO contratar" → FAQ → conversa.
-// SSG puro (generateStaticParams). Schema: Article + FAQPage.
+// SSG puro (generateStaticParams). Schema: BreadcrumbList + Article + FAQPage.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,6 +10,7 @@ import { CARTAS, bySlug } from "@/content/cartas";
 import { VitrineGiro } from "@/components/VitrineGiro";
 import { vitrinePorChave } from "@/content/vitrines";
 import { SITE_URL } from "@/lib/site";
+import { breadcrumbJsonLd, INICIO, HUB_MIDIA } from "@/lib/breadcrumb";
 
 export function generateStaticParams() {
   return CARTAS.map((c) => ({ slug: c.slug }));
@@ -32,6 +33,7 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
   if (!c) notFound();
 
   const jsonLd = [
+    breadcrumbJsonLd([INICIO, HUB_MIDIA, { nome: c.midia, rota: `/cartas/${c.slug}` }]),
     {
       "@context": "https://schema.org",
       "@type": "Article",
