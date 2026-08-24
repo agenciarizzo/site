@@ -112,6 +112,12 @@ export const ESPECIALIDADES_EXTRA = [
   "Laboratório", // Bem Estar: a arte assina BEM ESTAR LABORATÓRIO (análises clínicas, Mineiros/GO)
   "Infectologia", // Dra. Nilse Querino: a capa assina DRA. NILSE QUERINO · INFECTOLOGISTA
   "Home Care", // MB Home Care: a arte assina MB HOME CARE · Assistência Médica Domiciliar
+  // Rodada 22 (2026-08-24) — lida na ARTE da peça que a estreia; grupo de parede novo.
+  "Saúde Ocupacional", // São José Gestão Ocupacional (Climepa Medicina Ocupacional rebatizada): área do cadastro
+  // A lista fechada tinha "Neurocirurgia" (Sinapse Neurologia entrou nela por falta de
+  // termo, r21 §16.8.21-2) mas não "Neurologia" pura — Dr. Valter Moura é neurologista
+  // clínico/EEG, não cirurgião; force-fit em Neurocirurgia mis-representaria a área.
+  "Neurologia", // Dr. Valter Moura: o trifold assina Consultas em Neurologia
 ];
 
 /**
@@ -2054,6 +2060,121 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem:
       "Drive: sprint_16_DH_peca_grafica_portfolio_u0 (export PDF, capa de e-book já pronta embutida 2048px). A ARTE atribui (§34): assina Dr. Davi Heckmann · Angiorradiologia, Cirurgia Vascular e Endovascular",
+  },
+  // Rodada 22 (2026-08-24) — Otorrino Center: card 3 do doc que já deu o card 1 (r21).
+  {
+    cliente: "Dr. Silvio Holenbach – Otorrinolaringologista",
+    contexto: "Cartão virtual de otorrinolaringologista — Brasília",
+    espec: "Otorrinolaringologia",
+    servico: "Cartão virtual",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-otorrinolaringologia-brasilia-cartao-virtual-silvio-holenbach.webp",
+    largura: 1200,
+    altura: 981,
+    alt: "Mockup de celular com o cartão virtual do Dr. Silvio Holenbach, otorrinolaringologista do Otorrino Center, em Brasília",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_17_OC_peca_grafica_cartao_virtual (mesmo doc do cartão 1 da Dra. Danielle Ramos Videira, r21). A ARTE atribui (§34): cartão 3 de 4, assina DR. SILVIO DELMAR HOLENBACH JUNIOR · Otorrinolaringologia · CRM-DF 10408 | RQE 6381 · Otorrino Center, Asa Norte, Brasília — mesma pessoa que \"Dr. Silvio Holenbach – Otorrinolaringologista\" já cadastrado (mesma cidade/especialidade, achado bônus da r21). Mockup de celular composto nesta rodada (moldura flat, sem foto de mão) a partir da arte longa, aprovado pelo cliente na rodada 22",
+  },
+  // Rodada 22 — as 6 casas que tinham export travado (session expired) na API do
+  // Drive; destravadas com download manual do cliente pela interface do Docs.
+  {
+    cliente: "Clínica Appia",
+    contexto: "Portfólio digital para clínica de dermatologia e cirurgia plástica — Rio de Janeiro",
+    espec: "Dermatologia",
+    servico: "Portfólio digital",
+    praca: "Rio de Janeiro/RJ",
+    imagem: "/portfolio/marketing-medico-dermatologia-rio-de-janeiro-portfolio-digital.webp",
+    largura: 611,
+    altura: 517,
+    alt: "Mockup de celular com o portfólio digital da Clínica Appia, dermatologia e cirurgia plástica na Barra da Tijuca, Rio de Janeiro",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_8_PP_peca_grafica_portfolio (export via API travado — session expired mesmo em cópia nova do doc; arte obtida por download manual do cliente pela interface do Docs). A ARTE atribui (§34): assina Clínica Appia, dermatologistas Dra. Ana Pia Gomes Coelho, Dra. Juliana Esporcatte e Dra. Daniella Esporcatte, Barra da Tijuca, Rio de Janeiro",
+  },
+  {
+    cliente: "Clínica Appia",
+    contexto: "Folder trifold impresso para clínica de dermatologia e cirurgia plástica — Rio de Janeiro",
+    espec: "Dermatologia",
+    servico: "Folder institucional",
+    praca: "Rio de Janeiro/RJ",
+    imagem: "/portfolio/marketing-medico-dermatologia-rio-de-janeiro-folder-institucional.webp",
+    largura: 707,
+    altura: 506,
+    alt: "Folder trifold impresso da Clínica Appia, com o corpo clínico de dermatologia e cirurgia plástica, no Rio de Janeiro",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_8_PP_peca_grafica_portfolio (mesmo doc do portfólio digital acima; export via API travado — arte obtida por download manual do cliente)",
+  },
+  {
+    cliente: "Clínica CAPELLI Bauru – Transplante Capilar",
+    contexto: "Portfólio impresso para clínica de tricologia e cirurgia capilar — Bauru",
+    espec: "Dermatologia",
+    servico: "Portfólio impresso",
+    praca: "Bauru/SP",
+    imagem: "/portfolio/marketing-medico-dermatologia-bauru-portfolio-impresso.webp",
+    largura: 600,
+    altura: 403,
+    alt: "Portfólio impresso da Clínica Capelli Bauru, com o corpo clínico de tricologia e cirurgia capilar",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_6_LL_peca_grafica_portfolio_u0 (export via API travado — session expired; arte obtida por download manual do cliente). A ARTE atribui (§34): PDF nomeado \"Clínica Cappelli - Portfólio virtual\", assina Clínica Capelli, responsável técnico Dr. Rodrigo Redondo (CRM-SP 183765), Bauru/SP",
+  },
+  {
+    cliente: "Dr. Valter Moura – Neurologia e Eletroencefalografia",
+    contexto: "Folder trifold impresso sobre consultas em neurologia — Juazeiro do Norte",
+    espec: "Neurologia",
+    servico: "Folder institucional",
+    praca: "Juazeiro do Norte/CE",
+    imagem: "/portfolio/marketing-medico-neurologia-juazeiro-do-norte-folder-institucional.webp",
+    largura: 584,
+    altura: 559,
+    alt: "Folder trifold impresso do Dr. Valter Moura sobre consultas em neurologia, em Juazeiro do Norte",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_11_VR_peca_grafica_portfolio (export via API travado — session expired; arte obtida por download manual do cliente). A ARTE atribui (§34): assina Consultas em Neurologia · Dr. Valter Moura",
+  },
+  {
+    cliente: "Dr. Ramon Teles – Otorrinolaringologia e Cirurgia Craniomaxilofacial",
+    contexto: "Folder trifold impresso sobre otorrinolaringologia e cirurgia crânio-maxilo-facial — Crato",
+    espec: "Otorrinolaringologia",
+    servico: "Folder institucional",
+    praca: "Crato/CE",
+    imagem: "/portfolio/marketing-medico-otorrinolaringologia-crato-folder-institucional.webp",
+    largura: 1077,
+    altura: 621,
+    alt: "Folder trifold impresso do Dr. Ramon Teles, otorrinolaringologista e cirurgião crânio-maxilo-facial, em Crato",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_11_FR_peca_grafica_portfolio (export via API travado — session expired mesmo em cópia nova do doc; arte obtida por download manual do cliente). A ARTE atribui (§34): assina Dr. Ramon Teles · Otorrinolaringologista e Cirurgião crânio-maxilo-facial",
+  },
+  {
+    cliente: "Dr. Cláudio Costa Neto",
+    contexto: "Folder trifold impresso sobre cirurgia ortopédica da coluna — Recife",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Folder institucional",
+    praca: "Recife/PE",
+    imagem: "/portfolio/marketing-medico-ortopedia-recife-folder-institucional.webp",
+    largura: 772,
+    altura: 575,
+    alt: "Folder trifold impresso do Dr. Cláudio Costa Neto, cirurgião ortopédico especialista em coluna, em Recife",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_15_NO_peca_grafica_portfolio (export via API travado — session expired; arte obtida por download manual do cliente). A ARTE atribui (§34): assina Dr. Cláudio Costa Neto, Real Hospital Português de Recife + Memorial Traumatologia e Ortopedia, membro SBOT e SBC. Casa LIMBO — ver content/carteira-viva.ts",
+  },
+  {
+    cliente: "São José Gestão Ocupacional",
+    contexto: "Folder institucional para clínica de saúde ocupacional — Parauapebas",
+    espec: "Saúde Ocupacional",
+    servico: "Folder institucional",
+    praca: "Parauapebas/PA",
+    imagem: "/portfolio/marketing-medico-saude-ocupacional-parauapebas-folder-institucional.webp",
+    largura: 771,
+    altura: 435,
+    alt: "Folder institucional da São José Gestão Ocupacional, clínica de saúde ocupacional em Parauapebas",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_15_CM_peca_grafica_portfolio (export via API travado — session expired; arte obtida por download manual do cliente). A ARTE atribui (§34): assina SÃO JOSÉ · Gestão Ocupacional — mesma clínica de \"Climepa Medicina Ocupacional\" (carteira.ts) rebatizada, confirmado pelo cliente. Ver content/carteira-viva.ts",
   },
 ];
 
