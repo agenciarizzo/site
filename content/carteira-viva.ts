@@ -86,4 +86,20 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "Cadastro do RizzoOS (tabela clients): sigla LU, nome legal Marisa Aparecida De Souza E Silva, fantasy_name \"Ana Laura de Souza\", Gerontologia, Goiânia/GO, status active (contrato 2025-09-02 a 2026-09-01) + doc de sprint sprint_16_LU_peca_grafica_portfolio no Drive. A arte assina ANA LAURA · GERONTÓLOGA & GESTORA EM SAÚDE, CRM \"Ana Laura de Souza e Silva\" no cartão de identidade. Fora do AR - Clientes e das 4 listas do repo",
   },
+  // Rodada 22 (2026-08-24) — par medido (precedente Meta Vita/Elielma, Daher §16.8.19-2):
+  // a lista já tem a casa sob outro nome, a arte assina diferente. NÃO é cliente novo —
+  // não conta duas vezes no denominador.
+  {
+    nome: "São José Gestão Ocupacional",
+    origem:
+      "Climepa Medicina Ocupacional (content/carteira.ts, área Saúde Ocupacional, Parauapebas/PA) — mesma clínica rebatizada, confirmado pelo CLIENTE nesta rodada (2026-08-24). Arte: sprint_15_CM_peca_grafica_portfolio no Drive; o folder assina SÃO JOSÉ · Gestão Ocupacional, unidades em Parauapebas e Canaã dos Carajás/PA",
+  },
+  // Rodada 22 (2026-08-24) — casa NOVA fora das 4 listas (LIMBO, precedente Cardio
+  // Mulher/Ana Laura: sobe numerador E denominador). Cliente INATIVO — ex-cliente não
+  // vira anônimo (§9 do CLAUDE.md do site): a agência fez a peça, a peça é dela.
+  {
+    nome: "Dr. Cláudio Costa Neto",
+    origem:
+      "Confirmado pelo CLIENTE nesta rodada (2026-08-24): cirurgião ortopédico (coluna), cliente INATIVO da agência — fora do cadastro atual do RizzoOS (sem registro na tabela clients) e das 4 listas do repo. Arte: sprint_15_NO_peca_grafica_portfolio no Drive (2022) — o folder trifold assina DR. CLÁUDIO COSTA NETO, Real Hospital Português de Recife + Memorial Traumatologia e Ortopedia (Boa Vista, Recife/PE), membro SBOT e SBC",
+  },
 ];
