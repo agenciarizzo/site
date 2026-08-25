@@ -109,7 +109,16 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
   {
     nome: "Dr. Luciano Onofre",
     origem:
-      "Cadastro do RizzoOS (tabela clients): sigla LO, nome legal \"Luciano Silveira Onofre\", fantasy_name \"Dr. Luciano Onofre\", São Paulo/SP, status inactive (contrato 2025-05-12 a 2026-05-11) — fora das 4 listas do repo. ⚠️ Achado, não resolvido: existe também \"ACLS Onofre Cirurgia e Urologia Pediátrica\" (sigla AC, mesma cidade, mesma área, também inactive) — pode ser a MESMA casa sob 2 registros; não confirmado nesta rodada, fica pra próxima. Confirmado pelo cliente na rodada 21 como cliente real e recente. Arte: sprint_7_LO_peca_grafica_portfolio no Drive (PDFs anexados pelo cliente no chat desta rodada) — assina DR. LUCIANO ONOFRE · Urologista Pediátrico · Especialista em Hipospádia, CRM-SP 104.007 | RQE 36369, São Paulo/SP",
+      "Cadastro do RizzoOS (tabela clients): sigla LO, nome legal \"Luciano Silveira Onofre\", fantasy_name \"Dr. Luciano Onofre\", São Paulo/SP, status inactive (contrato 2025-05-12 a 2026-05-11) — fora das 4 listas do repo. ✅ Resolvido na r24: existe também \"ACLS Onofre Cirurgia e Urologia Pediátrica\" (sigla AC, mesmo endereço — Rua Haddock Lobo 131, Cerqueira César, São Paulo/SP —, mesma área, também inactive); o cliente confirmou por chat na r24 que são DOIS clientes distintos — \"um a clínica outro o médico\" — não a mesma casa sob 2 registros. ACLS entra como casa própria logo abaixo. Confirmado pelo cliente na rodada 21 como cliente real e recente. Arte: sprint_7_LO_peca_grafica_portfolio no Drive (PDFs anexados pelo cliente no chat desta rodada) — assina DR. LUCIANO ONOFRE · Urologista Pediátrico · Especialista em Hipospádia, CRM-SP 104.007 | RQE 36369, São Paulo/SP",
+  },
+  // Rodada 24 (2026-08-25) — casa NOVA fora das 4 listas (LIMBO: cliente inactive,
+  // sobe numerador E denominador, mas SEM peça própria ainda — fica no zero).
+  // Confirmado pelo cliente por chat: é cliente distinto do Dr. Luciano Onofre acima
+  // ("são dois clientes, um a clínica outro o médico"), apesar do mesmo endereço.
+  {
+    nome: "ACLS Onofre Cirurgia e Urologia Pediátrica",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla AC, fantasy_name \"ACLS Onofre Cirurgia e Urologia Pediátrica\", especialidade Cirurgia e Urologia Pediátrica, mesmo endereço do Dr. Luciano Onofre (Rua Haddock Lobo 131, Cerqueira César, São Paulo/SP), status inactive. Confirmado pelo CLIENTE nesta rodada (2026-08-25) como casa distinta — a clínica (ACLS), separada do médico (Dr. Luciano Onofre, já com peça própria acima). Sem peça própria encontrada até aqui — sonda por nome no Dropbox fica pra próxima rodada.",
   },
   // Rodada 24 (2026-08-25) — par medido (precedente Meta Vita/São José/Climepa): a
   // lista já tem a casa sob outro nome, a arte assina o nome completo. NÃO é cliente
