@@ -444,81 +444,44 @@ footer.fim .linha { font-family: var(--font-mono), monospace; font-size: var(--m
 .hero .lede { margin-top: 1.5rem; max-width: 38rem; }
 article.corpo { padding: 2.6rem 0 3rem; }
 
-/* clientes — O MURAL (refeito em 2026-08-25; ver cabeçalho de app/clientes/page.tsx).
-   Um único mural alfabético dentro de `.wrap.largo`, e não 46 grades por área
-   dentro da coluna de leitura. Regras do desenho:
-   1. O LOGO é o corpo do tile; o nome é linha de apoio (`--corpo-3`, peso normal).
-      Antes era o contrário — nome em slab bold acima do logo — e é o que o cliente
-      chamou de "tipografia ruim".
-   2. `gap: 1px` sobre fundo `--hairline`: o rejunte vira o filete e o mural lê como
-      UMA peça, no mesmo vocabulário do azulejo. Raio 0, sombra nenhuma.
-   3. Cinza que vira cor no hover (o `client-logo-item` do site antigo): é o que
-      dá unidade a 242 marcas de cores brigadas.
-   4. Fileira uniforme: a caixa da marca tem altura fixa e o nome é travado em 2
-      linhas — o buraco de tile sem marca e as linhas irregulares vinham daí. */
+/* clientes — O MURAL (2ª rodada, 2026-08-25; ver cabeçalho de app/clientes/page.tsx).
+   Pedido do cliente: *"versão só logo, sem texto algum escrito, apenas com o alt
+   para o SEO — mas quero o impacto dos logos, eles gostam de ver os detalhes."*
+   Então o tile É a marca: sem legenda, sem caixa em volta sobrando, cor cheia.
+   1. `aspect-ratio: 5 / 2` = a proporção EXATA da tela do arquivo (400×160). Caixa
+      com outra proporção deixaria faixa morta em cima e embaixo, e é isso que
+      encolhe a marca — o oposto de "impacto".
+   2. Sem `grayscale`. Ele dava unidade a 242 marcas de cores brigadas, mas cor É
+      detalhe de marca, e detalhe é o que foi pedido.
+   3. `gap: 1px` sobre `--hairline`: o rejunte vira o filete e o mural lê como UMA
+      peça, no vocabulário do azulejo. Raio 0, sombra nenhuma.
+   4. Quem não tem arquivo de logo NÃO entra (tile de texto seria justamente texto
+      no mural) — segue inteiro na lista por área, com nome e praça. */
 .mural {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
   gap: 1px;
   background: var(--hairline);
   border: 1px solid var(--hairline);
   margin: 1.6rem 0 0;
 }
-.mural .casa { display: flex; flex-direction: column; background: var(--papel); }
 .mural .marca {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Caixa alta o bastante pra marca RESPIRAR: o arquivo já chega com a marca
-     encaixada numa área útil de 360×124 dentro de uma tela de 400×160, então
-     caixa baixa = logo minúsculo dentro de tile grande (o defeito de origem). */
-  height: 6.4rem;
-  padding: 0.85rem 0.9rem 0.5rem;
-}
-.mural .marca img {
-  max-width: 100%;
-  max-height: 100%;
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 2;
   object-fit: contain;
-  /* Só dessatura — SEM baixar opacidade. `opacity: .78` foi medido e apagava as
-     marcas que já chegam em cinza claro (Cardio Clinic, CLIAOD, Appia, Evexia). */
-  filter: grayscale(1);
-  transition: filter 160ms ease;
+  background: var(--papel);
+  padding: 0.7rem 0.9rem;
+  transition: background 140ms ease;
 }
-.mural .casa:hover .marca img { filter: none; }
-/* Casa sem arquivo de logo: o NOME tipografado ocupa a caixa da marca. Não é
-   marca inventada — e mantém a fileira inteira (§⚖️ ausência honesta). */
-.mural .wordmark {
-  font-family: var(--font-slab), Rockwell, Georgia, serif;
-  font-size: var(--corpo-3);
-  line-height: var(--lh-apoio);
-  color: var(--cinza);
-  text-align: center;
-  overflow: hidden;
-}
-.mural .rotulo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  padding: 0 0.75rem 0.8rem;
-  margin-top: auto;
-  text-align: center;
-}
-.mural .rotulo .nome {
-  font-size: var(--corpo-3);
-  line-height: var(--lh-apoio);
-  color: var(--ink);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  overflow: hidden;
-}
-.mural .rotulo .praca {
-  font-family: var(--font-mono), monospace;
-  font-size: var(--mono-3);
-  letter-spacing: var(--ls-nav);
-  text-transform: uppercase;
-  color: var(--cinza);
+/* O hover não muda a marca (o cliente quer ver a marca como ela é) — só acende o
+   campo atrás, pra dar o alvo sem mexer na cor de ninguém. */
+.mural .marca:hover { background: var(--claro); }
+/* No celular o tile de 12,5rem só cabe UMA vez por fileira, e 242 marcas viram
+   um rolo sem fim. Duas por fileira mantém a marca grande e o mural navegável. */
+@media (max-width: 640px) {
+  .mural { grid-template-columns: repeat(2, 1fr); }
+  .mural .marca { padding: 0.5rem 0.55rem; }
 }
 
 /* prova das landings de cidade — nomes reais agrupados por especialidade */

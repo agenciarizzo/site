@@ -22,6 +22,18 @@
 // abaixo, no mesmo vocabulário do EspecialidadeLanding (`.carteira-grupo ul`), e
 // o índice de áreas passou a apontar pra ela.
 //
+// 2ª rodada, mesmo dia: *"quero versão só logo, sem texto algum escrito, apenas
+// com o alt para o SEO — mas para o cliente quero o impacto dos logos, eles
+// gostam de ver os detalhes"*. Então o tile perdeu a legenda (nome e praça) e
+// virou SÓ a marca, em cor cheia, na proporção 5:2 do arquivo de origem
+// (400×160) pra não sobrar caixa em volta. Duas consequências assumidas:
+// 1. Quem NÃO tem arquivo de logo sai do mural — um tile de texto seria
+//    justamente "texto escrito" no mural. Nenhuma casa some da página: as 257
+//    seguem na lista por área aqui embaixo, com nome e praça, e é de lá que sai
+//    o nome legível pra busca (o `alt` cobre a busca por imagem).
+// 2. Sem cinza. `grayscale` era o que dava unidade a 242 marcas de cores
+//    brigadas, mas cor É detalhe de marca — e detalhe é o que o cliente pediu.
+//
 // `content/clientes.ts` (a antiga grade de 18) não alimenta mais esta página —
 // ficou só como registro auditado contra o oráculo (`scripts/checar-portfolio.mjs`
 // segue validando o arquivo), porque `content/carteira.ts` já é o superconjunto
@@ -80,6 +92,11 @@ export default function ClientesPage() {
   const faixa = panoClientes();
   const grupos = agruparCarteira();
   const casas = carteiraOrdenada();
+  // O mural é só marca: entra quem tem arquivo. As 257 seguem inteiras na lista
+  // por área (e no ItemList do JSON-LD) — ninguém some da página.
+  const noMural = casas
+    .map((c) => ({ c, logo: logoDe(c.nome) }))
+    .filter((x): x is { c: ClienteCarteira; logo: string } => x.logo !== null);
   const nomesNaPagina = casas.map((c) => c.nome);
 
   // Schema desta página (regra 5 do CLAUDE.md): CollectionPage + ItemList.
@@ -128,8 +145,8 @@ export default function ClientesPage() {
           </h1>
           <p className="lede">
             Mais de 250 médicos, clínicas e hospitais passaram por aqui desde 2012 — do consultório de um nome só à
-            rede hospitalar. A lista inteira está abaixo, por área; o trabalho que fizemos com cada um está no{" "}
-            <Link href="/portfolio">portfólio</Link>.
+            rede hospitalar. As marcas vêm primeiro; a lista inteira, com praça e área, está logo abaixo. O trabalho
+            que fizemos com cada um está no <Link href="/portfolio">portfólio</Link>.
           </p>
         </div>
       </section>
@@ -140,41 +157,12 @@ export default function ClientesPage() {
             muda de largura. */}
         <div className="wrap largo">
           <div className="mural">
-            {casas.map((c) => {
-              const logo = logoDe(c.nome);
-              return (
-                <div className="casa" key={c.nome}>
-                  <div className="marca">
-                    {logo ? (
-                      /* <img> cru de propósito (SSG ~zero JS): a caixa tem altura
-                         fixa por CSS e o logo encaixa por `object-fit: contain`,
-                         então não precisa de width/height — o arquivo chega em
-                         qualquer proporção, subido à mão. */
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      <img src={logo} alt={`Logo de ${c.nome}`} loading="lazy" />
-                    ) : (
-                      /* Sem arquivo de logo, a caixa recebe o NOME composto —
-                         não é marca inventada, é o nome tipografado, e mantém a
-                         fileira do mural inteira (§⚖️: ausência honesta). */
-                      <span className="wordmark">{c.nome}</span>
-                    )}
-                  </div>
-                  <div className="rotulo">
-                    {/* `title`: o nome trava em 2 linhas com reticências (o tile é
-                        estreito de propósito), então o nome inteiro fica no hover —
-                        mesma saída do `truncate` + `title` do site antigo. */}
-                    {logo && (
-                      <span className="nome" title={c.nome}>
-                        {c.nome}
-                      </span>
-                    )}
-                    <span className="praca">
-                      {c.cidade}/{c.uf}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
+            {noMural.map(({ c, logo }) => (
+              /* Só a marca — nenhum texto. O nome viaja no `alt` (busca por
+                 imagem) e aparece por extenso na lista por área. */
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img className="marca" key={c.nome} src={logo} alt={`Logo de ${c.nome}`} loading="lazy" />
+            ))}
           </div>
         </div>
 
