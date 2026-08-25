@@ -135,7 +135,21 @@ function MenuPaginas({ atual }: { atual?: string }) {
 }
 
 /** `atual` = rota da página; dirige o aria-current (sublinhado ouro no item ativo). */
-export function MenuTopo({ atual, waText }: { atual?: string; waText: string }) {
+/**
+ * `acoesNoTopo` — a home passa `false`: lá os 2 botões moram no hero (§43 do mapa),
+ * e o header (que é `position: relative`, NÃO sticky) mostrava o mesmo par ~50px
+ * acima, na mesma dobra, sem alcançar ninguém a mais. A barra fixa do celular
+ * (`.barra-cta`) não depende disso e continua em toda página.
+ */
+export function MenuTopo({
+  atual,
+  waText,
+  acoesNoTopo = true,
+}: {
+  atual?: string;
+  waText: string;
+  acoesNoTopo?: boolean;
+}) {
   return (
     <>
       <header className="topo menu">
@@ -150,9 +164,11 @@ export function MenuTopo({ atual, waText }: { atual?: string; waText: string }) 
           ))}
           <MenuPaginas atual={atual} />
         </nav>
-        <div className="acoes">
-          <Acoes waText={waText} />
-        </div>
+        {acoesNoTopo && (
+          <div className="acoes">
+            <Acoes waText={waText} />
+          </div>
+        )}
       </header>
       {/* Barra fixa — só existe no celular (CSS); no desktop os botões ficam no topo. */}
       <div className="barra-cta">
