@@ -7,6 +7,21 @@
 // ausência honesta > presença defeituosa enquanto não sobe — §⚖️ do CLAUDE.md).
 // A parede de peças (mockups/composições) mudou de casa: é o /portfolio agora.
 //
+// Desenho refeito em 2026-08-25 a pedido do cliente (*"a página ficou muito feia,
+// essa tipografia está ruim; quero os logos espalhados ao máximo pela página"*).
+// O que estava errado, medido a 1440px: a grade caía dentro da coluna de leitura
+// de 46rem e rendia **3 colunas**, com o NOME em Roboto Slab bold maior que o
+// próprio logo e quebrando em 2–3 linhas — fileiras irregulares e buraco onde a
+// casa não tinha marca. Agora: `.wrap.largo` (o mural sai da coluna de leitura),
+// UM mural alfabético em vez de 46 grades por área (28 dessas áreas têm ≤3 casas
+// — grade por área é o que impedia o "espalhado ao máximo"), o logo é o corpo do
+// tile e o nome desceu pra linha de apoio. Referência do cliente: o mural do site
+// antigo (`client-logo-item`) — cinza que vira cor no hover, que é o que dá
+// unidade a 242 marcas de cores brigadas.
+// A leitura POR ÁREA não se perdeu: virou a lista de nomes em colunas logo
+// abaixo, no mesmo vocabulário do EspecialidadeLanding (`.carteira-grupo ul`), e
+// o índice de áreas passou a apontar pra ela.
+//
 // `content/clientes.ts` (a antiga grade de 18) não alimenta mais esta página —
 // ficou só como registro auditado contra o oráculo (`scripts/checar-portfolio.mjs`
 // segue validando o arquivo), porque `content/carteira.ts` já é o superconjunto
@@ -52,11 +67,20 @@ function agruparCarteira(): Grupo[] {
     .sort((a, b) => b.itens.length - a.itens.length || (chave(a.area) < chave(b.area) ? -1 : 1));
 }
 
+/** A carteira inteira em UMA lista alfabética — o mural não agrupa (ver cabeçalho). */
+function carteiraOrdenada(): ClienteCarteira[] {
+  const ocultos = new Set(OCULTOS.map(chave));
+  return CARTEIRA.filter((c) => !ocultos.has(chave(c.nome))).sort((a, b) =>
+    chave(a.nome) < chave(b.nome) ? -1 : 1,
+  );
+}
+
 export default function ClientesPage() {
   // Pano próprio da página (regra "cada peça com o seu pano").
   const faixa = panoClientes();
   const grupos = agruparCarteira();
-  const nomesNaPagina = grupos.flatMap((g) => g.itens.map((c) => c.nome));
+  const casas = carteiraOrdenada();
+  const nomesNaPagina = casas.map((c) => c.nome);
 
   // Schema desta página (regra 5 do CLAUDE.md): CollectionPage + ItemList.
   // SEM aggregateRating — avaliação fabricada foi um dos antipadrões que derrubaram
@@ -111,12 +135,58 @@ export default function ClientesPage() {
       </section>
 
       <article className="corpo">
-        <div className="wrap">
+        {/* O mural sai da coluna de leitura (46rem): 257 marcas em 3 colunas é o
+            que o cliente chamou de feio. `largo` é aditivo — nenhuma outra rota
+            muda de largura. */}
+        <div className="wrap largo">
+          <div className="mural">
+            {casas.map((c) => {
+              const logo = logoDe(c.nome);
+              return (
+                <div className="casa" key={c.nome}>
+                  <div className="marca">
+                    {logo ? (
+                      /* <img> cru de propósito (SSG ~zero JS): a caixa tem altura
+                         fixa por CSS e o logo encaixa por `object-fit: contain`,
+                         então não precisa de width/height — o arquivo chega em
+                         qualquer proporção, subido à mão. */
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={logo} alt={`Logo de ${c.nome}`} loading="lazy" />
+                    ) : (
+                      /* Sem arquivo de logo, a caixa recebe o NOME composto —
+                         não é marca inventada, é o nome tipografado, e mantém a
+                         fileira do mural inteira (§⚖️: ausência honesta). */
+                      <span className="wordmark">{c.nome}</span>
+                    )}
+                  </div>
+                  <div className="rotulo">
+                    {/* `title`: o nome trava em 2 linhas com reticências (o tile é
+                        estreito de propósito), então o nome inteiro fica no hover —
+                        mesma saída do `truncate` + `title` do site antigo. */}
+                    {logo && (
+                      <span className="nome" title={c.nome}>
+                        {c.nome}
+                      </span>
+                    )}
+                    <span className="praca">
+                      {c.cidade}/{c.uf}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* A lista por área também sai da coluna de leitura: em 46rem as colunas
+            ficam com ~14rem e nome de clínica quebra em 3 linhas. */}
+        <div className="wrap largo">
           {/*
             O índice das áreas. NÃO é enfeite: a 390px a lista tem dezenas de grupos —
             sem um jeito de pular, achar "Odontologia" é rolar a página inteira. Com
             ele, o grupo alvo aterrissa a 16px do topo.
           */}
+          <h2 className="sec">Por área</h2>
           <nav className="carteira-indice" aria-label="Áreas atendidas">
             {grupos.map((g) => (
               <a href={`#area-${chave(g.area)}`} key={g.area}>
@@ -129,33 +199,22 @@ export default function ClientesPage() {
             {grupos.map((g) => (
               <section className="carteira-grupo" id={`area-${chave(g.area)}`} key={g.area}>
                 <h3>{g.area}</h3>
-                <div className="clientes-grid">
-                  {g.itens.map((c) => {
-                    const logo = logoDe(c.nome);
-                    return (
-                      <div className={logo ? "cliente com-logo" : "cliente"} key={c.nome}>
-                        {logo && (
-                          <div className="logo-wrap">
-                            {/* <img> cru de propósito (SSG ~zero JS): a caixa é de
-                                altura fixa por CSS e o logo encaixa por `object-fit:
-                                contain`, então não precisa de width/height — o
-                                arquivo chega em qualquer proporção, subido à mão. */}
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={logo} alt={`Logo de ${c.nome}`} loading="lazy" />
-                          </div>
-                        )}
-                        <div className="nome">{c.nome}</div>
-                        <div className="meta">
-                          {c.cidade}/{c.uf}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <ul>
+                  {g.itens.map((c) => (
+                    <li className="carteira-nome" key={c.nome}>
+                      {c.nome}
+                      <span className="praca">
+                        {c.cidade}/{c.uf}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </section>
             ))}
           </div>
+        </div>
 
+        <div className="wrap">
           <p className="prosa">
             Boa parte dessa lista é hospital e rede — instituições em que cada linha de serviço disputa um mercado
             próprio. O que pensamos sobre isso está em{" "}

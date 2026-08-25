@@ -100,8 +100,16 @@ export default function PortfolioPage() {
             ))}
           </nav>
 
-          <PortfolioPecas pecas={PORTFOLIO} paginaDe={(espec) => paginaPorEspec.get(espec)} />
+        </div>
 
+        {/* A parede sai da coluna de leitura (46rem) pelo MESMO motivo do mural do
+            /clientes: peça é imagem, e imagem em 2 colunas estreitas com miniatura
+            de 104px é o que o cliente reprovou em 2026-08-25. */}
+        <div className="wrap largo">
+          <PortfolioPecas pecas={PORTFOLIO} paginaDe={(espec) => paginaPorEspec.get(espec)} />
+        </div>
+
+        <div className="wrap">
           <Fatos />
           <p>
             <Link href="/clientes">← Voltar pro diretório de clientes</Link>
