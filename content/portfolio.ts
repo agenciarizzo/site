@@ -2219,6 +2219,40 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "Drive: sprint_7_LO_peca_grafica_portfolio (doc trava no export — session expired; PDFs anexados pelo cliente no chat: \"Portfólio Virtual - Dr. Luciano Onofre.pdf\", one-pager 1080×11076, hero recortado do topo). A ARTE atribui (§34): assina DR. LUCIANO ONOFRE · Urologista Pediátrico · Especialista em Hipospádia, CRM-SP 104.007 | RQE 36369. Casa LIMBO — ver content/carteira-viva.ts",
   },
+  // Rodada 24 (2026-08-25) — Fila 3: sonda pelo NOME nos clientes ativos mais
+  // recentes sem peça (sigla MO, contrato desde 2025-12-07). Par medido com "Dr.
+  // Mohamad Omairi" de carteira.ts — ver content/carteira-viva.ts.
+  {
+    cliente: "Dr. Mohamad Walid Omairi",
+    contexto: "Portfólio digital para cirurgia do aparelho digestivo e bariátrica — Foz do Iguaçu",
+    espec: "Cirurgia do Aparelho Digestivo",
+    servico: "Portfólio digital",
+    praca: "Foz do Iguaçu/PR",
+    imagem: "/portfolio/marketing-medico-cirurgia-aparelho-digestivo-foz-do-iguacu-cartao-virtual.webp",
+    largura: 1200,
+    altura: 1899,
+    alt: "Mockup de celular com o portfólio digital do Dr. Mohamad Walid Omairi, cirurgião do aparelho digestivo e bariátrica em Foz do Iguaçu",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Dropbox da agência: Clientes/2026/MO/sprint_2_MO_peca_grafica_cartao_virtual/apres/Cartão Virtual - Dr. Mohamad Walid Omairi.pdf (achado por sonda pelo NOME — Fila 3 da r24). Hero recortado do topo (header+fotos+bio, cortado em fim de parágrafo), one-pager 1080×6139pt original. A ARTE atribui (§34): assina DR. MOHAMAD WALID OMAIRI, CRM-PR 29116, RQE 17511 e 23951. Par medido com \"Dr. Mohamad Omairi\" (carteira.ts, Cirurgia Geral, Foz do Iguaçu/PR) — mesma casa, ver content/carteira-viva.ts",
+  },
+  // Rodada 24 (2026-08-25) — Fila 3: sonda pelo NOME nos clientes ativos mais
+  // recentes sem peça (sigla BB, contrato desde 2025-12-05). Casa NOVA fora das 4
+  // listas — ver content/carteira-viva.ts.
+  {
+    cliente: "Sousa Brunelli",
+    contexto: "Cartão virtual de clínica de psiquiatria e saúde mental — Brasília",
+    espec: "Psiquiatria",
+    servico: "Cartão virtual",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-psiquiatria-brasilia-cartao-virtual.webp",
+    largura: 1200,
+    altura: 2133,
+    alt: "Mockup de celular com o cartão virtual da Sousa Brunelli, clínica de psiquiatria e saúde mental em Brasília, com o Dr. Bruno Brunelli",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Dropbox da agência: Clientes/2025/BB/sprint_4_BB_peca_grafica_cartao_virtual/apres/Dr. Bruno Brunelli - Cartão Virtual.pdf (achado por sonda pelo NOME — Fila 3 da r24; ⚠️ o sprint_4_BB_peca_grafica_portfolio irmão é pitch de parceria pra médico associar-se à clínica, não portfólio de cliente — vetado, não confundir). A ARTE atribui (§34): logo assina SOUSA BRUNELLI · Qualidade de Vida & Saúde Mental; CRM-DF 24351 (Dr. Bruno Brunelli), Águas Claras, Brasília/DF. Casa NOVA — ver content/carteira-viva.ts",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */

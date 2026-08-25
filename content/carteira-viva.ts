@@ -109,6 +109,33 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
   {
     nome: "Dr. Luciano Onofre",
     origem:
-      "Cadastro do RizzoOS (tabela clients): sigla LO, nome legal \"Luciano Silveira Onofre\", fantasy_name \"Dr. Luciano Onofre\", São Paulo/SP, status inactive (contrato 2025-05-12 a 2026-05-11) — fora das 4 listas do repo. ⚠️ Achado, não resolvido: existe também \"ACLS Onofre Cirurgia e Urologia Pediátrica\" (sigla AC, mesma cidade, mesma área, também inactive) — pode ser a MESMA casa sob 2 registros; não confirmado nesta rodada, fica pra próxima. Confirmado pelo cliente na rodada 21 como cliente real e recente. Arte: sprint_7_LO_peca_grafica_portfolio no Drive (PDFs anexados pelo cliente no chat desta rodada) — assina DR. LUCIANO ONOFRE · Urologista Pediátrico · Especialista em Hipospádia, CRM-SP 104.007 | RQE 36369, São Paulo/SP",
+      "Cadastro do RizzoOS (tabela clients): sigla LO, nome legal \"Luciano Silveira Onofre\", fantasy_name \"Dr. Luciano Onofre\", São Paulo/SP, status inactive (contrato 2025-05-12 a 2026-05-11) — fora das 4 listas do repo. ✅ Resolvido na r24: existe também \"ACLS Onofre Cirurgia e Urologia Pediátrica\" (sigla AC, mesmo endereço — Rua Haddock Lobo 131, Cerqueira César, São Paulo/SP —, mesma área, também inactive); o cliente confirmou por chat na r24 que são DOIS clientes distintos — \"um a clínica outro o médico\" — não a mesma casa sob 2 registros. ACLS entra como casa própria logo abaixo. Confirmado pelo cliente na rodada 21 como cliente real e recente. Arte: sprint_7_LO_peca_grafica_portfolio no Drive (PDFs anexados pelo cliente no chat desta rodada) — assina DR. LUCIANO ONOFRE · Urologista Pediátrico · Especialista em Hipospádia, CRM-SP 104.007 | RQE 36369, São Paulo/SP",
+  },
+  // Rodada 24 (2026-08-25) — casa NOVA fora das 4 listas (LIMBO: cliente inactive,
+  // sobe numerador E denominador, mas SEM peça própria ainda — fica no zero).
+  // Confirmado pelo cliente por chat: é cliente distinto do Dr. Luciano Onofre acima
+  // ("são dois clientes, um a clínica outro o médico"), apesar do mesmo endereço.
+  {
+    nome: "ACLS Onofre Cirurgia e Urologia Pediátrica",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla AC, fantasy_name \"ACLS Onofre Cirurgia e Urologia Pediátrica\", especialidade Cirurgia e Urologia Pediátrica, mesmo endereço do Dr. Luciano Onofre (Rua Haddock Lobo 131, Cerqueira César, São Paulo/SP), status inactive. Confirmado pelo CLIENTE nesta rodada (2026-08-25) como casa distinta — a clínica (ACLS), separada do médico (Dr. Luciano Onofre, já com peça própria acima). Sem peça própria encontrada até aqui — sonda por nome no Dropbox fica pra próxima rodada.",
+  },
+  // Rodada 24 (2026-08-25) — par medido (precedente Meta Vita/São José/Climepa): a
+  // lista já tem a casa sob outro nome, a arte assina o nome completo. NÃO é cliente
+  // novo — não conta duas vezes no denominador. Achado na Fila 3 (sonda pelo NOME
+  // nos clientes ativos mais recentes sem peça).
+  {
+    nome: "Dr. Mohamad Walid Omairi",
+    origem:
+      "content/carteira.ts: \"Dr. Mohamad Omairi\" (Cirurgia Geral, Foz do Iguaçu/PR) — mesma casa; a arte (cartão virtual/portfólio digital, sprint_2_MO_peca_grafica_cartao_virtual no Dropbox) assina o nome completo com \"Walid\", CRM-PR 29116, RQE 17511 e 23951. Confirmado pelo cadastro do RizzoOS (sigla MO, Cirurgia do Aparelho Digestivo e Cirurgia Bariátrica, Foz do Iguaçu/PR, status active, contrato desde 2025-12-07)",
+  },
+  // Rodada 24 (2026-08-25) — casa NOVA fora das 4 listas (LIMBO-style, mas cliente
+  // ATIVO — precedente Meta Vita/Marina Gressler/UroClínica Rio: sobe numerador E
+  // denominador). Achada na Fila 3 (sonda pelo NOME nos ~10 clientes ativos mais
+  // recentes sem peça).
+  {
+    nome: "Sousa Brunelli",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla BB, fantasy_name \"Clínica Sousa Brunelli\", specialty Psiquiatria/Psicologia/Psicanálise, Brasília/DF, status active (contrato desde 2025-12-05). Fora das 4 listas do repo. A arte (cartão virtual, sprint_4_BB_peca_grafica_cartao_virtual no Dropbox) assina o logo SOUSA BRUNELLI · Qualidade de Vida & Saúde Mental, responsável Dr. Bruno Brunelli, CRM-DF 24351, Águas Claras, Brasília/DF. ⚠️ Não confundir com sprint_4_BB_peca_grafica_portfolio (irmão de sprint, é pitch de parceria pra médico associar-se à clínica — vetado, não é portfólio de cliente)",
   },
 ];
