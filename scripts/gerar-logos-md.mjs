@@ -3,7 +3,7 @@
 // carteira crescer). Rodar depois de content/carteira.ts mudar:
 //   node scripts/gerar-logos-md.mjs
 // Não roda no build (é ferramenta de manutenção, como gerar-carteira.mjs).
-import { readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
 const raiz = process.cwd();
@@ -18,6 +18,9 @@ const slugLogo = (s) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+
+/** MESMA ordem de `EXTENSOES` em lib/logos.ts — o build serve a primeira que achar. */
+const EXTENSOES = ["svg", "webp", "png", "jpg"];
 
 const src = ler("content/carteira.ts");
 const ocultosMatch = src.match(/export const OCULTOS: string\[\] = \[([^\]]*)\]/);
@@ -34,7 +37,9 @@ for (const b of blocos) {
   const area = campo("area") ?? "";
   const cidade = campo("cidade") ?? "";
   const uf = campo("uf") ?? "";
-  linhas.push({ arquivo: `${slugLogo(nome)}.png`, nome, praca: uf ? `${cidade}/${uf}` : cidade, area });
+  const slug = slugLogo(nome);
+  const ext = EXTENSOES.find((e) => existsSync(join(raiz, "public", "logos", `${slug}.${e}`)));
+  linhas.push({ arquivo: `${slug}.png`, temLogo: ext ?? null, nome, praca: uf ? `${cidade}/${uf}` : cidade, area });
 }
 
 linhas.sort((a, b) => (a.arquivo < b.arquivo ? -1 : a.arquivo > b.arquivo ? 1 : 0));
@@ -47,6 +52,8 @@ if (colisoes.length) {
   for (const c of colisoes) console.error(`  - ${c.arquivo} ← "${c.nome}"`);
   process.exit(1);
 }
+
+const comLogo = linhas.filter((l) => l.temLogo).length;
 
 const cabecalho = `# Logos de clientes — lista de produção em lote
 
@@ -63,15 +70,19 @@ const cabecalho = `# Logos de clientes — lista de produção em lote
 > sozinha, sem moldura nem mockup (isso é o \`/portfolio\`, não aqui) · o tile
 > encaixa por \`object-fit: contain\`, então qualquer proporção serve.
 >
+> **Coluna "Logo":** \`✓\` = o arquivo já está em \`public/logos/\` e o tile
+> mostra a marca · \`—\` = ainda falta, e o tile fica só com nome + cidade +
+> área. Hoje: **${comLogo} de ${linhas.length}** (faltam ${linhas.length - comLogo}).
+>
 > **Gerado por \`scripts/gerar-logos-md.mjs\` a partir de \`content/carteira.ts\`
 > (${linhas.length} casas, OCULTOS já descontado) — não editar a tabela à mão;
-> rode o script de novo depois de mudar a carteira.**
+> rode o script de novo depois de mudar a carteira ou de subir logo novo.**
 
-| Arquivo | Cliente | Praça | Área |
-|---|---|---|---|
+| Logo | Arquivo | Cliente | Praça | Área |
+|---|---|---|---|---|
 `;
 
-const corpoTabela = linhas.map((l) => `| \`${l.arquivo}\` | ${l.nome} | ${l.praca} | ${l.area} |`).join("\n");
+const corpoTabela = linhas.map((l) => `| ${l.temLogo ? "✓" : "—"} | \`${l.arquivo}\` | ${l.nome} | ${l.praca} | ${l.area} |`).join("\n");
 
 writeFileSync(join(raiz, "LOGOS.md"), cabecalho + corpoTabela + "\n");
 console.log(`✓ gerar-logos-md: LOGOS.md escrito com ${linhas.length} linha(s).`);
