@@ -35,8 +35,9 @@ import { CIDADES } from "@/content/cidades";
 import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
 import { COMBOS } from "@/content/combos";
 
-/** Os dois botões, iguais no topo e na barra fixa do celular — um lugar só. */
-function Acoes({ waText }: { waText: string }) {
+/** Os dois botões, iguais no topo, na barra fixa do celular e no hero da home
+ *  (§43 do mapa) — um lugar só, os MESMOS registries (`lib/nav.ts`/`lib/site.ts`). */
+export function Acoes({ waText }: { waText: string }) {
   return (
     <>
       {/* `data-wa` = o texto que a conversa abre; quem o entrega ao portão é o

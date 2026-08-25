@@ -1,13 +1,17 @@
-// Home — a carta-mãe (protótipo v4 aprovado em rizzo-os/public/prototipos/manifesto-home.html).
+// Home — a camada comercial do site (§43 do mapa, rizzo-os → docs/SITE_MANIFESTO_MAPA.md).
 // Regra de tom (§2 do mapa): a página não fala de si — fala do mundo do médico.
+// Hero com as 2 portas do funil + 6 blocos comerciais, nesta ordem: 01 Proposta ·
+// 02 Três frentes · 03 Feito · 04 RizzoOS · 05 Como começa · 06 Perguntas.
 import type { Metadata } from "next";
 import { VitrineGiro } from "@/components/VitrineGiro";
 import { vitrinePorChave } from "@/content/vitrines";
 import Link from "next/link";
 import { homeJanelas, panoCard } from "@/lib/athos/panos";
-import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
+import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa, Acoes } from "@/components/athos/Athos";
 import { IntroAbertura } from "@/components/athos/IntroAbertura";
 import { CARTAS_MIDIA } from "@/content/cartas";
+import { CLIENTES } from "@/content/clientes";
+import { mockupDe } from "@/lib/mockups";
 
 export const metadata: Metadata = {
   title: "Agência de Marketing Médico | Agência Rizzo",
@@ -18,10 +22,58 @@ export const metadata: Metadata = {
 
 const WA_HOME = "Olá! Estava no site da agência e quero conversar sobre a minha clínica.";
 
+// 06 · Perguntas — pergunta OUTRA coisa (processo, preço, cidade/especialidade,
+// WhatsApp vs. proposta), sem repetir o checklist que virou a carta
+// "como-escolher-agencia-de-marketing-medico" (§43.3.7 e §43.3.8 do mapa).
+const FAQ_HOME = [
+  {
+    q: "Como funciona o processo, do primeiro contato até o pacote pronto?",
+    a: "Você monta a proposta a qualquer hora (cadastro rápido, código de acesso por e-mail, pacote com preço aberto) ou fala primeiro no WhatsApp — a gente entende o seu momento antes de qualquer número. Os dois caminhos levam ao mesmo lugar: uma proposta por escrito, que é o que de fato vincula as partes.",
+  },
+  {
+    q: "Quanto custa?",
+    a: "O preço fica visível assim que você monta o pacote pela proposta — não é enviado por e-mail depois de uma reunião. Cada pacote é calculado pela especialidade e pelas mídias escolhidas, então varia de clínica pra clínica.",
+  },
+  {
+    q: "Vocês atendem consultório, clínica com vários profissionais ou rede hospitalar?",
+    a: "Os três. Cada formato tem um problema diferente — o médico individual, a clínica com vários profissionais e a rede com várias linhas de serviço — e escrevemos separado sobre cada um: marketing para clínicas e consultórios, e marketing para rede hospitalar.",
+  },
+  {
+    q: "Vocês atendem a minha cidade e a minha especialidade?",
+    a: "Atendemos médicos, clínicas e hospitais do Brasil inteiro. Há praças em que conhecemos rua, bairro e concorrência de perto — Goiânia e Brasília —, mas fora delas o método muda pouco: reunião por vídeo, peça aprovada pelo WhatsApp e relatório dentro do RizzoOS.",
+  },
+  {
+    q: "WhatsApp ou proposta — por onde eu começo?",
+    a: "Se você já sabe o que quer, monte a proposta: é mais rápido e o preço já vem aberto. Se ainda tem dúvida sobre o que faz sentido pra sua clínica, comece pelo WhatsApp — a conversa entende o seu momento antes de qualquer proposta.",
+  },
+];
+
+const MOCKUP_ALT = (nome: string) => `Site de ${nome} — mockup`;
+
 export default function Home() {
   const [j1, j2] = homeJanelas();
+
+  // Aditivo e silencioso (§43.3.4 do mapa): 0 a N tiles, conforme o que já subiu
+  // em `public/mockups/` — nunca bloqueia o bloco, nunca inventa imagem.
+  const mockupsClientes = CLIENTES.map((c) => ({ nome: c.nome, area: c.area, src: mockupDe(c.nome) })).filter(
+    (m): m is { nome: string; area: string | undefined; src: string } => m.src !== null
+  );
+
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: FAQ_HOME.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ];
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <MenuTopo atual="/" waText={WA_HOME} />
 
       <main>
@@ -36,10 +88,13 @@ export default function Home() {
             <span className="acento">É estrutura.</span>
           </h1>
           <p className="lede">
-            Cuidamos do marketing de médicos e clínicas há 13 anos. Se aprendemos uma coisa nesse tempo, é essa:
-            paciente bom, chegando todo mês, não vem de promessa — vem de estrutura. Nesta página, o que pensamos e
-            como trabalhamos.
+            Cuidamos do marketing de médicos e clínicas há 13 anos. Paciente bom, chegando todo mês, não vem de
+            promessa — vem de estrutura.
           </p>
+          <div className="hero-cta">
+            <Acoes waText={WA_HOME} />
+          </div>
+          <Fatos />
         </div>
       </section>
 
@@ -47,74 +102,41 @@ export default function Home() {
 
       <article className="corpo prosa">
         <div className="wrap">
+          {/* 01 · Proposta */}
           <h2 className="sec">O jeito de encontrar um médico mudou</h2>
           <p>
-            Até pouco tempo, quem procurava um especialista digitava no Google e clicava nos primeiros resultados. Isso
-            continua acontecendo — mas agora existe uma segunda porta: as inteligências artificiais. Todos os dias,
-            mais pacientes perguntam ao ChatGPT e ao Gemini &ldquo;qual o melhor especialista em…?&rdquo;. E as IAs não
-            indicam qualquer um: recomendam quem tem site rápido, conteúdo verdadeiro e presença construída com
+            Até pouco tempo, quem procurava um especialista digitava no Google e clicava nos primeiros resultados.
+            Isso continua — mas hoje existe uma segunda porta: as inteligências artificiais. Todos os dias, mais
+            pacientes perguntam ao ChatGPT e ao Gemini &ldquo;qual o melhor especialista em…?&rdquo;, e as IAs não
+            indicam qualquer um — recomendam quem tem site rápido, conteúdo verdadeiro e presença construída com
             constância.
           </p>
           <p>
             Foi por isso que reorganizamos a agência inteira nos últimos anos: saímos do WordPress, passamos a
             construir sites na mesma base tecnológica do Nubank e colocamos dados no centro de cada decisão de
-            conteúdo. Não por moda — porque é isso que faz um médico ser <b>achado</b>, <b>lido</b> e{" "}
-            <b>recomendado</b>.
+            conteúdo — porque é isso que faz um médico ser <b>achado</b>, <b>lido</b> e <b>recomendado</b>.
           </p>
 
-          <h2 className="sec">No que acreditamos</h2>
-          <ul className="crencas">
-            <li>
-              <b>Paciente orgânico é o melhor paciente.</b> Ele chega procurando você — e a estrutura é o que o traz,
-              todo mês, sem custo por clique.
-            </li>
-            <li>
-              <b>Anúncio bom fica barato quando a base é boa.</b> Índice de Qualidade não se compra; se constrói com
-              site rápido e conteúdo honesto.
-            </li>
-            <li>
-              <b>Conteúdo nasce de dado, não de achismo.</b> Tendência, busca e dados dizem o que o paciente quer saber
-              — a gente escuta antes de produzir.
-            </li>
-            <li>
-              <b>A ética do CFM não é limite. É vantagem</b> de quem sabe trabalhar dentro dela há 13 anos.
-            </li>
-          </ul>
-
-          <h2 className="sec">Como escolher uma agência de marketing médico</h2>
+          <h3 className="sec">O que abre quando você monta a proposta</h3>
           <p>
-            Existe uma régua objetiva antes de qualquer contrato — cinco perguntas que valem para qualquer agência
-            que você for avaliar, incluindo esta:
+            Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote da sua clínica na hora,
+            com o preço aberto — sem esperar reunião marcada. Se preferir conversar antes, a porta quente é o
+            WhatsApp: a gente entende o seu momento primeiro, a proposta vem depois.
           </p>
-          <ul className="crencas">
-            <li>
-              <b>Ela mostra caso de verdade, com nome e especialidade?</b> Prova social anônima — &ldquo;uma
-              clínica de oftalmologia&rdquo;, sem dizer qual — é propaganda, não caso: nome real é o que você
-              consegue conferir.
-            </li>
-            <li>
-              <b>Ela escreve dentro do CFM sem que você precise pedir?</b> Promessa de resultado e antes-e-depois
-              derrubam anúncio e colocam o seu registro em risco — quem entende de marketing médico já nasce
-              sabendo disso.
-            </li>
-            <li>
-              <b>Ela explica o método, ou só entrega a peça pronta?</b> Quem sabe o que está fazendo consegue te
-              dizer o porquê de cada decisão, não só o resultado visual.
-            </li>
-            <li>
-              <b>Ela te diz quando NÃO contratar?</b> Agência que só sabe dizer sim não está do seu lado — está do
-              lado do próprio contrato.
-            </li>
-            <li>
-              <b>O relatório é seu, todo mês, sem você precisar pedir?</b> Número que você só vê quando pergunta é
-              número que a agência preferia que você não visse.
-            </li>
-          </ul>
+          <p>
+            Se preferir comparar antes de decidir, existe uma régua objetiva pra escolher qualquer agência de
+            marketing médico —{" "}
+            <Link href="/cartas/como-escolher-agencia-de-marketing-medico">inclusive esta</Link>.
+          </p>
 
-          {(() => { const v = vitrinePorChave("home"); return v ? <VitrineGiro v={v} /> : null; })()}
-
-          <h2 className="sec">O que pensamos de cada mídia</h2>
-          <p>Cada mídia tem papel, hora e medida — nenhuma faz milagre sozinha. Aqui, a nossa visão sobre cada uma:</p>
+          {/* 02 · Três frentes */}
+          <h2 className="sec">As três frentes que trabalhamos</h2>
+          <p>
+            Cada mídia tem papel, hora e medida — nenhuma faz milagre sozinha. Elas se juntam em três frentes:{" "}
+            <b>conteúdo &amp; presença</b> (site e redes, que constroem autoridade e são achados por quem procura),{" "}
+            <b>mídia paga</b> (Google e Meta, que aceleram o que a estrutura já sustenta) e <b>vídeo &amp; TV</b> (a
+            voz do médico, dentro e fora da clínica). Aqui, o que fazemos em cada uma:
+          </p>
 
           <div className="cartas-grid">
             {CARTAS_MIDIA.map((c) => (
@@ -130,30 +152,36 @@ export default function Home() {
             ))}
           </div>
 
-          <h2 className="sec">Quando o cliente não é um médico só</h2>
+          {/* Recortes de público FORA da grade, em parágrafo próprio (regra 7 do
+              CLAUDE.md) — e as duas praças com landing própria (regra 8). */}
           <p>
-            Hospital e rede não se comunicam como clínica grande: cada linha de serviço disputa um mercado próprio, o
-            corpo clínico é canal e a aprovação precisa passar por auditoria. Escrevemos separado o que pensamos sobre{" "}
-            <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
-          </p>
-          <p>
-            E quando são vários profissionais dividindo uma recepção e uma agenda só, o problema também é outro: a
-            marca precisa falar por todos sem apagar nenhum. É o que pensamos sobre{" "}
-            <Link href="/cartas/clinicas-e-consultorios">marketing para clínicas e consultórios</Link>.
+            Nem toda clínica tem o mesmo problema: vários profissionais dividindo uma recepção e uma agenda só, ou
+            uma rede com várias linhas de serviço, mudam a forma do trabalho — escrevemos separado sobre{" "}
+            <Link href="/cartas/clinicas-e-consultorios">marketing para clínicas e consultórios</Link> e sobre{" "}
+            <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>. E há praças em que conhecemos
+            rua, bairro e concorrência de perto:{" "}
+            <Link href="/marketing-medico-goiania">Goiânia</Link> e{" "}
+            <Link href="/marketing-medico-brasilia">Brasília</Link>.
           </p>
 
-          <h2 className="sec">Onde a gente conhece o terreno</h2>
-          <p>
-            Atendemos médicos, clínicas e hospitais do Brasil inteiro. Há praças, porém, em que conhecemos rua, bairro e
-            concorrência de perto — e sobre elas escrevemos separado:{" "}
-            <Link href="/marketing-medico-goiania">marketing médico em Goiânia</Link> e{" "}
-            <Link href="/marketing-medico-brasilia">marketing médico em Brasília</Link>.
-          </p>
-          <p>
-            Fora dessas praças, o método muda pouco: reunião por vídeo, peça aprovada pelo WhatsApp e relatório
-            dentro do <Link href="/rizzoos">RizzoOS</Link> — a mesma rotina de quem está aqui do lado. O que muda de cidade para cidade é o raio
-            do anúncio e o bairro que entra no texto, não o cuidado do trabalho.
-          </p>
+          {/* 03 · Feito */}
+          {(() => { const v = vitrinePorChave("home"); return v ? <VitrineGiro v={v} /> : null; })()}
+
+          {mockupsClientes.length > 0 && (
+            <>
+              <h3 className="sec">Sites que já entregamos</h3>
+              <div className="clientes-grid">
+                {mockupsClientes.map((m) => (
+                  <div className="cliente com-peca" key={m.nome}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="peca" src={m.src} alt={MOCKUP_ALT(m.nome)} width={1600} height={1040} loading="lazy" />
+                    <div className="nome">{m.nome}</div>
+                    {m.area && <div className="meta">{m.area}</div>}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </article>
 
@@ -166,8 +194,58 @@ export default function Home() {
           conteúdo. Seu marketing deixa de ser um monte de peça solta e vira um sistema trabalhando pela sua
           autoridade, todos os dias.
         </OsBlock>
-        <Fatos />
       </div>
+
+      <article className="corpo prosa">
+        <div className="wrap">
+          {/* 05 · Como começa */}
+          <h2 className="sec">Como começa</h2>
+          <p>Da proposta ao pacote pronto, sem reunião obrigatória no meio do caminho:</p>
+          <div className="passos">
+            {[
+              {
+                t: "Monte a proposta",
+                d: "Um clique no botão “Montar proposta agora” abre o cadastro, disponível 24 horas — sem esperar reunião marcada.",
+              },
+              {
+                t: "Cadastro rápido",
+                d: "Poucos dados sobre a sua clínica: especialidade, cidade e o que você já faz hoje.",
+              },
+              {
+                t: "Código de acesso por e-mail",
+                d: "Chega na hora, sem espera — é o que abre o painel onde o pacote é montado.",
+              },
+              {
+                t: "Pacote com preço aberto",
+                d: "Você monta o pacote da sua clínica e vê o preço na tela, sem precisar pedir.",
+              },
+              {
+                t: "RizzoOS entra junto",
+                d: "Quando fizer sentido pros dois lados, o acesso ao RizzoOS vem junto do trabalho — não é produto vendido à parte.",
+              },
+            ].map((s, i) => (
+              <div className="passo" key={s.t}>
+                <div className="n">{String(i + 1).padStart(2, "0")}</div>
+                <div>
+                  <h3>{s.t}</h3>
+                  <p>{s.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 06 · Perguntas */}
+          <h2 className="sec">Perguntas</h2>
+          <div className="faq">
+            {FAQ_HOME.map((f) => (
+              <details key={f.q}>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </article>
 
       <CtaConversa chave={"/"} titulo="Quanto custa" acento="para a sua clínica?" />
       </main>

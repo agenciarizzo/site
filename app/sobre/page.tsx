@@ -103,6 +103,25 @@ export default function SobrePage() {
             campanha avulsa que depende de sorte.
           </p>
 
+          <h2 className="sec">No que acreditamos</h2>
+          <ul className="crencas">
+            <li>
+              <b>Paciente orgânico é o melhor paciente.</b> Ele chega procurando você — e a estrutura é o que o traz,
+              todo mês, sem custo por clique.
+            </li>
+            <li>
+              <b>Anúncio bom fica barato quando a base é boa.</b> Índice de Qualidade não se compra; se constrói com
+              site rápido e conteúdo honesto.
+            </li>
+            <li>
+              <b>Conteúdo nasce de dado, não de achismo.</b> Tendência, busca e dados dizem o que o paciente quer
+              saber — a gente escuta antes de produzir.
+            </li>
+            <li>
+              <b>A ética do CFM não é limite. É vantagem</b> de quem sabe trabalhar dentro dela há 13 anos.
+            </li>
+          </ul>
+
           <h2 className="sec">Por que só saúde</h2>
           <p>
             Não atendemos qualquer segmento — só saúde. A vivência da agência é hospitalar de verdade, com processos
