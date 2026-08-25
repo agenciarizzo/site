@@ -75,12 +75,13 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
       "Pasta /Clientes/_clientes_inativos/Cardio Mulher/ no índice do Dropbox (por NOME) + doc de sprint sprint_1_CM_peca_grafica_portfolio no Drive (2024-25, parent 2024-26). A arte assina CARDIO MULHER · Cardiologia Materno-Fetal, Brasília. Fora do AR - Clientes e das 4 listas do repo — o cliente aprovou a entrada na rodada 20 ciente de que é casa nova no denominador",
   },
   // Rodada 21 (2026-08-21) — casa NOVA fora das 4 listas (LIMBO), confirmada pelo
-  // cliente. ⚠️ SEM PEÇA: a peça entrou na r21 (contact-sheet de carrossel em baixa
-  // resolução) e o cliente reprovou o resultado na rodada seguinte ("ficou ruim") —
-  // removida do portfolio.ts por decisão §⚖️ (ausência honesta > presença
-  // defeituosa). A casa continua REAL e registrada aqui pra sair do zero quando
-  // aparecer material melhor (o cliente citou logo e materiais próprios no Supabase/
-  // Dropbox sigla LU, ainda não localizados em alta resolução).
+  // cliente. A 1ª peça (contact-sheet de carrossel em baixa resolução, 1310×871) foi
+  // reprovada pelo cliente na rodada seguinte ("ficou ruim") e removida do
+  // portfolio.ts por decisão §⚖️ (ausência honesta > presença defeituosa).
+  // ✅ Rodada 23 (2026-08-25): material em alta apareceu no Dropbox da agência (10
+  // painéis discretos, 2250×4000px cada, achado de um tronco paralelo na r22) — sem
+  // o defeito de resolução que derrubou a 1ª peça. Painel novo aprovado pelo cliente
+  // e reentrou no portfolio.ts.
   {
     nome: "Ana Laura de Souza",
     origem:
@@ -101,5 +102,13 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     nome: "Dr. Cláudio Costa Neto",
     origem:
       "Confirmado pelo CLIENTE nesta rodada (2026-08-24): cirurgião ortopédico (coluna), cliente INATIVO da agência — fora do cadastro atual do RizzoOS (sem registro na tabela clients) e das 4 listas do repo. Arte: sprint_15_NO_peca_grafica_portfolio no Drive (2022) — o folder trifold assina DR. CLÁUDIO COSTA NETO, Real Hospital Português de Recife + Memorial Traumatologia e Ortopedia (Boa Vista, Recife/PE), membro SBOT e SBC",
+  },
+  // Rodada 23 (2026-08-25) — casa NOVA fora das 4 listas (LIMBO, precedente Cardio
+  // Mulher/Ana Laura/Costa Neto: sobe numerador E denominador). Confirmado pelo
+  // cliente na rodada 21 ("tem logo e mais coisas, iniciou no fim do ano passado").
+  {
+    nome: "Dr. Luciano Onofre",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla LO, nome legal \"Luciano Silveira Onofre\", fantasy_name \"Dr. Luciano Onofre\", São Paulo/SP, status inactive (contrato 2025-05-12 a 2026-05-11) — fora das 4 listas do repo. ⚠️ Achado, não resolvido: existe também \"ACLS Onofre Cirurgia e Urologia Pediátrica\" (sigla AC, mesma cidade, mesma área, também inactive) — pode ser a MESMA casa sob 2 registros; não confirmado nesta rodada, fica pra próxima. Confirmado pelo cliente na rodada 21 como cliente real e recente. Arte: sprint_7_LO_peca_grafica_portfolio no Drive (PDFs anexados pelo cliente no chat desta rodada) — assina DR. LUCIANO ONOFRE · Urologista Pediátrico · Especialista em Hipospádia, CRM-SP 104.007 | RQE 36369, São Paulo/SP",
   },
 ];

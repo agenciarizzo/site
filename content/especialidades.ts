@@ -101,6 +101,8 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-urologia-brasilia-folder-andrologia",
       "marketing-medico-urologia-brasilia-site-cirurgia-robotica",
       "marketing-clinica-urologia-brasilia-folder-nova-unidade",
+      // Rodada 23 (2026-08-25) — 9ª peça, além da dobra 4+3: rende no "Veja mais".
+      "marketing-medico-urologia-pediatrica-sao-paulo-portfolio-digital",
     ],
     areasCarteira: ["Urologia"],
     waText: "Olá! Vi a página de marketing para urologia no site da agência e quero conversar sobre o meu consultório.",
