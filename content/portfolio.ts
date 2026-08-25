@@ -118,6 +118,12 @@ export const ESPECIALIDADES_EXTRA = [
   // termo, r21 §16.8.21-2) mas não "Neurologia" pura — Dr. Valter Moura é neurologista
   // clínico/EEG, não cirurgião; force-fit em Neurocirurgia mis-representaria a área.
   "Neurologia", // Dr. Valter Moura: o trifold assina Consultas em Neurologia
+  // Rodada 23 (2026-08-25) — REABERTO: existia até a v4.847.0, removido junto com a
+  // única peça (Ana Laura de Souza) por qualidade de fonte (contact-sheet 1310×871).
+  // Material em alta (2250×4000, 10 painéis discretos) apareceu no Dropbox da
+  // agência — mesma casa, peça nova, grupo reaberto (precedente §⚖️: material fraco
+  // não fecha o grupo pra sempre, só até aparecer fonte que preste).
+  "Gerontologia", // Ana Laura: a capa assina ANA LAURA · GERONTÓLOGA & GESTORA EM SAÚDE
 ];
 
 /**
@@ -2175,6 +2181,43 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem:
       "Drive: sprint_15_CM_peca_grafica_portfolio (export via API travado — session expired; arte obtida por download manual do cliente). A ARTE atribui (§34): assina SÃO JOSÉ · Gestão Ocupacional — mesma clínica de \"Climepa Medicina Ocupacional\" (carteira.ts) rebatizada, confirmado pelo cliente. Ver content/carteira-viva.ts",
+  },
+  // Rodada 23 (2026-08-25) — Ana Laura REABERTA: material em alta no Dropbox da
+  // agência (10 painéis discretos, 2250×4000px cada), ao contrário do contact-sheet
+  // 1310×871 que causou a remoção na v4.847.0. Painel 1/10 (capa) aprovado pelo
+  // cliente entre 2 opções mostradas (capa × diferencial/credenciais).
+  {
+    cliente: "Ana Laura de Souza",
+    contexto: "Portfólio digital para gerontologia — Goiânia",
+    espec: "Gerontologia",
+    servico: "Portfólio digital",
+    praca: "Goiânia/GO",
+    imagem: "/portfolio/marketing-medico-gerontologia-goiania-portfolio-digital.webp",
+    largura: 1200,
+    altura: 1900,
+    alt: "Mockup de celular com o portfólio digital de Ana Laura, gerontóloga e gestora em saúde, em Goiânia",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Dropbox da agência: Clientes/2025/LU/sprint_16_LU_peca_grafica_portfolio/insumos/ (10 painéis JPG discretos, 2250×4000px cada — achado de um tronco paralelo na r22, §16.8.22-11, verificado e baixado nesta rodada). A ARTE atribui (§34): capa assina ANA LAURA · GERONTÓLOGA & GESTORA EM SAÚDE. Painel 1/10 (mãos com paciente + logo + nome/título) aprovado pelo cliente entre 2 opções. Casa LIMBO já registrada — ver content/carteira-viva.ts",
+  },
+  // Rodada 23 (2026-08-25) — Dr. Luciano Onofre: casa nova (LIMBO), confirmada pelo
+  // cliente na r21 ("tem logo e mais coisas, iniciou no fim do ano passado").
+  // PDFs anexados pelo cliente no chat depois que a política de rede do ambiente
+  // (proxy) foi liberada para *.dropboxusercontent.com — rota do Drive travava
+  // (session expired) e o link do Dropbox achado na r22 seguia bloqueado até então.
+  {
+    cliente: "Dr. Luciano Onofre",
+    contexto: "Portfólio digital para urologia pediátrica — São Paulo",
+    espec: "Urologia",
+    servico: "Portfólio digital",
+    praca: "São Paulo/SP",
+    imagem: "/portfolio/marketing-medico-urologia-pediatrica-sao-paulo-portfolio-digital.webp",
+    largura: 1200,
+    altura: 1900,
+    alt: "Mockup de celular com o portfólio digital do Dr. Luciano Onofre, urologista pediátrico e especialista em hipospádia, em São Paulo",
+    cartas: ["clinicas-e-consultorios"],
+    origem:
+      "Drive: sprint_7_LO_peca_grafica_portfolio (doc trava no export — session expired; PDFs anexados pelo cliente no chat: \"Portfólio Virtual - Dr. Luciano Onofre.pdf\", one-pager 1080×11076, hero recortado do topo). A ARTE atribui (§34): assina DR. LUCIANO ONOFRE · Urologista Pediátrico · Especialista em Hipospádia, CRM-SP 104.007 | RQE 36369. Casa LIMBO — ver content/carteira-viva.ts",
   },
 ];
 
