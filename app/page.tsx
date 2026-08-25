@@ -152,6 +152,18 @@ export default function Home() {
             ))}
           </div>
 
+          {/* Recortes de público FORA da grade, em parágrafo próprio (regra 7 do
+              CLAUDE.md) — e as duas praças com landing própria (regra 8). */}
+          <p>
+            Nem toda clínica tem o mesmo problema: vários profissionais dividindo uma recepção e uma agenda só, ou
+            uma rede com várias linhas de serviço, mudam a forma do trabalho — escrevemos separado sobre{" "}
+            <Link href="/cartas/clinicas-e-consultorios">marketing para clínicas e consultórios</Link> e sobre{" "}
+            <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>. E há praças em que conhecemos
+            rua, bairro e concorrência de perto:{" "}
+            <Link href="/marketing-medico-goiania">Goiânia</Link> e{" "}
+            <Link href="/marketing-medico-brasilia">Brasília</Link>.
+          </p>
+
           {/* 03 · Feito */}
           {(() => { const v = vitrinePorChave("home"); return v ? <VitrineGiro v={v} /> : null; })()}
 
