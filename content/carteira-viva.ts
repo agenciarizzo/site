@@ -111,4 +111,22 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "Cadastro do RizzoOS (tabela clients): sigla LO, nome legal \"Luciano Silveira Onofre\", fantasy_name \"Dr. Luciano Onofre\", São Paulo/SP, status inactive (contrato 2025-05-12 a 2026-05-11) — fora das 4 listas do repo. ⚠️ Achado, não resolvido: existe também \"ACLS Onofre Cirurgia e Urologia Pediátrica\" (sigla AC, mesma cidade, mesma área, também inactive) — pode ser a MESMA casa sob 2 registros; não confirmado nesta rodada, fica pra próxima. Confirmado pelo cliente na rodada 21 como cliente real e recente. Arte: sprint_7_LO_peca_grafica_portfolio no Drive (PDFs anexados pelo cliente no chat desta rodada) — assina DR. LUCIANO ONOFRE · Urologista Pediátrico · Especialista em Hipospádia, CRM-SP 104.007 | RQE 36369, São Paulo/SP",
   },
+  // Rodada 24 (2026-08-25) — par medido (precedente Meta Vita/São José/Climepa): a
+  // lista já tem a casa sob outro nome, a arte assina o nome completo. NÃO é cliente
+  // novo — não conta duas vezes no denominador. Achado na Fila 3 (sonda pelo NOME
+  // nos clientes ativos mais recentes sem peça).
+  {
+    nome: "Dr. Mohamad Walid Omairi",
+    origem:
+      "content/carteira.ts: \"Dr. Mohamad Omairi\" (Cirurgia Geral, Foz do Iguaçu/PR) — mesma casa; a arte (cartão virtual/portfólio digital, sprint_2_MO_peca_grafica_cartao_virtual no Dropbox) assina o nome completo com \"Walid\", CRM-PR 29116, RQE 17511 e 23951. Confirmado pelo cadastro do RizzoOS (sigla MO, Cirurgia do Aparelho Digestivo e Cirurgia Bariátrica, Foz do Iguaçu/PR, status active, contrato desde 2025-12-07)",
+  },
+  // Rodada 24 (2026-08-25) — casa NOVA fora das 4 listas (LIMBO-style, mas cliente
+  // ATIVO — precedente Meta Vita/Marina Gressler/UroClínica Rio: sobe numerador E
+  // denominador). Achada na Fila 3 (sonda pelo NOME nos ~10 clientes ativos mais
+  // recentes sem peça).
+  {
+    nome: "Sousa Brunelli",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla BB, fantasy_name \"Clínica Sousa Brunelli\", specialty Psiquiatria/Psicologia/Psicanálise, Brasília/DF, status active (contrato desde 2025-12-05). Fora das 4 listas do repo. A arte (cartão virtual, sprint_4_BB_peca_grafica_cartao_virtual no Dropbox) assina o logo SOUSA BRUNELLI · Qualidade de Vida & Saúde Mental, responsável Dr. Bruno Brunelli, CRM-DF 24351, Águas Claras, Brasília/DF. ⚠️ Não confundir com sprint_4_BB_peca_grafica_portfolio (irmão de sprint, é pitch de parceria pra médico associar-se à clínica — vetado, não é portfólio de cliente)",
+  },
 ];
