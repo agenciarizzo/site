@@ -12,9 +12,11 @@ export interface Carta {
    * "midia" = uma das 6 mídias da casa; entra na grade "O que pensamos de cada mídia"
    * da home. "segmento" = recorte de público (rede hospitalar), que segue o MESMO
    * esqueleto mas não é mídia — fica fora daquela grade pra não desmentir o título dela.
+   * "guia" = conteúdo de orientação (como escolher agência) — mesmo esqueleto, mas não
+   * é mídia nem recorte de público; fica fora das duas grades e é linkada por parágrafo.
    * Ausente = "midia" (as 6 originais não precisaram mudar).
    */
-  eixo?: "midia" | "segmento";
+  eixo?: "midia" | "segmento" | "guia";
   titulo: string; // <title>/H1 SEO
   descricao: string; // meta description
   cardP: string; // frase-posição no card da home
@@ -425,6 +427,73 @@ export const CARTAS: Carta[] = [
     ],
     ctaAcento: "a sua clínica ou consultório?",
     waText: "Olá! Li o que vocês pensam sobre marketing para clínicas e consultórios e quero conversar sobre a nossa clínica.",
+  },
+  // ── Conteúdo de ORIENTAÇÃO, não de mídia nem de recorte de público (eixo "guia") ──
+  // Migrou da home (§43 do mapa, rizzo-os → docs/SITE_MANIFESTO_MAPA.md): as 5
+  // perguntas que ali eram um bloco de bullets viram carta própria, no esqueleto
+  // canônico. "Ela te diz quando NÃO contratar?" é literalmente o `quandoNao`
+  // desta carta; as outras 4 alimentam `posicao`/`como`. `faq` é conteúdo novo,
+  // que não duplica o checklist.
+  {
+    slug: "como-escolher-agencia-de-marketing-medico",
+    num: "09",
+    eixo: "guia",
+    midia: "Como escolher uma agência",
+    titulo: "Como Escolher a Agência de Marketing Médico",
+    descricao:
+      "Uma régua objetiva antes de qualquer contrato: os critérios que valem para qualquer agência de marketing médico que você for avaliar — incluindo esta.",
+    cardP: "Uma régua objetiva antes de assinar — pra medir qualquer agência, incluindo esta.",
+    head: ["Antes de contratar,", "meça por uma régua —", "não por promessa."],
+    lede:
+      "Existe uma régua objetiva antes de qualquer contrato: critérios que valem para qualquer agência de marketing médico que você for avaliar — incluindo esta.",
+    posicao: [
+      "A maioria dos médicos escolhe agência do jeito que escolhe qualquer fornecedor: por indicação, por preço ou pela peça mais bonita do portfólio. Nenhum desses três critérios diz se o trabalho vai continuar bom depois do terceiro mês — e é aí que a maior parte dos contratos de marketing médico desanda.",
+      "Os critérios abaixo servem pra qualquer agência que você for avaliar, não só pra esta. Aplique a régua inteira antes de assinar qualquer coisa.",
+    ],
+    como: [
+      {
+        t: "Prova com nome real",
+        d: "Peça pra ver casos de verdade, com nome do cliente e especialidade — prova social anônima (“uma clínica de oftalmologia”, sem dizer qual) é propaganda, não caso: nome real é o que você consegue conferir.",
+      },
+      {
+        t: "CFM sem que você precise pedir",
+        d: "Promessa de resultado e antes-e-depois derrubam anúncio e colocam o seu registro em risco — quem entende de marketing médico já escreve dentro do Manual de Publicidade Médica, sem que você precise avisar.",
+      },
+      {
+        t: "Método explicado, não só a peça pronta",
+        d: "Peça pra quem sabe o que está fazendo te dizer o porquê de cada decisão — não só entregar o resultado visual e esperar aprovação.",
+      },
+      {
+        t: "Relatório seu, todo mês, sem você pedir",
+        d: "Número que você só vê quando pergunta é número que a agência preferia que você não visse — o relatório tem que chegar sozinho, todo mês.",
+      },
+    ],
+    os: "É por essa régua que o RizzoOS existe: o planejamento, a aprovação pelo WhatsApp e o relatório do mês ficam abertos no seu celular, sem precisar pedir — o método e o número, os dois visíveis o tempo todo.",
+    quandoNaoTitulo: "Quando NÃO contratar (nem esta)",
+    quandoNao: [
+      "Se a agência que você está avaliando — esta incluída — não te disser quando NÃO é a hora certa de investir, desconfie: agência que só sabe dizer sim não está do seu lado, está do lado do próprio contrato.",
+      "E se a proposta chega sem explicar de onde saiu o preço, ou pede decisão na hora da reunião, pare: proposta séria pode esperar você comparar com outra.",
+    ],
+    faq: [
+      {
+        q: "Preciso comparar mais de uma agência antes de decidir?",
+        a: "Vale a pena, sim — mesmo que você já tenha uma favorita. Comparar pela régua acima (prova, CFM, método, relatório) é rápido e evita descobrir uma falha só depois de assinar.",
+      },
+      {
+        q: "O que perguntar numa primeira conversa com uma agência?",
+        a: "Peça pra ver um caso de verdade, com nome; pergunte como funciona a aprovação de peça; e pergunte quando você vai receber o primeiro relatório. As respostas dizem mais que qualquer portfólio.",
+      },
+      {
+        q: "Contrato longo é sinal de agência ruim?",
+        a: "Não necessariamente — marketing médico é construção, não campanha de um mês. O sinal de alerta não é o prazo, é a ausência de relatório e de explicação durante ele.",
+      },
+      {
+        q: "Essa régua vale só pra marketing médico, ou pra qualquer agência?",
+        a: "Os três primeiros critérios são gerais, mas o do CFM é específico de saúde: publicidade médica tem regra própria, e agência sem vivência nisso aprende à sua custa — com o seu registro em jogo.",
+      },
+    ],
+    ctaAcento: "a sua clínica?",
+    waText: "Olá! Li sobre como escolher uma agência de marketing médico no site e quero conversar sobre a minha clínica.",
   },
 ];
 
