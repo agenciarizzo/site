@@ -437,6 +437,10 @@ footer.fim .linha { font-family: var(--font-mono), monospace; font-size: var(--m
 .hero { padding: 3.2rem 0 3rem; }
 .hero .kicker { margin-bottom: 1.2rem; }
 .hero .lede { margin-top: 1.5rem; max-width: 38rem; }
+/* Os 2 CTAs do funil dentro do hero (§43 do mapa) — mesmos botões do topo
+   (`.btn-zap`/`.btn-proposta`, globais), só o container muda de lugar. */
+.hero-cta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.8rem; }
+.hero .fatos { margin-bottom: 0; }
 article.corpo { padding: 2.6rem 0 3rem; }
 
 /* clientes */

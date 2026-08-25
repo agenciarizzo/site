@@ -196,6 +196,12 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
             <Link href="/contato" aria-current={cur("/contato")}>
               Contato
             </Link>
+            <Link
+              href="/cartas/como-escolher-agencia-de-marketing-medico"
+              aria-current={cur("/cartas/como-escolher-agencia-de-marketing-medico")}
+            >
+              Como escolher uma agência
+            </Link>
             {/* 2ª porta do funil — mora no app (FUNIL_ENTRADA_MAPA §5); data-cta = medição. */}
             <a data-cta="proposta" href={PROPOSTA_URL}>
               Montar proposta
