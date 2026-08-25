@@ -15,7 +15,7 @@
 >
 > **Coluna "Logo":** `✓` = o arquivo já está em `public/logos/` e o tile
 > mostra a marca · `—` = ainda falta, e o tile fica só com nome + cidade +
-> área. Hoje: **238 de 257** (faltam 19).
+> área. Hoje: **242 de 257** (faltam 15).
 >
 > **Gerado por `scripts/gerar-logos-md.mjs` a partir de `content/carteira.ts`
 > (257 casas, OCULTOS já descontado) — não editar a tabela à mão;
@@ -49,7 +49,7 @@
 | ✓ | `cetfisio-fisioterapia-e-bem-estar-no-gama.png` | CETFISIO – Fisioterapia e Bem-estar no Gama | Brasília/DF | Ortopedia |
 | ✓ | `cisma-centro-integrado-da-saude-macedo.png` | Cisma – Centro Integrado da Saúde Macedo | Rio Verde/GO | Odontologia |
 | ✓ | `cliaod-otorrinolaringologia.png` | CLIAOD – Otorrinolaringologia | Brasília/DF | Otorrinolaringologia |
-| — | `climepa-medicina-ocupacional.png` | Climepa Medicina Ocupacional | Parauapebas/PA | Saúde Ocupacional |
+| ✓ | `climepa-medicina-ocupacional.png` | Climepa Medicina Ocupacional | Parauapebas/PA | Saúde Ocupacional |
 | ✓ | `clinica-appia.png` | Clínica Appia | Rio de Janeiro/RJ | Dermatologia e Estética |
 | ✓ | `clinica-babyped.png` | Clínica BabyPed | Brasília/DF | Pediatria |
 | ✓ | `clinica-capelli-bauru-transplante-capilar.png` | Clínica CAPELLI Bauru – Transplante Capilar | Bauru/SP | Dermatologia e Estética |
@@ -179,7 +179,7 @@
 | ✓ | `dra-maria-eduarda-amaral.png` | Dra. Maria Eduarda Amaral | Brasília/DF | Saúde da Mulher |
 | ✓ | `dra-mariana-alcantara.png` | Dra. Mariana Alcantara | São Paulo/SP | Cirurgia Plástica |
 | ✓ | `dra-maysa-araujo-melo.png` | Dra. Maysa Araujo Melo | Goiânia/GO | Endocrinologia |
-| — | `dra-mirian-helena-hoeschl-abreu.png` | Dra. Mirian Helena Hoeschl Abreu | Brasília/DF | Saúde da Mulher |
+| ✓ | `dra-mirian-helena-hoeschl-abreu.png` | Dra. Mirian Helena Hoeschl Abreu | Brasília/DF | Saúde da Mulher |
 | ✓ | `dra-natalia-tiburcio-de-araujo.png` | Dra. Natália Tibúrcio de Araújo | São Paulo/SP | Cirurgia |
 | ✓ | `dra-nilse-querino-infectologista.png` | Dra. Nilse Querino – Infectologista | Salvador/BA | Infectologia |
 | ✓ | `dra-patricia-andreia-rodrigues-ferreira-dermatologista.png` | Dra. Patrícia Andréia Rodrigues Ferreira – Dermatologista | Goiânia/GO | Dermatologia e Estética |
@@ -189,7 +189,7 @@
 | ✓ | `durrari-sociedade-de-advogados.png` | Durrari – Sociedade de Advogados | Varginha/MG | Serviços Profissionais |
 | ✓ | `ecomed-clinica-de-imagem.png` | ECOMED – Clínica de Imagem | Brasília/DF | Diagnóstico Médico |
 | ✓ | `eduardo-jatene-cirurgia-plastica.png` | Eduardo Jatene – Cirurgia Plástica | Goiânia/GO | Cirurgia Plástica |
-| — | `elielma-almeida-ferreira-de.png` | Elielma Almeida Ferreira de | Brasília/DF | Saúde da Mulher |
+| ✓ | `elielma-almeida-ferreira-de.png` | Elielma Almeida Ferreira de | Brasília/DF | Saúde da Mulher |
 | ✓ | `evandro-luiz-brum-cirurgia-toracica.png` | Evandro Luiz Brum – Cirurgia Torácica | Brasília/DF | Cirurgia |
 | ✓ | `examine-agora-imagem-e-medicina.png` | Examine Agora – Imagem e Medicina | Brasília/DF | Diagnóstico Médico |
 | ✓ | `excellence-clinica-de-estetica.png` | Excellence – Clínica de Estética | Brasília/DF | Dermatologia e Estética |
@@ -213,7 +213,7 @@
 | ✓ | `inacio-ventura.png` | Inácio Ventura | Brasília/DF | Ortopedia |
 | ✓ | `incordis.png` | Incordis | Brasília/DF | Cardiologia |
 | ✓ | `inmed-instituto-de-medicina-e-diagnostico.png` | InMed – Instituto de Medicina e Diagnóstico | Brasília/DF | Diagnóstico Médico |
-| — | `instituto-cv.png` | Instituto CV | Salvador/BA | Nutrição e Bem-Estar |
+| ✓ | `instituto-cv.png` | Instituto CV | Salvador/BA | Nutrição e Bem-Estar |
 | ✓ | `instituto-kaplan.png` | Instituto Kaplan | Brasília/DF | Oncologia |
 | ✓ | `instituto-panamericano-de-oftalmologia.png` | Instituto Panamericano de Oftalmologia | Brasília/DF | Oftalmologia |
 | ✓ | `instituto-sono-e-neuro.png` | Instituto Sono e Neuro | Balneário Camboriú/SC | Medicina do Sono |
