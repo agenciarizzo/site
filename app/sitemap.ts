@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/sobre`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/rizzoos`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/clientes`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/portfolio`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/contato`, changeFrequency: "yearly", priority: 0.5 },
     { url: `${SITE_URL}/politica-privacidade`, changeFrequency: "yearly", priority: 0.2 },
   ];

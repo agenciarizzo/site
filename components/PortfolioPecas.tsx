@@ -9,6 +9,7 @@
 //
 // O `h2` mora AQUI dentro de propósito (4c): sem peça a seção não existe, e com o
 // título no page.tsx sobraria a barra ouro com nada embaixo.
+import Link from "next/link";
 import { PecaLightbox } from "@/components/PecaLightbox";
 import { chave, type PecaPortfolio } from "@/content/portfolio";
 
@@ -49,7 +50,19 @@ function agruparPecas(pecas: PecaPortfolio[]): Grupo[] {
     .sort((a, b) => b.itens.length - a.itens.length || (chave(a.espec) < chave(b.espec) ? -1 : 1));
 }
 
-export function PortfolioPecas({ pecas }: { pecas: PecaPortfolio[] }) {
+export function PortfolioPecas({
+  pecas,
+  paginaDe,
+}: {
+  pecas: PecaPortfolio[];
+  /**
+   * Espec → rota da página de especialidade dedicada (content/especialidades.ts),
+   * quando existir uma — é o que faz o /portfolio funcionar como ÍNDICE (pedido do
+   * cliente, 2026-08-25): grupo com página própria ganha o link "Ver a página →"
+   * no cabeçalho; grupo sem página segue só com a parede embutida, como sempre foi.
+   */
+  paginaDe?: (espec: string) => string | undefined;
+}) {
   if (pecas.length === 0) return null;
   const grupos = agruparPecas(pecas);
   // A 1ª miniatura da seção é o LCP dela — é a única que não nasce `lazy`.
@@ -75,6 +88,11 @@ export function PortfolioPecas({ pecas }: { pecas: PecaPortfolio[] }) {
           <section className={g.itens.length === 1 ? "parede-grupo unica" : "parede-grupo"} id={g.slug} key={g.espec}>
             <h3>
               {g.espec} <span className="conta">{String(g.itens.length).padStart(2, "0")}</span>
+              {paginaDe?.(g.espec) && (
+                <Link className="ver-pagina" href={paginaDe(g.espec)!}>
+                  Ver a página →
+                </Link>
+              )}
             </h3>
             <div className="parede-itens">
               {g.itens.map((p) => {

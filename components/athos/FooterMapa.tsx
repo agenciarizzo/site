@@ -21,7 +21,7 @@ import { ROTA_PORTAO } from "@/lib/nav";
 import { COMBOS } from "@/content/combos";
 import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
 
-export type CardRef = "seo" | "clientes" | "panorama" | "contato" | "goiania" | "brasilia" | "home";
+export type CardRef = "seo" | "clientes" | "portfolio" | "panorama" | "contato" | "goiania" | "brasilia" | "home";
 
 const CARDS: Record<CardRef, { href: string; kicker: string; titulo: string; texto: string }> = {
   seo: {
@@ -35,6 +35,12 @@ const CARDS: Record<CardRef, { href: string; kicker: string; titulo: string; tex
     kicker: "Prova",
     titulo: "Clientes atendidos",
     texto: "Quem já confia na agência, e o que construímos com cada um.",
+  },
+  portfolio: {
+    href: "/portfolio",
+    kicker: "Prova",
+    titulo: "O trabalho, peça por peça",
+    texto: "Portfólio por especialidade — sites, campanhas e peças gráficas já entregues.",
   },
   panorama: {
     href: "/marketing-medico",
@@ -149,6 +155,9 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
             </Link>
             <Link href="/clientes" aria-current={cur("/clientes")}>
               Clientes atendidos
+            </Link>
+            <Link href="/portfolio" aria-current={cur("/portfolio")}>
+              Portfólio
             </Link>
           </nav>
           {/* As 19 casas das peças do acervo — mesmo formato de Cidades (colunas),
