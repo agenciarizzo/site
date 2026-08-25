@@ -1196,6 +1196,9 @@ p.resumo {
   body { padding-bottom: 4.6rem; }
   /* no celular quem carrega a ação é a barra; o topo fica só com marca e menu */
   header.topo.menu .acoes { display: none; }
+  /* ...e a barra fixa está sempre à mão, então o par do hero seria o 2º na tela */
+  .hero-cta { display: none; }
+  .hero .fatos { margin-top: 1.8rem; }
 }
 
 /* ── O portão (/whatsapp) ─────────────────────────────────────────────────────

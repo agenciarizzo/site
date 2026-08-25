@@ -74,7 +74,7 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <MenuTopo atual="/" waText={WA_HOME} />
+      <MenuTopo atual="/" waText={WA_HOME} acoesNoTopo={false} />
 
       <main>
       <section className="hero">
