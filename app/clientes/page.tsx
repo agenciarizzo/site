@@ -1,20 +1,23 @@
-// Clientes — a prova, levinha (SSG puro; nomes já públicos no site atual).
+// Clientes — o diretório inteiro, levinho (SSG puro).
 //
-// Duas seções, e a ordem importa (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §24.4):
-//  · em cima, a grade de sempre — os poucos nomes com peça/mockup pra mostrar;
-//  · embaixo, a carteira inteira desde 2012, agrupada por área, só texto.
-// A de baixo é UNIÃO com a de cima, nunca substituição: quem já apareceu lá não
-// repete aqui, e quem existe só no `clientes.ts` continua na página (§24.3, achado 1).
+// Reorganização (pedido do cliente, 2026-08-25): esta página era top-grid (18
+// casas com peça/mockup) + parede de peças + carteira em texto (sem imagem).
+// Agora é UMA coisa só — a carteira inteira (`content/carteira.ts`), agrupada
+// por área, com o LOGO de cada casa quando ele já subiu (`lib/logos.ts`;
+// ausência honesta > presença defeituosa enquanto não sobe — §⚖️ do CLAUDE.md).
+// A parede de peças (mockups/composições) mudou de casa: é o /portfolio agora.
+//
+// `content/clientes.ts` (a antiga grade de 18) não alimenta mais esta página —
+// ficou só como registro auditado contra o oráculo (`scripts/checar-portfolio.mjs`
+// segue validando o arquivo), porque `content/carteira.ts` já é o superconjunto
+// com cidade+área pra TODAS as casas, sem precisar reconciliar os dois.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MenuTopo, Fatos, CtaConversa, FooterMapa, Band } from "@/components/athos/Athos";
 import { panoClientes } from "@/lib/athos/panos";
-import { CLIENTES } from "@/content/clientes";
-import { PORTFOLIO, chave } from "@/content/portfolio";
-import { PortfolioPecas } from "@/components/PortfolioPecas";
+import { chave } from "@/content/portfolio";
 import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
-import { getVitrine, imagemUrl, porNome } from "@/lib/showcase";
-import { mockupDe } from "@/lib/mockups";
+import { logoDe } from "@/lib/logos";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -26,86 +29,34 @@ export const metadata: Metadata = {
 
 const WA = "Olá! Vi a página de clientes no site da agência e quero conversar sobre a minha clínica.";
 
-/*
- * `chave()` (comparação: sem acento, sem pontuação, minúscula) mudou de casa pro
- * content/portfolio.ts, de onde vem importada: a parede precisa dela pro
- * `parede-<chave>`, e duas cópias da mesma normalização acabariam divergindo do
- * `area-<chave>` que esta página usa aqui embaixo.
- */
-
-/**
- * Duas formas do mesmo nome (§24.3, achado 2): a grade de cima usa a curta
- * (`AngioMedi`, `IOT`), a carteira usa a completa (`Angiomedi – Centro Integrado de
- * Angiologia`, `Clínica IOT`). Chave exata + prefixo casa 15 dos 18 sozinha; estes
- * dois não abrem por prefixo porque o nome completo começa por palavra genérica.
- *
- * O fallback genérico "o nome curto aparece como palavra dentro do completo" foi
- * MEDIDO e reprovado: casa `IOT` com `CETFISIO – Fisioterapia e Bem-estar no Gama`
- * (fi-SIOT-erapia) e `Pelvi` com dois registros distintos — apagaria cliente real da
- * lista de baixo. Apelido declarado, conferido a olho, sem heurística.
- */
-const APELIDOS: Record<string, string> = {
-  IOT: "Clínica IOT",
-  "Janice Lamas": "Clínica Janice Lamas Radiologia",
-};
-
-/** `type` que não é consultório/clínica — vai pro grupo próprio, no fim (§24.3, achado 4). */
-const NAO_CLINICO = new Set(["Associação", "Evento", "Serviços", "Website"]);
-const ROTULO_NAO_CLINICO = "Instituições e projetos";
-
 type Grupo = { area: string; itens: ClienteCarteira[] };
 
 /**
- * A carteira que a página mostra: tudo que o gerador produziu, menos o que o cliente
- * riscou no `OCULTOS` e menos quem já está na grade de cima. Agrupado por área, do
- * grupo maior pro menor — no celular isso põe a substância antes da cauda de áreas
- * com um nome só. Desempate e ordem interna pela chave ASCII, nunca por
- * `localeCompare`: ordenação por locale muda com o ICU da máquina de build.
+ * Todas as casas da carteira, menos o que o cliente riscou em `OCULTOS`, agrupadas
+ * por área — do grupo maior pro menor (no celular isso põe a substância antes da
+ * cauda de áreas com um nome só). Desempate e ordem interna pela chave ASCII, nunca
+ * por `localeCompare`: ordenação por locale muda com o ICU da máquina de build.
  */
 function agruparCarteira(): Grupo[] {
   const ocultos = new Set(OCULTOS.map(chave));
-  const curtos = CLIENTES.map((c) => chave(c.nome));
-  const apelidos = new Set(Object.values(APELIDOS).map(chave));
-
-  const naGrade = (nome: string) => {
-    const k = chave(nome);
-    return apelidos.has(k) || curtos.some((c) => k === c || k.startsWith(c));
-  };
-
-  const restantes = CARTEIRA.filter((c) => !ocultos.has(chave(c.nome)) && !naGrade(c.nome));
+  const restantes = CARTEIRA.filter((c) => !ocultos.has(chave(c.nome)));
 
   const porArea = new Map<string, ClienteCarteira[]>();
-  const outros: ClienteCarteira[] = [];
-  for (const c of restantes) {
-    if (NAO_CLINICO.has(c.tipo)) outros.push(c);
-    else porArea.set(c.area, [...(porArea.get(c.area) ?? []), c]);
-  }
+  for (const c of restantes) porArea.set(c.area, [...(porArea.get(c.area) ?? []), c]);
 
   const ordenar = (itens: ClienteCarteira[]) =>
     [...itens].sort((a, b) => (chave(a.nome) < chave(b.nome) ? -1 : 1));
 
-  const grupos = [...porArea.entries()]
+  return [...porArea.entries()]
     .map(([area, itens]) => ({ area, itens: ordenar(itens) }))
     .sort((a, b) => b.itens.length - a.itens.length || (chave(a.area) < chave(b.area) ? -1 : 1));
-
-  if (outros.length) grupos.push({ area: ROTULO_NAO_CLINICO, itens: ordenar(outros) });
-  return grupos;
 }
 
-export default async function ClientesPage() {
-  // Pano próprio da página (regra "cada peça com o seu pano"): antes esta faixa
-  // era a 2ª janela da home, a MESMA que /contato e /politica-privacidade
-  // mostravam — três páginas com o azulejo de uma quarta.
+export default function ClientesPage() {
+  // Pano próprio da página (regra "cada peça com o seu pano").
   const faixa = panoClientes();
-  // Vitrine lida do storage público NO BUILD (nunca do Dropbox, nunca em runtime).
-  // Enquanto não houver peça publicada, `itens` vem vazio e a página é a de sempre.
-  const { base, itens } = await getVitrine();
-  const peca = porNome(itens);
   const grupos = agruparCarteira();
-
-  // Os nomes que a página realmente mostra: a grade de cima mais a carteira de baixo.
-  // É essa a lista que vai pro ItemList — nada que não esteja na tela entra no schema.
-  const nomesNaPagina = [...CLIENTES.map((c) => c.nome), ...grupos.flatMap((g) => g.itens.map((c) => c.nome))];
+  const nomesNaPagina = grupos.flatMap((g) => g.itens.map((c) => c.nome));
 
   // Schema desta página (regra 5 do CLAUDE.md): CollectionPage + ItemList.
   // SEM aggregateRating — avaliação fabricada foi um dos antipadrões que derrubaram
@@ -136,30 +87,6 @@ export default async function ClientesPage() {
         name: nome,
       })),
     },
-    // As peças da parede como ImageObject — é o que dá à busca por imagem o nome do
-    // cliente e a linha de contexto de cada composição. Sai junto com a seção quando
-    // o registry está vazio: schema de lista vazia é resíduo, não dado.
-    ...(PORTFOLIO.length > 0
-      ? [
-          {
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Peças do acervo da Agência Rizzo publicadas nesta página",
-            itemListOrder: "https://schema.org/ItemListUnordered",
-            numberOfItems: PORTFOLIO.length,
-            itemListElement: PORTFOLIO.map((p, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "ImageObject",
-                name: p.cliente,
-                description: p.contexto,
-                contentUrl: `${SITE_URL}${p.imagem}`,
-              },
-            })),
-          },
-        ]
-      : []),
   ];
 
   return (
@@ -177,69 +104,20 @@ export default async function ClientesPage() {
           </h1>
           <p className="lede">
             Mais de 250 médicos, clínicas e hospitais passaram por aqui desde 2012 — do consultório de um nome só à
-            rede hospitalar. Logo abaixo, alguns dos trabalhos; na sequência, a carteira inteira, por área.
+            rede hospitalar. A lista inteira está abaixo, por área; o trabalho que fizemos com cada um está no{" "}
+            <Link href="/portfolio">portfólio</Link>.
           </p>
         </div>
       </section>
 
       <article className="corpo">
         <div className="wrap">
-          <div className="clientes-grid">
-            {CLIENTES.map((c) => {
-              const p = peca.get(chave(c.nome));
-              // Duas fontes de imagem, nesta ordem: a vitrine oficial (storage,
-              // manifest publicado pelo RizzoOS) e o mockup subido no repo
-              // (public/mockups/ + MOCKUPS.md). Sem nenhuma das duas, o tile
-              // fica só com nome + área — nunca caixa vazia (§12.3).
-              const src = p ? imagemUrl(base, p) : mockupDe(c.nome);
-              return (
-                <div className={src ? "cliente com-peca" : "cliente"} key={c.nome}>
-                  {src && (
-                    // <img> cru de propósito: a peça já vem no tamanho certo do storage
-                    // e o site é SSG com ~zero JS — next/image traria o otimizador em
-                    // runtime e remotePatterns pro host do storage, sem ganho aqui.
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      className="peca"
-                      src={src}
-                      alt={`Trabalho para ${c.nome} — mockup`}
-                      width={1600}
-                      height={1040}
-                      loading="lazy"
-                    />
-                  )}
-                  <div className="nome">{c.nome}</div>
-                  {c.area && <div className="meta">{c.area}</div>}
-                </div>
-              );
-            })}
-          </div>
-          <p className="prosa">
-            Boa parte dessa lista é hospital e rede — instituições em que cada linha de serviço disputa um mercado
-            próprio. O que pensamos sobre isso está em{" "}
-            <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
-          </p>
-
-          {/* O h2 e a âncora #pecas vêm DE DENTRO do componente: sem peça no
-              registry a seção inteira deixa de existir, sem sobrar título órfão. */}
-          <PortfolioPecas pecas={PORTFOLIO} />
-
-          <h2 className="sec" id="carteira">
-            A carteira, desde 2012
-          </h2>
-          <p className="prosa">
-            Quem passou por aqui, por área de atuação. Nem todo nome segue em contrato hoje — é o histórico do
-            trabalho, não a lista do mês.
-          </p>
           {/*
-            O índice das áreas. NÃO é enfeite: a 390px a lista tem 43 grupos e 15.641px
-            de altura (a página inteira, 21.490px) — sem um jeito de pular, achar
-            "Odontologia" é rolar 18 telas. Com ele, o grupo alvo aterrissa a 16px do topo.
-            Fica FORA do `.carteira` de propósito: o invariante do §24.5 é que nome de
-            cliente não vira link (não há endereço no dado pra linkar), e aqui nenhum
-            nome é link — estes âncoras apontam pra dentro da própria página.
+            O índice das áreas. NÃO é enfeite: a 390px a lista tem dezenas de grupos —
+            sem um jeito de pular, achar "Odontologia" é rolar a página inteira. Com
+            ele, o grupo alvo aterrissa a 16px do topo.
           */}
-          <nav className="carteira-indice" aria-label="Áreas da carteira">
+          <nav className="carteira-indice" aria-label="Áreas atendidas">
             {grupos.map((g) => (
               <a href={`#area-${chave(g.area)}`} key={g.area}>
                 {g.area}
@@ -251,19 +129,38 @@ export default async function ClientesPage() {
             {grupos.map((g) => (
               <section className="carteira-grupo" id={`area-${chave(g.area)}`} key={g.area}>
                 <h3>{g.area}</h3>
-                <ul>
-                  {g.itens.map((c) => (
-                    <li className="carteira-nome" key={c.nome}>
-                      {c.nome}
-                      <span className="praca">
-                        {c.cidade}/{c.uf}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="clientes-grid">
+                  {g.itens.map((c) => {
+                    const logo = logoDe(c.nome);
+                    return (
+                      <div className={logo ? "cliente com-logo" : "cliente"} key={c.nome}>
+                        {logo && (
+                          <div className="logo-wrap">
+                            {/* <img> cru de propósito (SSG ~zero JS): a caixa é de
+                                altura fixa por CSS e o logo encaixa por `object-fit:
+                                contain`, então não precisa de width/height — o
+                                arquivo chega em qualquer proporção, subido à mão. */}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={logo} alt={`Logo de ${c.nome}`} loading="lazy" />
+                          </div>
+                        )}
+                        <div className="nome">{c.nome}</div>
+                        <div className="meta">
+                          {c.cidade}/{c.uf}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </section>
             ))}
           </div>
+
+          <p className="prosa">
+            Boa parte dessa lista é hospital e rede — instituições em que cada linha de serviço disputa um mercado
+            próprio. O que pensamos sobre isso está em{" "}
+            <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
+          </p>
 
           <Fatos />
           <p>
@@ -275,7 +172,7 @@ export default async function ClientesPage() {
       <CtaConversa chave={"/clientes"} titulo="Sua clínica" acento="na próxima lista?" />
       <Band html={faixa} />
       </main>
-      <FooterMapa atual="/clientes" proxima={["panorama", "contato"]} />
+      <FooterMapa atual="/clientes" proxima={["portfolio", "contato"]} />
     </>
   );
 }

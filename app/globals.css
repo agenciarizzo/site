@@ -439,15 +439,29 @@ footer.fim .linha { font-family: var(--font-mono), monospace; font-size: var(--m
 .hero .lede { margin-top: 1.5rem; max-width: 38rem; }
 article.corpo { padding: 2.6rem 0 3rem; }
 
-/* clientes */
+/* clientes — o tile-base é reusado por TODA a carteira agora (nested dentro de
+   cada `.carteira-grupo`, uma grade por área — ver comentário do bloco Carteira
+   mais abaixo). `.com-peca`/`.peca` (mockup de marketing, paisagem 1600×1040)
+   saíram: a imagem do tile agora é o LOGO da casa (`lib/logos.ts`), formato e
+   proporção livres — por isso `.com-logo`/`.logo-wrap` encaixam por
+   `object-fit: contain` numa caixa de altura fixa, em vez de preencher a peça. */
 .clientes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.9rem; margin: 1.8rem 0 0; }
 .cliente { background: var(--claro); border: 1px solid var(--hairline); padding: 1rem 1.1rem; }
 .cliente .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); font-size: var(--slab-5); }
 .cliente .meta { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-nav); color: var(--cinza); margin-top: 0.35rem; text-transform: uppercase; }
-.cliente.com-peca { padding: 0; overflow: hidden; }
-.cliente.com-peca .nome { padding: 0.9rem 1.1rem 0; }
-.cliente.com-peca .meta { padding: 0 1.1rem 1rem; margin-top: 0.3rem; }
-.cliente .peca { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--hairline); }
+.cliente.com-logo { padding: 0; overflow: hidden; }
+.cliente.com-logo .nome { padding: 0.9rem 1.1rem 0; }
+.cliente.com-logo .meta { padding: 0 1.1rem 1rem; margin-top: 0.3rem; }
+.cliente .logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 84px;
+  padding: 0.7rem 1rem;
+  background: var(--claro);
+  border-bottom: 1px solid var(--hairline);
+}
+.cliente .logo-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
 /* prova das landings de cidade — nomes reais agrupados por especialidade */
 .provas { display: grid; grid-template-columns: repeat(auto-fill, minmax(238px, 1fr)); gap: 0.9rem; margin: 1.5rem 0 0; }
@@ -862,13 +876,14 @@ p.resumo {
    Carteira — a lista inteira desde 2012, agrupada por área
    (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §24.4, fatia 2).
 
-   Diretório, não vitrine: sem card, sem imagem, sem link. O grupo
-   é uma faixa com rótulo em cima, e os nomes fluem em colunas —
-   240 nomes em caixinhas com borda, uma por nome, viravam metros
-   de moldura vazia no celular.
-
-   Aditivo: `.clientes-grid`/`.cliente*` (a grade de cima) ficam
-   exatamente como estavam — nenhum seletor daqui os alcança.
+   O grupo é uma faixa com rótulo em cima (`.carteira-grupo`), reusada por DOIS
+   layouts internos: texto puro em colunas (`.carteira-grupo ul`/`.carteira-nome`
+   — como em EspecialidadeLanding, "áreas da carteira" da página de especialidade)
+   e, desde a reorganização de 2026-08-25, a grade de tiles com logo do /clientes
+   (`.carteira-grupo .clientes-grid`, os mesmos `.cliente*` que a antiga grade de
+   18 usava — agora reusados pra carteira INTEIRA). Os dois convivem porque o
+   filho é que muda (`ul` vs. `.clientes-grid`); `.carteira-grupo` em si só dá o
+   filete + respiro do topo.
    ============================================================ */
 /* Índice das áreas — o mapa da lista, não decoração. Fora do `.carteira` porque
    o invariante é que NOME de cliente não vira link; estes âncoras apontam pra
@@ -898,6 +913,9 @@ p.resumo {
   margin: 0 0 0.75rem;
 }
 .carteira-grupo ul { list-style: none; margin: 0; padding: 0; columns: 3; column-gap: 1.7rem; }
+/* O grid de logos entra mais colado no h3 do que o `margin` padrão de `.clientes-grid`
+   (pensado pra sentar direto sob o `.lede` da hero, não sob um rótulo de grupo). */
+.carteira-grupo .clientes-grid { margin-top: 0.85rem; }
 .carteira-nome {
   break-inside: avoid;
   font-size: var(--corpo-2);
@@ -937,8 +955,9 @@ p.resumo {
 
    O card de 320px com raio e sombra saiu junto com a grade: a peça agora é uma
    LINHA de 104px dentro de um grupo por especialidade, no MESMO vocabulário da
-   carteira aqui embaixo (hairline no topo, h3 mono, mesmos paddings) — a página
-   passa a ter um desenho só. Raio 0, sombra nenhuma. */
+   carteira do /clientes (hairline no topo, h3 mono, mesmos paddings) — um
+   desenho só, ainda que a parede e a carteira morem em páginas diferentes desde
+   2026-08-25 (a parede virou /portfolio). Raio 0, sombra nenhuma. */
 .parede { margin: 1.1rem 0 2.2rem; }
 .parede-intro { margin: 0 0 0.4rem; }
 .parede-grupo { border-top: 1px solid var(--hairline); padding: 1.05rem 0 0.35rem; scroll-margin-top: 1rem; }
@@ -955,6 +974,31 @@ p.resumo {
   margin: 0 0 0.75rem;
 }
 .parede-grupo h3 .conta { color: var(--ouro); }
+.parede-grupo h3 .ver-pagina {
+  margin-left: auto;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  color: var(--teal-texto);
+  text-decoration: none;
+}
+.parede-grupo h3 .ver-pagina:hover { text-decoration: underline; }
+/* Índice do /portfolio pras 19 páginas de especialidade — mesma pílula do
+   `.carteira-indice`, nome próprio porque aqui o alvo é OUTRA página, não uma
+   âncora desta mesma. */
+.portfolio-indice { display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; margin: 1.5rem 0 0; }
+.portfolio-indice a {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--cinza);
+  text-decoration: none;
+  background: var(--claro);
+  border: 1px solid var(--hairline);
+  padding: 0.34rem 0.6rem;
+}
+.portfolio-indice a:hover { color: var(--teal-texto); border-color: var(--teal); }
 .parede-itens { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem 1.25rem; }
 /* padding + margin negativa: a área de hover cresce sem mexer no ritmo da grade. */
 .parede-peca { display: grid; grid-template-columns: 104px 1fr; gap: 0.8rem; align-items: start; padding: 7px; margin: -7px; transition: background 140ms ease; }
