@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/checar-tipografia.mjs && next build && node scripts/checar-navegacao.mjs && node scripts/checar-panos.mjs && node scripts/checar-vitrine.mjs && node scripts/checar-portfolio.mjs",
+    "build": "node scripts/checar-tipografia.mjs && next build && node scripts/checar-navegacao.mjs && node scripts/checar-panos.mjs && node scripts/checar-vitrine.mjs && node scripts/checar-portfolio.mjs && node scripts/checar-seo.mjs",
     "start": "next start",
     "lint": "eslint"
   },

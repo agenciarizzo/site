@@ -9,47 +9,32 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
 
 ---
 
-## [C-01] Teto de description: 180 nesta entrega × 155 no Padrão Rizzo
+## Respondidos em 23/08/2026 — a skill mudou
 
-- **Estado:** a skill `seo-manutencao` (§C e "critério de pronto") manda `description`
-  ≤ 155 em toda página. Esta entrega levou as **6 acima de 180** para ≤155 e deixou as
-  demais como estavam — hoje **20 páginas** ficam entre 156 e 180. O passo 5 do
-  `scripts/checar-navegacao.mjs` reprova acima de 180 e **conta em voz alta** quantas
-  estão na banda, pra escolha não virar dívida silenciosa.
-- **Por que não decidi:** o escopo da entrega disse, com motivo escrito, que as entre
-  161 e 177 ficam — description não é fator de ranqueamento, o Google reescreve na
-  maioria das vezes, e a voz editorial vale mais que os caracteres a mais. Reescrever
-  20 descrições por conta própria seria exatamente a normalização de voz que a regra
-  §G da skill proíbe.
-- **Minha recomendação:** manter 180 como teto **duro** (o que reprova o build) e
-  tratar 155 como conforto. Se o padrão da casa tiver que ser 155 em todo repo,
-  isso é uma entrega de copy própria, com as 20 revisadas uma a uma — não uma
-  varrida automática.
-- **Custo de não decidir:** nenhum mensurável. A SERP corta o excedente; o gancho já
-  está na primeira metade em todas.
-- **Prazo sugerido:** só se o cliente quiser uniformidade entre os repos.
+Três itens saíram da fila porque a decisão foi tomada e **registrada onde ela vale**:
+`.claude/skills/seo-manutencao/SKILL.md`. Ficam anotados aqui só até irem pro mapa.
 
-## [C-02] H1 de combo: "categoria + gancho" × "fala com o médico"
+- **[C-01] Teto de description: 180 ganhou.** O argumento da entrega F1 está certo —
+  description não é fator de ranqueamento, o Google reescreve na maioria das vezes, e
+  varrer 20 descrições pra uniformizar em 155 seria a normalização de voz que a própria
+  skill proíbe. A skill agora diz **180 duro, 155 conforto**, com o motivo escrito. Entrou
+  junto a régua que faltava: **conte em CARACTERE, nunca em BYTE** — foi o byte que
+  produziu "9 títulos longos onde havia 5".
+- **[C-02] H1 de combo: exceção nomeada, aceita.** A skill ganhou a exceção com o motivo
+  que a entrega deu: em combo, o H1 fala com o médico e a keyword comercial mora no
+  `<title>`, porque ranquear pra intenção de paciente faz a agência disputar busca com o
+  cliente citado na própria página. Categoria + gancho segue valendo em home, hub e
+  landing de cidade.
+- **[E-01] LGPD: resolvido, não estacionado.** Consent Mode v2 com default negado
+  (`ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage`) num `<script>`
+  cru no topo do `<body>`, antes do `gtag.js` — verificado no HTML gerado: o default sai
+  no byte 5.101 e tudo do Google e do Meta vem depois dos 183 mil. Pixel com
+  `fbq('consent','revoke')` antes do `init`. O aviso é faixa discreta no pé da tela, não
+  modal, e some pra quem já decidiu. Zero `"use client"`.
+  **Consequência esperada:** conversão reportada no GA4 cai até a pessoa aceitar — é o
+  Consent Mode funcionando, não regressão.
 
-- **Estado:** o Padrão Rizzo (§C) manda H1 = **categoria somada ao gancho**, e a
-  landing de cidade cumpre ("Marketing médico em Brasília. Aqui, região é tudo."). O
-  combo `/marketing-medico-goiania/vascular` **saiu** desse formato nesta entrega:
-  virou "Em Goiânia, o paciente de vascular decide perto — e decide antes de te
-  ligar.", sem a categoria.
-- **Por que não decidi:** as duas regras se contradizem justamente no combo. O H1
-  antigo trazia a categoria na forma da **query do paciente** ("Cirurgião vascular em
-  Goiânia"), e a página cita o Dr. Felipe Mendonça, cliente da casa com site próprio
-  — a agência ranqueando ali disputa busca com o próprio cliente. Somar a categoria
-  de volta em 3 linhas (A5) só cabe repetindo o kicker que já está imediatamente
-  acima ("Marketing médico · Goiânia–GO · desde 2012").
-- **Minha recomendação:** o Padrão Rizzo ganha uma exceção nomeada — **em combo
-  (especialidade × cidade), o H1 fala com o médico e a keyword comercial mora no
-  `<title>`**; categoria + gancho segue valendo para home, hub e landing de cidade,
-  que não citam cliente com site próprio. A régua já está escrita no campo `head` de
-  `content/combos.ts` e no §42 do mapa.
-- **Custo de não decidir:** cresce com a Fase 2 — o próximo combo (`ortopedista ×
-  Goiânia`) precisa saber qual das duas regras seguir antes de nascer.
-- **Prazo sugerido:** antes do próximo combo.
+
 
 ## [A-01] `og:url` não é emitido em nenhuma página
 
@@ -67,24 +52,6 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
   host errado, só não recebe a dica.
 - **Prazo sugerido:** no tronco da OG por rota.
 
-## [E-01] LGPD: rastreamento sem política vinculada nem consentimento de cookie
-
-- **Estado:** o §E do Padrão Rizzo **bloqueia entrega** sem consentimento de cookie
-  quando há rastreamento. O site roda **GA4 + Meta Pixel** e não tem banner de
-  consentimento. A `/politica-privacidade` existe e é alcançável de qualquer página
-  (o passo 1 do `checar-navegacao.mjs` prova isso — 38×38).
-- **Por que não decidi:** não é achado novo nem desta entrega — está registrado no
-  **§12.4 do mapa** como lacuna aberta e **gated no cliente**, porque é texto
-  jurídico no nome dele. Uma entrega de SEO técnico não fecha lacuna de LGPD por
-  conta própria, e banner de cookie é decisão de produto (o site é SSG puro, zero JS
-  no cliente — banner é a primeira exceção a essa regra).
-- **Minha recomendação:** tronco próprio de LGPD, com o cliente: (a) revisar a
-  `/politica-privacidade` contra o que é de fato coletado — GA4, Pixel, clique no
-  WhatsApp e os `gclid/gbraid/wbraid/fbclid` no `localStorage`; (b) decidir se o
-  consentimento entra como banner (custa o "zero JS") ou se GA4/Pixel passam a
-  carregar só após consentimento.
-- **Custo de não decidir:** risco regulatório, e ele já existia antes desta entrega.
-- **Prazo sugerido:** próxima conversa com o cliente. É o item de maior custo aqui.
 
 ## [D-01] O `provider` dos blocos `Service` não referencia o `@id` da organização
 
@@ -152,3 +119,35 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
   manual acima). O que fica sem prova é a camada de cima: elegibilidade de rich result
   e avisos que só o crawler do Google detecta.
 - **Prazo sugerido:** checkpoint pro cliente logo após o merge desta entrega.
+
+## [G-01] Core Web Vitals: o script existe, falta a chave
+
+- **Estado:** `scripts/medir-cwv.mjs` lê o sitemap de produção e busca o dado de **campo**
+  (CrUX) de LCP, INP e CLS, mobile e desktop, contra as metas do padrão. **Não roda sem
+  `PSI_API_KEY`**, e fica fora do `npm run build` de propósito: build não pode depender de
+  serviço de terceiro.
+- **Por que não decidi:** criar chave no Google Cloud e gravar env var na Vercel é acesso
+  que eu não tenho.
+- **Minha recomendação:** gerar a chave da PageSpeed Insights API, gravar como
+  `PSI_API_KEY` nas env vars da Vercel, rodar uma vez por mês. Enquanto ela não existir,
+  **nenhuma afirmação sobre performance** sai daqui — sem dado de campo, número é chute.
+  Isto também é o caminho do F-01: medição de campo não depende de validador hospedado.
+- **Custo de não decidir:** você não sabe se regrediu até alguém reclamar.
+- **Prazo sugerido:** junto da rotina mensal de manutenção.
+
+## [G-02] Assinatura da agência nos repos de cliente: qual primeiro
+
+- **Estado:** o padrão está versionado em `.claude/skills/seo-manutencao/` — markup
+  corrigido em seis pontos (host canônico em vez do apex, `noopener` no lugar do
+  `noreferrer` que apagava a atribuição, Rockwell fora do wordmark, `#FFD200`, contraste
+  de 4,17:1 pra 7,75:1) mais o schema de entidade. Nenhum repo de cliente foi tocado.
+- **Por que não decidi:** duas razões, e as duas são suas. Não sei qual repo é; e mexer
+  no rodapé de site de cliente é **entrega em propriedade de terceiro**, não manutenção
+  interna.
+- **Minha recomendação:** me diga o `owner/repo` do cliente de maior tráfego. Anexo,
+  aplico, valido em produção, e só então propago. A decisão embutida que você pode querer
+  inverter é o `nofollow` no link sitewide — isolada na constante `ASSINATURA_FOLLOW`,
+  com o porquê em `referencias/assinatura.md`.
+- **Custo de não decidir:** os sites de cliente seguem linkando o apex (que faz 308) e
+  apagando o referrer — a agência continua sem enxergar esse tráfego no GA4.
+- **Prazo sugerido:** próxima entrega de cliente.

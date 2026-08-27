@@ -12,7 +12,7 @@ import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/compo
 import { ENDERECO, CNPJ, WHATS_LABEL, SITE_URL } from "@/lib/site";
 
 const DESCRICAO =
-  "A Agência Rizzo é especialista em marketing médico desde 2012, com vivência hospitalar real (ONA/ISO) e atuação nacional. Conheça o método, a estrutura e quem assina o trabalho.";
+  "Especialistas em marketing médico desde 2012, com vivência hospitalar real (ONA/ISO) e atuação nacional. O método, a estrutura e quem assina o trabalho.";
 
 export const metadata: Metadata = {
   title: "Sobre — marketing médico desde 2012",

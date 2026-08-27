@@ -48,7 +48,11 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    proposta.
 5. **SSG puro, zero `"use client"`** salvo necessidade real justificada. Toda página:
    `metadata` + canonical + JSON-LD (cartas = Article + FAQPage; org SEM
-   aggregateRating).
+   aggregateRating) + **`BreadcrumbList` em toda rota aninhada**. O padrão inteiro de
+   SEO da casa — inclusive o dos repos de cliente — vive em
+   `.claude/skills/seo-manutencao/`, e `scripts/checar-seo.mjs` cobra a parte
+   mecanizável: título renderizado ≤ 60 (o template soma 16), descrição ≤ 160, um h1,
+   canonical própria, breadcrumb, e sitemap sem 404 e sem salto de redirect.
 6. **O domínio JÁ é este site** (desde 25/07/2026 — o apex faz 308 pro `www`). Produção
    indexa; preview e dev nascem `noindex` (`INDEXABLE` em `lib/site.ts`, decide por
    `VERCEL_ENV`). Trava de emergência sem deploy: `NEXT_PUBLIC_SITE_INDEXABLE=false`.
@@ -92,9 +96,9 @@ O `rizzo-os` roda um ciclo de 3 fases em 3 conversas/modelos; aqui a régua é a
 **adaptada ao site**: repo menor, SSG, e os checadores de build já mecanizam boa parte
 da revisão — então pode rodar num flow só.
 
-1. **Sempre pra `main`.** Toda entrega vai pra produção: `npm run build` **verde** (os 4
-   checadores — tipografia · navegação · panos · vitrine — são a rede de segurança que o
-   preview daria) → merge na `main`. O cliente valida **em produção**; produção indexa.
+1. **Sempre pra `main`.** Toda entrega vai pra produção: `npm run build` **verde** (os
+   checadores — tipografia · navegação · panos · vitrine · portfólio · SEO — são a rede de
+   segurança que o preview daria) → merge na `main`. O cliente valida **em produção**; produção indexa.
    Trava de emergência sem deploy: `NEXT_PUBLIC_SITE_INDEXABLE=false`.
 2. **As 3 fases, como disciplina:** **Plano** (a solicitação vira plano contra o mapa —
    rizzo-os → `SITE_MANIFESTO_MAPA.md`, a fonte da verdade da frente — com critério de

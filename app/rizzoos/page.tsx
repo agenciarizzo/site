@@ -21,7 +21,7 @@ import { BLOCOS } from "@/content/rizzoos";
 import { SITE_URL } from "@/lib/site";
 
 const DESCRICAO =
-  "Agência que atrasa, some no fim de semana, manda peça por e-mail e não mostra o gasto: o que o RizzoOS, a plataforma da Agência Rizzo, faz a respeito de cada uma dessas queixas.";
+  "Agência que atrasa, some no fim de semana, manda peça por e-mail e não mostra o gasto: o que o RizzoOS faz a respeito de cada uma dessas queixas.";
 
 // Título medido: 40 caracteres + " | Agência Rizzo" (16) = 56 renderizados, dentro
 // do teto de 60 da régua de CTR (§16.3, fatia A). Keyword-first: quem procura busca

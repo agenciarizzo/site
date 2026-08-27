@@ -44,6 +44,13 @@ export interface Cidade {
   provaLede: string;
   provas: GrupoProva[];
   waText: string;
+  /**
+   * Data real da última revisão de conteúdo (ISO `AAAA-MM-DD`). Alimenta o
+   * `lastModified` do sitemap e, nas cartas, o `dateModified` do `Article`.
+   * Ausente = sem data, que é o correto: data fabricada no build muda a cada
+   * deploy e ensina o Google a ignorar a data do site inteiro.
+   */
+  atualizadoEm?: string;
 }
 
 export const CIDADES: Cidade[] = [

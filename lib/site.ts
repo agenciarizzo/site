@@ -51,6 +51,22 @@ export const FATOS =
   "DESDE 2012 · +250 MÉDICOS E CLÍNICAS · GOOGLE PARTNER · VIVÊNCIA HOSPITALAR REAL (ONA/ISO) · ANÁPOLIS–GO · ATUAÇÃO NACIONAL";
 
 /**
+ * Autor das peças editoriais (D-02 do PARKING). Em saúde — conteúdo YMYL — o que o
+ * Google pesa é procedência: quem escreveu, e se dá pra chegar nessa pessoa. Vale
+ * SÓ nas cartas: são texto assinado. Página de especialidade é `Service`, não
+ * `Article` (§3.2 do mapa), e serviço não tem autor.
+ *
+ * Sem `sameAs`: perfil pessoal só entra com endereço confirmado no cadastro da
+ * agência (regra 9 — zero domínio adivinhado).
+ */
+export const AUTOR_JSONLD = {
+  "@type": "Person",
+  name: "Raphael Rizzo",
+  url: `${SITE_URL}/sobre`,
+  jobTitle: "Fundador da Agência Rizzo",
+} as const;
+
+/**
  * Organization schema — SEM aggregateRating fabricado (§12.3 do mapa: o
  * "5.0 / 200 reviews" inventado estava nas 11 versões das páginas antigas, e
  * marcação de avaliação fabricada é o que expõe a ação manual).

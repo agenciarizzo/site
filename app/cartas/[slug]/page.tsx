@@ -9,7 +9,7 @@ import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/compo
 import { CARTAS, bySlug } from "@/content/cartas";
 import { VitrineGiro } from "@/components/VitrineGiro";
 import { vitrinePorChave } from "@/content/vitrines";
-import { SITE_URL } from "@/lib/site";
+import { AUTOR_JSONLD, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
 
 export function generateStaticParams() {
@@ -39,7 +39,11 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
       headline: c.titulo,
       description: c.descricao,
       inLanguage: "pt-BR",
-      author: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital" },
+      author: AUTOR_JSONLD,
+      // Data só quando ela é VERDADEIRA (campo `atualizadoEm` da carta). Data
+      // fabricada — `new Date()` no build, que muda a cada deploy — é pior que
+      // ausência: o Google aprende que a data do site não significa nada.
+      ...(c.atualizadoEm ? { dateModified: c.atualizadoEm } : {}),
       publisher: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_horizontal.png` } },
       mainEntityOfPage: `${SITE_URL}/cartas/${c.slug}`,
     },

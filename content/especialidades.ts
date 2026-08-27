@@ -60,6 +60,13 @@ export interface PaginaEspecialidade {
   noindex?: true;
   /** Texto que abre a conversa no WhatsApp — a atribuição por página (regra 4). */
   waText: string;
+  /**
+   * Data real da última revisão de conteúdo (ISO `AAAA-MM-DD`). Alimenta o
+   * `lastModified` do sitemap e, nas cartas, o `dateModified` do `Article`.
+   * Ausente = sem data, que é o correto: data fabricada no build muda a cada
+   * deploy e ensina o Google a ignorar a data do site inteiro.
+   */
+  atualizadoEm?: string;
 }
 
 /** A rota da página. Um lugar só: painéis, sitemap, rodapé e panos derivam daqui. */
