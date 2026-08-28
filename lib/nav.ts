@@ -28,7 +28,7 @@ export type ItemMenu = { href: string; rotulo: string };
  * A home fica no logotipo, que já é o link pra "/".
  */
 export const MENU_TOPO: readonly ItemMenu[] = [
-  { href: "/marketing-medico", rotulo: "Marketing médico" },
+  { href: "/marketing-medico", rotulo: "Marketing para clínicas" },
   { href: "/clientes", rotulo: "Clientes" },
   { href: "/rizzoos", rotulo: "RizzoOS" },
   { href: "/sobre", rotulo: "Sobre" },

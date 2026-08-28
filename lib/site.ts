@@ -71,7 +71,7 @@ export const ORG_JSONLD = {
   // Uma linha, no tom da casa: o que a agência faz e pra quem. Sem promessa de
   // resultado e sem número inventado (os dois antipadrões do §12.3).
   description:
-    "Agência de marketing médico desde 2012: site, busca, anúncio e conteúdo para médicos, clínicas e hospitais, dentro das regras do CFM.",
+    "Agência de marketing para clínicas e hospitais desde 2012 — site, busca, anúncio e conteúdo, também para o médico, dentro das regras do CFM.",
   // E.164, derivado do número único da casa — o mesmo que abre a conversa.
   telephone: `+${WHATS_NUMBER}`,
   // Sede em Anápolis–GO, atendimento nacional: é o que a tarja `Fatos` já diz.

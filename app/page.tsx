@@ -14,7 +14,7 @@ import { CLIENTES } from "@/content/clientes";
 import { mockupDe } from "@/lib/mockups";
 
 export const metadata: Metadata = {
-  title: "Agência de Marketing Médico | Agência Rizzo",
+  title: "Agência de Marketing para Clínicas | Agência Rizzo",
   description:
     "Há 13 anos cuidamos do marketing de médicos e clínicas: site rápido, conteúdo com dados e constância — a estrutura que enche a agenda de paciente.",
   alternates: { canonical: "/" },
@@ -79,7 +79,7 @@ export default function Home() {
       <main>
       <section className="hero">
         <div className="wrap">
-          <div className="kicker">Marketing médico · desde 2012</div>
+          <div className="kicker">Marketing para clínicas · desde 2012</div>
           <h1 className="display">
             Agenda cheia
             <br />
