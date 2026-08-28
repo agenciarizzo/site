@@ -13,7 +13,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variab
 
 export const metadata: Metadata = {
   title: {
-    default: "Marketing Médico — Agência Rizzo | Agenda cheia não é sorte, é estrutura",
+    default: "Marketing para Clínicas — Agência Rizzo | Agenda cheia não é sorte, é estrutura",
     template: "%s | Agência Rizzo",
   },
   description:
