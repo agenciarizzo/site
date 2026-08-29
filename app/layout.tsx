@@ -4,6 +4,7 @@ import "./globals.css";
 import { INDEXABLE, SITE_URL, ORG_JSONLD } from "@/lib/site";
 import { Medicao } from "@/components/Medicao";
 import { GuardaOrigem } from "@/components/GuardaOrigem";
+import { Analytics } from "@vercel/analytics/next";
 
 // Tipografia oficial da Linha Athos (self-hosted via next/font — zero request externo):
 // Roboto Slab (display) · Geist (voz única das duas marcas) · JetBrains Mono (kickers).
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             preview e dev, onde a medição não roda. */}
         <GuardaOrigem />
         {children}
+        <Analytics />
       </body>
     </html>
   );
