@@ -1226,3 +1226,269 @@ p.resumo {
 /* a tela é de passagem: o portão sobe pra perto da chamada, sem o respiro de
    página de leitura que o `article.corpo` reserva */
 article.portao-corpo { padding-top: 0.4rem; }
+
+/* ============================================================
+   HERO MORPH — a primeira dobra da home em movimento
+   ------------------------------------------------------------
+   Fonte da verdade: rizzo-os → docs/SITE_HERO_MORPH_MAPA.md (§2.1 geometria ·
+   §2.2 partitura · §5 invariantes). Seção ADITIVA: nada acima foi tocado — as
+   regras antigas de `.hero` seguem servindo as outras 13 páginas que a usam.
+
+   A tese: os "blocos chapados de cor" da referência viram JANELAS
+   (`clip-path: polygon()`) sobre um campo de azulejo do motor. O campo não se
+   move — quem se move é o recorte. Um vetor só: nasce colapsado na borda
+   DIREITA, cresce pra esquerda; sai colapsando na borda ESQUERDA (a lei do
+   vetor: como A sai determina como B entra — zero crossfade).
+
+   Tipografia: SÓ degraus da escala do :root lá em cima. Nenhum valor solto.
+   ============================================================ */
+:root {
+  /* Tokens de TEMPO (não são tipografia): a partitura do §2.2, copiada do
+     protótipo — ease e duração não se inventam aqui. A saída é ~80% da
+     entrada: é o que faz a troca ler como um movimento só, e não como dois. */
+  --hero-t-entra: 1100ms;
+  --hero-t-sai: 880ms;
+  --hero-ease-entra: cubic-bezier(0.76, 0, 0.24, 1);
+  --hero-ease-sai: cubic-bezier(0.55, 0, 0.45, 1);
+  --hero-hold: 6200ms; /* leitura de cada slide (o /athos/hero.js lê daqui) */
+}
+
+.hero-morph {
+  max-width: 72rem; /* a medida do header, não a da prosa */
+  margin: 0 auto;
+  padding: 2.2rem 1.4rem 0;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 2.6rem;
+  align-items: center;
+}
+.hero-morph .kicker { margin-bottom: 1.2rem; }
+.hero-morph .lede { margin-top: 1.5rem; max-width: 34rem; }
+.hero-fatos { max-width: 72rem; margin: 0 auto; padding: 0 1.4rem; }
+
+/* ---- o palco ----
+   Proporção FIXA = a grade: 10 colunas × 8 fileiras de azulejo. É o que permite
+   encaixar a geometria dos blocos na grade em qualquer largura (a altura deriva
+   da LARGURA, não do vh) — e é o que zera o CLS: o espaço já está reservado. */
+.hero-palco {
+  position: relative;
+  overflow: hidden;
+  overflow: clip; /* `clip` não cria scroll container (mesma razão da .band) */
+  aspect-ratio: 10 / 8;
+  background: var(--papel);
+}
+.hero-palco .slide { position: absolute; inset: 0; }
+.hero-palco .slide[aria-hidden="true"] { pointer-events: none; }
+
+/* Cada janela é o campo INTEIRO recortado por um polígono. Sem classe `on/off`
+   o painel fica em `--pre` (colapsado na borda direita) — é o estado de quem
+   ainda não entrou. */
+.hero-palco .painel { position: absolute; inset: 0; clip-path: polygon(var(--pre)); transition: none; }
+.hero-palco .slide.on .painel {
+  clip-path: polygon(var(--on));
+  transition: clip-path var(--hero-t-entra) var(--hero-ease-entra);
+}
+.hero-palco .slide.on .painel.b { transition-delay: 90ms; }
+.hero-palco .slide.off .painel {
+  clip-path: polygon(var(--post));
+  transition: clip-path var(--hero-t-sai) var(--hero-ease-sai);
+}
+.hero-palco .slide.off .painel.b { transition-delay: 60ms; }
+
+/* Contrato do Azulejo, igual às faixas: peça quadrada e INTEIRA, rejunte na cor
+   do papel, material de sobra cortado pelo palco (a 9ª fileira do campo cai
+   fora da moldura 10×8 — é a mesma técnica da .band). */
+.hero-palco .painel > [data-pano] {
+  display: grid !important;
+  grid-template-columns: repeat(10, 1fr) !important;
+  grid-template-rows: none !important;
+  height: auto !important;
+  gap: var(--rejunte) !important;
+  align-content: start;
+}
+.hero-palco .painel > [data-pano] > div { aspect-ratio: 1; }
+
+/* ENTRADA do azulejo: a onda por coluna da faixa (`azulejo-entra`, declarada lá
+   em cima) sobre a janela que cresce — o assentamento acompanha o recorte. O
+   atraso por coluna sai do nth-child, como na .band: 10 colunas, 26ms de degrau. */
+.hero-palco .slide.on .painel > [data-pano] > div {
+  animation: azulejo-entra 340ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 1) { animation-delay: 220ms; }
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 2) { animation-delay: 246ms; }
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 3) { animation-delay: 272ms; }
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 4) { animation-delay: 298ms; }
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 5) { animation-delay: 324ms; }
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 6) { animation-delay: 350ms; }
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 7) { animation-delay: 376ms; }
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 8) { animation-delay: 402ms; }
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 9) { animation-delay: 428ms; }
+.hero-palco .slide.on .painel > [data-pano] > div:nth-child(10n + 10) { animation-delay: 454ms; }
+
+/* ---- a lâmina: o papel na frente do campo (o "cartucho" da referência).
+        Mesma estrutura do 6d do CtaConversa — campo atrás, painel de papel na
+        frente —, cruzando a aresta do bloco dominante em todos os 6 slides. ---- */
+.hero-palco .lamina {
+  position: absolute;
+  left: 8%;
+  top: 20%;
+  width: 52%;
+  padding: 1.25rem 1.35rem 1.2rem;
+  background: var(--claro);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 18px 44px rgba(22, 19, 14, 0.16), 0 2px 6px rgba(22, 19, 14, 0.08);
+  transform: translate(14%, -3%) rotate(3deg);
+  opacity: 0;
+  transition: none;
+}
+/* entra pela DIREITA já em voo (parte de +14%, não do repouso) e sai pela
+   ESQUERDA — o mesmo vetor dos blocos. */
+.hero-palco .slide.on .lamina {
+  transform: none;
+  opacity: 1;
+  transition: transform 720ms cubic-bezier(0.16, 1, 0.3, 1) 460ms, opacity 320ms ease-out 460ms;
+}
+.hero-palco .slide.off .lamina {
+  transform: translate(-14%, 3%) rotate(-3deg);
+  opacity: 0;
+  transition: transform 520ms cubic-bezier(0.7, 0, 0.84, 0), opacity 260ms ease-in 220ms;
+}
+.hero-palco .lamina .frente {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  font-weight: 700;
+  letter-spacing: var(--ls-rotulo);
+  text-transform: uppercase;
+  color: var(--cinza);
+  display: flex;
+  gap: 0.7rem;
+  align-items: baseline;
+}
+.hero-palco .lamina .frente .n { color: var(--ouro); font-size: var(--mono-num); font-weight: 700; letter-spacing: 0; }
+.hero-palco .lamina .midia {
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: var(--slab-2);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  color: var(--ink);
+  font-weight: 800;
+  margin: 0.55rem 0 0;
+  clip-path: inset(0 0 100% 0);
+}
+.hero-palco .lamina .posicao {
+  font-size: var(--corpo-2);
+  line-height: var(--lh-apoio);
+  margin: 0.8rem 0 0;
+  color: var(--corpo);
+  opacity: 0;
+  transform: translateY(8px);
+}
+/* `.ler` é a mesma peça do card da grade — só o `margin-top: auto`/`padding-top`
+   do card (que é flex) não servem aqui, então caem. */
+.hero-palco .lamina .ler {
+  display: inline-block;
+  margin-top: 0.85rem;
+  padding-top: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+}
+.hero-palco .lamina .ler:hover { color: var(--teal); border-bottom-color: var(--teal); }
+/* Cascata (waterfall), só DEPOIS do bloco pousar — quietude antes do clímax:
+   palavra por cortina de baixo pra cima → frase → link, 120ms entre degraus. */
+.hero-palco .slide.on .midia { clip-path: inset(0); transition: clip-path 480ms cubic-bezier(0.2, 0.7, 0.2, 1) 900ms; }
+.hero-palco .slide.on .posicao {
+  opacity: 1;
+  transform: none;
+  transition: opacity 360ms ease-out 1040ms, transform 420ms cubic-bezier(0.2, 0.7, 0.2, 1) 1040ms;
+}
+.hero-palco .slide.on .ler {
+  opacity: 1;
+  transform: none;
+  transition: opacity 360ms ease-out 1160ms, transform 420ms cubic-bezier(0.2, 0.7, 0.2, 1) 1160ms;
+}
+/* o texto apaga PRIMEIRO (140ms), antes de qualquer bloco andar */
+.hero-palco .slide.off .midia,
+.hero-palco .slide.off .posicao,
+.hero-palco .slide.off .ler { opacity: 0; transition: opacity 140ms ease-in; }
+
+/* ---- o leitor: passos 01…06 + contador + pausa, e o relógio de ouro ---- */
+.hero-palco .leitor {
+  position: absolute;
+  left: 8%;
+  right: 6%;
+  bottom: 6%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+}
+.hero-palco .passos { display: flex; gap: 0.55rem; margin: 0; }
+.hero-palco .passos a {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-2);
+  letter-spacing: var(--ls-nav);
+  color: var(--cinza);
+  text-decoration: none;
+  padding: 0.3rem 0.25rem 0.2rem;
+  border-bottom: 2px solid transparent;
+  background: rgba(244, 239, 230, 0.72);
+}
+.hero-palco .passos a:hover { color: var(--ink); }
+.hero-palco .passos a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--ouro); font-weight: 700; }
+.hero-palco .contador {
+  margin-left: auto;
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-2);
+  letter-spacing: var(--ls-nav);
+  color: var(--cinza);
+  background: rgba(244, 239, 230, 0.72);
+  padding: 0.3rem 0.35rem;
+  font-variant-numeric: tabular-nums;
+}
+.hero-palco .contador b { color: var(--ink); font-weight: 700; }
+.hero-palco .pausa {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-2);
+  line-height: 1;
+  color: var(--cinza);
+  background: rgba(244, 239, 230, 0.72);
+  border: 1px solid var(--hairline);
+  padding: 0.34rem 0.5rem;
+  cursor: pointer;
+}
+.hero-palco .pausa:hover { color: var(--ink); border-color: var(--cinza); }
+.hero-palco .relogio { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(22, 19, 14, 0.08); z-index: 2; }
+.hero-palco .relogio i { display: block; height: 100%; background: var(--ouro); transform-origin: left; transform: scaleX(0); }
+.hero-palco.rodando .relogio i { animation: hero-relogio var(--hero-hold) linear forwards; }
+.hero-palco.pausado .relogio i { animation-play-state: paused; }
+@keyframes hero-relogio { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---- celular: palco em cima, full-bleed; texto embaixo; MESMA grade ----
+   O par de botões do hero continua escondido abaixo de 760px pela regra que já
+   existe (a `.barra-cta` fixa é quem carrega a ação lá) — nada a repetir aqui. */
+@media (max-width: 899px) {
+  .hero-morph { grid-template-columns: 1fr; gap: 1.6rem; padding-top: 0; }
+  .hero-palco { order: -1; margin: 0 -1.4rem; }
+  .hero-palco .lamina { left: 6%; top: 12%; width: 66%; padding: 0.9rem 1rem 0.95rem; }
+  .hero-palco .lamina .frente { white-space: nowrap; }
+  .hero-palco .lamina .midia { font-size: var(--slab-3); }
+  .hero-palco .lamina .posicao { display: none; }
+  .hero-palco .leitor { left: 6%; bottom: 7%; }
+}
+
+/* ---- movimento reduzido: quem pediu menos movimento recebe ZERO morph.
+        Troca por fade curto, geometria já final, sem onda de azulejo, sem
+        relógio — e sem autoplay (quem não arma o relógio é o hero.js). ---- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-palco .painel { clip-path: polygon(var(--on)) !important; opacity: 0; transition: opacity 240ms ease !important; }
+  .hero-palco .slide.on .painel { opacity: 1; }
+  .hero-palco .slide.on .painel > [data-pano] > div { animation: none; }
+  .hero-palco .lamina { transform: none !important; transition: opacity 240ms ease !important; }
+  .hero-palco .slide.on .lamina { opacity: 1; }
+  .hero-palco .lamina .midia { clip-path: none !important; transition: none !important; }
+  .hero-palco .lamina .posicao,
+  .hero-palco .lamina .ler { transform: none !important; transition: opacity 240ms ease !important; }
+  .hero-palco .relogio { display: none; }
+}
