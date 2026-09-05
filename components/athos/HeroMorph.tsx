@@ -172,10 +172,14 @@ export function HeroMorph({ waText }: { waText: string }) {
               <b>01</b> / {doisDigitos(total)}
             </div>
             {/* WCAG 2.2.2: conteúdo que se move por mais de 5 s precisa de controle
-                de teclado e toque — hover não conta. Nasce `hidden` porque sem JS
-                (ou com movimento reduzido) NÃO HÁ movimento pra pausar; quem o
-                revela é o hero.js, e só quando o autoplay realmente sobe. */}
-            <button className="pausa" type="button" hidden aria-pressed="false" aria-label="Pausar a troca automática">
+                de teclado e toque — hover não conta. Nasce INVISÍVEL pelo CSS
+                (`.pausa` só aparece sob `[data-hero]`, o carimbo que o hero.js
+                põe no palco quando o relógio de fato sobe): sem JS — ou com
+                movimento reduzido — não há movimento pra pausar, e botão que não
+                faz nada é mentira. Quem esconde é o CSS, não o atributo `hidden`,
+                pra que o hero.js NUNCA precise mexer numa prop que o React
+                renderizou (é isso que quebrava a hidratação — ver hero.js). */}
+            <button className="pausa" type="button" aria-pressed="false" aria-label="Pausar a troca automática">
               ‖
             </button>
           </div>
