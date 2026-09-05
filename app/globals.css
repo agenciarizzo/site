@@ -1460,7 +1460,10 @@ article.portao-corpo { padding-top: 0.4rem; }
    Sem JS (ou com movimento reduzido) o carimbo não existe: sem relógio andando
    e sem botão de pausa, que aí não teria o que pausar. */
 .hero-palco .pausa {
-  display: none;
+  /* `visibility` e não `display`: o lugar do botão fica RESERVADO desde o HTML
+     do servidor, então revelá-lo não empurra o contador e o CLS do palco fica
+     em zero (medido: com `display` o reflow dava 0,0004 — pouco, mas era nosso). */
+  visibility: hidden;
   font-family: var(--font-mono), monospace;
   font-size: var(--mono-2);
   line-height: 1;
@@ -1470,7 +1473,7 @@ article.portao-corpo { padding-top: 0.4rem; }
   padding: 0.34rem 0.5rem;
   cursor: pointer;
 }
-.hero-palco[data-hero] .pausa { display: inline-block; }
+.hero-palco[data-hero] .pausa { visibility: visible; }
 .hero-palco .pausa:hover { color: var(--ink); border-color: var(--cinza); }
 .hero-palco .relogio { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(22, 19, 14, 0.08); z-index: 2; }
 .hero-palco .relogio i { display: block; height: 100%; background: var(--ouro); transform-origin: left; transform: scaleX(0); }

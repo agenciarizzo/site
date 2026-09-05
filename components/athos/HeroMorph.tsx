@@ -9,7 +9,8 @@
 // (`clip-path: polygon()`) sobre um campo de azulejo do motor oficial. O campo não
 // se move: quem se move é o recorte, e o azulejo é assentado e levantado no lugar.
 //
-// Zero "use client": é server component puro. O único JS é o relógio do carrossel
+// Server component puro, sem diretiva de cliente nenhuma (a regra 5 do CLAUDE.md
+// segue de pé). O único JS é o relógio do carrossel
 // (`/athos/hero.js`, arquivo estático — precedente: abertura.js e filme.js). Sem
 // JS a página é a mesma de hoje com o palco parado no slide 01, e os passos 01…06
 // continuam sendo <a> reais pras 6 cartas.
