@@ -7,7 +7,8 @@ import { VitrineGiro } from "@/components/VitrineGiro";
 import { vitrinePorChave } from "@/content/vitrines";
 import Link from "next/link";
 import { homeJanelas, panoCard } from "@/lib/athos/panos";
-import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa, Acoes } from "@/components/athos/Athos";
+import { Band, MenuTopo, OsBlock, CtaConversa, FooterMapa } from "@/components/athos/Athos";
+import { HeroMorph } from "@/components/athos/HeroMorph";
 import { IntroAbertura } from "@/components/athos/IntroAbertura";
 import { CARTAS_MIDIA } from "@/content/cartas";
 import { CLIENTES } from "@/content/clientes";
@@ -77,26 +78,9 @@ export default function Home() {
       <MenuTopo atual="/" waText={WA_HOME} acoesNoTopo={false} />
 
       <main>
-      <section className="hero">
-        <div className="wrap">
-          <div className="kicker">Marketing médico · desde 2012</div>
-          <h1 className="display">
-            Agenda cheia
-            <br />
-            não é sorte.
-            <br />
-            <span className="acento">É estrutura.</span>
-          </h1>
-          <p className="lede">
-            Cuidamos do marketing de médicos e clínicas há 13 anos. Paciente bom, chegando todo mês, não vem de
-            promessa — vem de estrutura.
-          </p>
-          <div className="hero-cta">
-            <Acoes waText={WA_HOME} />
-          </div>
-          <Fatos />
-        </div>
-      </section>
+      {/* A primeira dobra em movimento: o mesmo texto de sempre + o palco de
+          azulejo com as 6 mídias (rizzo-os → docs/SITE_HERO_MORPH_MAPA.md). */}
+      <HeroMorph waText={WA_HOME} />
 
       <Band html={j1} />
 
