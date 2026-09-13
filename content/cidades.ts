@@ -15,6 +15,8 @@
 // Proibido: foto relabelada por cidade, placeholder de enchimento, prova repetida entre
 // cidades pra "atingir meta" — foi exatamente isso que derrubou as páginas antigas.
 
+import type { Tweaks } from "@/lib/tweaks.mjs";
+
 export interface ProvaCliente {
   nome: string;
   /** URL do site do cliente. Ausente = não há endereço no cadastro; fica sem link. */
@@ -44,6 +46,29 @@ export interface Cidade {
   provaLede: string;
   provas: GrupoProva[];
   waText: string;
+
+  /* ── Campos OPCIONAIS da landing v3 (rizzo-os → SITE_MANIFESTO_MAPA.md
+       §44.21-9). Aditivos: cidade que não os declara segue funcionando
+       exatamente como antes, no `CidadeLanding` de sempre. ────────────── */
+
+  /**
+   * Os bairros e as cidades do entorno que a praça atende, na ordem em que o
+   * paciente as nomeia. É a seção "marketing médico em cada região".
+   * Ausente = a seção não renderiza (§⚖️: bloco sem dado é bloco ausente).
+   */
+  regioes?: string[];
+
+  /**
+   * Tweaks VISUAIS da página (handoff › Design Tokens › Tweaks): variação de
+   * elemento gráfico, motivo do pano, par de cores, seed e abertura.
+   *
+   * O que a cidade declara VENCE; o que ela não declara é sorteado pelo slug,
+   * de forma determinística (`lib/tweaks.mjs` — nunca `Math.random`, que num
+   * site SSG mudaria o pano a cada build); e o piso é sempre o padrão Brasília.
+   * Por isso o campo é opcional em toda cidade, Brasília inclusive: praça nova
+   * nasce com visual próprio sem ninguém escolher nada.
+   */
+  tweaks?: Partial<Tweaks>;
 }
 
 export const CIDADES: Cidade[] = [
@@ -239,6 +264,25 @@ export const CIDADES: Cidade[] = [
       { especialidade: "Pediatria e vacinação", clientes: [{ nome: "Imunocentro" }] },
     ],
     waText: "Olá! Vi a página de Brasília no site da agência e quero conversar sobre a minha clínica.",
+    // As 12 regiões do protótipo: 8 do DF + 4 do entorno goiano — a mesma lista
+    // que o texto de posição já nomeia, agora navegável.
+    regioes: [
+      "Asa Sul",
+      "Asa Norte",
+      "Sudoeste",
+      "Águas Claras",
+      "Taguatinga",
+      "Sobradinho",
+      "Lago Sul",
+      "Guará",
+      "Valparaíso",
+      "Luziânia",
+      "Novo Gama",
+      "Águas Lindas",
+    ],
+    // Brasília DEFINE o padrão de fábrica (README do handoff): é a única praça
+    // que declara os tweaks à mão. As próximas cidades sorteiam pelo slug.
+    tweaks: { elemento: "triangulo", pano: "canto", cores: "cinza · ouro", seed: 5, abertura: "sequencia" },
   },
 ];
 

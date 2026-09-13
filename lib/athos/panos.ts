@@ -347,3 +347,88 @@ export function panoCampoHome(): string {
 export function panoTiraHome(): string {
   return campo(TIRA_OS.pattern, [...TIRA_OS.cores], TIRA_OS.seed, 12, 1);
 }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   LANDING v3 DE CIDADE — o pano do handoff "AR Landing Brasilia"
+   (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §44.21 item 9)
+   ────────────────────────────────────────────────────────────────────────────
+   A landing v3 lê os TWEAKS da praça (`lib/tweaks.mjs`) e monta o hero com
+   eles: o `elemento` vira o motivo do motor, o `pano` vira o retângulo que o
+   painel de acento ocupa, as `cores` viram o par, e o `seed` desloca o sorteio
+   do motor. Brasília declara os cinco à mão (o padrão de fábrica do README);
+   praça nova sorteia pelo slug, sem ninguém escolher nada.
+
+   Como na home v3, os campos saem em `.pano-campo` e NÃO em `.band` — a faixa
+   de página continua sendo o que o `checar-panos.mjs` mede.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * O par de cor de cada valor do enum `cores`.
+ *
+ * ⚠️ `cinza · amarelo` NÃO vira `[CINZA, AMARELO]`: A2 é lei e amarelo
+ * (#FFD200) nunca vai sobre papel. O irmão quente e papel-seguro é a
+ * TANGERINA — mantém o enum com quatro resultados visuais distintos (colapsar
+ * dois valores no mesmo par tiraria a graça do sorteio) sem furar o contrato.
+ */
+const CORES_TWEAK: Record<string, string[]> = {
+  "cinza · ouro": [CINZA, OURO],
+  "cinza · amarelo": [CINZA, TANGERINA],
+  cinza: [CINZA],
+  ouro: [OURO, TEAL],
+};
+
+/**
+ * O retângulo (em % do hero) que o painel de acento ocupa, por valor do enum
+ * `pano`. É o "leiaute É o pano" do protótipo virado DADO: dez arranjos, uma
+ * tabela — em vez de dez blocos de CSS que ninguém consegue comparar.
+ */
+const PANO_LAYOUT: Record<string, { x: number; y: number; w: number; h: number }> = {
+  diagonal: { x: 46, y: 0, w: 54, h: 62 },
+  canto: { x: 58, y: 0, w: 42, h: 72 }, // ← o de Brasília
+  faixas: { x: 0, y: 24, w: 100, h: 34 },
+  xadrez: { x: 50, y: 0, w: 50, h: 100 },
+  escada: { x: 40, y: 10, w: 60, h: 58 },
+  moldura: { x: 10, y: 10, w: 80, h: 76 },
+  "triangulo-baixo": { x: 0, y: 46, w: 100, h: 54 },
+  "triangulo-alto": { x: 0, y: 0, w: 100, h: 48 },
+  bloco: { x: 55, y: 12, w: 45, h: 68 },
+  coluna: { x: 62, y: 0, w: 38, h: 100 },
+};
+
+export type PanoCidade = {
+  /** Campo de base, sobre papel, atrás de tudo. */
+  base: string;
+  /** Painel de acento: o motivo do `elemento` sobre chumbo, no retângulo do `pano`. */
+  painel: string;
+  caixa: { x: number; y: number; w: number; h: number };
+  /** `sequencia` liga a entrada peça a peça; `estatica` deixa o campo parado. */
+  animado: boolean;
+};
+
+/** O hero da landing v3, montado a partir dos tweaks da praça. */
+export function panoCidadeV3(t: { elemento: string; pano: string; cores: string; seed: number; abertura: string }): PanoCidade {
+  // `elemento` é nome de motivo do motor; valor desconhecido cai no triângulo
+  // (o padrão Brasília) em vez de quebrar o render.
+  const motivo = byId(t.elemento) ? t.elemento : "triangulo";
+  const cores = CORES_TWEAK[t.cores] ?? CORES_TWEAK["cinza · ouro"];
+  const caixa = PANO_LAYOUT[t.pano] ?? PANO_LAYOUT.canto;
+  const max = byId(motivo)?.maxCores ?? 2;
+  const doPainel = cores.slice(0, max);
+  assertA2(doPainel, "papel", `painel do hero (${motivo})`);
+  return {
+    base: campo(motivo, [CINZA], 13 + t.seed * 37, 16, 5),
+    painel: campo(motivo, doPainel, 601 + t.seed * 53, 8, 4),
+    caixa,
+    animado: t.abertura === "sequencia",
+  };
+}
+
+/** Faixa/campo de apoio da landing v3 — motivo e seed derivados dos mesmos tweaks. */
+export function panoCidadeFaixa(t: { elemento: string; cores: string; seed: number }, cols = 20, rows = 2): string {
+  const motivo = byId(t.elemento) ? t.elemento : "triangulo";
+  const cores = CORES_TWEAK[t.cores] ?? CORES_TWEAK["cinza · ouro"];
+  const max = byId(motivo)?.maxCores ?? 2;
+  const usadas = cores.slice(0, max);
+  assertA2(usadas, "papel", `faixa da cidade (${motivo})`);
+  return campo(motivo, usadas, 907 + t.seed * 17 + cols, cols, rows);
+}
