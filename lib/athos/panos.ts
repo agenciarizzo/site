@@ -18,7 +18,7 @@
 // evitar), `quarto`/`leque`/`meia-lua` em 2 cada. Agora a distribuição é feita
 // de uma vez sobre a lista de rotas — continua derivada, continua sem tabela à
 // mão, mas nenhum motivo se repete enquanto houver motivo virgem na biblioteca.
-import { pano, panoContinuo, PATTERNS, coresValidas, byId } from "./athosPatterns";
+import { pano, panoContinuo, PATTERNS, coresValidas, byId, tiles, tileHtml } from "./athosPatterns";
 import { CARTAS } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
 import { COMBOS } from "@/content/combos";
@@ -232,4 +232,118 @@ export function panoAbertura(): { h: string; v: string } {
     h: pano(p.pattern, p.cores, "longe", p.seed, 12, 7),
     v: pano(p.pattern, p.cores, "longe", p.seed, 5, 9),
   };
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   HOME v3 — o pano do handoff "AR Home Visual" (rizzo-os →
+   docs/SITE_MANIFESTO_MAPA.md §44.21 item 9)
+   ────────────────────────────────────────────────────────────────────────────
+   A home v3 NÃO entra na distribuição do `MAPA_PANOS`: o handoff declara o
+   motivo dela na mão (`padraoHome = 'leque'`, `seedShift = 0`), e o campo do
+   hero é COMPOSTO — um motivo de base com regiões de outro motivo/cores por
+   cima, uma por frente. É o "o leiaute É o pano" do protótipo.
+
+   Por isso estes campos saem em container PRÓPRIO (`.pano-campo`), nunca em
+   `.band`: a faixa de página continua sendo o que o `checar-panos.mjs` mede, e
+   a home v3 não gasta — nem repete — motivo da biblioteca distribuída.
+
+   Continua tudo pelo motor (regra 2 do CLAUDE.md): `tiles()` + `tileHtml()`.
+   Zero azulejo desenhado à mão.
+   ════════════════════════════════════════════════════════════════════════════ */
+export const HOME_V3 = { padrao: "leque", seedShift: 0, pecasVisiveis: 7 } as const;
+
+/** O `seedShift` do handoff (0 por padrão) desloca TODAS as seeds da home juntas. */
+const S = (seed: number) => seed + HOME_V3.seedShift * 101;
+
+/**
+ * Campo de azulejo em container próprio. Diferente do `pano()` do motor, não
+ * fixa `grid-template-rows` inline — quem decide a altura da peça é o CSS da
+ * home (`--cols`), pra o azulejo ficar QUADRADO em qualquer largura de tela.
+ */
+function campo(pattern: string, cores: string[], seed: number, cols: number, rows: number): string {
+  const ts = tiles(pattern, cores, seed, cols * rows);
+  return `<div data-pano="${pattern}·longe·s${seed}" class="pano-campo" style="--cols:${cols};--rows:${rows}">${ts
+    .map(tileHtml)
+    .join("")}</div>`;
+}
+
+/** Fundo de região do hero — não é cor de motivo, é o papel/navy/ouro atrás dele. */
+export type Regiao = { x: number; y: number; w: number; h: number; html: string; fundo: string };
+
+/**
+ * As 6 frentes do hero, na composição do protótipo: um motivo de base sobre
+ * papel + a região que dá a cara da frente. Cada região declara o retângulo
+ * (em % da tela) que ocupa — o mesmo `comp.regioes` do `.dc.html`.
+ */
+const FRENTES_PANO: { base: [string, string[]]; regioes: Omit<Regiao, "html">[] }[] = [
+  { base: ["reta", [CINZA]], regioes: [{ x: 52, y: 22, w: 48, h: 46, fundo: NAVY }] },
+  { base: ["circulo-triangulo", [CINZA]], regioes: [{ x: 0, y: 0, w: 100, h: 34, fundo: NAVY }] },
+  { base: ["quarto", [CINZA]], regioes: [{ x: 44, y: 22, w: 56, h: 46, fundo: NAVY }] },
+  {
+    base: ["anel", [CINZA]],
+    regioes: [
+      { x: 0, y: 22, w: 50, h: 46, fundo: OURO },
+      { x: 50, y: 22, w: 50, h: 46, fundo: NAVY },
+    ],
+  },
+  { base: ["triangulo", [CINZA, OURO]], regioes: [{ x: 0, y: 0, w: 100, h: 46, fundo: NAVY }] },
+  { base: ["deco", [CINZA]], regioes: [{ x: 0, y: 40, w: 100, h: 28, fundo: "#F1EEE4" }] },
+];
+
+/** Cores do motivo DENTRO de cada região (A2: amarelo só quando o fundo é navy). */
+const CORES_REGIAO: string[][][] = [
+  [[OURO]],
+  // O protótipo pedia OURO + PAPEL aqui, mas papel é FUNDO, não cor de motivo
+  // (`CORES_MOTIVO` do motor não o tem) — a A2 reprova em build, e com razão.
+  // O par equivalente sobre navy é OURO + AMARELO: mesmo contraste claro, e o
+  // amarelo é legítimo porque o fundo da região É navy (A2).
+  [[OURO, AMARELO]],
+  [[TEAL, OURO]],
+  [[NAVY], [AMARELO, OURO]],
+  [[AMARELO]],
+  [[OURO, NAVY]],
+];
+
+for (let i = 0; i < FRENTES_PANO.length; i++) {
+  assertA2(FRENTES_PANO[i].base[1], "papel", `base do hero ${i + 1}`);
+  FRENTES_PANO[i].regioes.forEach((r, k) => {
+    // A2 é regra de amarelo sobre PAPEL; região com fundo navy pode levar amarelo.
+    assertA2(CORES_REGIAO[i][k], r.fundo === NAVY ? "navy" : "papel", `região ${k + 1} do hero ${i + 1}`);
+  });
+}
+
+/** Campo de base do hero (o mesmo em todas as frentes; as regiões é que trocam). */
+export function panoHeroBase(frente: number): string {
+  const [pattern, cores] = FRENTES_PANO[frente].base;
+  return campo(pattern, cores, S(500 + frente * 31), 14, 5);
+}
+
+/** Regiões coloridas da frente — o retângulo em % + o campo que o preenche. */
+export function panoHeroRegioes(frente: number): Regiao[] {
+  const { base, regioes } = FRENTES_PANO[frente];
+  return regioes.map((r, k) => ({
+    ...r,
+    html: campo(base[0], CORES_REGIAO[frente][k], S(700 + frente * 13 + r.x), 7, 3),
+  }));
+}
+
+/** Mini-pano de card (frente, peça de portfólio): 8 peças numa fileira. */
+export function panoCardHome(chave: string, i: number): string {
+  const pares = PARES_PAPEL[i % PARES_PAPEL.length];
+  return campo(HOME_V3.padrao, pares, S(hash(chave) % 9973), 8, 1);
+}
+
+/** Faixa entre o bloco de perguntas e o fecho — a "janela 2/2" do protótipo. */
+export function panoFaixaHome(): string {
+  return campo(HOME_V3.padrao, [CINZA, OURO], S(41), 20, 2);
+}
+
+/** Campo miúdo atrás do painel do fecho ("Quanto custa"). */
+export function panoCampoHome(): string {
+  return campo(HOME_V3.padrao, [CINZA, OURO], S(41), 18, 5);
+}
+
+/** Tira do bloco RizzoOS na home — trevo amarelo sobre navy, como no resto do site. */
+export function panoTiraHome(): string {
+  return campo(TIRA_OS.pattern, [...TIRA_OS.cores], TIRA_OS.seed, 12, 1);
 }
