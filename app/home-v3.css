@@ -1,0 +1,870 @@
+/* ============================================================================
+   HOME v3 — a folha da home nova, importada SÓ por `app/page.tsx`.
+
+   Fonte: handoff `design_handoff_home_brasilia/AR Home Visual.dc.html`
+   (rizzo-os), com as decisões do SITE_MANIFESTO_MAPA.md §44.15 (D4) e §44.21.
+
+   ⚠️ ESTA FOLHA ESTÁ FORA DA ESCALA TIPOGRÁFICA DO SITE, DE PROPÓSITO.
+   O §44.15 D4 abriu exceção explícita e mínima pros checadores só para a home
+   v3 ("ignorar todas as regras do site que eu criei no passado" — decisão do
+   cliente): a home nova segue a tipografia e a paleta do handoff (tinta
+   azul-chumbo #323C46 e amarelo #FFD200 sobre papel), não a escala `--slab-*`
+   / `--corpo-*` do `globals.css`. A exceção está declarada, por caminho, em
+   `scripts/checar-tipografia.mjs` — e vale só para estes arquivos. O resto do
+   site continua travado na escala.
+
+   O que NÃO se ignora (§44.15 D4): as duas portas, a medição, metadata,
+   canonical, JSON-LD, H1 único, zero link quebrado e zero placeholder.
+
+   As animações são reimplementadas, nunca embarcadas (§44.21-11): CSS puro nos
+   letreiros e nos hovers; `prefers-reduced-motion` respeitado em todas.
+   ============================================================================ */
+
+.home-v3 {
+  /* Paleta do handoff — convive com os tokens do site sem sobrescrevê-los:
+     o menu e o rodapé compartilhados continuam nos tokens do `globals.css`. */
+  --h-papel: #f4efe6;
+  --h-claro: #fbf9f3;
+  --h-quente: #f1eee4;
+  --h-hairline: #e3dcc8;
+  --h-tinta: #323c46; /* azul-chumbo — a tinta da home v3 (§44.21-6) */
+  --h-ink: #16130e;
+  --h-corpo: #3f4952;
+  --h-apoio: #4a555f;
+  --h-suave: #6b7580;
+  --h-navy: #0f172a;
+  --h-teal: #0097a7;
+  --h-ouro: #f0a400;
+  --h-amarelo: #ffd200;
+  --h-gutter: clamp(20px, 5vw, 60px);
+  --h-max: 1320px;
+
+  background: var(--h-papel);
+  color: var(--h-tinta);
+  overflow-x: hidden;
+}
+
+.home-v3 .h-wrap {
+  max-width: var(--h-max);
+  margin: 0 auto;
+  padding-inline: var(--h-gutter);
+}
+
+/* ---------------------------------------------------------------- panos ---
+   Todo campo de azulejo é HTML do motor (lib/athos/panos.ts → `campo()`), que
+   entrega `.pano-campo` com `--cols`. Aqui só se diz QUANTAS colunas e que a
+   peça é quadrada — a geometria é do motor, nunca desenhada aqui (regra 2). */
+.home-v3 .pano-campo {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  width: 100%;
+}
+.home-v3 .pano-campo > div {
+  aspect-ratio: 1;
+}
+
+/* ------------------------------------------------------------------ hero ---
+   Assimétrico: o campo de azulejo ocupa a tela inteira, o título mora no canto
+   inferior esquerdo e o controle do carrossel no inferior direito. */
+.home-v3 .h-hero {
+  position: relative;
+  min-height: min(100svh, 820px);
+  display: grid;
+  grid-template-rows: minmax(120px, 1fr) auto;
+  overflow: hidden;
+  background: var(--h-papel);
+}
+
+/* O CAMPO QUIETO do protótipo, feito com leiaute em vez de máscara.
+   No `.dc.html` as peças das faixas de texto (py<20 e py>68) nascem lisas —
+   "as áreas de texto ficam com peças lisas, para a tipografia ter campo plano".
+   Aqui o mesmo efeito vem da grade: o azulejo é a primeira fileira, o texto é a
+   segunda, sobre papel chapado. Nenhuma letra cai em cima de peça, em nenhuma
+   largura de tela — e a borda dura entre os dois é a mesma que o corte de peça
+   produzia. */
+.home-v3 .h-hero-campo {
+  position: relative;
+  grid-row: 1;
+  overflow: hidden;
+}
+.home-v3 .h-hero-campo .pano-campo {
+  position: absolute;
+  inset: 0 0 auto;
+  /* Peça QUADRADA (A3) e `align-content: start`, como no protótipo: o motor
+     entrega material de sobra e o container corta o que não couber — o azulejo
+     nunca vira barra achatada pra "caber" na altura da faixa. */
+  align-content: start;
+}
+
+/* As 6 frentes são 6 campos empilhados; só a ativa fica opaca. Sem JS, a 0 é a
+   que aparece (o `data-frente` nasce "0" no HTML gerado) — e os 6 títulos estão
+   todos no DOM, então a página lê inteira sem script (§44.15 D4). */
+.home-v3 .h-frente-pano {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.home-v3 .h-hero[data-frente="0"] .h-frente-pano[data-i="0"],
+.home-v3 .h-hero[data-frente="1"] .h-frente-pano[data-i="1"],
+.home-v3 .h-hero[data-frente="2"] .h-frente-pano[data-i="2"],
+.home-v3 .h-hero[data-frente="3"] .h-frente-pano[data-i="3"],
+.home-v3 .h-hero[data-frente="4"] .h-frente-pano[data-i="4"],
+.home-v3 .h-hero[data-frente="5"] .h-frente-pano[data-i="5"] {
+  opacity: 1;
+}
+
+/* Região colorida: o retângulo em % da tela que o handoff declara por frente. */
+.home-v3 .h-regiao {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  overflow: hidden;
+  background: var(--fundo);
+}
+.home-v3 .h-regiao .pano-campo {
+  align-content: start;
+}
+
+.home-v3 .h-hero-texto {
+  position: relative;
+  z-index: 2;
+  grid-row: 2;
+  max-width: min(62rem, 100%);
+  padding-block: clamp(28px, 4vw, 46px) clamp(28px, 4vw, 52px);
+}
+.home-v3 .h-kicker {
+  margin: 0 0 14px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--h-tinta);
+  opacity: 0.75;
+}
+.home-v3 .h-hero h1 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(2.1rem, 5.2vw, 4.1rem);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--h-ink);
+  text-wrap: balance;
+}
+.home-v3 .h-hero-lede {
+  margin: 22px 0 0;
+  max-width: 42rem;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--h-corpo);
+  text-wrap: pretty;
+}
+
+/* As 6 frentes no hero: todas no HTML, uma visível. `hidden` não serve — o
+   texto precisa continuar rastreável; a troca é por opacidade + `inert`. */
+.home-v3 .h-frentes-pilha {
+  position: relative;
+  margin-top: 26px;
+  min-height: 5.5rem;
+}
+.home-v3 .h-frente {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  pointer-events: none;
+}
+.home-v3 .h-hero[data-frente="0"] .h-frente[data-i="0"],
+.home-v3 .h-hero[data-frente="1"] .h-frente[data-i="1"],
+.home-v3 .h-hero[data-frente="2"] .h-frente[data-i="2"],
+.home-v3 .h-hero[data-frente="3"] .h-frente[data-i="3"],
+.home-v3 .h-hero[data-frente="4"] .h-frente[data-i="4"],
+.home-v3 .h-hero[data-frente="5"] .h-frente[data-i="5"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.home-v3 .h-frente a {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--h-ink);
+}
+.home-v3 .h-frente strong {
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.home-v3 .h-frente span {
+  font-size: 0.97rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--h-apoio);
+}
+
+.home-v3 .h-hero-rodape {
+  position: relative;
+  z-index: 2;
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 26px;
+  align-items: center;
+  justify-content: space-between;
+}
+.home-v3 .h-hero-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Controle do carrossel — os botões só existem com JS (a ilha os injeta); sem
+   ela a página fica na frente 01 e nada se perde. */
+.home-v3 .h-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--h-ink);
+}
+.home-v3 .h-nav button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+.home-v3 .h-nav button:hover {
+  background: var(--h-ouro);
+  border-color: var(--h-ouro);
+  color: var(--h-ink);
+}
+.home-v3 .h-nav-conta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+}
+.home-v3 .h-nav-conta b {
+  font-size: 1.3rem;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+/* ----------------------------------------------------------- credenciais ---
+   Letreiro em loop: CSS puro, duas cópias da lista + translate de -50%. */
+.home-v3 .h-tarja {
+  background: var(--h-tinta);
+  overflow: hidden;
+  padding: 15px 0;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.home-v3 .h-tarja-trilho {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 34px;
+  animation: h-marquee 46s linear infinite;
+}
+.home-v3 .h-tarja span {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: #d6dbe0;
+  white-space: nowrap;
+}
+.home-v3 .h-tarja span i {
+  width: 6px;
+  height: 6px;
+  background: var(--h-ouro);
+  display: inline-block;
+  flex: none;
+}
+@keyframes h-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --------------------------------------------------------------- seções --- */
+.home-v3 section {
+  background: var(--h-papel);
+}
+.home-v3 .h-sec {
+  padding-block: clamp(64px, 9vw, 116px);
+}
+.home-v3 .h-sec-clara {
+  background: var(--h-claro);
+  border-top: 1px solid var(--h-hairline);
+}
+.home-v3 .h-sec-borda {
+  border-top: 1px solid var(--h-hairline);
+}
+.home-v3 .h-editorial {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
+  gap: clamp(28px, 4vw, 48px);
+}
+.home-v3 .h-editorial-fim {
+  align-items: end;
+}
+.home-v3 .h-num {
+  margin: 0 0 18px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--h-teal);
+}
+.home-v3 h2 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: clamp(1.7rem, 3.6vw, 2.85rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--h-ink);
+  text-wrap: balance;
+}
+.home-v3 h2 .h-acento {
+  color: var(--h-teal);
+}
+.home-v3 .h-prosa p {
+  margin: 0 0 22px;
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.75;
+  font-weight: 300;
+  color: var(--h-corpo);
+  text-wrap: pretty;
+  max-width: 40rem;
+}
+.home-v3 .h-prosa p:last-child {
+  margin-bottom: 0;
+}
+.home-v3 .h-prosa a,
+.home-v3 .h-recortes a {
+  color: var(--h-teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.home-v3 .h-prosa a:hover,
+.home-v3 .h-recortes a:hover {
+  color: var(--h-ink);
+}
+.home-v3 .h-lede {
+  margin: 24px 0 0;
+  max-width: 42rem;
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--h-corpo);
+  text-wrap: pretty;
+}
+.home-v3 .h-recortes {
+  margin: 52px 0 0;
+  max-width: 54rem;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  font-weight: 300;
+  color: var(--h-apoio);
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------- grade de cartas ---
+   Rejunte de 1px com o fundo escuro por trás: o "azulejo" de conteúdo do
+   handoff (Design Tokens › grades de prova). */
+.home-v3 .h-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 1px;
+  margin-top: 56px;
+  background: var(--h-hairline);
+  border: 1px solid var(--h-hairline);
+}
+.home-v3 .h-card {
+  background: var(--h-papel);
+  display: flex;
+  flex-direction: column;
+  color: var(--h-tinta);
+  transition: background 0.3s;
+}
+.home-v3 .h-card:hover {
+  background: #fff;
+}
+.home-v3 .h-card-pano {
+  padding: 5px;
+  background: var(--h-papel);
+  border-bottom: 1px solid var(--h-hairline);
+}
+.home-v3 .h-card-pano .pano-campo {
+  gap: 5px;
+}
+.home-v3 .h-card-corpo {
+  padding: 28px 28px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  flex: 1;
+}
+.home-v3 .h-card-num {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--h-ouro);
+}
+.home-v3 .h-card h3 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.28rem;
+  font-weight: 700;
+  line-height: 1.28;
+  color: var(--h-ink);
+}
+.home-v3 .h-card p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--h-apoio);
+  flex: 1;
+  text-wrap: pretty;
+}
+.home-v3 .h-ler {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--h-teal);
+}
+
+/* ------------------------------------------------------------ portfólio --- */
+.home-v3 .h-pecas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 22px;
+  margin-top: 56px;
+}
+.home-v3 .h-peca {
+  background: var(--h-claro);
+  border: 1px solid var(--h-hairline);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+/* Moldura de proporção fixa pra grade não ficar serrilhada: o acervo tem peça
+   1200×500 (site) e 1200×1200 (portfólio de celular) lado a lado. `contain`, e
+   não `cover`, porque cortar mockup é esconder metade do trabalho — a peça
+   aparece inteira, sobre o papel quente. */
+.home-v3 .h-peca img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  border-bottom: 1px solid var(--h-hairline);
+  background: var(--h-quente);
+}
+.home-v3 .h-peca-corpo {
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.home-v3 .h-peca-meta {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8a8264;
+}
+.home-v3 .h-peca h3 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.28;
+  color: var(--h-ink);
+}
+.home-v3 .h-peca p {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--h-apoio);
+  text-wrap: pretty;
+}
+.home-v3 .h-link-seco {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 44px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--h-ink);
+  border-bottom: 1px solid #cfc7b2;
+  padding-bottom: 4px;
+}
+.home-v3 .h-link-seco:hover {
+  border-color: var(--h-ink);
+}
+
+/* -------------------------------------------------------------- RizzoOS --- */
+.home-v3 .h-os {
+  position: relative;
+  background: var(--h-navy);
+  overflow: hidden;
+  border: 0;
+}
+.home-v3 .h-os-tira {
+  padding: 6px 6px 0;
+}
+.home-v3 .h-os-tira .pano-campo {
+  gap: 6px;
+}
+.home-v3 .h-os .h-num {
+  color: var(--h-amarelo);
+}
+.home-v3 .h-os-marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.home-v3 .h-os-marca i {
+  width: 5px;
+  height: 38px;
+  background: var(--h-amarelo);
+  flex: none;
+}
+.home-v3 .h-os h2 {
+  font-family: var(--font-geist), system-ui, sans-serif;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #f1f5f9;
+}
+.home-v3 .h-os h2 .h-os-leve {
+  font-weight: 300;
+}
+.home-v3 .h-os h2 .h-os-forte {
+  font-weight: 700;
+  color: var(--h-amarelo);
+}
+.home-v3 .h-os-beta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 9px;
+}
+.home-v3 .h-os p {
+  margin: 0;
+  max-width: 40rem;
+  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+  line-height: 1.7;
+  font-weight: 300;
+  color: #cbd5e1;
+  text-wrap: pretty;
+}
+.home-v3 .h-os-link {
+  display: inline-block;
+  margin-top: 26px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--h-amarelo);
+  border-bottom: 1px solid rgba(255, 210, 0, 0.4);
+  padding-bottom: 4px;
+}
+.home-v3 .h-os-link:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+/* --------------------------------------------------------------- passos --- */
+.home-v3 .h-passos {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+}
+.home-v3 .h-passo {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 0.85fr) minmax(0, 1.5fr);
+  gap: 26px;
+  padding: 26px 0;
+  border-top: 1px solid var(--h-hairline);
+}
+.home-v3 .h-passo-num {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--h-ouro);
+}
+.home-v3 .h-passo h3 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.16rem;
+  font-weight: 700;
+  line-height: 1.28;
+  color: var(--h-ink);
+}
+.home-v3 .h-passo p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--h-apoio);
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------ perguntas --- */
+.home-v3 .h-faq {
+  max-width: 44rem;
+  display: flex;
+  flex-direction: column;
+}
+.home-v3 .h-faq details {
+  border-bottom: 1px solid var(--h-hairline);
+}
+.home-v3 .h-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--h-tinta);
+  cursor: pointer;
+  list-style: none;
+}
+.home-v3 .h-faq summary::-webkit-details-marker {
+  display: none;
+}
+.home-v3 .h-faq summary:hover {
+  color: var(--h-teal);
+}
+.home-v3 .h-faq summary i {
+  color: var(--h-ouro);
+  font-size: 0.88rem;
+  font-style: normal;
+  flex: none;
+  transition: transform 0.25s ease;
+}
+.home-v3 .h-faq details[open] summary i {
+  transform: rotate(90deg);
+}
+.home-v3 .h-faq details p {
+  margin: 0 0 22px;
+  font-size: 1rem;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--h-apoio);
+  max-width: 40rem;
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------- fecho --- */
+.home-v3 .h-faixa {
+  padding: 6px 0;
+  background: var(--h-papel);
+  border-top: 1px solid var(--h-hairline);
+  overflow: hidden;
+}
+.home-v3 .h-faixa .pano-campo {
+  gap: 6px;
+}
+.home-v3 .h-fecho {
+  position: relative;
+  overflow: hidden;
+}
+.home-v3 .h-fecho-campo {
+  position: absolute;
+  inset: 0;
+  opacity: 0.9;
+  overflow: hidden;
+}
+.home-v3 .h-fecho-campo .pano-campo {
+  gap: 6px;
+  padding: 6px;
+}
+.home-v3 .h-fecho-painel {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-block: clamp(64px, 9vw, 112px);
+  padding-inline: var(--h-gutter);
+}
+.home-v3 .h-fecho-painel > div {
+  background: var(--h-claro);
+  border: 1px solid var(--h-hairline);
+  box-shadow: 0 24px 60px rgba(22, 19, 14, 0.14);
+  padding: clamp(32px, 5vw, 60px);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+}
+.home-v3 .h-fecho h2 {
+  font-size: clamp(1.9rem, 4.4vw, 3.3rem);
+  line-height: 1.06;
+}
+.home-v3 .h-fecho p {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  font-weight: 300;
+  color: #3a3628;
+  text-wrap: pretty;
+}
+.home-v3 .h-btn-proposta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 30px;
+  background: var(--h-navy);
+  color: var(--h-papel);
+  font-weight: 700;
+  font-size: 0.94rem;
+  letter-spacing: 0.06em;
+  padding: 17px 28px;
+}
+.home-v3 .h-btn-proposta:hover {
+  background: #1a2742;
+  color: var(--h-papel);
+}
+
+/* Botões do hero — as DUAS portas, na ordem de destaque da regra 4. */
+.home-v3 .h-porta-fria,
+.home-v3 .h-porta-quente {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 15px 24px;
+}
+.home-v3 .h-porta-fria {
+  background: var(--h-tinta);
+  color: var(--h-papel);
+}
+.home-v3 .h-porta-fria:hover {
+  background: var(--h-navy);
+  color: var(--h-papel);
+}
+.home-v3 .h-porta-quente {
+  border: 1.5px solid #cfc7b2;
+  color: var(--h-tinta);
+  background: rgba(251, 249, 243, 0.7);
+}
+.home-v3 .h-porta-quente:hover {
+  border-color: var(--h-tinta);
+  color: var(--h-tinta);
+}
+
+/* ------------------------------------------------------------- revelação ---
+   `data-reveal` → estado final por CSS; quem avisa que entrou na tela é a ilha
+   `Reveals` (§44.21-11). Sem JS, `.no-js`-style: o seletor `:not([data-visivel])`
+   só esconde quando a ilha marcou a página como capaz (`data-reveal-on`). */
+.home-v3[data-reveal-on] [data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--reveal-i, 0) * 110ms);
+}
+.home-v3[data-reveal-on] [data-reveal][data-visivel] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------------------------- mobile --- */
+@media (max-width: 760px) {
+  /* §43.9 — o eco dos 2 botões na primeira dobra: no celular quem carrega a
+     ação é a `.barra-cta` fixa (globals.css), então o par do hero seria o 2º
+     par na mesma tela. Mesma decisão que já vale pra home antiga (`.hero-cta`). */
+  .home-v3 .h-hero-acoes {
+    display: none;
+  }
+  .home-v3 .h-hero-rodape {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-v3 .h-editorial,
+  .home-v3 .h-fecho-painel > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* No celular o passo EMPILHA: com 2 colunas o título virava uma palavra por
+     linha e batia no parágrafo (a doença que o §44.16-6 nomeia — "o que não
+     couber sai; letra nunca encolhe pra caber"). */
+  .home-v3 .h-passo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .home-v3 .h-hero {
+    min-height: 0;
+    grid-template-rows: minmax(150px, 26svh) auto;
+  }
+}
+
+/* ------------------------------------------------- prefers-reduced-motion ---
+   Tudo estático: sem letreiro, sem transição de frente, sem revelação. O
+   carrossel também não auto-avança (a ilha lê a mesma media query). */
+@media (prefers-reduced-motion: reduce) {
+  .home-v3 .h-tarja-trilho {
+    animation: none;
+  }
+  .home-v3 .h-frente,
+  .home-v3 .h-frente-pano,
+  .home-v3 .h-faq summary i,
+  .home-v3[data-reveal-on] [data-reveal] {
+    transition: none;
+  }
+  .home-v3[data-reveal-on] [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Linha de apoio do fecho — o caminho de volta pra FAQ (§44.21-2: "perguntas"
+   é a âncora `#perguntas`, nunca a rota `/perguntas/` que não existe). */
+.home-v3 .h-fecho-antes {
+  margin: 20px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--h-suave);
+}
+.home-v3 .h-fecho-antes a {
+  color: var(--h-teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.home-v3 .h-fecho-antes a:hover {
+  color: var(--h-ink);
+}
