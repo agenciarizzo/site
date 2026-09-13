@@ -25,11 +25,14 @@
 // e marcar as duas produziria duplicata. O `Organization` (sem `aggregateRating`)
 // já vem do `app/layout.tsx` e vale pra página inteira.
 import type { Metadata } from "next";
+import "./ar-v3.css";
 import "./home-v3.css";
-import { MenuTopo, FooterMapa } from "@/components/athos/Athos";
-import { Hero, Tarja, Mudou, Frentes, Portfolio, RizzoOs, Passos, Perguntas, Fecho } from "@/components/home/Secoes";
+import { FooterMapa } from "@/components/athos/Athos";
+import { TopoPill } from "@/components/ar/TopoPill";
+import { HeroGeo } from "@/components/ar/HeroGeo";
+import { Tarja, Mudou, Frentes, Portfolio, RizzoOs, Passos, Perguntas, Fecho } from "@/components/home/Secoes";
 import { Reveals } from "@/components/home/Reveals";
-import { HOME_META, WA_HOME } from "@/content/home";
+import { HOME_META, WA_HOME, HERO } from "@/content/home";
 
 export const metadata: Metadata = {
   title: HOME_META.title,
@@ -39,13 +42,17 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="home-v3">
-      {/* As duas portas voltam pro MENU: é onde o protótipo as põe ("WhatsApp →"
-          no header sobreposto), e é o que devolve o hero limpo — kicker, título
-          e a frente da vez, sem botão espremendo o campo. */}
-      <MenuTopo atual="/" waText={WA_HOME} />
+    <div className="home-v3 ar-v3">
+      <TopoPill atual="/" waText={WA_HOME} />
       <main>
-        <Hero />
+        <HeroGeo
+          kicker={HERO.kicker}
+          titulo={HERO.titulo}
+          destaque={HERO.destaque}
+          lede={HERO.lede}
+          waText={WA_HOME}
+          tweaks={HERO.tweaks}
+        />
         <Tarja />
         <Mudou />
         <Frentes />

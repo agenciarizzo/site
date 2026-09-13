@@ -13,7 +13,6 @@
 import Link from "next/link";
 import { PROPOSTA_URL } from "@/lib/site";
 import {
-  panoHeroFrente,
   panoCardHome,
   panoFaixaHome,
   panoCampoHome,
@@ -21,7 +20,6 @@ import {
 } from "@/lib/athos/panos";
 import { PORTFOLIO } from "@/content/portfolio";
 import {
-  HERO,
   CREDENCIAIS,
   FRENTES,
   MUDOU,
@@ -32,62 +30,10 @@ import {
   PERGUNTAS,
   FECHO,
 } from "@/content/home";
-import { HeroCarrossel } from "./HeroCarrossel";
 
 /** Campo de azulejo do motor — sempre `aria-hidden`: é textura, não conteúdo. */
 function Campo({ html, className }: { html: string; className: string }) {
   return <div className={className} aria-hidden dangerouslySetInnerHTML={{ __html: html }} />;
-}
-
-/**
- * Hero assimétrico com as 6 frentes em carrossel.
- *
- * `data-frente="0"` nasce no HTML: sem JS a página abre na frente 01 e os 6
- * títulos/links continuam no DOM (o `checar-navegacao` os enxerga, o leitor de
- * tela também). A ilha só troca o número desse atributo.
- */
-export function Hero() {
-  return (
-    <section className="h-hero" data-frente="0" aria-labelledby="hero-h1">
-      {/* Um campo de TELA CHEIA por frente, com as peças das faixas de texto
-          lisas (o `quiet` do protótipo). Só a frente ativa fica opaca. */}
-      <div className="h-hero-campo" aria-hidden>
-        {FRENTES.map((_, i) => (
-          <div className="h-frente-pano" data-i={i} key={i}>
-            {/* Duas malhas por frente — 16 colunas no monitor, 8 no celular.
-                Não dá pra refluir uma na outra: a peça lisa é decidida pelo
-                ÍNDICE dela na malha, então mudar o número de colunas embaralha
-                justamente as faixas que seguram a tipografia. Metade das peças
-                de cada malha é lisa (`<div></div>`), então o custo é pequeno. */}
-            <div className="h-malha h-malha-larga" dangerouslySetInnerHTML={{ __html: panoHeroFrente(i, 16, 10) }} />
-            <div className="h-malha h-malha-estreita" dangerouslySetInnerHTML={{ __html: panoHeroFrente(i, 8, 5, false) }} />
-          </div>
-        ))}
-      </div>
-
-      {/* Canto inferior esquerdo, como no `.dc.html`: kicker · H1 · a frente da
-          vez em display grande. Nada de lede nem de botão aqui — as duas portas
-          moram no menu sobreposto, que é onde o protótipo as põe. */}
-      <div className="h-hero-texto">
-        <p className="h-kicker">{HERO.kicker}</p>
-        <h1 id="hero-h1">{HERO.h1}</h1>
-
-        <div className="h-frentes-pilha">
-          {FRENTES.map((f, i) => (
-            <div className="h-frente" data-i={i} key={f.num} aria-hidden={i !== 0}>
-              <Link href={f.href}>
-                <strong>{f.titulo}</strong>
-                <span>{f.linha}</span>
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Setas + contador no canto inferior direito (`right:60px;bottom:64px`). */}
-      <HeroCarrossel total={FRENTES.length} />
-    </section>
-  );
 }
 
 /** Letreiro de credenciais — CSS puro (duas cópias da lista + translate -50%). */

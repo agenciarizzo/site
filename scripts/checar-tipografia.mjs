@@ -51,10 +51,12 @@ const erros = [];
  * e `checar-portfolio.mjs`.
  */
 const EXCECAO_HANDOFF = [
+  "app/ar-v3.css",
   "app/home-v3.css",
   "app/cidade-v3.css",
   "app/page.tsx",
   "app/marketing-medico-brasilia/page.tsx",
+  "components/ar/",
   "components/home/",
   "components/CidadeLandingV3.tsx",
 ];

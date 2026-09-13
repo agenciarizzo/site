@@ -12,7 +12,11 @@ import { GuardaOrigem } from "@/components/GuardaOrigem";
 // o next/font serve nesta família — peso sintético está proibido, e é por isso
 // que o peso entra aqui em vez de um `font-weight: 200` sem face por trás.
 const slab = Roboto_Slab({ subsets: ["latin"], weight: ["300", "700", "800"], variable: "--font-slab", display: "swap" });
-const geist = Geist({ subsets: ["latin"], weight: ["300", "400", "500", "700", "800"], variable: "--font-geist", display: "swap" });
+// Geist ganhou o peso 200 em 2026-09-13: o H1 da linha v3 do Claude Design é
+// display LEVE (`font-weight:200` no `.dc.html` e no artifact), e peso
+// sintético está proibido — sem a face real o navegador "afina" o 300 e a
+// letra sai deformada.
+const geist = Geist({ subsets: ["latin"], weight: ["200", "300", "400", "500", "700", "800"], variable: "--font-geist", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {

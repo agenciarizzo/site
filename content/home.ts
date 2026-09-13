@@ -23,20 +23,25 @@
 export const WA_HOME = "Olá! Estava no site da agência e quero conversar sobre a minha clínica.";
 
 export const HOME_META = {
-  title: "Agência de Marketing Médico | Agência Rizzo",
-  // ≤180 caracteres (teto do checar-navegacao) e com os números canônicos.
+  // O `<title>` do artifact ("… | Agência Rizzo — Anápolis, Goiânia e Brasília")
+  // tem 79 caracteres e o `checar-navegacao.mjs` reprova acima de 60 — o corte
+  // preserva a keyword-mãe, que é o que a SERP mostra.
+  title: "Agência de Marketing Médico Digital | Agência Rizzo",
+  // A do artifact tem 189 caracteres; o teto é 180. Saiu a repetição do "para
+  // médicos, clínicas e hospitais", que o título já carrega.
   descricao:
-    "Marketing médico desde 2012: 259 médicos, clínicas e hospitais em 21 estados. Site, busca, anúncio, conteúdo e vídeo por uma equipe só, dentro das normas do CFM.",
+    "Agência de marketing médico digital desde 2012: site, SEO, Google Ads, redes sociais e TV corporativa, dentro das regras do CFM. 259 clientes em 21 estados.",
 };
 
 export const HERO = {
-  kicker: "Marketing médico",
-  /** O H1 real da página — o carrossel troca o SUBTÍTULO, nunca o H1 (1 H1 por página). */
-  h1: "Agência de marketing médico",
-  // Uma linha só: o hero do protótipo é kicker + título + a frente da vez, e o
-  // resto do argumento mora na tarja logo abaixo e na seção 01. Lede longo aqui
-  // empurrava o texto pra cima do azulejo.
-  lede: "Uma equipe só, de site a vídeo, dentro das normas do CFM — desde 2012.",
+  kicker: "Marketing para clínicas e marketing para hospitais",
+  /** O H1 é um só, em duas vozes: a leve (peso 200) e o RECORTE (peso 400). */
+  titulo: "Agência de",
+  destaque: "marketing médico digital",
+  lede:
+    "Site, Google, Meta, vídeo e a TV da sala de espera cuidados por uma única equipe — dentro das normas do CFM, com o médico e a clínica no centro da estratégia.",
+  /** Os tweaks do `data-props` do artifact — o desenho exato da composição. */
+  tweaks: { elemento: "triangulo", pano: "diagonal", cores: "cinza · ouro", seed: 5 },
 };
 
 /** A tarja rolante do protótipo. Números canônicos do §44.1; sem selo sem fonte. */
