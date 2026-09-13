@@ -319,6 +319,42 @@ export const TIMELINE = [
   { ano: "2026", titulo: "259 clientes atendidos em 21 estados", texto: "50 ativos no RizzoOS hoje." },
 ];
 
+/* ─────────────────────────────────────────────────────────── clientes ────── */
+
+/**
+ * O bloco chumbo com o painel amarelo (seção 02 do Design).
+ *
+ * ⚠️ No Claude Design o painel é um letreiro de LOGOS
+ * (`clientes-logos.json` → 25 arquivos em `public/clientes/*.png`). Esses PNGs
+ * NÃO estão no repo nem no pacote do handoff — aparecem no canvas do Design
+ * porque moram na máquina de lá. Inventar imagem é o que a régua §⚖️ proíbe,
+ * então o painel roda com os NOMES REAIS da grade de `content/clientes.ts`,
+ * cada um vinculado a um registro do oráculo pelo `checar-portfolio.mjs`.
+ * Quando os 25 PNGs chegarem, troca-se o conteúdo do item — o bloco já está no
+ * lugar, com a composição certa.
+ */
+export const CLIENTES_BLOCO = {
+  antes: "Clínicas, médicos e hospitais que",
+  acento: "confiam",
+  depois: "na agência",
+  lede: "259 nomes reais desde 2012 — de consultório a hospital.",
+  link: "Ver a lista completa de clientes",
+};
+
+/** As cidades que o Design lista na seção 12 da HOME (a praça usa as regiões dela). */
+export const CIDADES_HOME: string[] = [
+  "Brasília",
+  "Goiânia",
+  "São Paulo",
+  "Rio de Janeiro",
+  "Porto Alegre",
+  "Parauapebas",
+  "Recife",
+  "Vitória",
+  "Juiz de Fora",
+  "Belo Horizonte",
+];
+
 /* ──────────────────────────────────────────────────────── exclusividade ──── */
 
 export const EXCLUSIVIDADE = {
@@ -384,6 +420,9 @@ export const VINHETA = {
   acento: "aberta?",
   wa: (cidade: string) =>
     `Olá! Vim da página de ${cidade} no site da agência e quero saber se a vaga da minha especialidade em ${cidade} está aberta.`,
+  /** A home não tem praça no texto — a pergunta é a mesma, sem a cidade. */
+  waGeral:
+    "Olá! Vim do site da agência e quero saber se a vaga da minha especialidade na minha cidade está aberta.",
 };
 
 /* ──────────────────────────────────────────────────────────── CTA final ──── */

@@ -1,37 +1,38 @@
-// HOME v3 — o porte do handoff "AR Home Visual" do Claude Design.
+// HOME — o porte do Claude Design ("AR Home Diagonal", artifact e50042a2).
 //
-// Fonte da verdade: rizzo-os → docs/SITE_MANIFESTO_MAPA.md §44.15 (D1–D7),
-// §44.19 (ordem fixa do portfólio) e §44.21 (achados 1–11 + D8). Em divergência
-// handoff × §44.21, o §44.21 vence; em divergência §44.21 × regra antiga do
-// CLAUDE.md do site, o handoff vence no VISUAL (cores, tipo, animação) e o
-// §44.21 vence em portas, medição, prova, links e JSON-LD.
+// ⚠️ CORREÇÃO DE FONTE (2026-09-13): a 1ª rodada deste porte recriou a home a
+// partir do `AR Home Visual.dc.html` do pacote `design_handoff_home_brasilia/`.
+// Errado — aquele é OUTRO desenho do mesmo pacote (campo de azulejo de tela
+// cheia, sem cabeçalho pílula, com o H1 trocando a cada frente). A home real é
+// o artifact, que fala a MESMA língua da `AR Landing Brasilia.dc.html`: topo
+// fixo arredondado, H1 em peso 200, pílula amarela, composição geométrica.
 //
-// Estrutura (a do protótipo): hero assimétrico com as 6 frentes em carrossel ·
-// tarja de credenciais · 01 "O jeito de encontrar um médico mudou" · 02 "As três
-// frentes" · 03 portfólio · 04 RizzoOS · 05 "Como começa" · 06 Perguntas ·
-// fecho "Quanto custa" · rodapé-mapa do site.
+// Estrutura do artifact, e é a mesma da landing de praça (por isso o corpo é
+// compartilhado, em `components/ar/Corpo.tsx`): hero → autoridade → clientes →
+// exclusividade → serviços → pacotes → cases → resultado → RizzoOS →
+// depoimentos → sobre → cidades → especialidades → vinheta → portfólio → FAQ →
+// CTA → rodapé-mapa.
 //
-// O QUE NÃO SE IGNORA (§44.15 D4), e onde cada um está:
-//  · as duas portas — no `MenuTopo` (e na barra fixa do celular) e no
-//    `Fecho` de `components/home/Secoes.tsx`, como no protótipo;
-//  · a medição — `components/Medicao.tsx` continua no layout e lê `data-cta`,
-//    `data-wa` e `a[href*="wa.me"]`; aqui não há `wa.me` nenhum;
-//  · metadata + canonical + JSON-LD Organization — abaixo;
+// O QUE NÃO SE IGNORA (§44.15 D4), e onde está:
+//  · as duas portas — `TopoPill` (pílula amarela + botão do WhatsApp pelo
+//    portão), `HeroGeo` e o CTA final do `Corpo`;
+//  · a medição — `components/Medicao.tsx` segue no layout e lê `data-cta` e
+//    `data-wa`; não há `wa.me` nenhum aqui;
+//  · metadata + canonical + JSON-LD `Organization` (sem `aggregateRating`),
+//    que vem do `app/layout.tsx` e vale pra página inteira;
 //  · H1 único — só o do hero;
-//  · rodapé-mapa — é ele que cumpre "nenhuma página inacessível"
+//  · rodapé-mapa, que é quem cumpre "nenhuma página inacessível"
 //    (`scripts/checar-navegacao.mjs`).
 //
-// ⚠️ SEM `FAQPage` na home (§44.21-8): a FAQ daqui é subconjunto da de Brasília,
-// e marcar as duas produziria duplicata. O `Organization` (sem `aggregateRating`)
-// já vem do `app/layout.tsx` e vale pra página inteira.
+// SEM `FAQPage` (§44.21-8): a FAQ da home é a mesma da de Brasília, e marcar as
+// duas produziria duplicata.
 import type { Metadata } from "next";
 import "./ar-v3.css";
-import "./home-v3.css";
+import "./cidade-v3.css";
 import { FooterMapa } from "@/components/athos/Athos";
 import { TopoPill } from "@/components/ar/TopoPill";
 import { HeroGeo } from "@/components/ar/HeroGeo";
-import { Tarja, Mudou, Frentes, Portfolio, RizzoOs, Passos, Perguntas, Fecho } from "@/components/home/Secoes";
-import { Reveals } from "@/components/home/Reveals";
+import { Corpo } from "@/components/ar/Corpo";
 import { HOME_META, WA_HOME, HERO } from "@/content/home";
 
 export const metadata: Metadata = {
@@ -42,28 +43,18 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="home-v3 ar-v3">
+    <div className="ar-v3">
       <TopoPill atual="/" waText={WA_HOME} />
-      <main>
-        <HeroGeo
-          kicker={HERO.kicker}
-          titulo={HERO.titulo}
-          destaque={HERO.destaque}
-          lede={HERO.lede}
-          waText={WA_HOME}
-          tweaks={HERO.tweaks}
-        />
-        <Tarja />
-        <Mudou />
-        <Frentes />
-        <Portfolio />
-        <RizzoOs />
-        <Passos />
-        <Perguntas />
-        <Fecho />
-      </main>
+      <HeroGeo
+        kicker={HERO.kicker}
+        titulo={HERO.titulo}
+        destaque={HERO.destaque}
+        lede={HERO.lede}
+        waText={WA_HOME}
+        tweaks={HERO.tweaks}
+      />
+      <Corpo />
       <FooterMapa atual="/" proxima={["panorama", "clientes"]} />
-      <Reveals />
     </div>
   );
 }

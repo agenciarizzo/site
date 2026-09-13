@@ -1,23 +1,16 @@
 /* ============================================================================
-   LANDING v3 DE CIDADE — a folha da Brasília nova, importada SÓ pela página
-   dela (e, na replicação, pelas próximas praças).
+   CORPO da linha v3 — as seções abaixo da dobra, compartilhadas pela HOME e
+   pelas landings de cidade (que são a mesma peça no Claude Design: o artifact
+   "AR Home Diagonal" e o `AR Landing Brasilia.dc.html` só diferem por duas
+   seções de praça).
 
-   Fonte: handoff `design_handoff_home_brasilia/AR Landing Brasilia.dc.html`
-   (rizzo-os), com as decisões do SITE_MANIFESTO_MAPA.md §44.15 (D4) e §44.21.
+   O topo pílula e o hero geométrico moram em `app/ar-v3.css`.
 
-   ⚠️ FORA DA ESCALA TIPOGRÁFICA DO SITE, DE PROPÓSITO — mesma exceção da home
-   v3 (§44.15 D4), estendida a esta página pelo §44.21-6: tinta azul-chumbo
-   `#323C46` e amarelo `#FFD200` no card "recomendado". A exceção está declarada
-   por caminho em `scripts/checar-tipografia.mjs`; menu e rodapé compartilhados
-   seguem nos tokens do `globals.css`, e o resto do site segue travado na escala.
-
-   ANIMAÇÃO (§44.21-11): revelação por CSS + a ilha `Reveals`; as barras dos
-   cases por `animation-timeline: view()` com fallback ESTÁTICO (quem não
-   suporta vê a barra já na altura final); o encaixe da exclusividade pela ilha
-   `Encaixe`. `prefers-reduced-motion` respeitado em todas.
+   ⚠️ Fora da escala tipográfica do site, de propósito (§44.15 D4) — a exceção
+   está declarada por caminho em `scripts/checar-tipografia.mjs`.
    ============================================================================ */
 
-.cidade-v3 {
+.ar-v3 {
   --c-papel: #f4efe6;
   --c-claro: #fbf9f3;
   --c-fundo2: #e6e2da;
@@ -41,113 +34,32 @@
   overflow-x: hidden;
 }
 
-.cidade-v3 .c-wrap {
+.ar-v3 .c-wrap {
   max-width: var(--c-max);
   margin: 0 auto;
   padding-inline: var(--c-gutter);
 }
 
-.cidade-v3 .pano-campo {
+.ar-v3 .pano-campo {
   display: grid;
   grid-template-columns: repeat(var(--cols), 1fr);
   width: 100%;
   align-content: start;
 }
-.cidade-v3 .pano-campo > div {
+.ar-v3 .pano-campo > div {
   aspect-ratio: 1;
 }
 
-/* ------------------------------------------------------------------ hero ---
-   A composição do protótipo: campo de TELA CHEIA, menu sobreposto, texto no
-   canto inferior esquerdo. A legibilidade não vem do leiaute — vem das peças
-   lisas que o gerador põe nas faixas `py < 20%` e `py > 60%` (`panoCidadeV3`).
-   As fileiras esticam pra altura do hero (`1fr`), então a faixa cai sempre no
-   mesmo lugar, seja qual for a tela. */
-.cidade-v3 .c-hero {
-  position: relative;
-  height: 100svh;
-  min-height: 620px;
-  overflow: hidden;
-  background: var(--c-papel);
-}
-.cidade-v3 .c-hero-campo {
-  position: absolute;
-  inset: 0;
-}
-.cidade-v3 .c-malha {
-  position: absolute;
-  inset: 0;
-}
-.cidade-v3 .c-malha-estreita {
-  display: none;
-}
-.cidade-v3 .pano-hero {
-  height: 100%;
-  grid-template-rows: repeat(var(--rows), 1fr);
-  align-content: stretch;
-}
-.cidade-v3 .pano-hero > div {
-  position: relative;
-  overflow: hidden;
-}
-.cidade-v3 .pano-hero > div > div {
-  position: absolute;
-  inset: 0;
-}
-
-/* O menu vai SOBRE o campo, como no `.dc.html`. */
-.cidade-v3 > header.topo.menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 6;
-  background: transparent;
-  border-bottom: 0;
-}
-
-.cidade-v3 .c-hero-texto {
-  position: absolute;
-  left: var(--c-gutter);
-  right: var(--c-gutter);
-  bottom: clamp(40px, 7vh, 64px);
-  z-index: 5;
-  max-width: min(66vw, 50rem);
-}
-.cidade-v3 .c-hero h1 {
-  margin: 0;
-  font-family: var(--font-slab), Rockwell, Georgia, serif;
-  /* O H1 do protótipo pede Roboto Slab leve; o `layout.tsx` carrega 300, que é
-     o mais leve que o next/font serve nesta família — peso sintético está
-     proibido (§44.21-6). */
-  font-weight: 300;
-  font-size: clamp(2rem, 5.4vw, 4rem);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-  color: var(--c-tinta);
-  max-width: 22ch;
-  text-wrap: balance;
-}
-.cidade-v3 .c-hero-lede {
-  margin: 18px 0 0;
-  max-width: 42rem;
-  font-size: clamp(1rem, 1.4vw, 1.1rem);
-  line-height: 1.6;
-  font-weight: 300;
-  color: var(--c-corpo);
-  text-wrap: pretty;
-}
-
 /* ----------------------------------------------------------------- portas --- */
-.cidade-v3 .c-acoes {
+.ar-v3 .c-acoes {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 28px;
 }
-.cidade-v3 .c-btn-fria,
-.cidade-v3 .c-btn-quente,
-.cidade-v3 .c-pacote-btn {
+.ar-v3 .c-btn-fria,
+.ar-v3 .c-btn-quente,
+.ar-v3 .c-pacote-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -155,39 +67,39 @@
   font-size: 0.95rem;
   padding: 15px 24px;
 }
-.cidade-v3 .c-btn-fria {
+.ar-v3 .c-btn-fria {
   background: var(--c-tinta);
   color: var(--c-papel);
 }
-.cidade-v3 .c-btn-fria:hover {
+.ar-v3 .c-btn-fria:hover {
   background: var(--c-navy);
   color: var(--c-papel);
 }
-.cidade-v3 .c-btn-quente {
+.ar-v3 .c-btn-quente {
   border: 1.5px solid #cfc7b2;
   color: var(--c-tinta);
   background: rgba(251, 249, 243, 0.72);
 }
-.cidade-v3 .c-btn-quente:hover {
+.ar-v3 .c-btn-quente:hover {
   border-color: var(--c-tinta);
   color: var(--c-tinta);
 }
 
 /* ----------------------------------------------------------------- tarja --- */
-.cidade-v3 .c-tarja {
+.ar-v3 .c-tarja {
   background: var(--c-tinta);
   overflow: hidden;
   padding: 14px 0;
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
-.cidade-v3 .c-tarja-trilho {
+.ar-v3 .c-tarja-trilho {
   display: flex;
   width: max-content;
   align-items: center;
   gap: 32px;
   animation: c-marquee 52s linear infinite;
 }
-.cidade-v3 .c-tarja span {
+.ar-v3 .c-tarja span {
   display: flex;
   align-items: center;
   gap: 32px;
@@ -199,7 +111,7 @@
   color: #d6dbe0;
   white-space: nowrap;
 }
-.cidade-v3 .c-tarja span i {
+.ar-v3 .c-tarja span i {
   width: 6px;
   height: 6px;
   background: var(--c-amarelo);
@@ -216,14 +128,14 @@
 }
 
 /* ---------------------------------------------------------------- seções --- */
-.cidade-v3 .c-sec {
+.ar-v3 .c-sec {
   padding-block: clamp(60px, 8vw, 112px);
 }
-.cidade-v3 .c-sec-clara {
+.ar-v3 .c-sec-clara {
   background: var(--c-claro);
   border-block: 1px solid var(--c-hairline);
 }
-.cidade-v3 .c-kicker {
+.ar-v3 .c-kicker {
   margin: 0 0 14px;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.7rem;
@@ -232,7 +144,7 @@
   text-transform: uppercase;
   color: var(--c-suave);
 }
-.cidade-v3 h2 {
+.ar-v3 h2 {
   margin: 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: clamp(1.6rem, 3.4vw, 2.6rem);
@@ -243,11 +155,11 @@
   max-width: 22ch;
   text-wrap: balance;
 }
-.cidade-v3 .c-acento {
+.ar-v3 .c-acento {
   color: var(--c-teal);
 }
-.cidade-v3 .c-lede,
-.cidade-v3 .c-prosa p {
+.ar-v3 .c-lede,
+.ar-v3 .c-prosa p {
   margin: 20px 0 0;
   max-width: 44rem;
   font-size: clamp(0.98rem, 1.3vw, 1.1rem);
@@ -256,7 +168,7 @@
   color: var(--c-corpo);
   text-wrap: pretty;
 }
-.cidade-v3 .c-nota {
+.ar-v3 .c-nota {
   margin: 28px 0 0;
   max-width: 52rem;
   font-size: 0.9rem;
@@ -264,13 +176,13 @@
   font-weight: 300;
   color: var(--c-suave);
 }
-.cidade-v3 .c-nota a,
-.cidade-v3 .c-prosa a {
+.ar-v3 .c-nota a,
+.ar-v3 .c-prosa a {
   color: var(--c-teal);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.cidade-v3 .c-link-seco {
+.ar-v3 .c-link-seco {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -283,12 +195,12 @@
   border-bottom: 1px solid #cfc7b2;
   padding-bottom: 4px;
 }
-.cidade-v3 .c-link-seco:hover {
+.ar-v3 .c-link-seco:hover {
   border-color: var(--c-tinta);
 }
 
 /* -------------------------------------------------------- "como" da praça --- */
-.cidade-v3 .c-como {
+.ar-v3 .c-como {
   list-style: none;
   margin: 48px 0 0;
   padding: 0;
@@ -298,23 +210,23 @@
   background: var(--c-hairline);
   border: 1px solid var(--c-hairline);
 }
-.cidade-v3 .c-como li {
+.ar-v3 .c-como li {
   background: var(--c-papel);
   padding: 26px 24px 28px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.cidade-v3 .c-como-num {
+.ar-v3 .c-como-num {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--c-ouro);
 }
-.cidade-v3 .c-como h3,
-.cidade-v3 .c-serv h3,
-.cidade-v3 .c-prova-grupo h3 {
+.ar-v3 .c-como h3,
+.ar-v3 .c-serv h3,
+.ar-v3 .c-prova-grupo h3 {
   margin: 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: 1.1rem;
@@ -322,7 +234,7 @@
   line-height: 1.28;
   color: var(--c-ink);
 }
-.cidade-v3 .c-como p {
+.ar-v3 .c-como p {
   margin: 0;
   font-size: 0.96rem;
   line-height: 1.65;
@@ -334,7 +246,7 @@
 /* ----------------------------------------------------------------- prova ---
    Grade "azulejo": rejunte de 1px com o chumbo por trás (Design Tokens do
    handoff — "grades de prova: gap 1px com fundo #323C46 fazendo o rejunte"). */
-.cidade-v3 .c-prova-grade {
+.ar-v3 .c-prova-grade {
   margin-top: 48px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
@@ -342,11 +254,11 @@
   background: var(--c-tinta);
   border: 1px solid var(--c-tinta);
 }
-.cidade-v3 .c-prova-grupo {
+.ar-v3 .c-prova-grupo {
   background: var(--c-claro);
   padding: 22px 20px 24px;
 }
-.cidade-v3 .c-prova-grupo ul {
+.ar-v3 .c-prova-grupo ul {
   list-style: none;
   margin: 12px 0 0;
   padding: 0;
@@ -357,10 +269,10 @@
   font-weight: 300;
   color: var(--c-apoio);
 }
-.cidade-v3 .c-prova-grupo a {
+.ar-v3 .c-prova-grupo a {
   color: var(--c-teal);
 }
-.cidade-v3 .c-prova-grupo a:hover {
+.ar-v3 .c-prova-grupo a:hover {
   color: var(--c-ink);
 }
 
@@ -369,22 +281,22 @@
    se monta até a peça-alvo travar em amarelo, exatamente encaixada.
    O estado FINAL é o default do CSS — sem JS a cena nasce encaixada, que é a
    mensagem. A ilha `Encaixe` é quem zera e anima. */
-.cidade-v3 .c-exclusividade {
+.ar-v3 .c-exclusividade {
   --encaixe: 1;
   --tremor: 0;
   background: var(--c-fundo2);
 }
-.cidade-v3 .c-excl-grade {
+.ar-v3 .c-excl-grade {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(28px, 4vw, 56px);
   align-items: center;
 }
-.cidade-v3 .c-excl-cenas {
+.ar-v3 .c-excl-cenas {
   display: grid;
   gap: 22px;
 }
-.cidade-v3 .c-cena-grade {
+.ar-v3 .c-cena-grade {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 5px;
@@ -392,38 +304,38 @@
   padding: 10px;
   border: 1px solid var(--c-hairline);
 }
-.cidade-v3 .c-cena-grade i {
+.ar-v3 .c-cena-grade i {
   aspect-ratio: 1;
   display: block;
 }
 /* sem agência: triângulos cinza em direções aleatórias, sempre fora de lugar */
-.cidade-v3 .c-cena-sem i {
+.ar-v3 .c-cena-sem i {
   background: var(--c-neutro);
   clip-path: polygon(0 0, 100% 0, 0 100%);
   transform: translate(calc(var(--tremor) * 3px - 1.5px), calc(var(--tremor) * -3px + 1.5px));
 }
-.cidade-v3 .c-cena-sem i[data-k="1"] {
+.ar-v3 .c-cena-sem i[data-k="1"] {
   clip-path: polygon(0 0, 100% 0, 100% 100%);
 }
-.cidade-v3 .c-cena-sem i[data-k="2"] {
+.ar-v3 .c-cena-sem i[data-k="2"] {
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
-.cidade-v3 .c-cena-sem i[data-k="3"] {
+.ar-v3 .c-cena-sem i[data-k="3"] {
   clip-path: polygon(0 0, 100% 100%, 0 100%);
   opacity: 0.55;
 }
 /* com agência: a grade fica vazia e só a peça-alvo encaixa, em amarelo */
-.cidade-v3 .c-cena-com i {
+.ar-v3 .c-cena-com i {
   background: transparent;
   border: 1px dashed rgba(50, 60, 70, 0.18);
 }
-.cidade-v3 .c-cena-com i[data-alvo] {
+.ar-v3 .c-cena-com i[data-alvo] {
   border: 0;
   background: linear-gradient(135deg, var(--c-tinta) 0 50%, var(--c-amarelo) 50% 100%);
   transform: scale(calc(0.4 + 0.6 * var(--encaixe))) rotate(calc((1 - var(--encaixe)) * -35deg));
   opacity: calc(0.25 + 0.75 * var(--encaixe));
 }
-.cidade-v3 .c-cena figcaption {
+.ar-v3 .c-cena figcaption {
   margin-top: 12px;
   display: flex;
   flex-direction: column;
@@ -433,7 +345,7 @@
   line-height: 1.55;
   color: var(--c-apoio);
 }
-.cidade-v3 .c-cena figcaption b {
+.ar-v3 .c-cena figcaption b {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.66rem;
   font-weight: 700;
@@ -443,7 +355,7 @@
 }
 
 /* -------------------------------------------------------------- serviços --- */
-.cidade-v3 .c-serv-grade {
+.ar-v3 .c-serv-grade {
   margin-top: 48px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
@@ -451,7 +363,7 @@
   background: var(--c-hairline);
   border: 1px solid var(--c-hairline);
 }
-.cidade-v3 .c-serv {
+.ar-v3 .c-serv {
   background: var(--c-papel);
   padding: 28px 26px 30px;
   display: flex;
@@ -460,21 +372,21 @@
   color: var(--c-tinta);
   transition: background 0.3s;
 }
-.cidade-v3 .c-serv:hover {
+.ar-v3 .c-serv:hover {
   background: var(--c-amarelo);
 }
-.cidade-v3 .c-serv-num {
+.ar-v3 .c-serv-num {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--c-ouro);
 }
-.cidade-v3 .c-serv:hover .c-serv-num,
-.cidade-v3 .c-serv:hover .c-ler {
+.ar-v3 .c-serv:hover .c-serv-num,
+.ar-v3 .c-serv:hover .c-ler {
   color: var(--c-tinta);
 }
-.cidade-v3 .c-serv-frase {
+.ar-v3 .c-serv-frase {
   margin: 0;
   font-size: 0.98rem;
   line-height: 1.6;
@@ -482,14 +394,14 @@
   color: var(--c-apoio);
   flex: 1;
 }
-.cidade-v3 .c-serv-recebe {
+.ar-v3 .c-serv-recebe {
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.55;
   font-weight: 400;
   color: var(--c-tinta);
 }
-.cidade-v3 .c-ler {
+.ar-v3 .c-ler {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.66rem;
   letter-spacing: 0.14em;
@@ -501,14 +413,14 @@
    O card "recomendado" é o único amarelo chapado da página (§44.21-6: o
    amarelo do handoff fica — é fundo de card, não motivo sobre papel, então a
    A2 do pano não se aplica aqui). */
-.cidade-v3 .c-pacotes {
+.ar-v3 .c-pacotes {
   margin-top: 48px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 18px;
   align-items: stretch;
 }
-.cidade-v3 .c-pacote {
+.ar-v3 .c-pacote {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -518,16 +430,16 @@
   color: var(--c-tinta);
   border: 1px solid var(--c-hairline);
 }
-.cidade-v3 .c-pacote[data-tema="amarelo"] {
+.ar-v3 .c-pacote[data-tema="amarelo"] {
   background: var(--c-amarelo);
   border-color: var(--c-amarelo);
 }
-.cidade-v3 .c-pacote[data-tema="escuro"] {
+.ar-v3 .c-pacote[data-tema="escuro"] {
   background: var(--c-tinta);
   color: var(--c-papel);
   border-color: var(--c-tinta);
 }
-.cidade-v3 .c-pacote-tag {
+.ar-v3 .c-pacote-tag {
   position: absolute;
   top: -11px;
   left: 24px;
@@ -540,35 +452,35 @@
   text-transform: uppercase;
   padding: 5px 10px;
 }
-.cidade-v3 .c-pacote-num {
+.ar-v3 .c-pacote-num {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   opacity: 0.6;
 }
-.cidade-v3 .c-pacote h3 {
+.ar-v3 .c-pacote h3 {
   margin: 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: 1.12rem;
   font-weight: 700;
   line-height: 1.25;
 }
-.cidade-v3 .c-pacote-preco {
+.ar-v3 .c-pacote-preco {
   margin: 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.cidade-v3 .c-pacote-desc {
+.ar-v3 .c-pacote-desc {
   margin: 0;
   font-size: 0.92rem;
   line-height: 1.6;
   font-weight: 300;
   opacity: 0.86;
 }
-.cidade-v3 .c-pacote-rot {
+.ar-v3 .c-pacote-rot {
   margin: 6px 0 0;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.62rem;
@@ -577,7 +489,7 @@
   text-transform: uppercase;
   opacity: 0.62;
 }
-.cidade-v3 .c-pacote ul {
+.ar-v3 .c-pacote ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -589,11 +501,11 @@
   line-height: 1.5;
   font-weight: 300;
 }
-.cidade-v3 .c-pacote li::before {
+.ar-v3 .c-pacote li::before {
   content: "· ";
   opacity: 0.55;
 }
-.cidade-v3 .c-pacote-btn {
+.ar-v3 .c-pacote-btn {
   margin-top: 14px;
   justify-content: center;
   background: var(--c-tinta);
@@ -601,19 +513,19 @@
   font-size: 0.88rem;
   padding: 13px 18px;
 }
-.cidade-v3 .c-pacote[data-tema="escuro"] .c-pacote-btn {
+.ar-v3 .c-pacote[data-tema="escuro"] .c-pacote-btn {
   background: var(--c-papel);
   color: var(--c-tinta);
 }
 
 /* ---------------------------------------------------------------- cases --- */
-.cidade-v3 .c-cases {
+.ar-v3 .c-cases {
   margin-top: 48px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 18px;
 }
-.cidade-v3 .c-case {
+.ar-v3 .c-case {
   background: var(--c-papel);
   border: 1px solid var(--c-hairline);
   padding: 26px 24px 28px;
@@ -621,7 +533,7 @@
   flex-direction: column;
   gap: 10px;
 }
-.cidade-v3 .c-case-meta {
+.ar-v3 .c-case-meta {
   margin: 0;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.64rem;
@@ -630,7 +542,7 @@
   text-transform: uppercase;
   color: var(--c-suave);
 }
-.cidade-v3 .c-case-frase {
+.ar-v3 .c-case-frase {
   margin: 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: 1.06rem;
@@ -638,7 +550,7 @@
   line-height: 1.35;
   color: var(--c-ink);
 }
-.cidade-v3 .c-case-heroi {
+.ar-v3 .c-case-heroi {
   margin: 6px 0 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: clamp(1.6rem, 3vw, 2.2rem);
@@ -647,7 +559,7 @@
   line-height: 1;
   color: var(--c-tinta);
 }
-.cidade-v3 .c-case-rotulo {
+.ar-v3 .c-case-rotulo {
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.5;
@@ -657,13 +569,13 @@
 
 /* Barras: a altura é DADO (`--alt`); a subida é `view()` com fallback estático
    — sem suporte, a barra já nasce na altura final (o número nunca some). */
-.cidade-v3 .c-barras {
+.ar-v3 .c-barras {
   margin: 16px 0 6px;
   display: flex;
   align-items: stretch;
   gap: 10px;
 }
-.cidade-v3 .c-barra {
+.ar-v3 .c-barra {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -672,29 +584,29 @@
   gap: 6px;
   min-width: 0;
 }
-.cidade-v3 .c-barra-caixa {
+.ar-v3 .c-barra-caixa {
   display: flex;
   align-items: flex-end;
   width: 100%;
   height: 96px;
 }
-.cidade-v3 .c-barra-valor {
+.ar-v3 .c-barra-valor {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.68rem;
   font-weight: 700;
   color: var(--c-tinta);
 }
-.cidade-v3 .c-barra-haste {
+.ar-v3 .c-barra-haste {
   width: 100%;
   height: var(--alt);
   min-height: 5px;
   background: var(--c-pedra);
   transform-origin: bottom;
 }
-.cidade-v3 .c-barra[data-destaque] .c-barra-haste {
+.ar-v3 .c-barra[data-destaque] .c-barra-haste {
   background: var(--c-amarelo);
 }
-.cidade-v3 .c-barra-rotulo {
+.ar-v3 .c-barra-rotulo {
   font-size: 0.66rem;
   line-height: 1.3;
   font-weight: 300;
@@ -703,7 +615,7 @@
   overflow-wrap: anywhere;
 }
 @supports (animation-timeline: view()) {
-  .cidade-v3 .c-barra-haste {
+  .ar-v3 .c-barra-haste {
     animation: c-cresce linear both;
     animation-timeline: view();
     animation-range: entry 10% cover 38%;
@@ -718,7 +630,7 @@
   }
 }
 
-.cidade-v3 .c-case-apoio {
+.ar-v3 .c-case-apoio {
   list-style: none;
   margin: 8px 0 0;
   padding: 0;
@@ -731,8 +643,8 @@
   font-weight: 300;
   color: var(--c-apoio);
 }
-.cidade-v3 .c-case-periodo,
-.cidade-v3 .c-case-nota {
+.ar-v3 .c-case-periodo,
+.ar-v3 .c-case-nota {
   margin: 0;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.62rem;
@@ -740,7 +652,7 @@
   line-height: 1.5;
   color: var(--c-suave);
 }
-.cidade-v3 .c-disclaimer {
+.ar-v3 .c-disclaimer {
   margin: 32px 0 0;
   max-width: 64rem;
   font-size: 0.82rem;
@@ -750,17 +662,17 @@
 }
 
 /* ------------------------------------------------------------ resultado --- */
-.cidade-v3 .c-result {
+.ar-v3 .c-result {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
-.cidade-v3 .c-metrica {
+.ar-v3 .c-metrica {
   border-left: 4px solid var(--c-amarelo);
   padding-left: 22px;
 }
-.cidade-v3 .c-metrica-num {
+.ar-v3 .c-metrica-num {
   margin: 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: clamp(2.4rem, 6vw, 4rem);
@@ -769,14 +681,14 @@
   line-height: 1;
   color: var(--c-tinta);
 }
-.cidade-v3 .c-metrica-rot {
+.ar-v3 .c-metrica-rot {
   margin: 12px 0 0;
   font-size: 1.05rem;
   line-height: 1.5;
   font-weight: 400;
   color: var(--c-tinta);
 }
-.cidade-v3 .c-metrica-metodo {
+.ar-v3 .c-metrica-metodo {
   margin: 10px 0 0;
   font-size: 0.88rem;
   line-height: 1.6;
@@ -785,50 +697,50 @@
 }
 
 /* -------------------------------------------------------------- RizzoOS --- */
-.cidade-v3 .c-os {
+.ar-v3 .c-os {
   background: var(--c-navy);
   overflow: hidden;
 }
-.cidade-v3 .c-os-tira {
+.ar-v3 .c-os-tira {
   padding: 6px 6px 0;
 }
-.cidade-v3 .c-os-tira .pano-campo {
+.ar-v3 .c-os-tira .pano-campo {
   gap: 6px;
 }
-.cidade-v3 .c-os-grade {
+.ar-v3 .c-os-grade {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
   gap: clamp(28px, 4vw, 48px);
   align-items: start;
   padding-block: clamp(56px, 7vw, 88px);
 }
-.cidade-v3 .c-os-marca {
+.ar-v3 .c-os-marca {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
-.cidade-v3 .c-os-marca i {
+.ar-v3 .c-os-marca i {
   width: 5px;
   height: 38px;
   background: var(--c-amarelo);
   flex: none;
 }
-.cidade-v3 .c-os h2 {
+.ar-v3 .c-os h2 {
   font-family: var(--font-geist), system-ui, sans-serif;
   font-size: clamp(1.8rem, 3.4vw, 2.8rem);
   line-height: 1;
   letter-spacing: -0.03em;
   color: #f1f5f9;
 }
-.cidade-v3 .c-os-leve {
+.ar-v3 .c-os-leve {
   font-weight: 300;
 }
-.cidade-v3 .c-os-forte {
+.ar-v3 .c-os-forte {
   font-weight: 700;
   color: var(--c-amarelo);
 }
-.cidade-v3 .c-os-beta {
+.ar-v3 .c-os-beta {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.6rem;
   font-weight: 700;
@@ -837,7 +749,7 @@
   background: rgba(255, 255, 255, 0.1);
   padding: 5px 9px;
 }
-.cidade-v3 .c-os p {
+.ar-v3 .c-os p {
   margin: 0;
   max-width: 42rem;
   font-size: clamp(1rem, 1.4vw, 1.14rem);
@@ -846,7 +758,7 @@
   color: #cbd5e1;
   text-wrap: pretty;
 }
-.cidade-v3 .c-os-link {
+.ar-v3 .c-os-link {
   display: inline-block;
   margin-top: 24px;
   font-family: var(--font-mono), ui-monospace, monospace;
@@ -857,19 +769,19 @@
   border-bottom: 1px solid rgba(255, 210, 0, 0.4);
   padding-bottom: 4px;
 }
-.cidade-v3 .c-os-link:hover {
+.ar-v3 .c-os-link:hover {
   color: #fff;
   border-color: #fff;
 }
 
 /* ---------------------------------------------------------- depoimentos --- */
-.cidade-v3 .c-deps {
+.ar-v3 .c-deps {
   margin-top: 44px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: 18px;
 }
-.cidade-v3 .c-dep {
+.ar-v3 .c-dep {
   margin: 0;
   background: var(--c-papel);
   border: 1px solid var(--c-hairline);
@@ -878,7 +790,7 @@
   flex-direction: column;
   gap: 16px;
 }
-.cidade-v3 .c-dep blockquote {
+.ar-v3 .c-dep blockquote {
   margin: 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: 1.1rem;
@@ -886,7 +798,7 @@
   font-weight: 400;
   color: var(--c-ink);
 }
-.cidade-v3 .c-dep figcaption {
+.ar-v3 .c-dep figcaption {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -894,11 +806,11 @@
   font-weight: 300;
   color: var(--c-suave);
 }
-.cidade-v3 .c-dep figcaption b {
+.ar-v3 .c-dep figcaption b {
   font-weight: 600;
   color: var(--c-tinta);
 }
-.cidade-v3 .c-dep a {
+.ar-v3 .c-dep a {
   margin-top: 6px;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.64rem;
@@ -908,18 +820,18 @@
 }
 
 /* ----------------------------------------------------------------- sobre --- */
-.cidade-v3 .c-sobre {
+.ar-v3 .c-sobre {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
-.cidade-v3 .c-sobre-pano {
+.ar-v3 .c-sobre-pano {
   border: 1px solid var(--c-hairline);
   overflow: hidden;
   max-height: 260px;
 }
-.cidade-v3 .c-pilares {
+.ar-v3 .c-pilares {
   list-style: none;
   margin: 28px 0 0;
   padding: 0;
@@ -927,28 +839,28 @@
   flex-direction: column;
   gap: 20px;
 }
-.cidade-v3 .c-pilares span {
+.ar-v3 .c-pilares span {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--c-ouro);
 }
-.cidade-v3 .c-pilares h3 {
+.ar-v3 .c-pilares h3 {
   margin: 4px 0 4px;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: 1.04rem;
   font-weight: 700;
   color: var(--c-ink);
 }
-.cidade-v3 .c-pilares p {
+.ar-v3 .c-pilares p {
   margin: 0;
   font-size: 0.94rem;
   line-height: 1.6;
   font-weight: 300;
   color: var(--c-apoio);
 }
-.cidade-v3 .c-timeline {
+.ar-v3 .c-timeline {
   list-style: none;
   margin: 52px 0 0;
   padding: 0;
@@ -958,7 +870,7 @@
   background: var(--c-hairline);
   border: 1px solid var(--c-hairline);
 }
-.cidade-v3 .c-timeline li {
+.ar-v3 .c-timeline li {
   background: var(--c-papel);
   padding: 20px 18px 22px;
   display: flex;
@@ -969,11 +881,11 @@
   font-weight: 300;
   color: var(--c-apoio);
 }
-.cidade-v3 .c-timeline b {
+.ar-v3 .c-timeline b {
   font-weight: 600;
   color: var(--c-tinta);
 }
-.cidade-v3 .c-timeline-ano {
+.ar-v3 .c-timeline-ano {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.7rem;
   font-weight: 700;
@@ -982,8 +894,8 @@
 }
 
 /* ------------------------------------------------- regiões e especialidades --- */
-.cidade-v3 .c-regioes,
-.cidade-v3 .c-esps {
+.ar-v3 .c-regioes,
+.ar-v3 .c-esps {
   list-style: none;
   margin: 40px 0 0;
   padding: 0;
@@ -991,8 +903,8 @@
   flex-wrap: wrap;
   gap: 8px;
 }
-.cidade-v3 .c-regioes li,
-.cidade-v3 .c-esps li a {
+.ar-v3 .c-regioes li,
+.ar-v3 .c-esps li a {
   display: inline-flex;
   font-size: 0.88rem;
   font-weight: 300;
@@ -1000,63 +912,63 @@
   border: 1px solid var(--c-hairline);
   padding: 9px 14px;
 }
-.cidade-v3 .c-esps li a:hover {
+.ar-v3 .c-esps li a:hover {
   background: var(--c-tinta);
   border-color: var(--c-tinta);
   color: var(--c-papel);
 }
 
 /* --------------------------------------------------------------- vinheta --- */
-.cidade-v3 .c-vinheta {
+.ar-v3 .c-vinheta {
   position: relative;
   background: var(--c-tinta);
   padding-block: clamp(48px, 6vw, 84px);
   overflow: hidden;
 }
-.cidade-v3 .c-vinheta-faixa {
+.ar-v3 .c-vinheta-faixa {
   position: absolute;
   inset: 0 0 auto;
   opacity: 0.28;
 }
-.cidade-v3 .c-vinheta .c-wrap {
+.ar-v3 .c-vinheta .c-wrap {
   position: relative;
 }
-.cidade-v3 .c-vinheta h2 {
+.ar-v3 .c-vinheta h2 {
   color: var(--c-papel);
   max-width: 18ch;
 }
-.cidade-v3 .c-vinheta .c-acento {
+.ar-v3 .c-vinheta .c-acento {
   color: var(--c-amarelo);
 }
-.cidade-v3 .c-vinheta .c-btn-fria {
+.ar-v3 .c-vinheta .c-btn-fria {
   background: var(--c-amarelo);
   color: var(--c-tinta);
 }
-.cidade-v3 .c-vinheta .c-btn-quente {
+.ar-v3 .c-vinheta .c-btn-quente {
   border-color: rgba(244, 239, 230, 0.5);
   color: var(--c-papel);
   background: transparent;
 }
-.cidade-v3 .c-vinheta .c-btn-quente:hover {
+.ar-v3 .c-vinheta .c-btn-quente:hover {
   border-color: var(--c-papel);
   color: var(--c-papel);
 }
 
 /* ------------------------------------------------------------- portfólio --- */
-.cidade-v3 .c-pecas {
+.ar-v3 .c-pecas {
   margin-top: 44px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 18px;
 }
-.cidade-v3 .c-peca {
+.ar-v3 .c-peca {
   background: var(--c-claro);
   border: 1px solid var(--c-hairline);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.cidade-v3 .c-peca img {
+.ar-v3 .c-peca img {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 10;
@@ -1064,13 +976,13 @@
   background: #f1eee4;
   border-bottom: 1px solid var(--c-hairline);
 }
-.cidade-v3 .c-peca-corpo {
+.ar-v3 .c-peca-corpo {
   padding: 20px 20px 22px;
   display: flex;
   flex-direction: column;
   gap: 7px;
 }
-.cidade-v3 .c-peca-meta {
+.ar-v3 .c-peca-meta {
   margin: 0;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.6rem;
@@ -1079,7 +991,7 @@
   text-transform: uppercase;
   color: #8a8264;
 }
-.cidade-v3 .c-peca h3 {
+.ar-v3 .c-peca h3 {
   margin: 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: 1rem;
@@ -1087,7 +999,7 @@
   line-height: 1.3;
   color: var(--c-ink);
 }
-.cidade-v3 .c-peca p {
+.ar-v3 .c-peca p {
   margin: 0;
   font-size: 0.88rem;
   line-height: 1.55;
@@ -1096,16 +1008,16 @@
 }
 
 /* ------------------------------------------------------------------- FAQ --- */
-.cidade-v3 .c-faq-grade {
+.ar-v3 .c-faq-grade {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.5fr);
   gap: clamp(28px, 4vw, 48px);
   align-items: start;
 }
-.cidade-v3 .c-faq details {
+.ar-v3 .c-faq details {
   border-bottom: 1px solid var(--c-hairline);
 }
-.cidade-v3 .c-faq summary {
+.ar-v3 .c-faq summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1117,23 +1029,23 @@
   cursor: pointer;
   list-style: none;
 }
-.cidade-v3 .c-faq summary::-webkit-details-marker {
+.ar-v3 .c-faq summary::-webkit-details-marker {
   display: none;
 }
-.cidade-v3 .c-faq summary:hover {
+.ar-v3 .c-faq summary:hover {
   color: var(--c-teal);
 }
-.cidade-v3 .c-faq summary i {
+.ar-v3 .c-faq summary i {
   color: var(--c-ouro);
   font-size: 0.86rem;
   font-style: normal;
   flex: none;
   transition: transform 0.25s ease;
 }
-.cidade-v3 .c-faq details[open] summary i {
+.ar-v3 .c-faq details[open] summary i {
   transform: rotate(90deg);
 }
-.cidade-v3 .c-faq details p {
+.ar-v3 .c-faq details p {
   margin: 0 0 20px;
   max-width: 42rem;
   font-size: 0.96rem;
@@ -1144,53 +1056,53 @@
 }
 
 /* ----------------------------------------------------------------- fecho --- */
-.cidade-v3 .c-fecho {
+.ar-v3 .c-fecho {
   position: relative;
   overflow: hidden;
   padding-block: clamp(56px, 8vw, 104px);
 }
-.cidade-v3 .c-fecho-campo {
+.ar-v3 .c-fecho-campo {
   position: absolute;
   inset: 0;
   opacity: 0.9;
   overflow: hidden;
 }
-.cidade-v3 .c-fecho-painel {
+.ar-v3 .c-fecho-painel {
   position: relative;
   background: var(--c-claro);
   border: 1px solid var(--c-hairline);
   box-shadow: 0 24px 60px rgba(22, 19, 14, 0.14);
   padding: clamp(30px, 5vw, 56px);
 }
-.cidade-v3 .c-fecho-portas {
+.ar-v3 .c-fecho-portas {
   margin-top: 32px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 26px;
 }
-.cidade-v3 .c-fecho-portas .c-acoes {
+.ar-v3 .c-fecho-portas .c-acoes {
   margin-top: 0;
 }
-.cidade-v3 .c-fecho-portas p {
+.ar-v3 .c-fecho-portas p {
   margin: 12px 0 0;
   font-size: 0.94rem;
   line-height: 1.6;
   font-weight: 300;
   color: var(--c-apoio);
 }
-.cidade-v3 .c-quando-nao {
+.ar-v3 .c-quando-nao {
   margin-top: 40px;
   padding-top: 28px;
   border-top: 1px solid var(--c-hairline);
 }
-.cidade-v3 .c-quando-nao h3 {
+.ar-v3 .c-quando-nao h3 {
   margin: 0 0 14px;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--c-ink);
 }
-.cidade-v3 .c-quando-nao p {
+.ar-v3 .c-quando-nao p {
   margin: 0 0 14px;
   max-width: 46rem;
   font-size: 0.94rem;
@@ -1199,109 +1111,50 @@
   color: var(--c-apoio);
   text-wrap: pretty;
 }
-.cidade-v3 .c-quando-nao p:last-child {
+.ar-v3 .c-quando-nao p:last-child {
   margin-bottom: 0;
 }
 
 /* ------------------------------------------------------------- revelação --- */
-.cidade-v3[data-reveal-on] [data-reveal] {
+.ar-v3[data-reveal-on] [data-reveal] {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.85s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
   transition-delay: calc(var(--reveal-i, 0) * 100ms);
 }
-.cidade-v3[data-reveal-on] [data-reveal][data-visivel] {
+.ar-v3[data-reveal-on] [data-reveal][data-visivel] {
   opacity: 1;
   transform: none;
 }
 
-/* A abertura "sequencia" do tweak: as peças do hero entram uma a uma. Em
-   "estatica" o campo nasce pronto — é o outro valor do enum, não um bug. */
-.cidade-v3[data-abertura="sequencia"] .c-hero-campo .pano-campo > div {
-  animation: c-peca 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  animation-delay: calc(sibling-index() * 9ms);
-}
-@keyframes c-peca {
-  from {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 
 /* --------------------------------------------------------------- mobile --- */
 @media (max-width: 900px) {
-  .cidade-v3 .c-excl-grade,
-  .cidade-v3 .c-result,
-  .cidade-v3 .c-sobre,
-  .cidade-v3 .c-os-grade,
-  .cidade-v3 .c-faq-grade {
+  .ar-v3 .c-excl-grade,
+  .ar-v3 .c-result,
+  .ar-v3 .c-sobre,
+  .ar-v3 .c-os-grade,
+  .ar-v3 .c-faq-grade {
     grid-template-columns: minmax(0, 1fr);
-  }
-  /* No celular a malha vira FAIXA em fluxo e o texto vem abaixo: a peça é
-     quadrada, e 8 colunas em 390 px não cobrem um hero de tela cheia sem virar
-     ruído. As peças lisas não entram nessa malha — lá o menu e o texto já estão
-     acima e abaixo do campo, não sobre ele. */
-  .cidade-v3 .c-hero {
-    height: auto;
-    min-height: 0;
-    padding-top: 84px;
-    display: flex;
-    flex-direction: column;
-  }
-  .cidade-v3 > header.topo.menu {
-    position: relative;
-  }
-  .cidade-v3 .c-hero-campo {
-    position: relative;
-    inset: auto;
-  }
-  .cidade-v3 .c-malha-larga {
-    display: none;
-  }
-  .cidade-v3 .c-malha-estreita {
-    display: block;
-    position: relative;
-    inset: auto;
-  }
-  .cidade-v3 .c-malha-estreita .pano-hero {
-    height: auto;
-    grid-template-rows: none;
-  }
-  .cidade-v3 .c-malha-estreita .pano-hero > div {
-    aspect-ratio: 1;
-  }
-  .cidade-v3 .c-hero-texto {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    max-width: none;
-    padding-inline: var(--c-gutter);
-    margin: 32px 0 44px;
   }
 }
 
 /* ------------------------------------------------- prefers-reduced-motion --- */
 @media (prefers-reduced-motion: reduce) {
-  .cidade-v3 .c-tarja-trilho,
-  .cidade-v3[data-abertura="sequencia"] .c-hero-campo .pano-campo > div,
-  .cidade-v3 .c-barra-haste {
+  .ar-v3 .c-tarja-trilho,
+  .ar-v3 .c-barra-haste {
     animation: none;
   }
-  .cidade-v3 .c-faq summary i,
-  .cidade-v3 .c-cena-com i[data-alvo],
-  .cidade-v3[data-reveal-on] [data-reveal] {
+  .ar-v3 .c-faq summary i,
+  .ar-v3 .c-cena-com i[data-alvo],
+  .ar-v3[data-reveal-on] [data-reveal] {
     transition: none;
   }
-  .cidade-v3[data-reveal-on] [data-reveal] {
+  .ar-v3[data-reveal-on] [data-reveal] {
     opacity: 1;
     transform: none;
   }
-  .cidade-v3 .c-cena-sem i {
+  .ar-v3 .c-cena-sem i {
     transform: none;
   }
 }
@@ -1310,13 +1163,155 @@
    botão em que estiver — nos botões do site quem o dimensiona é o
    `.btn-zap svg` do globals.css, e estes botões são outros. Sem isto o SVG
    assume o tamanho intrínseco e empurra o rótulo pra duas linhas. */
-.cidade-v3 .c-btn-quente svg,
-.cidade-v3 .h-porta-quente svg {
+.ar-v3 .c-btn-quente svg,
+.ar-v3 .h-porta-quente svg {
   width: 1.15em;
   height: 1.15em;
   flex: none;
 }
-.cidade-v3 .c-btn-quente,
-.cidade-v3 .h-porta-quente {
+.ar-v3 .c-btn-quente,
+.ar-v3 .h-porta-quente {
   white-space: nowrap;
+}
+
+/* ============================================================== clientes ===
+   O bloco chumbo com o painel amarelo (seção 02 do Design): texto à esquerda,
+   painel à direita com o filete de papel e os letreiros em sentidos opostos.
+
+   No Design o painel leva LOGOS; aqui leva os nomes reais, porque os 25 PNGs
+   não estão no repo (ver `CLIENTES_BLOCO` em `content/landing-v3.ts`). A
+   composição é a mesma — trocar nome por logo depois não mexe no leiaute. */
+.ar-v3 .c-clientes {
+  position: relative;
+  background: var(--c-tinta);
+  color: var(--c-papel);
+  padding-block: clamp(64px, 8vw, 96px);
+  overflow: hidden;
+}
+.ar-v3 .c-clientes-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 0 24px;
+  align-items: center;
+}
+.ar-v3 .c-clientes-texto {
+  padding-left: var(--c-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ar-v3 .c-clientes h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--c-papel);
+  max-width: 14ch;
+  text-wrap: balance;
+}
+.ar-v3 .c-clientes h2 span {
+  color: var(--c-amarelo);
+}
+.ar-v3 .c-clientes-texto p {
+  margin: 0;
+  max-width: 26rem;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--c-pedra);
+  text-wrap: pretty;
+}
+.ar-v3 .c-link-claro {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-amarelo);
+  border-bottom: 1px solid rgba(255, 210, 0, 0.4);
+  padding-bottom: 4px;
+  width: max-content;
+}
+.ar-v3 .c-link-claro:hover {
+  color: var(--c-papel);
+  border-color: var(--c-papel);
+}
+
+.ar-v3 .c-clientes-painel {
+  position: relative;
+  background: var(--c-amarelo);
+  padding-block: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* O filete de papel que corta o painel — é ele que faz o painel "entrar" na
+   página em vez de ser um retângulo solto. */
+.ar-v3 .c-clientes-filete {
+  position: absolute;
+  left: clamp(24px, 5vw, 80px);
+  top: 40px;
+  bottom: 40px;
+  width: 18px;
+  background: var(--c-papel);
+  display: block;
+}
+.ar-v3 .c-clientes-trilhos {
+  overflow: hidden;
+  margin-left: clamp(60px, 8vw, 120px);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  mask-image: linear-gradient(to right, #000 88%, transparent);
+}
+.ar-v3 .c-clientes-trilhos ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  width: max-content;
+  animation: c-marquee 84s linear infinite;
+}
+.ar-v3 .c-clientes-trilhos ul[data-linha="1"] {
+  animation-duration: 112s;
+  animation-direction: reverse;
+}
+.ar-v3 .c-clientes-trilhos li {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+.ar-v3 .c-clientes-trilhos span {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  margin-right: 14px;
+  border: 1.5px solid rgba(50, 60, 70, 0.28);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--c-tinta);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .ar-v3 .c-clientes-grade {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .ar-v3 .c-clientes-texto {
+    padding-inline: var(--c-gutter);
+  }
+  .ar-v3 .c-clientes-trilhos {
+    margin-left: 44px;
+  }
+  .ar-v3 .c-clientes-filete {
+    left: 16px;
+    width: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ar-v3 .c-clientes-trilhos ul {
+    animation: none;
+  }
 }

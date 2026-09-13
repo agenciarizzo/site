@@ -1,42 +1,39 @@
-// Landing de cidade v3 — o porte do handoff "AR Landing Brasilia" (Claude
-// Design), que o README declara ser a PÁGINA-PADRÃO de toda cidade futura.
+// CORPO da linha v3 — as seções abaixo da dobra, compartilhadas pela HOME e
+// pelas landings de cidade.
 //
-// Fonte da verdade: rizzo-os → docs/SITE_MANIFESTO_MAPA.md §44.4, §44.13/§44.19
-// (pacotes), §44.15 (D1–D7), §44.17 (case 6) e §44.21 (achados 1–11 + D8).
-// Em divergência handoff × §44.21, o §44.21 vence; em divergência §44.21 ×
-// regra antiga do CLAUDE.md do site, o handoff vence no VISUAL e o §44.21 vence
-// em portas, medição, prova, links e JSON-LD.
+// POR QUE COMPARTILHADO: no Claude Design a home (artifact "AR Home Diagonal")
+// e a Brasília (`AR Landing Brasilia.dc.html`) são a MESMA peça. Conferido
+// seção a seção: as duas têm Clientes → Exclusividade → Serviços → Pacotes →
+// Cases → Resultado → RizzoOS → Depoimentos → Sobre → Cidades → Especialidades
+// → Vinheta → Portfólio → FAQ → CTA, na mesma ordem. A cidade só acrescenta
+// duas: a leitura da praça e a prova por especialidade. Manter dois componentes
+// seria manter dois desenhos que já divergiram uma vez neste porte.
 //
-// ADITIVO, NÃO REESCRITA: este é um componente NOVO. Goiânia segue no
-// `components/CidadeLanding.tsx` até a replicação (§44.21 D8) — nada lá foi
-// tocado, e as duas landings convivem lendo o MESMO `content/cidades.ts`.
-//
-// Ordem das seções (a do protótipo): hero → região → prova por especialidade →
-// exclusividade → serviços → pacotes → cases → métricas → RizzoOS →
-// depoimentos → sobre → regiões → especialidades → vinheta → portfólio → FAQ →
-// CTA final.
+// `c` ausente = HOME. `c` presente = landing de praça.
 //
 // O QUE NÃO SE IGNORA (§44.15 D4):
 //  · as duas portas — `PROPOSTA_URL` com `data-cta="proposta"`, e todo WhatsApp
-//    pelo portão `/whatsapp` com o texto da praça no `data-wa`. Zero `wa.me`;
-//  · a medição — `components/Medicao.tsx` segue no layout e lê esses atributos;
-//  · metadata, canonical e JSON-LD `Service` + `ItemList` SEM `FAQPage`
-//    (regra 8 do CLAUDE.md + §44.21-8), mesmo com a FAQ visível;
-//  · H1 único, zero link quebrado, zero placeholder de imagem.
+//    pelo portão `/whatsapp` com o texto da página no `data-wa`. Zero `wa.me`;
+//  · a medição (`components/Medicao.tsx` lê esses atributos);
+//  · JSON-LD sem `FAQPage` (regra 8 + §44.21-8) e sem `aggregateRating`;
+//  · zero placeholder: bloco sem dado é bloco AUSENTE (§⚖️).
 import Link from "next/link";
 import { PROPOSTA_URL, SITE_URL } from "@/lib/site";
 import { ROTA_PORTAO, CTA_PROPOSTA } from "@/lib/nav";
 import { IconeWhats } from "@/components/athos/IconeWhats";
-import { MenuTopo, FooterMapa } from "@/components/athos/Athos";
 import { Reveals } from "@/components/home/Reveals";
 import { Encaixe } from "@/components/cidade/Encaixe";
-import { panoCidadeV3, panoCidadeFaixa, panoTiraHome } from "@/lib/athos/panos";
+import { panoCidadeFaixa, panoTiraHome } from "@/lib/athos/panos";
 import { tweaksDe } from "@/lib/tweaks.mjs";
 import type { Cidade } from "@/content/cidades";
+import { CIDADES } from "@/content/cidades";
+import { CLIENTES } from "@/content/clientes";
 import { PORTFOLIO } from "@/content/portfolio";
 import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
-import { RIZZOOS_BLOCO } from "@/content/home";
+import { RIZZOOS_BLOCO, PORTFOLIO_HOME, WA_HOME } from "@/content/home";
 import {
+  ATRIBUTOS,
+  CIDADES_HOME,
   SERVICOS,
   PACOTES,
   PACOTES_NOTA,
@@ -49,7 +46,7 @@ import {
   SOBRE,
   TIMELINE,
   EXCLUSIVIDADE,
-  ATRIBUTOS,
+  CLIENTES_BLOCO,
   FAQ,
   VINHETA,
   CTA_FINAL,
@@ -58,11 +55,9 @@ import {
 /* ───────────────────────────────────────────────────────────── JSON-LD ───── */
 
 /**
- * `Service` + `ItemList`, SEM `FAQPage` (regra 8 do CLAUDE.md do site e
- * §44.21-8) e sem `aggregateRating` (§12.3: avaliação fabricada foi um dos
- * antipadrões que derrubaram as páginas antigas).
- *
- * As propriedades saem da lista fechada que o `checar-navegacao.mjs` cobra.
+ * `Service` + `ItemList` da praça, SEM `FAQPage` (regra 8 do CLAUDE.md e
+ * §44.21-8) e sem `aggregateRating` (§12.3). Só a landing de cidade emite —
+ * a home já carrega o `Organization` do `app/layout.tsx`.
  */
 export function cidadeV3JsonLd(c: Cidade) {
   const url = `${SITE_URL}/${c.slug}`;
@@ -130,48 +125,29 @@ function Kicker({ children }: { children: React.ReactNode }) {
 
 /* ─────────────────────────────────────────────────────────── o componente ── */
 
-export function CidadeLandingV3({ c }: { c: Cidade }) {
-  // Os tweaks da praça: o que a cidade declarou vence, o resto é sorteado pelo
-  // slug de forma determinística, e o piso é o padrão Brasília (§44.21-9).
-  const t = tweaksDe(c.slug, c.tweaks);
-  const hero = panoCidadeV3(t);
+export function Corpo({ c }: { c?: Cidade }) {
+  // Os tweaks decidem o pano das faixas de apoio. Na home, o padrão de fábrica.
+  const t = tweaksDe(c ? c.slug : "home", c?.tweaks);
 
-  // Portfólio: as peças da praça, direto do registry — nunca stock, nunca
-  // placeholder. Filtro pela `praca` da própria peça; se não houver ≥3, a
-  // seção não renderiza (§⚖️: bloco sem prova é bloco ausente).
-  const pecas = PORTFOLIO.filter((p) => p.praca === `${c.cidade}/${c.uf}`).slice(0, 8);
+  // Portfólio: na cidade, as peças DA PRAÇA; na home, a ordem fixa do §44.19.
+  // Sempre do registry — nunca stock, nunca placeholder.
+  const pecas = c
+    ? PORTFOLIO.filter((p) => p.praca === `${c.cidade}/${c.uf}`).slice(0, 8)
+    : PORTFOLIO_HOME.ordem
+        .map((img) => PORTFOLIO.find((p) => p.imagem === img))
+        .filter((p): p is (typeof PORTFOLIO)[number] => Boolean(p));
 
-  const waVinheta = VINHETA.wa(c.cidade);
+  const waPagina = c ? c.waText : WA_HOME;
+  const waVinheta = c ? VINHETA.wa(c.cidade) : VINHETA.waGeral;
 
   return (
-    <div className="cidade-v3" data-abertura={hero.animado ? "sequencia" : "estatica"}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cidadeV3JsonLd(c)) }} />
-      <MenuTopo atual={`/${c.slug}`} waText={c.waText} />
+    <>
+      {c && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cidadeV3JsonLd(c)) }} />
+      )}
 
       <main>
-        {/* ── 01 · HERO ─────────────────────────────────────────────────── */}
-        <section className="c-hero" aria-labelledby="c-h1">
-          {/* Campo de TELA CHEIA com as peças das faixas de texto lisas — a
-              composição do protótipo. Duas malhas (16 col. no monitor, 8 no
-              celular) porque a peça lisa é decidida pelo ÍNDICE dela na malha:
-              refluir uma na outra embaralharia justamente as faixas que seguram
-              a tipografia. */}
-          <div className="c-hero-campo" aria-hidden>
-            <div className="c-malha c-malha-larga" dangerouslySetInnerHTML={{ __html: hero.larga }} />
-            <div className="c-malha c-malha-estreita" dangerouslySetInnerHTML={{ __html: hero.estreita }} />
-          </div>
-          <div className="c-hero-texto">
-            <Kicker>
-              Marketing para clínicas e hospitais {c.uf === "DF" ? "no Distrito Federal" : `em ${c.cidade}`}
-            </Kicker>
-            <h1 id="c-h1">
-              {c.head[0]} <span className="c-acento">{c.head[1].replace(/\.$/, "")}</span>
-            </h1>
-            <p className="c-hero-lede">{c.lede}</p>
-          </div>
-        </section>
-
-        {/* ── 01b · atributos em letreiro (sem selo sem fonte — §44.21-4) ── */}
+        {/* ── 01b · AUTORIDADE: o letreiro de atributos ─────────────────── */}
         <div className="c-tarja" aria-hidden>
           <div className="c-tarja-trilho">
             {[0, 1].map((v) => (
@@ -187,64 +163,106 @@ export function CidadeLandingV3({ c }: { c: Cidade }) {
           </div>
         </div>
 
-        {/* ── 01c · A PRAÇA ─────────────────────────────────────────────── */}
-        <section className="c-sec" aria-labelledby="c-praca">
-          <div className="c-wrap">
-            <div data-reveal>
-              <Kicker>{c.cidade}</Kicker>
-              <h2 id="c-praca">{c.head[2]}</h2>
-              <div className="c-prosa">
-                {c.posicao.map((p) => (
-                  <p key={p.slice(0, 24)}>{p}</p>
-                ))}
+        {/* ── 01c · A PRAÇA (só na landing de cidade) ───────────────────── */}
+        {c && (
+          <section className="c-sec" aria-labelledby="c-praca">
+            <div className="c-wrap">
+              <div data-reveal>
+                <Kicker>{c.cidade}</Kicker>
+                <h2 id="c-praca">{c.head[2]}</h2>
+                <div className="c-prosa">
+                  {c.posicao.map((p) => (
+                    <p key={p.slice(0, 24)}>{p}</p>
+                  ))}
+                </div>
               </div>
+              <ol className="c-como">
+                {c.como.map((k, i) => (
+                  <li key={k.t} data-reveal style={{ "--reveal-i": i % 3 } as React.CSSProperties}>
+                    <span className="c-como-num">{String(i + 1).padStart(2, "0")}</span>
+                    <h3>{k.t}</h3>
+                    <p>{k.d}</p>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <ol className="c-como">
-              {c.como.map((k, i) => (
-                <li key={k.t} data-reveal style={{ "--reveal-i": i % 3 } as React.CSSProperties}>
-                  <span className="c-como-num">{String(i + 1).padStart(2, "0")}</span>
-                  <h3>{k.t}</h3>
-                  <p>{k.d}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* ── 02b · PROVA POR ESPECIALIDADE ─────────────────────────────── */}
-        <section className="c-sec c-sec-clara" aria-labelledby="c-prova">
-          <div className="c-wrap">
-            <div data-reveal>
-              <Kicker>Prova</Kicker>
-              <h2 id="c-prova">{c.provaTitulo}</h2>
-              <p className="c-lede">{c.provaLede}</p>
+        {/* ── 02 · CLIENTES ─────────────────────────────────────────────────
+            O bloco chumbo com o painel amarelo. No Design o painel é um
+            letreiro de LOGOS (`clientes-logos.json` → `public/clientes/*.png`);
+            esses 25 PNGs não estão no repo nem no pacote do handoff, e inventar
+            imagem é o que a régua §⚖️ proíbe. Então o painel roda com os NOMES
+            REAIS da grade de clientes — cada um vinculado a um registro do
+            oráculo pelo `checar-portfolio.mjs`. Quando os PNGs chegarem, é
+            trocar o conteúdo do `<li>`; o bloco já está no lugar. */}
+        <section className="c-clientes" aria-labelledby="c-cli">
+          <div className="c-clientes-grade">
+            <div className="c-clientes-texto">
+              <h2 id="c-cli" data-reveal>
+                {CLIENTES_BLOCO.antes} <span>{CLIENTES_BLOCO.acento}</span> {CLIENTES_BLOCO.depois}
+              </h2>
+              <p>{CLIENTES_BLOCO.lede}</p>
+              <Link className="c-link-claro" href="/clientes">
+                {CLIENTES_BLOCO.link} →
+              </Link>
             </div>
-            <div className="c-prova-grade">
-              {c.provas.map((g, i) => (
-                <div className="c-prova-grupo" key={g.especialidade} data-reveal style={{ "--reveal-i": i % 3 } as React.CSSProperties}>
-                  <h3>{g.especialidade}</h3>
-                  <ul className="prova-cli">
-                    {g.clientes.map((cl) => (
-                      <li key={cl.nome}>
-                        {cl.site ? (
-                          <a href={cl.site} rel="noopener noreferrer" target="_blank">
-                            {cl.nome} ↗
-                          </a>
-                        ) : (
-                          cl.nome
-                        )}
+            <div className="c-clientes-painel">
+              <i className="c-clientes-filete" aria-hidden />
+              <div className="c-clientes-trilhos">
+                {[0, 1].map((linha) => (
+                  <ul key={linha} data-linha={linha}>
+                    {[0, 1].map((copia) => (
+                      <li key={copia} aria-hidden={copia === 1 ? true : undefined}>
+                        {CLIENTES.filter((_, i) => i % 2 === linha).map((cl) => (
+                          <span key={cl.nome}>{cl.nome}</span>
+                        ))}
                       </li>
                     ))}
                   </ul>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-            <p className="c-nota">
-              Nome real de quem foi cliente de verdade, com o endereço do trabalho quando ele está no ar.{" "}
-              <Link href="/clientes">Ver a lista completa de clientes</Link>.
-            </p>
           </div>
         </section>
+
+        {/* ── 02b · PROVA POR ESPECIALIDADE (só na landing de cidade) ───── */}
+        {c && (
+          <section className="c-sec c-sec-clara" aria-labelledby="c-prova">
+            <div className="c-wrap">
+              <div data-reveal>
+                <Kicker>Prova</Kicker>
+                <h2 id="c-prova">{c.provaTitulo}</h2>
+                <p className="c-lede">{c.provaLede}</p>
+              </div>
+              <div className="c-prova-grade">
+                {c.provas.map((g, i) => (
+                  <div className="c-prova-grupo" key={g.especialidade} data-reveal style={{ "--reveal-i": i % 3 } as React.CSSProperties}>
+                    <h3>{g.especialidade}</h3>
+                    <ul className="prova-cli">
+                      {g.clientes.map((cl) => (
+                        <li key={cl.nome}>
+                          {cl.site ? (
+                            <a href={cl.site} rel="noopener noreferrer" target="_blank">
+                              {cl.nome} ↗
+                            </a>
+                          ) : (
+                            cl.nome
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <p className="c-nota">
+                Nome real de quem foi cliente de verdade, com o endereço do trabalho quando ele está no ar.{" "}
+                <Link href="/clientes">Ver a lista completa de clientes</Link>.
+              </p>
+            </div>
+          </section>
+        )}
 
         {/* ── 03 · EXCLUSIVIDADE (a única ilha da página) ───────────────── */}
         <section className="c-sec c-exclusividade" data-encaixe aria-labelledby="c-excl">
@@ -499,26 +517,55 @@ export function CidadeLandingV3({ c }: { c: Cidade }) {
           </div>
         </section>
 
-        {/* ── 12 · REGIÕES (só se a praça declarou — §⚖️) ───────────────── */}
-        {c.regioes && c.regioes.length > 0 && (
-          <section className="c-sec c-sec-clara" aria-labelledby="c-reg">
-            <div className="c-wrap">
-              <div data-reveal>
-                <Kicker>53 cidades em 21 estados</Kicker>
-                <h2 id="c-reg">Marketing médico em cada região {c.uf === "DF" ? "do DF e no entorno" : `de ${c.cidade}`}</h2>
-                <p className="c-lede">
-                  Atendimento presencial em Anápolis (sede), Goiânia e Brasília — e remoto em 53 cidades de 21
-                  estados.
-                </p>
-              </div>
-              <ul className="c-regioes" data-reveal>
-                {c.regioes.map((r) => (
-                  <li key={r}>{r}</li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        )}
+        {/* ── 12 · CIDADES ──────────────────────────────────────────────────
+            Na praça, as regiões dela; na home, as cidades que o Design lista —
+            cada uma virando LINK só quando existe página, nunca rota inventada
+            (§44.21-2). */}
+        {c
+          ? c.regioes &&
+            c.regioes.length > 0 && (
+              <section className="c-sec c-sec-clara" aria-labelledby="c-reg">
+                <div className="c-wrap">
+                  <div data-reveal>
+                    <Kicker>53 cidades em 21 estados</Kicker>
+                    <h2 id="c-reg">Marketing médico em cada região {c.uf === "DF" ? "do DF e no entorno" : `de ${c.cidade}`}</h2>
+                    <p className="c-lede">
+                      Atendimento presencial em Anápolis (sede), Goiânia e Brasília — e remoto em 53 cidades de 21
+                      estados.
+                    </p>
+                  </div>
+                  <ul className="c-regioes" data-reveal>
+                    {c.regioes.map((r) => (
+                      <li key={r}>{r}</li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            )
+          : (
+              <section className="c-sec c-sec-clara" aria-labelledby="c-reg">
+                <div className="c-wrap">
+                  <div data-reveal>
+                    <Kicker>53 cidades em 21 estados</Kicker>
+                    <h2 id="c-reg">Marketing médico na sua cidade e na sua especialidade</h2>
+                    <p className="c-lede">
+                      Atendimento presencial em Anápolis (sede), Goiânia e Brasília — e remoto em 53 cidades de 21
+                      estados.
+                    </p>
+                  </div>
+                  <ul className="c-regioes" data-reveal>
+                    {CIDADES_HOME.map((nome) => {
+                      const pagina = CIDADES.find((x) => x.cidade === nome);
+                      return (
+                        <li key={nome}>
+                          {pagina ? <Link href={`/${pagina.slug}`}>{nome}</Link> : nome}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </section>
+            )}
 
         {/* ── 12b · ESPECIALIDADES ──────────────────────────────────────── */}
         <section className="c-sec" aria-labelledby="c-esp">
@@ -556,14 +603,18 @@ export function CidadeLandingV3({ c }: { c: Cidade }) {
           </div>
         </section>
 
-        {/* ── 13 · PORTFÓLIO DA PRAÇA ───────────────────────────────────── */}
+        {/* ── 13 · PORTFÓLIO ────────────────────────────────────────────── */}
         {pecas.length >= 3 && (
           <section className="c-sec" aria-labelledby="c-port">
             <div className="c-wrap">
               <div data-reveal>
                 <Kicker>Portfólio</Kicker>
                 <h2 id="c-port">O trabalho, do jeito que o cliente recebeu</h2>
-                <p className="c-lede">Peças reais entregues a clientes de {c.cidade} — site, impresso, material educativo e identidade.</p>
+                <p className="c-lede">
+                  {c
+                    ? `Peças reais entregues a clientes de ${c.cidade} — site, impresso, material educativo e identidade.`
+                    : "Composição pronta — site, impresso, material educativo e identidade de consultórios, clínicas e hospitais."}
+                </p>
               </div>
               <div className="c-pecas">
                 {pecas.map((p, i) => (
@@ -624,26 +675,28 @@ export function CidadeLandingV3({ c }: { c: Cidade }) {
                   <p>{CTA_FINAL.proposta}</p>
                 </div>
                 <div>
-                  <BotaoWhats texto={c.waText} />
+                  <BotaoWhats texto={waPagina} />
                   <p>{CTA_FINAL.whats}</p>
                 </div>
               </div>
               {/* "Quando NÃO é com a gente" — a honestidade que a landing antiga
-                  já trazia e o protótipo não tinha. Não se perde no porte. */}
-              <div className="c-quando-nao">
-                <h3>{c.quandoNaoTitulo}</h3>
-                {c.quandoNao.map((q) => (
-                  <p key={q.slice(0, 24)}>{q}</p>
-                ))}
-              </div>
+                  já trazia e o protótipo não tinha. Não se perde no porte. Só a
+                  praça a declara (`content/cidades.ts`); a home não inventa uma. */}
+              {c && (
+                <div className="c-quando-nao">
+                  <h3>{c.quandoNaoTitulo}</h3>
+                  {c.quandoNao.map((q) => (
+                    <p key={q.slice(0, 24)}>{q}</p>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </section>
       </main>
 
-      <FooterMapa atual={`/${c.slug}`} proxima={["panorama", "clientes"]} />
-      <Reveals raiz=".cidade-v3" />
+      <Reveals raiz=".ar-v3" />
       <Encaixe />
-    </div>
+    </>
   );
 }

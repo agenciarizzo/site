@@ -12,8 +12,13 @@
 // (§44.21 D8). Goiânia segue no componente de sempre até a replicação.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import "../ar-v3.css";
 import "../cidade-v3.css";
-import { CidadeLandingV3 } from "@/components/CidadeLandingV3";
+import { FooterMapa } from "@/components/athos/Athos";
+import { TopoPill } from "@/components/ar/TopoPill";
+import { HeroGeo } from "@/components/ar/HeroGeo";
+import { Corpo } from "@/components/ar/Corpo";
+import { tweaksDe } from "@/lib/tweaks.mjs";
 import { cidadeBySlug } from "@/content/cidades";
 
 const SLUG = "marketing-medico-brasilia";
@@ -27,5 +32,20 @@ export const metadata: Metadata = {
 export default function BrasiliaPage() {
   const c = cidadeBySlug(SLUG);
   if (!c) notFound();
-  return <CidadeLandingV3 c={c} />;
+  const t = tweaksDe(c.slug, c.tweaks);
+  return (
+    <div className="ar-v3">
+      <TopoPill atual={`/${SLUG}`} waText={c.waText} />
+      <HeroGeo
+        kicker={`Marketing para clínicas e hospitais ${c.uf === "DF" ? "no Distrito Federal" : `em ${c.cidade}`}`}
+        titulo={c.head[0]}
+        destaque={c.head[1].replace(/\.$/, "")}
+        lede={c.lede}
+        waText={c.waText}
+        tweaks={t}
+      />
+      <Corpo c={c} />
+      <FooterMapa atual={`/${SLUG}`} proxima={["panorama", "clientes"]} />
+    </div>
+  );
 }
