@@ -176,7 +176,7 @@ export default async function ClientesPage() {
             <span className="acento">com a gente.</span>
           </h1>
           <p className="lede">
-            Mais de 250 médicos, clínicas e hospitais passaram por aqui desde 2012 — do consultório de um nome só à
+            São 259 médicos, clínicas e hospitais atendidos desde 2012, em 53 cidades de 21 estados — do consultório de um nome só à
             rede hospitalar. Logo abaixo, alguns dos trabalhos; na sequência, a carteira inteira, por área.
           </p>
         </div>

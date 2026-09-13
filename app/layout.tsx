@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: "%s | Agência Rizzo",
   },
   description:
-    "Há 13 anos cuidamos do marketing de médicos e clínicas. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico.",
+    "Marketing de médicos e clínicas desde 2012. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico.",
   metadataBase: new URL(SITE_URL),
   // og:image default de todo o site. Sem ela, link colado no WhatsApp saía sem cartão
   // — e o WhatsApp é o CTA único da casa. A capa é estática (public/og/), gerada pelo
