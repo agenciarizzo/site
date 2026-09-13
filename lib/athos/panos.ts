@@ -268,7 +268,7 @@ function campo(pattern: string, cores: string[], seed: number, cols: number, row
 }
 
 /** Fundo de região do hero — não é cor de motivo, é o papel/navy/ouro atrás dele. */
-export type Regiao = { x: number; y: number; w: number; h: number; html: string; fundo: string };
+export type Regiao = { x: number; y: number; w: number; h: number; fundo: string };
 
 /**
  * As 6 frentes do hero, na composição do protótipo: um motivo de base sobre
@@ -312,19 +312,81 @@ for (let i = 0; i < FRENTES_PANO.length; i++) {
   });
 }
 
-/** Campo de base do hero (o mesmo em todas as frentes; as regiões é que trocam). */
-export function panoHeroBase(frente: number): string {
-  const [pattern, cores] = FRENTES_PANO[frente].base;
-  return campo(pattern, cores, S(500 + frente * 31), 14, 5);
-}
+/**
+ * O CAMPO DO HERO, como o protótipo o faz — e não como eu o fiz na 1ª rodada.
+ *
+ * O `.dc.html` monta UM campo de tela cheia por frente e resolve a legibilidade
+ * DENTRO dele, peça a peça:
+ *
+ *   const quiet = py < 20 || py > 68;
+ *   const src = quiet ? { bg: 'transparent', rot: 0 } : (hit ? hit.tiles[i] : t);
+ *
+ * — as peças das faixas onde mora a tipografia (o topo do menu e a área do
+ * título/setas) nascem LISAS, dando campo plano pra letra. A 1ª rodada deste
+ * porte trocou isso por um leiaute de duas fileiras (azulejo em cima, texto
+ * embaixo): resolvia a legibilidade e MATAVA a composição, que é o ponto da
+ * peça. Isto aqui é o desenho de volta.
+ *
+ * Cada peça carrega DOIS fundos, como no protótipo: o `fundo` da região (papel,
+ * navy, ouro…) no contêiner, e o motivo girado por cima.
+ */
+const QUIET_TOPO = 20; // % da altura: faixa do logo/menu
+// O protótipo usa 68% porque o bloco de texto dele é só kicker + título. O
+// nosso leva também a linha da frente da vez (título + frase), que é o que o
+// carrossel troca — então o campo do título precisa de 40% em vez de 32%. É a
+// mesma régua do §44.16-6: o que não couber sai, e a letra NUNCA encolhe pra
+// caber; aqui quem cede é a faixa de azulejo, não a tipografia.
+const QUIET_BASE = 60;
 
-/** Regiões coloridas da frente — o retângulo em % + o campo que o preenche. */
-export function panoHeroRegioes(frente: number): Regiao[] {
+/**
+ * `rows = 10` e as fileiras esticam pra altura do hero (`1fr`), em vez de a
+ * peça ser quadrada por `aspect-ratio`. Parece detalhe e é o defeito inteiro:
+ * com peça quadrada a malha tem altura PRÓPRIA, transborda a tela, e a faixa
+ * lisa de baixo — a que dá campo plano pro título — sai do lugar. O protótipo
+ * não tem esse problema porque calcula `rows` pela altura da janela em JS
+ * (`rows = ceil(h / tileW) + 1`); num site estático quem garante o mesmo é a
+ * grade: 10 fileiras de `1fr` cobrem o hero seja qual for a altura, e as faixas
+ * `py < 20%` / `py > 68%` caem sempre onde devem.
+ *
+ * 16 × 10 = 1,6, a proporção de um monitor de 1440×900 — então a peça sai
+ * quadrada onde a maioria olha, e só se alonga um pouco fora disso.
+ * `cols = 8` é a versão de celular (o protótipo usa 8 em tela estreita).
+ */
+export function panoHeroFrente(frente: number, cols = 16, rows = 10, comQuiet = true): string {
   const { base, regioes } = FRENTES_PANO[frente];
-  return regioes.map((r, k) => ({
-    ...r,
-    html: campo(base[0], CORES_REGIAO[frente][k], S(700 + frente * 13 + r.x), 7, 3),
+  const [pattern, coresBase] = base;
+  const n = cols * rows;
+  const fundoBase = PAPEL;
+
+  const doBase = tiles(pattern, coresBase, S(500 + frente * 31), n);
+  const dasRegioes = regioes.map((r, k) => ({
+    r,
+    ts: tiles(pattern, CORES_REGIAO[frente][k], S(700 + frente * 13 + r.x), n),
   }));
+
+  const pecas: string[] = [];
+  for (let i = 0; i < n; i++) {
+    const cx = i % cols;
+    const cy = Math.floor(i / cols);
+    const px = ((cx + 0.5) / cols) * 100;
+    const py = ((cy + 0.5) / rows) * 100;
+
+    // faixa de texto: peça lisa, sem motivo e sem fundo de região.
+    // `comQuiet: false` é a malha de CELULAR: lá o menu e o texto estão em
+    // FLUXO, acima e abaixo da faixa, então não há tipografia sobre o campo —
+    // as peças lisas só deixariam papel sobrando no meio da faixa.
+    if (comQuiet && (py < QUIET_TOPO || py > QUIET_BASE)) {
+      pecas.push("<div></div>");
+      continue;
+    }
+    const hit = dasRegioes.find(({ r }) => px >= r.x && px < r.x + r.w && py >= r.y && py < r.y + r.h);
+    const t = hit ? hit.ts[i] : doBase[i];
+    const fundo = hit ? hit.r.fundo : fundoBase;
+    pecas.push(
+      `<div style="background:${fundo}"><div style="background:${t.bg};transform:rotate(${t.rot}deg)"></div></div>`,
+    );
+  }
+  return `<div data-pano="${pattern}·longe·s${S(500 + frente * 31)}" class="pano-campo pano-hero" style="--cols:${cols};--rows:${rows}">${pecas.join("")}</div>`;
 }
 
 /** Mini-pano de card (frente, peça de portfólio): 8 peças numa fileira. */
@@ -396,17 +458,26 @@ const PANO_LAYOUT: Record<string, { x: number; y: number; w: number; h: number }
 };
 
 export type PanoCidade = {
-  /** Campo de base, sobre papel, atrás de tudo. */
-  base: string;
-  /** Painel de acento: o motivo do `elemento` sobre chumbo, no retângulo do `pano`. */
-  painel: string;
-  caixa: { x: number; y: number; w: number; h: number };
+  /** Malha de monitor: campo de tela cheia com as faixas de texto lisas. */
+  larga: string;
+  /** Malha de celular: azulejo puro, sem faixa lisa (lá o texto está em fluxo). */
+  estreita: string;
   /** `sequencia` liga a entrada peça a peça; `estatica` deixa o campo parado. */
   animado: boolean;
 };
 
-/** O hero da landing v3, montado a partir dos tweaks da praça. */
-export function panoCidadeV3(t: { elemento: string; pano: string; cores: string; seed: number; abertura: string }): PanoCidade {
+/**
+ * O hero da landing v3 — a MESMA composição da home: campo de tela cheia com as
+ * peças das faixas de texto lisas (`panoHeroFrente` acima explica o porquê), e
+ * o painel de acento no retângulo que o tweak `pano` declara.
+ */
+export function panoCidadeV3(t: {
+  elemento: string;
+  pano: string;
+  cores: string;
+  seed: number;
+  abertura: string;
+}): PanoCidade {
   // `elemento` é nome de motivo do motor; valor desconhecido cai no triângulo
   // (o padrão Brasília) em vez de quebrar o render.
   const motivo = byId(t.elemento) ? t.elemento : "triangulo";
@@ -415,12 +486,30 @@ export function panoCidadeV3(t: { elemento: string; pano: string; cores: string;
   const max = byId(motivo)?.maxCores ?? 2;
   const doPainel = cores.slice(0, max);
   assertA2(doPainel, "papel", `painel do hero (${motivo})`);
-  return {
-    base: campo(motivo, [CINZA], 13 + t.seed * 37, 16, 5),
-    painel: campo(motivo, doPainel, 601 + t.seed * 53, 8, 4),
-    caixa,
-    animado: t.abertura === "sequencia",
+
+  const malha = (cols: number, rows: number, comQuiet: boolean) => {
+    const n = cols * rows;
+    const base = tiles(motivo, [CINZA], 13 + t.seed * 37, n);
+    const painel = tiles(motivo, doPainel, 601 + t.seed * 53, n);
+    const pecas: string[] = [];
+    for (let i = 0; i < n; i++) {
+      const px = (((i % cols) + 0.5) / cols) * 100;
+      const py = ((Math.floor(i / cols) + 0.5) / rows) * 100;
+      if (comQuiet && (py < QUIET_TOPO || py > QUIET_BASE)) {
+        pecas.push("<div></div>");
+        continue;
+      }
+      const dentro = px >= caixa.x && px < caixa.x + caixa.w && py >= caixa.y && py < caixa.y + caixa.h;
+      const peca = dentro ? painel[i] : base[i];
+      const fundo = dentro ? CINZA : PAPEL;
+      pecas.push(
+        `<div style="background:${fundo}"><div style="background:${peca.bg};transform:rotate(${peca.rot}deg)"></div></div>`,
+      );
+    }
+    return `<div data-pano="${motivo}·longe·s${13 + t.seed * 37}" class="pano-campo pano-hero" style="--cols:${cols};--rows:${rows}">${pecas.join("")}</div>`;
   };
+
+  return { larga: malha(16, 10, true), estreita: malha(8, 5, false), animado: t.abertura === "sequencia" };
 }
 
 /** Faixa/campo de apoio da landing v3 — motivo e seed derivados dos mesmos tweaks. */

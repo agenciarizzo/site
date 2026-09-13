@@ -58,44 +58,68 @@
 }
 
 /* ------------------------------------------------------------------ hero ---
-   Mesma solução da home v3: o azulejo é a primeira fileira da grade, o texto é
-   a segunda, sobre papel chapado. Tipografia nunca cai em cima de peça. */
+   A composição do protótipo: campo de TELA CHEIA, menu sobreposto, texto no
+   canto inferior esquerdo. A legibilidade não vem do leiaute — vem das peças
+   lisas que o gerador põe nas faixas `py < 20%` e `py > 60%` (`panoCidadeV3`).
+   As fileiras esticam pra altura do hero (`1fr`), então a faixa cai sempre no
+   mesmo lugar, seja qual for a tela. */
 .cidade-v3 .c-hero {
   position: relative;
-  min-height: min(100svh, 800px);
-  display: grid;
-  grid-template-rows: minmax(140px, 1fr) auto;
+  height: 100svh;
+  min-height: 620px;
   overflow: hidden;
+  background: var(--c-papel);
 }
 .cidade-v3 .c-hero-campo {
+  position: absolute;
+  inset: 0;
+}
+.cidade-v3 .c-malha {
+  position: absolute;
+  inset: 0;
+}
+.cidade-v3 .c-malha-estreita {
+  display: none;
+}
+.cidade-v3 .pano-hero {
+  height: 100%;
+  grid-template-rows: repeat(var(--rows), 1fr);
+  align-content: stretch;
+}
+.cidade-v3 .pano-hero > div {
   position: relative;
-  grid-row: 1;
   overflow: hidden;
 }
-.cidade-v3 .c-hero-base {
+.cidade-v3 .pano-hero > div > div {
   position: absolute;
-  inset: 0 0 auto;
+  inset: 0;
 }
-/* O painel de acento: o retângulo que o tweak `pano` declara (lib/athos/panos). */
-.cidade-v3 .c-hero-painel {
+
+/* O menu vai SOBRE o campo, como no `.dc.html`. */
+.cidade-v3 > header.topo.menu {
   position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: var(--w);
-  height: var(--h);
-  overflow: hidden;
-  background: var(--c-tinta);
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  background: transparent;
+  border-bottom: 0;
 }
+
 .cidade-v3 .c-hero-texto {
-  grid-row: 2;
-  padding-block: clamp(28px, 4vw, 48px) clamp(28px, 4vw, 54px);
+  position: absolute;
+  left: var(--c-gutter);
+  right: var(--c-gutter);
+  bottom: clamp(40px, 7vh, 64px);
+  z-index: 5;
+  max-width: min(66vw, 50rem);
 }
 .cidade-v3 .c-hero h1 {
   margin: 0;
   font-family: var(--font-slab), Rockwell, Georgia, serif;
-  /* O H1 do protótipo pede Roboto Slab leve; o `layout.tsx` carrega 300, 700 e
-     800 (§44.21-6 — peso 300 é o mais leve que o next/font serve pra esta
-     família, e peso sintético está proibido). */
+  /* O H1 do protótipo pede Roboto Slab leve; o `layout.tsx` carrega 300, que é
+     o mais leve que o next/font serve nesta família — peso sintético está
+     proibido (§44.21-6). */
   font-weight: 300;
   font-size: clamp(2rem, 5.4vw, 4rem);
   line-height: 1.04;
@@ -105,10 +129,10 @@
   text-wrap: balance;
 }
 .cidade-v3 .c-hero-lede {
-  margin: 20px 0 0;
-  max-width: 46rem;
-  font-size: clamp(1rem, 1.5vw, 1.14rem);
-  line-height: 1.65;
+  margin: 18px 0 0;
+  max-width: 42rem;
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  line-height: 1.6;
   font-weight: 300;
   color: var(--c-corpo);
   text-wrap: pretty;
@@ -1209,13 +1233,6 @@
 }
 
 /* --------------------------------------------------------------- mobile --- */
-@media (max-width: 760px) {
-  /* §43.9 — no celular quem carrega a ação é a `.barra-cta` fixa do
-     globals.css; o par do hero seria o 2º par na mesma tela. */
-  .cidade-v3 .c-hero .c-acoes {
-    display: none;
-  }
-}
 @media (max-width: 900px) {
   .cidade-v3 .c-excl-grade,
   .cidade-v3 .c-result,
@@ -1224,9 +1241,47 @@
   .cidade-v3 .c-faq-grade {
     grid-template-columns: minmax(0, 1fr);
   }
+  /* No celular a malha vira FAIXA em fluxo e o texto vem abaixo: a peça é
+     quadrada, e 8 colunas em 390 px não cobrem um hero de tela cheia sem virar
+     ruído. As peças lisas não entram nessa malha — lá o menu e o texto já estão
+     acima e abaixo do campo, não sobre ele. */
   .cidade-v3 .c-hero {
+    height: auto;
     min-height: 0;
-    grid-template-rows: minmax(140px, 24svh) auto;
+    padding-top: 84px;
+    display: flex;
+    flex-direction: column;
+  }
+  .cidade-v3 > header.topo.menu {
+    position: relative;
+  }
+  .cidade-v3 .c-hero-campo {
+    position: relative;
+    inset: auto;
+  }
+  .cidade-v3 .c-malha-larga {
+    display: none;
+  }
+  .cidade-v3 .c-malha-estreita {
+    display: block;
+    position: relative;
+    inset: auto;
+  }
+  .cidade-v3 .c-malha-estreita .pano-hero {
+    height: auto;
+    grid-template-rows: none;
+  }
+  .cidade-v3 .c-malha-estreita .pano-hero > div {
+    aspect-ratio: 1;
+  }
+  .cidade-v3 .c-hero-texto {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    max-width: none;
+    padding-inline: var(--c-gutter);
+    margin: 32px 0 44px;
   }
 }
 

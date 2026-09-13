@@ -7,17 +7,13 @@
 // navegador, e aqui o conteúdo é do servidor — o texto vem de `content/home.ts`
 // e o dado de `content/portfolio.ts`.
 //
-// As duas portas (§44.15 D4, regra 4 do CLAUDE.md):
-//  · porta FRIA 24/7 → `PROPOSTA_URL`, com `data-cta="proposta"` (medição);
-//  · porta QUENTE → `ROTA_PORTAO` (`/whatsapp`), com o texto da home no
-//    `data-wa`. NENHUM `wa.me` sai daqui.
+// As duas portas (§44.15 D4, regra 4 do CLAUDE.md) moram no MENU e no fecho —
+// é onde o protótipo as põe ("WhatsApp →" no header sobreposto). O menu recebe
+// o `waText` da home, e o fecho leva a porta fria. NENHUM `wa.me` sai daqui.
 import Link from "next/link";
 import { PROPOSTA_URL } from "@/lib/site";
-import { ROTA_PORTAO, CTA_PROPOSTA, CTA_WHATSAPP } from "@/lib/nav";
-import { IconeWhats } from "@/components/athos/IconeWhats";
 import {
-  panoHeroBase,
-  panoHeroRegioes,
+  panoHeroFrente,
   panoCardHome,
   panoFaixaHome,
   panoCampoHome,
@@ -25,7 +21,6 @@ import {
 } from "@/lib/athos/panos";
 import { PORTFOLIO } from "@/content/portfolio";
 import {
-  WA_HOME,
   HERO,
   CREDENCIAIS,
   FRENTES,
@@ -44,23 +39,6 @@ function Campo({ html, className }: { html: string; className: string }) {
   return <div className={className} aria-hidden dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
-/** As duas portas, na ordem de destaque da regra 4 (fria primeiro, quente ao lado). */
-export function Portas() {
-  return (
-    <div className="h-hero-acoes">
-      <a className="h-porta-fria" data-cta="proposta" href={PROPOSTA_URL}>
-        {CTA_PROPOSTA}&nbsp;→
-      </a>
-      {/* `data-wa` = o texto que abre a conversa; quem o entrega ao portão é o
-          `GuardaOrigem` do layout. Zero `wa.me` aqui (§44.21-1). */}
-      <Link className="h-porta-quente" href={ROTA_PORTAO} data-wa={WA_HOME}>
-        <IconeWhats />
-        {CTA_WHATSAPP}
-      </Link>
-    </div>
-  );
-}
-
 /**
  * Hero assimétrico com as 6 frentes em carrossel.
  *
@@ -71,34 +49,28 @@ export function Portas() {
 export function Hero() {
   return (
     <section className="h-hero" data-frente="0" aria-labelledby="hero-h1">
-      <div className="h-hero-campo">
+      {/* Um campo de TELA CHEIA por frente, com as peças das faixas de texto
+          lisas (o `quiet` do protótipo). Só a frente ativa fica opaca. */}
+      <div className="h-hero-campo" aria-hidden>
         {FRENTES.map((_, i) => (
-          <div className="h-frente-pano" data-i={i} key={i} aria-hidden>
-            <Campo html={panoHeroBase(i)} className="h-hero-base" />
-            {panoHeroRegioes(i).map((r, k) => (
-              <div
-                className="h-regiao"
-                key={k}
-                style={
-                  {
-                    "--x": `${r.x}%`,
-                    "--y": `${r.y}%`,
-                    "--w": `${r.w}%`,
-                    "--h": `${r.h}%`,
-                    "--fundo": r.fundo,
-                  } as React.CSSProperties
-                }
-                dangerouslySetInnerHTML={{ __html: r.html }}
-              />
-            ))}
+          <div className="h-frente-pano" data-i={i} key={i}>
+            {/* Duas malhas por frente — 16 colunas no monitor, 8 no celular.
+                Não dá pra refluir uma na outra: a peça lisa é decidida pelo
+                ÍNDICE dela na malha, então mudar o número de colunas embaralha
+                justamente as faixas que seguram a tipografia. Metade das peças
+                de cada malha é lisa (`<div></div>`), então o custo é pequeno. */}
+            <div className="h-malha h-malha-larga" dangerouslySetInnerHTML={{ __html: panoHeroFrente(i, 16, 10) }} />
+            <div className="h-malha h-malha-estreita" dangerouslySetInnerHTML={{ __html: panoHeroFrente(i, 8, 5, false) }} />
           </div>
         ))}
       </div>
 
-      <div className="h-wrap h-hero-texto">
+      {/* Canto inferior esquerdo, como no `.dc.html`: kicker · H1 · a frente da
+          vez em display grande. Nada de lede nem de botão aqui — as duas portas
+          moram no menu sobreposto, que é onde o protótipo as põe. */}
+      <div className="h-hero-texto">
         <p className="h-kicker">{HERO.kicker}</p>
         <h1 id="hero-h1">{HERO.h1}</h1>
-        <p className="h-hero-lede">{HERO.lede}</p>
 
         <div className="h-frentes-pilha">
           {FRENTES.map((f, i) => (
@@ -110,12 +82,10 @@ export function Hero() {
             </div>
           ))}
         </div>
-
-        <div className="h-hero-rodape">
-          <Portas />
-          <HeroCarrossel total={FRENTES.length} />
-        </div>
       </div>
+
+      {/* Setas + contador no canto inferior direito (`right:60px;bottom:64px`). */}
+      <HeroCarrossel total={FRENTES.length} />
     </section>
   );
 }

@@ -12,7 +12,8 @@
 // fecho "Quanto custa" · rodapé-mapa do site.
 //
 // O QUE NÃO SE IGNORA (§44.15 D4), e onde cada um está:
-//  · as duas portas — `components/home/Secoes.tsx` (`Portas`, `Fecho`);
+//  · as duas portas — no `MenuTopo` (e na barra fixa do celular) e no
+//    `Fecho` de `components/home/Secoes.tsx`, como no protótipo;
 //  · a medição — `components/Medicao.tsx` continua no layout e lê `data-cta`,
 //    `data-wa` e `a[href*="wa.me"]`; aqui não há `wa.me` nenhum;
 //  · metadata + canonical + JSON-LD Organization — abaixo;
@@ -39,7 +40,10 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="home-v3">
-      <MenuTopo atual="/" waText={WA_HOME} acoesNoTopo={false} />
+      {/* As duas portas voltam pro MENU: é onde o protótipo as põe ("WhatsApp →"
+          no header sobreposto), e é o que devolve o hero limpo — kicker, título
+          e a frente da vez, sem botão espremendo o campo. */}
+      <MenuTopo atual="/" waText={WA_HOME} />
       <main>
         <Hero />
         <Tarja />

@@ -146,28 +146,21 @@ export function CidadeLandingV3({ c }: { c: Cidade }) {
   return (
     <div className="cidade-v3" data-abertura={hero.animado ? "sequencia" : "estatica"}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cidadeV3JsonLd(c)) }} />
-      <MenuTopo atual={`/${c.slug}`} waText={c.waText} acoesNoTopo={false} />
+      <MenuTopo atual={`/${c.slug}`} waText={c.waText} />
 
       <main>
         {/* ── 01 · HERO ─────────────────────────────────────────────────── */}
         <section className="c-hero" aria-labelledby="c-h1">
-          <div className="c-hero-campo">
-            <Campo html={hero.base} className="c-hero-base" />
-            <div
-              className="c-hero-painel"
-              aria-hidden
-              style={
-                {
-                  "--x": `${hero.caixa.x}%`,
-                  "--y": `${hero.caixa.y}%`,
-                  "--w": `${hero.caixa.w}%`,
-                  "--h": `${hero.caixa.h}%`,
-                } as React.CSSProperties
-              }
-              dangerouslySetInnerHTML={{ __html: hero.painel }}
-            />
+          {/* Campo de TELA CHEIA com as peças das faixas de texto lisas — a
+              composição do protótipo. Duas malhas (16 col. no monitor, 8 no
+              celular) porque a peça lisa é decidida pelo ÍNDICE dela na malha:
+              refluir uma na outra embaralharia justamente as faixas que seguram
+              a tipografia. */}
+          <div className="c-hero-campo" aria-hidden>
+            <div className="c-malha c-malha-larga" dangerouslySetInnerHTML={{ __html: hero.larga }} />
+            <div className="c-malha c-malha-estreita" dangerouslySetInnerHTML={{ __html: hero.estreita }} />
           </div>
-          <div className="c-wrap c-hero-texto">
+          <div className="c-hero-texto">
             <Kicker>
               Marketing para clínicas e hospitais {c.uf === "DF" ? "no Distrito Federal" : `em ${c.cidade}`}
             </Kicker>
@@ -175,10 +168,6 @@ export function CidadeLandingV3({ c }: { c: Cidade }) {
               {c.head[0]} <span className="c-acento">{c.head[1].replace(/\.$/, "")}</span>
             </h1>
             <p className="c-hero-lede">{c.lede}</p>
-            <div className="c-acoes">
-              <BotaoProposta />
-              <BotaoWhats texto={c.waText} />
-            </div>
           </div>
         </section>
 

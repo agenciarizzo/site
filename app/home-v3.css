@@ -64,41 +64,29 @@
 }
 
 /* ------------------------------------------------------------------ hero ---
-   Assimétrico: o campo de azulejo ocupa a tela inteira, o título mora no canto
-   inferior esquerdo e o controle do carrossel no inferior direito. */
+   A composição do protótipo, de volta: campo de TELA CHEIA, menu sobreposto,
+   texto no canto inferior esquerdo, setas no inferior direito.
+
+   A legibilidade NÃO vem do leiaute — vem das peças lisas que o gerador
+   (`panoHeroFrente`) coloca nas faixas `py < 20%` e `py > 68%`, exatamente como
+   o `.dc.html` faz. Foi trocar isso por um leiaute de duas fileiras que matou a
+   peça na 1ª rodada deste porte. */
 .home-v3 .h-hero {
   position: relative;
-  min-height: min(100svh, 820px);
-  display: grid;
-  grid-template-rows: minmax(120px, 1fr) auto;
+  height: 100svh;
+  min-height: 620px;
   overflow: hidden;
   background: var(--h-papel);
 }
 
-/* O CAMPO QUIETO do protótipo, feito com leiaute em vez de máscara.
-   No `.dc.html` as peças das faixas de texto (py<20 e py>68) nascem lisas —
-   "as áreas de texto ficam com peças lisas, para a tipografia ter campo plano".
-   Aqui o mesmo efeito vem da grade: o azulejo é a primeira fileira, o texto é a
-   segunda, sobre papel chapado. Nenhuma letra cai em cima de peça, em nenhuma
-   largura de tela — e a borda dura entre os dois é a mesma que o corte de peça
-   produzia. */
 .home-v3 .h-hero-campo {
-  position: relative;
-  grid-row: 1;
-  overflow: hidden;
-}
-.home-v3 .h-hero-campo .pano-campo {
   position: absolute;
-  inset: 0 0 auto;
-  /* Peça QUADRADA (A3) e `align-content: start`, como no protótipo: o motor
-     entrega material de sobra e o container corta o que não couber — o azulejo
-     nunca vira barra achatada pra "caber" na altura da faixa. */
-  align-content: start;
+  inset: 0;
 }
 
-/* As 6 frentes são 6 campos empilhados; só a ativa fica opaca. Sem JS, a 0 é a
-   que aparece (o `data-frente` nasce "0" no HTML gerado) — e os 6 títulos estão
-   todos no DOM, então a página lê inteira sem script (§44.15 D4). */
+/* Um campo por frente, empilhado; só a ativa fica opaca. Sem JS, a 0 é a que
+   aparece (`data-frente` nasce "0" no HTML gerado) — e os 6 títulos continuam
+   todos no DOM. */
 .home-v3 .h-frente-pano {
   position: absolute;
   inset: 0;
@@ -114,26 +102,48 @@
   opacity: 1;
 }
 
-/* Região colorida: o retângulo em % da tela que o handoff declara por frente. */
-.home-v3 .h-regiao {
+/* A peça do hero: fundo da região no contêiner, motivo girado por cima —
+   a mesma estrutura de dois fundos do `.dc.html`. */
+.home-v3 .h-malha {
   position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: var(--w);
-  height: var(--h);
-  overflow: hidden;
-  background: var(--fundo);
+  inset: 0;
 }
-.home-v3 .h-regiao .pano-campo {
-  align-content: start;
+.home-v3 .h-malha-estreita {
+  display: none;
+}
+.home-v3 .pano-hero {
+  height: 100%;
+  grid-template-rows: repeat(var(--rows), 1fr);
+  align-content: stretch;
+}
+.home-v3 .pano-hero > div {
+  position: relative;
+  overflow: hidden;
+}
+.home-v3 .pano-hero > div > div {
+  position: absolute;
+  inset: 0;
+}
+
+/* O menu vai SOBRE o campo (o `.dc.html` o declara `position:absolute;top:0`).
+   Fundo transparente e sem borda: quem dá contraste é a faixa lisa do topo. */
+.home-v3 > header.topo.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  background: transparent;
+  border-bottom: 0;
 }
 
 .home-v3 .h-hero-texto {
-  position: relative;
-  z-index: 2;
-  grid-row: 2;
-  max-width: min(62rem, 100%);
-  padding-block: clamp(28px, 4vw, 46px) clamp(28px, 4vw, 52px);
+  position: absolute;
+  left: var(--h-gutter);
+  right: var(--h-gutter);
+  bottom: clamp(40px, 7vh, 64px);
+  z-index: 5;
+  max-width: min(62vw, 47rem);
 }
 .home-v3 .h-kicker {
   margin: 0 0 14px;
@@ -142,7 +152,7 @@
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--h-tinta);
-  opacity: 0.75;
+  opacity: 0.72;
 }
 .home-v3 .h-hero h1 {
   margin: 0;
@@ -154,22 +164,13 @@
   color: var(--h-ink);
   text-wrap: balance;
 }
-.home-v3 .h-hero-lede {
-  margin: 22px 0 0;
-  max-width: 42rem;
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
-  line-height: 1.6;
-  font-weight: 300;
-  color: var(--h-corpo);
-  text-wrap: pretty;
-}
 
-/* As 6 frentes no hero: todas no HTML, uma visível. `hidden` não serve — o
-   texto precisa continuar rastreável; a troca é por opacidade + `inert`. */
+/* A frente da vez, em display — é ela que o carrossel troca a cada 6,5 s. Todas
+   as 6 no DOM; a inativa sai da tabulação pelo `inert` da ilha. */
 .home-v3 .h-frentes-pilha {
   position: relative;
-  margin-top: 26px;
-  min-height: 5.5rem;
+  margin-top: 20px;
+  min-height: 5.2rem;
 }
 .home-v3 .h-frente {
   position: absolute;
@@ -192,41 +193,31 @@
 .home-v3 .h-frente a {
   display: inline-flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
   color: var(--h-ink);
 }
 .home-v3 .h-frente strong {
   font-family: var(--font-slab), Rockwell, Georgia, serif;
-  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
 }
 .home-v3 .h-frente span {
-  font-size: 0.97rem;
+  font-size: clamp(0.95rem, 1.25vw, 1.06rem);
   font-weight: 300;
   line-height: 1.5;
   color: var(--h-apoio);
+  max-width: 34rem;
 }
 
-.home-v3 .h-hero-rodape {
-  position: relative;
-  z-index: 2;
-  margin-top: 34px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px 26px;
-  align-items: center;
-  justify-content: space-between;
-}
-.home-v3 .h-hero-acoes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-/* Controle do carrossel — os botões só existem com JS (a ilha os injeta); sem
-   ela a página fica na frente 01 e nada se perde. */
+/* Setas + contador: canto inferior direito (`right:60px;bottom:64px`). Só
+   existem com JS; sem ela a página fica na frente 01 e nada se perde. */
 .home-v3 .h-nav {
+  position: absolute;
+  right: var(--h-gutter);
+  bottom: clamp(40px, 7vh, 64px);
+  z-index: 5;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -248,6 +239,7 @@
   color: var(--h-ink);
 }
 .home-v3 .h-nav-conta {
+  margin: 0;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.75rem;
   letter-spacing: 0.14em;
@@ -758,33 +750,6 @@
   color: var(--h-papel);
 }
 
-/* Botões do hero — as DUAS portas, na ordem de destaque da regra 4. */
-.home-v3 .h-porta-fria,
-.home-v3 .h-porta-quente {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 15px 24px;
-}
-.home-v3 .h-porta-fria {
-  background: var(--h-tinta);
-  color: var(--h-papel);
-}
-.home-v3 .h-porta-fria:hover {
-  background: var(--h-navy);
-  color: var(--h-papel);
-}
-.home-v3 .h-porta-quente {
-  border: 1.5px solid #cfc7b2;
-  color: var(--h-tinta);
-  background: rgba(251, 249, 243, 0.7);
-}
-.home-v3 .h-porta-quente:hover {
-  border-color: var(--h-tinta);
-  color: var(--h-tinta);
-}
 
 /* ------------------------------------------------------------- revelação ---
    `data-reveal` → estado final por CSS; quem avisa que entrou na tela é a ilha
@@ -806,13 +771,7 @@
   /* §43.9 — o eco dos 2 botões na primeira dobra: no celular quem carrega a
      ação é a `.barra-cta` fixa (globals.css), então o par do hero seria o 2º
      par na mesma tela. Mesma decisão que já vale pra home antiga (`.hero-cta`). */
-  .home-v3 .h-hero-acoes {
-    display: none;
-  }
-  .home-v3 .h-hero-rodape {
-    justify-content: flex-start;
-  }
-}
+    }
 
 @media (max-width: 900px) {
   .home-v3 .h-editorial,
@@ -826,9 +785,65 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 8px;
   }
+  /* NO CELULAR a composição de tela cheia não se sustenta, e é medida, não
+     gosto: a peça é quadrada, então 14 colunas em 390 px dão uma malha de
+     ~307 px de altura — ela não cobre um hero de 700 px sem a peça virar
+     ruído. Aqui o campo entra EM FLUXO, como faixa, e o texto vem abaixo; as
+     peças lisas continuam onde estão (o `quiet` é proporcional à malha, não à
+     tela), então a faixa nasce com respiro em cima e embaixo. */
   .home-v3 .h-hero {
+    height: auto;
     min-height: 0;
-    grid-template-rows: minmax(150px, 26svh) auto;
+    padding-top: 84px;
+    display: flex;
+    flex-direction: column;
+  }
+  .home-v3 .h-malha-larga {
+    display: none;
+  }
+  /* Em fluxo, não absoluta: é ela que dá altura à faixa do celular (a versão
+     larga é absoluta porque cobre um hero de tela cheia). */
+  .home-v3 .h-malha-estreita {
+    display: block;
+    position: relative;
+    inset: auto;
+  }
+  .home-v3 .h-hero-campo {
+    position: relative;
+    inset: auto;
+  }
+  /* Peça QUADRADA na faixa do celular: a malha estreita não tem faixa lisa, é
+     azulejo puro, e a altura dela sai do próprio tamanho da peça. */
+  .home-v3 .h-malha-estreita .pano-hero {
+    height: auto;
+    grid-template-rows: none;
+  }
+  .home-v3 .h-malha-estreita .pano-hero > div {
+    aspect-ratio: 1;
+  }
+  .home-v3 .h-frente-pano {
+    position: absolute;
+    inset: 0;
+  }
+  .home-v3 .h-frente-pano[data-i="0"] {
+    position: relative;
+  }
+  .home-v3 .h-hero-texto,
+  .home-v3 .h-nav {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    max-width: none;
+    padding-inline: var(--h-gutter);
+    margin-top: 32px;
+  }
+  .home-v3 .h-nav {
+    margin: 26px 0 40px;
+    justify-content: flex-start;
+  }
+  .home-v3 > header.topo.menu {
+    position: relative;
   }
 }
 
@@ -867,19 +882,4 @@
 }
 .home-v3 .h-fecho-antes a:hover {
   color: var(--h-ink);
-}
-
-/* O glifo do WhatsApp (components/athos/IconeWhats) tira o tamanho do CSS do
-   botão em que estiver — nos botões do site quem o dimensiona é o
-   `.btn-zap svg` do globals.css, e estes botões são outros. Sem isto o SVG
-   assume o tamanho intrínseco e empurra o rótulo pra duas linhas. */
-.home-v3 .c-btn-quente svg,
-.home-v3 .h-porta-quente svg {
-  width: 1.15em;
-  height: 1.15em;
-  flex: none;
-}
-.home-v3 .c-btn-quente,
-.home-v3 .h-porta-quente {
-  white-space: nowrap;
 }
