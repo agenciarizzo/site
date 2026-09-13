@@ -1,0 +1,1267 @@
+/* ============================================================================
+   LANDING v3 DE CIDADE — a folha da Brasília nova, importada SÓ pela página
+   dela (e, na replicação, pelas próximas praças).
+
+   Fonte: handoff `design_handoff_home_brasilia/AR Landing Brasilia.dc.html`
+   (rizzo-os), com as decisões do SITE_MANIFESTO_MAPA.md §44.15 (D4) e §44.21.
+
+   ⚠️ FORA DA ESCALA TIPOGRÁFICA DO SITE, DE PROPÓSITO — mesma exceção da home
+   v3 (§44.15 D4), estendida a esta página pelo §44.21-6: tinta azul-chumbo
+   `#323C46` e amarelo `#FFD200` no card "recomendado". A exceção está declarada
+   por caminho em `scripts/checar-tipografia.mjs`; menu e rodapé compartilhados
+   seguem nos tokens do `globals.css`, e o resto do site segue travado na escala.
+
+   ANIMAÇÃO (§44.21-11): revelação por CSS + a ilha `Reveals`; as barras dos
+   cases por `animation-timeline: view()` com fallback ESTÁTICO (quem não
+   suporta vê a barra já na altura final); o encaixe da exclusividade pela ilha
+   `Encaixe`. `prefers-reduced-motion` respeitado em todas.
+   ============================================================================ */
+
+.cidade-v3 {
+  --c-papel: #f4efe6;
+  --c-claro: #fbf9f3;
+  --c-fundo2: #e6e2da;
+  --c-pedra: #c9c3b6;
+  --c-hairline: #e3dcc8;
+  --c-tinta: #323c46;
+  --c-ink: #16130e;
+  --c-corpo: #3f4952;
+  --c-apoio: #4b5560;
+  --c-suave: #6b7580;
+  --c-neutro: #8b939b;
+  --c-navy: #0f172a;
+  --c-teal: #0097a7;
+  --c-ouro: #f0a400;
+  --c-amarelo: #ffd200;
+  --c-gutter: clamp(20px, 5vw, 56px);
+  --c-max: 1320px;
+
+  background: var(--c-papel);
+  color: var(--c-tinta);
+  overflow-x: hidden;
+}
+
+.cidade-v3 .c-wrap {
+  max-width: var(--c-max);
+  margin: 0 auto;
+  padding-inline: var(--c-gutter);
+}
+
+.cidade-v3 .pano-campo {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  width: 100%;
+  align-content: start;
+}
+.cidade-v3 .pano-campo > div {
+  aspect-ratio: 1;
+}
+
+/* ------------------------------------------------------------------ hero ---
+   Mesma solução da home v3: o azulejo é a primeira fileira da grade, o texto é
+   a segunda, sobre papel chapado. Tipografia nunca cai em cima de peça. */
+.cidade-v3 .c-hero {
+  position: relative;
+  min-height: min(100svh, 800px);
+  display: grid;
+  grid-template-rows: minmax(140px, 1fr) auto;
+  overflow: hidden;
+}
+.cidade-v3 .c-hero-campo {
+  position: relative;
+  grid-row: 1;
+  overflow: hidden;
+}
+.cidade-v3 .c-hero-base {
+  position: absolute;
+  inset: 0 0 auto;
+}
+/* O painel de acento: o retângulo que o tweak `pano` declara (lib/athos/panos). */
+.cidade-v3 .c-hero-painel {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  overflow: hidden;
+  background: var(--c-tinta);
+}
+.cidade-v3 .c-hero-texto {
+  grid-row: 2;
+  padding-block: clamp(28px, 4vw, 48px) clamp(28px, 4vw, 54px);
+}
+.cidade-v3 .c-hero h1 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  /* O H1 do protótipo pede Roboto Slab leve; o `layout.tsx` carrega 300, 700 e
+     800 (§44.21-6 — peso 300 é o mais leve que o next/font serve pra esta
+     família, e peso sintético está proibido). */
+  font-weight: 300;
+  font-size: clamp(2rem, 5.4vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: var(--c-tinta);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+.cidade-v3 .c-hero-lede {
+  margin: 20px 0 0;
+  max-width: 46rem;
+  font-size: clamp(1rem, 1.5vw, 1.14rem);
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--c-corpo);
+  text-wrap: pretty;
+}
+
+/* ----------------------------------------------------------------- portas --- */
+.cidade-v3 .c-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.cidade-v3 .c-btn-fria,
+.cidade-v3 .c-btn-quente,
+.cidade-v3 .c-pacote-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 15px 24px;
+}
+.cidade-v3 .c-btn-fria {
+  background: var(--c-tinta);
+  color: var(--c-papel);
+}
+.cidade-v3 .c-btn-fria:hover {
+  background: var(--c-navy);
+  color: var(--c-papel);
+}
+.cidade-v3 .c-btn-quente {
+  border: 1.5px solid #cfc7b2;
+  color: var(--c-tinta);
+  background: rgba(251, 249, 243, 0.72);
+}
+.cidade-v3 .c-btn-quente:hover {
+  border-color: var(--c-tinta);
+  color: var(--c-tinta);
+}
+
+/* ----------------------------------------------------------------- tarja --- */
+.cidade-v3 .c-tarja {
+  background: var(--c-tinta);
+  overflow: hidden;
+  padding: 14px 0;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.cidade-v3 .c-tarja-trilho {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 32px;
+  animation: c-marquee 52s linear infinite;
+}
+.cidade-v3 .c-tarja span {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d6dbe0;
+  white-space: nowrap;
+}
+.cidade-v3 .c-tarja span i {
+  width: 6px;
+  height: 6px;
+  background: var(--c-amarelo);
+  display: inline-block;
+  flex: none;
+}
+@keyframes c-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------------------------------------------------------------- seções --- */
+.cidade-v3 .c-sec {
+  padding-block: clamp(60px, 8vw, 112px);
+}
+.cidade-v3 .c-sec-clara {
+  background: var(--c-claro);
+  border-block: 1px solid var(--c-hairline);
+}
+.cidade-v3 .c-kicker {
+  margin: 0 0 14px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-suave);
+}
+.cidade-v3 h2 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  color: var(--c-tinta);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+.cidade-v3 .c-acento {
+  color: var(--c-teal);
+}
+.cidade-v3 .c-lede,
+.cidade-v3 .c-prosa p {
+  margin: 20px 0 0;
+  max-width: 44rem;
+  font-size: clamp(0.98rem, 1.3vw, 1.1rem);
+  line-height: 1.72;
+  font-weight: 300;
+  color: var(--c-corpo);
+  text-wrap: pretty;
+}
+.cidade-v3 .c-nota {
+  margin: 28px 0 0;
+  max-width: 52rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--c-suave);
+}
+.cidade-v3 .c-nota a,
+.cidade-v3 .c-prosa a {
+  color: var(--c-teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cidade-v3 .c-link-seco {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-tinta);
+  border-bottom: 1px solid #cfc7b2;
+  padding-bottom: 4px;
+}
+.cidade-v3 .c-link-seco:hover {
+  border-color: var(--c-tinta);
+}
+
+/* -------------------------------------------------------- "como" da praça --- */
+.cidade-v3 .c-como {
+  list-style: none;
+  margin: 48px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 1px;
+  background: var(--c-hairline);
+  border: 1px solid var(--c-hairline);
+}
+.cidade-v3 .c-como li {
+  background: var(--c-papel);
+  padding: 26px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cidade-v3 .c-como-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--c-ouro);
+}
+.cidade-v3 .c-como h3,
+.cidade-v3 .c-serv h3,
+.cidade-v3 .c-prova-grupo h3 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.28;
+  color: var(--c-ink);
+}
+.cidade-v3 .c-como p {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--c-apoio);
+  text-wrap: pretty;
+}
+
+/* ----------------------------------------------------------------- prova ---
+   Grade "azulejo": rejunte de 1px com o chumbo por trás (Design Tokens do
+   handoff — "grades de prova: gap 1px com fundo #323C46 fazendo o rejunte"). */
+.cidade-v3 .c-prova-grade {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 1px;
+  background: var(--c-tinta);
+  border: 1px solid var(--c-tinta);
+}
+.cidade-v3 .c-prova-grupo {
+  background: var(--c-claro);
+  padding: 22px 20px 24px;
+}
+.cidade-v3 .c-prova-grupo ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 0.94rem;
+  font-weight: 300;
+  color: var(--c-apoio);
+}
+.cidade-v3 .c-prova-grupo a {
+  color: var(--c-teal);
+}
+.cidade-v3 .c-prova-grupo a:hover {
+  color: var(--c-ink);
+}
+
+/* -------------------------------------------------------- exclusividade ---
+   Duas cenas de 6×3 peças. "Sem agência" treme e nunca assenta; "com agência"
+   se monta até a peça-alvo travar em amarelo, exatamente encaixada.
+   O estado FINAL é o default do CSS — sem JS a cena nasce encaixada, que é a
+   mensagem. A ilha `Encaixe` é quem zera e anima. */
+.cidade-v3 .c-exclusividade {
+  --encaixe: 1;
+  --tremor: 0;
+  background: var(--c-fundo2);
+}
+.cidade-v3 .c-excl-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+.cidade-v3 .c-excl-cenas {
+  display: grid;
+  gap: 22px;
+}
+.cidade-v3 .c-cena-grade {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+  background: var(--c-claro);
+  padding: 10px;
+  border: 1px solid var(--c-hairline);
+}
+.cidade-v3 .c-cena-grade i {
+  aspect-ratio: 1;
+  display: block;
+}
+/* sem agência: triângulos cinza em direções aleatórias, sempre fora de lugar */
+.cidade-v3 .c-cena-sem i {
+  background: var(--c-neutro);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  transform: translate(calc(var(--tremor) * 3px - 1.5px), calc(var(--tremor) * -3px + 1.5px));
+}
+.cidade-v3 .c-cena-sem i[data-k="1"] {
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+.cidade-v3 .c-cena-sem i[data-k="2"] {
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+.cidade-v3 .c-cena-sem i[data-k="3"] {
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  opacity: 0.55;
+}
+/* com agência: a grade fica vazia e só a peça-alvo encaixa, em amarelo */
+.cidade-v3 .c-cena-com i {
+  background: transparent;
+  border: 1px dashed rgba(50, 60, 70, 0.18);
+}
+.cidade-v3 .c-cena-com i[data-alvo] {
+  border: 0;
+  background: linear-gradient(135deg, var(--c-tinta) 0 50%, var(--c-amarelo) 50% 100%);
+  transform: scale(calc(0.4 + 0.6 * var(--encaixe))) rotate(calc((1 - var(--encaixe)) * -35deg));
+  opacity: calc(0.25 + 0.75 * var(--encaixe));
+}
+.cidade-v3 .c-cena figcaption {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--c-apoio);
+}
+.cidade-v3 .c-cena figcaption b {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-tinta);
+}
+
+/* -------------------------------------------------------------- serviços --- */
+.cidade-v3 .c-serv-grade {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 1px;
+  background: var(--c-hairline);
+  border: 1px solid var(--c-hairline);
+}
+.cidade-v3 .c-serv {
+  background: var(--c-papel);
+  padding: 28px 26px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--c-tinta);
+  transition: background 0.3s;
+}
+.cidade-v3 .c-serv:hover {
+  background: var(--c-amarelo);
+}
+.cidade-v3 .c-serv-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--c-ouro);
+}
+.cidade-v3 .c-serv:hover .c-serv-num,
+.cidade-v3 .c-serv:hover .c-ler {
+  color: var(--c-tinta);
+}
+.cidade-v3 .c-serv-frase {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--c-apoio);
+  flex: 1;
+}
+.cidade-v3 .c-serv-recebe {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--c-tinta);
+}
+.cidade-v3 .c-ler {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+}
+
+/* -------------------------------------------------------------- pacotes ---
+   O card "recomendado" é o único amarelo chapado da página (§44.21-6: o
+   amarelo do handoff fica — é fundo de card, não motivo sobre papel, então a
+   A2 do pano não se aplica aqui). */
+.cidade-v3 .c-pacotes {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+.cidade-v3 .c-pacote {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 24px 26px;
+  background: var(--c-fundo2);
+  color: var(--c-tinta);
+  border: 1px solid var(--c-hairline);
+}
+.cidade-v3 .c-pacote[data-tema="amarelo"] {
+  background: var(--c-amarelo);
+  border-color: var(--c-amarelo);
+}
+.cidade-v3 .c-pacote[data-tema="escuro"] {
+  background: var(--c-tinta);
+  color: var(--c-papel);
+  border-color: var(--c-tinta);
+}
+.cidade-v3 .c-pacote-tag {
+  position: absolute;
+  top: -11px;
+  left: 24px;
+  background: var(--c-tinta);
+  color: var(--c-amarelo);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+}
+.cidade-v3 .c-pacote-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  opacity: 0.6;
+}
+.cidade-v3 .c-pacote h3 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.cidade-v3 .c-pacote-preco {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.cidade-v3 .c-pacote-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  font-weight: 300;
+  opacity: 0.86;
+}
+.cidade-v3 .c-pacote-rot {
+  margin: 6px 0 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+.cidade-v3 .c-pacote ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-weight: 300;
+}
+.cidade-v3 .c-pacote li::before {
+  content: "· ";
+  opacity: 0.55;
+}
+.cidade-v3 .c-pacote-btn {
+  margin-top: 14px;
+  justify-content: center;
+  background: var(--c-tinta);
+  color: var(--c-papel);
+  font-size: 0.88rem;
+  padding: 13px 18px;
+}
+.cidade-v3 .c-pacote[data-tema="escuro"] .c-pacote-btn {
+  background: var(--c-papel);
+  color: var(--c-tinta);
+}
+
+/* ---------------------------------------------------------------- cases --- */
+.cidade-v3 .c-cases {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 18px;
+}
+.cidade-v3 .c-case {
+  background: var(--c-papel);
+  border: 1px solid var(--c-hairline);
+  padding: 26px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cidade-v3 .c-case-meta {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-suave);
+}
+.cidade-v3 .c-case-frase {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.06rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--c-ink);
+}
+.cidade-v3 .c-case-heroi {
+  margin: 6px 0 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 1;
+  color: var(--c-tinta);
+}
+.cidade-v3 .c-case-rotulo {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-weight: 300;
+  color: var(--c-apoio);
+}
+
+/* Barras: a altura é DADO (`--alt`); a subida é `view()` com fallback estático
+   — sem suporte, a barra já nasce na altura final (o número nunca some). */
+.cidade-v3 .c-barras {
+  margin: 16px 0 6px;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+.cidade-v3 .c-barra {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.cidade-v3 .c-barra-caixa {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 96px;
+}
+.cidade-v3 .c-barra-valor {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--c-tinta);
+}
+.cidade-v3 .c-barra-haste {
+  width: 100%;
+  height: var(--alt);
+  min-height: 5px;
+  background: var(--c-pedra);
+  transform-origin: bottom;
+}
+.cidade-v3 .c-barra[data-destaque] .c-barra-haste {
+  background: var(--c-amarelo);
+}
+.cidade-v3 .c-barra-rotulo {
+  font-size: 0.66rem;
+  line-height: 1.3;
+  font-weight: 300;
+  color: var(--c-suave);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+@supports (animation-timeline: view()) {
+  .cidade-v3 .c-barra-haste {
+    animation: c-cresce linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 38%;
+  }
+  @keyframes c-cresce {
+    from {
+      transform: scaleY(0.04);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+}
+
+.cidade-v3 .c-case-apoio {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--c-apoio);
+}
+.cidade-v3 .c-case-periodo,
+.cidade-v3 .c-case-nota {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  color: var(--c-suave);
+}
+.cidade-v3 .c-disclaimer {
+  margin: 32px 0 0;
+  max-width: 64rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--c-suave);
+}
+
+/* ------------------------------------------------------------ resultado --- */
+.cidade-v3 .c-result {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+.cidade-v3 .c-metrica {
+  border-left: 4px solid var(--c-amarelo);
+  padding-left: 22px;
+}
+.cidade-v3 .c-metrica-num {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--c-tinta);
+}
+.cidade-v3 .c-metrica-rot {
+  margin: 12px 0 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--c-tinta);
+}
+.cidade-v3 .c-metrica-metodo {
+  margin: 10px 0 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--c-suave);
+}
+
+/* -------------------------------------------------------------- RizzoOS --- */
+.cidade-v3 .c-os {
+  background: var(--c-navy);
+  overflow: hidden;
+}
+.cidade-v3 .c-os-tira {
+  padding: 6px 6px 0;
+}
+.cidade-v3 .c-os-tira .pano-campo {
+  gap: 6px;
+}
+.cidade-v3 .c-os-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
+  gap: clamp(28px, 4vw, 48px);
+  align-items: start;
+  padding-block: clamp(56px, 7vw, 88px);
+}
+.cidade-v3 .c-os-marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cidade-v3 .c-os-marca i {
+  width: 5px;
+  height: 38px;
+  background: var(--c-amarelo);
+  flex: none;
+}
+.cidade-v3 .c-os h2 {
+  font-family: var(--font-geist), system-ui, sans-serif;
+  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #f1f5f9;
+}
+.cidade-v3 .c-os-leve {
+  font-weight: 300;
+}
+.cidade-v3 .c-os-forte {
+  font-weight: 700;
+  color: var(--c-amarelo);
+}
+.cidade-v3 .c-os-beta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 9px;
+}
+.cidade-v3 .c-os p {
+  margin: 0;
+  max-width: 42rem;
+  font-size: clamp(1rem, 1.4vw, 1.14rem);
+  line-height: 1.7;
+  font-weight: 300;
+  color: #cbd5e1;
+  text-wrap: pretty;
+}
+.cidade-v3 .c-os-link {
+  display: inline-block;
+  margin-top: 24px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-amarelo);
+  border-bottom: 1px solid rgba(255, 210, 0, 0.4);
+  padding-bottom: 4px;
+}
+.cidade-v3 .c-os-link:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+/* ---------------------------------------------------------- depoimentos --- */
+.cidade-v3 .c-deps {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 18px;
+}
+.cidade-v3 .c-dep {
+  margin: 0;
+  background: var(--c-papel);
+  border: 1px solid var(--c-hairline);
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cidade-v3 .c-dep blockquote {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--c-ink);
+}
+.cidade-v3 .c-dep figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--c-suave);
+}
+.cidade-v3 .c-dep figcaption b {
+  font-weight: 600;
+  color: var(--c-tinta);
+}
+.cidade-v3 .c-dep a {
+  margin-top: 6px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+}
+
+/* ----------------------------------------------------------------- sobre --- */
+.cidade-v3 .c-sobre {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+.cidade-v3 .c-sobre-pano {
+  border: 1px solid var(--c-hairline);
+  overflow: hidden;
+  max-height: 260px;
+}
+.cidade-v3 .c-pilares {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cidade-v3 .c-pilares span {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--c-ouro);
+}
+.cidade-v3 .c-pilares h3 {
+  margin: 4px 0 4px;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.04rem;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+.cidade-v3 .c-pilares p {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--c-apoio);
+}
+.cidade-v3 .c-timeline {
+  list-style: none;
+  margin: 52px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+  gap: 1px;
+  background: var(--c-hairline);
+  border: 1px solid var(--c-hairline);
+}
+.cidade-v3 .c-timeline li {
+  background: var(--c-papel);
+  padding: 20px 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  font-weight: 300;
+  color: var(--c-apoio);
+}
+.cidade-v3 .c-timeline b {
+  font-weight: 600;
+  color: var(--c-tinta);
+}
+.cidade-v3 .c-timeline-ano {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--c-ouro);
+}
+
+/* ------------------------------------------------- regiões e especialidades --- */
+.cidade-v3 .c-regioes,
+.cidade-v3 .c-esps {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cidade-v3 .c-regioes li,
+.cidade-v3 .c-esps li a {
+  display: inline-flex;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--c-apoio);
+  border: 1px solid var(--c-hairline);
+  padding: 9px 14px;
+}
+.cidade-v3 .c-esps li a:hover {
+  background: var(--c-tinta);
+  border-color: var(--c-tinta);
+  color: var(--c-papel);
+}
+
+/* --------------------------------------------------------------- vinheta --- */
+.cidade-v3 .c-vinheta {
+  position: relative;
+  background: var(--c-tinta);
+  padding-block: clamp(48px, 6vw, 84px);
+  overflow: hidden;
+}
+.cidade-v3 .c-vinheta-faixa {
+  position: absolute;
+  inset: 0 0 auto;
+  opacity: 0.28;
+}
+.cidade-v3 .c-vinheta .c-wrap {
+  position: relative;
+}
+.cidade-v3 .c-vinheta h2 {
+  color: var(--c-papel);
+  max-width: 18ch;
+}
+.cidade-v3 .c-vinheta .c-acento {
+  color: var(--c-amarelo);
+}
+.cidade-v3 .c-vinheta .c-btn-fria {
+  background: var(--c-amarelo);
+  color: var(--c-tinta);
+}
+.cidade-v3 .c-vinheta .c-btn-quente {
+  border-color: rgba(244, 239, 230, 0.5);
+  color: var(--c-papel);
+  background: transparent;
+}
+.cidade-v3 .c-vinheta .c-btn-quente:hover {
+  border-color: var(--c-papel);
+  color: var(--c-papel);
+}
+
+/* ------------------------------------------------------------- portfólio --- */
+.cidade-v3 .c-pecas {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 18px;
+}
+.cidade-v3 .c-peca {
+  background: var(--c-claro);
+  border: 1px solid var(--c-hairline);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.cidade-v3 .c-peca img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  background: #f1eee4;
+  border-bottom: 1px solid var(--c-hairline);
+}
+.cidade-v3 .c-peca-corpo {
+  padding: 20px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.cidade-v3 .c-peca-meta {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8a8264;
+}
+.cidade-v3 .c-peca h3 {
+  margin: 0;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--c-ink);
+}
+.cidade-v3 .c-peca p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--c-apoio);
+}
+
+/* ------------------------------------------------------------------- FAQ --- */
+.cidade-v3 .c-faq-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.5fr);
+  gap: clamp(28px, 4vw, 48px);
+  align-items: start;
+}
+.cidade-v3 .c-faq details {
+  border-bottom: 1px solid var(--c-hairline);
+}
+.cidade-v3 .c-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+  font-size: 1.02rem;
+  font-weight: 400;
+  color: var(--c-tinta);
+  cursor: pointer;
+  list-style: none;
+}
+.cidade-v3 .c-faq summary::-webkit-details-marker {
+  display: none;
+}
+.cidade-v3 .c-faq summary:hover {
+  color: var(--c-teal);
+}
+.cidade-v3 .c-faq summary i {
+  color: var(--c-ouro);
+  font-size: 0.86rem;
+  font-style: normal;
+  flex: none;
+  transition: transform 0.25s ease;
+}
+.cidade-v3 .c-faq details[open] summary i {
+  transform: rotate(90deg);
+}
+.cidade-v3 .c-faq details p {
+  margin: 0 0 20px;
+  max-width: 42rem;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--c-apoio);
+  text-wrap: pretty;
+}
+
+/* ----------------------------------------------------------------- fecho --- */
+.cidade-v3 .c-fecho {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(56px, 8vw, 104px);
+}
+.cidade-v3 .c-fecho-campo {
+  position: absolute;
+  inset: 0;
+  opacity: 0.9;
+  overflow: hidden;
+}
+.cidade-v3 .c-fecho-painel {
+  position: relative;
+  background: var(--c-claro);
+  border: 1px solid var(--c-hairline);
+  box-shadow: 0 24px 60px rgba(22, 19, 14, 0.14);
+  padding: clamp(30px, 5vw, 56px);
+}
+.cidade-v3 .c-fecho-portas {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 26px;
+}
+.cidade-v3 .c-fecho-portas .c-acoes {
+  margin-top: 0;
+}
+.cidade-v3 .c-fecho-portas p {
+  margin: 12px 0 0;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--c-apoio);
+}
+.cidade-v3 .c-quando-nao {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--c-hairline);
+}
+.cidade-v3 .c-quando-nao h3 {
+  margin: 0 0 14px;
+  font-family: var(--font-slab), Rockwell, Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+.cidade-v3 .c-quando-nao p {
+  margin: 0 0 14px;
+  max-width: 46rem;
+  font-size: 0.94rem;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--c-apoio);
+  text-wrap: pretty;
+}
+.cidade-v3 .c-quando-nao p:last-child {
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------- revelação --- */
+.cidade-v3[data-reveal-on] [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.85s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--reveal-i, 0) * 100ms);
+}
+.cidade-v3[data-reveal-on] [data-reveal][data-visivel] {
+  opacity: 1;
+  transform: none;
+}
+
+/* A abertura "sequencia" do tweak: as peças do hero entram uma a uma. Em
+   "estatica" o campo nasce pronto — é o outro valor do enum, não um bug. */
+.cidade-v3[data-abertura="sequencia"] .c-hero-campo .pano-campo > div {
+  animation: c-peca 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(sibling-index() * 9ms);
+}
+@keyframes c-peca {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------- mobile --- */
+@media (max-width: 760px) {
+  /* §43.9 — no celular quem carrega a ação é a `.barra-cta` fixa do
+     globals.css; o par do hero seria o 2º par na mesma tela. */
+  .cidade-v3 .c-hero .c-acoes {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .cidade-v3 .c-excl-grade,
+  .cidade-v3 .c-result,
+  .cidade-v3 .c-sobre,
+  .cidade-v3 .c-os-grade,
+  .cidade-v3 .c-faq-grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cidade-v3 .c-hero {
+    min-height: 0;
+    grid-template-rows: minmax(140px, 24svh) auto;
+  }
+}
+
+/* ------------------------------------------------- prefers-reduced-motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .cidade-v3 .c-tarja-trilho,
+  .cidade-v3[data-abertura="sequencia"] .c-hero-campo .pano-campo > div,
+  .cidade-v3 .c-barra-haste {
+    animation: none;
+  }
+  .cidade-v3 .c-faq summary i,
+  .cidade-v3 .c-cena-com i[data-alvo],
+  .cidade-v3[data-reveal-on] [data-reveal] {
+    transition: none;
+  }
+  .cidade-v3[data-reveal-on] [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+  .cidade-v3 .c-cena-sem i {
+    transform: none;
+  }
+}
+
+/* O glifo do WhatsApp (components/athos/IconeWhats) tira o tamanho do CSS do
+   botão em que estiver — nos botões do site quem o dimensiona é o
+   `.btn-zap svg` do globals.css, e estes botões são outros. Sem isto o SVG
+   assume o tamanho intrínseco e empurra o rótulo pra duas linhas. */
+.cidade-v3 .c-btn-quente svg,
+.cidade-v3 .h-porta-quente svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+.cidade-v3 .c-btn-quente,
+.cidade-v3 .h-porta-quente {
+  white-space: nowrap;
+}

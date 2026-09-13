@@ -868,3 +868,18 @@
 .home-v3 .h-fecho-antes a:hover {
   color: var(--h-ink);
 }
+
+/* O glifo do WhatsApp (components/athos/IconeWhats) tira o tamanho do CSS do
+   botão em que estiver — nos botões do site quem o dimensiona é o
+   `.btn-zap svg` do globals.css, e estes botões são outros. Sem isto o SVG
+   assume o tamanho intrínseco e empurra o rótulo pra duas linhas. */
+.home-v3 .c-btn-quente svg,
+.home-v3 .h-porta-quente svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+.home-v3 .c-btn-quente,
+.home-v3 .h-porta-quente {
+  white-space: nowrap;
+}

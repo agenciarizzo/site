@@ -9,15 +9,17 @@
 // (que é o fallback correto, mas não o desejado). O parallax e as barras, que
 // aparecem uma vez cada, é que vão de `scroll()`/`view()` com fallback.
 //
-// O que ela NÃO faz: renderizar conteúdo. Todo o texto da home é do servidor —
+// O que ela NÃO faz: renderizar conteúdo. Todo o texto da página é do servidor —
 // sem JS a página lê inteira, só não anima. Por isso o `data-reveal-on` é
 // escrito AQUI, no efeito: é ele que liga o estado inicial (opacidade 0) no
 // CSS, e ele só existe se o script rodou.
 import { useEffect } from "react";
 
-export function Reveals() {
+/** `raiz` = o seletor do container da página (a home v3 e a landing v3 usam o
+ *  mesmo mecanismo; o default mantém a home funcionando sem passar nada). */
+export function Reveals({ raiz: seletor = ".home-v3" }: { raiz?: string } = {}) {
   useEffect(() => {
-    const raiz = document.querySelector<HTMLElement>(".home-v3");
+    const raiz = document.querySelector<HTMLElement>(seletor);
     if (!raiz) return;
 
     const alvos = [...raiz.querySelectorAll<HTMLElement>("[data-reveal]")];
@@ -44,7 +46,7 @@ export function Reveals() {
     );
     alvos.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [seletor]);
 
   return null;
 }

@@ -7,7 +7,11 @@ import { GuardaOrigem } from "@/components/GuardaOrigem";
 
 // Tipografia oficial da Linha Athos (self-hosted via next/font — zero request externo):
 // Roboto Slab (display) · Geist (voz única das duas marcas) · JetBrains Mono (kickers).
-const slab = Roboto_Slab({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-slab", display: "swap" });
+// Roboto Slab ganhou o peso 300 em 2026-09-13: o H1 da landing v3 de cidade
+// pede display LEVE (§44.21-6 do SITE_MANIFESTO_MAPA.md). 300 é o mais leve que
+// o next/font serve nesta família — peso sintético está proibido, e é por isso
+// que o peso entra aqui em vez de um `font-weight: 200` sem face por trás.
+const slab = Roboto_Slab({ subsets: ["latin"], weight: ["300", "700", "800"], variable: "--font-slab", display: "swap" });
 const geist = Geist({ subsets: ["latin"], weight: ["300", "400", "500", "700", "800"], variable: "--font-geist", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-mono", display: "swap" });
 
