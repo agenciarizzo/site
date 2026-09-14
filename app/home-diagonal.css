@@ -402,24 +402,51 @@
 .dg .menu-grandes .amarelo {
   color: var(--amarelo);
 }
+/* Cascata estilo UOL (achado #1, §44.24): coluna 1 = as 5 seções, coluna 2 =
+   só o conteúdo da seção marcada no caixote de rádio (zero JS — o mesmo
+   padrão do checkbox que abre/fecha o menu inteiro). */
 .dg .menu-listas {
   border-left: 1px solid rgba(244, 239, 230, 0.2);
   padding-left: 48px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: 32px;
-  align-content: start;
+  display: flex;
+  gap: 40px;
+  min-height: 0;
 }
-.dg .menu-listas h3 {
-  margin: 0 0 16px;
+.dg .menu-grupo-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.dg .menu-grupos-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: none;
+  width: 11rem;
+}
+.dg .menu-grupos-col label {
+  cursor: pointer;
+  padding: 10px 0 10px 14px;
+  border-left: 2px solid transparent;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  opacity: 0.7;
   color: var(--papel);
+  opacity: 0.55;
+  transition: opacity 0.2s, border-color 0.2s, color 0.2s;
 }
-.dg .menu-listas ul {
+.dg .menu-grupos-col label:hover {
+  opacity: 0.85;
+}
+.dg .menu-conteudo-col {
+  flex: 1;
+  min-width: 0;
+}
+.dg .menu-grupo-painel {
+  display: none;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -427,11 +454,31 @@
   font-weight: 600;
   line-height: 1.75;
 }
-.dg .menu-listas a {
+.dg .menu-grupo-painel-duas {
+  columns: 2;
+  column-gap: 24px;
+}
+.dg .menu-grupo-painel a {
   color: var(--papel);
 }
-.dg .menu-listas a:hover {
+.dg .menu-grupo-painel a:hover {
   color: var(--amarelo);
+}
+#mg-frentes:checked ~ .menu-grupos-col label[for="mg-frentes"],
+#mg-quem:checked ~ .menu-grupos-col label[for="mg-quem"],
+#mg-cidades:checked ~ .menu-grupos-col label[for="mg-cidades"],
+#mg-esp:checked ~ .menu-grupos-col label[for="mg-esp"],
+#mg-casa:checked ~ .menu-grupos-col label[for="mg-casa"] {
+  opacity: 1;
+  border-left-color: var(--amarelo);
+  color: var(--amarelo);
+}
+#mg-frentes:checked ~ .menu-conteudo-col [data-grupo="frentes"],
+#mg-quem:checked ~ .menu-conteudo-col [data-grupo="quem"],
+#mg-cidades:checked ~ .menu-conteudo-col [data-grupo="cidades"],
+#mg-esp:checked ~ .menu-conteudo-col [data-grupo="esp"],
+#mg-casa:checked ~ .menu-conteudo-col [data-grupo="casa"] {
+  display: block;
 }
 /* No telefone o painel era DUAS colunas dentro de 327px — 1.893px de conteúdo
    espremidos numa tela de 900px (medido). Vira coluna única de largura cheia,
@@ -441,13 +488,41 @@
     width: 100vw;
     grid-template-columns: 1fr;
     gap: 32px;
-    padding: 92px 24px 40px;
+    /* mesma folga do `.rodape` (linha ~264): a barra do polegar é fixa e
+       cobre o fim da tela por cima do painel também. */
+    padding: 92px 24px 104px;
   }
   .dg .menu-listas {
     border-left: 0;
     padding-left: 0;
     border-top: 1px solid rgba(244, 239, 230, 0.2);
     padding-top: 28px;
+    flex-direction: column;
+    gap: 20px;
+  }
+  /* A coluna 1 vira uma tira horizontal de abas — não cabe lado a lado com a
+     coluna 2 numa tela de 342px de conteúdo. */
+  .dg .menu-grupos-col {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    gap: 8px 4px;
+  }
+  .dg .menu-grupos-col label {
+    padding: 6px 12px;
+    border: 1px solid rgba(244, 239, 230, 0.3);
+    border-left-width: 1px;
+    border-radius: 999px;
+  }
+  #mg-frentes:checked ~ .menu-grupos-col label[for="mg-frentes"],
+  #mg-quem:checked ~ .menu-grupos-col label[for="mg-quem"],
+  #mg-cidades:checked ~ .menu-grupos-col label[for="mg-cidades"],
+  #mg-esp:checked ~ .menu-grupos-col label[for="mg-esp"],
+  #mg-casa:checked ~ .menu-grupos-col label[for="mg-casa"] {
+    border-color: var(--amarelo);
+  }
+  .dg .menu-grupo-painel-duas {
+    columns: 1;
   }
   .dg .menu-fecha {
     right: 20px;
@@ -529,7 +604,11 @@
 .dg .geo {
   position: relative;
   align-self: center;
-  width: min(48vw, calc((100svh - 88px) * var(--cols) / var(--rows)));
+  /* §3.1: min(48vw, 100svh−88px, altura-do-texto+32px) × cols/rows — o 3º
+     termo (`--txt-h`, medido em Motor.tsx) trava o mosaico na altura da
+     coluna de texto ao lado; sem JS cai nos dois primeiros, mesmo resultado
+     de antes. */
+  width: min(48vw, calc((100svh - 88px) * var(--cols) / var(--rows)), calc((var(--txt-h, 100svh) + 32px) * var(--cols) / var(--rows)));
   aspect-ratio: var(--cols) / var(--rows);
   display: grid;
   grid-template-columns: repeat(var(--cols), 1fr);

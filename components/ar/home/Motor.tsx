@@ -48,6 +48,17 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     const os = raiz.querySelector<HTMLElement>("[data-os-track]");
     const pf = raiz.querySelector<HTMLElement>("[data-pf-track]");
     const hero = raiz.querySelector<HTMLElement>(".capa");
+    const heroTexto = raiz.querySelector<HTMLElement>(".hero-texto");
+
+    // §3.1 do README: a largura do mosaico do hero é `min(48vw, 100svh-88px,
+    // altura-do-texto+32px) × cols/rows` — o 3º termo (que faltava no porte)
+    // é o que trava o mosaico na altura da coluna de texto ao lado. Sem ele o
+    // mosaico cresce livre e "não respeita a grid de alinhamento" (achado #3).
+    const medirTexto = () => {
+      if (heroTexto) raiz.style.setProperty("--txt-h", `${heroTexto.offsetHeight}px`);
+    };
+    medirTexto();
+    addEventListener("resize", medirTexto);
 
     // Arma a revelação: quem já está na tela na carga nasce visível (nunca
     // esconder conteúdo que o leitor já deveria estar lendo).
@@ -208,6 +219,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     return () => {
       removeEventListener("scroll", aoRolar);
       removeEventListener("resize", aoRolar);
+      removeEventListener("resize", medirTexto);
       if (quadro) cancelAnimationFrame(quadro);
       if (tempos) clearTimeout(tempos);
       io?.disconnect();
