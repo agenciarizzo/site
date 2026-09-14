@@ -170,6 +170,35 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
 
     let osIdx = -1;
     let pfIdx = -1;
+
+    // "precisa ajudar o portfólio para celular, está sem condições de ver —
+    // diminua as peças e foque em mostrar bem" (cliente, 14/09). Medido a 390
+    // na 1ª cena: as 4 peças saíam 255×836, 127×627, **64×209 e 64×209** — um
+    // mockup de site de 1200×500 renderizado com 64px de largura não é peça, é
+    // lasca. No estreito cada cena passa a mostrar UMA peça só, ocupando o
+    // palco inteiro: 6 cenas, 6 peças, cada uma legível. A escolhida é a de
+    // maior vaga da cena, que é justamente a que a curadoria do §44.25 pôs na
+    // frente. No desktop nada muda.
+    let cenasAtuais = cenas;
+    const medirCenas = () => {
+      const antes = cenasAtuais;
+      cenasAtuais =
+        innerWidth > 699
+          ? cenas
+          : cenas.map((cena) => {
+              const chaves = Object.keys(cena);
+              if (!chaves.length) return cena;
+              const maior = chaves.reduce((a, b) =>
+                cena[Number(a)][2] * cena[Number(a)][3] >= cena[Number(b)][2] * cena[Number(b)][3] ? a : b,
+              );
+              return { [Number(maior)]: [0, 0, 100, 100] as [number, number, number, number] };
+            });
+      // A cena só é reaplicada quando o índice muda; virar o telefone trocaria
+      // a malha sem redesenhar. Zerar o índice força o próximo quadro a repor.
+      if (antes !== cenasAtuais) pfIdx = -1;
+    };
+    medirCenas();
+    addEventListener("resize", medirCenas);
     let quadro = 0;
 
     const passo = () => {
@@ -200,7 +229,12 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
         const r = folha.getBoundingClientRect();
         const p = reduzido ? 1 : Math.min(1, Math.max(0, (vh * 0.95 - r.top) / (vh * 0.55)));
         const e = 1 - Math.pow(1 - p, 3);
-        for (const b of Array.from(g.querySelectorAll<HTMLElement>("[data-barra]"))) b.style.transform = `scaleY(${e.toFixed(3)})`;
+        // Escreve o PROGRESSO, não o transform: quem escolhe o eixo é o CSS.
+        // No desktop a barra é vertical (`scaleY`); no celular ela deita e vira
+        // `scaleX` (o gráfico empilha, ver `@media (max-width: 699px)`). Escrever
+        // `scaleY` aqui travava o eixo no JS e deixava a barra deitada crescendo
+        // pro lado errado.
+        for (const b of Array.from(g.querySelectorAll<HTMLElement>("[data-barra]"))) b.style.setProperty("--cresce", e.toFixed(3));
       }
 
       if (os) {
@@ -231,7 +265,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
         const idx = Math.min(cenas.length - 1, Math.floor(prog * cenas.length));
         if (idx !== pfIdx) {
           pfIdx = idx;
-          const cena = cenas[idx];
+          const cena = cenasAtuais[idx];
           for (const el of Array.from(pf.querySelectorAll<HTMLElement>("[data-pf-peca]"))) {
             const vaga = cena[Number(el.dataset.pfPeca)];
             const video = el.querySelector<HTMLVideoElement>("video");
@@ -348,6 +382,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       removeEventListener("resize", medirFone);
       removeEventListener("resize", medirPares);
       removeEventListener("resize", medirSecoes);
+      removeEventListener("resize", medirCenas);
       if (quadro) cancelAnimationFrame(quadro);
       if (tempos) clearTimeout(tempos);
       io?.disconnect();

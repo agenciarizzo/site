@@ -1374,9 +1374,29 @@
 }
 .dg .grafico-barras {
   flex: 1;
-  display: flex;
-  align-items: stretch;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  /* valor · pista · rótulo — as 3 linhas do desenho, compartilhadas por todas
+     as colunas via `subgrid`, que é o que mantém os valores no mesmo topo, as
+     barras na mesma base e os rótulos na mesma linha. */
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: clamp(10px, 2vw, 28px);
+}
+.dg .grafico-col {
+  display: grid;
+  grid-row: 1 / -1;
+  grid-template-rows: subgrid;
+  gap: 8px;
+  min-width: 0;
+}
+/* A pista é quem carrega a linha de base do gráfico (antes era um
+   `border-bottom` no container; com o rótulo dentro da coluna, a régua desce
+   pra pista, que é onde ela sempre pertenceu visualmente). */
+.dg .grafico-pista {
+  display: flex;
+  align-items: flex-end;
+  min-height: 0;
   border-bottom: 1px solid rgba(50, 60, 70, 0.25);
 }
 /* ⚠️ DESVIO DO PROTÓTIPO, por MEDIÇÃO (§44.21: a casa vence em medição e prova;
@@ -1390,14 +1410,7 @@
    conta de cliente em página pública: barra fora de proporção é número errado.
    A pista vira linha de grade própria (`1fr`), o valor ganha a linha `auto` em
    cima, e a barra passa a medir `--alt` da PISTA. Proporção exata nas 22. */
-.dg .grafico-barras > div {
-  flex: 1;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  align-items: end;
-  gap: 8px;
-  min-width: 0;
-}
+
 .dg .grafico-valor {
   margin: 0;
   font-size: clamp(13px, 1.3vw, 18px);
@@ -1406,18 +1419,16 @@
   white-space: nowrap;
 }
 .dg .barra {
+  width: 100%;
   height: var(--alt);
   background: var(--cor);
   transform-origin: bottom;
-  transform: scaleY(0);
+  /* O motor escreve só `--cresce` (0→1); o EIXO é decisão do CSS, porque no
+     celular a barra deita (ver o bloco de 699px). */
+  transform: scaleY(var(--cresce, 0));
   will-change: transform;
 }
-.dg .grafico-rotulos {
-  display: flex;
-  gap: clamp(10px, 2vw, 28px);
-}
-.dg .grafico-rotulos p {
-  flex: 1;
+.dg .grafico-rot {
   margin: 0;
   font-size: 11px;
   line-height: 1.35;
@@ -3122,7 +3133,7 @@
     transition: none;
   }
   .dg .barra {
-    transform: scaleY(1);
+    --cresce: 1;
   }
   .dg [data-reveal][data-armado] {
     opacity: 1;
@@ -3304,4 +3315,216 @@
 .dg .chamada-zap .zap {
   width: 1em;
   height: 1em;
+}
+
+/* ══════════════════════════════ celular: a rodada de 14/09 (§44.31) ════ */
+/* Sete consertos de celular pedidos pelo cliente, cada um com a causa medida
+   a 390×844 no build de produção. Um bloco só, no fim da folha, pra a origem
+   ficar num lugar — e não espalhada por sete media queries. */
+@media (max-width: 699px) {
+  /* 1 · "em cases os dados embaralham" — o gráfico DEITA. Em 4 a 6 colunas
+     de ~45px os valores saíam colados uns nos outros; empilhado, cada barra
+     ganha a largura inteira do card: rótulo em cima, pista e valor na mesma
+     linha. */
+  .dg .grafico-barras {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-rows: none;
+    gap: 14px;
+  }
+  .dg .grafico-col {
+    grid-row: auto;
+    grid-template-rows: none;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "rot rot"
+      "pista valor";
+    align-items: center;
+    gap: 4px 10px;
+  }
+  .dg .grafico-rot {
+    grid-area: rot;
+  }
+  .dg .grafico-pista {
+    grid-area: pista;
+    align-items: center;
+    height: 12px;
+    border-bottom: 0;
+    background: rgba(50, 60, 70, 0.1);
+  }
+  .dg .grafico-valor {
+    grid-area: valor;
+    font-size: 13px;
+  }
+  .dg .barra {
+    width: var(--alt);
+    height: 100%;
+    transform-origin: left;
+    transform: scaleX(var(--cresce, 0));
+  }
+
+  /* 1b · a peça do palco aparece INTEIRA. Com uma peça só ocupando o palco, o
+     `object-fit: cover` (certo pro mosaico de lascas) recortava um mockup de
+     1200×500 numa fatia vertical — mostrava grande e continuava sem mostrar a
+     peça. `contain` devolve o enquadramento original. */
+  .dg .pf-peca img,
+  .dg .pf-peca video {
+    object-fit: contain;
+  }
+  .dg .pf-palco,
+  .dg [data-pf-track] .pf-quadro {
+    background: transparent;
+  }
+
+  /* 1c · "o número 6 deve terminar como uma ficha ABAIXO das demais — ela está
+     maior e se sobrepõe". A pilha travada (`position: sticky` com `top`
+     crescendo 28px por ficha) é um deleite de desktop: ali as 6 fichas têm a
+     MESMA altura (648px, medido) e as bordas empilhadas aparecem. No celular
+     as alturas variam de 745 a 1.101px numa tela de 844 — a ficha 6 começa em
+     `top: 212` e cobre todas as outras, que é literalmente "se sobrepõe".
+     No estreito a pilha vira FLUXO: uma ficha embaixo da outra, cada uma
+     inteira, e a 6 termina por último como ele pediu. O escalonamento lateral
+     também sai (44px × 6 comiam 264px de uma tela de 390). */
+  .dg .case {
+    position: static;
+    top: auto;
+    margin-left: 0;
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.22);
+  }
+  .dg .cases-pilha {
+    gap: 20px;
+  }
+
+  /* 2 · "o CTA do wpp está estourado" — `flex: none` fazia a caixa das portas
+     medir `max-content` (389px) e vazar o pai de 342px em vez de quebrar a
+     linha. Medido: o "Falar no WhatsApp" saía cortado pela direita. */
+  .dg .chamada-portas {
+    flex: 1 1 100%;
+  }
+  .dg .chamada-caixa .btn,
+  .dg .chamada-zap {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  /* 3 · "o CTA abaixo é estourado no cel" — a barra fixa do polegar: o botão
+     media 306px e chegava a `right: 378` numa barra de 366. Agora ele encolhe
+     junto com a barra. */
+  .dg .polegar .btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-left: 18px;
+    padding-right: 18px;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  /* 4 · "após depoimento tem um buraco" — 120px de `padding-bottom` sobravam
+     depois da linha de fonte (medido: fonte terminava em 22.103 e a seção em
+     22.223). No desktop a folga é do desenho; no celular é buraco. */
+  .dg .depoimentos {
+    padding-bottom: 48px;
+  }
+
+  /* 5 · "colocar a relação de cidades mais abaixo do mapa, não está dando
+     leitura" — o letreiro cruzava o meio do território. Ele desce pro pé do
+     palco e ganha um véu por trás, que é o que devolve a leitura sobre o
+     desenho do mapa. */
+  .dg .cidades-palco {
+    height: 72vh;
+  }
+  .dg .cidades-letreiro {
+    bottom: 0;
+    padding: 10px 0;
+    background: linear-gradient(to bottom, rgba(201, 195, 182, 0) 0%, var(--bege-escuro) 22%, var(--bege-escuro) 100%);
+  }
+  .dg .cidades-mapa {
+    top: -36%;
+    height: 150%;
+  }
+}
+
+/* 6 · "a sessão do RizzoOS para celular precisa de outra abordagem — talvez
+   animação e redução de texto, sintetizando o conteúdo e focando no visual"
+   (cliente, 14/09). A causa medida: a partir de 899px o `.os-dir` — a coluna
+   do CELULAR — recebia `display:none`, então no telefone sobrava só a coluna
+   de TEXTO, em linhas de ~14 caracteres ("Você abre o / aplicativo e vê / o
+   que foi ao / ar…"), com 4.220px de seção. O bloco existe pra mostrar o
+   produto, e no celular ele mostrava tudo menos o produto.
+   A inversão: o aparelho volta e vira o herói (é ele que anima, trocando as 6
+   telas com a rolagem — a "animação" pedida); o cartão de depoimento, que é o
+   grosso do texto, sai; fica o título e uma linha por estado. */
+@media (max-width: 699px) {
+  .dg .os-grade {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    min-height: 0;
+  }
+  /* O TEXTO ENCOLHE ao essencial: fica o título do estado (o que muda a cada
+     rolagem) e some o par "o que o médico nos conta / no RizzoOS", que é o
+     bloco de citações e resposta longa — 4.220px de seção em linhas de ~14
+     caracteres. A síntese é o título + a tela. */
+  .dg .os-par,
+  .dg .os-lede,
+  .dg .os-cartao {
+    display: none;
+  }
+  .dg .os-esq {
+    order: 1;
+    gap: 8px;
+    flex: none;
+    text-align: center;
+    align-items: center;
+  }
+  .dg .os-caixa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .dg .os-item h3 {
+    font-size: clamp(19px, 5.2vw, 24px);
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  /* E O VISUAL VIRA O HERÓI: o aparelho volta (era `display:none` a partir de
+     899px), ocupa o resto do palco e anima trocando as 6 telas com a rolagem. */
+  .dg .os-dir {
+    display: block;
+    order: 2;
+    width: 100%;
+    flex: none;
+  }
+  /* Altura DETERMINÍSTICA, não percentual: `height:100%` num item flex sem
+     altura definida colapsa — medido, o aparelho saiu 24×24. `svh` resolve
+     sozinho e é o que o resto do palco já usa. */
+  .dg .fone {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    margin: 0 auto;
+    max-width: min(290px, 74vw);
+    height: min(52svh, 560px);
+  }
+  .dg .os-palco {
+    min-height: 0;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 96px;
+  }
+}
+
+/* "a partir de" acima do valor — linha própria, menor e discreta, pra não
+   competir com o número (ver Oferta.tsx pro porquê de o prefixo ser do
+   componente e não do dado). */
+.dg .pac-partir {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0.72;
 }

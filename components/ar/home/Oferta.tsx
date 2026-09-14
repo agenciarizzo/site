@@ -92,7 +92,15 @@ export function Pacotes() {
                 {p.num}
               </span>
               <h3>{p.nome}</h3>
-              <p className="pac-preco">{p.preco}</p>
+              {/* "nos valores colocar a partir de" (cliente, 14/09). O prefixo
+                  mora AQUI e não no dado: o `preco` segue sendo só o número, que
+                  é o que a calculadora e qualquer outra tela consomem — e a
+                  promessa de "a partir de" aparece nos 4 cards de uma vez, sem
+                  quatro strings pra divergir. */}
+              <p className="pac-preco">
+                <span className="pac-partir">a partir de</span>
+                {p.preco}
+              </p>
               <p className="pac-desc">{p.desc}</p>
               <div className="pac-rot">Escopo</div>
               <ul>
