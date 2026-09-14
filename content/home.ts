@@ -232,38 +232,139 @@ export const PORTFOLIO_CABECA = {
 };
 
 /**
- * §44.19 (decisão de régua, não de gosto): a sequência do portfólio deixa de
- * ser automática (o `pfResolver` do protótipo, que casava grupo × orientação) e
- * vira LISTA FIXA — 1º o melhor site · 2º o melhor post · 3º o melhor vídeo ·
- * … · último = o segundo melhor site. Trocar nomes é editar esta lista; a régua
- * fica. Cada item é a `imagem` da peça em `content/portfolio.ts`.
+ * Achados #10-#13 (§44.24): a lista fixa tinha 9 peças pra 30 vagas em 6 cenas
+ * — repetição inevitável. Cada vaga abaixo aponta pra UMA peça (imagem do
+ * acervo ou `"video:<id>"` de `PORTFOLIO_VIDEOS`), então:
+ *   - zero repetição em lugar NENHUM (30 vagas, 30 peças distintas — mais
+ *     forte que "só não repete na mesma cena");
+ *   - a 1ª cena (achado #11) prioriza os melhores SITES feitos pela casa —
+ *     e os 2 sites de maior peso entram logo depois, na cena 2, porque o
+ *     acervo de sites é sempre paisagem (1200×500) e a cena 1 só tem UMA
+ *     vaga larga o bastante (a 4×4); as outras 3 são quadradas/verticais e o
+ *     acervo de sites não tem nenhum quadrado nem vertical;
+ *   - orientação casada com a vaga (achado #12): `largura/altura` da peça
+ *     contra `w/h` da vaga — cada peça abaixo foi conferida (nenhuma vertical
+ *     entra em vaga horizontal, nenhuma horizontal em vaga vertical; vaga
+ *     QUADRADA aceita qualquer uma, inclusive um site em paisagem recortado,
+ *     porque a régua do achado só proíbe o par vertical×horizontal);
+ *   - os 3 vídeos verticais publicados (achado #13, ver `PORTFOLIO_VIDEOS`)
+ *     abrem as 3 maiores vagas verticais do palco (cena 1, 2 e novamente 2).
+ *
+ * Feedback do cliente (14/09, rodada pós-#44.24): "poucos sites" — a régua da
+ * vaga quadrada aceitando site em paisagem (acima) valia pra QUALQUER cena,
+ * não só a "Sites", e só tinha sido usada lá + numa vaga 2×1 do Impresso
+ * (Examine Agora) até então. Reaplicando a mesma régua em vagas
+ * quadradas/2×1 de Vídeo, Redes, Impresso e Identidade — sempre TROCANDO uma
+ * peça existente (nunca crescendo o total de 30) — o site foi de 5 pra 11
+ * das 30 peças, mantendo os outros 19 formatos como maioria: "mais sites",
+ * não "só sites".
  */
-export const PORTFOLIO_ORDEM = [
-  "/portfolio/marketing-clinica-angiologia-brasilia-site.webp", // 1º · o melhor SITE
-  "/portfolio/marketing-medico-redes-sociais-brasilia-mockup.webp", // 2º · o melhor POST
-  "/portfolio/marketing-clinica-medica-recanto-das-emas-site.webp", // 3º · o lugar do vídeo (o acervo ainda não tem vídeo)
-  "/portfolio/marketing-clinica-diagnostico-imagem-brasilia-site.webp",
-  "/portfolio/marketing-medico-gerontologia-goiania-portfolio-digital.webp",
-  "/portfolio/marketing-clinica-urologia-rio-de-janeiro-site.webp",
-  "/portfolio/marketing-medico-cirurgia-bariatrica-goiania-ebook.webp",
-  "/portfolio/marketing-clinica-medica-corrente-piaui-outdoor.webp",
-  "/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp", // último · o 2º melhor SITE
+export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]; pecas: string[] }[] = [
+  {
+    nome: "Sites",
+    vagas: [[0, 0, 4, 4], [4, 0, 2, 3], [4, 3, 1, 1], [5, 3, 1, 1]],
+    pecas: [
+      "/portfolio/marketing-clinica-angiologia-brasilia-site.webp", // Angiomedi — o melhor site, na maior vaga
+      "/portfolio/marketing-medico-neurologia-juazeiro-do-norte-folder-institucional.webp",
+      "/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp",
+      "/portfolio/marketing-clinica-urologia-rio-de-janeiro-site.webp",
+    ],
+  },
+  {
+    nome: "Vídeo",
+    vagas: [[0, 0, 2, 4], [2, 0, 4, 2], [2, 2, 2, 2], [4, 2, 1, 2], [5, 2, 1, 2]],
+    pecas: [
+      "/portfolio/marketing-medico-otorrinolaringologia-brasilia-sinalizacao-clinica.webp",
+      "/portfolio/marketing-clinica-medica-recanto-das-emas-site.webp", // InMed
+      "/portfolio/marketing-medico-urologia-sao-paulo-portfolio.webp",
+      "/portfolio/marketing-medico-ortopedia-goiania-cartao-virtual-quadril.webp",
+      "/portfolio/marketing-medico-vascular-brasilia-anuncio.webp",
+    ],
+  },
+  {
+    nome: "Redes",
+    vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 1, 2], [3, 2, 1, 2], [4, 2, 2, 2]],
+    pecas: [
+      "/portfolio/marketing-medico-cirurgia-digestiva-goiania-portfolio-digital.webp",
+      "/portfolio/marketing-medico-oncologia-brasilia-site-cirurgia-oncologica.webp", // achado: "poucos sites" — vaga quadrada aceita site em paisagem (regra do Angiomedi)
+      "/portfolio/marketing-medico-oftalmologia-belo-horizonte-site.webp", // idem
+      "/portfolio/marketing-medico-oncologia-rio-de-janeiro-cartao-virtual.webp",
+      "/portfolio/marketing-medico-ortopedia-porto-alegre-guia-pos-operatorio.webp",
+      "/portfolio/marketing-clinica-endoscopia-brasilia-folder-exames.webp",
+      "/portfolio/marketing-medico-cirurgia-plastica-sao-paulo-portfolio-virtual.webp",
+    ],
+  },
+  {
+    nome: "Impresso",
+    vagas: [[0, 0, 6, 3], [0, 3, 2, 1], [2, 3, 2, 1], [4, 3, 2, 1]],
+    pecas: [
+      "/portfolio/marketing-clinica-diagnostico-imagem-brasilia-site.webp", // Examine Agora
+      "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-retina.webp",
+      "/portfolio/marketing-medico-neurocirurgia-recife-site.webp", // achado: "poucos sites" — vaga 2×1 é paisagem, o mesmo formato do site
+      "/portfolio/marketing-medico-urologia-brasilia-site-cirurgia-robotica.webp", // idem
+    ],
+  },
+  {
+    nome: "Vertical",
+    vagas: [[0, 0, 2, 4], [2, 0, 1, 4], [3, 0, 1, 4], [4, 0, 2, 4]],
+    pecas: [
+      "/portfolio/marketing-medico-gerontologia-goiania-portfolio-digital.webp",
+      "/portfolio/marketing-medico-urologia-pediatrica-sao-paulo-portfolio-digital.webp",
+      "/portfolio/marketing-medico-cirurgia-aparelho-digestivo-foz-do-iguacu-cartao-virtual.webp",
+      "/portfolio/marketing-medico-psiquiatria-brasilia-cartao-virtual.webp",
+    ],
+  },
+  {
+    nome: "Identidade",
+    vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 2, 2], [4, 2, 2, 2]],
+    pecas: [
+      "/portfolio/marketing-clinica-ortopedia-brasilia-folder-institucional.webp",
+      "/portfolio/marketing-clinica-medica-pindamonhangaba-site.webp", // achado: "poucos sites" — vaga quadrada aceita site em paisagem
+      "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-uveites.webp",
+      "/portfolio/marketing-laboratorio-mineiros-goias-cartaz-exames.webp",
+      "/portfolio/marketing-medico-menopausa-salvador-site.webp", // idem
+      "/portfolio/marketing-medico-ortopedia-rio-de-janeiro-portfolio-digital.webp",
+    ],
+  },
 ];
 
 /**
- * As 6 cenas do palco morfo, na malha 6×4 do protótipo: cada vaga é
- * `[coluna, linha, largura, altura]`. Quem entra em cada vaga é a lista fixa
- * acima, na ordem — o protótipo escolhia por tipo de job, e o §44.19 trocou
- * isso por régua.
+ * Achado #13 (§44.24): "busque tb vídeos que estão no rizzoos e foram
+ * postados". A parte QUE DEU CERTO — a máquina de vídeo no morfo existe e
+ * funciona (Portfolio.tsx resolve `"video:<id>"` daqui, Motor.tsx dá play só
+ * na peça da cena ativa, testado com Playwright) — fica pronta pro próximo
+ * arquivo que chegar. A parte que NÃO deu: dos 7 renders em
+ * `rizzo-os/videos/hr-<slug>/renders/video.mp4`, 3 tinham `status: PUBLICADO`
+ * confirmado no Supabase do RizzoOS (tabela `jobs`) — hr-dose-maxima (job
+ * `2c2f0260-4985-45bd-89ae-9dce8a1e7080`, HR-DE-121, 2026-08-17),
+ * hr-vmi-convenio (HR-VMI-020, 2026-08-21), hr-vmi-recuperacao (HR-VMI-022,
+ * 2026-09-04) — mas os 3 falham no `<video>` do Chromium com
+ * `DEMUXER_ERROR_NO_SUPPORTED_STREAMS` (confirmado servindo o arquivo
+ * byte-a-byte idêntico ao do disco — não é problema do Next, é do MUX do
+ * arquivo). O `avcC` declara High Profile / Level 4.0, o mais comum que
+ * existe — o defeito está em algum lugar da tabela de amostras que só
+ * `ffprobe`/`ffmpeg` decifra, e nenhum dos dois está disponível nesta sessão.
+ * ⚖️ Vídeo que não toca é PIOR que a ausência (§⚖️ do CLAUDE.md — "se não dá
+ * pra fazer corretamente, não faz"): os 3 arquivos NÃO foram copiados pro
+ * `public/`, e as 3 vagas verticais que seriam deles voltaram pra imagem.
+ * 🅿️ Pra destravar: alguém com `ffmpeg` roda `ffmpeg -v error -i video.mp4
+ * -f null -` nos 7 renders pra achar a causa exata (ou reexporta pelo
+ * HyperFrames) — voltando com um `.mp4` que o Chromium decodifica, é só
+ * preencher `PORTFOLIO_VIDEOS` de novo e trocar 3 linhas em `PF_CENAS`
+ * (`"/portfolio/<arquivo>"` → `"video:<id>"`). `hr-quanto-tempo-dura`
+ * (HR-PREENCH-086) segue de fora por outro motivo — status `ARTE`, ainda não
+ * foi ao ar; `hr-peyronie-sinais` idem — o único job PUBLICADO com esse
+ * código (HR-PEYRONIE-069) é sobre outro tema ("Trauma sexual: como evitar a
+ * curvatura?"), não bate com o vídeo renderizado. Os `*-9x16.mp4` dos
+ * handoffs de identidade (design_handoff_animacao_identidade/,
+ * design_handoff_inmed_video/) também ficaram fora — são peças de
+ * identidade/TV, não posts, e confirmar publicação delas é apuração maior
+ * que não coube nesta rodada.
  */
-export const PF_CENAS: { nome: string; vagas: [number, number, number, number][] }[] = [
-  { nome: "Sites", vagas: [[0, 0, 4, 4], [4, 0, 2, 3], [4, 3, 1, 1], [5, 3, 1, 1]] },
-  { nome: "Vídeo", vagas: [[0, 0, 2, 4], [2, 0, 4, 2], [2, 2, 2, 2], [4, 2, 1, 2], [5, 2, 1, 2]] },
-  { nome: "Redes", vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 1, 2], [3, 2, 1, 2], [4, 2, 2, 2]] },
-  { nome: "Impresso", vagas: [[0, 0, 6, 3], [0, 3, 2, 1], [2, 3, 2, 1], [4, 3, 2, 1]] },
-  { nome: "Vertical", vagas: [[0, 0, 2, 4], [2, 0, 1, 4], [3, 0, 1, 4], [4, 0, 2, 4]] },
-  { nome: "Identidade", vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 2, 2], [4, 2, 2, 2]] },
-];
+export const PORTFOLIO_VIDEOS: Record<
+  string,
+  { src: string; alt: string; servico: string; espec: string; praca: string; cliente: string; contexto: string; largura: number; altura: number }
+> = {};
 
 /* ─────────────────────────────────────────────────────────────── rodapé ──── */
 

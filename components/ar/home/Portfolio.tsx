@@ -6,40 +6,89 @@
 // somem e reaparecem, elas se remontam numa composição nova. Quem troca a cena
 // é o motor de scroll, por progresso do trilho.
 //
-// ⚠️ A ORDEM é lista fixa (§44.19), não o `pfResolver` do protótipo: 1º o melhor
-// site · 2º o melhor post · 3º o lugar do vídeo · … · último o 2º melhor site.
-// A decisão é de régua, não de gosto — o protótipo escolhia por tipo de job e
-// orientação, o que dava uma abertura diferente a cada acervo.
+// ⚠️ A ORDEM é lista fixa por VAGA (§44.19 + achados #10-#13 do §44.24), não o
+// `pfResolver` do protótipo: cada vaga de cada cena aponta pra uma peça
+// específica, orientação casada, sem repetição — a decisão é de régua, não de
+// gosto. `pecasDoPortfolio()` é a lista achatada (importada por `app/page.tsx`
+// pra montar o `<Motor cenas={...}>` com o mesmo índice global que `<Portfolio
+// />` usa).
 import Link from "next/link";
-import { PF_CENAS, PORTFOLIO_ORDEM, PORTFOLIO_CABECA } from "@/content/home";
+import { PF_CENAS, PORTFOLIO_VIDEOS, PORTFOLIO_CABECA } from "@/content/home";
 import { PORTFOLIO } from "@/content/portfolio";
 
-/** Monta as cenas: percorre a lista fixa em ordem, cena a cena, e garante que a
- *  ÚLTIMA vaga da ÚLTIMA cena receba a última peça da lista (o 2º melhor site). */
-export function cenasDoPortfolio() {
-  const n = PORTFOLIO_ORDEM.length;
-  let caneta = 0;
-  const cenas = PF_CENAS.map((cena, ci) => {
+interface PecaMorfo {
+  key: string;
+  video: boolean;
+  src: string;
+  alt: string;
+  servico: string;
+  espec: string;
+  praca: string;
+  cliente?: string;
+  contexto?: string;
+  largura: number;
+  altura: number;
+}
+
+/** Resolve um item de `PF_CENAS[i].pecas` — `imagem` do acervo ou `video:<id>`
+ *  de `PORTFOLIO_VIDEOS` — pra uma peça pronta pro morfo. */
+function resolvePeca(ref: string): PecaMorfo | undefined {
+  if (ref.startsWith("video:")) {
+    const id = ref.slice("video:".length);
+    const v = PORTFOLIO_VIDEOS[id];
+    if (!v) return undefined;
+    return {
+      key: `video:${id}`,
+      video: true,
+      src: v.src,
+      alt: v.alt,
+      servico: v.servico,
+      espec: v.espec,
+      praca: v.praca,
+      cliente: v.cliente,
+      contexto: v.contexto,
+      largura: v.largura,
+      altura: v.altura,
+    };
+  }
+  const p = PORTFOLIO.find((x) => x.imagem === ref);
+  if (!p) return undefined;
+  return { key: p.imagem, video: false, src: p.imagem, alt: p.alt, servico: p.servico, espec: p.espec, praca: p.praca, cliente: p.cliente, contexto: p.contexto, largura: p.largura, altura: p.altura };
+}
+
+/** A lista achatada das 6 cenas, na ordem — o índice de cada peça NESTA lista
+ *  é o índice global que `data-pf-peca` usa (ver `<Portfolio>` e `<Motor>`). */
+export function pecasDoPortfolio(): PecaMorfo[] {
+  return PF_CENAS.flatMap((cena) => cena.pecas)
+    .map(resolvePeca)
+    .filter((p): p is PecaMorfo => Boolean(p));
+}
+
+/**
+ * Achados #10-#12 (§44.24): cada vaga de cada cena já aponta pra UMA peça
+ * específica (`PF_CENAS[i].pecas`), sem repetição em lugar nenhum — nada de
+ * `caneta % n` girando num pool pequeno. A peça nasce no índice GLOBAL dela
+ * (a posição na lista achatada das 6 cenas), e só aparece posicionada na
+ * cena a que pertence; nas outras 5, fica com opacidade 0 (o motor de
+ * scroll já faz isso, ver Motor.tsx).
+ */
+export function cenasDoPortfolio(pecas: PecaMorfo[]) {
+  const indice = new Map(pecas.map((p, i) => [p.key, i]));
+  return PF_CENAS.map((cena) => {
     const pos: Record<number, [number, number, number, number]> = {};
-    const usadas = new Set<number>();
     cena.vagas.forEach(([col, lin, w, h], vi) => {
-      const ultima = ci === PF_CENAS.length - 1 && vi === cena.vagas.length - 1;
-      let idx = ultima ? n - 1 : caneta % n;
-      while (!ultima && usadas.has(idx)) idx = (idx + 1) % n;
-      usadas.add(idx);
-      if (!ultima) caneta++;
-      pos[idx] = [(col / 6) * 100, (lin / 4) * 100, (w / 6) * 100, (h / 4) * 100];
+      const key = cena.pecas[vi];
+      const i = key ? indice.get(key) : undefined;
+      if (i === undefined) return;
+      pos[i] = [(col / 6) * 100, (lin / 4) * 100, (w / 6) * 100, (h / 4) * 100];
     });
     return pos;
   });
-  return cenas;
 }
 
-const peca = (imagem: string) => PORTFOLIO.find((p) => p.imagem === imagem);
-
 export function Portfolio() {
-  const cenas = cenasDoPortfolio();
-  const pecas = PORTFOLIO_ORDEM.map(peca).filter((p): p is NonNullable<typeof p> => Boolean(p));
+  const pecas = pecasDoPortfolio();
+  const cenas = cenasDoPortfolio(pecas);
   const primeira = cenas[0];
 
   return (
@@ -62,7 +111,7 @@ export function Portfolio() {
               return (
                 <div
                   className="pf-peca"
-                  key={p.imagem}
+                  key={p.key}
                   data-pf-peca={i}
                   data-tipo={p.servico}
                   data-titulo={`${p.espec} · ${p.praca}`}
@@ -74,7 +123,15 @@ export function Portfolio() {
                     opacity: vaga ? 1 : 0,
                   }}
                 >
-                  <img src={p.imagem} alt={p.alt} loading="lazy" />
+                  {/* Achado #13: vídeo entra `muted loop playsInline` — o
+                      motor de scroll (Motor.tsx) dá play/pause por peça
+                      junto com a troca de cena, então só toca o que está
+                      visível. */}
+                  {p.video ? (
+                    <video src={p.src} muted loop playsInline preload="none" aria-label={p.alt} />
+                  ) : (
+                    <img src={p.src} alt={p.alt} loading="lazy" />
+                  )}
                 </div>
               );
             })}
@@ -104,15 +161,27 @@ export function Portfolio() {
         </div>
         <ul className="pf-faixa">
           {pecas.map((p) => (
-            <li key={p.imagem}>
-              <img
-                src={p.imagem}
-                alt={p.alt}
-                loading="lazy"
-                width={p.largura}
-                height={p.altura}
-                style={{ "--r": `${p.largura} / ${p.altura}` } as React.CSSProperties}
-              />
+            <li key={p.key}>
+              {p.video ? (
+                <video
+                  src={p.src}
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  aria-label={p.alt}
+                  style={{ "--r": `${p.largura} / ${p.altura}` } as React.CSSProperties}
+                />
+              ) : (
+                <img
+                  src={p.src}
+                  alt={p.alt}
+                  loading="lazy"
+                  width={p.largura}
+                  height={p.altura}
+                  style={{ "--r": `${p.largura} / ${p.altura}` } as React.CSSProperties}
+                />
+              )}
               <div className="pf-faixa-corpo">
                 <p className="rot">{p.servico}</p>
                 <h3>{p.cliente}</h3>

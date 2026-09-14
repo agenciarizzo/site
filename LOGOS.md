@@ -15,10 +15,10 @@
 >
 > **Coluna "Logo":** `✓` = o arquivo já está em `public/logos/` e o tile
 > mostra a marca · `—` = ainda falta, e o tile fica só com nome + cidade +
-> área. Hoje: **242 de 257** (faltam 15).
+> área. Hoje: **241 de 256** (faltam 15).
 >
 > **Gerado por `scripts/gerar-logos-md.mjs` a partir de `content/carteira.ts`
-> (257 casas, OCULTOS já descontado) — não editar a tabela à mão;
+> (256 casas, OCULTOS já descontado) — não editar a tabela à mão;
 > rode o script de novo depois de mudar a carteira ou de subir logo novo.**
 
 | Logo | Arquivo | Cliente | Praça | Área |
@@ -200,7 +200,6 @@
 | ✓ | `highfive-clinica.png` | HighFive Clínica | Sorocaba/SP | Saúde Geral |
 | ✓ | `holons-centro-de-convivencia-terapeutica.png` | HOLONS – Centro de Convivência Terapêutica | Brasília/DF | Psicologia |
 | ✓ | `hospital-de-olhos-do-distrito-federal.png` | Hospital de Olhos do Distrito Federal | Brasília/DF | Oftalmologia |
-| ✓ | `hospital-de-olhos-salute.png` | Hospital de Olhos Salute | Brasília/DF | Oftalmologia |
 | ✓ | `hospital-do-olho-de-aracatuba.png` | Hospital do Olho de Araçatuba | Araçatuba/SP | Oftalmologia |
 | ✓ | `hospital-edmundo-fernandes.png` | Hospital Edmundo Fernandes | Uruaçu/GO | Saúde Geral |
 | ✓ | `hospital-virtual-telemedicina.png` | Hospital Virtual – Telemedicina | Porto Velho/RO | Telemedicina |

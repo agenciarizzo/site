@@ -402,24 +402,51 @@
 .dg .menu-grandes .amarelo {
   color: var(--amarelo);
 }
+/* Cascata estilo UOL (achado #1, §44.24): coluna 1 = as 5 seções, coluna 2 =
+   só o conteúdo da seção marcada no caixote de rádio (zero JS — o mesmo
+   padrão do checkbox que abre/fecha o menu inteiro). */
 .dg .menu-listas {
   border-left: 1px solid rgba(244, 239, 230, 0.2);
   padding-left: 48px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: 32px;
-  align-content: start;
+  display: flex;
+  gap: 40px;
+  min-height: 0;
 }
-.dg .menu-listas h3 {
-  margin: 0 0 16px;
+.dg .menu-grupo-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.dg .menu-grupos-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: none;
+  width: 11rem;
+}
+.dg .menu-grupos-col label {
+  cursor: pointer;
+  padding: 10px 0 10px 14px;
+  border-left: 2px solid transparent;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  opacity: 0.7;
   color: var(--papel);
+  opacity: 0.55;
+  transition: opacity 0.2s, border-color 0.2s, color 0.2s;
 }
-.dg .menu-listas ul {
+.dg .menu-grupos-col label:hover {
+  opacity: 0.85;
+}
+.dg .menu-conteudo-col {
+  flex: 1;
+  min-width: 0;
+}
+.dg .menu-grupo-painel {
+  display: none;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -427,11 +454,31 @@
   font-weight: 600;
   line-height: 1.75;
 }
-.dg .menu-listas a {
+.dg .menu-grupo-painel-duas {
+  columns: 2;
+  column-gap: 24px;
+}
+.dg .menu-grupo-painel a {
   color: var(--papel);
 }
-.dg .menu-listas a:hover {
+.dg .menu-grupo-painel a:hover {
   color: var(--amarelo);
+}
+#mg-frentes:checked ~ .menu-grupos-col label[for="mg-frentes"],
+#mg-quem:checked ~ .menu-grupos-col label[for="mg-quem"],
+#mg-cidades:checked ~ .menu-grupos-col label[for="mg-cidades"],
+#mg-esp:checked ~ .menu-grupos-col label[for="mg-esp"],
+#mg-casa:checked ~ .menu-grupos-col label[for="mg-casa"] {
+  opacity: 1;
+  border-left-color: var(--amarelo);
+  color: var(--amarelo);
+}
+#mg-frentes:checked ~ .menu-conteudo-col [data-grupo="frentes"],
+#mg-quem:checked ~ .menu-conteudo-col [data-grupo="quem"],
+#mg-cidades:checked ~ .menu-conteudo-col [data-grupo="cidades"],
+#mg-esp:checked ~ .menu-conteudo-col [data-grupo="esp"],
+#mg-casa:checked ~ .menu-conteudo-col [data-grupo="casa"] {
+  display: block;
 }
 /* No telefone o painel era DUAS colunas dentro de 327px — 1.893px de conteúdo
    espremidos numa tela de 900px (medido). Vira coluna única de largura cheia,
@@ -441,13 +488,41 @@
     width: 100vw;
     grid-template-columns: 1fr;
     gap: 32px;
-    padding: 92px 24px 40px;
+    /* mesma folga do `.rodape` (linha ~264): a barra do polegar é fixa e
+       cobre o fim da tela por cima do painel também. */
+    padding: 92px 24px 104px;
   }
   .dg .menu-listas {
     border-left: 0;
     padding-left: 0;
     border-top: 1px solid rgba(244, 239, 230, 0.2);
     padding-top: 28px;
+    flex-direction: column;
+    gap: 20px;
+  }
+  /* A coluna 1 vira uma tira horizontal de abas — não cabe lado a lado com a
+     coluna 2 numa tela de 342px de conteúdo. */
+  .dg .menu-grupos-col {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    gap: 8px 4px;
+  }
+  .dg .menu-grupos-col label {
+    padding: 6px 12px;
+    border: 1px solid rgba(244, 239, 230, 0.3);
+    border-left-width: 1px;
+    border-radius: 999px;
+  }
+  #mg-frentes:checked ~ .menu-grupos-col label[for="mg-frentes"],
+  #mg-quem:checked ~ .menu-grupos-col label[for="mg-quem"],
+  #mg-cidades:checked ~ .menu-grupos-col label[for="mg-cidades"],
+  #mg-esp:checked ~ .menu-grupos-col label[for="mg-esp"],
+  #mg-casa:checked ~ .menu-grupos-col label[for="mg-casa"] {
+    border-color: var(--amarelo);
+  }
+  .dg .menu-grupo-painel-duas {
+    columns: 1;
   }
   .dg .menu-fecha {
     right: 20px;
@@ -529,7 +604,11 @@
 .dg .geo {
   position: relative;
   align-self: center;
-  width: min(48vw, calc((100svh - 88px) * var(--cols) / var(--rows)));
+  /* §3.1: min(48vw, 100svh−88px, altura-do-texto+32px) × cols/rows — o 3º
+     termo (`--txt-h`, medido em Motor.tsx) trava o mosaico na altura da
+     coluna de texto ao lado; sem JS cai nos dois primeiros, mesmo resultado
+     de antes. */
+  width: min(48vw, calc((100svh - 88px) * var(--cols) / var(--rows)), calc((var(--txt-h, 100svh) + 32px) * var(--cols) / var(--rows)));
   aspect-ratio: var(--cols) / var(--rows);
   display: grid;
   grid-template-columns: repeat(var(--cols), 1fr);
@@ -545,6 +624,11 @@
   display: block;
   animation: dg-peca 0.55s cubic-bezier(0.7, 0, 0.15, 1) both;
   animation-delay: var(--d);
+  /* §3.1 do README: a cada 3s o hero sorteia um novo seed (Motor.tsx) e
+     reescreve clip-path/background/rotação — esta transição (não a
+     animation acima, que é só a entrada do mount) é o que faz a peça se
+     remontar suave em vez de trocar seca. */
+  transition: clip-path 0.55s cubic-bezier(0.7, 0, 0.15, 1), background-color 0.55s, transform 0.55s cubic-bezier(0.7, 0, 0.15, 1);
 }
 @keyframes dg-peca {
   from {
@@ -680,7 +764,9 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: grayscale(1) contrast(1.2);
+  /* Achado #5: contrast 1.2 → 1.4 — escurece o duotone (o que sobrava claro
+     lia quase como fundo branco por trás do amarelo). */
+  filter: grayscale(1) contrast(1.4);
   mix-blend-mode: multiply;
   opacity: 0.85;
   transition: filter 0.3s, opacity 0.3s;
@@ -882,12 +968,18 @@
   line-height: 1.5;
   text-wrap: pretty;
 }
+/* Achado #6: com `margin-top:auto` só no h3 (flex column), o título ficava à
+   distância do rodapé da célula que a FRASE/RECEBE de cada serviço deixassem
+   — como o texto varia de tamanho entre os 6 serviços, os títulos da mesma
+   linha da grade não alinhavam entre si. Em grid, o h3 nasce logo depois do
+   número (altura fixa) em toda célula; a frase cresce pro espaço que sobra
+   (`1fr`) e o "recebe" continua no rodapé. */
 .dg .serv {
   background: var(--papel-claro);
   color: var(--chumbo);
   padding: 24px 28px 28px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
   gap: 14px;
   transition: background 0.28s ease;
 }
@@ -903,7 +995,8 @@
   font-weight: 600;
 }
 .dg .serv h3 {
-  margin: auto 0 0;
+  margin: 0;
+  align-self: start;
   font-weight: 700;
   font-size: clamp(20px, 1.7vw, 24px);
   line-height: 1.05;
@@ -1673,11 +1766,20 @@
   justify-content: flex-start;
   padding-left: 4%;
 }
+/* Achado do cliente (14/09, 3ª rodada): "AINDA CORTA — não é possível ver o
+   botão de aprovar". Medido: o celular era `width: min(350px, …)` + proporção
+   9/18.5 = 719px de altura FIXA, num palco cujo miolo tem `100svh − 130px`
+   (88 de padding + a linha de meta + a calha). Em viewport de 697px o botão
+   "Aprovar" ficava em y=776 — fora da tela, sob o `overflow: hidden`. Agora
+   a ALTURA manda (cabe no miolo e na viewport) e a largura sai da proporção;
+   o teto de 350px segue via `max-width` (o aspect-ratio transfere a trava). */
 .dg .fone {
   position: absolute;
   top: 0;
   left: 0;
-  width: min(350px, 100% - 196px);
+  height: min(100%, 719px, 100svh - 130px);
+  width: auto;
+  max-width: min(350px, 100% - 196px);
   aspect-ratio: 9 / 18.5;
   background: #1c2228;
   border-radius: 44px;
@@ -1696,6 +1798,24 @@
 /* As 6 telas do celular desenham com estilo inline (são mockups de uma tela de
    326px, com escala própria — ver `components/ar/home/Telas.tsx`). A folha só
    cuida da moldura, do recorte e de acender uma tela por vez. */
+/* O canvas das telas é 326×695 (a tela do celular a 350px de largura). Com o
+   celular menor que isso, o motor mede a tela e escala o canvas inteiro
+   (`--tela-escala`, `data-escala`) — é o "escalado pra caber" que o comentário
+   acima sempre prometeu. Sem JS, `data-escala` não existe e o canvas segue
+   `inset: 0` (reflui, como antes). */
+.dg .fone-canvas {
+  position: absolute;
+  inset: 0;
+}
+.dg .fone-tela[data-escala] .fone-canvas {
+  inset: auto;
+  top: 0;
+  left: 0;
+  width: 326px;
+  height: 695px;
+  transform-origin: 0 0;
+  transform: scale(var(--tela-escala));
+}
 .dg .fone-notch {
   position: absolute;
   top: 10px;
@@ -1817,6 +1937,20 @@
   gap: 14px;
   font-size: 13px;
   color: var(--cinza-texto);
+}
+.dg .depo-quem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.dg .depo-foto {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
 }
 .dg .depo footer strong {
   color: var(--chumbo);
@@ -2195,8 +2329,30 @@
 }
 .dg .cidades-palco {
   position: relative;
-  height: 40vh;
+  height: 62vh;
   margin-top: 4vh;
+  overflow: hidden;
+}
+/* O arquivo do §44.23 chegou (`public/mapa-brasil.webp`, 14/09: 1080×1080,
+   COM canal alfa, só o território) — e com ele o filtro do protótipo vale
+   VERBATIM (`AR Home Diagonal.dc.html:564`): `grayscale(1) brightness(1.6)
+   contrast(.8)`, opacidade .9, SEM blend mode. As rodadas anteriores
+   (`screen`, depois `invert()+multiply`) eram remendo pro arquivo errado
+   (`AR-BG-…-Story.webp`, retrato e opaco) — saem junto com ele. */
+.dg .cidades-mapa {
+  position: absolute;
+  left: 50%;
+  top: -14%;
+  height: 150%;
+  width: auto;
+  max-width: none;
+  /* Motor.tsx substitui este `transform` por `translateX(-50%) translateY(k)`
+     a cada scroll — o valor aqui é só o estado sem JS (progressive
+     enhancement: a página lê inteira sem JS, só sem o parallax). */
+  transform: translateX(-50%);
+  filter: grayscale(1) brightness(1.6) contrast(0.8);
+  opacity: 0.9;
+  pointer-events: none;
 }
 .dg .cidades-letreiro {
   position: absolute;
@@ -2432,7 +2588,8 @@
   transition: left 0.9s cubic-bezier(0.7, 0, 0.2, 1), top 0.9s cubic-bezier(0.7, 0, 0.2, 1),
     width 0.9s cubic-bezier(0.7, 0, 0.2, 1), height 0.9s cubic-bezier(0.7, 0, 0.2, 1), opacity 0.5s ease;
 }
-.dg .pf-peca img {
+.dg .pf-peca img,
+.dg .pf-peca video {
   display: block;
   width: 100%;
   height: 100%;
@@ -2518,7 +2675,8 @@
   display: flex;
   flex-direction: column;
 }
-.dg .pf-faixa img {
+.dg .pf-faixa img,
+.dg .pf-faixa video {
   display: block;
   width: 100%;
   height: auto;
@@ -2704,6 +2862,12 @@
   height: 22px;
   width: auto;
   display: block;
+  /* Achado #14: `.rodape-marca` é flex-column, e o cross-axis default
+     (`align-self:stretch`) vale justamente quando `width` é `auto` — o logo
+     esticava pra 100% da coluna (233px/342px) só que preso em 22px de
+     altura, distorcido. `flex-start` deixa a imagem no próprio tamanho. */
+  align-self: flex-start;
+  flex: none;
 }
 .dg .rodape-marca p {
   margin: 0;

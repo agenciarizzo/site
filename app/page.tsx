@@ -36,7 +36,7 @@ import { Servicos, Pacotes } from "@/components/ar/home/Oferta";
 import { Cases, Resultado } from "@/components/ar/home/Cases";
 import { RizzoOS } from "@/components/ar/home/RizzoOS";
 import { Depoimentos, Sobre, Cidades, Vinheta } from "@/components/ar/home/Casa";
-import { Portfolio, cenasDoPortfolio } from "@/components/ar/home/Portfolio";
+import { Portfolio, cenasDoPortfolio, pecasDoPortfolio } from "@/components/ar/home/Portfolio";
 import { Faq, CtaFinal, Rodape } from "@/components/ar/home/Fecho";
 import { Motor } from "@/components/ar/home/Motor";
 
@@ -67,7 +67,7 @@ export default function Home() {
       <Faq />
       <CtaFinal waText={WA_HOME} />
       <Rodape />
-      <Motor cenas={cenasDoPortfolio()} />
+      <Motor cenas={cenasDoPortfolio(pecasDoPortfolio())} />
     </div>
   );
 }

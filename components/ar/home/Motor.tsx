@@ -24,11 +24,14 @@
 //  · `[data-regua]`    os 64 traços sobem quando a régua entra
 //  · `.topo`           `data-rolou` (pílula) e `data-tinta` (cor da tinta)
 //  · `[data-serv-grade]` a animação de entrada da grade de serviços (1×)
+//  · `.geo i[data-pn]` o giro de seed do hero a cada 3s (§3.1 do README)
 //
 // `prefers-reduced-motion: reduce`: paralaxe = 0, reveal imediato, barras a
 // 100%. Os estados (RizzoOS, portfólio, topo) continuam — eles são navegação,
-// não enfeite.
+// não enfeite. O giro do hero PARA (nem entra no intervalo).
 import { useEffect } from "react";
+import { heroPecas } from "@/lib/ar/heroGeo.mjs";
+import { HERO } from "@/content/home";
 
 /** A ordem em que a grade de serviços acende antes de estacionar em 0 e 4. */
 const ORDEM_SERV = [0, 1, 2, 5, 4, 3, 0, 1, 2, 5, 4, 3, 0, 1, 2, 5, 4];
@@ -48,6 +51,113 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     const os = raiz.querySelector<HTMLElement>("[data-os-track]");
     const pf = raiz.querySelector<HTMLElement>("[data-pf-track]");
     const hero = raiz.querySelector<HTMLElement>(".capa");
+    const heroTexto = raiz.querySelector<HTMLElement>(".hero-texto");
+
+    // §3.1 do README: a largura do mosaico do hero é `min(48vw, 100svh-88px,
+    // altura-do-texto+32px) × cols/rows` — o 3º termo (que faltava no porte)
+    // é o que trava o mosaico na altura da coluna de texto ao lado. Sem ele o
+    // mosaico cresce livre e "não respeita a grid de alinhamento" (achado #3).
+    const medirTexto = () => {
+      if (heroTexto) raiz.style.setProperty("--txt-h", `${heroTexto.offsetHeight}px`);
+    };
+    medirTexto();
+    addEventListener("resize", medirTexto);
+
+    // O celular do palco RizzoOS agora cabe na viewport (altura manda), e as
+    // telas são um canvas fixo de 326×695: mede a tela real e escala o canvas
+    // pra caber — `.fone-tela[data-escala] .fone-canvas` no CSS. Largura zero
+    // (celular escondido no estreito) = não mede, canvas segue refluindo.
+    const foneTela = raiz.querySelector<HTMLElement>(".fone-tela");
+    const medirFone = () => {
+      if (!foneTela) return;
+      const w = foneTela.clientWidth;
+      if (!w) return;
+      foneTela.style.setProperty("--tela-escala", (w / 326).toFixed(4));
+      foneTela.dataset.escala = "";
+    };
+    medirFone();
+    addEventListener("resize", medirFone);
+
+    // Perf (achado do cliente — INP de 256ms medido em DevTools, 14/09): o
+    // `passo()` rodava `getBoundingClientRect()` pra CADA `[data-par]` e CADA
+    // `[data-topo]` EM TODO FRAME de scroll — nem `pares` nem `secoes` (as
+    // seções da página, não os cards `.case` que são `position:sticky`) se
+    // movem sozinhas fora do scroll normal, então a posição-documento de cada
+    // uma é ESTÁVEL entre resizes. Medir uma vez (+ no resize) e, por frame,
+    // só fazer aritmética com `scrollY` — sem nenhuma leitura de layout —
+    // corta as ~24 leituras/frame que sobravam depois do `cresce` (que
+    // continua ao vivo: `.case` É sticky, sua posição na viewport não é
+    // `topo-estático − scrollY`).
+    type ParInfo = { el: HTMLElement; par: number; secTop: number; secHeight: number };
+    let paresInfo: ParInfo[] = [];
+    const medirPares = () => {
+      paresInfo = [];
+      for (const el of pares) {
+        const sec = el.closest("section");
+        if (!sec) continue;
+        const r = sec.getBoundingClientRect();
+        paresInfo.push({ el, par: parseFloat(el.dataset.par || "0"), secTop: r.top + scrollY, secHeight: r.height });
+      }
+    };
+    medirPares();
+    addEventListener("resize", medirPares);
+
+    type SecaoTinta = { top: number; bottom: number; tinta: string };
+    let secoesInfo: SecaoTinta[] = [];
+    const medirSecoes = () => {
+      secoesInfo = secoes.map((s) => {
+        const r = s.getBoundingClientRect();
+        const top = r.top + scrollY;
+        return { top, bottom: top + r.height, tinta: s.dataset.topo || "escuro" };
+      });
+    };
+    medirSecoes();
+    addEventListener("resize", medirSecoes);
+
+    // O cache acima só se refazia no `resize` — e a página muda de ALTURA sem
+    // resize nenhum: abrir uma pergunta da FAQ (`<details>`) empurra o rodapé
+    // pra baixo. Medido a 1440×900, rolando até o fim com as 12 perguntas
+    // abertas: a tinta do topo dava `escuro` SOBRE o rodapé claro (com a FAQ
+    // fechada, `claro`, correto) — a linha de amostra passava do `bottom`
+    // cacheado e nenhuma seção casava. Observar a altura do `<body>` refaz as
+    // duas medidas; segue sem nenhuma leitura de layout POR FRAME, que é o
+    // que o cache existe pra evitar (INP, §44.26).
+    let obsAltura: ResizeObserver | undefined;
+    if ("ResizeObserver" in window) {
+      obsAltura = new ResizeObserver(() => {
+        medirPares();
+        medirSecoes();
+      });
+      obsAltura.observe(document.body);
+    }
+
+    // §3.1 do README: "a cada 3s, sorteia novo seed (0–60) e re-renderiza —
+    // só enquanto scrollY < 0.9×vh e sem prefers-reduced-motion". As duas
+    // malhas (5×5 larga, 5×4 estreita) recebem o MESMO seed sorteado — só
+    // uma está visível por vez (a outra, display:none), mas ambas ficam
+    // corretas se a viewport mudar de faixa no meio do giro.
+    const malhas: { el: HTMLElement; rows: number }[] = [];
+    const larga = raiz.querySelector<HTMLElement>(".geo-larga");
+    const estreita = raiz.querySelector<HTMLElement>(".geo-estreita");
+    if (larga) malhas.push({ el: larga, rows: 5 });
+    if (estreita) malhas.push({ el: estreita, rows: 4 });
+    let giroHero: ReturnType<typeof setInterval> | undefined;
+    if (!reduzido && malhas.length) {
+      giroHero = setInterval(() => {
+        if (scrollY >= innerHeight * 0.9) return;
+        const seed = Math.floor(Math.random() * 61);
+        for (const { el, rows } of malhas) {
+          const { pecas } = heroPecas({ ...HERO.tweaks, seed }, rows);
+          pecas.forEach((p, i) => {
+            const peca = el.querySelector<HTMLElement>(`i[data-pn="${i}"]`);
+            if (!peca) return;
+            peca.style.clipPath = p.clip;
+            peca.style.background = p.bg;
+            peca.style.transform = p.rot ? `rotate(${p.rot}deg)` : "";
+          });
+        }
+      }, 3000);
+    }
 
     // Arma a revelação: quem já está na tela na carga nasce visível (nunca
     // esconder conteúdo que o leitor já deveria estar lendo).
@@ -66,13 +176,16 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       quadro = 0;
       const vh = innerHeight;
 
-      for (const el of pares) {
-        const sec = el.closest("section");
-        if (!sec) continue;
-        const r = sec.getBoundingClientRect();
-        const p = (r.top + r.height / 2 - vh / 2) / vh;
-        const k = reduzido ? 0 : parseFloat(el.dataset.par || "0") * vh * 0.5;
-        el.style.transform = `translateY(${(p * k).toFixed(1)}px)`;
+      for (const { el, par, secTop, secHeight } of paresInfo) {
+        const rTop = secTop - scrollY;
+        const p = (rTop + secHeight / 2 - vh / 2) / vh;
+        const k = reduzido ? 0 : par * vh * 0.5;
+        // §5 do README: "em <img> prefixar translateX(-50%)" — a imagem
+        // centralizada precisa do próprio prefixo estático DENTRO do mesmo
+        // transform (não num wrapper: transform cria stacking context e
+        // isola o `mix-blend-mode` do fundo por trás, ex. o mapa de Cidades).
+        const prefixo = el.tagName === "IMG" ? "translateX(-50%) " : "";
+        el.style.transform = `${prefixo}translateY(${(p * k).toFixed(1)}px)`;
       }
 
       for (const el of reveals) {
@@ -121,6 +234,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
           const cena = cenas[idx];
           for (const el of Array.from(pf.querySelectorAll<HTMLElement>("[data-pf-peca]"))) {
             const vaga = cena[Number(el.dataset.pfPeca)];
+            const video = el.querySelector<HTMLVideoElement>("video");
             if (vaga) {
               el.style.left = `${vaga[0]}%`;
               el.style.top = `${vaga[1]}%`;
@@ -128,6 +242,8 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
               el.style.height = `${vaga[3]}%`;
               el.style.opacity = "1";
               el.style.zIndex = "2";
+              // Achado #13: só toca a peça da cena ativa.
+              video?.play().catch(() => {});
             } else {
               el.style.opacity = "0";
               el.style.zIndex = "1";
@@ -135,6 +251,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
               el.style.height = "0%";
               el.style.left = "50%";
               el.style.top = "50%";
+              video?.pause();
             }
           }
           const foco = pf.querySelector<HTMLElement>(`[data-pf-peca="${Object.keys(cena)[0]}"]`);
@@ -153,10 +270,10 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       }
 
       if (topo) {
+        const linha = scrollY + 60;
         let tinta = "escuro";
-        for (const s of secoes) {
-          const r = s.getBoundingClientRect();
-          if (r.top <= 60 && r.bottom > 60) tinta = s.dataset.topo || "escuro";
+        for (const s of secoesInfo) {
+          if (s.top <= linha && s.bottom > linha) tinta = s.tinta;
         }
         if (topo.dataset.tinta !== tinta) topo.dataset.tinta = tinta;
         const rolou = hero ? hero.getBoundingClientRect().top < -40 : scrollY > 40;
@@ -205,12 +322,38 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       io.observe(grade);
     }
 
+    // Achado #13: os vídeos da FAIXA (a lista horizontal, fora do palco
+    // morfo — esses não passam pelo `data-pf-peca` acima) tocam só enquanto
+    // o cartão está visível na faixa.
+    const faixaVideos = Array.from(raiz.querySelectorAll<HTMLVideoElement>(".pf-faixa video"));
+    let ioFaixa: IntersectionObserver | undefined;
+    if (faixaVideos.length && "IntersectionObserver" in window) {
+      ioFaixa = new IntersectionObserver(
+        (entradas) => {
+          for (const e of entradas) {
+            const v = e.target as HTMLVideoElement;
+            if (e.isIntersecting) v.play().catch(() => {});
+            else v.pause();
+          }
+        },
+        { threshold: 0.4 },
+      );
+      for (const v of faixaVideos) ioFaixa.observe(v);
+    }
+
     return () => {
       removeEventListener("scroll", aoRolar);
       removeEventListener("resize", aoRolar);
+      removeEventListener("resize", medirTexto);
+      removeEventListener("resize", medirFone);
+      removeEventListener("resize", medirPares);
+      removeEventListener("resize", medirSecoes);
       if (quadro) cancelAnimationFrame(quadro);
       if (tempos) clearTimeout(tempos);
       io?.disconnect();
+      ioFaixa?.disconnect();
+      obsAltura?.disconnect();
+      if (giroHero) clearInterval(giroHero);
     };
   }, [cenas]);
 

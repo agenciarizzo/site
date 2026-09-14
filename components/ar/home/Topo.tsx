@@ -43,7 +43,9 @@ export function Topo({ waText }: { waText: string }) {
           Montar proposta <span aria-hidden>→</span>
         </a>
         <Link className="topo-zap" href={ROTA_PORTAO} data-wa={waText} aria-label="Falar no WhatsApp">
-          <IconeWhats />
+          <span className="zap">
+            <IconeWhats />
+          </span>
         </Link>
 
         {/* HOTFIX (produção travada): era um `<details>` cujo painel tapava o
@@ -76,20 +78,36 @@ export function Topo({ waText }: { waText: string }) {
                   Montar proposta →
                 </a>
               </div>
+              {/* Achado #1 (§44.24): os 40 links da parede única estouravam o
+                  painel — em cascata, estilo UOL: coluna 1 lista as SEÇÕES,
+                  coluna 2 mostra só o conteúdo da seção marcada. Caixote de
+                  rádio (zero JS): a 1ª seção nasce marcada, então o painel
+                  nunca abre vazio, e toda rota segue alcançável clicando pelas
+                  5 seções — nada saiu do inventário, só passou a caber. */}
               <div className="menu-listas">
-                <div>
-                  <h3>Frentes</h3>
-                  <ul>
+                <input type="radio" name="menu-grupo" id="mg-frentes" className="menu-grupo-radio" defaultChecked />
+                <input type="radio" name="menu-grupo" id="mg-quem" className="menu-grupo-radio" />
+                <input type="radio" name="menu-grupo" id="mg-cidades" className="menu-grupo-radio" />
+                <input type="radio" name="menu-grupo" id="mg-esp" className="menu-grupo-radio" />
+                <input type="radio" name="menu-grupo" id="mg-casa" className="menu-grupo-radio" />
+
+                <div className="menu-grupos-col">
+                  <label htmlFor="mg-frentes">Frentes</label>
+                  <label htmlFor="mg-quem">Quem atendemos</label>
+                  <label htmlFor="mg-cidades">Cidades</label>
+                  <label htmlFor="mg-esp">Especialidades</label>
+                  <label htmlFor="mg-casa">A casa</label>
+                </div>
+
+                <div className="menu-conteudo-col">
+                  <ul className="menu-grupo-painel" data-grupo="frentes">
                     {CARTAS_MIDIA.map((c) => (
                       <li key={c.slug}>
                         <Link href={`/cartas/${c.slug}`}>{c.titulo}</Link>
                       </li>
                     ))}
                   </ul>
-                </div>
-                <div>
-                  <h3>Quem atendemos</h3>
-                  <ul>
+                  <ul className="menu-grupo-painel" data-grupo="quem">
                     {CARTAS_SEGMENTO.map((c) => (
                       <li key={c.slug}>
                         <Link href={`/cartas/${c.slug}`}>{c.titulo}</Link>
@@ -99,10 +117,7 @@ export function Topo({ waText }: { waText: string }) {
                       <Link href="/cartas/como-escolher-agencia-de-marketing-medico">Como escolher uma agência</Link>
                     </li>
                   </ul>
-                </div>
-                <div>
-                  <h3>Cidades</h3>
-                  <ul>
+                  <ul className="menu-grupo-painel menu-grupo-painel-duas" data-grupo="cidades">
                     {CIDADES.map((c) => (
                       <li key={c.slug}>
                         <Link href={`/${c.slug}`}>{c.cidade}</Link>
@@ -116,20 +131,14 @@ export function Topo({ waText }: { waText: string }) {
                       </li>
                     ))}
                   </ul>
-                </div>
-                <div>
-                  <h3>Especialidades</h3>
-                  <ul>
+                  <ul className="menu-grupo-painel menu-grupo-painel-duas" data-grupo="esp">
                     {ESPECIALIDADES_HOME.map((e) => (
                       <li key={e.href}>
                         <Link href={e.href}>{e.nome}</Link>
                       </li>
                     ))}
                   </ul>
-                </div>
-                <div>
-                  <h3>A casa</h3>
-                  <ul>
+                  <ul className="menu-grupo-painel" data-grupo="casa">
                     <li>
                       <Link href="/politica-privacidade">Política de privacidade</Link>
                     </li>
@@ -147,7 +156,9 @@ export function Topo({ waText }: { waText: string }) {
           A classe é `polegar`: `barra` é a barra do gráfico dos cases. */}
       <div className="polegar">
         <Link className="topo-zap" href={ROTA_PORTAO} data-wa={waText} aria-label="Falar no WhatsApp">
-          <IconeWhats />
+          <span className="zap">
+            <IconeWhats />
+          </span>
         </Link>
         <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
           Montar proposta <span aria-hidden>→</span>

@@ -21,10 +21,9 @@ function Estrelas() {
 }
 
 /**
- * §44.21-3: as fotos dos depoimentos (`public/depoimentos/*.png`) NÃO existem
- * no repo — o card é citação + nome + link da avaliação, sem foto. A prova aqui
- * é a FONTE (o médico publicou aquilo na avaliação pública da agência), não o
- * retrato; foto inventada seria prova falsa.
+ * Achado #9 (§44.24): as 3 fotos chegaram (`public/depoimentos/*.png`) — o
+ * card ganha o retrato de volta. Sem filtro por praça (proibido pelo
+ * cliente, 14/09 — ver comentário em `content/landing-v3.ts`).
  */
 export function Depoimentos() {
   return (
@@ -38,10 +37,13 @@ export function Depoimentos() {
             <Estrelas />
             <p className="depo-texto">“{d.texto}”</p>
             <footer>
-              <span>
-                <strong>{d.nome}</strong>
-                <br />
-                {d.meta}
+              <span className="depo-quem">
+                <Image className="depo-foto" src={d.foto} alt="" width={52} height={52} aria-hidden />
+                <span>
+                  <strong>{d.nome}</strong>
+                  <br />
+                  {d.meta}
+                </span>
               </span>
               <a href={d.link} target="_blank" rel="noopener">
                 ver avaliação →
@@ -175,10 +177,10 @@ export function Sobre() {
   );
 }
 
-/** 12 · CIDADES + ESPECIALIDADES. O mapa do Brasil do protótipo não existe no
- *  repo (`public/mapa-brasil.webp`) — o palco fica com o letreiro de cidades,
- *  que é quem carrega a informação. Slot do cliente: quando a imagem chegar, o
- *  fundo volta. */
+/** 12 · CIDADES + ESPECIALIDADES. O mapa é o `public/mapa-brasil.webp` do
+ *  §44.23 (com alfa, só o território) com o filtro do protótipo, verbatim —
+ *  o arquivo chegou em 14/09 e aposentou os remendos de blend sobre o
+ *  `AR-BG` (§44.27/§44.28 do mapa). */
 export function Cidades({ waText }: { waText: string }) {
   const c = CIDADES_BLOCO;
   return (
@@ -202,6 +204,14 @@ export function Cidades({ waText }: { waText: string }) {
           </h2>
         </div>
         <div className="cidades-palco">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="cidades-mapa"
+            src="/mapa-brasil.webp"
+            alt=""
+            aria-hidden="true"
+            data-par="-0.15"
+          />
           <div className="cidades-letreiro" data-par="0.12">
             <ul aria-label="Cidades atendidas">
               {[...CIDADES_HOME, ...CIDADES_HOME].map((n, i) => (

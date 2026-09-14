@@ -28,6 +28,7 @@ function Malha({ rows, classe }: { rows: number; classe: string }) {
       {pecas.map((p, i) => (
         <div key={i}>
           <i
+            data-pn={i}
             style={{
               clipPath: p.clip,
               background: p.bg,

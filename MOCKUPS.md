@@ -12,7 +12,7 @@
 
 | Arquivo | Cliente | Área | Fonte sugerida |
 |---|---|---|---|
-| `hospital-do-olho-de-sobradinho.png` | Hospital do Olho de Sobradinho | Oftalmologia · DF | site vivo — hosobradinho.com.br |
+| `hospital-de-olhos-sobradinho.png` | Hospital de Olhos Sobradinho | Oftalmologia · DF | site vivo — hosobradinho.com.br |
 | `angiomedi.png` | AngioMedi | Angiologia e Vascular · Brasília | site vivo — angiomedi.com.br |
 | `oculare.png` | Oculare | Oftalmologia | site vivo ou Wayback |
 | `maxicor.png` | MaxiCor | Cardiologia | site vivo ou Wayback |

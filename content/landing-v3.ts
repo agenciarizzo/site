@@ -233,8 +233,12 @@ export const CASES = [
     meta: "Policlínica · Contagem/MG*",
     graficoTitulo: "Cliques orgânicos por dia · antes × depois",
     frase: "Uma página por especialidade, e a home deixou de ser a única porta.",
-    heroi: "3,4 → 19,5 cliques por dia",
-    rotulo: "páginas de especialidade, exame e médico no Google",
+    // Achado #7 (§44.24): "3,4 → 19,5 cliques por dia" estourava a célula
+    // amarela — a métrica do herói vira a % (que é o que cabe na janela);
+    // o de-para completo (3,4 → 19,5) desce pra nota, junto do herói.
+    heroi: "+474%",
+    rotulo: "cliques por dia em páginas de especialidade, exame e médico no Google",
+    nota: "de 3,4 para 19,5 cliques orgânicos por dia nessas páginas",
     periodo: "Search Console, 92 dias antes × 28 dias depois",
     barras: [
       { rotulo: "Páginas profundas · antes", valor: "3,4/dia", alt: 17 },
@@ -259,12 +263,30 @@ export const CASES_DISCLAIMER =
  * slot vazio = card ausente (§44.1). Fica o 85%, que tem método definido pelo
  * cliente, com o método escrito ao lado. Um card honesto vale mais que três.
  */
+/**
+ * Achado #8 (§44.24, Ato 2): o cliente viu só o 85% em produção e chamou de
+ * "incompleto" — o §44.21-4 tinha tirado os outros 2 por falta de apuração;
+ * agora a apuração é afirmação do próprio cliente, ciente de que é página
+ * pública/CFM-safe. Os 3 voltam, cada um com a linha de método (§4.8 do
+ * README do handoff).
+ */
 export const METRICAS = [
+  {
+    num: "+300%",
+    rotulo: "mais contatos de pacientes, em média",
+    metodo:
+      "Média das contas acompanhadas pela agência. Contato é mensagem, formulário ou ligação medidos na plataforma — não consulta realizada.",
+  },
   {
     num: "85%",
     rotulo: "dos clientes na 1ª página do Google pra própria especialidade",
     metodo:
       "Medido no Search Console de cada conta, 16 meses, na busca pela especialidade. Vale pra quem tem site próprio; landing page não entra na conta.",
+  },
+  {
+    num: "500%+",
+    rotulo: "retorno médio das campanhas",
+    metodo: "Média empírica das contas acompanhadas; varia por especialidade, ticket e praça.",
   },
 ];
 
@@ -274,15 +296,18 @@ export const METRICAS_NOTA =
 /* ────────────────────────────────────────────────────────── depoimentos ──── */
 
 /**
- * §44.21-3: as fotos (`public/depoimentos/*.png`) NÃO EXISTEM no repo — o card
- * é citação + nome + link da avaliação, sem foto. A prova é a FONTE, e ela é
- * pública: o médico publicou aquilo na avaliação da agência (§44.4).
+ * Achado #9 (§44.24): o cliente commitou as 3 fotos direto na raiz do site
+ * (`public/depoimentos/*.png` agora) — o §44.21-3 valia enquanto o slot
+ * estava vazio; com o arquivo, a foto liga. ⚠️ Proibido pelo cliente (14/09):
+ * "não coloca como regra os comentários serem só da cidade" — os 3 ficam,
+ * sem filtro por praça, nem agora nem como régua futura.
  */
 export const DEPOIMENTOS = [
   {
     texto: "8 anos juntos, organização impecável da equipe. Indico sempre!",
     nome: "Dr. Homero Ribeiro",
     meta: "Urologista · Brasília/DF",
+    foto: "/depoimentos/homero.png",
     link: "https://www.google.com/maps/search/?api=1&query=Ag%C3%AAncia+Rizzo+Marketing+M%C3%A9dico+An%C3%A1polis",
   },
   {
@@ -292,12 +317,14 @@ export const DEPOIMENTOS = [
        (`content/carteira.ts`) registra Parauapebas/PA — e o §9 do CLAUDE.md do
        site manda a prova sair do CADASTRO, não do desenho. Vale o cadastro. */
     meta: "Oftalmologista · Parauapebas/PA",
+    foto: "/depoimentos/danielle.png",
     link: "https://www.google.com/maps/search/?api=1&query=Ag%C3%AAncia+Rizzo+Marketing+M%C3%A9dico+An%C3%A1polis",
   },
   {
     texto: "Há muitos anos conosco, extrema competência e excelentes resultados!",
     nome: "Dr. Cristiano Velasco",
     meta: "Dermatologista · Brasília/DF",
+    foto: "/depoimentos/velasco.png",
     link: "https://www.facebook.com/agenciarizzo/reviews/",
   },
 ];
@@ -374,7 +401,7 @@ export const TIMELINE = [
   { ano: "2003", titulo: "Prêmio iBest", texto: "Categoria governo, pelo trabalho no CNPq." },
   { ano: "2007", titulo: "Hospital Daher", texto: "Gerente de comunicação; desde então, só saúde." },
   { ano: "2012", titulo: "Nasce a Agência Rizzo", texto: "" },
-  { ano: "2026", titulo: "259 clientes atendidos em 21 estados", texto: "50 ativos no RizzoOS hoje." },
+  { ano: "2026", titulo: "259 clientes atendidos em 21 estados", texto: "" },
 ];
 
 /* ─────────────────────────────────────────────────────────── clientes ────── */
@@ -453,7 +480,7 @@ export const ATRIBUTOS = [
  */
 export const FAQ = [
   { p: "Como fica a conformidade com o CFM?", r: "Toda peça é revisada contra a Resolução CFM nº 2.336/2023 antes de ir pra aprovação: sem promessa de resultado, sem sensacionalismo, sem “antes e depois” fora das condições da resolução. E nada é publicado sem a sua aprovação no RizzoOS." },
-  { p: "Vocês atendem hospitais e redes de saúde?", r: "Sim. Hospital Daher, Hospital de Olhos de Sobradinho, Hospital de Olhos do DF e CBCOR estão na carteira — e o fundador foi gerente de comunicação de um hospital certificado ONA/ISO. Campanha por linha de serviço, multicanal e por unidade é rotina." },
+  { p: "Vocês atendem hospitais e redes de saúde?", r: "Sim. Hospital Daher, Hospital de Olhos Sobradinho, Hospital de Olhos do DF e CBCOR estão na carteira — e o fundador foi gerente de comunicação de um hospital certificado ONA/ISO. Campanha por linha de serviço, multicanal e por unidade é rotina." },
   { p: "Vocês atendem o meu concorrente?", r: "Não. Um cliente por especialidade em cada cidade. Se a sua vaga estiver ocupada, a gente avisa na primeira conversa." },
   { p: "Quanto tempo até os primeiros contatos?", r: "Com Google Ads, os primeiros contatos costumam chegar nos primeiros 30 dias. Site, SEO e conteúdo são de médio prazo: 3 a 6 meses pra ganhar consistência." },
   { p: "Qual é o investimento?", r: "Depende do escopo. Monte o seu pacote na calculadora e veja o valor na hora, sem reunião." },
