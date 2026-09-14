@@ -1906,6 +1906,20 @@
   font-size: 13px;
   color: var(--cinza-texto);
 }
+.dg .depo-quem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.dg .depo-foto {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
+}
 .dg .depo footer strong {
   color: var(--chumbo);
   font-weight: 600;
@@ -2543,7 +2557,8 @@
   transition: left 0.9s cubic-bezier(0.7, 0, 0.2, 1), top 0.9s cubic-bezier(0.7, 0, 0.2, 1),
     width 0.9s cubic-bezier(0.7, 0, 0.2, 1), height 0.9s cubic-bezier(0.7, 0, 0.2, 1), opacity 0.5s ease;
 }
-.dg .pf-peca img {
+.dg .pf-peca img,
+.dg .pf-peca video {
   display: block;
   width: 100%;
   height: 100%;
@@ -2629,7 +2644,8 @@
   display: flex;
   flex-direction: column;
 }
-.dg .pf-faixa img {
+.dg .pf-faixa img,
+.dg .pf-faixa video {
   display: block;
   width: 100%;
   height: auto;
@@ -2815,6 +2831,12 @@
   height: 22px;
   width: auto;
   display: block;
+  /* Achado #14: `.rodape-marca` é flex-column, e o cross-axis default
+     (`align-self:stretch`) vale justamente quando `width` é `auto` — o logo
+     esticava pra 100% da coluna (233px/342px) só que preso em 22px de
+     altura, distorcido. `flex-start` deixa a imagem no próprio tamanho. */
+  align-self: flex-start;
+  flex: none;
 }
 .dg .rodape-marca p {
   margin: 0;

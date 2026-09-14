@@ -21,10 +21,9 @@ function Estrelas() {
 }
 
 /**
- * §44.21-3: as fotos dos depoimentos (`public/depoimentos/*.png`) NÃO existem
- * no repo — o card é citação + nome + link da avaliação, sem foto. A prova aqui
- * é a FONTE (o médico publicou aquilo na avaliação pública da agência), não o
- * retrato; foto inventada seria prova falsa.
+ * Achado #9 (§44.24): as 3 fotos chegaram (`public/depoimentos/*.png`) — o
+ * card ganha o retrato de volta. Sem filtro por praça (proibido pelo
+ * cliente, 14/09 — ver comentário em `content/landing-v3.ts`).
  */
 export function Depoimentos() {
   return (
@@ -38,10 +37,13 @@ export function Depoimentos() {
             <Estrelas />
             <p className="depo-texto">“{d.texto}”</p>
             <footer>
-              <span>
-                <strong>{d.nome}</strong>
-                <br />
-                {d.meta}
+              <span className="depo-quem">
+                <Image className="depo-foto" src={d.foto} alt="" width={52} height={52} aria-hidden />
+                <span>
+                  <strong>{d.nome}</strong>
+                  <br />
+                  {d.meta}
+                </span>
               </span>
               <a href={d.link} target="_blank" rel="noopener">
                 ver avaliação →

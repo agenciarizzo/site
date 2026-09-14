@@ -137,6 +137,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
           const cena = cenas[idx];
           for (const el of Array.from(pf.querySelectorAll<HTMLElement>("[data-pf-peca]"))) {
             const vaga = cena[Number(el.dataset.pfPeca)];
+            const video = el.querySelector<HTMLVideoElement>("video");
             if (vaga) {
               el.style.left = `${vaga[0]}%`;
               el.style.top = `${vaga[1]}%`;
@@ -144,6 +145,8 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
               el.style.height = `${vaga[3]}%`;
               el.style.opacity = "1";
               el.style.zIndex = "2";
+              // Achado #13: só toca a peça da cena ativa.
+              video?.play().catch(() => {});
             } else {
               el.style.opacity = "0";
               el.style.zIndex = "1";
@@ -151,6 +154,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
               el.style.height = "0%";
               el.style.left = "50%";
               el.style.top = "50%";
+              video?.pause();
             }
           }
           const foco = pf.querySelector<HTMLElement>(`[data-pf-peca="${Object.keys(cena)[0]}"]`);
@@ -221,6 +225,25 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       io.observe(grade);
     }
 
+    // Achado #13: os vídeos da FAIXA (a lista horizontal, fora do palco
+    // morfo — esses não passam pelo `data-pf-peca` acima) tocam só enquanto
+    // o cartão está visível na faixa.
+    const faixaVideos = Array.from(raiz.querySelectorAll<HTMLVideoElement>(".pf-faixa video"));
+    let ioFaixa: IntersectionObserver | undefined;
+    if (faixaVideos.length && "IntersectionObserver" in window) {
+      ioFaixa = new IntersectionObserver(
+        (entradas) => {
+          for (const e of entradas) {
+            const v = e.target as HTMLVideoElement;
+            if (e.isIntersecting) v.play().catch(() => {});
+            else v.pause();
+          }
+        },
+        { threshold: 0.4 },
+      );
+      for (const v of faixaVideos) ioFaixa.observe(v);
+    }
+
     return () => {
       removeEventListener("scroll", aoRolar);
       removeEventListener("resize", aoRolar);
@@ -228,6 +251,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       if (quadro) cancelAnimationFrame(quadro);
       if (tempos) clearTimeout(tempos);
       io?.disconnect();
+      ioFaixa?.disconnect();
     };
   }, [cenas]);
 

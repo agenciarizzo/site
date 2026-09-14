@@ -233,8 +233,12 @@ export const CASES = [
     meta: "Policlínica · Contagem/MG*",
     graficoTitulo: "Cliques orgânicos por dia · antes × depois",
     frase: "Uma página por especialidade, e a home deixou de ser a única porta.",
-    heroi: "3,4 → 19,5 cliques por dia",
-    rotulo: "páginas de especialidade, exame e médico no Google",
+    // Achado #7 (§44.24): "3,4 → 19,5 cliques por dia" estourava a célula
+    // amarela — a métrica do herói vira a % (que é o que cabe na janela);
+    // o de-para completo (3,4 → 19,5) desce pra nota, junto do herói.
+    heroi: "+474%",
+    rotulo: "cliques por dia em páginas de especialidade, exame e médico no Google",
+    nota: "de 3,4 para 19,5 cliques orgânicos por dia nessas páginas",
     periodo: "Search Console, 92 dias antes × 28 dias depois",
     barras: [
       { rotulo: "Páginas profundas · antes", valor: "3,4/dia", alt: 17 },
@@ -292,15 +296,18 @@ export const METRICAS_NOTA =
 /* ────────────────────────────────────────────────────────── depoimentos ──── */
 
 /**
- * §44.21-3: as fotos (`public/depoimentos/*.png`) NÃO EXISTEM no repo — o card
- * é citação + nome + link da avaliação, sem foto. A prova é a FONTE, e ela é
- * pública: o médico publicou aquilo na avaliação da agência (§44.4).
+ * Achado #9 (§44.24): o cliente commitou as 3 fotos direto na raiz do site
+ * (`public/depoimentos/*.png` agora) — o §44.21-3 valia enquanto o slot
+ * estava vazio; com o arquivo, a foto liga. ⚠️ Proibido pelo cliente (14/09):
+ * "não coloca como regra os comentários serem só da cidade" — os 3 ficam,
+ * sem filtro por praça, nem agora nem como régua futura.
  */
 export const DEPOIMENTOS = [
   {
     texto: "8 anos juntos, organização impecável da equipe. Indico sempre!",
     nome: "Dr. Homero Ribeiro",
     meta: "Urologista · Brasília/DF",
+    foto: "/depoimentos/homero.png",
     link: "https://www.google.com/maps/search/?api=1&query=Ag%C3%AAncia+Rizzo+Marketing+M%C3%A9dico+An%C3%A1polis",
   },
   {
@@ -310,12 +317,14 @@ export const DEPOIMENTOS = [
        (`content/carteira.ts`) registra Parauapebas/PA — e o §9 do CLAUDE.md do
        site manda a prova sair do CADASTRO, não do desenho. Vale o cadastro. */
     meta: "Oftalmologista · Parauapebas/PA",
+    foto: "/depoimentos/danielle.png",
     link: "https://www.google.com/maps/search/?api=1&query=Ag%C3%AAncia+Rizzo+Marketing+M%C3%A9dico+An%C3%A1polis",
   },
   {
     texto: "Há muitos anos conosco, extrema competência e excelentes resultados!",
     nome: "Dr. Cristiano Velasco",
     meta: "Dermatologista · Brasília/DF",
+    foto: "/depoimentos/velasco.png",
     link: "https://www.facebook.com/agenciarizzo/reviews/",
   },
 ];
