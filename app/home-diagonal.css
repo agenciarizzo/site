@@ -624,6 +624,11 @@
   display: block;
   animation: dg-peca 0.55s cubic-bezier(0.7, 0, 0.15, 1) both;
   animation-delay: var(--d);
+  /* §3.1 do README: a cada 3s o hero sorteia um novo seed (Motor.tsx) e
+     reescreve clip-path/background/rotação — esta transição (não a
+     animation acima, que é só a entrada do mount) é o que faz a peça se
+     remontar suave em vez de trocar seca. */
+  transition: clip-path 0.55s cubic-bezier(0.7, 0, 0.15, 1), background-color 0.55s, transform 0.55s cubic-bezier(0.7, 0, 0.15, 1);
 }
 @keyframes dg-peca {
   from {
@@ -2301,13 +2306,17 @@
   margin-top: 4vh;
   overflow: hidden;
 }
-/* Ato 2 do §44.24: o cliente subiu o mapa noturno que tem (fundo preto, luzes
-   brancas, pinos amarelos) — o filtro do protótipo (§3.12: grayscale+brightness,
-   pensado pra um mapa CLARO) devolveria um retângulo cinza sobre o bege. Quem
-   reproduz o mesmo olhar — o continente como marca d'água clara atrás do
-   letreiro — com ESTE arquivo é `mix-blend-mode: screen` (preto vira
-   transparente, luzes e pinos ficam). Revoga a decisão do §44.23 (fundo
-   transparente sem pinos): o cliente mandou o arquivo que tem, com pinos. */
+/* Ato 2 do §44.24 + retoque de 14/09: o `screen` puro saía apagado demais —
+   só os pontinhos de luz apareciam, o continente não lia como FORMA (o
+   cliente anexou o protótipo mostrando o território visível, não uma marca
+   d'água quase invisível). `invert()` vira o fundo preto em branco (some
+   por `multiply`) e o terreno claro em cinza-escuro — a silhueta do
+   continente fica sólida e legível sobre o bege, com os pinos (agora
+   azul-marinho, efeito colateral do invert) ainda visíveis como marcadores.
+   ⚠️ Testado empilhar uma 2ª cópia em `screen` por cima só pra devolver os
+   pinos amarelos — não funciona: `screen` clareia a imagem INTEIRA (não só
+   os pinos), e devolvia o washed-out que essa mudança está corrigindo. Uma
+   camada só. */
 .dg .cidades-mapa {
   position: absolute;
   left: 50%;
@@ -2319,8 +2328,9 @@
      a cada scroll — o valor aqui é só o estado sem JS (progressive
      enhancement: a página lê inteira sem JS, só sem o parallax). */
   transform: translateX(-50%);
-  mix-blend-mode: screen;
-  opacity: 0.9;
+  filter: invert(1) brightness(1.15) contrast(1.3);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
   pointer-events: none;
 }
 .dg .cidades-letreiro {
