@@ -45,9 +45,14 @@ export function Depoimentos() {
                   {d.meta}
                 </span>
               </span>
-              <a href={d.link} target="_blank" rel="noopener">
-                ver avaliação →
-              </a>
+              {/* O "ver avaliação →" saiu (cliente, 14/09: "remova botão de ler
+                  as avaliações. não quero tirar cliente do site"). A home é
+                  LANDING: todo link que abre outra aba é uma saída, e esta
+                  mandava pro Google/Facebook no meio da prova social. A fonte
+                  continua declarada embaixo do bloco (`DEPOIMENTOS_FONTE`) —
+                  quem quiser conferir sabe onde a avaliação foi publicada,
+                  sem a página empurrar pra lá (§⚖️: a prova não some, o
+                  vazamento some). */}
             </footer>
           </blockquote>
         ))}

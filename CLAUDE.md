@@ -85,6 +85,17 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
     serviço×especialidade×cidade com prova real do RizzoOS (Supabase) — régua
     anti-doorway no §3.3 do mapa. Próxima da fila: `ortopedista × Goiânia` como
     página-**filha** da landing de Goiânia, nunca como raiz.
+11. **A imagem de compartilhamento (OG) usa o H1 DA PÁGINA e o PANO DA PÁGINA**
+    — regra do cliente, 2026-09-14 (`design_handoff_og_share/README.md`).
+    Nunca copy própria, nunca um pano diferente do que aparece no site: se o
+    cartão do WhatsApp promete uma frase e a página abre com outra, o cartão
+    mentiu. Uma OG **por rota**, gerada no build (`lib/og.tsx` +
+    `app/**/opengraph-image.tsx`), lendo o h1 da MESMA fonte que a página
+    renderiza — sem segunda cópia do texto pra divergir. Fundo papel
+    `#F4EFE6`, tinta `#323C46`, amarelo só o do logo; três elementos e só
+    (logo, h1, pano) — sem kicker, sem URL, sem CTA. Rota nova que queira a sua
+    OG adiciona um `opengraph-image.tsx` de ~6 linhas; sem ele, cai na capa
+    estática do `app/layout.tsx`, que segue valendo como padrão do site.
 
 ## Fluxo de desenvolvimento (adaptado das regras do rizzo-os — 2026-08-07)
 
