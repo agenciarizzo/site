@@ -259,12 +259,30 @@ export const CASES_DISCLAIMER =
  * slot vazio = card ausente (§44.1). Fica o 85%, que tem método definido pelo
  * cliente, com o método escrito ao lado. Um card honesto vale mais que três.
  */
+/**
+ * Achado #8 (§44.24, Ato 2): o cliente viu só o 85% em produção e chamou de
+ * "incompleto" — o §44.21-4 tinha tirado os outros 2 por falta de apuração;
+ * agora a apuração é afirmação do próprio cliente, ciente de que é página
+ * pública/CFM-safe. Os 3 voltam, cada um com a linha de método (§4.8 do
+ * README do handoff).
+ */
 export const METRICAS = [
+  {
+    num: "+300%",
+    rotulo: "mais contatos de pacientes, em média",
+    metodo:
+      "Média das contas acompanhadas pela agência. Contato é mensagem, formulário ou ligação medidos na plataforma — não consulta realizada.",
+  },
   {
     num: "85%",
     rotulo: "dos clientes na 1ª página do Google pra própria especialidade",
     metodo:
       "Medido no Search Console de cada conta, 16 meses, na busca pela especialidade. Vale pra quem tem site próprio; landing page não entra na conta.",
+  },
+  {
+    num: "500%+",
+    rotulo: "retorno médio das campanhas",
+    metodo: "Média empírica das contas acompanhadas; varia por especialidade, ticket e praça.",
   },
 ];
 

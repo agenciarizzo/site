@@ -10,6 +10,19 @@ import { CARTEIRA } from "@/content/carteira";
 import { logoDe } from "@/lib/logos";
 import { seletividade } from "@/lib/ar/seletividade.mjs";
 
+/**
+ * Achado #5 (§44.24): "não usar logos com fundo branco". Os 242 arquivos de
+ * `public/logos/` são todos PNG/webp de canvas transparente — não há arquivo
+ * com fundo sólido — mas duas marcas desenham a própria peça sobre um CARTÃO
+ * branco (não é cor de traço, é bloco de fundo), que quebra o tratamento
+ * duotone com um retângulo branco cru sobre o amarelo: Clínica Dimas Dutra
+ * (retângulo 236×124, 4 cantos brancos após recortar a margem transparente) e
+ * Clínica BabyPed (crachá ovalado branco). Checado nas 242 uma a uma
+ * (script de apoio, não commitado): as demais têm branco só como TRAÇO/ícone
+ * sobre fundo transparente — isso fica, é desenho do logo, não "fundo".
+ */
+const LOGO_FUNDO_BRANCO = new Set(["/logos/clinica-dimas-dutra.webp", "/logos/clinica-babyped.webp"]);
+
 /* ─────────────────────────────────────────────────────── 2 · autoridade ── */
 
 /**
@@ -48,10 +61,13 @@ export function Autoridade() {
  */
 export function Clientes() {
   const marcas = CARTEIRA.map((c) => ({ nome: c.nome, src: logoDe(c.nome) })).filter(
-    (m): m is { nome: string; src: string } => m.src !== null,
+    (m): m is { nome: string; src: string } => m.src !== null && !LOGO_FUNDO_BRANCO.has(m.src),
   );
   const trilhos = [0, 1, 2].map((r) => marcas.filter((_, i) => i % 3 === r));
-  const vel = ["84s", "112s", "96s"];
+  // Achado #4 (§44.24): "a velocidade dos logos está muito rápida" — as 3
+  // faixas desaceleram mantendo velocidades distintas entre si (84/112/96 →
+  // 140/190/165, mesma proporção relativa do protótipo).
+  const vel = ["140s", "190s", "165s"];
 
   return (
     <section className="clientes" aria-labelledby="h-clientes" data-topo="claro">

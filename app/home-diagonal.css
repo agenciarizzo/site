@@ -759,7 +759,9 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: grayscale(1) contrast(1.2);
+  /* Achado #5: contrast 1.2 → 1.4 — escurece o duotone (o que sobrava claro
+     lia quase como fundo branco por trás do amarelo). */
+  filter: grayscale(1) contrast(1.4);
   mix-blend-mode: multiply;
   opacity: 0.85;
   transition: filter 0.3s, opacity 0.3s;
@@ -961,12 +963,18 @@
   line-height: 1.5;
   text-wrap: pretty;
 }
+/* Achado #6: com `margin-top:auto` só no h3 (flex column), o título ficava à
+   distância do rodapé da célula que a FRASE/RECEBE de cada serviço deixassem
+   — como o texto varia de tamanho entre os 6 serviços, os títulos da mesma
+   linha da grade não alinhavam entre si. Em grid, o h3 nasce logo depois do
+   número (altura fixa) em toda célula; a frase cresce pro espaço que sobra
+   (`1fr`) e o "recebe" continua no rodapé. */
 .dg .serv {
   background: var(--papel-claro);
   color: var(--chumbo);
   padding: 24px 28px 28px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
   gap: 14px;
   transition: background 0.28s ease;
 }
@@ -982,7 +990,8 @@
   font-weight: 600;
 }
 .dg .serv h3 {
-  margin: auto 0 0;
+  margin: 0;
+  align-self: start;
   font-weight: 700;
   font-size: clamp(20px, 1.7vw, 24px);
   line-height: 1.05;
@@ -2274,8 +2283,31 @@
 }
 .dg .cidades-palco {
   position: relative;
-  height: 40vh;
+  height: 62vh;
   margin-top: 4vh;
+  overflow: hidden;
+}
+/* Ato 2 do §44.24: o cliente subiu o mapa noturno que tem (fundo preto, luzes
+   brancas, pinos amarelos) — o filtro do protótipo (§3.12: grayscale+brightness,
+   pensado pra um mapa CLARO) devolveria um retângulo cinza sobre o bege. Quem
+   reproduz o mesmo olhar — o continente como marca d'água clara atrás do
+   letreiro — com ESTE arquivo é `mix-blend-mode: screen` (preto vira
+   transparente, luzes e pinos ficam). Revoga a decisão do §44.23 (fundo
+   transparente sem pinos): o cliente mandou o arquivo que tem, com pinos. */
+.dg .cidades-mapa {
+  position: absolute;
+  left: 50%;
+  top: -14%;
+  height: 150%;
+  width: auto;
+  max-width: none;
+  /* Motor.tsx substitui este `transform` por `translateX(-50%) translateY(k)`
+     a cada scroll — o valor aqui é só o estado sem JS (progressive
+     enhancement: a página lê inteira sem JS, só sem o parallax). */
+  transform: translateX(-50%);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  pointer-events: none;
 }
 .dg .cidades-letreiro {
   position: absolute;

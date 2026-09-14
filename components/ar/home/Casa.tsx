@@ -175,10 +175,9 @@ export function Sobre() {
   );
 }
 
-/** 12 · CIDADES + ESPECIALIDADES. O mapa do Brasil do protótipo não existe no
- *  repo (`public/mapa-brasil.webp`) — o palco fica com o letreiro de cidades,
- *  que é quem carrega a informação. Slot do cliente: quando a imagem chegar, o
- *  fundo volta. */
+/** 12 · CIDADES + ESPECIALIDADES. O mapa noturno que o cliente subiu entra em
+ *  `mix-blend-mode: screen` sobre o bege (Ato 2 do §44.24 — revoga o §44.23:
+ *  o arquivo real tem pinos, e o `screen` resolve sem precisar recortar). */
 export function Cidades({ waText }: { waText: string }) {
   const c = CIDADES_BLOCO;
   return (
@@ -202,6 +201,14 @@ export function Cidades({ waText }: { waText: string }) {
           </h2>
         </div>
         <div className="cidades-palco">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="cidades-mapa"
+            src="/AR-BG-1920-x-1080-px-Story.webp"
+            alt=""
+            aria-hidden="true"
+            data-par="-0.15"
+          />
           <div className="cidades-letreiro" data-par="0.12">
             <ul aria-label="Cidades atendidas">
               {[...CIDADES_HOME, ...CIDADES_HOME].map((n, i) => (

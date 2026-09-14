@@ -83,7 +83,12 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
         const r = sec.getBoundingClientRect();
         const p = (r.top + r.height / 2 - vh / 2) / vh;
         const k = reduzido ? 0 : parseFloat(el.dataset.par || "0") * vh * 0.5;
-        el.style.transform = `translateY(${(p * k).toFixed(1)}px)`;
+        // §5 do README: "em <img> prefixar translateX(-50%)" — a imagem
+        // centralizada precisa do próprio prefixo estático DENTRO do mesmo
+        // transform (não num wrapper: transform cria stacking context e
+        // isola o `mix-blend-mode` do fundo por trás, ex. o mapa de Cidades).
+        const prefixo = el.tagName === "IMG" ? "translateX(-50%) " : "";
+        el.style.transform = `${prefixo}translateY(${(p * k).toFixed(1)}px)`;
       }
 
       for (const el of reveals) {
