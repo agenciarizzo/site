@@ -6,7 +6,8 @@
 import Link from "next/link";
 import { ROTA_PORTAO } from "@/lib/nav";
 import { ATRIBUTOS, EXCLUSIVIDADE } from "@/content/landing-v3";
-import { CARTEIRA } from "@/content/carteira";
+import { CARTEIRA, OCULTOS } from "@/content/carteira";
+import { chave } from "@/content/portfolio";
 import { logoDe } from "@/lib/logos";
 import { seletividade } from "@/lib/ar/seletividade.mjs";
 
@@ -22,6 +23,21 @@ import { seletividade } from "@/lib/ar/seletividade.mjs";
  * sobre fundo transparente — isso fica, é desenho do logo, não "fundo".
  */
 const LOGO_FUNDO_BRANCO = new Set(["/logos/clinica-dimas-dutra.webp", "/logos/clinica-babyped.webp"]);
+
+/**
+ * Revisão da F3 (rizzo-os → SITE_MANIFESTO_MAPA.md §44.29-2): o letreiro era o
+ * ÚNICO consumidor da `CARTEIRA` que não descontava o `OCULTOS` — `/clientes` e
+ * a `EspecialidadeLanding` já descontam, e o contrato do próprio `OCULTOS` diz
+ * "nome que sai da página". Efeito medido: o logo do rebrand antigo ("Hospital
+ * de Olhos Salute", `/logos/hospital-de-olhos-salute.webp`) seguia no letreiro
+ * da home depois de a casa ter sido unificada em "Hospital de Olhos Sobradinho"
+ * (HS_NOME_UNICO_MAPA.md §11). Mesma normalização de `/clientes` (`chave`), pra
+ * não haver duas leituras do mesmo `OCULTOS`.
+ */
+const CARTEIRA_VISIVEL = (() => {
+  const ocultos = new Set(OCULTOS.map(chave));
+  return CARTEIRA.filter((c) => !ocultos.has(chave(c.nome)));
+})();
 
 /* ─────────────────────────────────────────────────────── 2 · autoridade ── */
 
@@ -60,7 +76,7 @@ export function Autoridade() {
  * fora, sem placeholder.
  */
 export function Clientes() {
-  const marcas = CARTEIRA.map((c) => ({ nome: c.nome, src: logoDe(c.nome) })).filter(
+  const marcas = CARTEIRA_VISIVEL.map((c) => ({ nome: c.nome, src: logoDe(c.nome) })).filter(
     (m): m is { nome: string; src: string } => m.src !== null && !LOGO_FUNDO_BRANCO.has(m.src),
   );
   const trilhos = [0, 1, 2].map((r) => marcas.filter((_, i) => i % 3 === r));
