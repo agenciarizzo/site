@@ -20,7 +20,12 @@ export interface ClienteCarteira {
 // Nome que sai da página: ADICIONE a linha aqui — nunca apague a linha do registro
 // lá embaixo. O razão fica completo e o motivo do corte fica visível no diff.
 // O gerador relê esta lista e a reescreve intacta a cada run.
-export const OCULTOS: string[] = [];
+export const OCULTOS: string[] = [
+  // HS é UMA casa (Salute → rebrand, cliente 2026-09): já está na grade de cima
+  // como "Hospital de Olhos Sobradinho" — sem esta linha a página a publicava 2×
+  // (rizzo-os → HS_NOME_UNICO_MAPA.md §2.1). O registro 203 fica intacto.
+  "Hospital de Olhos Salute",
+];
 
 export const CARTEIRA: ClienteCarteira[] = [
   { nome: "Agcare – Hotelaria Assistida e Cuidado Integral", area: "Saúde Integrativa", cidade: "São Paulo", uf: "SP", tipo: "Clínica" },

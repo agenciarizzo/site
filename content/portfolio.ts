@@ -1596,7 +1596,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
       "Vercel: projeto fc-dr-francisco-carvalho (www.drfranciscocarvalho.com), deploy de produção dpl_GsDpb8NNZMCXxSnsG3c6LAW7aW6Z; repo agenciarizzo/FC---Dr.-Francisco-Carvalho, commit b3ff7fd",
   },
   {
-    cliente: "Hospital de Olhos de Sobradinho",
+    cliente: "Hospital de Olhos Sobradinho",
     contexto: "Site para hospital de olhos — Sobradinho, Brasília",
     espec: "Oftalmologia",
     servico: "Site",
@@ -1604,7 +1604,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     imagem: "/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp",
     largura: 1200,
     altura: 500,
-    alt: "Mockup de monitor com o site do Hospital de Olhos de Sobradinho, oftalmologia no DF",
+    alt: "Mockup de monitor com o site do Hospital de Olhos Sobradinho, oftalmologia no DF",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto hos-sobradinho (www.hosobradinho.com.br), deploy de produção dpl_J4iPqTdLHUytJsJ1Eo8Kxh77HKWP; repo agenciarizzo/HOS-Sobradinho, commit 3fd49e0. O <title> do site assina \"Hospital de Olhos Salute Sobradinho (HOS)\" — confirma o rebrand do §15.1 que o clientes.ts já declara no `oraculo`",

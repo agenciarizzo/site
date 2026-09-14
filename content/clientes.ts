@@ -23,6 +23,11 @@
 //   - `Hospital do Olho de Sobradinho` estava com a 3ª grafia da mesma casa no
 //     repo. Passa a "Hospital de Olhos de Sobradinho", que é como `cidades.ts`
 //     já nomeia — e é a grafia que tem endereço vivo (hosobradinho.com.br).
+//     2026-09-14 — cai o "de": o nome de marca do cadastro (`clients.fantasy_name`,
+//     sigla HS) é "Hospital de Olhos Sobradinho" — rizzo-os →
+//     HS_NOME_UNICO_MAPA.md §2.2 (5 sinais independentes). Uma grafia só, em
+//     todo arquivo público; e a marca antiga ("Salute") sai da página via
+//     `OCULTOS` da carteira, que era a divergência "de pé" anotada abaixo.
 //
 // ⚠️ O VÍNCULO É DECLARADO, nunca casado por heurística (§24.9 do doc-mapa): cada
 // linha diz de qual registro do oráculo ela veio, e `checar-portfolio.mjs` cobra
@@ -46,7 +51,7 @@ export interface ClienteRef {
 }
 
 export const CLIENTES: ClienteRef[] = [
-  { nome: "Hospital de Olhos de Sobradinho", area: "Oftalmologia", oraculo: "Hospital de Olhos Salute" },
+  { nome: "Hospital de Olhos Sobradinho", area: "Oftalmologia", oraculo: "Hospital de Olhos Salute" },
   { nome: "AngioMedi", area: "Medicina Especializada", oraculo: "Angiomedi – Centro Integrado de Angiologia" },
   { nome: "Oculare", area: "Oftalmologia", oraculo: "Oculare Oftalmologia" },
   { nome: "MaxiCor", area: "Cardiologia", oraculo: "MaxiCor Clínica" },

@@ -480,7 +480,7 @@ export const ATRIBUTOS = [
  */
 export const FAQ = [
   { p: "Como fica a conformidade com o CFM?", r: "Toda peça é revisada contra a Resolução CFM nº 2.336/2023 antes de ir pra aprovação: sem promessa de resultado, sem sensacionalismo, sem “antes e depois” fora das condições da resolução. E nada é publicado sem a sua aprovação no RizzoOS." },
-  { p: "Vocês atendem hospitais e redes de saúde?", r: "Sim. Hospital Daher, Hospital de Olhos de Sobradinho, Hospital de Olhos do DF e CBCOR estão na carteira — e o fundador foi gerente de comunicação de um hospital certificado ONA/ISO. Campanha por linha de serviço, multicanal e por unidade é rotina." },
+  { p: "Vocês atendem hospitais e redes de saúde?", r: "Sim. Hospital Daher, Hospital de Olhos Sobradinho, Hospital de Olhos do DF e CBCOR estão na carteira — e o fundador foi gerente de comunicação de um hospital certificado ONA/ISO. Campanha por linha de serviço, multicanal e por unidade é rotina." },
   { p: "Vocês atendem o meu concorrente?", r: "Não. Um cliente por especialidade em cada cidade. Se a sua vaga estiver ocupada, a gente avisa na primeira conversa." },
   { p: "Quanto tempo até os primeiros contatos?", r: "Com Google Ads, os primeiros contatos costumam chegar nos primeiros 30 dias. Site, SEO e conteúdo são de médio prazo: 3 a 6 meses pra ganhar consistência." },
   { p: "Qual é o investimento?", r: "Depende do escopo. Monte o seu pacote na calculadora e veja o valor na hora, sem reunião." },

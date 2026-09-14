@@ -234,7 +234,7 @@ export const CIDADES: Cidade[] = [
       {
         especialidade: "Oftalmologia",
         clientes: [
-          { nome: "Hospital de Olhos de Sobradinho", site: "https://hosobradinho.com.br" },
+          { nome: "Hospital de Olhos Sobradinho", site: "https://hosobradinho.com.br" },
           { nome: "Hospital de Olhos do DF" },
           { nome: "Oculare" },
         ],
