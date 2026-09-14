@@ -46,13 +46,23 @@ export function Topo({ waText }: { waText: string }) {
           <IconeWhats />
         </Link>
 
-        <details className="menu">
-          <summary>Menu</summary>
-          <div className="menu-painel">
-            {/* O véu fecha o menu: é um `<label>`-menos, então ele é só visual —
-                fechar de verdade é clicar no "Menu" de novo ou apertar Esc. */}
-            <span className="menu-veu" aria-hidden />
-            <nav className="menu-nav" aria-label="Menu principal">
+        {/* HOTFIX (produção travada): era um `<details>` cujo painel tapava o
+            próprio `<summary>` — medido: `elementFromPoint` no botão devolvia
+            `NAV.menu-nav`, então NÃO HAVIA como fechar o menu sem recarregar a
+            página, em 1440 e em 390. `<details>` só aceita UM `<summary>`, e o
+            cliente pediu botão de fechar; o caixote de seleção aceita quantos
+            rótulos quiserem, todos sem JS. Agora fecham o menu: o ✕ do painel,
+            o véu e o próprio botão "Menu". */}
+        <input type="checkbox" id="dg-menu" className="menu-check" />
+        <label className="menu-abre" htmlFor="dg-menu">
+          Menu
+        </label>
+        <div className="menu-painel">
+          <label className="menu-veu" htmlFor="dg-menu" aria-label="Fechar menu" />
+          <nav className="menu-nav" aria-label="Menu principal">
+            <label className="menu-fecha" htmlFor="dg-menu" aria-label="Fechar menu">
+              <span aria-hidden>✕</span>
+            </label>
               <div className="menu-grandes">
                 <Link className="menu-pill" href="/" aria-current="page">
                   Home
@@ -129,9 +139,8 @@ export function Topo({ waText }: { waText: string }) {
                   </ul>
                 </div>
               </div>
-            </nav>
-          </div>
-        </details>
+          </nav>
+        </div>
       </div>
 
       {/* A barra do polegar — só no celular (ver `app/home-diagonal.css`).
