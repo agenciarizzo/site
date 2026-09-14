@@ -24,11 +24,14 @@
 //  · `[data-regua]`    os 64 traços sobem quando a régua entra
 //  · `.topo`           `data-rolou` (pílula) e `data-tinta` (cor da tinta)
 //  · `[data-serv-grade]` a animação de entrada da grade de serviços (1×)
+//  · `.geo i[data-pn]` o giro de seed do hero a cada 3s (§3.1 do README)
 //
 // `prefers-reduced-motion: reduce`: paralaxe = 0, reveal imediato, barras a
 // 100%. Os estados (RizzoOS, portfólio, topo) continuam — eles são navegação,
-// não enfeite.
+// não enfeite. O giro do hero PARA (nem entra no intervalo).
 import { useEffect } from "react";
+import { heroPecas } from "@/lib/ar/heroGeo.mjs";
+import { HERO } from "@/content/home";
 
 /** A ordem em que a grade de serviços acende antes de estacionar em 0 e 4. */
 const ORDEM_SERV = [0, 1, 2, 5, 4, 3, 0, 1, 2, 5, 4, 3, 0, 1, 2, 5, 4];
@@ -60,6 +63,70 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     medirTexto();
     addEventListener("resize", medirTexto);
 
+    // Perf (achado do cliente — INP de 256ms medido em DevTools, 14/09): o
+    // `passo()` rodava `getBoundingClientRect()` pra CADA `[data-par]` e CADA
+    // `[data-topo]` EM TODO FRAME de scroll — nem `pares` nem `secoes` (as
+    // seções da página, não os cards `.case` que são `position:sticky`) se
+    // movem sozinhas fora do scroll normal, então a posição-documento de cada
+    // uma é ESTÁVEL entre resizes. Medir uma vez (+ no resize) e, por frame,
+    // só fazer aritmética com `scrollY` — sem nenhuma leitura de layout —
+    // corta as ~24 leituras/frame que sobravam depois do `cresce` (que
+    // continua ao vivo: `.case` É sticky, sua posição na viewport não é
+    // `topo-estático − scrollY`).
+    type ParInfo = { el: HTMLElement; par: number; secTop: number; secHeight: number };
+    let paresInfo: ParInfo[] = [];
+    const medirPares = () => {
+      paresInfo = [];
+      for (const el of pares) {
+        const sec = el.closest("section");
+        if (!sec) continue;
+        const r = sec.getBoundingClientRect();
+        paresInfo.push({ el, par: parseFloat(el.dataset.par || "0"), secTop: r.top + scrollY, secHeight: r.height });
+      }
+    };
+    medirPares();
+    addEventListener("resize", medirPares);
+
+    type SecaoTinta = { top: number; bottom: number; tinta: string };
+    let secoesInfo: SecaoTinta[] = [];
+    const medirSecoes = () => {
+      secoesInfo = secoes.map((s) => {
+        const r = s.getBoundingClientRect();
+        const top = r.top + scrollY;
+        return { top, bottom: top + r.height, tinta: s.dataset.topo || "escuro" };
+      });
+    };
+    medirSecoes();
+    addEventListener("resize", medirSecoes);
+
+    // §3.1 do README: "a cada 3s, sorteia novo seed (0–60) e re-renderiza —
+    // só enquanto scrollY < 0.9×vh e sem prefers-reduced-motion". As duas
+    // malhas (5×5 larga, 5×4 estreita) recebem o MESMO seed sorteado — só
+    // uma está visível por vez (a outra, display:none), mas ambas ficam
+    // corretas se a viewport mudar de faixa no meio do giro.
+    const malhas: { el: HTMLElement; rows: number }[] = [];
+    const larga = raiz.querySelector<HTMLElement>(".geo-larga");
+    const estreita = raiz.querySelector<HTMLElement>(".geo-estreita");
+    if (larga) malhas.push({ el: larga, rows: 5 });
+    if (estreita) malhas.push({ el: estreita, rows: 4 });
+    let giroHero: ReturnType<typeof setInterval> | undefined;
+    if (!reduzido && malhas.length) {
+      giroHero = setInterval(() => {
+        if (scrollY >= innerHeight * 0.9) return;
+        const seed = Math.floor(Math.random() * 61);
+        for (const { el, rows } of malhas) {
+          const { pecas } = heroPecas({ ...HERO.tweaks, seed }, rows);
+          pecas.forEach((p, i) => {
+            const peca = el.querySelector<HTMLElement>(`i[data-pn="${i}"]`);
+            if (!peca) return;
+            peca.style.clipPath = p.clip;
+            peca.style.background = p.bg;
+            peca.style.transform = p.rot ? `rotate(${p.rot}deg)` : "";
+          });
+        }
+      }, 3000);
+    }
+
     // Arma a revelação: quem já está na tela na carga nasce visível (nunca
     // esconder conteúdo que o leitor já deveria estar lendo).
     if (!reduzido) {
@@ -77,12 +144,10 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       quadro = 0;
       const vh = innerHeight;
 
-      for (const el of pares) {
-        const sec = el.closest("section");
-        if (!sec) continue;
-        const r = sec.getBoundingClientRect();
-        const p = (r.top + r.height / 2 - vh / 2) / vh;
-        const k = reduzido ? 0 : parseFloat(el.dataset.par || "0") * vh * 0.5;
+      for (const { el, par, secTop, secHeight } of paresInfo) {
+        const rTop = secTop - scrollY;
+        const p = (rTop + secHeight / 2 - vh / 2) / vh;
+        const k = reduzido ? 0 : par * vh * 0.5;
         // §5 do README: "em <img> prefixar translateX(-50%)" — a imagem
         // centralizada precisa do próprio prefixo estático DENTRO do mesmo
         // transform (não num wrapper: transform cria stacking context e
@@ -173,10 +238,10 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       }
 
       if (topo) {
+        const linha = scrollY + 60;
         let tinta = "escuro";
-        for (const s of secoes) {
-          const r = s.getBoundingClientRect();
-          if (r.top <= 60 && r.bottom > 60) tinta = s.dataset.topo || "escuro";
+        for (const s of secoesInfo) {
+          if (s.top <= linha && s.bottom > linha) tinta = s.tinta;
         }
         if (topo.dataset.tinta !== tinta) topo.dataset.tinta = tinta;
         const rolou = hero ? hero.getBoundingClientRect().top < -40 : scrollY > 40;
@@ -248,10 +313,13 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       removeEventListener("scroll", aoRolar);
       removeEventListener("resize", aoRolar);
       removeEventListener("resize", medirTexto);
+      removeEventListener("resize", medirPares);
+      removeEventListener("resize", medirSecoes);
       if (quadro) cancelAnimationFrame(quadro);
       if (tempos) clearTimeout(tempos);
       io?.disconnect();
       ioFaixa?.disconnect();
+      if (giroHero) clearInterval(giroHero);
     };
   }, [cenas]);
 
