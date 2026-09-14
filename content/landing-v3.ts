@@ -142,6 +142,7 @@ export const PACOTES_NOTA = "Valores de referência. O valor final sai na calcul
 export const CASES = [
   {
     meta: "Gastroenterologia · Belo Horizonte/MG*",
+    graficoTitulo: "Usuários ativos · jan–set 2026",
     frase: "Dois de cada três pacientes chegam pelo Google, sem pagar clique.",
     heroi: "191 mil",
     rotulo: "usuários ativos de janeiro a setembro de 2026 — 128 mil vindos da busca orgânica",
@@ -158,6 +159,7 @@ export const CASES = [
   },
   {
     meta: "Dermatologia · Batel, Curitiba/PR*",
+    graficoTitulo: "Posição média no Google · site antigo × site novo",
     frase: "Da página 3 pra página 1, em palavras disputadas com hospitais e redes nacionais.",
     heroi: "38ª → 3ª",
     rotulo: "posição média em “dermatologista batel” nos últimos 90 dias — sem pagar por clique",
@@ -177,6 +179,7 @@ export const CASES = [
   },
   {
     meta: "Clínica de exames · Sorocaba/SP*",
+    graficoTitulo: "Custo por contato",
     frase: "Campanha nova, e já foi a mais barata da conta.",
     heroi: "R$ 2,22",
     rotulo: "por contato na campanha nova",
@@ -190,6 +193,7 @@ export const CASES = [
   },
   {
     meta: "Ortopedia · Rondonópolis/MT*",
+    graficoTitulo: "Perfil no Google · jul–set vs. período anterior",
     frase: "Quando a busca vira rota até a porta.",
     heroi: "439",
     rotulo: "rotas traçadas até a clínica em dois meses (+118%)",
@@ -208,6 +212,7 @@ export const CASES = [
   },
   {
     meta: "Otorrinolaringologia · Salvador/BA*",
+    graficoTitulo: "Taxa de contato por usuário · por canal",
     frase: "Menos visitas, quase o dobro de contatos.",
     heroi: "+91%",
     rotulo: "contatos em 2026 com 4% menos sessões, contra o mesmo período do ano anterior",
@@ -226,6 +231,7 @@ export const CASES = [
   // avaliações. Anonimização conferida: zero cliente em Contagem na carteira.
   {
     meta: "Policlínica · Contagem/MG*",
+    graficoTitulo: "Cliques orgânicos por dia · antes × depois",
     frase: "Uma página por especialidade, e a home deixou de ser a única porta.",
     heroi: "3,4 → 19,5 cliques por dia",
     rotulo: "páginas de especialidade, exame e médico no Google",
@@ -308,6 +314,49 @@ export const SOBRE = {
     { num: "03", t: "Resultados medidos", d: "259 médicos, clínicas e hospitais em 21 estados, com cases documentados conta a conta." },
   ],
   link: { rotulo: "Sobre a agência Rizzo", href: "/sobre" },
+};
+
+/**
+ * As FOTOS REAIS da agência, do artifact do Claude Design (bundle
+ * `e50042a2`). Vieram em PNG de 593 KB a 985 KB; entram em webp — 3,0 MB
+ * viraram 255 KB, sem recorte.
+ *
+ * ⚠️ A da esquerda é "Google Partner Weekend, com certificado de TREINAMENTO".
+ * Ela NÃO reabre o selo "Google Partner" da tarja de atributos, que saiu por
+ * falta de fonte (§44.21-4): o selo é status vigente do programa, verificável
+ * por URL da página de parceiro, e uma foto de evento não é isso. A foto entra
+ * como foto, com a legenda dizendo exatamente o que ela é.
+ */
+export const SOBRE_FOTOS = {
+  equipe: {
+    src: "/sobre/equipe-agencia-rizzo-anapolis.webp",
+    alt: "Equipe da Agência Rizzo, agência de marketing médico digital, no escritório em Anápolis",
+    w: 1360,
+    h: 1020,
+  },
+  faixa: [
+    {
+      src: "/sobre/google-partner-weekend-certificado.webp",
+      alt: "Raphael Rizzo no Google Partner Weekend, com certificado de treinamento",
+      w: 1247,
+      h: 831,
+    },
+    { src: "/sobre/treinamento-google.webp", alt: "Raphael Rizzo em treinamento do Google", w: 875, h: 875 },
+    {
+      src: "/sobre/palestra-publicidade-medica.webp",
+      alt: "Palestra “Publicidade Médica: o que precisamos saber”, sobre marketing médico e regras do CFM",
+      w: 754,
+      h: 919,
+    },
+  ],
+  fundador: {
+    src: "/sobre/raphael-rizzo-fundador.webp",
+    alt: "Raphael Rizzo, fundador da Agência Rizzo, agência de marketing médico",
+    w: 480,
+    h: 640,
+    nome: "Raphael Rizzo",
+    cargo: "fundador",
+  },
 };
 
 export const TIMELINE = [
@@ -432,4 +481,38 @@ export const CTA_FINAL = {
   acento: "Sua proposta, transparente e na hora.",
   proposta: "Selecione os serviços na calculadora e veja o investimento em tempo real.",
   whats: "Uma conversa de 15 minutos sobre a sua clínica — e a gente já confere se a sua vaga está aberta.",
+};
+
+/* ─────────────────────────────────────────── RizzoOS e portfólio da praça ── */
+
+/**
+ * Vieram de `content/home.ts` em 2026-09-14: são da LANDING DE PRAÇA, não da
+ * home. A home passou a ter o palco sticky do "AR Home Diagonal" (`OS_ITENS` +
+ * `PF_CENAS` no `content/home.ts`) e estes dois blocos ficaram sem dono lá.
+ * Mudança de endereço, não de conteúdo — o texto é o mesmo, verbatim.
+ */
+export const RIZZOOS_BLOCO = {
+  num: "04",
+  texto:
+    "Todo cliente da agência vive dentro do RizzoOS, o sistema que a agência construiu: planejamento anual, produção, relatórios — e o cruzamento de tendências e dados que decide o próximo conteúdo. O aviso chega no seu celular e abre já na peça certa; a aprovação acontece no RizzoOS, em um toque. Seu marketing deixa de ser um monte de peça solta e vira um sistema trabalhando pela sua autoridade, todos os dias.",
+  link: { rotulo: "conhecer o RizzoOS", href: "/rizzoos" },
+};
+
+export const PORTFOLIO_HOME = {
+  num: "03",
+  titulo: "O trabalho, do jeito que o cliente ",
+  acento: "recebeu",
+  lede:
+    "Composição pronta — site, impresso, material educativo e identidade de consultórios, clínicas e hospitais.",
+  verMais: { rotulo: "Ver outras peças", href: "/clientes" },
+  /** 7 chaves, na ordem da régua do §44.19. */
+  ordem: [
+    "/portfolio/marketing-clinica-angiologia-brasilia-site.webp", // 1º · melhor SITE
+    "/portfolio/marketing-medico-redes-sociais-brasilia-mockup.webp", // 2º · melhor POST
+    "/portfolio/marketing-clinica-medica-recanto-das-emas-site.webp", // 3º · (sem vídeo no acervo)
+    "/portfolio/marketing-clinica-diagnostico-imagem-brasilia-site.webp",
+    "/portfolio/marketing-medico-gerontologia-goiania-portfolio-digital.webp",
+    "/portfolio/marketing-clinica-urologia-rio-de-janeiro-site.webp",
+    "/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp", // último · 2º melhor SITE
+  ],
 };

@@ -31,7 +31,7 @@ import { CARTEIRA } from "@/content/carteira";
 import { logoDe } from "@/lib/logos";
 import { PORTFOLIO } from "@/content/portfolio";
 import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
-import { RIZZOOS_BLOCO, PORTFOLIO_HOME, WA_HOME } from "@/content/home";
+import { WA_HOME } from "@/content/home";
 import {
   ATRIBUTOS,
   CIDADES_HOME,
@@ -45,12 +45,15 @@ import {
   DEPOIMENTOS,
   DEPOIMENTOS_FONTE,
   SOBRE,
+  SOBRE_FOTOS,
   TIMELINE,
   EXCLUSIVIDADE,
   CLIENTES_BLOCO,
   FAQ,
   VINHETA,
   CTA_FINAL,
+  RIZZOOS_BLOCO,
+  PORTFOLIO_HOME,
 } from "@/content/landing-v3";
 
 /* ───────────────────────────────────────────────────────────── JSON-LD ───── */
@@ -493,42 +496,66 @@ export function Corpo({ c }: { c?: Cidade }) {
           </div>
         </section>
 
-        {/* ── 10 · SOBRE (texto + pano no lugar da foto — §44.21-3) ─────── */}
-        <section className="c-sec" aria-labelledby="c-sobre">
-          <div className="c-wrap c-sobre">
-            <div data-reveal>
-              <Kicker>{SOBRE.kicker}</Kicker>
-              <h2 id="c-sobre">{SOBRE.titulo}</h2>
-              <p className="c-lede">{SOBRE.texto}</p>
-              <Link className="c-link-seco" href={SOBRE.link.href}>
-                {SOBRE.link.rotulo} →
-              </Link>
+        {/* ── 10 · SOBRE ───────────────────────────────────────────────────
+            As FOTOS REAIS do artifact, no arranjo do Design: a equipe em cima,
+            três da trajetória no meio e o retrato do fundador ao lado da linha
+            do tempo. A rodada anterior punha PANO no lugar delas — as fotos não
+            estavam no pacote do handoff, mas estavam no artifact. */}
+        <section className="c-sec c-sobre-sec" aria-labelledby="c-sobre">
+          <div className="c-wrap">
+            <div className="c-sobre-topo" data-reveal>
+              <div>
+                <Kicker>{SOBRE.kicker}</Kicker>
+                <h2 id="c-sobre">{SOBRE.titulo}</h2>
+                <p className="c-lede">{SOBRE.texto}</p>
+                <Link className="c-link-seco" href={SOBRE.link.href}>
+                  {SOBRE.link.rotulo} →
+                </Link>
+              </div>
+              <figure className="c-foto c-foto-equipe">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={SOBRE_FOTOS.equipe.src} alt={SOBRE_FOTOS.equipe.alt} width={SOBRE_FOTOS.equipe.w} height={SOBRE_FOTOS.equipe.h} loading="lazy" decoding="async" />
+              </figure>
             </div>
-            <div data-reveal style={{ "--reveal-i": 1 } as React.CSSProperties}>
-              {/* O protótipo pedia 4 fotos P&B que não existem no repo; o lugar
-                  delas recebe PANO — presença honesta em vez de placeholder. */}
-              <Campo html={panoCidadeFaixa(t, 8, 5)} className="c-sobre-pano" />
-              <ol className="c-pilares">
-                {SOBRE.pilares.map((p) => (
-                  <li key={p.num}>
-                    <span>{p.num}</span>
-                    <h3>{p.t}</h3>
-                    <p>{p.d}</p>
+
+            <div className="c-sobre-faixa" data-reveal>
+              {SOBRE_FOTOS.faixa.map((f, i) => (
+                <figure className="c-foto" key={f.src} style={{ "--reveal-i": i % 3 } as React.CSSProperties}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={f.src} alt={f.alt} width={f.w} height={f.h} loading="lazy" decoding="async" />
+                </figure>
+              ))}
+            </div>
+
+            <ol className="c-pilares" data-reveal>
+              {SOBRE.pilares.map((p) => (
+                <li key={p.num}>
+                  <span>{p.num}</span>
+                  <h3>{p.t}</h3>
+                  <p>{p.d}</p>
+                </li>
+              ))}
+            </ol>
+
+            <div className="c-sobre-fundador" data-reveal>
+              <figure className="c-foto c-foto-fundador">
+                <i aria-hidden />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={SOBRE_FOTOS.fundador.src} alt={SOBRE_FOTOS.fundador.alt} width={SOBRE_FOTOS.fundador.w} height={SOBRE_FOTOS.fundador.h} loading="lazy" decoding="async" />
+                <figcaption>
+                  <b>{SOBRE_FOTOS.fundador.nome}</b> <span>{"// "}{SOBRE_FOTOS.fundador.cargo}</span>
+                </figcaption>
+              </figure>
+              <ol className="c-timeline">
+                {TIMELINE.map((e) => (
+                  <li key={e.ano}>
+                    <span className="c-timeline-ano">{e.ano}</span>
+                    <b>{e.titulo}</b>
+                    {e.texto && <span>{e.texto}</span>}
                   </li>
                 ))}
               </ol>
             </div>
-          </div>
-          <div className="c-wrap">
-            <ol className="c-timeline" data-reveal>
-              {TIMELINE.map((e) => (
-                <li key={e.ano}>
-                  <span className="c-timeline-ano">{e.ano}</span>
-                  <b>{e.titulo}</b>
-                  {e.texto && <span>{e.texto}</span>}
-                </li>
-              ))}
-            </ol>
           </div>
         </section>
 

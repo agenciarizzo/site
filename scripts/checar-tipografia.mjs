@@ -51,6 +51,8 @@ const erros = [];
  * e `checar-portfolio.mjs`.
  */
 const EXCECAO_HANDOFF = [
+  "app/home-diagonal.css",
+  "components/ar/home/",
   "app/ar-v3.css",
   "app/home-v3.css",
   "app/cidade-v3.css",

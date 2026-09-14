@@ -820,17 +820,6 @@
 }
 
 /* ----------------------------------------------------------------- sobre --- */
-.ar-v3 .c-sobre {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(28px, 4vw, 56px);
-  align-items: start;
-}
-.ar-v3 .c-sobre-pano {
-  border: 1px solid var(--c-hairline);
-  overflow: hidden;
-  max-height: 260px;
-}
 .ar-v3 .c-pilares {
   list-style: none;
   margin: 28px 0 0;
@@ -1320,5 +1309,112 @@
 @media (prefers-reduced-motion: reduce) {
   .ar-v3 .c-clientes-trilhos ul {
     animation: none;
+  }
+}
+
+
+/* ================================================================= sobre ===
+   O arranjo do Design: cabeçalho + foto da equipe, três da trajetória, os três
+   pilares e o retrato do fundador ao lado da linha do tempo.
+
+   O tratamento das fotos é o de lá — cinza + `multiply` sobre um campo amarelo
+   (equipe) ou chumbo (as três) —, que é o que faz foto de celular, foto de
+   evento antigo e retrato de estúdio parecerem a mesma família. Em cima, a
+   foto volta à cor. */
+.ar-v3 .c-sobre-topo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+.ar-v3 .c-foto {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: var(--c-tinta);
+}
+.ar-v3 .c-foto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.12);
+  mix-blend-mode: multiply;
+  transition: filter 0.4s;
+}
+.ar-v3 .c-foto:hover img {
+  filter: none;
+}
+.ar-v3 .c-foto-equipe {
+  background: var(--c-amarelo);
+  aspect-ratio: 16 / 9;
+}
+
+.ar-v3 .c-sobre-faixa {
+  margin-top: clamp(28px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 1.4vw, 18px);
+}
+.ar-v3 .c-sobre-faixa .c-foto:nth-child(1) {
+  aspect-ratio: 3 / 2;
+}
+.ar-v3 .c-sobre-faixa .c-foto:nth-child(2) {
+  aspect-ratio: 1;
+}
+.ar-v3 .c-sobre-faixa .c-foto:nth-child(3) {
+  aspect-ratio: 3 / 4;
+}
+
+.ar-v3 .c-sobre-fundador {
+  margin-top: clamp(36px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: minmax(0, 0.45fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+.ar-v3 .c-foto-fundador {
+  aspect-ratio: 3 / 4;
+  overflow: visible;
+  background: transparent;
+}
+/* O quadrado amarelo deslocado atrás do retrato — o grafismo do Design. */
+.ar-v3 .c-foto-fundador i {
+  position: absolute;
+  left: -12px;
+  top: -12px;
+  width: 40%;
+  height: 40%;
+  background: var(--c-amarelo);
+  display: block;
+}
+.ar-v3 .c-foto-fundador img {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--c-tinta);
+}
+.ar-v3 .c-foto-fundador figcaption {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-tinta);
+}
+.ar-v3 .c-foto-fundador figcaption span {
+  color: var(--c-apoio);
+  font-weight: 600;
+}
+.ar-v3 .c-sobre-fundador .c-timeline {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .ar-v3 .c-sobre-topo,
+  .ar-v3 .c-sobre-fundador {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ar-v3 .c-foto-fundador {
+    max-width: 18rem;
   }
 }
