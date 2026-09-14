@@ -71,7 +71,7 @@ export const PACOTES = [
     escopo: [
       "Padronização das redes (Instagram, Facebook, LinkedIn)",
       "10 destaques do Instagram",
-      "Um post em todo dia útil (feed, carrosséis e stories), o ano todo",
+      "Posts em 3 dias por semana (feed, carrosséis e stories), o ano todo",
     ],
   },
   {

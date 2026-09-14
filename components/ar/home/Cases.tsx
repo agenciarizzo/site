@@ -58,23 +58,27 @@ export function Cases() {
 
               <div className="grafico" data-cresce aria-label={k.graficoTitulo}>
                 <p className="grafico-t cifra">{k.graficoTitulo}</p>
+                {/* Cada barra é UMA unidade (valor · pista · rótulo). Antes o
+                    `k.barras` era percorrido DUAS vezes — uma pras barras, outra
+                    pros rótulos, em containers irmãos — e no celular isso
+                    impedia empilhar cada rótulo junto da sua barra: os 4 a 6
+                    valores caíam lado a lado em ~45px de coluna e saíam colados
+                    ("3,4/dia19,5/dia75% dos32% dos", medido a 390 no case 6).
+                    No desktop o `subgrid` mantém as três linhas alinhadas entre
+                    as colunas, que é o desenho do protótipo. */}
                 <div className="grafico-barras">
                   {k.barras.map((b) => (
-                    <div key={b.rotulo}>
+                    <div className="grafico-col" key={b.rotulo}>
                       <p className="grafico-valor cifra">{b.valor}</p>
-                      <div
-                        className="barra"
-                        data-barra
-                        style={{ "--alt": `${b.alt}%`, "--cor": "destaque" in b && b.destaque ? "#FFD200" : "#C9C3B6" } as React.CSSProperties}
-                      />
+                      <div className="grafico-pista">
+                        <div
+                          className="barra"
+                          data-barra
+                          style={{ "--alt": `${b.alt}%`, "--cor": "destaque" in b && b.destaque ? "#FFD200" : "#C9C3B6" } as React.CSSProperties}
+                        />
+                      </div>
+                      <p className="grafico-rot cifra">{b.rotulo}</p>
                     </div>
-                  ))}
-                </div>
-                <div className="grafico-rotulos">
-                  {k.barras.map((b) => (
-                    <p className="cifra" key={b.rotulo}>
-                      {b.rotulo}
-                    </p>
                   ))}
                 </div>
               </div>
