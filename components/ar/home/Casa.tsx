@@ -177,9 +177,10 @@ export function Sobre() {
   );
 }
 
-/** 12 · CIDADES + ESPECIALIDADES. O mapa noturno que o cliente subiu entra em
- *  `mix-blend-mode: screen` sobre o bege (Ato 2 do §44.24 — revoga o §44.23:
- *  o arquivo real tem pinos, e o `screen` resolve sem precisar recortar). */
+/** 12 · CIDADES + ESPECIALIDADES. O mapa é o `public/mapa-brasil.webp` do
+ *  §44.23 (com alfa, só o território) com o filtro do protótipo, verbatim —
+ *  o arquivo chegou em 14/09 e aposentou os remendos de blend sobre o
+ *  `AR-BG` (§44.27/§44.28 do mapa). */
 export function Cidades({ waText }: { waText: string }) {
   const c = CIDADES_BLOCO;
   return (
@@ -206,7 +207,7 @@ export function Cidades({ waText }: { waText: string }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="cidades-mapa"
-            src="/AR-BG-1920-x-1080-px-Story.webp"
+            src="/mapa-brasil.webp"
             alt=""
             aria-hidden="true"
             data-par="-0.15"

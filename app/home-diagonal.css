@@ -2306,17 +2306,12 @@
   margin-top: 4vh;
   overflow: hidden;
 }
-/* Ato 2 do §44.24 + retoque de 14/09: o `screen` puro saía apagado demais —
-   só os pontinhos de luz apareciam, o continente não lia como FORMA (o
-   cliente anexou o protótipo mostrando o território visível, não uma marca
-   d'água quase invisível). `invert()` vira o fundo preto em branco (some
-   por `multiply`) e o terreno claro em cinza-escuro — a silhueta do
-   continente fica sólida e legível sobre o bege, com os pinos (agora
-   azul-marinho, efeito colateral do invert) ainda visíveis como marcadores.
-   ⚠️ Testado empilhar uma 2ª cópia em `screen` por cima só pra devolver os
-   pinos amarelos — não funciona: `screen` clareia a imagem INTEIRA (não só
-   os pinos), e devolvia o washed-out que essa mudança está corrigindo. Uma
-   camada só. */
+/* O arquivo do §44.23 chegou (`public/mapa-brasil.webp`, 14/09: 1080×1080,
+   COM canal alfa, só o território) — e com ele o filtro do protótipo vale
+   VERBATIM (`AR Home Diagonal.dc.html:564`): `grayscale(1) brightness(1.6)
+   contrast(.8)`, opacidade .9, SEM blend mode. As rodadas anteriores
+   (`screen`, depois `invert()+multiply`) eram remendo pro arquivo errado
+   (`AR-BG-…-Story.webp`, retrato e opaco) — saem junto com ele. */
 .dg .cidades-mapa {
   position: absolute;
   left: 50%;
