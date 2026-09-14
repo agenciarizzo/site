@@ -134,8 +134,9 @@ export function Topo({ waText }: { waText: string }) {
         </details>
       </div>
 
-      {/* A barra do polegar — só no celular (ver `app/home-diagonal.css`). */}
-      <div className="barra">
+      {/* A barra do polegar — só no celular (ver `app/home-diagonal.css`).
+          A classe é `polegar`: `barra` é a barra do gráfico dos cases. */}
+      <div className="polegar">
         <Link className="topo-zap" href={ROTA_PORTAO} data-wa={waText} aria-label="Falar no WhatsApp">
           <IconeWhats />
         </Link>

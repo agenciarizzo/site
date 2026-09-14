@@ -286,6 +286,15 @@ export const DEPOIMENTOS = [
     link: "https://www.google.com/maps/search/?api=1&query=Ag%C3%AAncia+Rizzo+Marketing+M%C3%A9dico+An%C3%A1polis",
   },
   {
+    texto: "Profissionalismo e resultados desde o início. Transparência total.",
+    nome: "Dra. Daniele C. Pollo",
+    /* A legenda do Design diz "Goiânia/GO"; o cadastro da agência
+       (`content/carteira.ts`) registra Parauapebas/PA — e o §9 do CLAUDE.md do
+       site manda a prova sair do CADASTRO, não do desenho. Vale o cadastro. */
+    meta: "Oftalmologista · Parauapebas/PA",
+    link: "https://www.google.com/maps/search/?api=1&query=Ag%C3%AAncia+Rizzo+Marketing+M%C3%A9dico+An%C3%A1polis",
+  },
+  {
     texto: "Há muitos anos conosco, extrema competência e excelentes resultados!",
     nome: "Dr. Cristiano Velasco",
     meta: "Dermatologista · Brasília/DF",

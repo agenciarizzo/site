@@ -224,15 +224,22 @@
    barra do topo depois da rolagem, e a 390px isso ESTOURA a largura: logo +
    CTA + WhatsApp + Menu não cabem. Desvio declarado, com a solução que o site
    já usa nas outras páginas: no telefone a porta fria desce pra uma barra fixa
-   embaixo, onde o polegar alcança, e o topo fica com logo + WhatsApp + Menu. */
-.dg .barra {
+   embaixo, onde o polegar alcança, e o topo fica com logo + WhatsApp + Menu.
+
+   ⚠️ A classe é `polegar`, NÃO `barra`: `.barra` já é a barra do gráfico dos
+   cases (`transform: scaleY(0)` até o motor crescer). Com o mesmo nome, a regra
+   de baixo apagava esta (a porta fria sumia do celular, em `scaleY(0)`) e a
+   desta apagava aquela (`display:none` nas 22 barras dos 6 cases, em toda
+   largura). É a régua do §44.22-3 — conferir colisão de nome ANTES de nomear —
+   valendo também DENTRO da folha nova, não só contra o `globals.css`. */
+.dg .polegar {
   display: none;
 }
 @media (max-width: 759px) {
   .dg .topo .topo-cta {
     display: none;
   }
-  .dg .barra {
+  .dg .polegar {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -242,12 +249,12 @@
     bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     z-index: 55;
   }
-  .dg .barra .btn {
+  .dg .polegar .btn {
     flex: 1;
     justify-content: center;
     box-shadow: 0 10px 30px rgba(50, 60, 70, 0.18);
   }
-  .dg .barra .topo-zap {
+  .dg .polegar .topo-zap {
     width: 50px;
     height: 50px;
     background: var(--papel-claro);
@@ -1204,11 +1211,22 @@
   gap: clamp(10px, 2vw, 28px);
   border-bottom: 1px solid rgba(50, 60, 70, 0.25);
 }
+/* ⚠️ DESVIO DO PROTÓTIPO, por MEDIÇÃO (§44.21: a casa vence em medição e prova;
+   o handoff vence no visual). O protótipo empilha valor + barra num flex column
+   com `justify-content:flex-end` — e aí o rótulo do valor COME a altura da
+   barra, porque `height:100%` num flex item encolhe pra caber. Medido nos 6
+   gráficos: toda barra acima de ~80% era achatada em ~80% da pista, e no
+   gráfico 2 as barras de 71% e 100% saíam com a MESMA altura (69px), dizendo
+   que "dermatologista curitiba · antes" (27ª) e "dermatologista batel · antes"
+   (38ª) empatavam — que é justamente o que o case nega. São números reais de
+   conta de cliente em página pública: barra fora de proporção é número errado.
+   A pista vira linha de grade própria (`1fr`), o valor ganha a linha `auto` em
+   cima, e a barra passa a medir `--alt` da PISTA. Proporção exata nas 22. */
 .dg .grafico-barras > div {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  align-items: end;
   gap: 8px;
   min-width: 0;
 }
