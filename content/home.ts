@@ -249,6 +249,15 @@ export const PORTFOLIO_CABECA = {
  *     porque a régua do achado só proíbe o par vertical×horizontal);
  *   - os 3 vídeos verticais publicados (achado #13, ver `PORTFOLIO_VIDEOS`)
  *     abrem as 3 maiores vagas verticais do palco (cena 1, 2 e novamente 2).
+ *
+ * Feedback do cliente (14/09, rodada pós-#44.24): "poucos sites" — a régua da
+ * vaga quadrada aceitando site em paisagem (acima) valia pra QUALQUER cena,
+ * não só a "Sites", e só tinha sido usada lá + numa vaga 2×1 do Impresso
+ * (Examine Agora) até então. Reaplicando a mesma régua em vagas
+ * quadradas/2×1 de Vídeo, Redes, Impresso e Identidade — sempre TROCANDO uma
+ * peça existente (nunca crescendo o total de 30) — o site foi de 5 pra 11
+ * das 30 peças, mantendo os outros 19 formatos como maioria: "mais sites",
+ * não "só sites".
  */
 export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]; pecas: string[] }[] = [
   {
@@ -277,8 +286,8 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 1, 2], [3, 2, 1, 2], [4, 2, 2, 2]],
     pecas: [
       "/portfolio/marketing-medico-cirurgia-digestiva-goiania-portfolio-digital.webp",
-      "/portfolio/marketing-medico-oncologia-rio-de-janeiro-panfleto-unidade.webp",
-      "/portfolio/marketing-medico-oftalmologia-brasilia-banner-glaucoma.webp",
+      "/portfolio/marketing-medico-oncologia-brasilia-site-cirurgia-oncologica.webp", // achado: "poucos sites" — vaga quadrada aceita site em paisagem (regra do Angiomedi)
+      "/portfolio/marketing-medico-oftalmologia-belo-horizonte-site.webp", // idem
       "/portfolio/marketing-medico-oncologia-rio-de-janeiro-cartao-virtual.webp",
       "/portfolio/marketing-medico-ortopedia-porto-alegre-guia-pos-operatorio.webp",
       "/portfolio/marketing-clinica-endoscopia-brasilia-folder-exames.webp",
@@ -291,8 +300,8 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     pecas: [
       "/portfolio/marketing-clinica-diagnostico-imagem-brasilia-site.webp", // Examine Agora
       "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-retina.webp",
-      "/portfolio/marketing-hospital-remanso-bahia-folder-institucional.webp",
-      "/portfolio/marketing-medico-urologia-brasilia-cartao-visita.webp",
+      "/portfolio/marketing-medico-neurocirurgia-recife-site.webp", // achado: "poucos sites" — vaga 2×1 é paisagem, o mesmo formato do site
+      "/portfolio/marketing-medico-urologia-brasilia-site-cirurgia-robotica.webp", // idem
     ],
   },
   {
@@ -310,10 +319,10 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 2, 2], [4, 2, 2, 2]],
     pecas: [
       "/portfolio/marketing-clinica-ortopedia-brasilia-folder-institucional.webp",
-      "/portfolio/marketing-hospital-uruacu-goias-portfolio-digital.webp",
+      "/portfolio/marketing-clinica-medica-pindamonhangaba-site.webp", // achado: "poucos sites" — vaga quadrada aceita site em paisagem
       "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-uveites.webp",
       "/portfolio/marketing-laboratorio-mineiros-goias-cartaz-exames.webp",
-      "/portfolio/marketing-clinica-neurologia-brasilia-portfolio-digital.webp",
+      "/portfolio/marketing-medico-menopausa-salvador-site.webp", // idem
       "/portfolio/marketing-medico-ortopedia-rio-de-janeiro-portfolio-digital.webp",
     ],
   },
