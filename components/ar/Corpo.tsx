@@ -27,7 +27,8 @@ import { panoCidadeFaixa, panoTiraHome } from "@/lib/athos/panos";
 import { tweaksDe } from "@/lib/tweaks.mjs";
 import type { Cidade } from "@/content/cidades";
 import { CIDADES } from "@/content/cidades";
-import { CLIENTES } from "@/content/clientes";
+import { CARTEIRA } from "@/content/carteira";
+import { logoDe } from "@/lib/logos";
 import { PORTFOLIO } from "@/content/portfolio";
 import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
 import { RIZZOOS_BLOCO, PORTFOLIO_HOME, WA_HOME } from "@/content/home";
@@ -137,6 +138,13 @@ export function Corpo({ c }: { c?: Cidade }) {
         .map((img) => PORTFOLIO.find((p) => p.imagem === img))
         .filter((p): p is (typeof PORTFOLIO)[number] => Boolean(p));
 
+  // As marcas do letreiro: a carteira inteira, e entra quem TEM arquivo em
+  // `public/logos/` (242 dos 257 hoje). Resolução no BUILD, por `fs` — o site
+  // segue SSG, e logo novo aparece sozinho no deploy seguinte.
+  const marcas = CARTEIRA.map((cl) => ({ nome: cl.nome, src: logoDe(cl.nome) })).filter(
+    (m): m is { nome: string; src: string } => m.src !== null,
+  );
+
   const waPagina = c ? c.waText : WA_HOME;
   const waVinheta = c ? VINHETA.wa(c.cidade) : VINHETA.waGeral;
 
@@ -190,13 +198,15 @@ export function Corpo({ c }: { c?: Cidade }) {
         )}
 
         {/* ── 02 · CLIENTES ─────────────────────────────────────────────────
-            O bloco chumbo com o painel amarelo. No Design o painel é um
-            letreiro de LOGOS (`clientes-logos.json` → `public/clientes/*.png`);
-            esses 25 PNGs não estão no repo nem no pacote do handoff, e inventar
-            imagem é o que a régua §⚖️ proíbe. Então o painel roda com os NOMES
-            REAIS da grade de clientes — cada um vinculado a um registro do
-            oráculo pelo `checar-portfolio.mjs`. Quando os PNGs chegarem, é
-            trocar o conteúdo do `<li>`; o bloco já está no lugar. */}
+            O bloco chumbo com o painel amarelo: dois letreiros de LOGOS em
+            sentidos opostos, como no Design.
+            ⚠️ CORREÇÃO: o `clientes-logos.json` do handoff aponta pra
+            `public/clientes/*.png`, que não existe — e eu quase declarei "sem
+            logo, fica o nome" por causa disso. O cliente lembrou que o repo JÁ
+            tem as marcas: `public/logos/*.webp`, 242 delas, com o resolvedor
+            `lib/logos.ts`. O caminho era outro, os arquivos sempre estiveram
+            lá. Quem não tem arquivo simplesmente não entra no letreiro (§⚖️ —
+            nunca um retângulo vazio no lugar). */}
         <section className="c-clientes" aria-labelledby="c-cli">
           <div className="c-clientes-grade">
             <div className="c-clientes-texto">
@@ -213,11 +223,16 @@ export function Corpo({ c }: { c?: Cidade }) {
               <div className="c-clientes-trilhos">
                 {[0, 1].map((linha) => (
                   <ul key={linha} data-linha={linha}>
+                    {/* Duas cópias da lista: é o que faz o letreiro rodar em
+                        loop sem costura (translate de -50%). A 2ª é decorativa. */}
                     {[0, 1].map((copia) => (
                       <li key={copia} aria-hidden={copia === 1 ? true : undefined}>
-                        {CLIENTES.filter((_, i) => i % 2 === linha).map((cl) => (
-                          <span key={cl.nome}>{cl.nome}</span>
-                        ))}
+                        {marcas
+                          .filter((_, i) => i % 2 === linha)
+                          .map((m) => (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img key={m.nome} src={m.src} alt={copia === 0 ? `${m.nome} — cliente da Agência Rizzo` : ""} loading="lazy" decoding="async" />
+                          ))}
                       </li>
                     ))}
                   </ul>

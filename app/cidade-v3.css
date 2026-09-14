@@ -1280,18 +1280,25 @@
   align-items: center;
   flex: none;
 }
-.ar-v3 .c-clientes-trilhos span {
+/* O tile do logo: 160×80 com `contain`, em cinza + multiply sobre o amarelo —
+   é o tratamento do Design, e é o que faz 242 marcas de origens diferentes
+   parecerem uma família só. Em cima, a marca volta à cor. */
+.ar-v3 .c-clientes-trilhos img {
   flex: none;
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 22px;
-  margin-right: 14px;
-  border: 1.5px solid rgba(50, 60, 70, 0.28);
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--c-tinta);
-  white-space: nowrap;
+  width: 160px;
+  height: 80px;
+  margin-right: 20px;
+  padding: 8px;
+  box-sizing: border-box;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.2);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  transition: filter 0.3s, opacity 0.3s;
+}
+.ar-v3 .c-clientes-trilhos img:hover {
+  filter: none;
+  opacity: 1;
 }
 
 @media (max-width: 900px) {
