@@ -31,6 +31,42 @@ const LIVRE = {
 const props = Object.keys(LIVRE);
 const erros = [];
 
+/**
+ * EXCEÇÃO EXPLÍCITA E MÍNIMA — a HOME v3 e a LANDING v3 de cidade.
+ *
+ * Decisão do cliente registrada em rizzo-os → docs/SITE_MANIFESTO_MAPA.md
+ * §44.15 D4 ("ignorar todas as regras do site que eu criei no passado") e
+ * estendida à Brasília pelo §44.21-6: as duas páginas nascem do handoff do
+ * Claude Design e seguem a tipografia e a paleta DELE (tinta azul-chumbo
+ * #323C46, amarelo #FFD200 no card recomendado), não a escala `--slab-*` /
+ * `--corpo-*` do `app/globals.css`.
+ *
+ * A exceção é por CAMINHO e só por caminho: o resto do site — as 10 cartas, as
+ * páginas de especialidade, os combos, /sobre, /clientes, /rizzoos e o próprio
+ * `globals.css` — continua travado na escala, que é o que esta trava existe pra
+ * proteger. Caminho novo aqui é decisão visível no diff, não descuido.
+ *
+ * O que a exceção NÃO cobre: `checar-navegacao.mjs` (link morto, schema,
+ * metadado e host seguem obrigatórios), `checar-panos.mjs`, `checar-vitrine.mjs`
+ * e `checar-portfolio.mjs`.
+ */
+const EXCECAO_HANDOFF = [
+  "app/home-diagonal.css",
+  "components/ar/home/",
+  "app/ar-v3.css",
+  "app/home-v3.css",
+  "app/cidade-v3.css",
+  "app/page.tsx",
+  "app/marketing-medico-brasilia/page.tsx",
+  "components/ar/",
+  "components/home/",
+  "components/CidadeLandingV3.tsx",
+];
+const foraDaEscala = (arquivo) => {
+  const rel = relative(raiz, arquivo).split(sep).join("/");
+  return EXCECAO_HANDOFF.some((p) => rel === p || rel.startsWith(p));
+};
+
 // ---------- 1. CSS: font-size/letter-spacing só por token ----------
 const cssFiles = [];
 (function anda(dir) {
@@ -47,7 +83,10 @@ const usados = new Set();
 
 for (const arquivo of cssFiles) {
   const css = readFileSync(arquivo, "utf8");
+  // os tokens de uma folha excepcionada ainda contam como DECLARADOS (outra
+  // folha pode referenciá-los); o que se pula é a cobrança dos valores dela.
   for (const m of css.matchAll(/(--[a-z0-9-]+)\s*:/g)) tokens.add(m[1]);
+  if (foraDaEscala(arquivo)) continue;
 
   const linhas = css.split("\n");
   linhas.forEach((linha, i) => {
@@ -82,6 +121,7 @@ const tsx = [];
 })(raiz);
 
 for (const arquivo of tsx) {
+  if (foraDaEscala(arquivo)) continue;
   const src = readFileSync(arquivo, "utf8");
   src.split("\n").forEach((linha, i) => {
     if (/\b(fontSize|letterSpacing)\s*:/.test(linha)) {
@@ -98,4 +138,7 @@ if (erros.length > 0) {
 }
 
 const escala = [...tokens].filter((t) => /^--(slab-|corpo-|mono-|ls-|lh-|wordmark$)/.test(t));
-console.log(`✓ Tipografia na escala: ${escala.length} degraus declarados, ${usados.size} em uso — zero valor solto.`);
+console.log(
+  `✓ Tipografia na escala: ${escala.length} degraus declarados, ${usados.size} em uso — zero valor solto` +
+    ` (${EXCECAO_HANDOFF.length} caminho(s) fora da escala por decisão: §44.15 D4 / §44.21-6).`,
+);

@@ -7,8 +7,16 @@ import { GuardaOrigem } from "@/components/GuardaOrigem";
 
 // Tipografia oficial da Linha Athos (self-hosted via next/font — zero request externo):
 // Roboto Slab (display) · Geist (voz única das duas marcas) · JetBrains Mono (kickers).
-const slab = Roboto_Slab({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-slab", display: "swap" });
-const geist = Geist({ subsets: ["latin"], weight: ["300", "400", "500", "700", "800"], variable: "--font-geist", display: "swap" });
+// Roboto Slab ganhou o peso 300 em 2026-09-13: o H1 da landing v3 de cidade
+// pede display LEVE (§44.21-6 do SITE_MANIFESTO_MAPA.md). 300 é o mais leve que
+// o next/font serve nesta família — peso sintético está proibido, e é por isso
+// que o peso entra aqui em vez de um `font-weight: 200` sem face por trás.
+const slab = Roboto_Slab({ subsets: ["latin"], weight: ["300", "700", "800"], variable: "--font-slab", display: "swap" });
+// Geist ganhou o peso 200 em 2026-09-13: o H1 da linha v3 do Claude Design é
+// display LEVE (`font-weight:200` no `.dc.html` e no artifact), e peso
+// sintético está proibido — sem a face real o navegador "afina" o 300 e a
+// letra sai deformada.
+const geist = Geist({ subsets: ["latin"], weight: ["200", "300", "400", "500", "700", "800"], variable: "--font-geist", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
@@ -17,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | Agência Rizzo",
   },
   description:
-    "Há 13 anos cuidamos do marketing de médicos e clínicas. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico.",
+    "Marketing de médicos e clínicas desde 2012. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico.",
   metadataBase: new URL(SITE_URL),
   // og:image default de todo o site. Sem ela, link colado no WhatsApp saía sem cartão
   // — e o WhatsApp é o CTA único da casa. A capa é estática (public/og/), gerada pelo

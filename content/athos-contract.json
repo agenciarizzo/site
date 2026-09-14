@@ -39,9 +39,12 @@
   { "id": "disco", "num": "13", "name": "Disco pontual", "motivo": "ponto central", "max_cores": 2 },
   { "id": "anel", "num": "14", "name": "Anel", "motivo": "anel central", "max_cores": 2 },
   { "id": "quarto", "num": "15", "name": "Quarto solto", "motivo": "quarto de disco 58%", "max_cores": 2 },
-  { "id": "triangulo", "num": "16", "name": "Triângulo solto", "motivo": "meia peça diagonal", "max_cores": 2 }
+  { "id": "triangulo", "num": "16", "name": "Triângulo solto", "motivo": "meia peça diagonal", "max_cores": 2 },
+  {"id": "seta", "num": "17", "name": "Seta escalonada", "motivo": "cruz/seta em degraus", "max_cores": 2},
+  {"id": "onda", "num": "18", "name": "Onda de quartos", "motivo": "dois quartos opostos", "max_cores": 2},
+  {"id": "faixa-quadrado", "num": "19", "name": "Faixa & quadradinho", "motivo": "diagonal + quadrado solto", "max_cores": 2}
  ],
- "patterns_nota": "01–08 = panos compostos da galeria; 09–16 = motivos soltos do vocabulário (geometria das lâminas da exploração). Paleta = a da agência: navy #0F172A, teal #0097A7, cinza #323C46, gold #F0A400, tangerina #E8930A, amarelo #FFD200.",
+ "patterns_nota": "01–08 = panos compostos da galeria; 09–16 = motivos soltos do vocabulário (geometria das lâminas da exploração). 17–19 = motivos das fotos de Athos Bulcão (seta escalonada, onda de quartos, faixa & quadradinho), autorados no Claude Design e trazidos pelo handoff design_handoff_home_brasilia/ em 2026-09-13 (SITE_MANIFESTO_MAPA.md §44.21). Paleta = a da agência: navy #0F172A, teal #0097A7, cinza #323C46, gold #F0A400, tangerina #E8930A, amarelo #FFD200.",
  "pano_meta": {
   "desc": "Toda peça com azulejo declara o pano por metadado — a arte é derivável, nunca desenhada à mão.",
   "shape": { "pattern": "id da biblioteca", "cores": "1–2 hex da paleta.motivo", "escala": "longe|medio|perto", "seed": "inteiro (reproduz o acaso)", "posicao": "topo|rodape|lateral|fundo", "janela": "opcional — índice no pano contínuo (carrossel longo)" }

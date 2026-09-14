@@ -87,7 +87,7 @@ export const CARTAS: Carta[] = [
       { t: "Palavra-chave por intenção real", d: "Especialidade × procedimento × cidade — a gente persegue a busca de quem está procurando atendimento, não curiosidade genérica." },
       { t: "Landing coerente e rápida", d: "O clique cai numa página que cumpre a promessa do anúncio e carrega em milissegundos — é aí que o custo por clique despenca." },
       { t: "Gestão semanal com olho em consulta", d: "Não otimizamos pra clique, otimizamos pro que vira conversa e agenda. O que não performa, pausa; o que performa, escala." },
-      { t: "Conformidade CFM em cada texto", d: "Todos os anúncios são escritos dentro do Manual de Publicidade Médica — há 13 anos sem susto." },
+      { t: "Conformidade CFM em cada texto", d: "Todos os anúncios são escritos dentro do Manual de Publicidade Médica — desde 2012 sem susto." },
     ],
     os: "Suas campanhas ficam visíveis no RizzoOS: verba, resultados e relatório mensal no seu celular — e o histórico inteiro registrado, não na cabeça de um gestor que um dia vai embora.",
     quandoNaoTitulo: "Quando NÃO investir em Google Ads",
