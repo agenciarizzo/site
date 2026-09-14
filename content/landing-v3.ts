@@ -401,7 +401,7 @@ export const TIMELINE = [
   { ano: "2003", titulo: "Prêmio iBest", texto: "Categoria governo, pelo trabalho no CNPq." },
   { ano: "2007", titulo: "Hospital Daher", texto: "Gerente de comunicação; desde então, só saúde." },
   { ano: "2012", titulo: "Nasce a Agência Rizzo", texto: "" },
-  { ano: "2026", titulo: "259 clientes atendidos em 21 estados", texto: "50 ativos no RizzoOS hoje." },
+  { ano: "2026", titulo: "259 clientes atendidos em 21 estados", texto: "" },
 ];
 
 /* ─────────────────────────────────────────────────────────── clientes ────── */
