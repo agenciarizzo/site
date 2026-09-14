@@ -271,9 +271,21 @@
 /* `<details>` nativo — zero JS, e é ele que mantém TODA rota alcançável desta
    página (`scripts/checar-navegacao.mjs`). O protótipo abria 5 links; a casa
    exige o inventário inteiro, então o painel cresceu em colunas. */
-.dg .menu > summary {
+/* ⚠️ HOTFIX: o `<details>` saiu. O painel (posicionado, z-index 55) pintava
+   POR CIMA do próprio `<summary>` — medido no navegador, `elementFromPoint` no
+   centro do botão devolvia `NAV.menu-nav` nas duas larguras, então o menu não
+   tinha COMO fechar sem recarregar a página. Agora é caixote + rótulos: o
+   caixote guarda o estado, e QUALQUER rótulo apontando pra ele fecha (o ✕, o
+   véu e o próprio "Menu"). Zero JS, e o caixote continua focável pelo teclado. */
+.dg .menu-check {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.dg .menu-abre {
   cursor: pointer;
-  list-style: none;
   border: 1.5px solid var(--tinta);
   color: var(--tinta);
   background: transparent;
@@ -284,27 +296,69 @@
   white-space: nowrap;
   transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
-.dg .menu > summary::-webkit-details-marker {
-  display: none;
-}
-.dg .menu > summary:hover {
+.dg .menu-abre:hover {
   background: var(--amarelo);
   border-color: var(--amarelo);
   color: var(--chumbo);
 }
-.dg .menu[open] > summary {
+/* O caixote focado precisa aparecer: sem isso o teclado navega às cegas. */
+.dg .menu-check:focus-visible ~ .menu-abre {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+.dg .menu-check:checked ~ .menu-abre {
   border-color: var(--papel);
   color: var(--papel);
 }
+/* Com o menu aberto o botão sobe ACIMA do painel e volta a ser um interruptor —
+   é o defeito original invertido. Só no desktop: no telefone o painel é tela
+   cheia e o botão cairia em cima do ✕. */
+@media (min-width: 760px) {
+  .dg .menu-check:checked ~ .menu-abre {
+    position: relative;
+    z-index: 56;
+  }
+}
 .dg .menu-painel {
+  display: none;
   position: fixed;
   inset: 0;
   z-index: 55;
+}
+.dg .menu-check:checked ~ .menu-painel {
+  display: block;
+}
+/* O ✕ — o que o cliente pediu por nome. Fica colado no alto do painel e por
+   cima de tudo que rola dentro dele. */
+.dg .menu-fecha {
+  position: absolute;
+  top: 24px;
+  right: var(--lado);
+  z-index: 2;
+  cursor: pointer;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--papel);
+  border-radius: 999px;
+  color: var(--papel);
+  font-size: 18px;
+  line-height: 1;
+  background: var(--chumbo);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.dg .menu-fecha:hover {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: var(--chumbo);
 }
 .dg .menu-veu {
   position: absolute;
   inset: 0;
   background: rgba(50, 60, 70, 0.55);
+  cursor: pointer;
 }
 .dg .menu-nav {
   position: absolute;
@@ -378,6 +432,27 @@
 }
 .dg .menu-listas a:hover {
   color: var(--amarelo);
+}
+/* No telefone o painel era DUAS colunas dentro de 327px — 1.893px de conteúdo
+   espremidos numa tela de 900px (medido). Vira coluna única de largura cheia,
+   com folga no topo pro ✕. */
+@media (max-width: 759px) {
+  .dg .menu-nav {
+    width: 100vw;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 92px 24px 40px;
+  }
+  .dg .menu-listas {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid rgba(244, 239, 230, 0.2);
+    padding-top: 28px;
+  }
+  .dg .menu-fecha {
+    right: 20px;
+    top: 20px;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════ 1 · hero ═══ */
