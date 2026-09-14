@@ -75,7 +75,9 @@ export function RizzoOS() {
             <div className="fone">
               <div className="fone-tela">
                 <span className="fone-notch" />
-                <Telas />
+                <div className="fone-canvas">
+                  <Telas />
+                </div>
               </div>
             </div>
             {OS_ITENS.map((f, i) => (

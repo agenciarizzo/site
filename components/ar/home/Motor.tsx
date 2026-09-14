@@ -63,6 +63,21 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     medirTexto();
     addEventListener("resize", medirTexto);
 
+    // O celular do palco RizzoOS agora cabe na viewport (altura manda), e as
+    // telas são um canvas fixo de 326×695: mede a tela real e escala o canvas
+    // pra caber — `.fone-tela[data-escala] .fone-canvas` no CSS. Largura zero
+    // (celular escondido no estreito) = não mede, canvas segue refluindo.
+    const foneTela = raiz.querySelector<HTMLElement>(".fone-tela");
+    const medirFone = () => {
+      if (!foneTela) return;
+      const w = foneTela.clientWidth;
+      if (!w) return;
+      foneTela.style.setProperty("--tela-escala", (w / 326).toFixed(4));
+      foneTela.dataset.escala = "";
+    };
+    medirFone();
+    addEventListener("resize", medirFone);
+
     // Perf (achado do cliente — INP de 256ms medido em DevTools, 14/09): o
     // `passo()` rodava `getBoundingClientRect()` pra CADA `[data-par]` e CADA
     // `[data-topo]` EM TODO FRAME de scroll — nem `pares` nem `secoes` (as
@@ -313,6 +328,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       removeEventListener("scroll", aoRolar);
       removeEventListener("resize", aoRolar);
       removeEventListener("resize", medirTexto);
+      removeEventListener("resize", medirFone);
       removeEventListener("resize", medirPares);
       removeEventListener("resize", medirSecoes);
       if (quadro) cancelAnimationFrame(quadro);

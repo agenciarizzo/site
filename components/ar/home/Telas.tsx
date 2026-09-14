@@ -40,6 +40,99 @@ const tela: React.CSSProperties = {
 const cartao: React.CSSProperties = { background: CARTAO, borderRadius: 14, padding: 12 };
 const elipse: React.CSSProperties = { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" };
 
+// ── Painel Lumia (tela 0) ────────────────────────────────────────────────
+// A Start de tiles do painel do cliente (rizzo-os → PAINEL_LUMIA_MAPA.md §5,
+// §14, §15): fundo #0B1120, tiles CHAPADOS (cantos retos, sem borda, sem
+// sombra), papéis de cor âmbar/teal/navy com contraste AA, e a ação no
+// PRÓPRIO tile (o card "Keep" da Fatia 4c). A grade aqui é de 4 colunas no
+// canvas de 294px úteis — unidade 67,5px, calha 8, como a fórmula do §5.2.
+const LUMIA = "#0B1120";
+const TEAL_L = "#00707C";
+const UNIDADE = 67.5;
+const tile: React.CSSProperties = { position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 11, boxSizing: "border-box", overflow: "hidden", minWidth: 0 };
+const tileP: React.CSSProperties = { ...tile, padding: 8 };
+const etiqueta: React.CSSProperties = { fontSize: 9, fontWeight: 800, letterSpacing: ".4px", textTransform: "uppercase", textAlign: "right" };
+const acao: React.CSSProperties = { display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: 24, borderRadius: 7, padding: "5px 8px", fontSize: 10, fontWeight: 700, background: "rgba(0,0,0,.15)", whiteSpace: "nowrap" };
+
+function Glifo({ d, size = 24, stroke = 1.5 }: { d: React.ReactNode; size?: number; stroke?: number }) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" aria-hidden style={{ flex: "none" }}>
+      {d}
+    </svg>
+  );
+}
+const G = {
+  prancheta: (
+    <>
+      <rect x="8" y="2" width="8" height="4" rx="1" />
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+      <path d="m9 14 2 2 4-4" />
+    </>
+  ),
+  alerta: (
+    <>
+      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+      <path d="M12 9v4" />
+      <path d="M12 17h.01" />
+    </>
+  ),
+  placar: (
+    <>
+      <circle cx="12" cy="12" r="2" />
+      <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" />
+      <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" />
+      <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" />
+      <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" />
+    </>
+  ),
+  relogio: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 6v6l4 2" />
+    </>
+  ),
+  tempo: (
+    <>
+      <path d="M12 2v2" />
+      <path d="m4.93 4.93 1.41 1.41" />
+      <path d="M20 12h2" />
+      <path d="m19.07 4.93-1.41 1.41" />
+      <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128" />
+      <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" />
+    </>
+  ),
+  carro: (
+    <>
+      <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+      <circle cx="7" cy="17" r="2" />
+      <path d="M9 17h6" />
+      <circle cx="17" cy="17" r="2" />
+    </>
+  ),
+  musica: (
+    <>
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
+    </>
+  ),
+  brilho: (
+    <>
+      <path d="M9.9 2.1l1.6 4.5a3 3 0 0 0 1.9 1.9l4.5 1.6-4.5 1.6a3 3 0 0 0-1.9 1.9L9.9 18.1l-1.6-4.5a3 3 0 0 0-1.9-1.9L1.9 10.1l4.5-1.6a3 3 0 0 0 1.9-1.9Z" />
+      <path d="M20 3v4" />
+      <path d="M22 5h-4" />
+    </>
+  ),
+  calendario: (
+    <>
+      <rect width="18" height="18" x="3" y="4" rx="2" />
+      <path d="M8 2v4" />
+      <path d="M16 2v4" />
+      <path d="M3 10h18" />
+    </>
+  ),
+};
+
 function Topo({ onde }: { onde: string }) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, color: MUDO, flex: "none" }}>
@@ -87,27 +180,92 @@ function Agenda({ dia, src, alt, titulo, onde, estado, cor }: { dia: string; src
 export function Telas() {
   return (
     <>
-      {/* 0 · Aprovação — a pilha de peças esperando o toque do médico. */}
-      <div className="tela" data-os-tela={0} data-on style={tela}>
-        <Topo onde="Aprovação · 3 peças" />
-        <div style={{ position: "relative", flex: 1, minHeight: 0 }}>
-          <div style={{ position: "absolute", inset: "18px 18px 0", background: CARTAO, borderRadius: 18, transform: "scale(.92) translateY(-14px)", opacity: 0.5 }} />
-          <div style={{ position: "absolute", inset: "18px 8px 0", background: CARTAO, borderRadius: 18, transform: "scale(.96) translateY(-7px)", opacity: 0.75 }} />
-          <div style={{ position: "absolute", inset: "18px 0 0", background: CARTAO, border: "1px solid rgba(148,163,184,.14)", borderRadius: 18, overflow: "hidden", display: "flex", flexDirection: "column" }}>
-            <div style={{ flex: 1, background: "linear-gradient(160deg,#15403A,#0C211C)", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: 16 }}>
-              <span style={{ fontWeight: 800, letterSpacing: ".06em", color: "rgba(255,255,255,.7)" }}>POST · FEED · QUINTA</span>
-              <p style={{ margin: "8px 0 0", fontSize: 19, fontWeight: 800, lineHeight: 1.15, letterSpacing: "-.02em", color: "#fff" }}>Varizes não são só estética</p>
-              <span style={{ display: "block", width: 40, height: 4, background: OURO, borderRadius: 2, marginTop: 12 }} />
+      {/* 0 · Aprovação — a Start do Painel Lumia ("visão Lumia", pedido do
+          cliente em 14/09). O tile largo é a peça esperando o ok, com capa REAL
+          do acervo e a ação no próprio tile; abaixo, os tiles vivos que a Start
+          de verdade monta (placar, verba, ambiente, equipe, calendário). */}
+      <div className="tela" data-os-tela={0} data-on style={{ ...tela, background: LUMIA, gap: 10 }}>
+        <Topo onde="Início · 3 peças esperam você" />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gridAutoRows: UNIDADE, gap: 8 }}>
+          <div style={{ ...tile, gridColumn: "span 4", gridRow: "span 2", background: OURO, color: "#F8FAFC" }}>
+            <img src="/portfolio/marketing-medico-vascular-brasilia-anuncio.webp" alt="" loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.9 }} />
+            <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(11,17,32,.28) 0%, rgba(11,17,32,.72) 48%, rgba(11,17,32,.9) 100%)" }} />
+            <div style={{ position: "relative", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+              <Glifo d={G.prancheta} />
+              <span style={etiqueta}>Aprovação · 3 peças</span>
             </div>
-            <div style={{ padding: "12px 14px", display: "flex", flexDirection: "column", gap: 3 }}>
-              <span style={{ fontWeight: 700 }}>Post 14 de 18 · setembro</span>
-              <span style={{ color: MUDO }}>Legenda revisada · trava do CFM ✓</span>
+            <div style={{ position: "relative" }}>
+              <div style={{ fontSize: 13, fontWeight: 700, lineHeight: 1.2 }}>Varizes não são só estética</div>
+              <div style={{ fontSize: 10, marginTop: 2 }}>Post 14 de 18 · feed · quinta · trava do CFM ✓</div>
+            </div>
+            <div style={{ position: "relative", display: "flex", gap: 6 }}>
+              <span style={{ ...acao, background: OURO, color: NAVY, fontWeight: 800 }}>Aprovar ✓</span>
+              <span style={{ ...acao, background: "rgba(255,255,255,.16)" }}>Pedir ajuste</span>
             </div>
           </div>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 8 }}>
-          <span style={{ display: "grid", placeItems: "center", height: 46, borderRadius: 12, background: CLARO, border: "1px solid rgba(148,163,184,.16)", fontWeight: 700, color: "#CBD5E1" }}>Pedir ajuste</span>
-          <span style={{ display: "grid", placeItems: "center", height: 46, borderRadius: 12, background: OURO, fontWeight: 800, color: NAVY }}>Aprovar ✓</span>
+
+          <div style={{ ...tile, gridColumn: "span 2", gridRow: "span 2", background: OURO, color: NAVY }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+              <Glifo d={G.alerta} />
+              <span style={etiqueta}>Verba</span>
+            </div>
+            <div>
+              <div style={{ fontSize: 11.5, fontWeight: 700, lineHeight: 1.2 }}>Google Ads acaba em 6 dias</div>
+              <div style={{ ...elipse, fontSize: 10, marginTop: 2 }}>R$ 312 de saldo · recompor?</div>
+            </div>
+            <div style={{ display: "flex", gap: 6 }}>
+              <span style={acao}>Ver verba</span>
+            </div>
+          </div>
+
+          <div style={{ ...tile, gridColumn: "span 2", gridRow: "span 2", background: CARTAO, color: "#E2E8F0" }}>
+            <Glifo d={G.placar} />
+            <div>
+              <div style={{ fontSize: 11.5, fontWeight: 700, lineHeight: 1.2 }}>Search Console</div>
+              <div style={{ ...elipse, fontSize: 10, marginTop: 2 }}>Cliques: 2.076 (+38,3%)</div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+              <span style={{ fontSize: 10, fontWeight: 500 }}>Placar</span>
+            </div>
+          </div>
+
+          <div style={{ ...tileP, background: CARTAO, color: "#E2E8F0" }}>
+            <Glifo d={G.relogio} size={16} stroke={1.75} />
+            <div style={{ fontFamily: "var(--font-geist), system-ui, sans-serif", fontSize: 19, fontWeight: 300, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>09:41</div>
+          </div>
+          <div style={{ ...tileP, background: CARTAO, color: "#E2E8F0" }}>
+            <Glifo d={G.tempo} size={16} stroke={1.75} />
+            <div style={{ fontSize: 19, fontWeight: 300, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>26°</div>
+          </div>
+          <div style={{ ...tileP, background: TEAL_L, color: "#fff" }}>
+            <Glifo d={G.carro} size={16} stroke={1.75} />
+            <div style={{ fontSize: 11.5, fontWeight: 700, lineHeight: 1.2 }}>Livre</div>
+          </div>
+          <div style={{ ...tileP, background: TEAL_L, color: "#fff", justifyContent: "center", alignItems: "center" }}>
+            <Glifo d={G.musica} size={27} stroke={1.75} />
+          </div>
+
+          <div style={{ ...tile, gridColumn: "span 2", gridRow: "span 2", background: TEAL_L, color: "#fff" }}>
+            <Glifo d={G.brilho} />
+            <div>
+              <div style={{ fontSize: 11.5, fontWeight: 700, lineHeight: 1.2 }}>Equipe Rizzo</div>
+              <div style={{ ...elipse, fontSize: 10, marginTop: 2 }}>Story de sábado virou job #0412</div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+              <span style={{ fontSize: 10, fontWeight: 500 }}>Equipe</span>
+            </div>
+          </div>
+          <div style={{ ...tile, gridColumn: "span 2", gridRow: "span 2", background: CARTAO, color: "#E2E8F0" }}>
+            <Glifo d={G.calendario} />
+            <div>
+              <div style={{ fontSize: 11.5, fontWeight: 700, lineHeight: 1.2 }}>18 na agenda</div>
+              <div style={{ ...elipse, fontSize: 10, marginTop: 2 }}>Check-up vascular · sex 12</div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+              <span style={{ fontSize: 10, fontWeight: 500 }}>Calendário</span>
+              <span style={{ fontSize: 22, fontWeight: 900, letterSpacing: "-.5px", lineHeight: 1 }}>18</span>
+            </div>
+          </div>
         </div>
       </div>
 
