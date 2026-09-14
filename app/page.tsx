@@ -38,6 +38,7 @@ import { RizzoOS } from "@/components/ar/home/RizzoOS";
 import { Depoimentos, Sobre, Cidades, Vinheta } from "@/components/ar/home/Casa";
 import { Portfolio, cenasDoPortfolio, pecasDoPortfolio } from "@/components/ar/home/Portfolio";
 import { Faq, CtaFinal, Rodape } from "@/components/ar/home/Fecho";
+import { Chamada } from "@/components/ar/home/Chamada";
 import { Motor } from "@/components/ar/home/Motor";
 
 export const metadata: Metadata = {
@@ -58,12 +59,17 @@ export default function Home() {
       <Pacotes />
       <Cases />
       <Resultado />
+      {/* As 3 chamadas: uma por VAZIO medido, sempre logo depois de um bloco de
+          prova — nunca no meio dele (o porquê e a medição em Chamada.tsx). */}
+      <Chamada texto="O seu caso pode ser o próximo desta lista." waText={WA_HOME} />
       <RizzoOS />
+      <Chamada texto="É isso rodando na sua clínica, com a sua marca." waText={WA_HOME} />
       <Depoimentos />
       <Sobre />
       <Cidades waText={WA_HOME} />
       <Vinheta waText={WA_HOME} />
       <Portfolio />
+      <Chamada texto="Peça desse nível, com o seu nome, todo mês." waText={WA_HOME} />
       <Faq />
       <CtaFinal waText={WA_HOME} />
       <Rodape />

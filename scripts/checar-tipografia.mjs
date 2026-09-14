@@ -51,6 +51,12 @@ const erros = [];
  * e `checar-portfolio.mjs`.
  */
 const EXCECAO_HANDOFF = [
+  // A imagem Open Graph é um RASTER 1200×630 desenhado pelo Satori, não uma
+  // tela: `rem`/`clamp` e a escala do `globals.css` não chegam lá (o Satori só
+  // entende px), e as medidas são as do `design_handoff_og_share` (84/97px,
+  // hifi). Exceção por caminho, como as de baixo.
+  "lib/og.tsx",
+  "app/opengraph-image.tsx",
   "app/home-diagonal.css",
   "components/ar/home/",
   "app/ar-v3.css",

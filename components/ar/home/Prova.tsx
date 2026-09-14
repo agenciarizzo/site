@@ -12,17 +12,61 @@ import { logoDe } from "@/lib/logos";
 import { seletividade } from "@/lib/ar/seletividade.mjs";
 
 /**
- * Achado #5 (§44.24): "não usar logos com fundo branco". Os 242 arquivos de
- * `public/logos/` são todos PNG/webp de canvas transparente — não há arquivo
- * com fundo sólido — mas duas marcas desenham a própria peça sobre um CARTÃO
- * branco (não é cor de traço, é bloco de fundo), que quebra o tratamento
- * duotone com um retângulo branco cru sobre o amarelo: Clínica Dimas Dutra
- * (retângulo 236×124, 4 cantos brancos após recortar a margem transparente) e
- * Clínica BabyPed (crachá ovalado branco). Checado nas 242 uma a uma
- * (script de apoio, não commitado): as demais têm branco só como TRAÇO/ícone
- * sobre fundo transparente — isso fica, é desenho do logo, não "fundo".
+ * "Remova por completo logos que não ficam boas em P&B" (cliente, 14/09) — e a
+ * CAUSA medida não é a que o pedido supunha ("por não estarem em transparência
+ * completa"). Os arquivos de `public/logos/` são quase todos canvas
+ * transparente; quem some é a **tinta CLARA**, e o motivo é aritmético: o
+ * letreiro compõe `filter: grayscale(1) contrast(1.4)` + `mix-blend-mode:
+ * multiply` sobre o campo `--amarelo`, e `multiply(branco, amarelo) = amarelo`.
+ * Tinta branca sobre fundo transparente devolve o próprio campo: o logo fica
+ * invisível sem nunca ter tido "fundo".
+ *
+ * Medição (script de apoio, não commitado): cada arquivo foi composto pela
+ * cadeia EXATA acima, no tamanho real da célula do trilho (170×76), e contou-se
+ * a fração da própria tinta que sai com contraste ≥ 1.6:1 contra o amarelo —
+ * 1.6 é onde tipo bold grande ainda lê (o corte de 2.0 reprovava logos escuros
+ * e legíveis, como o "Dr. Manoel Ribeiro Jr."). Abaixo de **0.45** o mark some;
+ * a faixa [0.45, 0.62) lê inteira. Conferido na prova de contato, olho na
+ * folha — a régua é "isso presta?", não o número (§⚖️ do CLAUDE.md).
+ *
+ * São 31 de 242. A lista SUBSTITUI o antigo `LOGO_FUNDO_BRANCO` (os 2 cartões
+ * brancos — Dimas Dutra 0.21 e BabyPed 0.41 — caem dentro dela). O arquivo NÃO
+ * é apagado do repo: some do letreiro, e volta sozinho se a marca mandar uma
+ * versão com tinta escura.
  */
-const LOGO_FUNDO_BRANCO = new Set(["/logos/clinica-dimas-dutra.webp", "/logos/clinica-babyped.webp"]);
+const LOGO_FRACO = new Set([
+  "/logos/dra-marcela-de-brito.webp", // 0.00 legível · L̄=204
+  "/logos/dr-joao-marcos-ibrahim.webp", // 0.01 · L̄=240
+  "/logos/clinica-appia.webp", // 0.03 · L̄=194
+  "/logos/dra-patricia-andreia-rodrigues-ferreira-dermatologista.webp", // 0.05 · L̄=186
+  "/logos/dr-nathan-guastalli.webp", // 0.05 · L̄=227
+  "/logos/di-lamartine-cirurgia-plastica.webp", // 0.10 · L̄=180
+  "/logos/dra-lais-bulsoni.webp", // 0.13 · L̄=168
+  "/logos/dra-mariana-alcantara.webp", // 0.14 · L̄=224
+  "/logos/dr-mohamad-omairi.webp", // 0.14 · L̄=222
+  "/logos/dr-flavio-braga.webp", // 0.16 · L̄=202
+  "/logos/dra-daniele-pollo-oftalmologista.webp", // 0.17 · L̄=213
+  "/logos/instituto-sono-e-neuro.webp", // 0.20 · L̄=219
+  "/logos/clinica-dimas-dutra.webp", // 0.21 · L̄=232 (era o cartão branco)
+  "/logos/matheus-campos.webp", // 0.22 · L̄=197
+  "/logos/layla-fayne.webp", // 0.24 · L̄=206
+  "/logos/salus-ortopedia.webp", // 0.25 · L̄=218
+  "/logos/cardio-clinic.webp", // 0.27 · L̄=208
+  "/logos/dra-rayane-cardoso-cirurgia-oncologica-e-laparoscopica.webp", // 0.28 · L̄=169
+  "/logos/dr-tarik-jabour-psiquiatra.webp", // 0.30 · L̄=177
+  "/logos/dra-mirian-helena-hoeschl-abreu.webp", // 0.32 · L̄=217
+  "/logos/clinica-lumina.webp", // 0.34 · L̄=206
+  "/logos/dra-janina-huguenin.webp", // 0.34 · L̄=206
+  "/logos/dr-celso-melo-nutrologo.webp", // 0.36 · L̄=134
+  "/logos/ictus-cordis.webp", // 0.36 · L̄=182
+  "/logos/melissa-chaves.webp", // 0.39 · L̄=171
+  "/logos/dr-rodrigo-petros-ortopedista-e-traumatologista-ombro-e-cotovelo.webp", // 0.40 · L̄=137
+  "/logos/clinica-babyped.webp", // 0.41 · L̄=207 (era o crachá branco)
+  "/logos/dedicae-ginecologia-e-dermatologia.webp", // 0.42 · L̄=191
+  "/logos/dr-alysson-zanatta.webp", // 0.43 · L̄=178
+  "/logos/dr-arnaldo-porto.webp", // 0.44 · L̄=171
+  "/logos/dr-philipe-sena.webp", // 0.45 · L̄=176
+]);
 
 /**
  * Revisão da F3 (rizzo-os → SITE_MANIFESTO_MAPA.md §44.29-2): o letreiro era o
@@ -77,7 +121,7 @@ export function Autoridade() {
  */
 export function Clientes() {
   const marcas = CARTEIRA_VISIVEL.map((c) => ({ nome: c.nome, src: logoDe(c.nome) })).filter(
-    (m): m is { nome: string; src: string } => m.src !== null && !LOGO_FUNDO_BRANCO.has(m.src),
+    (m): m is { nome: string; src: string } => m.src !== null && !LOGO_FRACO.has(m.src),
   );
   const trilhos = [0, 1, 2].map((r) => marcas.filter((_, i) => i % 3 === r));
   // Achado #4 (§44.24): "a velocidade dos logos está muito rápida" — as 3
