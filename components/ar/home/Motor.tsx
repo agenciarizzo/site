@@ -114,6 +114,23 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     medirSecoes();
     addEventListener("resize", medirSecoes);
 
+    // O cache acima só se refazia no `resize` — e a página muda de ALTURA sem
+    // resize nenhum: abrir uma pergunta da FAQ (`<details>`) empurra o rodapé
+    // pra baixo. Medido a 1440×900, rolando até o fim com as 12 perguntas
+    // abertas: a tinta do topo dava `escuro` SOBRE o rodapé claro (com a FAQ
+    // fechada, `claro`, correto) — a linha de amostra passava do `bottom`
+    // cacheado e nenhuma seção casava. Observar a altura do `<body>` refaz as
+    // duas medidas; segue sem nenhuma leitura de layout POR FRAME, que é o
+    // que o cache existe pra evitar (INP, §44.26).
+    let obsAltura: ResizeObserver | undefined;
+    if ("ResizeObserver" in window) {
+      obsAltura = new ResizeObserver(() => {
+        medirPares();
+        medirSecoes();
+      });
+      obsAltura.observe(document.body);
+    }
+
     // §3.1 do README: "a cada 3s, sorteia novo seed (0–60) e re-renderiza —
     // só enquanto scrollY < 0.9×vh e sem prefers-reduced-motion". As duas
     // malhas (5×5 larga, 5×4 estreita) recebem o MESMO seed sorteado — só
@@ -335,6 +352,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       if (tempos) clearTimeout(tempos);
       io?.disconnect();
       ioFaixa?.disconnect();
+      obsAltura?.disconnect();
       if (giroHero) clearInterval(giroHero);
     };
   }, [cenas]);

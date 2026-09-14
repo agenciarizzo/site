@@ -15,7 +15,8 @@
 // uma peça que está mesmo lá.
 const NAVY = "#0F172A";
 const CARTAO = "#161F38";
-const CLARO = "#1B2540";
+// (o `CLARO` #1B2540 saiu junto com a pilha de cartões da tela 0 antiga — a
+// Start do Lumia usa os papéis chapados de `PAINEL_LUMIA_MAPA.md` §5.)
 const MUDO = "#94A3B8";
 const VERDE = "#22C55E";
 const TEALC = "#3FB5C4";
