@@ -23,6 +23,12 @@ export const WHATS_LABEL = "(62) 99258-6600";
 // só server-side, quando a CAPI for ligada.
 export const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID ?? "G-M3F6YFGBKF";
 export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "570897230132103";
+// UET (Universal Event Tracking) do Microsoft Advertising — a medição do Bing Ads.
+// Mesmo estatuto dos dois de cima: ID público, sai no HTML de quem usa. O que o
+// Bing tem e os outros não é o `msclkid`, que também entra na captura do clique pago
+// (components/Medicao.tsx) — sem ele a campanha do Bing não sabe qual anúncio gerou
+// a conversa numa visita posterior.
+export const BING_UET_ID = process.env.NEXT_PUBLIC_BING_UET_ID ?? "199018628";
 /** Só mede em produção — preview e dev não sujam o relatório. */
 export const MEDIR = INDEXABLE;
 
