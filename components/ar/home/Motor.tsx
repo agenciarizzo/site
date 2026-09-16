@@ -25,6 +25,9 @@
 //  · `.topo`           `data-rolou` (pílula) e `data-tinta` (cor da tinta)
 //  · `[data-serv-grade]` a animação de entrada da grade de serviços (1×)
 //  · `.geo i[data-pn]` o giro de seed do hero a cada 3s (§3.1 do README)
+//  · `[data-pf-faixa]` a barra de progresso da faixa do portfólio e as setas
+//    `[data-pf-prev]`/`[data-pf-next]` (§45.3 — porto do artifact publicado,
+//    bloco 13 · Portfólio, 16/09: o desenho é de lá, o passo do scroll é daqui)
 //
 // `prefers-reduced-motion: reduce`: paralaxe = 0, reveal imediato, barras a
 // 100%. Os estados (RizzoOS, portfólio, topo) continuam — eles são navegação,
@@ -375,6 +378,33 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       for (const v of faixaVideos) ioFaixa.observe(v);
     }
 
+    // §45.3: as setas e a barra de progresso da faixa — porto do artifact
+    // publicado (bloco 13 · Portfólio). O passo é a largura do 1º cartão +
+    // o `gap` da faixa (lido do CSS, não fixo — a faixa muda de largura de
+    // cartão por breakpoint, ver `.pf-faixa li` em home-diagonal.css).
+    const pfFaixa = raiz.querySelector<HTMLElement>("[data-pf-faixa]");
+    const pfFill = raiz.querySelector<HTMLElement>("[data-pf-fill]");
+    const pfPrev = raiz.querySelector<HTMLButtonElement>("[data-pf-prev]");
+    const pfNext = raiz.querySelector<HTMLButtonElement>("[data-pf-next]");
+    const passoFaixa = () => {
+      if (!pfFaixa) return 320;
+      const li = pfFaixa.querySelector("li");
+      const gap = parseFloat(getComputedStyle(pfFaixa).columnGap || "0");
+      return (li?.getBoundingClientRect().width || 320) + gap;
+    };
+    const atualizaFaixaFill = () => {
+      if (!pfFaixa || !pfFill) return;
+      const max = pfFaixa.scrollWidth - pfFaixa.clientWidth;
+      const p = max > 0 ? pfFaixa.scrollLeft / max : 0;
+      pfFill.style.width = `${Math.min(1, Math.max(0, p)) * 100}%`;
+    };
+    const aoClicarPrev = () => pfFaixa?.scrollBy({ left: -passoFaixa(), behavior: reduzido ? "auto" : "smooth" });
+    const aoClicarNext = () => pfFaixa?.scrollBy({ left: passoFaixa(), behavior: reduzido ? "auto" : "smooth" });
+    pfFaixa?.addEventListener("scroll", atualizaFaixaFill, { passive: true });
+    pfPrev?.addEventListener("click", aoClicarPrev);
+    pfNext?.addEventListener("click", aoClicarNext);
+    atualizaFaixaFill();
+
     return () => {
       removeEventListener("scroll", aoRolar);
       removeEventListener("resize", aoRolar);
@@ -387,6 +417,9 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       if (tempos) clearTimeout(tempos);
       io?.disconnect();
       ioFaixa?.disconnect();
+      pfFaixa?.removeEventListener("scroll", atualizaFaixaFill);
+      pfPrev?.removeEventListener("click", aoClicarPrev);
+      pfNext?.removeEventListener("click", aoClicarNext);
       obsAltura?.disconnect();
       if (giroHero) clearInterval(giroHero);
     };

@@ -154,12 +154,26 @@ export function Portfolio() {
       </section>
 
       {/* A faixa: as mesmas peças, agora legíveis uma a uma, com encaixe de
-          rolagem. É a leitura do que o palco mostra em composição. */}
+          rolagem. É a leitura do que o palco mostra em composição.
+          §45.3: seção portada do artifact publicado (bloco 13 · Portfólio,
+          `action:"read"` em 16/09) — o canvas já tinha as setas ←/→ e a barra
+          de progresso da faixa, o repo ainda não. Desenho vem de lá (botões
+          redondos, trilho de 2px); o comportamento (distância do scroll, o
+          gesto suave, o cálculo da barra) é escrito aqui no padrão do motor
+          — nada do runtime do Design embarca (Motor.tsx). */}
       <section className="pf-faixa-sec" aria-label="Navegar no portfólio" data-topo="escuro">
         <div className="pf-faixa-cabeca">
           <p className="rot">{PORTFOLIO_CABECA.faixa}</p>
+          <div className="pf-faixa-nav">
+            <button type="button" aria-label="Peça anterior" data-pf-prev>
+              ←
+            </button>
+            <button type="button" aria-label="Próxima peça" data-pf-next>
+              →
+            </button>
+          </div>
         </div>
-        <ul className="pf-faixa">
+        <ul className="pf-faixa" data-pf-faixa>
           {pecas.map((p) => (
             <li key={p.key}>
               {p.video ? (
@@ -190,6 +204,9 @@ export function Portfolio() {
             </li>
           ))}
         </ul>
+        <div className="pf-faixa-trilho" aria-hidden>
+          <span data-pf-fill />
+        </div>
         <Link className="pf-completo" href={PORTFOLIO_CABECA.completo.href}>
           {PORTFOLIO_CABECA.completo.rotulo} <span aria-hidden>→</span>
         </Link>
