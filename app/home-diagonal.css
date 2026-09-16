@@ -2719,6 +2719,50 @@
   color: var(--cinza-texto);
   text-wrap: pretty;
 }
+/* §45.3: setas da faixa (porto do artifact, bloco 13) — giram o trilho por
+   um cartão de cada vez; a distância e o `smooth`/`auto` (reduced-motion)
+   ficam com o motor (Motor.tsx), aqui só o desenho do botão redondo. */
+.dg .pf-faixa-nav {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+.dg .pf-faixa-nav button {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1.5px solid var(--chumbo);
+  background: transparent;
+  color: var(--chumbo);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.3s, color 0.3s;
+}
+.dg .pf-faixa-nav button:hover {
+  background: var(--chumbo);
+  color: var(--papel);
+}
+/* Barra de progresso da faixa — `--pf-fill` escrito pelo motor a cada
+   scroll do trilho (`scrollLeft / (scrollWidth − clientWidth)`), sem
+   re-render; CSS só declara o trilho e a cor. */
+.dg .pf-faixa-trilho {
+  margin: 28px var(--lado) 0;
+  height: 2px;
+  background: var(--linha-bege);
+  position: relative;
+}
+.dg .pf-faixa-trilho [data-pf-fill] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--chumbo);
+  transition: width 0.2s ease;
+}
 .dg .pf-completo {
   display: inline-flex;
   align-items: center;
