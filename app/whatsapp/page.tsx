@@ -52,8 +52,8 @@ import { Topo } from "@/components/ar/home/Topo";
 import { Rodape } from "@/components/ar/home/Fecho";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import { panoOg } from "@/lib/og";
-import { CHAVE_ORIGEM, CHAVE_ORIGEM_PAGINA, CTA_PROPOSTA, WA_PADRAO } from "@/lib/nav";
-import { PROPOSTA_URL, WHATS_LABEL, WHATS_NUMBER } from "@/lib/site";
+import { CHAVE_ORIGEM, CHAVE_ORIGEM_PAGINA, CTA_PROPOSTA, ROTA_PORTAO, WA_PADRAO } from "@/lib/nav";
+import { ORIGEM_ENDPOINT, PROPOSTA_URL, WHATS_LABEL, WHATS_NUMBER } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Falar no WhatsApp",
@@ -77,14 +77,67 @@ const PORTAO_JS = `
   var t = document.getElementById('sou-pessoa');
   if (!a) return;
   var texto = ${JSON.stringify(WA_PADRAO)};
+  var origem = '';
   try{
     var s = sessionStorage.getItem('${CHAVE_ORIGEM}');
     if (s) texto = s;
     var de = sessionStorage.getItem('${CHAVE_ORIGEM_PAGINA}');
-    if (de) a.setAttribute('data-origem', de);
+    if (de) { a.setAttribute('data-origem', de); origem = de; }
   }catch(e){}
+
+  // ── O código que costura a conversa ao clique no anúncio ─────────────────
+  // Base32 de Crockford: 32 símbolos EXATOS, então 256 divide redondo e não há
+  // viés de módulo. Sem I, L, O e U — justamente os que a secretária erraria ao
+  // transcrever; quem resolve do outro lado normaliza I e L para 1 e O para 0
+  // antes de buscar, que é a regra do Crockford. 5 símbolos = 33,5 milhões de
+  // combinações, e a busca só varre os últimos 90 dias (a janela do gclid), então
+  // colisão não é problema real.
+  //
+  // Por que um CÓDIGO e não o gclid inteiro: gclid tem ~90 caracteres aleatórios.
+  // Na mensagem ele vira uma parede de lixo que o médico apaga antes de enviar, e
+  // na mão da secretária vira erro de transcrição que o Google rejeita calado.
+  var ENDPOINT = ${JSON.stringify(ORIGEM_ENDPOINT)};
+  var codigo = '';
+  if (ENDPOINT) {
+    try{
+      var ALFA = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+      var b = new Uint8Array(5);
+      crypto.getRandomValues(b);
+      for (var i = 0; i < 5; i++) codigo += ALFA[b[i] % 32];
+      codigo = 'AR-' + codigo;
+      texto = texto + '\\n\\n' + codigo;
+    }catch(e){ codigo = ''; }
+  }
+
   // O destino é MONTADO aqui, nunca servido: o host não existe na fonte.
   a.href = ['https://', a.dataset.h, '.', a.dataset.t, '/', a.dataset.n, '?text='].join('') + encodeURIComponent(texto);
+
+  // O par viaja no CLIQUE, não no load: registrar antes seria gravar conversa que
+  // nunca aconteceu, e o portão existe justamente pra separar quem clica de quem
+  // só passa. keepalive porque a aba navega pro WhatsApp no mesmo gesto — sem ele
+  // o navegador cancela o POST no meio do caminho.
+  var enviado = false;
+  if (codigo) a.addEventListener('click', function(){
+    if (enviado) return;
+    enviado = true;
+    var corpo = { codigo: codigo, origem: origem || '${ROTA_PORTAO}' };
+    try{
+      ['gclid','gbraid','wbraid','fbclid'].forEach(function(k){
+        var v = localStorage.getItem('ar_'+k);
+        if (v) corpo[k] = v;
+      });
+    }catch(e){}
+    try{
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(corpo),
+        keepalive: true,
+        mode: 'cors',
+      }).catch(function(){});
+    }catch(e){}
+  });
+
   if (t) t.addEventListener('change', function(){
     if (!t.checked) return;
     requestAnimationFrame(function(){ a.click(); });

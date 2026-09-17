@@ -38,6 +38,21 @@ export function wa(text: string): string {
  */
 export const PROPOSTA_URL = "https://app.agenciarizzo.com.br/proposta";
 
+/**
+ * Onde o portão registra o par `{código → gclid}` (CRM_PLUGADO_MAPA §3, Trilho A.4).
+ *
+ * VAZIO = DESLIGADO, e isso é de propósito: sem endpoint, o código NÃO entra na
+ * mensagem. Código que ninguém consegue resolver é pior que código nenhum — a
+ * secretária digitaria caractere à toa e o médico veria ruído na própria frase.
+ * No dia que a edge subir, é só setar a env var; nenhum deploy do site precisa
+ * mudar de forma.
+ *
+ * Não é segredo (roda no navegador, como o GA4): a edge é pública por desenho,
+ * igual à `client-door`. O que ela grava não é PII — é um código opaco e um
+ * identificador de clique que o próprio Google devolveu na URL.
+ */
+export const ORIGEM_ENDPOINT = process.env.NEXT_PUBLIC_ORIGEM_ENDPOINT ?? "";
+
 export const ENDERECO = "Rua Barão do Rio Branco, 531, sala 101 · Anápolis–GO";
 export const CNPJ = "15.728.480/0001-89";
 
