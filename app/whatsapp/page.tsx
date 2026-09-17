@@ -53,7 +53,7 @@ import { Rodape } from "@/components/ar/home/Fecho";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import { panoOg } from "@/lib/og";
 import { CHAVE_ORIGEM, CHAVE_ORIGEM_PAGINA, CTA_PROPOSTA, ROTA_PORTAO, WA_PADRAO } from "@/lib/nav";
-import { ORIGEM_ENDPOINT, PROPOSTA_URL, WHATS_LABEL, WHATS_NUMBER } from "@/lib/site";
+import { ORIGEM_ENDPOINT, ORIGEM_MODO, PROPOSTA_URL, WHATS_LABEL, WHATS_NUMBER } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Falar no WhatsApp",
@@ -97,8 +97,17 @@ const PORTAO_JS = `
   // Na mensagem ele vira uma parede de lixo que o médico apaga antes de enviar, e
   // na mão da secretária vira erro de transcrição que o Google rejeita calado.
   var ENDPOINT = ${JSON.stringify(ORIGEM_ENDPOINT)};
+  var MODO = ${JSON.stringify(ORIGEM_MODO)};
+  var ids = {};
+  try{
+    ['gclid','gbraid','wbraid','fbclid'].forEach(function(k){
+      var v = localStorage.getItem('ar_'+k);
+      if (v) ids[k] = v;
+    });
+  }catch(e){}
+
   var codigo = '';
-  if (ENDPOINT) {
+  if (MODO === 'codigo' && ENDPOINT) {
     try{
       var ALFA = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
       var b = new Uint8Array(5);
@@ -107,6 +116,14 @@ const PORTAO_JS = `
       codigo = 'AR-' + codigo;
       texto = texto + '\\n\\n' + codigo;
     }catch(e){ codigo = ''; }
+  } else if (MODO === 'gclid') {
+    // Auto-contido: vai o identificador CRU, sozinho na última linha. Sem
+    // rótulo de propósito — assim um duplo-clique seleciona o valor inteiro e a
+    // secretária copia em vez de digitar, que é o que tira o erro de
+    // transcrição da jogada. Visitante orgânico não tem identificador nenhum:
+    // nesse caso não entra nada, porque linha em branco só confundiria.
+    var cru = ids.gclid || ids.gbraid || ids.wbraid || '';
+    if (cru) texto = texto + '\\n\\n' + cru;
   }
 
   // O destino é MONTADO aqui, nunca servido: o host não existe na fonte.
@@ -121,12 +138,7 @@ const PORTAO_JS = `
     if (enviado) return;
     enviado = true;
     var corpo = { codigo: codigo, origem: origem || '${ROTA_PORTAO}' };
-    try{
-      ['gclid','gbraid','wbraid','fbclid'].forEach(function(k){
-        var v = localStorage.getItem('ar_'+k);
-        if (v) corpo[k] = v;
-      });
-    }catch(e){}
+    Object.keys(ids).forEach(function(k){ corpo[k] = ids[k]; });
     try{
       fetch(ENDPOINT, {
         method: 'POST',

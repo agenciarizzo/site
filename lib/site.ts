@@ -53,6 +53,27 @@ export const PROPOSTA_URL = "https://app.agenciarizzo.com.br/proposta";
  */
 export const ORIGEM_ENDPOINT = process.env.NEXT_PUBLIC_ORIGEM_ENDPOINT ?? "";
 
+/**
+ * COMO o identificador viaja na mensagem. Os dois modos existem porque as duas
+ * pontas são diferentes, não porque um é melhor (dono, 2026-09-17):
+ *
+ *  • "codigo" — manda AR-XXXXX e registra o par no ORIGEM_ENDPOINT. Mensagem
+ *    limpa, 8 caracteres. Só funciona onde EXISTE backend pra resolver o par —
+ *    aqui existe. Exige ORIGEM_ENDPOINT, senão cai em desligado.
+ *
+ *  • "gclid" — manda o identificador cru. AUTO-CONTIDO: carrega o próprio dado,
+ *    não precisa de endpoint, de tabela de tradução nem de backend. É o modo dos
+ *    SITES DE CLIENTE, que não têm onde guardar par nenhum — e é por isso que o
+ *    RizzoOS tem que aceitar os dois na mesma caixa.
+ *
+ *  • vazio — desligado: nada entra na mensagem.
+ *
+ * O custo do modo "gclid", declarado: são ~90 caracteres visíveis na mensagem
+ * que o médico ainda pode apagar antes de enviar. O que ele NÃO tem é erro de
+ * transcrição, porque a secretária copia, não digita.
+ */
+export const ORIGEM_MODO = process.env.NEXT_PUBLIC_ORIGEM_MODO ?? "";
+
 export const ENDERECO = "Rua Barão do Rio Branco, 531, sala 101 · Anápolis–GO";
 export const CNPJ = "15.728.480/0001-89";
 
