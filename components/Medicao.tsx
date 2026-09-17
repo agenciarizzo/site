@@ -53,16 +53,34 @@ const CONVERSAO_CTA = `
     if (!link) return;
     var proposta = link.getAttribute('data-cta') === 'proposta';
     var portao = link.hasAttribute('data-wa');
+    var ids = {};
+    try{
+      ['gclid','gbraid','wbraid','fbclid'].forEach(function(k){
+        var v = localStorage.getItem('ar_'+k);
+        if (v) ids[k] = v;
+      });
+    }catch(err){}
+    // 2026-09-17 — o identificador do clique VIAJA na query da porta fria.
+    // O /proposta mora em OUTRO domínio (o app), e localStorage não cruza origem:
+    // sem isso o app grava a proposta sem saber de qual anúncio ela nasceu, e lead
+    // sem gclid gravado não vira importação de conversão offline depois — que é o
+    // único jeito de o Ads aprender com quem virou cliente, e não com quem só
+    // clicou. O site só ENTREGA o identificador; guardar, e devolver ao Ads quando
+    // o acesso for liberado, é do RizzoOS.
+    if (proposta) {
+      try{
+        var u = new URL(link.getAttribute('href'), window.location.href);
+        Object.keys(ids).forEach(function(k){
+          if (!u.searchParams.has(k)) u.searchParams.set(k, ids[k]);
+        });
+        link.href = u.toString();
+      }catch(err){}
+    }
     var p = { pagina: window.location.pathname, destino: link.getAttribute('href') };
     // no portão, a página que gerou a conversa é a de ORIGEM, não a porta
     var origem = link.getAttribute('data-origem');
     if (origem) p.origem = origem;
-    try{
-      ['gclid','gbraid','wbraid','fbclid'].forEach(function(k){
-        var v = localStorage.getItem('ar_'+k);
-        if (v) p[k] = v;
-      });
-    }catch(err){}
+    Object.keys(ids).forEach(function(k){ p[k] = ids[k]; });
     window.dataLayer = window.dataLayer || [];
     if (portao) {
       window.dataLayer.push({ event: 'portao_whatsapp', portao: p });
