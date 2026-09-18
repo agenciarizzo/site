@@ -44,6 +44,42 @@ export function wa(text: string): string {
  */
 export const PROPOSTA_URL = "https://app.agenciarizzo.com.br/proposta";
 
+/**
+ * Onde o portão registra o par `{código → gclid}` (CRM_PLUGADO_MAPA §3, Trilho A.4).
+ *
+ * VAZIO = DESLIGADO, e isso é de propósito: sem endpoint, o código NÃO entra na
+ * mensagem. Código que ninguém consegue resolver é pior que código nenhum — a
+ * secretária digitaria caractere à toa e o médico veria ruído na própria frase.
+ * No dia que a edge subir, é só setar a env var; nenhum deploy do site precisa
+ * mudar de forma.
+ *
+ * Não é segredo (roda no navegador, como o GA4): a edge é pública por desenho,
+ * igual à `client-door`. O que ela grava não é PII — é um código opaco e um
+ * identificador de clique que o próprio Google devolveu na URL.
+ */
+export const ORIGEM_ENDPOINT = process.env.NEXT_PUBLIC_ORIGEM_ENDPOINT ?? "";
+
+/**
+ * COMO o identificador viaja na mensagem. Os dois modos existem porque as duas
+ * pontas são diferentes, não porque um é melhor (dono, 2026-09-17):
+ *
+ *  • "codigo" — manda AR-XXXXX e registra o par no ORIGEM_ENDPOINT. Mensagem
+ *    limpa, 8 caracteres. Só funciona onde EXISTE backend pra resolver o par —
+ *    aqui existe. Exige ORIGEM_ENDPOINT, senão cai em desligado.
+ *
+ *  • "gclid" — manda o identificador cru. AUTO-CONTIDO: carrega o próprio dado,
+ *    não precisa de endpoint, de tabela de tradução nem de backend. É o modo dos
+ *    SITES DE CLIENTE, que não têm onde guardar par nenhum — e é por isso que o
+ *    RizzoOS tem que aceitar os dois na mesma caixa.
+ *
+ *  • vazio — desligado: nada entra na mensagem.
+ *
+ * O custo do modo "gclid", declarado: são ~90 caracteres visíveis na mensagem
+ * que o médico ainda pode apagar antes de enviar. O que ele NÃO tem é erro de
+ * transcrição, porque a secretária copia, não digita.
+ */
+export const ORIGEM_MODO = process.env.NEXT_PUBLIC_ORIGEM_MODO ?? "";
+
 export const ENDERECO = "Rua Barão do Rio Branco, 531, sala 101 · Anápolis–GO";
 export const CNPJ = "15.728.480/0001-89";
 
