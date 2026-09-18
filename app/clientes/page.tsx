@@ -21,7 +21,7 @@
 // A leitura POR ÁREA não se perdeu: virou a lista de nomes em colunas logo
 // abaixo, no mesmo vocabulário do EspecialidadeLanding (`.carteira-grupo ul`);
 // em 2026-09-18 o índice de áreas deu lugar a um FILTRO por especialidade e por
-// cidade/UF (components/ClientesFiltro.tsx — a única ilha de cliente da página).
+// UF (components/ClientesFiltro.tsx — a única ilha de cliente da página).
 //
 // 2ª rodada, mesmo dia: *"quero versão só logo, sem texto algum escrito, apenas
 // com o alt para o SEO — mas para o cliente quero o impacto dos logos, eles
@@ -46,7 +46,7 @@ import { panoClientes } from "@/lib/athos/panos";
 import { chave } from "@/content/portfolio";
 import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
 import { logoDe } from "@/lib/logos";
-import { ClientesFiltro, type PracaUF } from "@/components/ClientesFiltro";
+import { ClientesFiltro } from "@/components/ClientesFiltro";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -100,14 +100,10 @@ export default function ClientesPage() {
     .map((c) => ({ c, logo: logoDe(c.nome) }))
     .filter((x): x is { c: ClienteCarteira; logo: string } => x.logo !== null);
   const nomesNaPagina = casas.map((c) => c.nome);
-  // O filtro (2026-09-18): as áreas na ordem dos grupos, e as praças agrupadas por
-  // UF, cidades em ordem de chave ASCII (mesma régua do resto da página).
+  // O filtro (2026-09-18): as áreas na ordem dos grupos e as UFs em ordem
+  // alfabética — por estado, e só (o cliente dispensou o recorte por cidade).
   const areas = grupos.map((g) => g.area);
-  const porUf = new Map<string, Set<string>>();
-  for (const c of casas) porUf.set(c.uf, new Set([...(porUf.get(c.uf) ?? []), c.cidade]));
-  const pracas: PracaUF[] = [...porUf.entries()]
-    .sort((a, b) => (a[0] < b[0] ? -1 : 1))
-    .map(([uf, cidades]) => ({ uf, cidades: [...cidades].sort((a, b) => (chave(a) < chave(b) ? -1 : 1)) }));
+  const ufs = [...new Set(casas.map((c) => c.uf))].sort((a, b) => (a < b ? -1 : 1));
 
   // Schema desta página (regra 5 do CLAUDE.md): CollectionPage + ItemList.
   // SEM aggregateRating — avaliação fabricada foi um dos antipadrões que derrubaram
@@ -187,9 +183,9 @@ export default function ClientesPage() {
           <h2 className="sec">Por área</h2>
           {/* O filtro no lugar do índice de pílulas: com 46 áreas, escolher a área
               num select e ver SÓ ela é mais direto que pular de âncora em âncora —
-              e a praça (cidade ou UF) entra no mesmo gesto. A lista continua
+              e o estado entra no mesmo gesto. A lista continua
               inteira no HTML; o componente só esconde (ver ClientesFiltro.tsx). */}
-          <ClientesFiltro areas={areas} pracas={pracas} total={casas.length} />
+          <ClientesFiltro areas={areas} ufs={ufs} total={casas.length} />
 
           <div className="carteira" data-carteira>
             {grupos.map((g) => (
@@ -197,7 +193,7 @@ export default function ClientesPage() {
                 <h3>{g.area}</h3>
                 <ul>
                   {g.itens.map((c) => (
-                    <li className="carteira-nome" data-uf={c.uf} data-cidade={c.cidade} key={c.nome}>
+                    <li className="carteira-nome" data-uf={c.uf} key={c.nome}>
                       {c.nome}
                       <span className="praca">
                         {c.cidade}/{c.uf}
