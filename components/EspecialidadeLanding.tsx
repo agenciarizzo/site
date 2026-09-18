@@ -178,10 +178,11 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
   const ordem = pecas.map((p) => slugPeca(p.imagem));
   const vizinhas = (i: number) => ({ anterior: ordem[i - 1], proxima: ordem[i + 1] });
   const grupos = nomesDa(e);
-  // A âncora do grupo na parede do /clientes sai da MESMA `chave()` que o
+  // A âncora do grupo na parede do /portfolio sai da MESMA `chave()` que o
   // PortfolioPecas usa — derivada da espec, nunca do slug da página (as duas grafias
   // divergem: `ortopedia-e-traumatologia` × `parede-ortopediaetraumatologia`).
-  const naParede = `/clientes#parede-${chave(e.espec)}`;
+  // (A parede morava em /clientes; virou /portfolio em 2026-08-25.)
+  const naParede = `/portfolio#parede-${chave(e.espec)}`;
   const totalNoAcervo = PORTFOLIO.filter((p) => p.espec === e.espec).length;
 
   return (
@@ -274,13 +275,13 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
               {totalNoAcervo > pecas.length ? (
                 <>
                   Estas são as peças que escolhemos mostrar aqui. O acervo inteiro — as {totalNoAcervo} de{" "}
-                  {e.espec.toLowerCase()} e as das outras especialidades — está na{" "}
-                  <Link href={naParede}>parede de clientes</Link>.
+                  {e.espec.toLowerCase()} e as das outras especialidades — está no{" "}
+                  <Link href={naParede}>portfólio</Link>.
                 </>
               ) : (
                 <>
-                  O acervo inteiro, com todas as especialidades lado a lado, está na{" "}
-                  <Link href={naParede}>parede de clientes</Link>.
+                  O acervo inteiro, com todas as especialidades lado a lado, está no{" "}
+                  <Link href={naParede}>portfólio</Link>.
                 </>
               )}
             </p>

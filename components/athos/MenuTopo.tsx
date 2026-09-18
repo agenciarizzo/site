@@ -107,6 +107,9 @@ function MenuPaginas({ atual }: { atual?: string }) {
           <Link href="/clientes" aria-current={cur("/clientes")}>
             Clientes atendidos
           </Link>
+          <Link href="/portfolio" aria-current={cur("/portfolio")}>
+            Portfólio
+          </Link>
         </nav>
         {COMBOS.length > 0 && (
           <nav aria-label="Especialidade por cidade">

@@ -61,7 +61,10 @@ const LEGADO: Array<{ de: string; para: string }> = [
   { de: "/home", para: "/" },
   { de: "/protocolos-da-agencia-rizzo", para: "/" },
   { de: "/agencia-marketing-medico-digital", para: "/" },
-  { de: "/portfolio", para: "/clientes" },
+  // `mesmaRota`: /portfolio virou PÁGINA DE VERDADE em 2026-08-25 (a parede de
+  // peças, que morava em /clientes) — só a variante `.html` do site antigo
+  // segue redirecionando; a URL limpa agora serve o portfólio de verdade.
+  { de: "/portfolio", para: "/portfolio" },
   { de: "/clientes-ja-atendidos-pela-agencia-rizzo", para: "/clientes" },
   { de: "/clientes", para: "/clientes" },
   { de: "/agencia-marketing-medico-digital/contato-agencia-rizzo", para: "/contato" },

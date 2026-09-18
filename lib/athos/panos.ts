@@ -84,6 +84,7 @@ export const ROTAS_COM_PANO: readonly string[] = [
   "/",
   "/marketing-medico",
   "/clientes",
+  "/portfolio",
   "/sobre",
   "/rizzoos",
   "/contato",
@@ -218,6 +219,7 @@ export const panoHub = () => panoFaixa("/marketing-medico");
 export const panoSobre = () => panoFaixa("/sobre");
 export const panoRizzoOs = () => panoFaixa("/rizzoos");
 export const panoClientes = () => panoFaixa("/clientes");
+export const panoPortfolio = () => panoFaixa("/portfolio");
 export const panoContato = () => panoFaixa("/contato");
 export const panoPrivacidade = () => panoFaixa("/politica-privacidade");
 
