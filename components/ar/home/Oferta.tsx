@@ -58,35 +58,25 @@ export function Servicos() {
   );
 }
 
-/**
- * Os 4 panos dos add-ons e as 4 formas "bauhaus" do canvas, ciclando por
- * índice (linha B começa deslocada em 2, como no protótipo). "areia" é o
- * pano de papel — a peça geométrica dele vai em grafite, não em amarelo
- * (regra 2 do CLAUDE.md, A2), o único desvio do canvas neste bloco.
- */
-const FORMAS = ["50%", "0", "50% 0 0 0", "0 50% 50% 0"];
-
-function Faixa({ nomes, off, reverso }: { nomes: string[]; off: number; reverso?: boolean }) {
+/** Uma faixa do letreiro; a lista é duplicada pro loop do `dg-marquee`. */
+function Faixa({ nomes, reverso }: { nomes: string[]; reverso?: boolean }) {
   const itens = [...nomes, ...nomes];
   return (
     <div className="addons-faixa">
       <ul data-reverso={reverso ? "" : undefined}>
-        {itens.map((n, i) => {
-          const k = (i + off) % 4;
-          return (
-            <li key={i} data-pano={k} style={{ "--forma": FORMAS[k] } as React.CSSProperties} aria-hidden={i >= nomes.length ? true : undefined}>
-              <i className="ad-disco" />
-              <i className="ad-peca" />
-              <span>{n}</span>
-            </li>
-          );
-        })}
+        {itens.map((n, i) => (
+          <li key={i} aria-hidden={i >= nomes.length ? true : undefined}>
+            <span>{n}</span>
+          </li>
+        ))}
       </ul>
     </div>
   );
 }
 
-/** 6b · ADICIONAIS — extras sob demanda, sem preço: só o nome, passando. */
+/** 6b · ADICIONAIS — extras sob demanda, sem preço: só o nome, passando.
+ *  Tweak escolhido pelo cliente no canvas (18/09): pano "areia" (papel),
+ *  relevo "baixo", forma "liso" — sem peça geométrica, só o texto. */
 export function Adicionais() {
   const nomes = ADDONS.map((a) => a.curto);
   return (
@@ -99,8 +89,8 @@ export function Adicionais() {
         <p>Adicione serviços extras sob demanda para acelerar seus resultados.</p>
       </div>
       <div className="addons-faixas" aria-label="Add-ons disponíveis">
-        <Faixa nomes={nomes.slice(0, 5)} off={0} />
-        <Faixa nomes={nomes.slice(5)} off={2} reverso />
+        <Faixa nomes={nomes.slice(0, 5)} />
+        <Faixa nomes={nomes.slice(5)} reverso />
       </div>
     </div>
   );

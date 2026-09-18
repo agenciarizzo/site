@@ -1356,50 +1356,10 @@
   align-items: center;
   height: 92px;
   padding: 0 44px;
-  overflow: hidden;
   white-space: nowrap;
-  background: var(--ad-bg);
-  color: var(--ad-fg);
-}
-/* os 4 panos do canvas ("mista"): amarelo · areia · petróleo · escuro */
-.dg .addons-faixa li[data-pano="0"] {
-  --ad-bg: var(--amarelo);
-  --ad-fg: var(--chumbo);
-  --ad-pano: rgba(50, 60, 70, 0.18);
-}
-.dg .addons-faixa li[data-pano="1"] {
-  --ad-bg: var(--papel);
-  --ad-fg: var(--chumbo);
-  --ad-pano: rgba(50, 60, 70, 0.18);
-}
-.dg .addons-faixa li[data-pano="2"] {
-  --ad-bg: var(--teal);
-  --ad-fg: var(--papel);
-  --ad-pano: rgba(244, 239, 230, 0.25);
-}
-.dg .addons-faixa li[data-pano="3"] {
-  --ad-bg: var(--chumbo);
-  --ad-fg: var(--papel);
-  --ad-pano: rgba(255, 210, 0, 0.6);
-}
-.dg .addons-faixa li i {
-  position: absolute;
-  display: block;
-  background: var(--ad-pano);
-}
-.dg .addons-faixa .ad-disco {
-  top: -30px;
-  right: -30px;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-}
-.dg .addons-faixa .ad-peca {
-  bottom: -40px;
-  left: -10px;
-  width: 80px;
-  height: 80px;
-  border-radius: var(--forma);
+  /* tweak do cliente (18/09): pano "areia" (papel), sem peça geométrica */
+  background: var(--papel);
+  color: var(--chumbo);
 }
 .dg .addons-faixa li span {
   position: relative;
@@ -1407,10 +1367,10 @@
   font-size: clamp(18px, 1.6vw, 24px);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  /* "alto relevo" do canvas */
+  /* relevo "baixo" do canvas: luz por baixo, sombra por cima */
   text-shadow:
-    1px 1px 0 rgba(255, 255, 255, 0.35),
-    -1px -1px 0 rgba(0, 0, 0, 0.25);
+    -1px -1px 0 rgba(255, 255, 255, 0.35),
+    1px 1px 0 rgba(0, 0, 0, 0.3);
 }
 @media (prefers-reduced-motion: reduce) {
   .dg .addons-faixa ul {
@@ -3424,6 +3384,24 @@
   .dg [data-reveal][data-armado] {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Telas BAIXAS (notebook com barra do navegador, 1004×645 no print do
+   cliente, 18/09): a ficha 3, presa a 128px do topo com ~560px de conteúdo,
+   passava do pé da tela — "não é possível ler a base do card", e a 4ª chega
+   antes de a base aparecer. Abaixo de 760px de altura a pilha vira FLUXO,
+   como no estreito: cada ficha inteira, sem sticky. A 768px a 6ª ainda cabe
+   (base a 728px, medido). */
+@media (max-height: 759px) {
+  .dg .case {
+    position: static;
+    top: auto;
+    min-height: 0;
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.22);
+  }
+  .dg .cases-pilha {
+    gap: 24px;
   }
 }
 
