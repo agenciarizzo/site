@@ -18,7 +18,8 @@
 // O que o motor toca, e nada além disso:
 //  · `[data-par]`      paralaxe proporcional à posição da seção na tela
 //  · `[data-reveal]`   arma o estado inicial e acende ao entrar (uma vez)
-//  · `[data-cresce]`   as barras dos cases crescem conforme a folha sobe
+//  · `[data-fichas]`   as fichas dos cases: clique na aba abre a leitura
+//                      (uma por vez); as barras crescem no CSS, ao abrir
 //  · `[data-os-track]` o palco do RizzoOS: 6 estados por progresso do trilho
 //  · `[data-pf-track]` o palco do portfólio: 6 cenas por progresso do trilho
 //  · `[data-regua]`    os 64 traços sobem quando a régua entra
@@ -51,7 +52,6 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     const topo = raiz.querySelector<HTMLElement>(".topo");
     const pares = Array.from(raiz.querySelectorAll<HTMLElement>("[data-par]"));
     const reveals = Array.from(raiz.querySelectorAll<HTMLElement>("[data-reveal]"));
-    const cresce = Array.from(raiz.querySelectorAll<HTMLElement>("[data-cresce]"));
     const secoes = Array.from(raiz.querySelectorAll<HTMLElement>("[data-topo]"));
     const regua = raiz.querySelector<HTMLElement>("[data-regua]");
     const os = raiz.querySelector<HTMLElement>("[data-os-track]");
@@ -91,9 +91,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     // movem sozinhas fora do scroll normal, então a posição-documento de cada
     // uma é ESTÁVEL entre resizes. Medir uma vez (+ no resize) e, por frame,
     // só fazer aritmética com `scrollY` — sem nenhuma leitura de layout —
-    // corta as ~24 leituras/frame que sobravam depois do `cresce` (que
-    // continua ao vivo: `.case` É sticky, sua posição na viewport não é
-    // `topo-estático − scrollY`).
+    // corta as ~24 leituras/frame que sobravam.
     type ParInfo = { el: HTMLElement; par: number; secTop: number; secHeight: number };
     let paresInfo: ParInfo[] = [];
     const medirPares = () => {
@@ -246,20 +244,6 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
         if (r.top < vh * 0.9 && r.bottom > 0) el.dataset.visivel = "";
       }
 
-      for (const g of cresce) {
-        const folha = g.closest("li");
-        if (!folha) continue;
-        const r = folha.getBoundingClientRect();
-        const p = reduzido ? 1 : Math.min(1, Math.max(0, (vh * 0.95 - r.top) / (vh * 0.55)));
-        const e = 1 - Math.pow(1 - p, 3);
-        // Escreve o PROGRESSO, não o transform: quem escolhe o eixo é o CSS.
-        // No desktop a barra é vertical (`scaleY`); no celular ela deita e vira
-        // `scaleX` (o gráfico empilha, ver `@media (max-width: 699px)`). Escrever
-        // `scaleY` aqui travava o eixo no JS e deixava a barra deitada crescendo
-        // pro lado errado.
-        for (const b of Array.from(g.querySelectorAll<HTMLElement>("[data-barra]"))) b.style.setProperty("--cresce", e.toFixed(3));
-      }
-
       if (os) {
         const r = os.getBoundingClientRect();
         const itens = os.querySelectorAll<HTMLElement>("[data-os-item]");
@@ -410,6 +394,33 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       for (const v of faixaVideos) ioFaixa.observe(v);
     }
 
+    // Fichas dos cases (cliente, 18/09): a aba clicada abre a leitura e fecha
+    // as outras; clicar na aberta fecha. Estado em `data-aberta` no `<li>` —
+    // é o CSS que anima a altura (grid-template-rows 0fr→1fr) e faz as barras
+    // crescerem. Zero leitura de layout, zero re-render.
+    const fichas = raiz.querySelector<HTMLElement>("[data-fichas]");
+    const aoClicarFicha = (e: Event) => {
+      const aba = (e.target as HTMLElement).closest<HTMLElement>("[data-ficha-aba]");
+      const li = aba?.closest<HTMLElement>(".ficha");
+      if (!aba || !li || !fichas) return;
+      const abrir = li.dataset.aberta === undefined;
+      for (const f of Array.from(fichas.querySelectorAll<HTMLElement>(".ficha"))) {
+        const on = abrir && f === li;
+        if (on) f.dataset.aberta = "";
+        else delete f.dataset.aberta;
+        f.querySelector<HTMLElement>("[data-ficha-aba]")?.setAttribute("aria-expanded", String(on));
+      }
+      // No estreito a leitura abre embaixo da aba tocada; se a aba estava no
+      // pé da tela, o conteúdo nasceria fora dela — traz a aba pro topo. Só
+      // DEPOIS que a ficha de cima terminou de encolher (0,6s no CSS): antes
+      // disso a aba ainda vai subir junto com o colapso e o scroll erra o alvo.
+      if (abrir && innerWidth <= 1099) {
+        const espera = reduzido ? 0 : 640;
+        setTimeout(() => (aba.closest(".ficha-h") ?? aba).scrollIntoView({ block: "start", behavior: reduzido ? "auto" : "smooth" }), espera);
+      }
+    };
+    fichas?.addEventListener("click", aoClicarFicha);
+
     // §45.3: as setas e a barra de progresso da faixa — porto do artifact
     // publicado (bloco 13 · Portfólio). O passo é a largura do 1º cartão +
     // o `gap` da faixa (lido do CSS, não fixo — a faixa muda de largura de
@@ -450,6 +461,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       if (tempos) clearTimeout(tempos);
       io?.disconnect();
       ioFaixa?.disconnect();
+      fichas?.removeEventListener("click", aoClicarFicha);
       pfFaixa?.removeEventListener("scroll", atualizaFaixaFill);
       pfPrev?.removeEventListener("click", aoClicarPrev);
       pfNext?.removeEventListener("click", aoClicarNext);
