@@ -260,6 +260,13 @@ export const PORTFOLIO_CABECA = {
  * não "só sites".
  */
 export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]; pecas: string[] }[] = [
+  // 2026-09-18 (cliente): "o portfólio de site seja a partir dos que estão na Vercel,
+  // pois são os mais modernos e recentes… os sites que aparecem na home devem seguir
+  // essa linha". Todo `-site` do palco é peça composta do deploy Vercel do cliente
+  // (rodadas 17/18 do acervo) — os sites antigos (mockup de 2023/24) saíram daqui. A
+  // única exceção é a Examine Agora: o cliente ESTÁ na Vercel, a peça ainda é a do
+  // Drive e será refeita do deploy junto com os 6 projetos que faltam no acervo
+  // (Ecoa, Luciano Morais, Portocarrero, Medicina da Dor, Casa de Saúde de Remanso).
   {
     nome: "Sites",
     vagas: [[0, 0, 4, 4], [4, 0, 2, 3], [4, 3, 1, 1], [5, 3, 1, 1]],
@@ -286,7 +293,7 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 1, 2], [3, 2, 1, 2], [4, 2, 2, 2]],
     pecas: [
       "/portfolio/marketing-medico-cirurgia-digestiva-goiania-portfolio-digital.webp",
-      "/portfolio/marketing-medico-oncologia-brasilia-site-cirurgia-oncologica.webp", // achado: "poucos sites" — vaga quadrada aceita site em paisagem (regra do Angiomedi)
+      "/portfolio/marketing-medico-ortopedia-mossoro-site.webp", // Dr. Eduardo Medeiros (Vercel) — vaga quadrada aceita site em paisagem (regra do Angiomedi)
       "/portfolio/marketing-medico-oftalmologia-belo-horizonte-site.webp", // idem
       "/portfolio/marketing-medico-oncologia-rio-de-janeiro-cartao-virtual.webp",
       "/portfolio/marketing-medico-ortopedia-porto-alegre-guia-pos-operatorio.webp",
@@ -300,8 +307,8 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     pecas: [
       "/portfolio/marketing-clinica-diagnostico-imagem-brasilia-site.webp", // Examine Agora
       "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-retina.webp",
-      "/portfolio/marketing-medico-neurocirurgia-recife-site.webp", // achado: "poucos sites" — vaga 2×1 é paisagem, o mesmo formato do site
-      "/portfolio/marketing-medico-urologia-brasilia-site-cirurgia-robotica.webp", // idem
+      "/portfolio/marketing-medico-ortopedia-vitoria-site.webp", // Dr. Francisco Carvalho (Vercel) — vaga 2×1 é paisagem, o mesmo formato do site
+      "/portfolio/marketing-medico-urologia-porto-alegre-site.webp", // Dra. Marina Gressler (Vercel) — idem
     ],
   },
   {
@@ -319,10 +326,10 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 2, 2], [4, 2, 2, 2]],
     pecas: [
       "/portfolio/marketing-clinica-ortopedia-brasilia-folder-institucional.webp",
-      "/portfolio/marketing-clinica-medica-pindamonhangaba-site.webp", // achado: "poucos sites" — vaga quadrada aceita site em paisagem
+      "/portfolio/marketing-medico-reproducao-humana-brasilia-site.webp", // Dra. Elielma Almeida (Vercel) — vaga quadrada aceita site em paisagem
       "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-uveites.webp",
       "/portfolio/marketing-laboratorio-mineiros-goias-cartaz-exames.webp",
-      "/portfolio/marketing-medico-menopausa-salvador-site.webp", // idem
+      "/portfolio/marketing-medico-oftalmologia-brasilia-outdoor-cirurgia-refrativa.webp", // outdoor (paisagem) no lugar do site antigo: site na home só se for da linha Vercel
       "/portfolio/marketing-medico-ortopedia-rio-de-janeiro-portfolio-digital.webp",
     ],
   },
