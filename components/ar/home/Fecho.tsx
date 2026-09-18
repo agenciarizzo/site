@@ -116,7 +116,10 @@ export function Rodape() {
               <a href="#h-cases">Cases</a>
             </li>
             <li>
-              <Link href="/clientes">Clientes e portfólio</Link>
+              <Link href="/clientes">Clientes atendidos</Link>
+            </li>
+            <li>
+              <Link href="/portfolio">Portfólio</Link>
             </li>
             <li>
               <a href="#h-depo">Depoimentos</a>

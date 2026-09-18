@@ -71,6 +71,7 @@ export function Topo({ waText }: { waText: string }) {
                 </Link>
                 <Link href="/marketing-medico">Marketing médico</Link>
                 <Link href="/clientes">Clientes atendidos</Link>
+                <Link href="/portfolio">Portfólio</Link>
                 <Link href="/rizzoos">RizzoOS</Link>
                 <Link href="/sobre">Sobre</Link>
                 <Link href="/contato">Contato</Link>
