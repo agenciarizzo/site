@@ -1,8 +1,9 @@
 // Política de privacidade + termos de uso.
 //
-// Página FACTUAL: descreve exatamente o que este site coleta hoje — GA4, Meta Pixel,
-// o evento de clique no WhatsApp e os identificadores de clique de anúncio guardados no
-// `localStorage` (ver components/Medicao.tsx, que é a fonte da verdade do que roda).
+// Página FACTUAL: descreve exatamente o que este site coleta hoje — GA4, Meta Pixel, UET
+// do Microsoft Advertising (Bing), o evento de clique no WhatsApp e os identificadores de
+// clique de anúncio guardados no `localStorage` (ver components/Medicao.tsx, que é a fonte
+// da verdade do que roda).
 // Se a medição mudar, esta página muda no MESMO PR — política que descreve o site errado
 // é pior que não ter política.
 //
@@ -13,7 +14,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MenuTopo, FooterMapa, Band } from "@/components/athos/Athos";
 import { panoPrivacidade } from "@/lib/athos/panos";
-import { ENDERECO, CNPJ, WHATS_LABEL, GA4_ID, META_PIXEL_ID, SITE_URL } from "@/lib/site";
+import { ENDERECO, CNPJ, WHATS_LABEL, GA4_ID, META_PIXEL_ID, BING_UET_ID, SITE_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 const WA = "Olá! Tenho uma dúvida sobre privacidade e dados no site da agência.";
-const ATUALIZADO = "25 de julho de 2026";
+const ATUALIZADO = "15 de setembro de 2026";
 
 export default function PrivacidadePage() {
   const faixa = panoPrivacidade();
@@ -84,7 +85,14 @@ export default function PrivacidadePage() {
               e que o botão de WhatsApp foi clicado. A Meta usa cookies próprios e é operadora desse tratamento.
             </p>
 
-            <h3 className="legal-h3">3 · Os eventos de clique nos botões de conversa</h3>
+            <h3 className="legal-h3">3 · Microsoft UET ({BING_UET_ID})</h3>
+            <p>
+              Mede o resultado dos anúncios que veiculamos na busca da Microsoft (Bing): registra que a página foi
+              aberta e que os botões de conversa foram clicados. A Microsoft usa cookies próprios e é operadora desse
+              tratamento.
+            </p>
+
+            <h3 className="legal-h3">4 · Os eventos de clique nos botões de conversa</h3>
             <p>
               Quando você clica em um botão de WhatsApp, registramos o clique, a página em que ele aconteceu e o
               destino — não o conteúdo da conversa, que acontece fora do site. O caminho tem dois passos e cada um
@@ -93,18 +101,18 @@ export default function PrivacidadePage() {
               que leva para o nosso aplicativo.
             </p>
 
-            <h3 className="legal-h3">4 · Identificadores de clique de anúncio no seu navegador</h3>
+            <h3 className="legal-h3">5 · Identificadores de clique de anúncio no seu navegador</h3>
             <p>
               Se você chegou por um anúncio, o endereço traz um identificador desse clique. Guardamos esse valor no{" "}
               <i>localStorage</i> do seu próprio navegador, com o prefixo <code>ar_</code>, junto do horário:{" "}
-              <code>ar_gclid</code>, <code>ar_gbraid</code>, <code>ar_wbraid</code> (Google Ads) e{" "}
-              <code>ar_fbclid</code> (Meta), mais os respectivos <code>_ts</code>. Serve para uma coisa só: saber qual
-              anúncio trouxe a conversa quando você clica no WhatsApp — inclusive se isso acontecer numa visita
-              posterior. Não é cookie, fica no seu aparelho e você pode apagar a qualquer momento limpando os dados do
-              site no navegador.
+              <code>ar_gclid</code>, <code>ar_gbraid</code>, <code>ar_wbraid</code> (Google Ads),{" "}
+              <code>ar_fbclid</code> (Meta) e <code>ar_msclkid</code> (Microsoft Advertising), mais os respectivos{" "}
+              <code>_ts</code>. Serve para uma coisa só: saber qual anúncio trouxe a conversa quando você clica no
+              WhatsApp — inclusive se isso acontecer numa visita posterior. Não é cookie, fica no seu aparelho e você
+              pode apagar a qualquer momento limpando os dados do site no navegador.
             </p>
 
-            <h3 className="legal-h3">5 · O texto que abre a conversa</h3>
+            <h3 className="legal-h3">6 · O texto que abre a conversa</h3>
             <p>
               Cada página tem uma frase própria para abrir o WhatsApp — é o que nos diz de onde você veio. Quando você
               clica no botão, ficam guardados no <i>sessionStorage</i> do seu navegador a frase (<code>ar_wa_texto</code>
@@ -113,15 +121,15 @@ export default function PrivacidadePage() {
               você fecha a aba.
             </p>
 
-            <h3 className="legal-h3">6 · Registros técnicos da hospedagem</h3>
+            <h3 className="legal-h3">7 · Registros técnicos da hospedagem</h3>
             <p>
               O site é hospedado na Vercel, que mantém registros técnicos de acesso (endereço IP, identificação do
               navegador, endereço solicitado e horário) para segurança, prevenção de abuso e diagnóstico de falhas.
             </p>
 
             <p>
-              A medição descrita nos itens 1 a 4 <b>só roda no site publicado</b>. Ambientes de desenvolvimento e de
-              pré-visualização não medem nada. O item 5 não é medição: existe para a conversa abrir com o assunto
+              A medição descrita nos itens 1 a 5 <b>só roda no site publicado</b>. Ambientes de desenvolvimento e de
+              pré-visualização não medem nada. O item 6 não é medição: existe para a conversa abrir com o assunto
               certo, e vale em qualquer ambiente.
             </p>
 
@@ -174,6 +182,9 @@ export default function PrivacidadePage() {
                 <b>Meta</b> (Pixel, Instagram, Facebook e WhatsApp) — medição de campanha e o canal da conversa.
               </li>
               <li>
+                <b>Microsoft</b> (Advertising e Bing) — medição de campanha na busca da Microsoft.
+              </li>
+              <li>
                 <b>Vercel</b> — hospedagem do site e registros técnicos de acesso.
               </li>
             </ul>
@@ -215,6 +226,10 @@ export default function PrivacidadePage() {
               </li>
               <li>
                 <b>Na Meta</b> — pelas preferências de anúncios da sua conta no Instagram ou Facebook.
+              </li>
+              <li>
+                <b>Na Microsoft</b> — pelo painel de privacidade e pelas configurações de anúncios da sua conta
+                Microsoft.
               </li>
             </ul>
 
