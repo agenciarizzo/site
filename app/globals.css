@@ -463,7 +463,9 @@ article.corpo { padding: 2.6rem 0 3rem; }
       no mural) — segue inteiro na lista por área, com nome e praça. */
 .mural {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+  /* 4 colunas fixas (cliente, 2026-09-18): a marca maior é o "impacto" que ele
+     pediu; o auto-fill de 12,5rem rendia 6 em 1440px e a marca ficava pequena. */
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background: var(--hairline);
   border: 1px solid var(--hairline);
@@ -475,7 +477,7 @@ article.corpo { padding: 2.6rem 0 3rem; }
   aspect-ratio: 5 / 2;
   object-fit: contain;
   background: var(--papel);
-  padding: 0.7rem 0.9rem;
+  padding: 1.1rem 1.5rem; /* "aí dá um pouco de arejamento" — a marca não encosta no filete */
   transition: background 140ms ease;
 }
 /* O hover não muda a marca (o cliente quer ver a marca como ela é) — só acende o
