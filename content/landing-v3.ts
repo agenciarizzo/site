@@ -61,70 +61,110 @@ export const SERVICOS = [
  * ⚠️ O método (CH, coeficiente, cidade, fórmula, contrato) fica FORA da página
  * — é a régua anti-oversharing do §44.10. O que aparece é o valor e o escopo.
  */
+/**
+ * A régua de preço é UMA: o pacote custa `chs × CH_MES`. A CH (a hora-chave do
+ * painel) vale R$ 78 por ano — R$ 6,50 por mês — e é o mesmo número que o
+ * RizzoOS usa por dentro; a tabela por CEP/tier fica pausada (cliente,
+ * 18/09: "focar em CH única por enquanto; quando escalar, volto subindo
+ * tier 1, 2…"). Mudar a CH aqui muda os quatro cards de uma vez. Quando a
+ * régua por tier voltar, ela mora no rizzo-os e este número vira leitura.
+ */
+export const CH_ANO = 78;
+export const CH_MES = CH_ANO / 12;
+
+/** 708.5 → "708,50" · 1384.5 → "1.384,50" (sem depender do ICU do Node). */
+function reais(n: number) {
+  const [int, dec] = n.toFixed(2).split(".");
+  return `${int.replace(/\B(?=(\d{3})+(?!\d))/g, ".")},${dec}`;
+}
+
+function pacote(p: {
+  num: string;
+  slug: string;
+  tema: "cinza" | "amarelo" | "escuro";
+  nome: string;
+  chs: number;
+  frase: string;
+  para: string;
+  escopo: string[];
+  alto?: boolean;
+}) {
+  const aPartir = reais(p.chs * CH_MES);
+  return {
+    ...p,
+    tipo: "Standard",
+    aPartir,
+    recomendado: !!p.alto,
+    preco: `R$ ${aPartir}/mês`,
+    desc: p.para,
+  };
+}
+
+/**
+ * Os 4 pacotes do artifact de 18/09 (`propostas.js` do handoff), na ordem do
+ * canvas. `escopo` são as linhas gerais — o cliente não quer a proposta
+ * detalhada no site; o detalhe fica no app, atrás de "Ver proposta".
+ */
 export const PACOTES = [
-  {
+  pacote({
     num: "01",
-    tema: "cinza" as const,
-    nome: "Redes Sociais",
-    preco: "R$ 921/mês",
-    desc: "Para quem quer destaque nas redes. Foco em Instagram e Facebook, com padronização e conteúdo.",
-    escopo: [
-      "Padronização das redes (Instagram, Facebook, LinkedIn)",
-      "10 destaques do Instagram",
-      "Posts em 3 dias por semana (feed, carrosséis e stories), o ano todo",
-    ],
-  },
-  {
+    slug: "landing-ads",
+    tema: "cinza",
+    nome: "Landing + Ads",
+    chs: 109,
+    frase: "Uma página que converte e tráfego pago apontado para ela.",
+    para: "Para quem quer agenda cheia rápido, sem cuidar de redes sociais.",
+    escopo: ["Google Meu Negócio", "Criação de landing page", "Animação gráfica para TV Corporativa e Google Ads", "+ 5 itens inclusos"],
+  }),
+  pacote({
     num: "02",
-    tema: "cinza" as const,
-    nome: "Redes, Landing Page e Google Ads",
-    preco: "R$ 1.240/mês",
-    desc: "Visibilidade acessível: landing page otimizada, redes sociais e tráfego pago.",
-    escopo: [
-      "Google Meu Negócio",
-      "Landing page",
-      "Animação para WhatsApp e Google Ads",
-      "Padronização das redes",
-      "10 destaques do Instagram",
-      "2 posts por semana",
-      "Google Ads: configuração e gestão",
-      "Manutenção da landing page",
-    ],
-  },
-  {
+    slug: "redes",
+    tema: "cinza",
+    nome: "Redes",
+    chs: 130,
+    frase: "Post diário nos dias úteis, com identidade padronizada.",
+    para: "Para quem já tem site e quer constância no Instagram e Facebook.",
+    escopo: ["Padronização das redes (Instagram, Facebook, LinkedIn)", "10 destaques do Instagram", "Campanha de 20 posts por mês (12 feed / 8 stories)"],
+  }),
+  pacote({
     num: "03",
-    tema: "amarelo" as const,
-    recomendado: true,
-    nome: "Redes, Site, SEO e Google Ads",
-    preco: "R$ 1.509/mês",
-    desc: "Pacote completo: site em Next.js, SEO, Google Ads e redes sociais.",
-    escopo: [
-      "Google Meu Negócio",
-      "Site em Next.js (computador e celular)",
-      "Animação para WhatsApp e Google Ads",
-      "Padronização das redes",
-      "10 destaques do Instagram",
-      "2 posts por semana",
-      "3 matérias de blog para SEO",
-      "Google Ads: configuração e gestão",
-      "Relatório de presença online",
-      "Manutenção do site",
-    ],
-  },
-  {
+    slug: "landing-redes",
+    tema: "cinza",
+    nome: "Landing + Redes",
+    chs: 175,
+    frase: "Landing page, Google Ads e presença nas redes no mesmo pacote.",
+    para: "Para quem está começando e quer captar e aparecer ao mesmo tempo.",
+    escopo: ["Google Meu Negócio", "Criação de landing page", "Animação gráfica para TV Corporativa e Google Ads", "+ 7 itens inclusos"],
+  }),
+  pacote({
     num: "04",
-    tema: "escuro" as const,
-    nome: "Site, SEO e Google Ads",
-    preco: "R$ 1.098/mês",
-    desc: "Presença institucional robusta, com foco em conversão e tráfego pago, sem gestão de redes.",
-    escopo: [
-      "Google Meu Negócio",
-      "Site em Next.js (computador e celular)",
-      "3 matérias de blog para SEO",
-      "Google Ads: configuração e gestão",
-      "Manutenção do site",
-    ],
-  },
+    slug: "site-redes",
+    tema: "amarelo",
+    alto: true,
+    nome: "Site + Redes",
+    chs: 213,
+    frase: "Site completo, SEO, Google Ads e redes. A presença inteira.",
+    para: "Para quem quer ser encontrado no Google e nas redes, com o site como base.",
+    escopo: ["Google Meu Negócio", "Criação de site em Next.js (computador e celular)", "Animação gráfica para TV Corporativa e Google Ads", "+ 8 itens inclusos"],
+  }),
+];
+
+/**
+ * Os 10 add-ons do artifact (18/09) — extras sob demanda, SEM preço no site.
+ * `curto` é o que roda no letreiro; `nome`/`desc` ficam pra quando o detalhe
+ * ganhar lugar (proposta no app, não aqui).
+ */
+export const ADDONS = [
+  { curto: "Apresentação Digital", nome: "Apresentação Digital", desc: "Portfólio, Cartão Virtual e Assinatura de E-mail para destacar o profissional." },
+  { curto: "Material Educativo", nome: "Material Educativo / Captura de Lead", desc: "Ebook diagramado (15 páginas) + Folder virtual: você envia o conteúdo, nós transformamos em material rico para captar leads em campanhas de Meta/Google Ads." },
+  { curto: "CHs Extras", nome: "CHs Extras", desc: "Horas flexíveis sob demanda para imprevistos, oportunidades ou escopo expandido." },
+  { curto: "Branding Completo", nome: "Branding Completo", desc: "Identidade Visual e Papelaria — essencial para quem precisa desenvolver sua marca." },
+  { curto: "Impulsionamento Meta Ads", nome: "Impulsionamento Meta Ads", desc: "Serviços de impulsionamento no Instagram e Facebook conectando médicos a pacientes qualificados." },
+  { curto: "Captação Brasília", nome: "Captação Brasília", desc: "Sessão mensal de captação profissional em Brasília-DF, 3 horas com videomaker ou fotógrafo. Insumos prontos para todos os seus pacotes de vídeo e redes sociais." },
+  { curto: "Pacote Reels", nome: "Pacote Reels (Animações)", desc: "Pacote de animações gráficas para Reels — 1 vídeo a cada duas semanas." },
+  { curto: "SEO Conteúdo", nome: "SEO Conteúdo", desc: "Potencia o tráfego orgânico do seu site: 2 matérias com SEO por mês + manutenção contínua. Ideal para subir no Google sem depender só de tráfego pago." },
+  { curto: "TV Corporativa", nome: "TV Corporativa Recepção", desc: "Mantenha sua sala de espera com conteúdo profissional: 1 animação gráfica nova por mês + manutenção remota da programação da TV." },
+  { curto: "Vídeos Quinzenais", nome: "Vídeos Quinzenais (Insumos do Cliente)", desc: "Edição profissional dos insumos enviados pelo cliente — 1 vídeo a cada duas semanas." },
 ];
 
 /** A nota única do §44.15 D1 — uma linha, embaixo dos 4 cards. */
@@ -232,7 +272,11 @@ export const CASES = [
   {
     meta: "Policlínica · Contagem/MG*",
     graficoTitulo: "Cliques orgânicos por dia · antes × depois",
-    frase: "Uma página por especialidade, e a home deixou de ser a única porta.",
+    // Cliente, 18/09 (anotação sobre o print): a frase encolhe pra UMA linha
+    // e fica com a "porta" da anotação — medido, "Uma página por
+    // especialidade, e cada porta abre." ainda quebrava em duas (154px de
+    // linha contra 112px nas outras fichas).
+    frase: "Uma porta por especialidade.",
     // Achado #7 (§44.24): "3,4 → 19,5 cliques por dia" estourava a célula
     // amarela — a métrica do herói vira a % (que é o que cabe na janela);
     // o de-para completo (3,4 → 19,5) desce pra nota, junto do herói.
@@ -241,15 +285,14 @@ export const CASES = [
     nota: "de 3,4 para 19,5 cliques orgânicos por dia nessas páginas",
     periodo: "Search Console, 92 dias antes × 28 dias depois",
     barras: [
-      { rotulo: "Páginas profundas · antes", valor: "3,4/dia", alt: 17 },
-      { rotulo: "Páginas profundas · depois", valor: "19,5/dia", alt: 100, destaque: true },
+      // Rótulos de uma linha (≤17 caracteres, a medida dos outros cards).
+      { rotulo: "Internas · antes", valor: "3,4/dia", alt: 17 },
+      { rotulo: "Internas · depois", valor: "19,5/dia", alt: 100, destaque: true },
       { rotulo: "Home · antes", valor: "75% dos cliques", alt: 100 },
       { rotulo: "Home · depois", valor: "32% dos cliques", alt: 43, destaque: true },
     ],
-    apoio: [
-      "Site novo em agosto/2026: uma página por especialidade, exame e médico.",
-      "Em 28 dias, 11 especialidades no top 3 da busca do bairro, e a home caiu de 75% para 32% dos cliques.",
-    ],
+    // Um apoio só: é a ficha 6, a MENOR da escada (ver `.dg .case` no CSS).
+    apoio: ["Site novo em agosto/2026, com uma página por especialidade, exame e médico. Em 28 dias, 11 especialidades no top 3 da busca do bairro."],
   },
 ];
 
@@ -446,7 +489,7 @@ export const EXCLUSIVIDADE = {
   kicker: "Exclusividade",
   titulo: "Um cliente por especialidade em cada cidade",
   texto:
-    "A agência não atende dois concorrentes diretos na mesma praça. Quando um ortopedista de joelho na Asa Sul fecha, a vaga de ortopedia de joelho na Asa Sul fecha junto. A estratégia continua sendo sua — e é por isso que a primeira conversa começa conferindo se a sua vaga está aberta.",
+    "Não atendemos dois concorrentes diretos na mesma praça. Quando um ortopedista de joelho na Asa Sul fecha com a gente, a vaga de ortopedia de joelho na Asa Sul fecha junto. A estratégia continua sendo sua — e é por isso que a primeira conversa começa conferindo se a sua vaga está aberta.",
   cta: "Conferir se a minha vaga está aberta",
   sem: { t: "Sem agência", d: "Verba espalhada em público disperso. Ninguém encaixa." },
   com: { t: "Com agência", d: "O médico certo na busca exata do paciente. Encaixe de alta afinidade." },

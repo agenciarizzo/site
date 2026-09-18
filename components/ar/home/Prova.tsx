@@ -9,7 +9,7 @@ import { ATRIBUTOS, EXCLUSIVIDADE } from "@/content/landing-v3";
 import { CARTEIRA, OCULTOS } from "@/content/carteira";
 import { chave } from "@/content/portfolio";
 import { logoDe } from "@/lib/logos";
-import { seletividade } from "@/lib/ar/seletividade.mjs";
+import { quadras } from "@/lib/ar/conquista.mjs";
 
 /**
  * "Remova por completo logos que não ficam boas em P&B" (cliente, 14/09) — e a
@@ -174,34 +174,42 @@ export function Clientes() {
 /* ───────────────────────────────────────────────────── 4 · exclusividade ── */
 
 /**
- * O painel de "seletividade" é o argumento desenhado: à esquerda, 18 células com
- * triângulos cinza espalhados e dois receptores escuros que ninguém preenche;
- * à direita, uma única célula onde a peça amarela encaixa exatamente. O desenho
- * é DETERMINÍSTICO (seed 23 do protótipo) — roda igual em build e em produção.
+ * 4 · EXCLUSIVIDADE — porte do artifact (18/09, §45.3): a "conquista de
+ * território". O fundo é uma cidade vista de cima (quadras de 104px, geradas
+ * em `lib/ar/conquista.mjs` com a seed do protótipo); conforme a seção é
+ * rolada, as quadras viram do canto inferior direito pro superior esquerdo —
+ * o mapa vai sendo ocupado. Por cima, o cartão chumbo com a promessa.
  *
- * §44.21-1: o link não vai pro `wa.me` com "[especialidade] em [cidade]" — vai
- * pro portão, com o texto da home no `data-wa`.
+ * Camadas (§45.2): o DESENHO (quadras, cores, cartão) é do canvas; o
+ * COMPORTAMENTO é do repo — o motor escreve UM número por quadro
+ * (`--conq` na seção) e cada quadra decide sozinha, em CSS, se já foi
+ * conquistada (`--o`, a ordem dela). Zero leitura de layout por quadra.
+ *
+ * Par de cores: o canvas nasce com "branco · amarelo" antes da conquista
+ * (triângulo amarelo sobre papel). A casa não põe amarelo sobre papel
+ * (regra 2 do CLAUDE.md, A2), então o "antes" usa o par vizinho do próprio
+ * canvas, "branco · grafite"; o "depois" ("amarelo · branco") fica como no
+ * canvas. É uma troca de duas cores no CSS se o cliente preferir o original.
  */
 export function Exclusividade({ waText }: { waText: string }) {
-  const { sem, com } = seletividade();
-  const grade = (celulas: { clipA: string; corA: string; clipB: string; corB: string }[]) => (
-    <div className="selet-grade" aria-hidden>
-      {celulas.map((c, i) => (
-        <div key={i}>
-          <span style={{ clipPath: c.clipA, background: c.corA }} />
-          <span style={{ clipPath: c.clipB, background: c.corB }} />
-        </div>
-      ))}
-    </div>
-  );
-
   return (
-    <section className="exclusividade" aria-labelledby="h-vaga" data-topo="escuro">
-      <div className="excl-forma" data-par="-0.15" aria-hidden />
-      <div className="excl-grade">
+    <section className="exclusividade" aria-labelledby="h-vaga" data-topo="escuro" data-conquista>
+      <div className="excl-quadras" aria-hidden>
+        {quadras().map((q, i) => (
+          <div className="quadra" key={i} style={{ "--clip": q.clip } as React.CSSProperties}>
+            <i className="q-bloco" />
+            <i className="q-arte" />
+            <b className="q-depois" style={{ "--o": q.ordem } as React.CSSProperties}>
+              <i className="q-bloco" />
+              <i className="q-arte" />
+            </b>
+          </div>
+        ))}
+      </div>
+      <div className="excl-cartao">
         <div>
-          <p className="rot">{EXCLUSIVIDADE.kicker}</p>
-          <h2 id="h-vaga" className="h2" data-reveal>
+          <p className="excl-kicker">{EXCLUSIVIDADE.kicker}</p>
+          <h2 id="h-vaga" data-reveal>
             {EXCLUSIVIDADE.titulo}
           </h2>
         </div>
@@ -211,21 +219,6 @@ export function Exclusividade({ waText }: { waText: string }) {
             <i aria-hidden />
             {EXCLUSIVIDADE.cta} →
           </Link>
-        </div>
-      </div>
-      <div
-        className="selet"
-        aria-label="Sem agência, peças cinza dispersas que não encaixam; com agência, uma peça amarela encaixada exatamente no lugar"
-      >
-        <div className="selet-cartao">
-          <p className="selet-rot cifra">{EXCLUSIVIDADE.sem.t}</p>
-          {grade(sem)}
-          <p>{EXCLUSIVIDADE.sem.d}</p>
-        </div>
-        <div className="selet-cartao" data-com>
-          <p className="selet-rot cifra">{EXCLUSIVIDADE.com.t}</p>
-          {grade(com)}
-          <p>{EXCLUSIVIDADE.com.d}</p>
         </div>
       </div>
     </section>
