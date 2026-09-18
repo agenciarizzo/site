@@ -1,9 +1,14 @@
 // 7 · CASES · 8 · RESULTADO MEDIDO — "AR Home Diagonal".
 //
-// Cases são FOLHAS EMPILHADAS: cada `<li>` é `position: sticky` com topo e
-// margem esquerda crescentes, então uma folha para sob a outra e o número da
-// anterior fica à mostra. É o movimento mais marcante da peça e ele é CSS puro
-// — o motor de scroll só faz as barras do gráfico crescerem.
+// Cases são FICHAS (cliente, 18/09 — "as abas como se fossem fichas, a parte
+// esquerda com os números, e ao tocar abre com animação suave a leitura"): uma
+// fileira de seis abas altas, cada uma só com o número e a frase; a que está
+// aberta pinta de amarelo e a LEITURA (herói + gráfico + apoio) desce embaixo
+// da fileira, uma de cada vez. A pilha sticky anterior (§44.24) saiu — em tela
+// baixa a base da ficha nunca aparecia. No estreito a fileira vira sanfona:
+// aba compacta, leitura no lugar. Quem abre é um clique (Motor.tsx), não a
+// rolagem; sem JS a ficha 1 nasce aberta e o conteúdo das outras segue no
+// HTML, só recolhido.
 //
 // Seis cases, não cinco: o case 6 (§44.17) entra no porte, e por isso a linha
 // de apoio diz "Seis contas". Todos com asterisco — especialidade e cidade
@@ -35,61 +40,68 @@ export function Cases() {
         <p>Períodos indicados em cada caso · dados das contas dos clientes*</p>
       </div>
 
-      <ol className="cases-pilha">
+      <ol className="fichas" data-fichas>
         {CASES.map((k, i) => (
-          <li className="case" key={k.meta} style={{ "--i": i } as React.CSSProperties}>
-            <p className="case-n" aria-hidden>
-              {i + 1}
-              <span className="ouro">.</span>
-            </p>
-            <h3 className="case-frase">{k.frase}</h3>
+          <li className="ficha" key={k.meta} data-aberta={i === 0 ? "" : undefined}>
+            <h3 className="ficha-h">
+              <button type="button" className="ficha-aba" aria-expanded={i === 0} aria-controls={`ficha-${i + 1}`} data-ficha-aba>
+                <span className="ficha-n cifra" aria-hidden>
+                  {i + 1}
+                  <span className="ouro">.</span>
+                </span>
+                <span className="ficha-frase">{k.frase}</span>
+                <span className="ficha-seta" aria-hidden>
+                  →
+                </span>
+              </button>
+            </h3>
 
-            <div className="case-heroi">
-              <div className="case-hachura" aria-hidden />
-              <div className="case-heroi-corpo">
-                <p className="case-heroi-num cifra">{k.heroi}</p>
-                <p className="case-heroi-rot">{k.rotulo}</p>
-                {"nota" in k && k.nota && <p className="case-heroi-nota">{k.nota}</p>}
-              </div>
-            </div>
-
-            <div className="case-dados">
-              <p className="case-meta cifra">caso: {k.meta}</p>
-
-              <div className="grafico" data-cresce aria-label={k.graficoTitulo}>
-                <p className="grafico-t cifra">{k.graficoTitulo}</p>
-                {/* Cada barra é UMA unidade (valor · pista · rótulo). Antes o
-                    `k.barras` era percorrido DUAS vezes — uma pras barras, outra
-                    pros rótulos, em containers irmãos — e no celular isso
-                    impedia empilhar cada rótulo junto da sua barra: os 4 a 6
-                    valores caíam lado a lado em ~45px de coluna e saíam colados
-                    ("3,4/dia19,5/dia75% dos32% dos", medido a 390 no case 6).
-                    No desktop o `subgrid` mantém as três linhas alinhadas entre
-                    as colunas, que é o desenho do protótipo. */}
-                <div className="grafico-barras">
-                  {k.barras.map((b) => (
-                    <div className="grafico-col" key={b.rotulo}>
-                      <p className="grafico-valor cifra">{b.valor}</p>
-                      <div className="grafico-pista">
-                        <div
-                          className="barra"
-                          data-barra
-                          style={{ "--alt": `${b.alt}%`, "--cor": "destaque" in b && b.destaque ? "#FFD200" : "#C9C3B6" } as React.CSSProperties}
-                        />
-                      </div>
-                      <p className="grafico-rot cifra">{b.rotulo}</p>
-                    </div>
-                  ))}
+            <div className="ficha-leitura" id={`ficha-${i + 1}`} role="region" aria-label={`Case ${i + 1}: ${k.meta}`}>
+              <div className="ficha-corpo">
+                <div className="case-heroi">
+                  <div className="case-hachura" aria-hidden />
+                  <div className="case-heroi-corpo">
+                    <p className="case-heroi-num cifra">{k.heroi}</p>
+                    <p className="case-heroi-rot">{k.rotulo}</p>
+                    {"nota" in k && k.nota && <p className="case-heroi-nota">{k.nota}</p>}
+                  </div>
                 </div>
-              </div>
 
-              <div className="case-fundo">
-                <ul className="case-apoio">
-                  {k.apoio.map((a) => (
-                    <li key={a}>{comNumeros(a)}</li>
-                  ))}
-                </ul>
-                <p className="case-periodo">{k.periodo}</p>
+                <div className="case-dados">
+                  <p className="case-meta cifra">caso: {k.meta}</p>
+
+                  <div className="grafico" aria-label={k.graficoTitulo}>
+                    <p className="grafico-t cifra">{k.graficoTitulo}</p>
+                    {/* Cada barra é UMA unidade (valor · pista · rótulo); no
+                        desktop o `subgrid` alinha as três linhas entre as
+                        colunas, no celular cada barra deita e ganha a largura
+                        inteira. As barras crescem quando a ficha ABRE
+                        (`.ficha[data-aberta] .barra` no CSS), não com a rolagem. */}
+                    <div className="grafico-barras">
+                      {k.barras.map((b) => (
+                        <div className="grafico-col" key={b.rotulo}>
+                          <p className="grafico-valor cifra">{b.valor}</p>
+                          <div className="grafico-pista">
+                            <div
+                              className="barra"
+                              style={{ "--alt": `${b.alt}%`, "--cor": "destaque" in b && b.destaque ? "#FFD200" : "#C9C3B6" } as React.CSSProperties}
+                            />
+                          </div>
+                          <p className="grafico-rot cifra">{b.rotulo}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="case-fundo">
+                    <ul className="case-apoio">
+                      {k.apoio.map((a) => (
+                        <li key={a}>{comNumeros(a)}</li>
+                      ))}
+                    </ul>
+                    <p className="case-periodo">{k.periodo}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </li>
