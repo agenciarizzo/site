@@ -606,9 +606,15 @@
   align-self: center;
   /* §3.1: min(48vw, 100svh−88px, altura-do-texto+32px) × cols/rows — o 3º
      termo (`--txt-h`, medido em Motor.tsx) trava o mosaico na altura da
-     coluna de texto ao lado; sem JS cai nos dois primeiros, mesmo resultado
-     de antes. */
-  width: min(48vw, calc((100svh - 88px) * var(--cols) / var(--rows)), calc((var(--txt-h, 100svh) + 32px) * var(--cols) / var(--rows)));
+     coluna de texto ao lado.
+     O FALLBACK é a medida real da coluna, não 100svh: com 100svh o mosaico
+     nascia com 612–812px (o 3º termo não limitava nada) e, no instante em
+     que o Motor media o texto, caía pra 361px e deslizava pra direita — o
+     "azulejo que começa grande e some pro lado" (cliente, 18/09). Medido
+     de 1100 a 1920px a coluna dá 306–329px; 328px cobre o desktop com
+     diferença de 0–2px, que a transição abaixo absorve. */
+  width: min(48vw, calc((100svh - 88px) * var(--cols) / var(--rows)), calc((var(--txt-h, 328px) + 32px) * var(--cols) / var(--rows)));
+  transition: width 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
   aspect-ratio: var(--cols) / var(--rows);
   display: grid;
   grid-template-columns: repeat(var(--cols), 1fr);
