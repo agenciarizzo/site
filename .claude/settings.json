@@ -1,0 +1,1 @@
+{ "permissions": { "allow": ["Bash(npm install:*)", "Bash(npx vite build:*)", "Bash(npx next build:*)"] } }

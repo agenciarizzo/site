@@ -827,7 +827,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem: "/Clientes/2025/JH/sprint_4_JH_peca_grafica_cartao_virtual_u0/v1/Mockup_phone_JH.jpg",
   },
   {
-    cliente: "Dra. Ana Cristina Medanha",
+    cliente: "Clínica Medicina da Dor",
     contexto: "Site para clínica de medicina da dor — Araguaína",
     espec: "Medicina da Dor",
     servico: "Site",
@@ -835,9 +835,14 @@ export const PORTFOLIO: PecaPortfolio[] = [
     imagem: "/portfolio/marketing-medico-medicina-da-dor-araguaina-site.webp",
     largura: 1200,
     altura: 500,
-    alt: "Mockup de monitor com o site da Dra. Ana Cristina Medanha, medicina da dor em Araguaína",
+    alt: "Mockup de monitor com o site da Clínica Medicina da Dor, medicina da dor em Araguaína",
     cartas: ["site-seo", "clinicas-e-consultorios"],
-    origem: "/Clientes/2024/NA/sprint_3_NA_site_finalizacao/insumos/site_landing_mockup.jpg",
+    // Rodada 25 (2026-09-18): a peça de 2024 (mockup do Drive) deu lugar à composição
+    // do site VIVO na Vercel — decisão do cliente: "o portfólio de site seja a partir
+    // dos que estão na Vercel". A arte assina "Clínica Medicina da Dor" (logo MD); a
+    // Dra. Ana Cristina Medanha é a responsável (carteira-viva.ts).
+    origem:
+      "Vercel: projeto md-medicina-da-dor (www.medicinador.com.br), último deploy de produção dpl_8BuC84T5EavNaBRprt6WH4nCwdJY; repo agenciarizzo/md-medicina_da_dor, commit f1b67b0 (buildado do clone, vite). Peça anterior: /Clientes/2024/NA/sprint_3_NA_site_finalizacao/insumos/site_landing_mockup.jpg",
   },
   {
     cliente: "Dra. Daniela Machado",
@@ -867,16 +872,18 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Examine Agora – Imagem e Medicina",
-    contexto: "Site para clínica de diagnóstico por imagem — Brasília",
+    contexto: "Site para clínica de ultrassom e diagnóstico por imagem — Recanto das Emas, Brasília",
     espec: "Diagnóstico por Imagem",
     servico: "Site",
     praca: "Brasília/DF",
     imagem: "/portfolio/marketing-clinica-diagnostico-imagem-brasilia-site.webp",
     largura: 1200,
     altura: 500,
-    alt: "Mockup de monitor com o site da Examine Agora, clínica de diagnóstico por imagem em Brasília",
+    alt: "Mockup de monitor com o site da Examine Agora, ultrassom e biópsia guiada no Recanto das Emas, Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
-    origem: "/Clientes/2024/EA/sprint_6_EA_site_landing/insumos/site_landing_mockup.jpg",
+    // Rodada 25 (2026-09-18): peça refeita do site VIVO na Vercel (o de 2024 era mockup do Drive).
+    origem:
+      "Vercel: projeto examine-agora (www.examineagora.com.br), último deploy READY dpl_5nQrWG2BaCJdrGtHMTosCkXuBE3n; repo agenciarizzo/examine_agora (público), commit ae4ee09 (buildado do clone, next). Peça anterior: /Clientes/2024/EA/sprint_6_EA_site_landing/insumos/site_landing_mockup.jpg",
   },
   {
     cliente: "Dr. Fernando Ferro",
@@ -2252,6 +2259,74 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["clinicas-e-consultorios"],
     origem:
       "Dropbox da agência: Clientes/2025/BB/sprint_4_BB_peca_grafica_cartao_virtual/apres/Dr. Bruno Brunelli - Cartão Virtual.pdf (achado por sonda pelo NOME — Fila 3 da r24; ⚠️ o sprint_4_BB_peca_grafica_portfolio irmão é pitch de parceria pra médico associar-se à clínica, não portfólio de cliente — vetado, não confundir). A ARTE atribui (§34): logo assina SOUSA BRUNELLI · Qualidade de Vida & Saúde Mental; CRM-DF 24351 (Dr. Bruno Brunelli), Águas Claras, Brasília/DF. Casa NOVA — ver content/carteira-viva.ts",
+  },
+  // ── Rodada 25 (2026-09-18) — o portfólio de SITE passa a sair da Vercel ────────
+  // Decisão do cliente: "quero que o portfólio de site seja a partir dos que estão na
+  // Vercel, pois são os mais modernos e recentes". Mesmo instrumento das rodadas 17/18:
+  // repo do cliente clonado e buildado local (os domínios não passam pela rede da
+  // sessão), captura em 1440px, composição no template medido na peça da Angiomedi
+  // (duas colunas da página + monitor, fundo na cor de marca lida do CSS do próprio
+  // site — scripts/compor-peca-site.mjs). Atribuição pela ARTE (§34): quem nomeia é o
+  // <title>/<h1>/logo do site; a praça vem do cadastro do RizzoOS quando a carteira
+  // antiga diverge (Luciano Morais: a carteira.ts diz São Paulo/SP, o site e o cadastro
+  // dizem São Lourenço/MG). Fora desta rodada, de propósito: fz, cn, bb e homero-ribeiro
+  // — projetos Vercel SEM domínio do cliente (só *.vercel.app), ou seja, site ainda não
+  // entregue no endereço final; entra quando publicar (§3.3, ausência honesta).
+  {
+    cliente: "ECOA Otorrinolaringologia",
+    contexto: "Site para clínica de otorrinolaringologia e doenças do ouvido — Asa Norte, Brasília",
+    espec: "Otorrinolaringologia",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-otorrinolaringologia-brasilia-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site da ECOA Otorrinolaringologia, clínica de otorrino e doenças do ouvido na Asa Norte, Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto ecoa (www.ecoaotorrinolaringologia.com.br), último deploy de produção dpl_F9EmxLrZKbVotgGP1AnUUMSADhCA; repo agenciarizzo/ecoa, commit d4adab2 (buildado do clone, vite). Cliente no cadastro do RizzoOS como \"Ecoa Otorrino\" (carteira-viva.ts)",
+  },
+  {
+    cliente: "Casa de Saúde de Remanso",
+    contexto: "Site para hospital com consultas, exames e laboratório — Remanso, Bahia",
+    espec: "Hospital",
+    servico: "Site",
+    praca: "Remanso/BA",
+    imagem: "/portfolio/marketing-hospital-remanso-bahia-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site da Casa de Saúde de Remanso, hospital com consultas, exames e laboratório em Remanso, Bahia",
+    cartas: ["site-seo", "rede-hospitalar"],
+    origem:
+      "Vercel: projeto sr (www.csremanso.med.br), último deploy READY dpl_26QfgCUpmDFHaMoNhsj5815L4fPk; repo agenciarizzo/SR, commit ed8ff46 (buildado do clone, vite)",
+  },
+  {
+    cliente: "Dr. Carlos Portocarrero",
+    contexto: "Site para reprodução assistida e endometriose — Brasília",
+    espec: "Saúde da Mulher",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-reproducao-assistida-brasilia-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site do Dr. Carlos Portocarrero, reprodução assistida e endometriose em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto cp-carlos-portocarrero (www.carlosportocarrero.com.br), último deploy de produção dpl_8DZkUsE87xxCb5QSCXZZuzYTmX11; repo agenciarizzo/CP---Carlos-Portocarrero., commit c3c4e30 (buildado do clone, vite)",
+  },
+  {
+    cliente: "Dr. Luciano Morais",
+    contexto: "Site para cirurgia vascular, endovascular e hemodinâmica — São Lourenço, Minas Gerais",
+    espec: "Angiologia e Vascular",
+    servico: "Site",
+    praca: "São Lourenço/MG",
+    imagem: "/portfolio/marketing-medico-cirurgia-vascular-sao-lourenco-site.webp",
+    largura: 1200,
+    altura: 500,
+    alt: "Mockup de monitor com o site do Dr. Luciano Morais, cirurgião vascular e endovascular em São Lourenço, Minas Gerais",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto lm-dr-luciano-morais (www.drlucianomorais.com.br), último deploy de produção dpl_9cWxy9UBtS6cqJG9J7C2WzQDZpcT; repo agenciarizzo/lm-dr-luciano-morais, commit 7fdda31 (buildado do clone, next). Praça pelo cadastro do RizzoOS (São Lourenço/MG) — carteira.ts registra São Paulo/SP",
   },
 ];
 
