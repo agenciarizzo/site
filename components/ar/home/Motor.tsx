@@ -28,6 +28,9 @@
 //  · `[data-pf-faixa]` a barra de progresso da faixa do portfólio e as setas
 //    `[data-pf-prev]`/`[data-pf-next]` (§45.3 — porto do artifact publicado,
 //    bloco 13 · Portfólio, 16/09: o desenho é de lá, o passo do scroll é daqui)
+//  · `[data-conquista]` o progresso da "conquista de território" da
+//    Exclusividade (§45.3, 18/09): UM número por quadro (`--conq`), o resto é
+//    CSS por quadra — nada de `clip-path` escrito em 192 elementos por frame
 //
 // `prefers-reduced-motion: reduce`: paralaxe = 0, reveal imediato, barras a
 // 100%. Os estados (RizzoOS, portfólio, topo) continuam — eles são navegação,
@@ -125,11 +128,28 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     // cacheado e nenhuma seção casava. Observar a altura do `<body>` refaz as
     // duas medidas; segue sem nenhuma leitura de layout POR FRAME, que é o
     // que o cache existe pra evitar (INP, §44.26).
+    // A conquista lê a posição da seção do mesmo cache: topo e altura no
+    // documento, medidos no resize (e quando a página muda de altura), e por
+    // quadro só aritmética com `scrollY`.
+    const conq = raiz.querySelector<HTMLElement>("[data-conquista]");
+    let conqTop = 0;
+    let conqAltura = 1;
+    let conqProg = -1;
+    const medirConq = () => {
+      if (!conq) return;
+      const r = conq.getBoundingClientRect();
+      conqTop = r.top + scrollY;
+      conqAltura = Math.max(1, r.height);
+    };
+    medirConq();
+    addEventListener("resize", medirConq);
+
     let obsAltura: ResizeObserver | undefined;
     if ("ResizeObserver" in window) {
       obsAltura = new ResizeObserver(() => {
         medirPares();
         medirSecoes();
+        medirConq();
       });
       obsAltura.observe(document.body);
     }
@@ -301,6 +321,18 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
         }
       }
 
+      if (conq) {
+        // Mesma curva do protótipo: começa quando a seção entra a 85% da
+        // tela e completa a 90% da própria altura. Reduced-motion = mapa
+        // já conquistado (é informação, não enfeite).
+        const rTop = conqTop - scrollY;
+        const prog = reduzido ? 1 : Math.min(1, Math.max(0, (vh * 0.85 - rTop) / (conqAltura * 0.9)));
+        if (Math.abs(prog - conqProg) > 0.004) {
+          conqProg = prog;
+          conq.style.setProperty("--conq", prog.toFixed(3));
+        }
+      }
+
       if (regua && regua.dataset.on === undefined) {
         const r = regua.getBoundingClientRect();
         if (r.top < vh * 0.85 && r.bottom > 0) regua.dataset.on = "";
@@ -413,6 +445,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       removeEventListener("resize", medirPares);
       removeEventListener("resize", medirSecoes);
       removeEventListener("resize", medirCenas);
+      removeEventListener("resize", medirConq);
       if (quadro) cancelAnimationFrame(quadro);
       if (tempos) clearTimeout(tempos);
       io?.disconnect();

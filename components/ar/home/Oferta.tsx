@@ -5,13 +5,14 @@
 // acesas — é onde a animação de entrada (no motor de scroll) estaciona, e é o
 // estado que o HTML entrega sem JS nenhum.
 //
-// Pacotes são os 4 cards da rodada 3, na ordem fixa 921 · 1.240 · 1.509★ ·
-// 1.098, com a cabeça arredondada de 120px que é a assinatura do desenho.
-// Nenhum card novo entra aqui (§44.19 / checklist do handoff).
+// Pacotes (porte do artifact de 18/09, §45.3): 4 cards sobre fundo escuro, o
+// preço escondido numa JANELA circular que abre no hover/foco — e aberta de
+// vez onde não existe hover (celular). Embaixo, os add-ons em dois letreiros
+// contrários sobre panos geométricos. Nenhum card além dos 4 do handoff.
 import Link from "next/link";
 import { PROPOSTA_URL } from "@/lib/site";
 import { SERVICOS_HOME, SERVICOS_TITULO } from "@/content/home";
-import { PACOTES, PACOTES_NOTA } from "@/content/landing-v3";
+import { PACOTES, PACOTES_NOTA, ADDONS } from "@/content/landing-v3";
 
 export function Servicos() {
   return (
@@ -57,69 +58,112 @@ export function Servicos() {
   );
 }
 
-/** Os temas dos cards, verbatim do protótipo. */
-const TEMA: Record<string, { bg: string; fg: string; linha: string }> = {
-  cinza: { bg: "#E6E2DA", fg: "#323C46", linha: "rgba(50,60,70,.25)" },
-  amarelo: { bg: "#FFD200", fg: "#323C46", linha: "rgba(50,60,70,.3)" },
-  escuro: { bg: "#323C46", fg: "#F4EFE6", linha: "rgba(244,239,230,.25)" },
-};
+/**
+ * Os 4 panos dos add-ons e as 4 formas "bauhaus" do canvas, ciclando por
+ * índice (linha B começa deslocada em 2, como no protótipo). "areia" é o
+ * pano de papel — a peça geométrica dele vai em grafite, não em amarelo
+ * (regra 2 do CLAUDE.md, A2), o único desvio do canvas neste bloco.
+ */
+const FORMAS = ["50%", "0", "50% 0 0 0", "0 50% 50% 0"];
+
+function Faixa({ nomes, off, reverso }: { nomes: string[]; off: number; reverso?: boolean }) {
+  const itens = [...nomes, ...nomes];
+  return (
+    <div className="addons-faixa">
+      <ul data-reverso={reverso ? "" : undefined}>
+        {itens.map((n, i) => {
+          const k = (i + off) % 4;
+          return (
+            <li key={i} data-pano={k} style={{ "--forma": FORMAS[k] } as React.CSSProperties} aria-hidden={i >= nomes.length ? true : undefined}>
+              <i className="ad-disco" />
+              <i className="ad-peca" />
+              <span>{n}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+/** 6b · ADICIONAIS — extras sob demanda, sem preço: só o nome, passando. */
+export function Adicionais() {
+  const nomes = ADDONS.map((a) => a.curto);
+  return (
+    <div className="addons" aria-labelledby="h-addons">
+      <div className="addons-cabeca">
+        <div>
+          <p className="pac-kicker">Adicionais</p>
+          <h3 id="h-addons">Potencialize com Add-ons</h3>
+        </div>
+        <p>Adicione serviços extras sob demanda para acelerar seus resultados.</p>
+      </div>
+      <div className="addons-faixas" aria-label="Add-ons disponíveis">
+        <Faixa nomes={nomes.slice(0, 5)} off={0} />
+        <Faixa nomes={nomes.slice(5)} off={2} reverso />
+      </div>
+    </div>
+  );
+}
 
 export function Pacotes() {
   return (
-    <section id="pacotes" className="pacotes" aria-labelledby="h-pacotes" data-topo="escuro">
+    <section id="pacotes" className="pacotes" aria-labelledby="h-pacotes" data-topo="claro">
       <div className="pac-cabeca">
         <div>
-          <p className="rot">Pacotes</p>
+          <p className="pac-kicker">Pacotes</p>
           <h2 id="h-pacotes" className="h2" data-reveal>
             Pacotes de marketing médico para cada fase da clínica
           </h2>
         </div>
-        <p>Quatro pontos de partida.</p>
+        <p>Quatro pacotes. Valores a partir de; a proposta completa abre em nova aba.</p>
       </div>
 
       <ol className="pac-lista">
-        {PACOTES.map((p) => {
-          const t = TEMA[p.tema] ?? TEMA.cinza;
-          return (
-            <li
+        {PACOTES.map((p) => (
+          <li key={p.slug}>
+            {/* A proposta detalhada mora no app (cliente, 18/09: "não quero
+                detalhar demais as propostas externamente") — o card leva pra
+                lá, em nova aba, como no canvas. `data-cta` segue sendo a
+                conversão `proposta_click` da regra 4. */}
+            <a
               className="pac"
-              key={p.nome}
-              data-reveal
-              style={{ "--bg": t.bg, "--fg": t.fg, "--linha": t.linha } as React.CSSProperties}
+              data-alto={p.alto ? "" : undefined}
+              data-cta="proposta"
+              href={PROPOSTA_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label={`${p.nome} — ${p.frase} A partir de R$ ${p.aPartir} por mês. Abre a proposta em nova aba.`}
             >
-              {p.recomendado && <span className="pac-tag">Recomendado</span>}
-              <span className="pac-num cifra" aria-hidden>
-                {p.num}
+              <span className="pac-chip cifra">
+                <span>{p.tipo}</span>
+                <span>{p.chs} CHs</span>
               </span>
               <h3>{p.nome}</h3>
-              {/* "nos valores colocar a partir de" (cliente, 14/09). O prefixo
-                  mora AQUI e não no dado: o `preco` segue sendo só o número, que
-                  é o que a calculadora e qualquer outra tela consomem — e a
-                  promessa de "a partir de" aparece nos 4 cards de uma vez, sem
-                  quatro strings pra divergir. */}
-              <p className="pac-preco">
-                <span className="pac-partir">a partir de</span>
-                {p.preco}
-              </p>
-              <p className="pac-desc">{p.desc}</p>
-              <div className="pac-rot">Escopo</div>
-              <ul>
-                {p.escopo.map((e) => (
-                  <li key={e}>{e}</li>
-                ))}
-              </ul>
-              <div className="pac-fecho">
-                <a data-cta="proposta" href={PROPOSTA_URL}>
-                  Montar proposta <span aria-hidden>→</span>
-                </a>
+              <p className="pac-frase">{p.frase}</p>
+              <span className="pac-janela" aria-hidden>
+                <i className="pac-brilho" />
+                <span className="pac-preco">
+                  <span className="pac-partir">A partir de</span>
+                  <span className="pac-valor">
+                    <small>R$</small>
+                    {p.aPartir}
+                  </span>
+                  <span className="pac-mes">por mês</span>
+                </span>
+              </span>
+              <span className="pac-fecho">
                 <i aria-hidden />
-              </div>
-            </li>
-          );
-        })}
+                <span>Ver proposta ↗</span>
+              </span>
+            </a>
+          </li>
+        ))}
       </ol>
 
       <p className="pac-nota">{PACOTES_NOTA}</p>
+
+      <Adicionais />
 
       <div className="pac-faixa">
         <p>O valor do seu pacote sai na calculadora, na hora, sem reunião.</p>
