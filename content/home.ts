@@ -263,10 +263,8 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
   // 2026-09-18 (cliente): "o portfólio de site seja a partir dos que estão na Vercel,
   // pois são os mais modernos e recentes… os sites que aparecem na home devem seguir
   // essa linha". Todo `-site` do palco é peça composta do deploy Vercel do cliente
-  // (rodadas 17/18 do acervo) — os sites antigos (mockup de 2023/24) saíram daqui. A
-  // única exceção é a Examine Agora: o cliente ESTÁ na Vercel, a peça ainda é a do
-  // Drive e será refeita do deploy junto com os 6 projetos que faltam no acervo
-  // (Ecoa, Luciano Morais, Portocarrero, Medicina da Dor, Casa de Saúde de Remanso).
+  // (rodadas 17/18/25 do acervo) — os sites antigos (mockup de 2023/24) saíram daqui;
+  // a Examine Agora foi refeita do deploy na rodada 25.
   {
     nome: "Sites",
     vagas: [[0, 0, 4, 4], [4, 0, 2, 3], [4, 3, 1, 1], [5, 3, 1, 1]],
@@ -329,7 +327,7 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
       "/portfolio/marketing-medico-reproducao-humana-brasilia-site.webp", // Dra. Elielma Almeida (Vercel) — vaga quadrada aceita site em paisagem
       "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-uveites.webp",
       "/portfolio/marketing-laboratorio-mineiros-goias-cartaz-exames.webp",
-      "/portfolio/marketing-medico-oftalmologia-brasilia-outdoor-cirurgia-refrativa.webp", // outdoor (paisagem) no lugar do site antigo: site na home só se for da linha Vercel
+      "/portfolio/marketing-medico-cirurgia-vascular-sao-lourenco-site.webp", // Dr. Luciano Morais (Vercel, rodada 25) — idem
       "/portfolio/marketing-medico-ortopedia-rio-de-janeiro-portfolio-digital.webp",
     ],
   },

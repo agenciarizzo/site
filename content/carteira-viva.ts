@@ -138,4 +138,16 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "Cadastro do RizzoOS (tabela clients): sigla BB, fantasy_name \"Clínica Sousa Brunelli\", specialty Psiquiatria/Psicologia/Psicanálise, Brasília/DF, status active (contrato desde 2025-12-05). Fora das 4 listas do repo. A arte (cartão virtual, sprint_4_BB_peca_grafica_cartao_virtual no Dropbox) assina o logo SOUSA BRUNELLI · Qualidade de Vida & Saúde Mental, responsável Dr. Bruno Brunelli, CRM-DF 24351, Águas Claras, Brasília/DF. ⚠️ Não confundir com sprint_4_BB_peca_grafica_portfolio (irmão de sprint, é pitch de parceria pra médico associar-se à clínica — vetado, não é portfólio de cliente)",
   },
+  // Rodada 25 (2026-09-18) — sites da Vercel. Duas casas cuja grafia da ARTE não está
+  // em nenhuma das 4 listas; ambas confirmadas no cadastro do RizzoOS (tabela clients).
+  {
+    nome: "ECOA Otorrinolaringologia",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): fantasy_name \"Ecoa Otorrino\", razão ABRAHAO & MASSA OTORRINOLARINGOLOGIA LTDA, Otorrinolaringologia, Brasília/DF, status active (cadastro de 2026-06-23). Fora das 4 listas do repo (a lista viva do Drive não a tem). A arte (site www.ecoaotorrinolaringologia.com.br, projeto Vercel ecoa) assina \"ECOA Otorrinolaringologia\" no <title> e o logo ecoa",
+  },
+  {
+    nome: "Clínica Medicina da Dor",
+    origem:
+      "Dra. Ana Cristina Medanha (Medicina da Dor em Araguaína - TO) (AR - Clientes, item 227) — mesma casa; content/carteira.ts: \"Dra. Ana Cristina Medanha\". Cadastro do RizzoOS (tabela clients): fantasy_name \"Clínica de Medicina da Dor\", razão CLINICA DE ANESTESIA E DOR DO TOCANTINS LTDA, Araguaína/TO, status active. A arte (site www.medicinador.com.br, projeto Vercel md-medicina-da-dor) assina \"Clínica Medicina da Dor\" no <title>/<h1> e o logo MD",
+  },
 ];
