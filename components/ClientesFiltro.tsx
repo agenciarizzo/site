@@ -10,24 +10,18 @@
 // dado. Quem escreve o estado é o atributo `hidden` nos `<li>`/`<section>` que
 // a página marca com `data-area`, `data-uf` e `data-cidade`.
 //
-// A praça é UM select agrupado por UF (`<optgroup>`): a primeira opção de cada
-// grupo é a UF inteira, as seguintes são as cidades — cobre "cidade OU UF" sem
-// dois controles.
+// A praça é por UF, e só (decisão do cliente, 2026-09-18: "não separa por
+// cidade, apenas UF") — 21 estados cabem num select; 53 cidades não cabiam.
 import { useEffect, useId, useRef, useState } from "react";
 
-export interface PracaUF {
-  uf: string;
-  cidades: string[];
-}
-
-export function ClientesFiltro({ areas, pracas, total }: { areas: string[]; pracas: PracaUF[]; total: number }) {
+export function ClientesFiltro({ areas, ufs, total }: { areas: string[]; ufs: string[]; total: number }) {
   const [area, setArea] = useState("");
-  const [praca, setPraca] = useState(""); // "" | "uf:GO" | "cid:GO|Goiânia"
+  const [uf, setUf] = useState("");
   // A contagem é escrita direto no DOM (como o resto do estado visível): estado
   // React aqui só serviria pra re-renderizar o que o efeito já escreveu.
   const contaRef = useRef<HTMLOutputElement>(null);
   const idArea = useId();
-  const idPraca = useId();
+  const idUf = useId();
   const raiz = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -35,18 +29,12 @@ export function ClientesFiltro({ areas, pracas, total }: { areas: string[]; prac
     // que a página renderiza no servidor. Achar por atributo, nunca por ordem.
     const lista = raiz.current?.closest("main")?.querySelector<HTMLElement>("[data-carteira]");
     if (!lista) return;
-    const dois = praca.indexOf(":");
-    const tipo = dois > 0 ? praca.slice(0, dois) : ""; // "" | "uf" | "cid"
-    const valor = dois > 0 ? praca.slice(dois + 1) : "";
-    const [uf, cidade] = tipo === "cid" ? valor.split("|") : [valor, ""];
     let vistos = 0;
     for (const grupo of Array.from(lista.querySelectorAll<HTMLElement>("[data-area]"))) {
       let noGrupo = 0;
       const grupoOk = !area || grupo.dataset.area === area;
       for (const li of Array.from(grupo.querySelectorAll<HTMLElement>("[data-uf]"))) {
-        const ok =
-          grupoOk &&
-          (tipo === "" || (tipo === "uf" && li.dataset.uf === uf) || (tipo === "cid" && li.dataset.uf === uf && li.dataset.cidade === cidade));
+        const ok = grupoOk && (!uf || li.dataset.uf === uf);
         li.hidden = !ok;
         if (ok) noGrupo++;
       }
@@ -55,9 +43,9 @@ export function ClientesFiltro({ areas, pracas, total }: { areas: string[]; prac
     }
     if (contaRef.current)
       contaRef.current.textContent = vistos === total ? `${total} casas` : vistos === 0 ? "nenhuma casa nesse recorte" : `${vistos} de ${total}`;
-  }, [area, praca, total]);
+  }, [area, uf, total]);
 
-  const limpo = !area && !praca;
+  const limpo = !area && !uf;
 
   return (
     <form className="filtro" role="search" aria-label="Filtrar a lista de clientes" ref={raiz} onSubmit={(e) => e.preventDefault()}>
@@ -70,24 +58,19 @@ export function ClientesFiltro({ areas, pracas, total }: { areas: string[]; prac
           </option>
         ))}
       </select>
-      <label htmlFor={idPraca}>Cidade ou UF</label>
-      <select id={idPraca} value={praca} onChange={(e) => setPraca(e.target.value)}>
-        <option value="">Todas</option>
-        {pracas.map((p) => (
-          <optgroup label={p.uf} key={p.uf}>
-            <option value={`uf:${p.uf}`}>{p.uf} · todas as cidades</option>
-            {p.cidades.map((c) => (
-              <option value={`cid:${p.uf}|${c}`} key={c}>
-                {c}
-              </option>
-            ))}
-          </optgroup>
+      <label htmlFor={idUf}>Estado</label>
+      <select id={idUf} value={uf} onChange={(e) => setUf(e.target.value)}>
+        <option value="">Todos</option>
+        {ufs.map((u) => (
+          <option value={u} key={u}>
+            {u}
+          </option>
         ))}
       </select>
       <output className="conta" aria-live="polite" ref={contaRef}>
         {total} casas
       </output>
-      <button type="button" onClick={() => (setArea(""), setPraca(""))} hidden={limpo}>
+      <button type="button" onClick={() => (setArea(""), setUf(""))} hidden={limpo}>
         Limpar
       </button>
     </form>
