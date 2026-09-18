@@ -117,6 +117,11 @@ body {
 .mono { font-family: var(--font-mono), "Courier New", monospace; }
 
 .wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.4rem; }
+/* A coluna de leitura é 46rem e é ela que manda em TODO texto do site. `largo` é
+   a exceção declarada pra galeria — mural de logos (/clientes) e parede de peças
+   (/portfolio): imagem em 3 colunas dentro da coluna de leitura foi exatamente o
+   que o cliente reprovou em 2026-08-25. Nenhuma rota de texto usa esta classe. */
+.wrap.largo { max-width: 88rem; }
 
 /* ============================================================
    Azulejo — Contrato Athos (Athos Bulcão: peça quadrada, REJUNTE entre elas)
@@ -443,15 +448,45 @@ footer.fim .linha { font-family: var(--font-mono), monospace; font-size: var(--m
 .hero .fatos { margin-bottom: 0; }
 article.corpo { padding: 2.6rem 0 3rem; }
 
-/* clientes */
-.clientes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.9rem; margin: 1.8rem 0 0; }
-.cliente { background: var(--claro); border: 1px solid var(--hairline); padding: 1rem 1.1rem; }
-.cliente .nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; color: var(--ink); font-size: var(--slab-5); }
-.cliente .meta { font-family: var(--font-mono), monospace; font-size: var(--mono-3); letter-spacing: var(--ls-nav); color: var(--cinza); margin-top: 0.35rem; text-transform: uppercase; }
-.cliente.com-peca { padding: 0; overflow: hidden; }
-.cliente.com-peca .nome { padding: 0.9rem 1.1rem 0; }
-.cliente.com-peca .meta { padding: 0 1.1rem 1rem; margin-top: 0.3rem; }
-.cliente .peca { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--hairline); }
+/* clientes — O MURAL (2ª rodada, 2026-08-25; ver cabeçalho de app/clientes/page.tsx).
+   Pedido do cliente: *"versão só logo, sem texto algum escrito, apenas com o alt
+   para o SEO — mas quero o impacto dos logos, eles gostam de ver os detalhes."*
+   Então o tile É a marca: sem legenda, sem caixa em volta sobrando, cor cheia.
+   1. `aspect-ratio: 5 / 2` = a proporção EXATA da tela do arquivo (400×160). Caixa
+      com outra proporção deixaria faixa morta em cima e embaixo, e é isso que
+      encolhe a marca — o oposto de "impacto".
+   2. Sem `grayscale`. Ele dava unidade a 242 marcas de cores brigadas, mas cor É
+      detalhe de marca, e detalhe é o que foi pedido.
+   3. `gap: 1px` sobre `--hairline`: o rejunte vira o filete e o mural lê como UMA
+      peça, no vocabulário do azulejo. Raio 0, sombra nenhuma.
+   4. Quem não tem arquivo de logo NÃO entra (tile de texto seria justamente texto
+      no mural) — segue inteiro na lista por área, com nome e praça. */
+.mural {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  margin: 1.6rem 0 0;
+}
+.mural .marca {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 2;
+  object-fit: contain;
+  background: var(--papel);
+  padding: 0.7rem 0.9rem;
+  transition: background 140ms ease;
+}
+/* O hover não muda a marca (o cliente quer ver a marca como ela é) — só acende o
+   campo atrás, pra dar o alvo sem mexer na cor de ninguém. */
+.mural .marca:hover { background: var(--claro); }
+/* No celular o tile de 12,5rem só cabe UMA vez por fileira, e 242 marcas viram
+   um rolo sem fim. Duas por fileira mantém a marca grande e o mural navegável. */
+@media (max-width: 640px) {
+  .mural { grid-template-columns: repeat(2, 1fr); }
+  .mural .marca { padding: 0.5rem 0.55rem; }
+}
 
 /* prova das landings de cidade — nomes reais agrupados por especialidade */
 .provas { display: grid; grid-template-columns: repeat(auto-fill, minmax(238px, 1fr)); gap: 0.9rem; margin: 1.5rem 0 0; }
@@ -866,13 +901,13 @@ p.resumo {
    Carteira — a lista inteira desde 2012, agrupada por área
    (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §24.4, fatia 2).
 
-   Diretório, não vitrine: sem card, sem imagem, sem link. O grupo
-   é uma faixa com rótulo em cima, e os nomes fluem em colunas —
-   240 nomes em caixinhas com borda, uma por nome, viravam metros
-   de moldura vazia no celular.
-
-   Aditivo: `.clientes-grid`/`.cliente*` (a grade de cima) ficam
-   exatamente como estavam — nenhum seletor daqui os alcança.
+   O grupo é uma faixa com rótulo em cima (`.carteira-grupo`) com os nomes em
+   colunas de texto (`ul`/`.carteira-nome`) — um layout só, usado por
+   EspecialidadeLanding ("áreas da carteira") e pela seção "Por área" do
+   /clientes. As MARCAS não moram aqui: desde 2026-08-25 elas estão no `.mural`,
+   alfabético e fora da coluna de leitura (o agrupamento por área era justamente
+   o que impedia o mural de se espalhar). `.carteira-grupo` só dá o filete + o
+   respiro do topo.
    ============================================================ */
 /* Índice das áreas — o mapa da lista, não decoração. Fora do `.carteira` porque
    o invariante é que NOME de cliente não vira link; estes âncoras apontam pra
@@ -890,6 +925,43 @@ p.resumo {
   padding: 0.34rem 0.6rem;
 }
 .carteira-indice a:hover { color: var(--teal-texto); border-color: var(--teal); }
+/* O filtro do /clientes (2026-09-18): dois selects + a contagem, no mesmo
+   vocabulário das pílulas do índice (mono, hairline, fundo claro). Nome próprio
+   porque o índice de pílulas continua vivo no EspecialidadeLanding. */
+.filtro { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.7rem; margin: 1.5rem 0 0; }
+.filtro label {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--cinza);
+}
+.filtro select,
+.filtro button {
+  font-family: var(--font-geist), "Helvetica Neue", Arial, sans-serif;
+  font-size: var(--corpo-3);
+  color: var(--ink);
+  background: var(--claro);
+  border: 1px solid var(--hairline);
+  border-radius: 0;
+  padding: 0.4rem 0.6rem;
+  max-width: 100%;
+}
+.filtro select:hover, .filtro button:hover { border-color: var(--teal); }
+.filtro select:focus-visible, .filtro button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.filtro button { cursor: pointer; color: var(--teal-texto); }
+.filtro .conta {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--ouro);
+  margin-left: auto;
+}
+@media (max-width: 640px) {
+  .filtro { display: grid; grid-template-columns: 1fr; gap: 0.35rem; }
+  .filtro .conta { margin-left: 0; }
+}
 .carteira { margin: 1.7rem 0 0.6rem; }
 .carteira-grupo { border-top: 1px solid var(--hairline); padding: 1.05rem 0 0.35rem; scroll-margin-top: 1rem; }
 .carteira-grupo h3 {
@@ -902,6 +974,9 @@ p.resumo {
   margin: 0 0 0.75rem;
 }
 .carteira-grupo ul { list-style: none; margin: 0; padding: 0; columns: 3; column-gap: 1.7rem; }
+/* Fora da coluna de leitura (só o /clientes) cabe uma coluna a mais, e aí o nome
+   da casa para de quebrar em 3 linhas. */
+.largo .carteira-grupo ul { columns: 4; column-gap: 2.2rem; }
 .carteira-nome {
   break-inside: avoid;
   font-size: var(--corpo-2);
@@ -941,8 +1016,9 @@ p.resumo {
 
    O card de 320px com raio e sombra saiu junto com a grade: a peça agora é uma
    LINHA de 104px dentro de um grupo por especialidade, no MESMO vocabulário da
-   carteira aqui embaixo (hairline no topo, h3 mono, mesmos paddings) — a página
-   passa a ter um desenho só. Raio 0, sombra nenhuma. */
+   carteira do /clientes (hairline no topo, h3 mono, mesmos paddings) — um
+   desenho só, ainda que a parede e a carteira morem em páginas diferentes desde
+   2026-08-25 (a parede virou /portfolio). Raio 0, sombra nenhuma. */
 .parede { margin: 1.1rem 0 2.2rem; }
 .parede-intro { margin: 0 0 0.4rem; }
 .parede-grupo { border-top: 1px solid var(--hairline); padding: 1.05rem 0 0.35rem; scroll-margin-top: 1rem; }
@@ -959,10 +1035,43 @@ p.resumo {
   margin: 0 0 0.75rem;
 }
 .parede-grupo h3 .conta { color: var(--ouro); }
-.parede-itens { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem 1.25rem; }
+.parede-grupo h3 .ver-pagina {
+  margin-left: auto;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  color: var(--teal-texto);
+  text-decoration: none;
+}
+.parede-grupo h3 .ver-pagina:hover { text-decoration: underline; }
+/* Índice do /portfolio pras 19 páginas de especialidade — mesma pílula do
+   `.carteira-indice`, nome próprio porque aqui o alvo é OUTRA página, não uma
+   âncora desta mesma. */
+.portfolio-indice { display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; margin: 1.5rem 0 0; }
+.portfolio-indice a {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--mono-3);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--cinza);
+  text-decoration: none;
+  background: var(--claro);
+  border: 1px solid var(--hairline);
+  padding: 0.34rem 0.6rem;
+}
+.portfolio-indice a:hover { color: var(--teal-texto); border-color: var(--teal); }
+/* 2 colunas era o que cabia na coluna de leitura; dentro de `.wrap.largo` a
+   parede respira em 3 e a miniatura cresce de 104 pra 148px — a peça é a prova,
+   não a legenda dela. */
+.parede-itens { display: grid; grid-template-columns: repeat(auto-fill, minmax(23rem, 1fr)); gap: 0.85rem 1.25rem; }
 /* padding + margin negativa: a área de hover cresce sem mexer no ritmo da grade. */
-.parede-peca { display: grid; grid-template-columns: 104px 1fr; gap: 0.8rem; align-items: start; padding: 7px; margin: -7px; transition: background 140ms ease; }
+.parede-peca { display: grid; grid-template-columns: 148px 1fr; gap: 0.8rem; align-items: start; padding: 7px; margin: -7px; transition: background 140ms ease; }
 .parede-peca:hover { background: var(--claro); }
+/* Teto de altura na miniatura: as peças vêm em proporções muito diferentes
+   (mockup de celular em retrato contra outdoor em paisagem), e sem teto UMA peça
+   alta estica a fileira inteira — a fileira irregular é metade do que o cliente
+   chamou de feio em 2026-08-25. `object-fit: contain` preserva a peça inteira. */
+.parede-peca .peca-zoom > img { max-height: 190px; object-fit: contain; object-position: top left; }
 .parede-texto { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
 .peca-nome { font-family: var(--font-slab), Rockwell, Georgia, serif; font-weight: 700; font-size: var(--slab-5); line-height: var(--lh-titulo); color: var(--ink); }
 .peca-linha { font-size: var(--corpo-3); line-height: var(--lh-apoio); }

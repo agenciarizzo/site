@@ -227,8 +227,8 @@ export const PORTFOLIO_CABECA = {
   h2: "O trabalho, do jeito que o cliente recebeu",
   lede: "Site, campanha, vídeo, conteúdo e identidade de consultórios, clínicas e hospitais. Continue rolando.",
   faixa: "Todas as peças",
-  /** `/portfolio` não existe: a parede de peças mora em `/clientes`. */
-  completo: { rotulo: "Ver o portfólio completo", href: "/clientes" },
+  /** A parede de peças inteira mora em `/portfolio` (desde a entrega de 2026-09-18). */
+  completo: { rotulo: "Ver o portfólio completo", href: "/portfolio" },
 };
 
 /**

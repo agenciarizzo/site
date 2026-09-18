@@ -1,7 +1,8 @@
 // Página de especialidade — 1 por especialidade do acervo (§16.8 do rizzo-os →
 // docs/ACERVO_PLANO_PAGINAS_MAPA.md). Filha do hub /marketing-medico; a URL é
-// keyword de busca ("marketing médico <especialidade>"), e /portfolio está queimado
-// (301 → /clientes), por isso a casa das peças nasce aqui e não lá.
+// keyword de busca ("marketing médico <especialidade>"); /portfolio era 301 pra
+// /clientes quando estas páginas nasceram (hoje é a parede de peças, e aponta
+// de volta pra cá com "Ver a página →").
 //
 // SSG puro (generateStaticParams), mesmo padrão de app/cartas/[slug]. Conteúdo e
 // curadoria em content/especialidades.ts; a montagem, em components/EspecialidadeLanding.
