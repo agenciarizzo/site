@@ -789,53 +789,129 @@
 }
 
 /* ═════════════════════════════════════════════════ 4 · exclusividade ════ */
+/* A "conquista de território" (porte do artifact, 18/09): a seção é uma
+   cidade vista de cima — quadras de 104px em malha — e, conforme rola, as
+   quadras viram de cor do canto inferior direito pro superior esquerdo. O
+   cartão chumbo com a promessa fica por cima, centrado.
+
+   Quem anima é o CSS: o motor escreve `--conq` (0→1) na seção, cada quadra
+   carrega a própria ordem em `--o`, e o `clip-path` abaixo é uma função
+   degrau — `(--o − --conq) × 10000%` cai fora de [0%, 100%] pra qualquer
+   diferença, e o `clamp` decide: conquistada = inset(0), senão inset(100%).
+   A transição faz a quadra virar de baixo pra cima, como no protótipo. */
 .dg .exclusividade {
-  background: var(--amarelo);
+  position: relative;
+  background: var(--papel);
   color: var(--chumbo);
-  padding: 112px var(--lado);
+  padding: clamp(96px, 14vh, 160px) var(--lado);
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   overflow: hidden;
+  /* antes: "branco · grafite" (o canvas nasce "branco · amarelo" — A2) */
+  --q-fundo: var(--papel);
+  --q-arte: var(--chumbo);
+  --q-bloco: rgba(50, 60, 70, 0.13);
+  /* depois: "amarelo · branco", como no canvas */
+  --q-fundo-2: var(--amarelo);
+  --q-arte-2: var(--papel);
+  --q-bloco-2: rgba(244, 239, 230, 0.35);
 }
-.dg .excl-forma {
+.dg .excl-quadras {
   position: absolute;
-  right: -6%;
-  top: -30%;
-  width: 38%;
-  height: 160%;
-  background: var(--chumbo);
-  clip-path: polygon(35% 0, 100% 0, 100% 100%, 0 100%);
-  opacity: 0.1;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  grid-auto-rows: 104px;
   pointer-events: none;
 }
-.dg .excl-grade {
+.dg .quadra {
   position: relative;
+  background: var(--q-fundo);
+}
+.dg .quadra i {
+  position: absolute;
+  inset: 3px;
+  display: block;
+}
+.dg .quadra .q-bloco {
+  background: var(--q-bloco);
+}
+.dg .quadra .q-arte {
+  background: var(--q-arte);
+  clip-path: var(--clip);
+}
+.dg .q-depois {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--q-fundo-2);
+  --q-bloco: var(--q-bloco-2);
+  --q-arte: var(--q-arte-2);
+  clip-path: inset(clamp(0%, calc((var(--o) - var(--conq, 0)) * 10000%), 100%) 0 0 0);
+  transition: clip-path 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.dg .excl-cartao {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  background: var(--chumbo);
+  color: var(--papel);
+  padding: clamp(32px, 4vw, 56px);
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 40px 64px;
   align-items: start;
 }
-.dg .excl-grade > div {
+.dg .excl-cartao > div {
   display: flex;
   flex-direction: column;
   gap: 20px;
   max-width: 560px;
+}
+.dg .excl-cartao > div:last-child {
+  gap: 28px;
+}
+.dg .excl-kicker {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+}
+.dg .excl-cartao h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--papel);
+  text-wrap: balance;
 }
 .dg .excl-texto {
   margin: 0;
   font-size: 17px;
   line-height: 1.55;
   text-wrap: pretty;
+  color: var(--papel);
 }
 .dg .excl-link {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   width: max-content;
+  max-width: 100%; /* no celular o rótulo quebra linha em vez de vazar do cartão */
   font-size: 15px;
   font-weight: 700;
-  color: var(--chumbo);
+  color: var(--amarelo);
 }
 .dg .excl-link:hover {
-  color: var(--teal);
+  color: var(--papel);
 }
 .dg .excl-link i {
   display: block;
@@ -843,57 +919,6 @@
   height: 2px;
   background: currentColor;
   flex: none;
-}
-.dg .selet {
-  position: relative;
-  margin-top: 80px;
-  background: var(--chumbo);
-  padding: 6px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: 6px;
-}
-.dg .selet-cartao {
-  background: var(--papel);
-  padding: clamp(16px, 2vw, 28px);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  min-width: 0;
-}
-.dg .selet-rot {
-  margin: 0;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--cinza-neutro);
-}
-.dg .selet-cartao[data-com] .selet-rot {
-  color: var(--chumbo);
-}
-.dg .selet-grade {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 4px;
-}
-.dg .selet-grade > div {
-  position: relative;
-  aspect-ratio: 1;
-  border: 1px solid rgba(50, 60, 70, 0.14);
-  box-sizing: border-box;
-}
-.dg .selet-grade span {
-  position: absolute;
-  inset: -0.5px;
-  display: block;
-}
-.dg .selet-cartao p:last-child {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.45;
-  color: var(--chumbo);
-  text-wrap: pretty;
 }
 
 /* ═══════════════════════════════════════════════════════ 5 · serviços ═══ */
@@ -1050,10 +1075,15 @@
 }
 
 /* ═══════════════════════════════════════════════════════ 6 · pacotes ════ */
+/* Porte do artifact (18/09): fundo escuro, 4 cards-link. O preço mora numa
+   JANELA circular que abre no hover e no foco (canvas); onde não há hover —
+   o celular — ela já nasce aberta, porque preço escondido atrás de um gesto
+   que o aparelho não tem é preço que não existe (decisão do repo, §45.2). */
 .dg .pacotes {
-  background: var(--papel);
-  border-top: 1px solid var(--linha-bege);
-  padding: 96px var(--lado) 112px;
+  background: #1b2430; /* o "slate" do canvas — não é o navy do RizzoOS (A4) */
+  color: var(--papel);
+  padding: 96px 0 112px;
+  overflow: hidden;
 }
 .dg .pac-cabeca {
   display: flex;
@@ -1061,7 +1091,7 @@
   align-items: end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 56px;
+  margin: 0 var(--lado) 48px;
 }
 .dg .pac-cabeca > div {
   display: flex;
@@ -1070,134 +1100,290 @@
 }
 .dg .pac-cabeca .h2 {
   max-width: 620px;
+  color: var(--papel);
 }
 .dg .pac-cabeca > p {
   margin: 0;
-  max-width: 420px;
+  max-width: 320px;
   font-size: 15px;
   line-height: 1.55;
-  color: var(--cinza-texto);
+  color: var(--cinza-neutro);
   text-wrap: pretty;
 }
-.dg .pac-lista {
+.dg .pac-kicker {
   margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-}
-/* A cabeça arredondada de 120px é a assinatura do card. */
-.dg .pac {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  min-height: 560px;
-  box-sizing: border-box;
-  padding: 32px 24px 28px;
-  border-radius: 120px 120px 24px 24px;
-  background: var(--bg);
-  color: var(--fg);
-}
-.dg .pac-tag {
-  position: absolute;
-  top: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--chumbo);
-  color: var(--amarelo);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 8px 14px;
-  border-radius: 999px;
-  white-space: nowrap;
+  color: var(--amarelo);
 }
-.dg .pac-num {
-  padding-top: 48px;
-  font-size: 13px;
-}
-.dg .pac h3 {
+.dg .pac-lista {
   margin: 0;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-}
-.dg .pac-preco {
-  margin: 0;
-  font-weight: 700;
-  font-size: clamp(26px, 2.6vw, 40px);
-  line-height: 1;
-  letter-spacing: -0.035em;
-  white-space: nowrap;
-}
-.dg .pac-desc {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-.dg .pac-rot {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-top: 1px solid var(--linha);
-  padding-top: 14px;
-}
-.dg .pac ul {
-  margin: 0;
-  padding: 0;
+  padding: 0 var(--lado);
   list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 12px;
+}
+.dg .pac-lista li {
+  display: flex;
+  min-height: clamp(440px, 58vh, 540px);
+}
+.dg .pac {
+  position: relative;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
+  padding: 28px 26px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--chumbo);
+  color: var(--papel);
+  text-decoration: none;
+  transition:
+    background 0.45s,
+    color 0.45s,
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* o estado FECHADO da janela; abre em :hover/:focus-visible e no toque */
+  --brilho: transparent;
+  --raio: 0%;
+  --raio-2: 0%;
+  --seta-x: -8px;
+  --ver: 0;
+}
+.dg .pac[data-alto] {
+  background: var(--amarelo);
+  color: var(--chumbo);
+}
+.dg .pac:hover,
+.dg .pac:focus-visible {
+  background: var(--amarelo);
+  color: var(--chumbo);
+  transform: translateY(-6px);
+  --brilho: rgba(244, 239, 230, 0.35);
+  --raio: 50%;
+  --raio-2: 120%;
+  --seta-x: 0;
+  --ver: 1;
+}
+.dg .pac[data-alto]:hover,
+.dg .pac[data-alto]:focus-visible {
+  background: var(--papel);
+  --brilho: rgba(255, 210, 0, 0.55);
+}
+.dg .pac-chip {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.dg .pac-chip span:last-child {
+  opacity: 0.7;
+}
+.dg .pac h3 {
+  position: relative;
+  margin: 12px 0 0;
+  font-weight: 700;
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+.dg .pac-frase {
+  position: relative;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.45;
+  opacity: 0.9;
+  text-wrap: pretty;
+}
+/* A janela: um semicírculo que sobe do pé do card; o preço só existe dentro. */
+.dg .pac-janela {
+  position: relative;
+  display: block;
+  margin-top: auto;
+  height: 200px;
+  container-type: inline-size;
+}
+.dg .pac-brilho {
+  position: absolute;
+  left: -26px;
+  right: -26px;
+  bottom: -30px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--brilho);
+  clip-path: circle(var(--raio) at 50% 50%);
+  transition: clip-path 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
+}
+.dg .pac-preco {
+  position: absolute;
+  left: 0;
+  top: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  clip-path: circle(var(--raio-2) at 50% 100%);
+  transition: clip-path 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.dg .pac-partir {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.dg .pac-valor {
+  font-weight: 700;
+  font-size: clamp(40px, 26cqw, 80px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+.dg .pac-valor small {
+  font-size: 0.3em;
+  vertical-align: 1.5em;
+  margin-right: 4px;
+}
+.dg .pac-mes {
   font-size: 13px;
-  line-height: 1.4;
+  opacity: 0.8;
 }
 .dg .pac-fecho {
-  margin-top: auto;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.dg .pac-fecho i {
+  display: block;
+  width: 44px;
+  height: 2px;
+  background: currentColor;
+  transform: translateX(var(--seta-x));
+  transition: transform 0.5s;
+}
+.dg .pac-fecho span {
+  opacity: var(--ver);
+  transition: opacity 0.4s;
+}
+/* Sem hover (toque): a janela nasce aberta e o "Ver proposta" à vista. */
+@media (hover: none) {
+  .dg .pac {
+    --raio: 50%;
+    --raio-2: 120%;
+    --seta-x: 0;
+    --ver: 1;
+    --brilho: rgba(244, 239, 230, 0.12);
+  }
+  .dg .pac[data-alto] {
+    --brilho: rgba(50, 60, 70, 0.1);
+  }
+}
+.dg .pac-nota {
+  margin: 20px var(--lado) 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--cinza-neutro);
+}
+
+/* ─── 6b · adicionais: dois letreiros contrários sobre panos geométricos ── */
+.dg .addons-cabeca {
+  margin: 88px var(--lado) 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+.dg .addons-cabeca > div {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
-.dg .pac-fecho a {
-  width: max-content;
-  font-size: 14px;
+.dg .addons-cabeca h3 {
+  margin: 0;
   font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--fg);
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--papel);
+}
+.dg .addons-cabeca > p {
+  margin: 0;
+  max-width: 360px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--cinza-neutro);
+  text-wrap: pretty;
+}
+.dg .addons-faixas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dg .addons-faixa {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(244, 239, 230, 0.15);
+}
+.dg .addons-faixa:first-child {
+  border-top: 1px solid rgba(244, 239, 230, 0.15);
+}
+.dg .addons-faixa ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  width: max-content;
+  animation: dg-marquee 48s linear infinite;
+}
+.dg .addons-faixa ul[data-reverso] {
+  animation-direction: reverse;
+}
+.dg .addons-faixa li {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  height: 92px;
+  padding: 0 44px;
+  white-space: nowrap;
+  /* tweak do cliente (18/09): pano "areia" (papel), sem peça geométrica */
+  background: var(--papel);
+  color: var(--chumbo);
 }
-.dg .pac-fecho a:hover {
-  color: var(--teal);
+.dg .addons-faixa li span {
+  position: relative;
+  font-weight: 800;
+  font-size: clamp(18px, 1.6vw, 24px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  /* relevo "baixo" do canvas: luz por baixo, sombra por cima */
+  text-shadow:
+    -1px -1px 0 rgba(255, 255, 255, 0.35),
+    1px 1px 0 rgba(0, 0, 0, 0.3);
 }
-.dg .pac-fecho i {
-  display: block;
-  height: 2px;
-  width: 100%;
-  background: var(--fg);
-  opacity: 0.9;
-}
-.dg .pac-nota {
-  margin: 20px 0 0;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--cinza-texto);
+@media (prefers-reduced-motion: reduce) {
+  .dg .addons-faixa ul {
+    animation: none;
+  }
 }
 .dg .pac-faixa {
-  margin-top: 56px;
+  margin: 56px var(--lado) 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 24px 48px;
   align-items: center;
-  border-top: 2px solid var(--chumbo);
+  border-top: 1px solid rgba(244, 239, 230, 0.25);
   padding-top: 32px;
 }
 .dg .pac-faixa p {
@@ -1205,10 +1391,15 @@
   max-width: 640px;
   font-size: 17px;
   line-height: 1.5;
+  color: var(--papel);
   text-wrap: pretty;
 }
 .dg .pac-faixa .btn {
   justify-self: end;
+}
+.dg .pac-faixa .btn:hover {
+  background: var(--papel);
+  color: var(--chumbo);
 }
 
 /* ═══════════════════════════════════════════════════════ 7 · cases ══════ */
@@ -1268,7 +1459,12 @@
   grid-template-columns: minmax(120px, 22%) minmax(0, 1fr);
   grid-template-rows: auto minmax(min-content, 1fr);
   gap: 6px;
-  min-height: min(72vh, 720px);
+  /* A ESCADA: o topo de cada ficha desce 28px (`top` acima) e a altura
+     mínima desce os mesmos 28px, então as BASES ficam alinhadas e a ficha
+     6 é a menor da pilha (cliente, 18/09: "travar na mesma proporção
+     abaixo do card anterior"). Medido antes: a 617px de tela o conteúdo
+     vencia o min-height e a 6ª saía mais alta que a 5ª (583 × 525px). */
+  min-height: calc(min(72vh, 720px) - var(--i) * 28px);
 }
 .dg .case > * {
   border-radius: 14px;
@@ -1351,6 +1547,12 @@
   justify-content: space-between;
   gap: 32px;
   min-width: 0;
+}
+/* A ficha 6 é a MENOR da escada (ver `.dg .case`): o corpo de dados dela
+   respira 8px a menos entre os blocos, e é o que a faz caber sob a 5ª
+   (medido a 1440×900: 520px → 508px, a base comum das seis). */
+.dg .case:last-child .case-dados {
+  gap: 24px;
 }
 .dg .case-meta {
   margin: 0;
@@ -3185,6 +3387,24 @@
   }
 }
 
+/* Telas BAIXAS (notebook com barra do navegador, 1004×645 no print do
+   cliente, 18/09): a ficha 3, presa a 128px do topo com ~560px de conteúdo,
+   passava do pé da tela — "não é possível ler a base do card", e a 4ª chega
+   antes de a base aparecer. Abaixo de 760px de altura a pilha vira FLUXO,
+   como no estreito: cada ficha inteira, sem sticky. A 768px a 6ª ainda cabe
+   (base a 728px, medido). */
+@media (max-height: 759px) {
+  .dg .case {
+    position: static;
+    top: auto;
+    min-height: 0;
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.22);
+  }
+  .dg .cases-pilha {
+    gap: 24px;
+  }
+}
+
 /* ─────────────────────────────────────────────────── portão do WhatsApp ──── */
 /* Cliente, 14/09: "a tela de whatsapp precisa ser dentro da linha visual nova…
    pode ser até minimalista com o pano athos". Tela de PASSAGEM: um bloco só,
@@ -3562,13 +3782,3 @@
   }
 }
 
-/* "a partir de" acima do valor — linha própria, menor e discreta, pra não
-   competir com o número (ver Oferta.tsx pro porquê de o prefixo ser do
-   componente e não do dado). */
-.dg .pac-partir {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  opacity: 0.72;
-}
