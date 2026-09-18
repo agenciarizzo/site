@@ -260,30 +260,34 @@ export const PORTFOLIO_CABECA = {
  * não "só sites".
  */
 export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]; pecas: string[] }[] = [
-  // 2026-09-18 (cliente): "o portfólio de site seja a partir dos que estão na Vercel,
-  // pois são os mais modernos e recentes… os sites que aparecem na home devem seguir
-  // essa linha". Todo `-site` do palco é peça composta do deploy Vercel do cliente
-  // (rodadas 17/18/25 do acervo) — os sites antigos (mockup de 2023/24) saíram daqui;
-  // a Examine Agora foi refeita do deploy na rodada 25.
+  // 2026-09-18 (cliente): "o portfólio de site seja a partir dos que estão na Vercel"
+  // (rodada 25) + "essa versão horizontal não pega bem — a home antes da dobra, ou a
+  // versão de celular na vertical" (rodada 25b: a peça de site virou 4:5, 1200×1500) +
+  // "traga os vídeos que foram postados… em slots verticais, pra ir rodando". Então:
+  //  · site (agora VERTICAL) só entra em vaga quadrada ou vertical — nunca em 2×1/6×3;
+  //  · os 7 vídeos 9:16 (`PORTFOLIO_VIDEOS`) ocupam as 7 vagas mais verticais do palco
+  //    (1×2, 2×4) e tocam só na cena ativa (Motor.tsx, achado #13);
+  //  · as vagas largas (2×1, 4×2, 6×3) voltam pra peças em paisagem do acervo.
+  //  9 sites (todos Vercel) + 7 vídeos + 14 outros formatos = 30 vagas, 30 peças.
   {
     nome: "Sites",
     vagas: [[0, 0, 4, 4], [4, 0, 2, 3], [4, 3, 1, 1], [5, 3, 1, 1]],
     pecas: [
-      "/portfolio/marketing-clinica-angiologia-brasilia-site.webp", // Angiomedi — o melhor site, na maior vaga
-      "/portfolio/marketing-medico-neurologia-juazeiro-do-norte-folder-institucional.webp",
-      "/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp",
-      "/portfolio/marketing-clinica-urologia-rio-de-janeiro-site.webp",
+      "/portfolio/marketing-clinica-angiologia-brasilia-site.webp", // Angiomedi — o melhor site, na maior vaga (quadrada)
+      "/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp", // HOS — vaga 2×3, vertical como a peça
+      "/portfolio/marketing-medico-oftalmologia-belo-horizonte-site.webp", // Dra. Larissa Fouad (Vercel)
+      "/portfolio/marketing-medico-urologia-porto-alegre-site.webp", // Dra. Marina Gressler (Vercel)
     ],
   },
   {
     nome: "Vídeo",
     vagas: [[0, 0, 2, 4], [2, 0, 4, 2], [2, 2, 2, 2], [4, 2, 1, 2], [5, 2, 1, 2]],
     pecas: [
-      "/portfolio/marketing-medico-otorrinolaringologia-brasilia-sinalizacao-clinica.webp",
-      "/portfolio/marketing-clinica-medica-recanto-das-emas-site.webp", // InMed
-      "/portfolio/marketing-medico-urologia-sao-paulo-portfolio.webp",
-      "/portfolio/marketing-medico-ortopedia-goiania-cartao-virtual-quadril.webp",
-      "/portfolio/marketing-medico-vascular-brasilia-anuncio.webp",
+      "video:hr-dose-maxima", // Dr. Homero Ribeiro — reel publicado (HR-DE-121)
+      "/portfolio/marketing-medico-urologia-brasilia-ebook-vasectomia.webp", // e-book do mesmo cliente, na vaga larga 4×2
+      "/portfolio/marketing-clinica-medica-recanto-das-emas-site.webp", // InMed (Vercel) — vaga quadrada
+      "video:hr-vmi-convenio", // HR-VMI-020
+      "video:hr-vmi-recuperacao", // HR-VMI-022
     ],
   },
   {
@@ -291,11 +295,11 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 1, 2], [3, 2, 1, 2], [4, 2, 2, 2]],
     pecas: [
       "/portfolio/marketing-medico-cirurgia-digestiva-goiania-portfolio-digital.webp",
-      "/portfolio/marketing-medico-ortopedia-mossoro-site.webp", // Dr. Eduardo Medeiros (Vercel) — vaga quadrada aceita site em paisagem (regra do Angiomedi)
-      "/portfolio/marketing-medico-oftalmologia-belo-horizonte-site.webp", // idem
+      "/portfolio/marketing-medico-ortopedia-mossoro-site.webp", // Dr. Eduardo Medeiros (Vercel) — vaga quadrada
+      "/portfolio/marketing-clinica-otorrinolaringologia-brasilia-site.webp", // ECOA (Vercel, rodada 25) — idem
       "/portfolio/marketing-medico-oncologia-rio-de-janeiro-cartao-virtual.webp",
-      "/portfolio/marketing-medico-ortopedia-porto-alegre-guia-pos-operatorio.webp",
-      "/portfolio/marketing-clinica-endoscopia-brasilia-folder-exames.webp",
+      "video:hr-preench-treino", // HR-PREENCH-088 — arquivo enviado pelo cliente (18/09), publicado
+      "video:hr-ondas-de-choque", // reel enviado pelo cliente (18/09), publicado
       "/portfolio/marketing-medico-cirurgia-plastica-sao-paulo-portfolio-virtual.webp",
     ],
   },
@@ -303,20 +307,20 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     nome: "Impresso",
     vagas: [[0, 0, 6, 3], [0, 3, 2, 1], [2, 3, 2, 1], [4, 3, 2, 1]],
     pecas: [
-      "/portfolio/marketing-clinica-diagnostico-imagem-brasilia-site.webp", // Examine Agora
+      "/portfolio/marketing-medico-oftalmologia-brasilia-outdoor-cirurgia-refrativa.webp", // outdoor na vaga 6×3 — paisagem de verdade
       "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-retina.webp",
-      "/portfolio/marketing-medico-ortopedia-vitoria-site.webp", // Dr. Francisco Carvalho (Vercel) — vaga 2×1 é paisagem, o mesmo formato do site
-      "/portfolio/marketing-medico-urologia-porto-alegre-site.webp", // Dra. Marina Gressler (Vercel) — idem
+      "/portfolio/marketing-medico-otorrinolaringologia-brasilia-folder-institucional.webp", // CLIAOD — 2×1 é paisagem
+      "/portfolio/marketing-hospital-brasilia-folder-cirurgia-segura.webp", // Daher — idem
     ],
   },
   {
     nome: "Vertical",
     vagas: [[0, 0, 2, 4], [2, 0, 1, 4], [3, 0, 1, 4], [4, 0, 2, 4]],
     pecas: [
+      "video:inmed-institucional", // InMed — institucional 9:16 da TV da sala de espera
       "/portfolio/marketing-medico-gerontologia-goiania-portfolio-digital.webp",
       "/portfolio/marketing-medico-urologia-pediatrica-sao-paulo-portfolio-digital.webp",
-      "/portfolio/marketing-medico-cirurgia-aparelho-digestivo-foz-do-iguacu-cartao-virtual.webp",
-      "/portfolio/marketing-medico-psiquiatria-brasilia-cartao-virtual.webp",
+      "video:inmed-identidade", // InMed — animação da identidade 9:16
     ],
   },
   {
@@ -324,7 +328,7 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 2, 2], [4, 2, 2, 2]],
     pecas: [
       "/portfolio/marketing-clinica-ortopedia-brasilia-folder-institucional.webp",
-      "/portfolio/marketing-medico-reproducao-humana-brasilia-site.webp", // Dra. Elielma Almeida (Vercel) — vaga quadrada aceita site em paisagem
+      "/portfolio/marketing-medico-reproducao-humana-brasilia-site.webp", // Dra. Elielma Almeida (Vercel) — vaga quadrada
       "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-uveites.webp",
       "/portfolio/marketing-laboratorio-mineiros-goias-cartaz-exames.webp",
       "/portfolio/marketing-medico-cirurgia-vascular-sao-lourenco-site.webp", // Dr. Luciano Morais (Vercel, rodada 25) — idem
@@ -333,43 +337,126 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
   },
 ];
 
+
 /**
  * Achado #13 (§44.24): "busque tb vídeos que estão no rizzoos e foram
  * postados". A parte QUE DEU CERTO — a máquina de vídeo no morfo existe e
  * funciona (Portfolio.tsx resolve `"video:<id>"` daqui, Motor.tsx dá play só
- * na peça da cena ativa, testado com Playwright) — fica pronta pro próximo
- * arquivo que chegar. A parte que NÃO deu: dos 7 renders em
- * `rizzo-os/videos/hr-<slug>/renders/video.mp4`, 3 tinham `status: PUBLICADO`
- * confirmado no Supabase do RizzoOS (tabela `jobs`) — hr-dose-maxima (job
- * `2c2f0260-4985-45bd-89ae-9dce8a1e7080`, HR-DE-121, 2026-08-17),
- * hr-vmi-convenio (HR-VMI-020, 2026-08-21), hr-vmi-recuperacao (HR-VMI-022,
- * 2026-09-04) — mas os 3 falham no `<video>` do Chromium com
- * `DEMUXER_ERROR_NO_SUPPORTED_STREAMS` (confirmado servindo o arquivo
- * byte-a-byte idêntico ao do disco — não é problema do Next, é do MUX do
- * arquivo). O `avcC` declara High Profile / Level 4.0, o mais comum que
- * existe — o defeito está em algum lugar da tabela de amostras que só
- * `ffprobe`/`ffmpeg` decifra, e nenhum dos dois está disponível nesta sessão.
- * ⚖️ Vídeo que não toca é PIOR que a ausência (§⚖️ do CLAUDE.md — "se não dá
- * pra fazer corretamente, não faz"): os 3 arquivos NÃO foram copiados pro
- * `public/`, e as 3 vagas verticais que seriam deles voltaram pra imagem.
- * 🅿️ Pra destravar: alguém com `ffmpeg` roda `ffmpeg -v error -i video.mp4
- * -f null -` nos 7 renders pra achar a causa exata (ou reexporta pelo
- * HyperFrames) — voltando com um `.mp4` que o Chromium decodifica, é só
- * preencher `PORTFOLIO_VIDEOS` de novo e trocar 3 linhas em `PF_CENAS`
- * (`"/portfolio/<arquivo>"` → `"video:<id>"`). `hr-quanto-tempo-dura`
- * (HR-PREENCH-086) segue de fora por outro motivo — status `ARTE`, ainda não
- * foi ao ar; `hr-peyronie-sinais` idem — o único job PUBLICADO com esse
- * código (HR-PEYRONIE-069) é sobre outro tema ("Trauma sexual: como evitar a
- * curvatura?"), não bate com o vídeo renderizado. Os `*-9x16.mp4` dos
- * handoffs de identidade (design_handoff_animacao_identidade/,
- * design_handoff_inmed_video/) também ficaram fora — são peças de
- * identidade/TV, não posts, e confirmar publicação delas é apuração maior
- * que não coube nesta rodada.
+ * na peça da cena ativa, testado com Playwright).
+ *
+ * Histórico: em 14/09 os 7 renders `rizzo-os/videos/hr-<slug>/renders/video.mp4`
+ * falhavam no `<video>` do Chromium do Playwright com
+ * `DEMUXER_ERROR_NO_SUPPORTED_STREAMS` e não havia `ffmpeg` na sessão pra
+ * apurar — as vagas voltaram pra imagem. Em 18/09, com `ffmpeg-static`, os
+ * arquivos decodificaram sem erro: o defeito era do PLAYER (o Chromium do
+ * Playwright não traz H.264), não do mux. Ver o comentário em `PORTFOLIO_VIDEOS`.
  */
 export const PORTFOLIO_VIDEOS: Record<
   string,
-  { src: string; alt: string; servico: string; espec: string; praca: string; cliente: string; contexto: string; largura: number; altura: number }
-> = {};
+  { src: string; webm?: string; poster?: string; alt: string; servico: string; espec: string; praca: string; cliente: string; contexto: string; largura: number; altura: number }
+> = {
+  // 2026-09-18 — os vídeos voltam. O que destravou: `ffmpeg` (pacote ffmpeg-static
+  // via npm) decodificou os 7 renders sem erro e reexportou cada um em 720×1280,
+  // H.264 Main/4.0 + faststart (o `.mp4`) e VP9 (o `.webm`, que o Chromium do
+  // Playwright toca — o headless não traz H.264), ambos SEM áudio (~1–2 MB cada),
+  // com poster do 1,5 s. `<video>` do Portfolio.tsx serve os dois `<source>`.
+  // Publicação: dose-maxima / vmi-convenio / vmi-recuperacao com `status: PUBLICADO`
+  // na tabela jobs do RizzoOS (apuração de 14/09); preench-treino e ondas-de-choque
+  // enviados pelo próprio cliente em 18/09 como postados; os dois da InMed são o
+  // institucional da TV da sala de espera e a animação da identidade — o cliente
+  // pediu "animação inmed" nominalmente em 18/09.
+  "hr-dose-maxima": {
+    src: "/portfolio/video/hr-dose-maxima.mp4",
+    webm: "/portfolio/video/hr-dose-maxima.webm",
+    poster: "/portfolio/video/hr-dose-maxima.webp",
+    alt: "Reel do Dr. Homero Ribeiro sobre a dose máxima da medicação para disfunção erétil",
+    servico: "Vídeo",
+    espec: "Urologia",
+    praca: "Brasília/DF",
+    cliente: "Dr. Homero Ribeiro",
+    contexto: "Reel para Instagram — quando a dose máxima não resolve, investigar a causa",
+    largura: 720,
+    altura: 1280,
+  },
+  "hr-vmi-convenio": {
+    src: "/portfolio/video/hr-vmi-convenio.mp4",
+    webm: "/portfolio/video/hr-vmi-convenio.webm",
+    poster: "/portfolio/video/hr-vmi-convenio.webp",
+    alt: "Reel do Dr. Homero Ribeiro explicando por que não atende pelo convênio",
+    servico: "Vídeo",
+    espec: "Urologia",
+    praca: "Brasília/DF",
+    cliente: "Dr. Homero Ribeiro",
+    contexto: "Reel para Instagram — por que não faço pelo convênio",
+    largura: 720,
+    altura: 1280,
+  },
+  "hr-vmi-recuperacao": {
+    src: "/portfolio/video/hr-vmi-recuperacao.mp4",
+    webm: "/portfolio/video/hr-vmi-recuperacao.webm",
+    poster: "/portfolio/video/hr-vmi-recuperacao.webp",
+    alt: "Reel do Dr. Homero Ribeiro sobre a recuperação rápida após o procedimento",
+    servico: "Vídeo",
+    espec: "Urologia",
+    praca: "Brasília/DF",
+    cliente: "Dr. Homero Ribeiro",
+    contexto: "Reel para Instagram — recuperação rápida",
+    largura: 720,
+    altura: 1280,
+  },
+  "hr-preench-treino": {
+    src: "/portfolio/video/hr-preench-treino.mp4",
+    webm: "/portfolio/video/hr-preench-treino.webm",
+    poster: "/portfolio/video/hr-preench-treino.webp",
+    alt: "Reel do Dr. Homero Ribeiro sobre a volta ao treino após o preenchimento",
+    servico: "Vídeo",
+    espec: "Urologia",
+    praca: "Brasília/DF",
+    cliente: "Dr. Homero Ribeiro",
+    contexto: "Reel para Instagram — volta ao treino depois do preenchimento",
+    largura: 720,
+    altura: 1280,
+  },
+  "hr-ondas-de-choque": {
+    src: "/portfolio/video/hr-ondas-de-choque.mp4",
+    webm: "/portfolio/video/hr-ondas-de-choque.webm",
+    poster: "/portfolio/video/hr-ondas-de-choque.webp",
+    alt: "Reel do Dr. Homero Ribeiro sobre a terapia por ondas de choque",
+    servico: "Vídeo",
+    espec: "Urologia",
+    praca: "Brasília/DF",
+    cliente: "Dr. Homero Ribeiro",
+    contexto: "Reel para Instagram — terapia por ondas de choque",
+    largura: 720,
+    altura: 1280,
+  },
+  "inmed-institucional": {
+    src: "/portfolio/video/inmed-institucional.mp4",
+    webm: "/portfolio/video/inmed-institucional.webm",
+    poster: "/portfolio/video/inmed-institucional.webp",
+    alt: "Vídeo institucional vertical da InMed para a TV da sala de espera",
+    servico: "Vídeo",
+    espec: "Clínica Médica",
+    praca: "Brasília/DF",
+    cliente: "InMed – Instituto de Medicina e Diagnóstico",
+    contexto: "Vídeo institucional 9:16 para a TV da sala de espera",
+    largura: 720,
+    altura: 1280,
+  },
+  "inmed-identidade": {
+    src: "/portfolio/video/inmed-identidade.mp4",
+    webm: "/portfolio/video/inmed-identidade.webm",
+    poster: "/portfolio/video/inmed-identidade.webp",
+    alt: "Animação da identidade visual da InMed",
+    servico: "Vídeo",
+    espec: "Clínica Médica",
+    praca: "Brasília/DF",
+    cliente: "InMed – Instituto de Medicina e Diagnóstico",
+    contexto: "Animação da identidade visual, 9:16",
+    largura: 720,
+    altura: 1280,
+  },
+};
 
 /* ─────────────────────────────────────────────────────────────── rodapé ──── */
 

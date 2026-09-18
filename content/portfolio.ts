@@ -834,8 +834,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Araguaína/TO",
     imagem: "/portfolio/marketing-medico-medicina-da-dor-araguaina-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da Clínica Medicina da Dor, medicina da dor em Araguaína",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Clínica Medicina da Dor, medicina da dor em Araguaína",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     // Rodada 25 (2026-09-18): a peça de 2024 (mockup do Drive) deu lugar à composição
     // do site VIVO na Vercel — decisão do cliente: "o portfólio de site seja a partir
@@ -878,8 +878,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Brasília/DF",
     imagem: "/portfolio/marketing-clinica-diagnostico-imagem-brasilia-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da Examine Agora, ultrassom e biópsia guiada no Recanto das Emas, Brasília",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Examine Agora, ultrassom e biópsia guiada no Recanto das Emas, Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     // Rodada 25 (2026-09-18): peça refeita do site VIVO na Vercel (o de 2024 era mockup do Drive).
     origem:
@@ -1582,8 +1582,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Mossoró/RN",
     imagem: "/portfolio/marketing-medico-ortopedia-mossoro-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site do Dr. Eduardo Medeiros, ortopedista especialista em quadril em Mossoró",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Eduardo Medeiros, ortopedista especialista em quadril em Mossoró",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto em-dr-eduardo-medeiros (www.dreduardoclrm.com.br), deploy de produção dpl_6XXdgAUkwnXNDyZsToKaB3YFDqGa = githubCommitSha f4a4ac4; repo agenciarizzo/EM---Dr.-Eduardo-Medeiros",
@@ -1596,8 +1596,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Vitória/ES",
     imagem: "/portfolio/marketing-medico-ortopedia-vitoria-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site do Dr. Francisco José de Carvalho, ortopedista e cirurgião de joelho em Vitória",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Francisco José de Carvalho, ortopedista e cirurgião de joelho em Vitória",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto fc-dr-francisco-carvalho (www.drfranciscocarvalho.com), deploy de produção dpl_GsDpb8NNZMCXxSnsG3c6LAW7aW6Z; repo agenciarizzo/FC---Dr.-Francisco-Carvalho, commit b3ff7fd",
@@ -1610,8 +1610,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Brasília/DF",
     imagem: "/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site do Hospital de Olhos Sobradinho, oftalmologia no DF",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Hospital de Olhos Sobradinho, oftalmologia no DF",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto hos-sobradinho (www.hosobradinho.com.br), deploy de produção dpl_J4iPqTdLHUytJsJ1Eo8Kxh77HKWP; repo agenciarizzo/HOS-Sobradinho, commit 3fd49e0. O <title> do site assina \"Hospital de Olhos Salute Sobradinho (HOS)\" — confirma o rebrand do §15.1 que o clientes.ts já declara no `oraculo`",
@@ -1624,8 +1624,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Brasília/DF",
     imagem: "/portfolio/marketing-clinica-angiologia-brasilia-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da Angiomedi, angiologia e tratamento de varizes na Asa Sul em Brasília",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Angiomedi, angiologia e tratamento de varizes na Asa Sul em Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto angiomedi (www.angiomedi.com.br), deploy de produção dpl_DqocLVThiirMNdfFvyWZbBE6Y3eP; repo agenciarizzo/Angiomedi, commit f9e7b35",
@@ -1638,8 +1638,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Brasília/DF",
     imagem: "/portfolio/marketing-medico-reproducao-humana-brasilia-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da Dra. Elielma Almeida, saúde da mulher e reprodução humana em Brasília",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Dra. Elielma Almeida, saúde da mulher e reprodução humana em Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto el-elielma-almeida-ferreira-de-morais, deploy de produção dpl_4pYdi2kevaqY19jNUjuL7zHY8fZi; repo agenciarizzo/EL---Elielma-Almeida-Ferreira-de-Morais, commit 2637a58 (hashes index-Kdgmv1vj.js e index-D39-iT_r.css batem com o HTML de produção)",
@@ -1652,8 +1652,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Brasília/DF",
     imagem: "/portfolio/marketing-clinica-medica-recanto-das-emas-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site do inmed, clínica médica no Recanto das Emas em Brasília",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do inmed, clínica médica no Recanto das Emas em Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto inmed (www.inmedonline.com.br), deploy de produção dpl_3DSVxCxfGw4iu5z4FDppRhSTbQKK; repo agenciarizzo/inmed, commit 34aaa65",
@@ -1670,8 +1670,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Belo Horizonte/MG",
     imagem: "/portfolio/marketing-medico-oftalmologia-belo-horizonte-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da Dra. Larissa Fouad, oftalmologista e especialista em retina em Belo Horizonte",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Dra. Larissa Fouad, oftalmologista e especialista em retina em Belo Horizonte",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto li-dra-larissa (www.dralarissafouad.com.br), deploy de produção dpl_59W7hZGtT8PDinwh5oNUYCffFtKw = githubCommitSha 3e48a51; repo agenciarizzo/LI---Dra.-larissa (o HTML de produção referencia site.css?v=a4ea3a7f e site.js?v=dd0dd19d — os mesmos hashes do clone)",
@@ -1684,8 +1684,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Porto Alegre/RS",
     imagem: "/portfolio/marketing-medico-urologia-porto-alegre-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da Dra. Marina Gressler, urologista especialista em cirurgia robótica em Porto Alegre",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Dra. Marina Gressler, urologista especialista em cirurgia robótica em Porto Alegre",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto mg, deploy de produção dpl_5dU9u1RvKX34yQJcnMtaCGniJfJP = githubCommitSha 7edef69; repo agenciarizzo/MG. O domínio dramarinagressleruro.com hoje é servido por host Google (build antigo, do AI Studio) — a peça sai do deploy Vercel, o trabalho mais novo da agência; aprovada pelo cliente ciente do achado (rodada 18)",
@@ -1698,8 +1698,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Rio de Janeiro/RJ",
     imagem: "/portfolio/marketing-clinica-urologia-rio-de-janeiro-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da UroClínica Rio, urologia e cirurgia robótica na Barra da Tijuca e em Bonsucesso",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da UroClínica Rio, urologia e cirurgia robótica na Barra da Tijuca e em Bonsucesso",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto uroclinicario (uroclinicario.com.br), deploy de produção dpl_DavJutnkoWDg9WyefJcJXEQr4q8L = githubCommitSha 9ba077b; repo agenciarizzo/uroclinicario (público)",
@@ -2260,6 +2260,13 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "Dropbox da agência: Clientes/2025/BB/sprint_4_BB_peca_grafica_cartao_virtual/apres/Dr. Bruno Brunelli - Cartão Virtual.pdf (achado por sonda pelo NOME — Fila 3 da r24; ⚠️ o sprint_4_BB_peca_grafica_portfolio irmão é pitch de parceria pra médico associar-se à clínica, não portfólio de cliente — vetado, não confundir). A ARTE atribui (§34): logo assina SOUSA BRUNELLI · Qualidade de Vida & Saúde Mental; CRM-DF 24351 (Dr. Bruno Brunelli), Águas Claras, Brasília/DF. Casa NOVA — ver content/carteira-viva.ts",
   },
+  // ── Rodada 25b (2026-09-18) — o FORMATO da peça de site muda: vertical 4:5 ─────────
+  // Cliente: "essa versão horizontal não pega bem; talvez focar na home antes da dobra,
+  // apenas, ou versão de celular pra colocar na vertical". As 15 peças de site da linha
+  // Vercel foram recompostas em 1200×1500 (scripts/compor-peca-site.mjs, modo vertical):
+  // a home ANTES DA DOBRA numa janela de navegador + o celular por cima com a home
+  // mobile (iPhone 13, 390×844), fundo na cor de marca do próprio site. Mesmo arquivo,
+  // mesma origem — só largura/altura e o alt mudam.
   // ── Rodada 25 (2026-09-18) — o portfólio de SITE passa a sair da Vercel ────────
   // Decisão do cliente: "quero que o portfólio de site seja a partir dos que estão na
   // Vercel, pois são os mais modernos e recentes". Mesmo instrumento das rodadas 17/18:
@@ -2280,8 +2287,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Brasília/DF",
     imagem: "/portfolio/marketing-clinica-otorrinolaringologia-brasilia-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da ECOA Otorrinolaringologia, clínica de otorrino e doenças do ouvido na Asa Norte, Brasília",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da ECOA Otorrinolaringologia, clínica de otorrino e doenças do ouvido na Asa Norte, Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto ecoa (www.ecoaotorrinolaringologia.com.br), último deploy de produção dpl_F9EmxLrZKbVotgGP1AnUUMSADhCA; repo agenciarizzo/ecoa, commit d4adab2 (buildado do clone, vite). Cliente no cadastro do RizzoOS como \"Ecoa Otorrino\" (carteira-viva.ts)",
@@ -2294,8 +2301,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Remanso/BA",
     imagem: "/portfolio/marketing-hospital-remanso-bahia-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da Casa de Saúde de Remanso, hospital com consultas, exames e laboratório em Remanso, Bahia",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Casa de Saúde de Remanso, hospital com consultas, exames e laboratório em Remanso, Bahia",
     cartas: ["site-seo", "rede-hospitalar"],
     origem:
       "Vercel: projeto sr (www.csremanso.med.br), último deploy READY dpl_26QfgCUpmDFHaMoNhsj5815L4fPk; repo agenciarizzo/SR, commit ed8ff46 (buildado do clone, vite)",
@@ -2308,8 +2315,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Brasília/DF",
     imagem: "/portfolio/marketing-medico-reproducao-assistida-brasilia-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site do Dr. Carlos Portocarrero, reprodução assistida e endometriose em Brasília",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Carlos Portocarrero, reprodução assistida e endometriose em Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto cp-carlos-portocarrero (www.carlosportocarrero.com.br), último deploy de produção dpl_8DZkUsE87xxCb5QSCXZZuzYTmX11; repo agenciarizzo/CP---Carlos-Portocarrero., commit c3c4e30 (buildado do clone, vite)",
@@ -2322,8 +2329,8 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "São Lourenço/MG",
     imagem: "/portfolio/marketing-medico-cirurgia-vascular-sao-lourenco-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site do Dr. Luciano Morais, cirurgião vascular e endovascular em São Lourenço, Minas Gerais",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Luciano Morais, cirurgião vascular e endovascular em São Lourenço, Minas Gerais",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto lm-dr-luciano-morais (www.drlucianomorais.com.br), último deploy de produção dpl_9cWxy9UBtS6cqJG9J7C2WzQDZpcT; repo agenciarizzo/lm-dr-luciano-morais, commit 7fdda31 (buildado do clone, next). Praça pelo cadastro do RizzoOS (São Lourenço/MG) — carteira.ts registra São Paulo/SP",
