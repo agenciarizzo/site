@@ -39,6 +39,16 @@ export interface PaginaEspecialidade {
   /** Especialidade, grafia EXATA do vocabulário do content/portfolio.ts. */
   espec: string;
   /**
+   * Nome do EIXO canônico (public.specialties.nome — F2 taxonomia), quando
+   * diverge de `espec` (§9.4.2: "são três vocabulários, não dois" — na prática,
+   * quatro, quando uma página nova usa a `espec` mais larga do portfolio, ex.:
+   * ginecologia/reproducao-humana usam `espec: "Saúde da Mulher"`, mas o eixo
+   * é mais específico). Ausente = usa `espec` (as 27 páginas que não vieram de
+   * split de F2). Usado no H1/kicker das páginas de praça — nunca no `espec`
+   * que liga a peça ao portfólio, que continua o vocabulário do portfolio.ts.
+   */
+  nomeEixo?: string;
+  /**
    * <title> keyword-first — o layout soma " | Agência Rizzo" (16 CARACTERES), então
    * este campo tem teto de 44 pra página ficar nos 60 que a SERP mostra.
    *
@@ -244,40 +254,66 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Olá! Vi a página de marketing para cirurgia do aparelho digestivo no site da agência e quero conversar sobre o meu consultório.",
   },
   {
-    slug: "oncologia",
+    // ⚠️ SPLIT de "oncologia" (F2 taxonomia, 2026-09-19) — rizzo-os →
+    // docs/TAXONOMIA_PRACAS_SITE_MAPA.md decisão D4: "quem procura quimio não
+    // procura cirurgião". A página antiga misturava as duas buscas (mesmo padrão
+    // do saude-da-mulher). Atribuição por EVIDÊNCIA REAL, zero heurística (§24.9):
+    // a CON é "CON – Clínica Oncologia Hematologia" (area carteira "Oncologia",
+    // contexto fala em hematologia/quimioterapia oral) — clínica. NÃO recebe 301:
+    // é URL nova, igual reproducao-humana (a bare "oncologia" vai pra cá por ser a
+    // leitura mais central do termo, espelhando o precedente ginecologia).
+    slug: "oncologia-clinica",
     espec: "Oncologia",
-    titulo: "Marketing médico para oncologia",
+    nomeEixo: "Oncologia clínica",
+    titulo: "Marketing médico para oncologia clínica",
     descricao:
-      "Marketing para oncologista e clínica de oncologia: como a família pesquisa depois do diagnóstico e o que uma comunicação séria precisa responder — dentro do CFM.",
+      "Marketing para oncologista clínico: como a família pesquisa depois do diagnóstico e o que uma comunicação séria sobre tratamento oncológico precisa responder — dentro do CFM.",
     lede:
       "Depois de um diagnóstico de câncer, quem pesquisa quase nunca é só o paciente. É a família inteira, no mesmo dia, com pressa.",
     intro: [
-      "A busca em oncologia tem urgência e medo dentro dela. As perguntas são práticas — onde trata, em quanto tempo consegue começar, quais exames precisa levar, o plano cobre — e chegam por gente diferente ao mesmo tempo: o paciente, o filho, o cônjuge. Uma presença que responde isso com clareza e sem rodeio poupa dias de uma jornada em que dia importa.",
-      "É também a especialidade que menos tolera tom publicitário. Nada de promessa de cura, nada de estatística sem fonte, nada de imagem que romantize o tratamento. O que constrói confiança aqui é sobriedade: explicar o que é cada etapa, quem é a equipe, como funciona a estrutura, o que o paciente encontra quando chega. Material educativo e institucional bem feito faz esse trabalho melhor do que qualquer anúncio.",
-      "E existe o encaminhamento, que em oncologia responde por muita coisa. Ser encontrado pelo colega que encaminha, com informação organizada sobre linhas de tratamento e localização das unidades, é parte do mesmo trabalho de estrutura — e é o que sustenta a agenda quando a campanha não está no ar.",
+      "A busca em oncologia clínica tem urgência e medo dentro dela. As perguntas são práticas — onde trata, em quanto tempo consegue começar a quimioterapia, quais exames precisa levar, o plano cobre — e chegam por gente diferente ao mesmo tempo: o paciente, o filho, o cônjuge. Uma presença que responde isso com clareza e sem rodeio poupa dias de uma jornada em que dia importa.",
+      "É também a especialidade que menos tolera tom publicitário. Nada de promessa de cura, nada de estatística sem fonte, nada de imagem que romantize o tratamento. O que constrói confiança aqui é sobriedade: explicar o que é cada etapa do protocolo, quem é a equipe, como funciona a estrutura de infusão, o que o paciente encontra quando chega. Material educativo e institucional bem feito faz esse trabalho melhor do que qualquer anúncio.",
+      "E existe o encaminhamento, que em oncologia clínica responde por muita coisa. Ser encontrado pelo colega que encaminha, com informação organizada sobre linhas de tratamento e localização das unidades, é parte do mesmo trabalho de estrutura — e é o que sustenta a agenda quando a campanha não está no ar.",
     ],
+    // 3 de 3 — só a CON. < 4 peças ⇒ noindex obrigatório (régua §3.3 mecanizada).
     pecas: [
-      // Rodada 9: a CON passa a 3 de 6, então a ORDEM tem de segurar o eco de casa
-      // (§16.8.7-6). O cartão de visita novo fecha a GRADE, ficando na diagonal do
-      // panfleto (1) — a distância máxima dentro do bloco de 2 colunas —, e o site da
-      // Rayane desce um degrau pra que a coluna única não abra e feche na mesma casa.
-      // Reordenar pecas[] é curadoria declarada, não vassoura (§16.8.8-8).
       "marketing-medico-oncologia-rio-de-janeiro-panfleto-unidade",
-      "marketing-medico-oncologia-rio-de-janeiro-cartao-virtual",
-      "marketing-medico-oncologia-brasilia-ebook-cancer-colo-utero",
       "marketing-medico-oncologia-rio-de-janeiro-cartao-visita",
-      // Rodada 10: 2ª peça da Janina, canal INÉDITO na página (papelaria). Entra em 5 —
-      // abre a coluna única SEM reordenar nada: a sequência resultante é CON · JH · RY ·
-      // CON · JH · RY · CON, com ZERO par adjacente e três casas distintas nos 208px.
-      // Com 7 peças nenhuma casa passa de 3, então o par do §16.8.9-7 não se aplica aqui.
-      "marketing-medico-oncologia-rio-de-janeiro-papelaria-envelope",
-      "marketing-medico-oncologia-brasilia-site-cirurgia-oncologica",
-      // Rodada 8: 2ª peça da CON. Vai pro fim — é a posição mais distante do panfleto
-      // dela (1), que é o canal impresso vizinho. §16.8.7-6.
       "marketing-medico-oncologia-rio-de-janeiro-folder-quimioterapia-oral",
     ],
-    areasCarteira: ["Oncologia", "Oncologia Cirúrgica"],
-    waText: "Olá! Vi a página de marketing para oncologia no site da agência e quero conversar sobre a clínica.",
+    areasCarteira: ["Oncologia"],
+    noindex: true,
+    waText:
+      "Olá! Vi a página de marketing para oncologia clínica no site da agência e quero conversar sobre a clínica.",
+  },
+  {
+    // ⚠️ Metade CIRÚRGICA do split acima — URL NOVA (nunca teve página própria).
+    // Janina Huguenin (area carteira "Oncologia Cirúrgica" — inequívoca) e Rayane
+    // Cardoso (contexto do próprio site: "cirurgia oncológica e laparoscópica";
+    // area carteira dela é bare "Oncologia", mas o mapa D4 já a nomeia do lado
+    // cirúrgico — citação, não heurística).
+    slug: "cirurgia-oncologica",
+    espec: "Oncologia",
+    nomeEixo: "Cirurgia oncológica",
+    titulo: "Marketing médico para cirurgia oncológica",
+    descricao:
+      "Marketing para cirurgião oncológico: como o paciente decide entre opiniões antes de uma cirurgia de câncer, e o que a página precisa provar — dentro do CFM.",
+    lede: "Cirurgia oncológica é decisão que se pesquisa duas, três vezes antes de assinar o termo — a família compara equipe, técnica e estrutura.",
+    intro: [
+      "Quem chega à cirurgia oncológica já tem o diagnóstico e está comparando: qual cirurgião opera esse tipo de tumor com mais frequência, se existe abordagem laparoscópica em vez de aberta, qual hospital tem a estrutura de UTI que aquele porte de cirurgia pede. É pesquisa de decisão, não de primeiro contato — e ela premia quem explica técnica com clareza, sem prometer resultado.",
+      "A segunda opinião pesa mais aqui do que em quase qualquer outra cirurgia: o paciente leva o laudo de um cirurgião pra outro antes de marcar. Página que mostra currículo, técnica operatória e onde atende dá ao paciente o material que ele precisa pra essa comparação — e falta nisso é o motivo mais comum de a segunda opinião nem chegar a acontecer.",
+      "Nada de antes-e-depois, nada de estatística de sobrevida sem fonte, nada de imagem que abrevie o que é uma decisão difícil. O que sustenta a agenda é o mesmo de sempre: informação técnica, sóbria, assinada com nome e CRM.",
+    ],
+    // 4 de 4 — 2 casas (Janina, Rayane). Exatamente o piso do MIN_PECAS_INDEXAVEL.
+    pecas: [
+      "marketing-medico-oncologia-brasilia-site-cirurgia-oncologica",
+      "marketing-medico-oncologia-brasilia-ebook-cancer-colo-utero",
+      "marketing-medico-oncologia-rio-de-janeiro-cartao-virtual",
+      "marketing-medico-oncologia-rio-de-janeiro-papelaria-envelope",
+    ],
+    areasCarteira: ["Oncologia Cirúrgica"],
+    waText:
+      "Olá! Vi a página de marketing para cirurgia oncológica no site da agência e quero conversar sobre a clínica.",
   },
   {
     slug: "cardiologia",
@@ -350,45 +386,76 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Olá! Vi a página de marketing para otorrinolaringologia no site da agência e quero conversar sobre a clínica.",
   },
   {
-    slug: "saude-da-mulher",
+    // ⚠️ SPLIT de "saude-da-mulher" (F2 taxonomia, 2026-09-19) — rizzo-os →
+    // docs/TAXONOMIA_PRACAS_SITE_MAPA.md §2/§9.4.1: "saúde da mulher" era o
+    // agrupamento vago que o cliente mandou desfazer ("marketing para ginecologia"
+    // e "marketing para reprodução humana" são DUAS buscas). content/cidades.ts já
+    // provava a régua (Brasília declara os dois como eixos separados: Ginecologia
+    // = Maria Eduarda Amaral + Pedro Rosa; Reprodução humana = Bonvena +
+    // Portocarrero) — a atribuição de cada peça abaixo segue essa mesma fonte, não
+    // heurística de nome (§24.9). URL antiga faz 301 (next.config.ts, regra 6).
+    slug: "ginecologia",
     espec: "Saúde da Mulher",
-    titulo: "Marketing médico para saúde da mulher",
+    nomeEixo: "Ginecologia",
+    titulo: "Marketing médico para ginecologia",
     descricao:
-      "Marketing para ginecologia, obstetrícia, reprodução humana e menopausa: como se constrói a confiança que faz uma paciente ficar por anos — dentro das regras do CFM.",
+      "Marketing para ginecologista: como se constrói a confiança que faz uma paciente ficar por anos, atravessando fases da vida — dentro das regras do CFM.",
     lede:
-      "Saúde da mulher é a especialidade do vínculo longo: a paciente que escolhe bem fica anos, atravessa fases da vida e indica para as amigas.",
+      "Ginecologia é a especialidade do vínculo longo: a paciente que escolhe bem fica anos, atravessa fases da vida e indica para as amigas.",
     intro: [
-      "A escolha de um ginecologista raramente é feita pelo preço ou pela distância. É feita por afinidade — e a pesquisa que antecede essa escolha procura sinais de como é ser atendida ali: como o médico fala, o que ele escreve, se trata assuntos delicados com naturalidade. É por isso que conteúdo tem tanto peso nesta área: a paciente lê antes de marcar, e decide pelo tom.",
-      "Dentro do mesmo guarda-chuva convivem buscas muito diferentes. Menopausa é procurada por quem quer entender sintoma e qualidade de vida; reprodução humana é procurada por quem está numa jornada difícil e compara clínica com muito cuidado; endometriose e cirurgia ginecológica chegam por dor que já se arrasta. Cada uma dessas frentes merece a sua própria página, com a sua linguagem — juntar tudo em \"ginecologia e obstetrícia\" é falar com ninguém.",
-      "E o cuidado ético é grande: nada de prometer gravidez, nada de estatística de sucesso sem lastro, nada de exposição de paciente. O que sustenta a agenda é presença constante, informação verdadeira e a indicação que nasce de quem foi bem atendida.",
+      "A escolha de um ginecologista raramente é feita pelo preço ou pela distância. É feita por afinidade — e a pesquisa que antecede essa escolha procura sinais de como é ser atendida ali: como a médica fala, o que ela escreve, se trata assuntos delicados com naturalidade. É por isso que conteúdo tem tanto peso nesta área: a paciente lê antes de marcar, e decide pelo tom.",
+      "Menopausa, endometriose, histeroscopia, pré-natal — cada fase da vida da paciente traz uma busca diferente, e quem responde por escrito, com nome e CRM, chega à consulta com metade da conversa já resolvida. O que não muda é o cuidado ético: nada de estatística de sucesso sem lastro, nada de exposição de paciente, nada de promessa em cima de sintoma delicado.",
+      "O que sustenta a agenda é presença constante, informação verdadeira e a indicação que nasce de quem foi bem atendida — em ginecologia, a amiga que indica vale mais do que qualquer anúncio.",
     ],
-    // 7 de 7 (rodada 7). A grade mantém os 4 que já estavam lá; a coluna única
-    // recebe os 3 novos na ordem que evita eco (§16.8.6-7): o e-book do Portocarrero
-    // repete o canal do e-book da posição 1, então entra no MEIO da coluna — e as
-    // duas peças da Lúmina ficam separadas por ele, em vez de empilhadas.
-    // Rodada 14 — 2ª SUBSTITUIÇÃO da régua §16.8-3: o portfólio da Dra. Aline Mello
-    // (a especialidade foi decisão do cliente — a arte assina Diagnóstico por Imagem
-    // E Medicina Fetal, e ele mandou pra cá, §16.8.11-7) entra no slot 7 no lugar do
-    // receituário da Lúmina: era a última instância em página da família
-    // timbrado/receituário (vetada 4× — §16.8.8-7 em diante), e a Lúmina segue
-    // presente no slot 5. A página vai a 7 casas distintas; o receituário segue na
-    // parede do /clientes. Aresta 6-7 (e-book × portfólio impresso): casas e canais
-    // distintos; o outro portfólio impresso (Sense, slot 4) não faz aresta com o 7.
+    // 7 de 7 — a mesma ordem/curadoria da página combinada (rodada 7/14/20), menos
+    // a peça de reprodução humana (Portocarrero, que sai pra reproducao-humana).
+    // A retirada de 1 peça de uma página de 8 devolve o teto de 7 sozinha — zero
+    // reordenação nova (§🌿-2: aditivo, nunca vassoura).
+    // ⚠️ Fabyanne Mazutti saiu daqui na 2ª rodada de evidência: carteira.ts a
+    // classifica como "Endoscopia Ginecológica", mas public.client_specialty_axes
+    // (banco real, R-DB já verificado por impersonação) diz PRIMÁRIA
+    // reproducao-humana — o banco é dono (decisão D5) e venceu a carteira.
     pecas: [
-      "marketing-medico-reproducao-humana-brasilia-ebook-fertilidade",
-      "marketing-medico-ginecologia-brasilia-site",
-      "marketing-medico-menopausa-salvador-site",
-      "marketing-medico-ginecologia-brasilia-portfolio-impresso",
-      "marketing-medico-ginecologia-brasilia-cartao-visita",
-      "marketing-medico-reproducao-humana-brasilia-ebook-inseminacao",
-      "marketing-medico-ultrassonografia-ceres-portfolio-impresso",
-      // Rodada 20: casa nova (Dra. Mirian Hoeschl) na 8ª, atrás do "Veja mais"
-      // (§16.8.19-3); a página vai a 8 casas distintas.
-      "marketing-medico-ginecologia-brasilia-folder-histeroscopia",
+      "marketing-medico-reproducao-humana-brasilia-ebook-fertilidade", // Dra. Maria Eduarda Amaral — eixo Ginecologia em client_specialty_axes E cidades.ts
+      "marketing-medico-menopausa-salvador-site", // Instituto CV — menopausa é ginecologia, não reprodução (sem linha no banco, só acervo)
+      "marketing-medico-ginecologia-brasilia-portfolio-impresso", // Sense Ginecologia (sem linha no banco, só acervo)
+      "marketing-medico-ginecologia-brasilia-cartao-visita", // Clínica Lúmina (sem linha no banco, só acervo)
+      "marketing-medico-ultrassonografia-ceres-portfolio-impresso", // Dra. Aline Mello — medicina fetal/obstétrica (sem linha no banco, só acervo)
+      "marketing-medico-ginecologia-brasilia-folder-histeroscopia", // Dra. Mirian Hoeschl Abreu
     ],
-    areasCarteira: ["Saúde da Mulher", "Ginecologia", "Medicina Reprodutiva", "Endoscopia Ginecológica", "Mastologia"],
+    // "Saúde da Mulher" (carteira.ts) mistura os dois eixos e NÃO entra aqui — ver
+    // nota no doc-mapa (§21.3): 13 nomes reais ficam sem grupo na carteira até o
+    // specialty_aliases (R-DB2, §21.2) resolver os três vocabulários sem heurística.
+    areasCarteira: ["Ginecologia", "Mastologia"],
     waText:
-      "Olá! Vi a página de marketing para saúde da mulher no site da agência e quero conversar sobre o meu consultório.",
+      "Olá! Vi a página de marketing para ginecologia no site da agência e quero conversar sobre o meu consultório.",
+  },
+  {
+    // ⚠️ Metade REPRODUÇÃO HUMANA do split acima — URL NOVA (nunca teve página
+    // própria; a antiga "saude-da-mulher" vira ginecologia, não esta).
+    slug: "reproducao-humana",
+    espec: "Saúde da Mulher",
+    nomeEixo: "Reprodução humana",
+    titulo: "Marketing médico para reprodução humana",
+    descricao:
+      "Marketing para clínica de reprodução humana: como um casal pesquisa antes de escolher onde tratar infertilidade, com o cuidado ético que a especialidade exige — dentro do CFM.",
+    lede:
+      "Reprodução humana é procurada por quem já está numa jornada difícil, e compara clínica com um cuidado que nenhuma outra especialidade pede.",
+    intro: [
+      "Quem chega a uma clínica de reprodução humana já pesquisou por meses, às vezes por anos. A busca é comparativa e detalhada: taxa de sucesso do centro, técnicas disponíveis, se existe acompanhamento psicológico junto do tratamento. É pesquisa feita a duas cabeças — o casal decide junto — e ela recompensa quem explica o processo com clareza, sem prometer resultado.",
+      "O cuidado ético aqui é o mais estrito de toda a saúde da mulher: nada de prometer gravidez, nada de estatística de sucesso sem fonte auditável, nada de linguagem que trate um tratamento doloroso como produto. O que constrói confiança é material educativo sério — o que é cada etapa, quanto tempo dura, o que esperar — assinado por quem responde pelo CRM.",
+    ],
+    // 4 de 4 (Portocarrero × 2 + Elielma + Fabyanne Mazutti) — bate o piso do
+    // MIN_PECAS_INDEXAVEL, então a página NASCE indexável, mesmo sendo URL nova.
+    pecas: [
+      "marketing-medico-reproducao-humana-brasilia-ebook-inseminacao", // Dr. Carlos Portocarrero — eixo Reprodução humana em cidades.ts E client_specialty_axes
+      "marketing-medico-reproducao-assistida-brasilia-site", // Dr. Carlos Portocarrero — 2ª peça, "reprodução assistida e endometriose"
+      "marketing-medico-reproducao-humana-brasilia-site", // Dra. Elielma Almeida — client_specialty_axes: Nutrologia (primária) + Reprodução humana
+      "marketing-medico-ginecologia-brasilia-site", // Dra. Fabyanne Mazutti — client_specialty_axes: PRIMÁRIA reproducao-humana (banco vence a carteira.ts, que a rotulava "Endoscopia Ginecológica")
+    ],
+    areasCarteira: ["Medicina Reprodutiva", "Endoscopia Ginecológica"],
+    waText:
+      "Olá! Vi a página de marketing para reprodução humana no site da agência e quero conversar sobre a clínica.",
   },
   {
     slug: "angiologia-e-vascular",
