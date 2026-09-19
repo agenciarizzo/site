@@ -142,7 +142,13 @@ export const PARES_ESPECIALIDADE_PRACA: ParEspecialidadePraca[] = [
       "Marketing para ortopedista em Goiânia: dor que já dura meses, segunda opinião e decisão de operar — como aparecer pra quem pesquisa na capital goiana, dentro do CFM.",
     lede: "Ninguém em Goiânia procura ortopedista por curiosidade. Procura depois de meses de dor, com exame na mão e o nome de uma cirurgia que ainda não entendeu direito.",
     intro: [
-      "A cidade tem histórico de investimento em marketing médico digital — Goiânia é uma das praças com mais impressão acumulada da agência — e isso significa um paciente mais acostumado a pesquisar antes de escolher: comparar clínicas, ler sobre a cirurgia, procurar o nome do médico antes de marcar. Página por procedimento responde exatamente esse hábito de comparação.",
+      // A F3 reescreveu este parágrafo. O original dizia "Goiânia é uma das praças
+      // com mais impressão acumulada da agência" e daí CONCLUÍA que o paciente de lá
+      // pesquisa mais: impressão é métrica de Search Console da agência, não fato
+      // sobre o paciente — e a página não fala de si (regra 1 do CLAUDE.md do site).
+      // O histórico da praça segue valendo como razão pra ela estar na fatia (§29 do
+      // mapa); ele só não entra no copy público como se fosse dado do leitor.
+      "Goiânia é mercado maduro pra ortopedia: muita clínica, muito especialista de quadril e joelho, e um paciente que chega tendo comparado nomes antes de marcar — leu sobre a cirurgia, procurou o médico, olhou onde ele opera. Uma página por procedimento, e não uma página só dizendo “ortopedia”, é o que responde esse hábito de comparação.",
       "Segunda opinião é rotina em Goiânia como em qualquer capital: quem já ouviu um diagnóstico procura confirmar antes de decidir. Explicar com clareza o que a cirurgia resolve, o que não resolve e o tempo real de recuperação constrói mais confiança do que qualquer campanha de captação isolada.",
       "Proximidade e convênio decidem boa parte do resto: o paciente com dor não atravessa a cidade se existe bom profissional perto, e conferir se a clínica atende o plano dele é um dos primeiros filtros que ele aplica — muitas vezes antes de olhar currículo.",
     ],

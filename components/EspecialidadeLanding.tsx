@@ -190,12 +190,21 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
   // divergem: `ortopedia-e-traumatologia` × `parede-ortopediaetraumatologia`).
   // (A parede morava em /clientes; virou /portfolio em 2026-08-25.)
   const naParede = `/portfolio#parede-${chave(e.espec)}`;
-  // D9/B2 (F2 taxonomia, Fatia B): páginas com `especsExtra` (ex.: clínica médica
-  // abrigando "Hospital") contam as peças das duas specs — senão a frase abaixo
-  // ("o acervo inteiro está no portfólio") ficaria falsa quando `pecas.length`
-  // ultrapassa o que só a `espec` primária tem no acervo.
+  // D9/B2 (F2 taxonomia, Fatia B): página com `especsExtra` (ex.: clínica médica
+  // abrigando "Hospital") mostra peça de mais de uma espec, e aí as duas contas da
+  // frase lá embaixo DEIXAM DE SER A MESMA — de propósito:
+  //   `totalNoAcervo` responde "sobrou peça no acervo?" (o GATILHO da frase) e conta
+  //   TODAS as especs da página; sem isso a clínica médica cai no texto genérico,
+  //   que dá a entender que a página mostra tudo (mostra 12 das 14).
+  //   `naParedeDaEspec` é o NÚMERO dentro da frase: a parede que o link abre é
+  //   indexada pela `espec` primária, então número e rótulo saem da mesma conta
+  //   (o ⚠️ logo acima da frase). Somar as duas ali diria "as 14 de clínica médica"
+  //   onde 5 das 14 são da espec "Hospital" — número errado com rótulo certo, a
+  //   mesma doença do ⚠️ pelo outro lado.
+  // Nas 19 páginas sem `especsExtra`, as duas contas dão o mesmo valor de sempre.
   const especsDaPagina = new Set([e.espec, ...(e.especsExtra ?? [])]);
   const totalNoAcervo = PORTFOLIO.filter((p) => especsDaPagina.has(p.espec)).length;
+  const naParedeDaEspec = PORTFOLIO.filter((p) => p.espec === e.espec).length;
   // Mesmo `nome` do JSON-LD acima: o rótulo da PÁGINA, não a chave do portfólio.
   const nome = e.nomeEixo ?? e.espec;
 
@@ -292,7 +301,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
             <p>
               {totalNoAcervo > pecas.length ? (
                 <>
-                  Estas são as peças que escolhemos mostrar aqui. O acervo inteiro — as {totalNoAcervo} de{" "}
+                  Estas são as peças que escolhemos mostrar aqui. O acervo inteiro — as {naParedeDaEspec} de{" "}
                   {e.espec.toLowerCase()} e as das outras especialidades — está no{" "}
                   <Link href={naParede}>portfólio</Link>.
                 </>

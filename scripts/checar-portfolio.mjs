@@ -44,6 +44,8 @@
 // leitura da imagem, na entrada do registro (§34 do doc-mapa: a arte é a fonte).
 import { readFileSync, existsSync } from "fs";
 import { join } from "path";
+// Fonte única do stripper (era função local aqui) — ver scripts/lib/sem-comentarios.mjs.
+import { semComentarios } from "./lib/sem-comentarios.mjs";
 
 const ler = (p) => readFileSync(join(process.cwd(), p), "utf8");
 
@@ -124,6 +126,8 @@ const ancoras = new Map();
 const especPorBasename = new Map();
 /** basename → cliente: quem conta os DONOS das peças de uma página (régua §16.8.4). */
 const clientePorBasename = new Map();
+/** basename → `praca` ("Cidade/UF"): quem confere a PRAÇA das peças de um par (B7). */
+const pracaPorBasename = new Map();
 for (const bloco of blocos) {
   const campo = (nome) => bloco.match(new RegExp(`\\b${nome}:\\s*"([^"]*)"`))?.[1];
   const cliente = campo("cliente");
@@ -157,6 +161,7 @@ for (const bloco of blocos) {
     else ancoras.set(ancora, imagem);
     if (espec) especPorBasename.set(basenameDe(imagem), espec);
     if (cliente) clientePorBasename.set(basenameDe(imagem), cliente);
+    if (campo("praca")) pracaPorBasename.set(basenameDe(imagem), campo("praca"));
   }
 
   for (const m of (bloco.match(/cartas:\s*\[([^\]]*)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g)) {
@@ -165,48 +170,6 @@ for (const bloco of blocos) {
 }
 
 // ── As PÁGINAS de especialidade (content/especialidades.ts, §16.8) ───────────────
-
-/**
- * Tira comentários (`//` e bloco) SEM tocar no conteúdo das aspas — a lição do
- * §16.6-6 é que comentário lido como dado afrouxa o gate em silêncio. Varre caractere
- * a caractere de propósito: regex não sabe se a `//` que encontrou está dentro de uma
- * string (e o registry tem URL, escape de aspas e barra no meio do texto).
- */
-function semComentarios(src) {
-  let fora = "";
-  let aspas = null; // " ' ou `
-  for (let i = 0; i < src.length; i++) {
-    const c = src[i];
-    if (aspas) {
-      if (c === "\\") {
-        fora += c + (src[i + 1] ?? "");
-        i++;
-        continue;
-      }
-      if (c === aspas) aspas = null;
-      fora += c;
-      continue;
-    }
-    if (c === '"' || c === "'" || c === "`") {
-      aspas = c;
-      fora += c;
-      continue;
-    }
-    if (c === "/" && src[i + 1] === "/") {
-      while (i < src.length && src[i] !== "\n") i++;
-      fora += "\n";
-      continue;
-    }
-    if (c === "/" && src[i + 1] === "*") {
-      i += 2;
-      while (i < src.length && !(src[i] === "*" && src[i + 1] === "/")) i++;
-      i++;
-      continue;
-    }
-    fora += c;
-  }
-  return fora;
-}
 
 const areasCarteiraValidas = new Set([...ler("content/carteira.ts").matchAll(/area:\s*"([^"]+)"/g)].map((m) => m[1]));
 
@@ -307,7 +270,7 @@ for (const bloco of blocosPagina) {
         "mas peça de um dono só é um caso, não um acervo (§16.8.4)",
     );
 
-  if (slug) maePorSlug.set(slug, { espec, lede: campo("lede"), intro: lista("intro") });
+  if (slug) maePorSlug.set(slug, { espec, especsAceitas, lede: campo("lede"), intro: lista("intro") });
 }
 
 // ── B7 (§27/§28/§30 do mapa) — os PARES (especialidade × praça) ──────────────
@@ -320,7 +283,25 @@ const corpoPares = paresSrc.slice(paresSrc.indexOf("export const PARES_ESPECIALI
 const arrayPares = corpoPares.slice(0, corpoPares.indexOf("\n];"));
 const blocosPares = [...arrayPares.matchAll(/\{[^{}]*\}/g)].map((m) => m[0]);
 
-const pracasValidas = new Set([...ler("content/pracas.ts").matchAll(/\bslug:\s*"([^"]+)"/g)].map((m) => m[1]));
+const pracasSrc = semComentarios(ler("content/pracas.ts"));
+const blocosPraca = [...pracasSrc.matchAll(/\{[^{}]*\}/g)].map((m) => m[0]);
+const pracasValidas = new Set();
+/** slug da praça → nomes da PRAÇA LARGA (ela + as RA/entorno que sobem pra ela). */
+const nomesDaPracaLarga = new Map();
+for (const b of blocosPraca) {
+  const slugPraca = b.match(/\bslug:\s*"([^"]+)"/)?.[1];
+  if (!slugPraca) continue;
+  pracasValidas.add(slugPraca);
+  const nomePraca = b.match(/\bnome:\s*"([^"]+)"/)?.[1];
+  const pai = b.match(/\bpracaPaiSlug:\s*"([^"]+)"/)?.[1];
+  if (!nomePraca) continue;
+  // Mesma conta do `pracasDaProvaLarga()` de content/pracas.ts: a raiz + quem
+  // declara `pracaPaiSlug` apontando pra ela.
+  for (const chave of [slugPraca, pai].filter(Boolean)) {
+    if (!nomesDaPracaLarga.has(chave)) nomesDaPracaLarga.set(chave, new Set());
+    nomesDaPracaLarga.get(chave).add(nomePraca);
+  }
+}
 
 const vistosPorSlugPraca = new Set();
 /** basename+espec já usado por outro par irmão — pra detectar repetição (B7). */
@@ -373,8 +354,25 @@ for (const bloco of blocosPares) {
       erros.push(`${quem}: peça "${b}" não existe em content/portfolio.ts`);
       continue;
     }
-    if (mae.espec && especDaPeca !== mae.espec)
-      erros.push(`${quem}: peça "${b}" é de "${especDaPeca}", não de "${mae.espec}" (espec da página-mãe)`);
+    // §28-B7 diz "espec ∈ especs da MÃE" — e as especs da mãe são
+    // `[espec, ...especsExtra]` (D9), a mesma conta do gate 7 logo acima. Prender
+    // só na `espec` primária reprovaria um par de clínica médica com peça de
+    // "Hospital", que é exatamente o caso pelo qual o `especsExtra` existe.
+    if (mae.especsAceitas.size > 0 && !mae.especsAceitas.has(especDaPeca))
+      erros.push(
+        `${quem}: peça "${b}" é de "${especDaPeca}", que não é "${mae.espec}" nem está no \`especsExtra\` da página-mãe`,
+      );
+    // §28-B7 "praça ∈ praça larga" — a metade que faltava, e que a linha final
+    // deste script já ANUNCIAVA ter conferido. Sem ela, peça de outra praça passa
+    // a régua ≥4/≥2 (que conta a lista DECLARADA) e o ProvaLocalPecas a descarta
+    // em silêncio no render: a página sai com menos prova do que a régua exigiu.
+    const pracaDaPeca = pracaPorBasename.get(b) ?? "";
+    const nomesLargos = [...(nomesDaPracaLarga.get(pracaSlug) ?? [])];
+    if (nomesLargos.length > 0 && !nomesLargos.some((n) => pracaDaPeca.startsWith(n)))
+      erros.push(
+        `${quem}: peça "${b}" é de "${pracaDaPeca}", fora da praça larga (${nomesLargos.sort().join(" · ")}) — ` +
+          "o ProvaLocalPecas a descartaria no render e a página sairia com menos peça do que a régua conta",
+      );
     const chavePeca = `${mae.espec}·${b}`;
     const outroPar = pecaDoEspecUsadaPor.get(chavePeca);
     if (outroPar && outroPar !== chaveParSlug)
