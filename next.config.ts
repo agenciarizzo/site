@@ -98,6 +98,13 @@ const LEGADO: Array<{ de: string; para: string }> = [
 
 /** Rotas exatas sem variante `.html`. */
 const EXATOS: Array<{ de: string; para: string }> = [
+  // Taxonomia F2 (rizzo-os → docs/TAXONOMIA_PRACAS_SITE_MAPA.md §9.4.1, regra 6):
+  // as duas páginas de especialidade que misturavam duas buscas se separaram.
+  // A URL antiga soma a impressão/clique de quem ficava na leitura mais central
+  // do termo; a metade nova (reproducao-humana / cirurgia-oncologica) nasce sem
+  // histórico, então não recebe 301 nenhum.
+  { de: "/marketing-medico/saude-da-mulher", para: "/marketing-medico/ginecologia" },
+  { de: "/marketing-medico/oncologia", para: "/marketing-medico/oncologia-clinica" },
   // Hub novo: /cartas (sem slug) nunca foi página — só o índice por mídia existe agora.
   { de: "/cartas", para: "/marketing-medico" },
   // Taxonomia do WordPress com destino tópico melhor que "/".
