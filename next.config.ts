@@ -98,6 +98,15 @@ const LEGADO: Array<{ de: string; para: string }> = [
 
 /** Rotas exatas sem variante `.html`. */
 const EXATOS: Array<{ de: string; para: string }> = [
+  // Taxonomia F2 (rizzo-os → docs/TAXONOMIA_PRACAS_SITE_MAPA.md §9.4.1, regra 6):
+  // "saude-da-mulher" era o agrupamento vago que o cliente mandou desfazer, e
+  // separá-lo renomeia URL indexada — daí o 301 no MESMO PR. A metade nova
+  // (reproducao-humana) nasce sem histórico e não recebe 301 nenhum.
+  // ⚠️ "oncologia" NÃO se separa nesta fatia (decisão da F3, 2026-09-19): a metade
+  // clínica fica com 3 peças de 1 cliente só, abaixo do piso do checar-portfolio,
+  // e o 301 apontaria uma URL indexada pra uma página noindex. Fatia B separa,
+  // depois de curar uma 4ª peça clínica no acervo. §⚖️ + critério §11-11 do mapa.
+  { de: "/marketing-medico/saude-da-mulher", para: "/marketing-medico/ginecologia" },
   // Hub novo: /cartas (sem slug) nunca foi página — só o índice por mídia existe agora.
   { de: "/cartas", para: "/marketing-medico" },
   // Taxonomia do WordPress com destino tópico melhor que "/".
