@@ -27,6 +27,32 @@ if (!existsSync(snapshotPath)) {
 
 const { linhas } = JSON.parse(readFileSync(snapshotPath, "utf8"));
 
+// ── B1 (§26.3/§28 do mapa): todo `eixoSlug` DECLARADO em content/especialidades.ts
+// precisa existir em alguma linha do snapshot — senão QuemAtendeAqui/BlocoExclusividade
+// casariam com um eixo que o banco não conhece, e a seção sumiria em silêncio (§⚖️),
+// exatamente o defeito que esta fatia cura. Só valida quem DECLARA o campo — página
+// sem `eixoSlug` continua usando `slug`, como sempre (comportamento intacto).
+{
+  const eixosConhecidos = new Set(linhas.map((l) => l.especialidadeSlug));
+  const especialidadesSrc = readFileSync(join(process.cwd(), "content", "especialidades.ts"), "utf8");
+  const corpo = especialidadesSrc.slice(especialidadesSrc.indexOf("export const ESPECIALIDADES"));
+  const arrayEspecialidades = corpo.slice(0, corpo.indexOf("\n];"));
+  const errosEixo = [];
+  for (const bloco of arrayEspecialidades.matchAll(/\{[^{}]*\}/g)) {
+    const b = bloco[0];
+    const slug = b.match(/\bslug:\s*"([^"]*)"/)?.[1];
+    const eixoSlug = b.match(/\beixoSlug:\s*"([^"]*)"/)?.[1];
+    if (!eixoSlug) continue;
+    if (!eixosConhecidos.has(eixoSlug))
+      errosEixo.push(`/marketing-medico/${slug}: eixoSlug "${eixoSlug}" não existe em nenhuma linha do snapshot`);
+  }
+  if (errosEixo.length > 0) {
+    console.error(`✗ checar-exclusividade: ${errosEixo.length} eixoSlug inválido(s):`);
+    for (const e of errosEixo) console.error("  - " + e);
+    process.exit(1);
+  }
+}
+
 /** §6.1 do mapa, aplicado ao snapshot congelado. */
 function vagaFechada(especialidadeSlug, pracaSlug) {
   return linhas.some(
