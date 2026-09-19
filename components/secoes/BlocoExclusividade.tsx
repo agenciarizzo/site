@@ -16,13 +16,17 @@ import type { PaginaEspecialidade } from "@/content/especialidades";
 import type { Praca } from "@/content/pracas";
 
 export function BlocoExclusividade({ e, praca }: { e: PaginaEspecialidade; praca: Praca }) {
-  const temClausula = vagaFechada(e.slug, praca.slug);
+  // §26.3 do mapa: mesmo cuidado do QuemAtendeAqui — o eixo do banco pode
+  // divergir do slug da ROTA, e é ele que `vagaFechada` precisa pra casar com
+  // o snapshot.
+  const eixo = e.eixoSlug ?? e.slug;
+  const temClausula = vagaFechada(eixo, praca.slug);
   // Ausência honesta: sem cláusula real, a seção não existe — não é "livre" por
   // omissão, é omissão mesmo (§⚖️). O atributo só é emitido quando o bloco
   // efetivamente renderiza, então o checker nunca vê "livre" declarado à toa.
   if (!temClausula) return null;
   return (
-    <p data-exclusividade-eixo={e.slug} data-exclusividade-praca={praca.slug} data-exclusividade-status="fechada">
+    <p data-exclusividade-eixo={eixo} data-exclusividade-praca={praca.slug} data-exclusividade-status="fechada">
       A agência já atende {(e.nomeEixo ?? e.espec).toLowerCase()} com exclusividade em {praca.nome}/{praca.uf}.
     </p>
   );

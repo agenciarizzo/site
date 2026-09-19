@@ -50,6 +50,28 @@ export interface PaginaEspecialidade {
    */
   nomeEixo?: string;
   /**
+   * Slug do eixo em `public.specialties` (F2 taxonomia), quando diverge de `slug`
+   * (a última parte da ROTA da página). Rizzo-os → docs/TAXONOMIA_PRACAS_SITE_MAPA.md
+   * §26.3: `clientesDaProvaLarga()`/`vagaFechada()` leem o eixo pra casar com
+   * `content/clientes-snapshot.json#especialidadeSlug` — nas 5 páginas onde a rota
+   * é mais curta/genérica que o nome do eixo no banco (ex.: rota `urologia`, eixo
+   * `urologia-e-andrologia`), usar `slug` ali erra o cliente. Ausente = usa `slug`
+   * (as 15 páginas onde os dois já coincidem). DECLARADO, nunca derivado por
+   * heurística de nome (§24.9) — `scripts/checar-exclusividade.mjs` reprova o build
+   * se o valor não existir em nenhuma linha do snapshot.
+   */
+  eixoSlug?: string;
+  /**
+   * Especialidades ADICIONAIS cujas peças esta página pode abrigar, além de `espec`
+   * (D9, §27 do mapa — ex.: clínica médica abrigando a espec "Hospital", que não
+   * tem página própria). `espec` continua sendo a chave PRIMÁRIA — âncora da
+   * parede, contagem do acervo — e `especsExtra` é aditivo: nunca substitui `espec`
+   * nem precisa ser declarado (ausente = só a própria `espec`, como sempre foi).
+   * `scripts/checar-portfolio.mjs` valida cada peça de `pecas` contra
+   * `[espec, ...especsExtra]`, e cada valor de `especsExtra` contra a lista fechada.
+   */
+  especsExtra?: string[];
+  /**
    * <title> keyword-first — o layout soma " | Agência Rizzo" (16 CARACTERES), então
    * este campo tem teto de 44 pra página ficar nos 60 que a SERP mostra.
    *
@@ -86,6 +108,8 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "urologia",
     espec: "Urologia",
+    // §26.3 do mapa: o eixo em public.specialties é mais específico que a rota.
+    eixoSlug: "urologia-e-andrologia",
     titulo: "Marketing médico para urologia",
     descricao:
       "Marketing para urologista: como um consultório de urologia é encontrado por quem adia a consulta — site, conteúdo sobre próstata, vasectomia e cirurgia, dentro do CFM.",
@@ -182,6 +206,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "clinica-medica",
     espec: "Clínica Médica",
+    // §26.3 do mapa: o eixo em public.specialties é mais específico que a rota.
+    eixoSlug: "clinica-medica-e-policlinica",
+    // D9/G (§27): absorve as 5 peças da espec "Hospital", que não tem página própria.
+    especsExtra: ["Hospital"],
     titulo: "Marketing para clínica médica",
     descricao:
       "Marketing para clínica médica, policlínica e centro clínico: como uma casa com várias especialidades é encontrada, do mapa ao site — sem promessa de resultado.",
@@ -200,6 +228,15 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-clinica-medica-pindamonhangaba-site",
       "marketing-clinica-medica-corrente-piaui-site",
       "marketing-clinica-medica-corrente-piaui-outdoor-especialistas",
+      // F2 taxonomia, Fatia B (D9/G, §27/§28-B3): as 5 peças da espec "Hospital"
+      // (que não tem página própria, §26.4) — 3 casas, atrás do "Veja mais"
+      // (a dobra de 7 já estava cheia). Ordem pela dobra 4+3: Remanso primeiro
+      // (3 peças, a casa com mais prova), Daher e Edmundo Fernandes depois.
+      "marketing-hospital-remanso-bahia-folder-institucional",
+      "marketing-hospital-remanso-bahia-cartao-visita",
+      "marketing-hospital-remanso-bahia-site",
+      "marketing-hospital-brasilia-folder-cirurgia-segura",
+      "marketing-hospital-uruacu-goias-portfolio-digital",
     ],
     areasCarteira: ["Saúde Geral"],
     waText: "Olá! Vi a página de marketing para clínica médica no site da agência e quero conversar sobre a clínica.",
@@ -207,6 +244,8 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "cirurgia-do-aparelho-digestivo",
     espec: "Cirurgia do Aparelho Digestivo",
+    // §26.3 do mapa: o eixo em public.specialties é mais específico que a rota.
+    eixoSlug: "cirurgia-do-aparelho-digestivo-e-bariatrica",
     titulo: "Marketing médico para cirurgia digestiva",
     descricao:
       "Marketing para cirurgião do aparelho digestivo: bariátrica, hérnia, refluxo e vesícula — como o paciente pesquisa antes de decidir operar, dentro das regras do CFM.",
@@ -257,6 +296,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "oncologia",
     espec: "Oncologia",
+    // §26.3 do mapa: o eixo em public.specialties é mais específico que a rota
+    // (a página segue abrigando cirurgia-oncologica + oncologia-clinica juntas
+    // enquanto o split do §22.2 não sai).
+    eixoSlug: "cirurgia-oncologica",
     titulo: "Marketing médico para oncologia",
     descricao:
       "Marketing para oncologista e clínica de oncologia: como a família pesquisa depois do diagnóstico e o que uma comunicação séria precisa responder — dentro do CFM.",
@@ -445,6 +488,8 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
   {
     slug: "angiologia-e-vascular",
     espec: "Angiologia e Vascular",
+    // §26.3 do mapa: o eixo em public.specialties é mais específico que a rota.
+    eixoSlug: "cirurgia-vascular-e-angiologia",
     titulo: "Marketing médico para angiologia e vascular",
     descricao:
       "Marketing para angiologista e cirurgião vascular: varizes, lipedema e circulação — como o paciente decide perto de casa, com informação e sem promessa de resultado.",
