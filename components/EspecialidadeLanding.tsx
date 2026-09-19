@@ -190,7 +190,12 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
   // divergem: `ortopedia-e-traumatologia` × `parede-ortopediaetraumatologia`).
   // (A parede morava em /clientes; virou /portfolio em 2026-08-25.)
   const naParede = `/portfolio#parede-${chave(e.espec)}`;
-  const totalNoAcervo = PORTFOLIO.filter((p) => p.espec === e.espec).length;
+  // D9/B2 (F2 taxonomia, Fatia B): páginas com `especsExtra` (ex.: clínica médica
+  // abrigando "Hospital") contam as peças das duas specs — senão a frase abaixo
+  // ("o acervo inteiro está no portfólio") ficaria falsa quando `pecas.length`
+  // ultrapassa o que só a `espec` primária tem no acervo.
+  const especsDaPagina = new Set([e.espec, ...(e.especsExtra ?? [])]);
+  const totalNoAcervo = PORTFOLIO.filter((p) => especsDaPagina.has(p.espec)).length;
   // Mesmo `nome` do JSON-LD acima: o rótulo da PÁGINA, não a chave do portfólio.
   const nome = e.nomeEixo ?? e.espec;
 

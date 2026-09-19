@@ -1,12 +1,11 @@
 // Página de ESPECIALIDADE × PRAÇA — rizzo-os → docs/TAXONOMIA_PRACAS_SITE_MAPA.md,
-// F2 "Fatia A (o molde)", item 5. Rota NOVA (a de especialidade sozinha, em
-// app/marketing-medico/[slug], já existia).
+// F2 "Fatia B (as praças)". Rota nasceu na Fatia A ("o molde"), com só o par de
+// prova (ginecologia × brasília); esta fatia cura os 12 pares que passam a
+// régua D7 (§29/§30 do mapa) — `content/especialidade-praca.ts` é a fonte única,
+// tanto de `generateStaticParams` quanto do texto (§26.5/D10: nunca o da mãe).
 //
-// generateStaticParams fica DELIBERADAMENTE ESTREITO nesta fatia — só o par que
-// o prompt pediu como prova (ginecologia × brasília). Gerar as 33 especialidades
-// × 33 praças agora produziria dezenas de páginas finas ou vazias sem revisão —
-// exatamente o que §⚖️ ("se não dá pra fazer corretamente, não faz") e a régua
-// anti-doorway (§3.3) proíbem. Fatia B/C expande com o aceite do cliente.
+// A régua que trava página nova continua a mesma (§3.3/§⚖️): par sem ≥4 peças
+// de ≥2 casas + texto local escrito não entra no registry — não é gerado "fino".
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { especialidadePorSlug } from "@/content/especialidades";
@@ -20,14 +19,15 @@ import { QuemAtendeAqui } from "@/components/secoes/QuemAtendeAqui";
 import { BlocoExclusividade } from "@/components/secoes/BlocoExclusividade";
 
 export function generateStaticParams() {
-  return PARES_ESPECIALIDADE_PRACA;
+  return PARES_ESPECIALIDADE_PRACA.map((par) => ({ slug: par.slug, praca: par.praca }));
 }
 
 function dados(slug: string, pracaSlug: string) {
   const e = especialidadePorSlug(slug);
   const praca = pracaBySlug(pracaSlug);
-  if (!e || !praca) return null;
-  return { e, praca };
+  const par = PARES_ESPECIALIDADE_PRACA.find((p) => p.slug === slug && p.praca === pracaSlug);
+  if (!e || !praca || !par) return null;
+  return { e, praca, par };
 }
 
 export async function generateMetadata({
@@ -38,15 +38,14 @@ export async function generateMetadata({
   const { slug, praca: pracaSlug } = await params;
   const d = dados(slug, pracaSlug);
   if (!d) return {};
-  const { e, praca } = d;
-  const nome = e.nomeEixo ?? e.espec;
+  const { e, praca, par } = d;
   return {
-    title: `Marketing para ${nome.toLowerCase()} em ${praca.nome}`,
-    description: `${e.descricao} Atendimento em ${praca.nome}/${praca.uf}.`,
+    title: par.titulo,
+    description: par.descricao,
     alternates: { canonical: `/marketing-medico/${e.slug}/${praca.slug}` },
-    // Fatia A é o molde: toda página nova nasce fora do índice até a Fatia B
-    // provar o padrão com o cliente (§🎬 — "quem vai revisar serei eu").
-    robots: { index: false, follow: true },
+    // Fatia B (§27, decisão E/D7 do mapa): par com texto próprio e ≥4 peças de
+    // ≥2 casas indexa — `noindex` só quando a curadoria declarar (régua §3.3).
+    ...(par.noindex ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
@@ -58,7 +57,7 @@ export default async function EspecialidadePracaPage({
   const { slug, praca: pracaSlug } = await params;
   const d = dados(slug, pracaSlug);
   if (!d) notFound();
-  const { e, praca } = d;
+  const { e, praca, par } = d;
   const rota = `/marketing-medico/${e.slug}/${praca.slug}`;
   const pracaLarga = pracasDaProvaLarga(praca.slug);
   const nomesPracaLarga = pracaLarga.map((p) => p.nome);
@@ -68,11 +67,15 @@ export default async function EspecialidadePracaPage({
     <>
       <MenuTopo atual={rota} waText={e.waText} />
       <main>
-        <HeroPraca e={e} praca={praca} />
+        <HeroPraca e={e} par={par} praca={praca} />
         <Band html={panoFaixa(rota)} carta />
         <article className="corpo prosa">
           <div className="wrap">
-            <ProvaLocalPecas e={e} praca={praca} nomesPracaLarga={nomesPracaLarga} />
+            <h2 className="sec">O que muda em {praca.nome}</h2>
+            {par.intro.map((p) => (
+              <p key={p.slice(0, 24)}>{p}</p>
+            ))}
+            <ProvaLocalPecas par={par} praca={praca} nomesPracaLarga={nomesPracaLarga} />
             <QuemAtendeAqui e={e} praca={praca} pracaSlugsLargos={slugsPracaLarga} />
             <BlocoExclusividade e={e} praca={praca} />
           </div>

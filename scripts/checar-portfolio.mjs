@@ -241,6 +241,8 @@ const MIN_PECAS_INDEXAVEL = 4; // régua §3.3: abaixo disso a página nasce noi
 // peças com um dono só (o acervo tem uma pasta de cirurgião plástico).
 const MIN_CLIENTES_INDEXAVEL = 2;
 const slugsVistos = new Set();
+/** slug da página-mãe → { espec, lede, intro } — usado pelo gate B7 dos pares. */
+const maePorSlug = new Map();
 for (const bloco of blocosPagina) {
   const campo = (nome) => bloco.match(new RegExp(`\\b${nome}:\\s*"([^"]*)"`))?.[1];
   const lista = (nome) =>
@@ -262,14 +264,26 @@ for (const bloco of blocosPagina) {
     if (!campo(nome)) erros.push(`${quem}: campo \`${nome}\` faltando ou vazio`);
   }
 
+  // D9/B2 (§27/§28 do mapa): `especsExtra` é aditivo — a página pode abrigar peça
+  // de mais de uma espec (ex.: clínica médica abrigando "Hospital", que não tem
+  // página própria), mas `espec` segue a chave PRIMÁRIA (âncora da parede).
+  const especsExtra = lista("especsExtra");
+  for (const ex of especsExtra) {
+    if (!especsValidas.has(ex))
+      erros.push(`${quem}: especsExtra "${ex}" fora da lista fechada — mesma régua de \`espec\``);
+  }
+  const especsAceitas = new Set([espec, ...especsExtra].filter(Boolean));
+
   const pecas = lista("pecas");
   if (pecas.length === 0) erros.push(`${quem}: nenhuma peça — página de especialidade sem peça não é página`);
   if (new Set(pecas).size !== pecas.length) erros.push(`${quem}: peça repetida na mesma página (âncora duplicada)`);
   for (const b of pecas) {
     const especDaPeca = especPorBasename.get(b);
     if (!especDaPeca) erros.push(`${quem}: peça "${b}" não existe em content/portfolio.ts`);
-    else if (espec && especDaPeca !== espec)
-      erros.push(`${quem}: peça "${b}" é de "${especDaPeca}", não de "${espec}" — curadoria trocou a página`);
+    else if (espec && !especsAceitas.has(especDaPeca))
+      erros.push(
+        `${quem}: peça "${b}" é de "${especDaPeca}", que não é "${espec}" nem está em \`especsExtra\` — curadoria trocou a página`,
+      );
   }
 
   const areas = lista("areasCarteira");
@@ -292,6 +306,90 @@ for (const bloco of blocosPagina) {
         `${MIN_PECAS_INDEXAVEL} peças de pelo menos ${MIN_CLIENTES_INDEXAVEL} clientes distintos; peça é prova, ` +
         "mas peça de um dono só é um caso, não um acervo (§16.8.4)",
     );
+
+  if (slug) maePorSlug.set(slug, { espec, lede: campo("lede"), intro: lista("intro") });
+}
+
+// ── B7 (§27/§28/§30 do mapa) — os PARES (especialidade × praça) ──────────────
+// content/especialidade-praca.ts: cada par precisa de peça real, da espec certa,
+// da praça certa, sem repetir peça com um par irmão da mesma espec, ≥4 peças de
+// ≥2 casas (ou `noindex: true` declarado), e texto (`lede`/`intro`) DIFERENTE do
+// da página-mãe — a trava anti-doorway do §26.5/D10.
+const paresSrc = semComentarios(ler("content/especialidade-praca.ts"));
+const corpoPares = paresSrc.slice(paresSrc.indexOf("export const PARES_ESPECIALIDADE_PRACA"));
+const arrayPares = corpoPares.slice(0, corpoPares.indexOf("\n];"));
+const blocosPares = [...arrayPares.matchAll(/\{[^{}]*\}/g)].map((m) => m[0]);
+
+const pracasValidas = new Set([...ler("content/pracas.ts").matchAll(/\bslug:\s*"([^"]+)"/g)].map((m) => m[1]));
+
+const vistosPorSlugPraca = new Set();
+/** basename+espec já usado por outro par irmão — pra detectar repetição (B7). */
+const pecaDoEspecUsadaPor = new Map();
+let paresIndexaveis = 0;
+for (const bloco of blocosPares) {
+  const campo = (nome) => bloco.match(new RegExp(`\\b${nome}:\\s*"([^"]*)"`))?.[1];
+  const lista = (nome) =>
+    [...(bloco.match(new RegExp(`\\b${nome}:\\s*\\[([^\\]]*)\\]`))?.[1] ?? "").matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+
+  const slug = campo("slug");
+  const pracaSlug = campo("praca");
+  const quem = slug && pracaSlug ? `/marketing-medico/${slug}/${pracaSlug}` : `par sem slug/praça (${bloco.slice(0, 60).replace(/\s+/g, " ")}…)`;
+
+  if (!slug || !pracaSlug) {
+    erros.push(`${quem}: campo \`slug\` ou \`praca\` faltando`);
+    continue;
+  }
+  const chaveParSlug = `${slug}·${pracaSlug}`;
+  if (vistosPorSlugPraca.has(chaveParSlug)) erros.push(`${quem}: par repetido — duas entradas pra mesma rota`);
+  else vistosPorSlugPraca.add(chaveParSlug);
+
+  const mae = maePorSlug.get(slug);
+  if (!mae) {
+    erros.push(`${quem}: "${slug}" não existe em content/especialidades.ts — par sem página-mãe`);
+    continue;
+  }
+  if (!pracasValidas.has(pracaSlug)) erros.push(`${quem}: praça "${pracaSlug}" não existe em content/pracas.ts`);
+
+  for (const nome of ["titulo", "descricao", "lede"]) {
+    if (!campo(nome)) erros.push(`${quem}: campo \`${nome}\` faltando ou vazio`);
+  }
+  const intro = lista("intro");
+  if (intro.length === 0) erros.push(`${quem}: \`intro\` vazio — par sem texto local não é par, é rota`);
+
+  // D10: lede/intro têm que ser DIFERENTES dos da página-mãe (texto templatizado
+  // trocando só a cidade é o doorway que a régua §3.3 barra).
+  const lede = campo("lede");
+  if (mae.lede && lede && mae.lede === lede)
+    erros.push(`${quem}: \`lede\` idêntico ao da página-mãe — texto templatizado (doorway, §26.5/D10)`);
+  if (mae.intro.length > 0 && intro.length > 0 && mae.intro.join("\n") === intro.join("\n"))
+    erros.push(`${quem}: \`intro\` idêntico ao da página-mãe — texto templatizado (doorway, §26.5/D10)`);
+
+  const pecas = lista("pecas");
+  if (pecas.length === 0) erros.push(`${quem}: nenhuma peça — par sem peça não é par`);
+  if (new Set(pecas).size !== pecas.length) erros.push(`${quem}: peça repetida no mesmo par (âncora duplicada)`);
+  for (const b of pecas) {
+    const especDaPeca = especPorBasename.get(b);
+    if (!especDaPeca) {
+      erros.push(`${quem}: peça "${b}" não existe em content/portfolio.ts`);
+      continue;
+    }
+    if (mae.espec && especDaPeca !== mae.espec)
+      erros.push(`${quem}: peça "${b}" é de "${especDaPeca}", não de "${mae.espec}" (espec da página-mãe)`);
+    const chavePeca = `${mae.espec}·${b}`;
+    const outroPar = pecaDoEspecUsadaPor.get(chavePeca);
+    if (outroPar && outroPar !== chaveParSlug)
+      erros.push(`${quem}: peça "${b}" repetida com o par irmão "${outroPar}" (mesma espec, §27-D8)`);
+    else pecaDoEspecUsadaPor.set(chavePeca, chaveParSlug);
+  }
+
+  const noindexPar = /\bnoindex:\s*true/.test(bloco);
+  const donosPar = new Set(pecas.map((b) => clientePorBasename.get(b)).filter(Boolean));
+  if ((pecas.length < MIN_PECAS_INDEXAVEL || donosPar.size < MIN_CLIENTES_INDEXAVEL) && !noindexPar)
+    erros.push(
+      `${quem}: ${pecas.length} peça(s) de ${donosPar.size} cliente(s) e sem \`noindex: true\` — indexar exige ` +
+        `${MIN_PECAS_INDEXAVEL} peças de pelo menos ${MIN_CLIENTES_INDEXAVEL} clientes distintos (D7, mesma régua §3.3)`,
+    );
+  if (!noindexPar) paresIndexaveis++;
 }
 
 // ---------- grade de clientes: vínculo com o ORÁCULO (2026-08-18) ----------
@@ -426,4 +524,9 @@ console.log(
   `✓ checar-portfolio: ${blocosPagina.length} página(s) de especialidade (${indexaveis} indexável(is), ` +
     `${blocosPagina.length - indexaveis} noindex), dobra de ${DOBRA_PECAS_PAGINA} peças com "Veja mais" além dela, ` +
     `toda indexável com ≥${MIN_CLIENTES_INDEXAVEL} clientes distintos, e áreas da carteira conferidas`,
+);
+console.log(
+  `✓ checar-portfolio: ${blocosPares.length} par(es) especialidade × praça (${paresIndexaveis} indexável(is), ` +
+    `${blocosPares.length - paresIndexaveis} noindex), peça na espec e na praça certas, sem repetição entre pares ` +
+    `irmãos, e lede/intro diferentes da página-mãe (anti-doorway, §26.5/D10)`,
 );
