@@ -18,6 +18,9 @@ import { RODAPE, ESPECIALIDADES_HOME } from "@/content/home";
 import { CARTAS_SEGMENTO } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
 import { COMBOS } from "@/content/combos";
+import { especialidadePorSlug } from "@/content/especialidades";
+import { pracaBySlug } from "@/content/pracas";
+import { PARES_ESPECIALIDADE_PRACA, rotaEspecialidadePraca } from "@/content/especialidade-praca";
 
 export function Faq() {
   return (
@@ -176,6 +179,23 @@ export function Rodape() {
                 </Link>
               </li>
             ))}
+            {/* Especialidade × praça (F2 taxonomia, "o molde") — mesmo
+                mecanismo de N×N do checar-navegacao.mjs que COMBOS já usa
+                aqui; ver components/athos/FooterMapa.tsx pro mesmo bloco no
+                rodapé de sempre. */}
+            {PARES_ESPECIALIDADE_PRACA.map((par) => {
+              const e = especialidadePorSlug(par.slug);
+              const p = pracaBySlug(par.praca);
+              if (!e || !p) return null;
+              const rota = rotaEspecialidadePraca(par.slug, par.praca);
+              return (
+                <li key={rota}>
+                  <Link href={rota}>
+                    {(e.nomeEixo ?? e.espec)} em {p.nome}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
