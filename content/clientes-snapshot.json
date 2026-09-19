@@ -1,0 +1,647 @@
+{
+  "_fonte": "Supabase dpxcrdzgouqusvyqjivl — public.clients x client_specialty_axes x specialties x pracas",
+  "_geradoEm": "2026-09-19T16:57:14.886Z",
+  "_aviso": "Congelado manualmente na F2 taxonomia (2026-09-19) via MCP Supabase, com o mesmo shape que scripts/gerar-snapshot-clientes.mjs produz. Regenerar com o script quando a chave estiver configurada.",
+  "linhas": [
+    {
+      "nome": "Sther Fagundes",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "barbacena",
+      "especialidadeSlug": "psicologia",
+      "primaria": true
+    },
+    {
+      "nome": "ACLS Onofre Cirurgia e Urologia Pediátrica",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "sao-paulo",
+      "especialidadeSlug": "urologia-pediatrica",
+      "primaria": true
+    },
+    {
+      "nome": "Ana Laura de Souza",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "goiania",
+      "especialidadeSlug": "geriatria-e-gerontologia",
+      "primaria": true
+    },
+    {
+      "nome": "Angiomedi",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "cirurgia-vascular-e-angiologia",
+      "primaria": true
+    },
+    {
+      "nome": "Bonvena",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "reproducao-humana",
+      "primaria": true
+    },
+    {
+      "nome": "CardioClinic Parauapebas",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "parauapebas",
+      "especialidadeSlug": "cardiologia",
+      "primaria": true
+    },
+    {
+      "nome": "CardioClinic Parauapebas",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "parauapebas",
+      "especialidadeSlug": "endocrinologia",
+      "primaria": false
+    },
+    {
+      "nome": "CardioClinic Parauapebas",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "parauapebas",
+      "especialidadeSlug": "cirurgia-vascular-e-angiologia",
+      "primaria": false
+    },
+    {
+      "nome": "Casa de Saúde Remanso",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "remanso",
+      "especialidadeSlug": "clinica-medica-e-policlinica",
+      "primaria": true
+    },
+    {
+      "nome": "Centro Médico de Curionópolis",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "curionopolis",
+      "especialidadeSlug": "clinica-medica-e-policlinica",
+      "primaria": true
+    },
+    {
+      "nome": "Cirúrgica São Bernardo",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "cirurgica-e-material-medico-hospitalar",
+      "primaria": true
+    },
+    {
+      "nome": "Clínica de Medicina da Dor",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "araguaina",
+      "especialidadeSlug": "medicina-da-dor",
+      "primaria": true
+    },
+    {
+      "nome": "Clinica de Otorrino Asa Norte",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "otorrinolaringologia",
+      "primaria": true
+    },
+    {
+      "nome": "Clínica de Veias",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "cirurgia-vascular-e-angiologia",
+      "primaria": true
+    },
+    {
+      "nome": "Clínica do Rim e Hipertensão",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "valparaiso-de-goias",
+      "especialidadeSlug": "nefrologia",
+      "primaria": true
+    },
+    {
+      "nome": "Clínica do Rim e Hipertensão",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "valparaiso-de-goias",
+      "especialidadeSlug": "clinica-medica-e-policlinica",
+      "primaria": false
+    },
+    {
+      "nome": "Clínica Sousa Brunelli",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "psiquiatria",
+      "primaria": true
+    },
+    {
+      "nome": "Clínica Sousa Brunelli",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "psicologia",
+      "primaria": false
+    },
+    {
+      "nome": "Clinica Tiveron",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "dermatologia",
+      "primaria": true
+    },
+    {
+      "nome": "CLISA - Clínica Santo Antônio",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "colatina",
+      "especialidadeSlug": "neurologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr Sthênio Scardine",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "cachoeiro-de-itapemirim",
+      "especialidadeSlug": "medicina-estetica",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Alfonso Soria",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "porto-alegre",
+      "especialidadeSlug": "ortopedia-e-traumatologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Allan Garcia",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "vila-velha",
+      "especialidadeSlug": "ortopedia-e-traumatologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. André Lucarelli",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "barbacena",
+      "especialidadeSlug": "psiquiatria",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Antonio Carlos de Souza",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "cirurgia-vascular-e-angiologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Antônio Vieira",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "belo-horizonte",
+      "especialidadeSlug": "psiquiatria",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Auricélio Batista",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "recife",
+      "especialidadeSlug": "neurocirurgia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Carlos Portocarrero",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "reproducao-humana",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Eder Nisi Ilario",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "sao-paulo",
+      "especialidadeSlug": "urologia-e-andrologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Eder Nisi Ilario",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "sao-paulo",
+      "especialidadeSlug": "cirurgia-oncologica",
+      "primaria": false
+    },
+    {
+      "nome": "Dr. Eduardo Medeiros",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "mossoro",
+      "especialidadeSlug": "ortopedia-e-traumatologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Felipe Mendonça",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "goiania",
+      "especialidadeSlug": "cirurgia-vascular-e-angiologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Fernando Ferro",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "goiania",
+      "especialidadeSlug": "ortopedia-e-traumatologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Francisco Carneiro",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "linhares",
+      "especialidadeSlug": "ortopedia-e-traumatologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Francisco Carvalho",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "vitoria",
+      "especialidadeSlug": "ortopedia-e-traumatologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Homero Ribeiro",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "urologia-e-andrologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Luciano Morais",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "sao-lourenco",
+      "especialidadeSlug": "cirurgia-vascular-e-angiologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Luciano Onofre",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "sao-paulo",
+      "especialidadeSlug": "urologia-pediatrica",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Nickson Rezende",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "luis-eduardo-magalhaes",
+      "especialidadeSlug": "psiquiatria",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Omar Loyola",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "pelotas",
+      "especialidadeSlug": "cirurgia-do-aparelho-digestivo-e-bariatrica",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Pedro Tolentino",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "cirurgia-de-cabeca-e-pescoco",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Renan Marangoni",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "goiania",
+      "especialidadeSlug": "cirurgia-oncologica",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Renan Marangoni",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "goiania",
+      "especialidadeSlug": "cirurgia-do-aparelho-digestivo-e-bariatrica",
+      "primaria": false
+    },
+    {
+      "nome": "Dr. Rogério Furtado",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "oftalmologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Tárik Jabour",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "juiz-de-fora",
+      "especialidadeSlug": "psiquiatria",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Thiago Hayashida",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "nefrologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Thiago Perondi",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "porto-velho",
+      "especialidadeSlug": "urologia-e-andrologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dr. Vicente Chrisostomo",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "pindamonhangaba",
+      "especialidadeSlug": "cardiologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra Larissa Fouad Ibrahim",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "belo-horizonte",
+      "especialidadeSlug": "oftalmologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra Thaise Garcia",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "vitoria",
+      "especialidadeSlug": "endocrinologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Aline Almeida Liberato",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "otorrinolaringologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Daniela Machado",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "dermatologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Elielma Almeida",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "nutrologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Elielma Almeida",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "reproducao-humana",
+      "primaria": false
+    },
+    {
+      "nome": "Dra. Fabyanne Mazutti",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "reproducao-humana",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Janina Huguenin",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "rio-de-janeiro",
+      "especialidadeSlug": "cirurgia-oncologica",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Layla Fayne",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "belo-horizonte",
+      "especialidadeSlug": "pneumologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Maria Eduarda Amaral",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "ginecologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Maria Eduarda Amaral",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "reproducao-humana",
+      "primaria": false
+    },
+    {
+      "nome": "Dra. Mariana Alcantara",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "sao-paulo",
+      "especialidadeSlug": "cirurgia-plastica",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Marina Gressler",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "porto-alegre",
+      "especialidadeSlug": "urologia-e-andrologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Mirian Hoeschl",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "ginecologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Patrícia Ferreira",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "goiania",
+      "especialidadeSlug": "dermatologia",
+      "primaria": true
+    },
+    {
+      "nome": "Dra. Rayane Cardoso",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "cirurgia-oncologica",
+      "primaria": true
+    },
+    {
+      "nome": "Ecoa Otorrino",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "otorrinolaringologia",
+      "primaria": true
+    },
+    {
+      "nome": "Examine Agora",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "recanto-das-emas",
+      "especialidadeSlug": "diagnostico-por-imagem",
+      "primaria": true
+    },
+    {
+      "nome": "Fagundes Odontologia",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "juiz-de-fora",
+      "especialidadeSlug": "odontologia",
+      "primaria": true
+    },
+    {
+      "nome": "Hospital de Olhos Sobradinho",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "sobradinho",
+      "especialidadeSlug": "oftalmologia",
+      "primaria": true
+    },
+    {
+      "nome": "Incordis",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "cardiologia",
+      "primaria": true
+    },
+    {
+      "nome": "Incordis",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "cirurgia-vascular-e-angiologia",
+      "primaria": false
+    },
+    {
+      "nome": "inmed",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "recanto-das-emas",
+      "especialidadeSlug": "diagnostico-por-imagem",
+      "primaria": true
+    },
+    {
+      "nome": "Instituto Sono e Neuro",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "balneario-camboriu",
+      "especialidadeSlug": "medicina-do-sono",
+      "primaria": true
+    },
+    {
+      "nome": "Instituto Sono e Neuro",
+      "status": "inactive",
+      "exclusividadeContratada": false,
+      "pracaSlug": "balneario-camboriu",
+      "especialidadeSlug": "neurologia",
+      "primaria": false
+    },
+    {
+      "nome": "Mohamad Walid Omairi",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "foz-do-iguacu",
+      "especialidadeSlug": "cirurgia-do-aparelho-digestivo-e-bariatrica",
+      "primaria": true
+    },
+    {
+      "nome": "Policlínica de Corrente",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "corrente",
+      "especialidadeSlug": "clinica-medica-e-policlinica",
+      "primaria": true
+    },
+    {
+      "nome": "Tania Mara Vieira Santos",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "imperatriz",
+      "especialidadeSlug": "ginecologia",
+      "primaria": true
+    },
+    {
+      "nome": "Tania Mara Vieira Santos",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "imperatriz",
+      "especialidadeSlug": "diagnostico-por-imagem",
+      "primaria": false
+    },
+    {
+      "nome": "Uroclínica Rio",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "rio-de-janeiro",
+      "especialidadeSlug": "urologia-e-andrologia",
+      "primaria": true
+    },
+    {
+      "nome": "Vascular Brasília",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "cirurgia-vascular-e-angiologia",
+      "primaria": true
+    },
+    {
+      "nome": "Via Oftalmocenter",
+      "status": "active",
+      "exclusividadeContratada": false,
+      "pracaSlug": "brasilia",
+      "especialidadeSlug": "oftalmologia",
+      "primaria": true
+    }
+  ]
+}
