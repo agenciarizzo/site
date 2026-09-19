@@ -43,9 +43,10 @@ export interface PaginaEspecialidade {
    * diverge de `espec` (§9.4.2: "são três vocabulários, não dois" — na prática,
    * quatro, quando uma página nova usa a `espec` mais larga do portfolio, ex.:
    * ginecologia/reproducao-humana usam `espec: "Saúde da Mulher"`, mas o eixo
-   * é mais específico). Ausente = usa `espec` (as 27 páginas que não vieram de
-   * split de F2). Usado no H1/kicker das páginas de praça — nunca no `espec`
-   * que liga a peça ao portfólio, que continua o vocabulário do portfolio.ts.
+   * é mais específico). Ausente = usa `espec` (as 18 páginas que não vieram do
+   * split de F2). Usado no H1, no kicker, na trilha e no JSON-LD — tanto da
+   * página de especialidade quanto da de praça —, nunca no `espec` que liga a
+   * peça ao portfólio, que continua sendo o vocabulário do portfolio.ts.
    */
   nomeEixo?: string;
   /**
@@ -254,66 +255,40 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Olá! Vi a página de marketing para cirurgia do aparelho digestivo no site da agência e quero conversar sobre o meu consultório.",
   },
   {
-    // ⚠️ SPLIT de "oncologia" (F2 taxonomia, 2026-09-19) — rizzo-os →
-    // docs/TAXONOMIA_PRACAS_SITE_MAPA.md decisão D4: "quem procura quimio não
-    // procura cirurgião". A página antiga misturava as duas buscas (mesmo padrão
-    // do saude-da-mulher). Atribuição por EVIDÊNCIA REAL, zero heurística (§24.9):
-    // a CON é "CON – Clínica Oncologia Hematologia" (area carteira "Oncologia",
-    // contexto fala em hematologia/quimioterapia oral) — clínica. NÃO recebe 301:
-    // é URL nova, igual reproducao-humana (a bare "oncologia" vai pra cá por ser a
-    // leitura mais central do termo, espelhando o precedente ginecologia).
-    slug: "oncologia-clinica",
+    slug: "oncologia",
     espec: "Oncologia",
-    nomeEixo: "Oncologia clínica",
-    titulo: "Marketing médico para oncologia clínica",
+    titulo: "Marketing médico para oncologia",
     descricao:
-      "Marketing para oncologista clínico: como a família pesquisa depois do diagnóstico e o que uma comunicação séria sobre tratamento oncológico precisa responder — dentro do CFM.",
+      "Marketing para oncologista e clínica de oncologia: como a família pesquisa depois do diagnóstico e o que uma comunicação séria precisa responder — dentro do CFM.",
     lede:
       "Depois de um diagnóstico de câncer, quem pesquisa quase nunca é só o paciente. É a família inteira, no mesmo dia, com pressa.",
     intro: [
-      "A busca em oncologia clínica tem urgência e medo dentro dela. As perguntas são práticas — onde trata, em quanto tempo consegue começar a quimioterapia, quais exames precisa levar, o plano cobre — e chegam por gente diferente ao mesmo tempo: o paciente, o filho, o cônjuge. Uma presença que responde isso com clareza e sem rodeio poupa dias de uma jornada em que dia importa.",
-      "É também a especialidade que menos tolera tom publicitário. Nada de promessa de cura, nada de estatística sem fonte, nada de imagem que romantize o tratamento. O que constrói confiança aqui é sobriedade: explicar o que é cada etapa do protocolo, quem é a equipe, como funciona a estrutura de infusão, o que o paciente encontra quando chega. Material educativo e institucional bem feito faz esse trabalho melhor do que qualquer anúncio.",
-      "E existe o encaminhamento, que em oncologia clínica responde por muita coisa. Ser encontrado pelo colega que encaminha, com informação organizada sobre linhas de tratamento e localização das unidades, é parte do mesmo trabalho de estrutura — e é o que sustenta a agenda quando a campanha não está no ar.",
+      "A busca em oncologia tem urgência e medo dentro dela. As perguntas são práticas — onde trata, em quanto tempo consegue começar, quais exames precisa levar, o plano cobre — e chegam por gente diferente ao mesmo tempo: o paciente, o filho, o cônjuge. Uma presença que responde isso com clareza e sem rodeio poupa dias de uma jornada em que dia importa.",
+      "É também a especialidade que menos tolera tom publicitário. Nada de promessa de cura, nada de estatística sem fonte, nada de imagem que romantize o tratamento. O que constrói confiança aqui é sobriedade: explicar o que é cada etapa, quem é a equipe, como funciona a estrutura, o que o paciente encontra quando chega. Material educativo e institucional bem feito faz esse trabalho melhor do que qualquer anúncio.",
+      "E existe o encaminhamento, que em oncologia responde por muita coisa. Ser encontrado pelo colega que encaminha, com informação organizada sobre linhas de tratamento e localização das unidades, é parte do mesmo trabalho de estrutura — e é o que sustenta a agenda quando a campanha não está no ar.",
     ],
-    // 3 de 3 — só a CON. < 4 peças ⇒ noindex obrigatório (régua §3.3 mecanizada).
     pecas: [
+      // Rodada 9: a CON passa a 3 de 6, então a ORDEM tem de segurar o eco de casa
+      // (§16.8.7-6). O cartão de visita novo fecha a GRADE, ficando na diagonal do
+      // panfleto (1) — a distância máxima dentro do bloco de 2 colunas —, e o site da
+      // Rayane desce um degrau pra que a coluna única não abra e feche na mesma casa.
+      // Reordenar pecas[] é curadoria declarada, não vassoura (§16.8.8-8).
       "marketing-medico-oncologia-rio-de-janeiro-panfleto-unidade",
+      "marketing-medico-oncologia-rio-de-janeiro-cartao-virtual",
+      "marketing-medico-oncologia-brasilia-ebook-cancer-colo-utero",
       "marketing-medico-oncologia-rio-de-janeiro-cartao-visita",
+      // Rodada 10: 2ª peça da Janina, canal INÉDITO na página (papelaria). Entra em 5 —
+      // abre a coluna única SEM reordenar nada: a sequência resultante é CON · JH · RY ·
+      // CON · JH · RY · CON, com ZERO par adjacente e três casas distintas nos 208px.
+      // Com 7 peças nenhuma casa passa de 3, então o par do §16.8.9-7 não se aplica aqui.
+      "marketing-medico-oncologia-rio-de-janeiro-papelaria-envelope",
+      "marketing-medico-oncologia-brasilia-site-cirurgia-oncologica",
+      // Rodada 8: 2ª peça da CON. Vai pro fim — é a posição mais distante do panfleto
+      // dela (1), que é o canal impresso vizinho. §16.8.7-6.
       "marketing-medico-oncologia-rio-de-janeiro-folder-quimioterapia-oral",
     ],
-    areasCarteira: ["Oncologia"],
-    noindex: true,
-    waText:
-      "Olá! Vi a página de marketing para oncologia clínica no site da agência e quero conversar sobre a clínica.",
-  },
-  {
-    // ⚠️ Metade CIRÚRGICA do split acima — URL NOVA (nunca teve página própria).
-    // Janina Huguenin (area carteira "Oncologia Cirúrgica" — inequívoca) e Rayane
-    // Cardoso (contexto do próprio site: "cirurgia oncológica e laparoscópica";
-    // area carteira dela é bare "Oncologia", mas o mapa D4 já a nomeia do lado
-    // cirúrgico — citação, não heurística).
-    slug: "cirurgia-oncologica",
-    espec: "Oncologia",
-    nomeEixo: "Cirurgia oncológica",
-    titulo: "Marketing médico para cirurgia oncológica",
-    descricao:
-      "Marketing para cirurgião oncológico: como o paciente decide entre opiniões antes de uma cirurgia de câncer, e o que a página precisa provar — dentro do CFM.",
-    lede: "Cirurgia oncológica é decisão que se pesquisa duas, três vezes antes de assinar o termo — a família compara equipe, técnica e estrutura.",
-    intro: [
-      "Quem chega à cirurgia oncológica já tem o diagnóstico e está comparando: qual cirurgião opera esse tipo de tumor com mais frequência, se existe abordagem laparoscópica em vez de aberta, qual hospital tem a estrutura de UTI que aquele porte de cirurgia pede. É pesquisa de decisão, não de primeiro contato — e ela premia quem explica técnica com clareza, sem prometer resultado.",
-      "A segunda opinião pesa mais aqui do que em quase qualquer outra cirurgia: o paciente leva o laudo de um cirurgião pra outro antes de marcar. Página que mostra currículo, técnica operatória e onde atende dá ao paciente o material que ele precisa pra essa comparação — e falta nisso é o motivo mais comum de a segunda opinião nem chegar a acontecer.",
-      "Nada de antes-e-depois, nada de estatística de sobrevida sem fonte, nada de imagem que abrevie o que é uma decisão difícil. O que sustenta a agenda é o mesmo de sempre: informação técnica, sóbria, assinada com nome e CRM.",
-    ],
-    // 4 de 4 — 2 casas (Janina, Rayane). Exatamente o piso do MIN_PECAS_INDEXAVEL.
-    pecas: [
-      "marketing-medico-oncologia-brasilia-site-cirurgia-oncologica",
-      "marketing-medico-oncologia-brasilia-ebook-cancer-colo-utero",
-      "marketing-medico-oncologia-rio-de-janeiro-cartao-virtual",
-      "marketing-medico-oncologia-rio-de-janeiro-papelaria-envelope",
-    ],
-    areasCarteira: ["Oncologia Cirúrgica"],
-    waText:
-      "Olá! Vi a página de marketing para cirurgia oncológica no site da agência e quero conversar sobre a clínica.",
+    areasCarteira: ["Oncologia", "Oncologia Cirúrgica"],
+    waText: "Olá! Vi a página de marketing para oncologia no site da agência e quero conversar sobre a clínica.",
   },
   {
     slug: "cardiologia",
@@ -407,10 +382,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Menopausa, endometriose, histeroscopia, pré-natal — cada fase da vida da paciente traz uma busca diferente, e quem responde por escrito, com nome e CRM, chega à consulta com metade da conversa já resolvida. O que não muda é o cuidado ético: nada de estatística de sucesso sem lastro, nada de exposição de paciente, nada de promessa em cima de sintoma delicado.",
       "O que sustenta a agenda é presença constante, informação verdadeira e a indicação que nasce de quem foi bem atendida — em ginecologia, a amiga que indica vale mais do que qualquer anúncio.",
     ],
-    // 7 de 7 — a mesma ordem/curadoria da página combinada (rodada 7/14/20), menos
-    // a peça de reprodução humana (Portocarrero, que sai pra reproducao-humana).
-    // A retirada de 1 peça de uma página de 8 devolve o teto de 7 sozinha — zero
-    // reordenação nova (§🌿-2: aditivo, nunca vassoura).
+    // 6 de 6 — a mesma ordem/curadoria da página combinada (rodada 7/14/20), menos
+    // as DUAS peças que saem pra reproducao-humana (o e-book de inseminação do
+    // Portocarrero e o site da Fabyanne). A retirada devolve o teto de 7 sozinha —
+    // zero reordenação nova (§🌿-2: aditivo, nunca vassoura).
     // ⚠️ Fabyanne Mazutti saiu daqui na 2ª rodada de evidência: carteira.ts a
     // classifica como "Endoscopia Ginecológica", mas public.client_specialty_axes
     // (banco real, R-DB já verificado por impersonação) diz PRIMÁRIA
@@ -423,10 +398,20 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "marketing-medico-ultrassonografia-ceres-portfolio-impresso", // Dra. Aline Mello — medicina fetal/obstétrica (sem linha no banco, só acervo)
       "marketing-medico-ginecologia-brasilia-folder-histeroscopia", // Dra. Mirian Hoeschl Abreu
     ],
-    // "Saúde da Mulher" (carteira.ts) mistura os dois eixos e NÃO entra aqui — ver
-    // nota no doc-mapa (§21.3): 13 nomes reais ficam sem grupo na carteira até o
-    // specialty_aliases (R-DB2, §21.2) resolver os três vocabulários sem heurística.
-    areasCarteira: ["Ginecologia", "Mastologia"],
+    // ⚠️ "Saúde da Mulher" FICA aqui (correção da F3, 2026-09-19). A F2 a tinha
+    // tirado das duas metades do split, e o efeito medido era que os 13 nomes reais
+    // dessa área da carteira.ts (Clínica Lúmina, Dra. Maria Eduarda Amaral, Dra.
+    // Mirian Hoeschl, Dr. Carlos Portocarrero, Dr. Alysson Zanatta, Dedicae…)
+    // sumiam do site inteiro — nenhuma página os reivindicava. Como `areasCarteira`
+    // casa por ÁREA (string), e a área é um balde só, não há como dividir os 13 sem
+    // editar content/carteira.ts, que é gerada e ⛔ não se toca. Então o balde inteiro
+    // fica na metade que HERDA a URL antiga (ginecologia), e o grupo aparece com o
+    // rótulo dele — "Saúde da Mulher" —, que é honesto: o nome do grupo diz que
+    // aquela lista é mais larga que o H1. A divisão fina é do specialty_aliases
+    // (R-DB2, §21.2 do doc-mapa), que é justamente quem resolve os três vocabulários
+    // sem heurística (§24.9). Duplicar o balde nas duas páginas está DESCARTADO:
+    // poria os mesmos 13 nomes em duas URLs, que é a vagueza que o cliente mandou sair.
+    areasCarteira: ["Saúde da Mulher", "Ginecologia", "Mastologia"],
     waText:
       "Olá! Vi a página de marketing para ginecologia no site da agência e quero conversar sobre o meu consultório.",
   },
