@@ -74,6 +74,13 @@ function nomesDa(e: PaginaEspecialidade): GrupoCarteira[] {
 
 export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio[]) {
   const url = `${SITE_URL}${rotaEspecialidade(e.slug)}`;
+  // O nome que a PÁGINA tem — `nomeEixo` quando o eixo canônico é mais estreito
+  // que a `espec` do portfólio (F3, 2026-09-19). Sem ele, as duas metades de um
+  // split declaravam o MESMO `name` de Service e a MESMA trilha: medido no HTML
+  // gerado, /ginecologia e /reproducao-humana diziam as duas "Saúde da Mulher".
+  // ⚠️ `e.espec` continua sendo a chave do PORTFÓLIO (âncora da parede e contagem
+  // do acervo, abaixo) — são vocabulários diferentes de propósito (§9.4.2).
+  const nome = e.nomeEixo ?? e.espec;
   return [
     // `Service`, não `Article` (§3.2 do mapa): a página não é texto assinado com data
     // — é a oferta da agência para uma especialidade, com as peças entregues como
@@ -82,7 +89,7 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      name: `Marketing para ${e.espec}`,
+      name: `Marketing para ${nome}`,
       serviceType: "Marketing médico digital",
       description: e.descricao,
       url,
@@ -91,14 +98,14 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
       // atendimento é nacional (a tarja `Fatos` diz o mesmo). Quem declara cidade é
       // a landing de cidade e o combo.
       areaServed: { "@type": "Country", name: "Brasil" },
-      audience: { "@type": "Audience", audienceType: `Médicos e clínicas de ${e.espec.toLowerCase()}` },
+      audience: { "@type": "Audience", audienceType: `Médicos e clínicas de ${nome.toLowerCase()}` },
     },
     // As peças desta página como ImageObject (§16.5-4). Sem aggregateRating, sem
     // FAQPage: FAQ de enchimento é thin content e entra quando houver pergunta real.
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: `Peças de ${e.espec} produzidas pela Agência Rizzo`,
+      name: `Peças de ${nome} produzidas pela Agência Rizzo`,
       itemListOrder: "https://schema.org/ItemListUnordered",
       numberOfItems: pecas.length,
       itemListElement: pecas.map((p, i) => ({
@@ -113,7 +120,7 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
       })),
     },
     // A página é filha do hub pela própria URL; a trilha declara isso pro Google.
-    breadcrumbJsonLd(HUB_MARKETING, { nome: e.espec, rota: rotaEspecialidade(e.slug) }),
+    breadcrumbJsonLd(HUB_MARKETING, { nome, rota: rotaEspecialidade(e.slug) }),
   ];
 }
 
@@ -184,6 +191,8 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
   // (A parede morava em /clientes; virou /portfolio em 2026-08-25.)
   const naParede = `/portfolio#parede-${chave(e.espec)}`;
   const totalNoAcervo = PORTFOLIO.filter((p) => p.espec === e.espec).length;
+  // Mesmo `nome` do JSON-LD acima: o rótulo da PÁGINA, não a chave do portfólio.
+  const nome = e.nomeEixo ?? e.espec;
 
   return (
     <>
@@ -196,11 +205,11 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
       <main>
         <section className="hero">
           <div className="wrap">
-            <div className="kicker">Marketing médico · {e.espec} · desde 2012</div>
+            <div className="kicker">Marketing médico · {nome} · desde 2012</div>
             <h1 className="display">
               Marketing para
               <br />
-              <span className="acento">{e.espec}.</span>
+              <span className="acento">{nome}.</span>
             </h1>
             <p className="lede">{e.lede}</p>
           </div>
@@ -214,7 +223,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
               <Link href="/marketing-medico">← Marketing médico, mídia por mídia</Link>
             </p>
 
-            <h2 className="sec">O que muda no marketing para {e.espec}</h2>
+            <h2 className="sec">O que muda no marketing para {nome}</h2>
             {e.intro.map((p) => (
               <p key={p.slice(0, 24)}>{p}</p>
             ))}
@@ -224,7 +233,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
             </h2>
             <p className="parede-intro">
               Composição pronta — site, impresso, material educativo e identidade de consultórios e clínicas de{" "}
-              {e.espec.toLowerCase()}. Clique pra ver a peça inteira.
+              {nome.toLowerCase()}. Clique pra ver a peça inteira.
             </p>
             <div className="parede vitrine-espec">
               {grade.length > 0 && (
@@ -253,7 +262,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
               {extras.length > 0 && (
                 <details className="parede-mais">
                   <summary>
-                    Veja mais {extras.length} {extras.length === 1 ? "peça" : "peças"} de {e.espec.toLowerCase()}
+                    Veja mais {extras.length} {extras.length === 1 ? "peça" : "peças"} de {nome.toLowerCase()}
                   </summary>
                   <section className={extras.length === 1 ? "parede-grupo unica" : "parede-grupo"}>
                     <div className="parede-itens">
@@ -271,6 +280,10 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
             {extras.map((p, i) => (
               <PecaLightbox key={p.imagem} p={p} id={slugPeca(p.imagem)} {...vizinhas(7 + i)} />
             ))}
+            {/* ⚠️ Esta frase fica em `e.espec`, e é o único lugar do corpo que fica:
+                `totalNoAcervo` conta a parede do /portfólio, que é indexada pela
+                `espec`. Dizer "as 12 de ginecologia" quando as 12 são de "Saúde da
+                Mulher" seria número certo com rótulo errado. */}
             <p>
               {totalNoAcervo > pecas.length ? (
                 <>

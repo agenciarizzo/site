@@ -20,6 +20,8 @@ interface PecaMorfo {
   key: string;
   video: boolean;
   src: string;
+  webm?: string;
+  poster?: string;
   alt: string;
   servico: string;
   espec: string;
@@ -41,6 +43,8 @@ function resolvePeca(ref: string): PecaMorfo | undefined {
       key: `video:${id}`,
       video: true,
       src: v.src,
+      webm: v.webm,
+      poster: v.poster,
       alt: v.alt,
       servico: v.servico,
       espec: v.espec,
@@ -128,7 +132,10 @@ export function Portfolio() {
                       junto com a troca de cena, então só toca o que está
                       visível. */}
                   {p.video ? (
-                    <video src={p.src} muted loop playsInline preload="none" aria-label={p.alt} />
+                    <video muted loop playsInline preload="metadata" poster={p.poster} aria-label={p.alt}>
+                      {p.webm && <source src={p.webm} type="video/webm" />}
+                      <source src={p.src} type="video/mp4" />
+                    </video>
                   ) : (
                     <img src={p.src} alt={p.alt} loading="lazy" />
                   )}
@@ -178,14 +185,17 @@ export function Portfolio() {
             <li key={p.key}>
               {p.video ? (
                 <video
-                  src={p.src}
                   muted
                   loop
                   playsInline
                   preload="none"
+                  poster={p.poster}
                   aria-label={p.alt}
                   style={{ "--r": `${p.largura} / ${p.altura}` } as React.CSSProperties}
-                />
+                >
+                  {p.webm && <source src={p.webm} type="video/webm" />}
+                  <source src={p.src} type="video/mp4" />
+                </video>
               ) : (
                 <img
                   src={p.src}

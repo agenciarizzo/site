@@ -19,7 +19,9 @@ import Link from "next/link";
 import { WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, PROPOSTA_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
 import { COMBOS } from "@/content/combos";
-import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
+import { ESPECIALIDADES, especialidadePorSlug, rotaEspecialidade } from "@/content/especialidades";
+import { pracaBySlug } from "@/content/pracas";
+import { PARES_ESPECIALIDADE_PRACA, rotaEspecialidadePraca } from "@/content/especialidade-praca";
 
 export type CardRef = "seo" | "clientes" | "portfolio" | "panorama" | "contato" | "goiania" | "brasilia" | "home";
 
@@ -186,6 +188,27 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
                   {c.especialidade.charAt(0).toUpperCase() + c.especialidade.slice(1)} em {c.cidade}
                 </Link>
               ))}
+            </nav>
+          )}
+          {/* Especialidade × praça (F2 taxonomia, "o molde") — rota NOVA e
+              diferente de COMBOS: especialidade é a mãe, praça é a filha
+              (/marketing-medico/<slug>/<praca>), vem do banco real, não de
+              conteúdo hand-authored. Par novo aparece aqui sozinho, mesmo
+              mecanismo de N×N do checar-navegacao.mjs. */}
+          {PARES_ESPECIALIDADE_PRACA.length > 0 && (
+            <nav className="linha" aria-label="Especialidades por praça">
+              <h2>Especialidade × praça</h2>
+              {PARES_ESPECIALIDADE_PRACA.map((par) => {
+                const e = especialidadePorSlug(par.slug);
+                const p = pracaBySlug(par.praca);
+                if (!e || !p) return null;
+                const rota = rotaEspecialidadePraca(par.slug, par.praca);
+                return (
+                  <Link key={rota} href={rota} aria-current={cur(rota)}>
+                    {(e.nomeEixo ?? e.espec)} em {p.nome}
+                  </Link>
+                );
+              })}
             </nav>
           )}
           <nav className="linha" aria-label="Site">
