@@ -53,13 +53,18 @@ const FORA = new Set(["/_global-error", "/_not-found", "/404", "/500"]);
 
 // a faixa da página: primeiro data-pano dentro de um .band/.band-carta
 const FAIXA = /class="band(?:-carta)?"[^>]*>\s*<div data-pano="([^"]+)"/;
+// …ou o pano do PanoHeader do redesenho (components/secoes/PanoHeader.tsx,
+// fatia 2): a malha `.ph-grade` escreve o MESMO `data-pano` que o motor
+// (`pattern·escala·sSEED`), e é a faixa da página em que ele abre — desde a
+// fatia 3 (/clientes e /portfolio) ele conta aqui como qualquer `.band`.
+const FAIXA_PH = /class="ph-grade[^"]*" data-pano="([^"]+)"/;
 
 const faixas = [];
 for (const arquivo of htmls) {
   const rota = rotaDe(arquivo);
   if (FORA.has(rota)) continue;
   const html = readFileSync(arquivo, "utf8");
-  const m = html.match(FAIXA);
+  const m = html.match(FAIXA) ?? html.match(FAIXA_PH);
   if (!m) continue; // página sem faixa não entra na conta
   faixas.push({ rota, assinatura: m[1], pattern: m[1].split("·")[0] });
 }

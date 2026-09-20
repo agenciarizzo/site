@@ -1,53 +1,46 @@
-// Clientes — o diretório inteiro, levinho (SSG puro).
+// Clientes — o diretório inteiro, no desenho do redesenho (SSG puro + 3 ilhas).
 //
-// Reorganização (pedido do cliente, 2026-08-25): esta página era top-grid (18
-// casas com peça/mockup) + parede de peças + carteira em texto (sem imagem).
-// Agora é UMA coisa só — a carteira inteira (`content/carteira.ts`), agrupada
-// por área, com o LOGO de cada casa quando ele já subiu (`lib/logos.ts`;
-// ausência honesta > presença defeituosa enquanto não sobe — §⚖️ do CLAUDE.md).
-// A parede de peças (mockups/composições) mudou de casa: é o /portfolio agora.
+// Fonte de layout: rizzo-os → design_handoff_site_rizzo/Pagina - Clientes.dc.html
+// (D5, 2026-09-20: "o protótipo sobrepõe qualquer regra anterior"). Plano:
+// rizzo-os → docs/SITE_REDESENHO_HANDOFF_MAPA.md §4, fatia 3.
 //
-// Desenho refeito em 2026-08-25 a pedido do cliente (*"a página ficou muito feia,
-// essa tipografia está ruim; quero os logos espalhados ao máximo pela página"*).
-// O que estava errado, medido a 1440px: a grade caía dentro da coluna de leitura
-// de 46rem e rendia **3 colunas**, com o NOME em Roboto Slab bold maior que o
-// próprio logo e quebrando em 2–3 linhas — fileiras irregulares e buraco onde a
-// casa não tinha marca. Agora: `.wrap.largo` (o mural sai da coluna de leitura),
-// UM mural alfabético em vez de 46 grades por área (28 dessas áreas têm ≤3 casas
-// — grade por área é o que impedia o "espalhado ao máximo"), o logo é o corpo do
-// tile e o nome desceu pra linha de apoio. Referência do cliente: o mural do site
-// antigo (`client-logo-item`) — cinza que vira cor no hover, que é o que dá
-// unidade a 242 marcas de cores brigadas.
-// A leitura POR ÁREA não se perdeu: virou a lista de nomes em colunas logo
-// abaixo, no mesmo vocabulário do EspecialidadeLanding (`.carteira-grupo ul`);
-// em 2026-09-18 o índice de áreas deu lugar a um FILTRO por especialidade e por
-// UF (components/ClientesFiltro.tsx — a única ilha de cliente da página).
+// O que a página é, de cima pra baixo — o protótipo, seção a seção:
+//   · Topo em pílula (o mesmo da home, `components/ar/home/Topo.tsx`) + o
+//     PanoHeader da fatia 2 com as props que o protótipo declara pra ESTA
+//     página (reta · ouro · 103, 3 fileiras, densidade 1, rejunte 9);
+//   · 01 Lede — o parágrafo que a página já tinha ("o conteúdo do repo manda");
+//   · 02 Mural — as 242 marcas em grade fixa 4/3/2 colunas, com a batida de
+//     700ms (MuralVivo.tsx). Só entra quem tem arquivo em public/logos/ —
+//     ausência honesta > presença defeituosa; ninguém some da página: as 257
+//     seguem inteiras na lista por área (e no ItemList do JSON-LD);
+//   · 03 Por área — a carteira em colunas com o filtro área/UF (FiltroArea.tsx);
+//   · Fatos — o letreiro amarelo;
+//   · CTA — a caixa de papel com UMA porta (é assim no protótipo do /clientes;
+//     a porta quente mora no topo). Depois, o rodapé chumbo da linha v3, que é
+//     quem cumpre o checar-navegacao.mjs.
 //
-// 2ª rodada, mesmo dia: *"quero versão só logo, sem texto algum escrito, apenas
-// com o alt para o SEO — mas para o cliente quero o impacto dos logos, eles
-// gostam de ver os detalhes"*. Então o tile perdeu a legenda (nome e praça) e
-// virou SÓ a marca, em cor cheia, na proporção 5:2 do arquivo de origem
-// (400×160) pra não sobrar caixa em volta. Duas consequências assumidas:
-// 1. Quem NÃO tem arquivo de logo sai do mural — um tile de texto seria
-//    justamente "texto escrito" no mural. Nenhuma casa some da página: as 257
-//    seguem na lista por área aqui embaixo, com nome e praça, e é de lá que sai
-//    o nome legível pra busca (o `alt` cobre a busca por imagem).
-// 2. Sem cinza. `grayscale` era o que dava unidade a 242 marcas de cores
-//    brigadas, mas cor É detalhe de marca — e detalhe é o que o cliente pediu.
+// O que NÃO veio do protótipo, e por quê: a geolocalização por IP (ipapi.co —
+// "as casas do estado do visitante abrem o mural"). É dado do visitante indo
+// pra um terceiro; a política de privacidade lista o que o site coleta e diz
+// que muda no mesmo PR. Decisão de negócio, não de código — [H-08] no doc-mapa.
+// Sem geo o protótipo embaralha por visita, e é isso que está no ar.
 //
-// `content/clientes.ts` (a antiga grade de 18) não alimenta mais esta página —
-// ficou só como registro auditado contra o oráculo (`scripts/checar-portfolio.mjs`
-// segue validando o arquivo), porque `content/carteira.ts` já é o superconjunto
-// com cidade+área pra TODAS as casas, sem precisar reconciliar os dois.
+// `content/clientes.ts` (a antiga grade de 18) segue sem alimentar esta página
+// — fica como registro auditado contra o oráculo pelo checar-portfolio.mjs.
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MenuTopo, Fatos, CtaConversa, FooterMapa, Band } from "@/components/athos/Athos";
-import { panoClientes } from "@/lib/athos/panos";
+import "../home-diagonal.css";
+import "@/components/ar/clientes/clientes-v3.css";
+import { Topo } from "@/components/ar/home/Topo";
+import { Rodape } from "@/components/ar/home/Fecho";
+import { TopoDg } from "@/components/ar/TopoDg";
+import { PanoHeader } from "@/components/secoes/PanoHeader";
+import { MuralVivo } from "@/components/ar/clientes/MuralVivo";
+import { FiltroArea } from "@/components/ar/clientes/FiltroArea";
 import { chave } from "@/content/portfolio";
 import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
 import { logoDe } from "@/lib/logos";
-import { ClientesFiltro } from "@/components/ClientesFiltro";
-import { SITE_URL } from "@/lib/site";
+import { FATOS, PROPOSTA_URL, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Clientes — médicos, clínicas e hospitais",
@@ -73,37 +66,30 @@ function agruparCarteira(): Grupo[] {
   const porArea = new Map<string, ClienteCarteira[]>();
   for (const c of restantes) porArea.set(c.area, [...(porArea.get(c.area) ?? []), c]);
 
-  const ordenar = (itens: ClienteCarteira[]) =>
-    [...itens].sort((a, b) => (chave(a.nome) < chave(b.nome) ? -1 : 1));
+  const ordenar = (itens: ClienteCarteira[]) => [...itens].sort((a, b) => (chave(a.nome) < chave(b.nome) ? -1 : 1));
 
   return [...porArea.entries()]
     .map(([area, itens]) => ({ area, itens: ordenar(itens) }))
     .sort((a, b) => b.itens.length - a.itens.length || (chave(a.area) < chave(b.area) ? -1 : 1));
 }
 
-/** A carteira inteira em UMA lista alfabética — o mural não agrupa (ver cabeçalho). */
+/** A carteira inteira em UMA lista alfabética — a ordem do mural sem JS. */
 function carteiraOrdenada(): ClienteCarteira[] {
   const ocultos = new Set(OCULTOS.map(chave));
-  return CARTEIRA.filter((c) => !ocultos.has(chave(c.nome))).sort((a, b) =>
-    chave(a.nome) < chave(b.nome) ? -1 : 1,
-  );
+  return CARTEIRA.filter((c) => !ocultos.has(chave(c.nome))).sort((a, b) => (chave(a.nome) < chave(b.nome) ? -1 : 1));
 }
 
 export default function ClientesPage() {
-  // Pano próprio da página (regra "cada peça com o seu pano").
-  const faixa = panoClientes();
   const grupos = agruparCarteira();
   const casas = carteiraOrdenada();
-  // O mural é só marca: entra quem tem arquivo. As 257 seguem inteiras na lista
-  // por área (e no ItemList do JSON-LD) — ninguém some da página.
   const noMural = casas
     .map((c) => ({ c, logo: logoDe(c.nome) }))
     .filter((x): x is { c: ClienteCarteira; logo: string } => x.logo !== null);
   const nomesNaPagina = casas.map((c) => c.nome);
-  // O filtro (2026-09-18): as áreas na ordem dos grupos e as UFs em ordem
-  // alfabética — por estado, e só (o cliente dispensou o recorte por cidade).
-  const areas = grupos.map((g) => g.area);
+  const areas = grupos.map((g) => ({ nome: g.area, n: g.itens.length }));
   const ufs = [...new Set(casas.map((c) => c.uf))].sort((a, b) => (a < b ? -1 : 1));
+  // O letreiro: a MESMA linha de fatos das outras páginas (lib/site.ts), item a item.
+  const fatos = FATOS.split(" · ");
 
   // Schema desta página (regra 5 do CLAUDE.md): CollectionPage + ItemList.
   // SEM aggregateRating — avaliação fabricada foi um dos antipadrões que derrubaram
@@ -137,64 +123,63 @@ export default function ClientesPage() {
   ];
 
   return (
-    <>
+    <div className="dg cli">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <MenuTopo atual="/clientes" waText={WA} />
+      <Topo waText={WA} />
+      <TopoDg />
+      <PanoHeader
+        kicker="Clientes · desde 2012"
+        tituloA="Quem constrói"
+        tituloB="com a gente."
+        motivo="reta"
+        cores="ouro"
+        semente={103}
+        linhas={3}
+        densidade={1}
+        rejunte={9}
+      />
       <main>
-      <section className="hero">
-        <div className="wrap">
-          <div className="kicker">Clientes · desde 2012</div>
-          <h1 className="display">
-            Quem constrói
-            <br />
-            <span className="acento">com a gente.</span>
-          </h1>
-          <p className="lede">
-            São 259 médicos, clínicas e hospitais atendidos desde 2012, em 53 cidades de 21 estados — do consultório de um nome só à
-            rede hospitalar. As marcas vêm primeiro; a lista inteira, com praça e área, está logo abaixo. O trabalho
-            que fizemos com cada um está no <Link href="/portfolio">portfólio</Link>.
+        <section className="cli-lede" data-topo="escuro">
+          <p>
+            São 259 médicos, clínicas e hospitais atendidos desde 2012, em 53 cidades de 21 estados — do consultório de um nome só
+            à rede hospitalar. As marcas vêm primeiro; a lista inteira, com praça e área, está logo abaixo. O trabalho que
+            fizemos com cada um está no <Link href="/portfolio">portfólio</Link>.
           </p>
-        </div>
-      </section>
+        </section>
 
-      <article className="corpo">
-        {/* O mural sai da coluna de leitura (46rem): 257 marcas em 3 colunas é o
-            que o cliente chamou de feio. `largo` é aditivo — nenhuma outra rota
-            muda de largura. */}
-        <div className="wrap largo">
-          <div className="mural">
+        <section className="cli-mural" aria-label="Marcas de clientes" data-topo="escuro">
+          <div className="mural-grade" data-mural>
             {noMural.map(({ c, logo }) => (
-              /* Só a marca — nenhum texto. O nome viaja no `alt` (busca por
-                 imagem) e aparece por extenso na lista por área. */
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img className="marca" key={c.nome} src={logo} alt={`Logo de ${c.nome}`} loading="lazy" />
+              <figure className="mural-casa" key={c.nome}>
+                {/* Só a marca — nenhum texto. O nome viaja no `alt` (busca por
+                    imagem) e aparece por extenso na lista por área. `<img>` cru:
+                    o site é SSG ~zero JS e o logo já vem otimizado do repo. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={logo} alt={`Logo de ${c.nome}`} loading="lazy" />
+              </figure>
             ))}
           </div>
-        </div>
+          <MuralVivo />
+        </section>
 
-        {/* A lista por área também sai da coluna de leitura: em 46rem as colunas
-            ficam com ~14rem e nome de clínica quebra em 3 linhas. */}
-        <div className="wrap largo">
-          {/*
-            O índice das áreas. NÃO é enfeite: a 390px a lista tem dezenas de grupos —
-            sem um jeito de pular, achar "Odontologia" é rolar a página inteira. Com
-            ele, o grupo alvo aterrissa a 16px do topo.
-          */}
-          <h2 className="sec">Por área</h2>
-          {/* O filtro no lugar do índice de pílulas: com 46 áreas, escolher a área
-              num select e ver SÓ ela é mais direto que pular de âncora em âncora —
-              e o estado entra no mesmo gesto. A lista continua
-              inteira no HTML; o componente só esconde (ver ClientesFiltro.tsx). */}
-          <ClientesFiltro areas={areas} ufs={ufs} total={casas.length} />
-
-          <div className="carteira" data-carteira>
+        <section id="por-area" className="cli-area" aria-labelledby="h-area" data-topo="escuro">
+          <div className="cli-area-cabeca">
+            <h2 id="h-area">Por área</h2>
+            <FiltroArea areas={areas} ufs={ufs} total={casas.length} />
+          </div>
+          <div className="cli-lista" data-carteira>
             {grupos.map((g) => (
-              <section className="carteira-grupo" id={`area-${chave(g.area)}`} data-area={g.area} key={g.area}>
-                <h3>{g.area}</h3>
+              <section className="cli-grupo" id={`area-${chave(g.area)}`} data-area={g.area} key={g.area}>
+                <h3>
+                  <span>{g.area}</span>
+                  <span className="cifra" data-n>
+                    {g.itens.length}
+                  </span>
+                </h3>
                 <ul>
                   {g.itens.map((c) => (
-                    <li className="carteira-nome" data-uf={c.uf} key={c.nome}>
-                      {c.nome}
+                    <li data-uf={c.uf} key={c.nome}>
+                      <span className="nome">{c.nome}</span>{" "}
                       <span className="praca">
                         {c.cidade}/{c.uf}
                       </span>
@@ -204,26 +189,40 @@ export default function ClientesPage() {
               </section>
             ))}
           </div>
-        </div>
-
-        <div className="wrap">
-          <p className="prosa">
+          <p className="cli-nota">
             Boa parte dessa lista é hospital e rede — instituições em que cada linha de serviço disputa um mercado
             próprio. O que pensamos sobre isso está em{" "}
             <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
           </p>
+        </section>
 
-          <Fatos />
-          <p>
-            <Link href="/">← Voltar pra visão geral</Link>
-          </p>
-        </div>
-      </article>
+        {/* o letreiro do .dg (o mesmo da home), com a linha de fatos da casa */}
+        <section className="autoridade" aria-label="Fatos da agência" data-topo="claro">
+          <div className="marquee">
+            {[...fatos, ...fatos].map((f, i) => (
+              <span key={i}>
+                {f}
+                <i className="losango" aria-hidden />
+              </span>
+            ))}
+          </div>
+        </section>
 
-      <CtaConversa chave={"/clientes"} titulo="Sua clínica" acento="na próxima lista?" />
-      <Band html={faixa} />
+        <section className="cli-cta" aria-labelledby="h-cta" data-topo="escuro">
+          <div className="cli-cta-caixa">
+            <h2 id="h-cta">
+              Sua clínica
+              <br />
+              <span>na próxima lista?</span>
+            </h2>
+            <a className="cli-cta-btn" data-cta="proposta" href={PROPOSTA_URL}>
+              Montar a minha proposta <span aria-hidden>→</span>
+            </a>
+            <p>Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote da sua clínica na hora, com o preço aberto.</p>
+          </div>
+        </section>
       </main>
-      <FooterMapa atual="/clientes" proxima={["portfolio", "contato"]} />
-    </>
+      <Rodape />
+    </div>
   );
 }

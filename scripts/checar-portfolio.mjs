@@ -84,6 +84,19 @@ const extras = semComentarios(portfolio).match(/ESPECIALIDADES_EXTRA\s*=\s*\[([^
 if (!extras) throw new Error("ESPECIALIDADES_EXTRA sumiu de content/portfolio.ts — a lista fechada perdeu a fonte");
 for (const m of extras[1].matchAll(/"([^"]+)"/g)) especsValidas.add(m[1]);
 
+// ---------- balde por serviço (D2 do redesenho, fatia 3 — 2026-09-20) ----------
+// O /portfolio do handoff agrupa por `grupo` (7 baldes) e monta a moldura por
+// balde. O balde é DERIVADO do `servico` pela tabela SERVICO_PARA_GRUPO do
+// registry; serviço sem linha na tabela cairia em "Outro" em silêncio — e é
+// exatamente isso que este gate impede: serviço novo entra na tabela de
+// propósito, no diff, ou o build não sai.
+const tabelaGrupos = semComentarios(portfolio).match(/SERVICO_PARA_GRUPO[^=]*=\s*\{([^}]*)\}/);
+if (!tabelaGrupos) throw new Error("SERVICO_PARA_GRUPO sumiu de content/portfolio.ts — o balde perdeu a fonte");
+const gruposDeclarados = semComentarios(portfolio).match(/GRUPOS\s*=\s*\[([^\]]*)\]/);
+const baldes = new Set(gruposDeclarados ? [...gruposDeclarados[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]) : []);
+const grupoPorServico = new Map();
+for (const m of tabelaGrupos[1].matchAll(/"([^"]+)":\s*"([^"]+)"/g)) grupoPorServico.set(m[1], m[2]);
+
 // Um bloco = um literal de peça. `[^{}]*` não atravessa a chave de fechamento, então
 // campo faltando vira erro na PRÓPRIA peça — e nunca casa com o campo da peça
 // seguinte (era o risco da cadeia de `[\s\S]*?` que este arquivo usava antes).
@@ -150,6 +163,15 @@ for (const bloco of blocos) {
         [...especsValidas].sort().join(" · ") +
         " (especialidade nova de verdade entra em ESPECIALIDADES_EXTRA, no portfolio.ts)",
     );
+
+  const servico = campo("servico");
+  if (servico && !grupoPorServico.has(servico))
+    erros.push(
+      `serviço "${servico}" (peça de ${quem}) sem balde em SERVICO_PARA_GRUPO — declare a linha no content/portfolio.ts ` +
+        `(baldes: ${[...baldes].join(" · ")}); serviço novo não entra como "Outro" em silêncio`,
+    );
+  else if (servico && !baldes.has(grupoPorServico.get(servico)))
+    erros.push(`serviço "${servico}" aponta pro balde "${grupoPorServico.get(servico)}", que não está em GRUPOS`);
 
   const imagem = campo("imagem");
   if (imagem) {
@@ -508,7 +530,8 @@ if (erros.length) {
 const indexaveis = blocosPagina.filter((b) => !/\bnoindex:\s*true/.test(b)).length;
 console.log(
   `✓ checar-portfolio: ${blocos.length} peça(s), todos os nomes públicos, imagens presentes, cartas válidas, ` +
-    `espec na lista fechada (${especsValidas.size} valores), ${ancoras.size} âncora(s) sem colisão`,
+    `espec na lista fechada (${especsValidas.size} valores), ${ancoras.size} âncora(s) sem colisão, ` +
+    `${grupoPorServico.size} serviço(s) com balde declarado (${baldes.size} baldes)`,
 );
 console.log(
   `✓ checar-portfolio: grade do /clientes com ${gradeVistos.size} nome(s), todos vinculados a um registro do ` +
