@@ -23,16 +23,23 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    sobre `ROTAS_COM_PANO` e só repete motivo depois de gastar a biblioteca inteira,
    e aí com outro par de cores; `trevo` é reservado à tira do bloco RizzoOS e não
    vira faixa de página. `scripts/checar-panos.mjs` reprova o build no repetido.
-3. **Tipografia oficial:** Roboto Slab (display) · Geist (corpo/UI/wordmarks) ·
-   JetBrains Mono (kickers) — via `next/font`, self-hosted. Rockwell só no logo real
-   (`public/logo_horizontal.png`). Ink sobre papel `#16130E`; corpo `#3A3628`.
-   **Tamanho e tracking saem da ESCALA** declarada no `:root` do `app/globals.css`
-   (`--slab-*`, `--corpo-*`, `--mono-*`, `--ls-*`, `--lh-*`) — base: a peça
-   Athos·Papel do e-mail (rizzo-os → `COMUNICADO_NOVA_STACK_MAPA.md` §4). Nada de
-   número solto no meio do CSS nem de tipo inline no `.tsx`:
-   `scripts/checar-tipografia.mjs` reprova o build. Degrau novo só com motivo,
-   declarado no `:root`. Teal é acento raro (A11): headline, links e foco — rótulo
-   e kicker são cinza, como o eyebrow do e-mail.
+3. **Tipografia oficial:** Geist (display e corpo) · JetBrains Mono (kickers) — via
+   `next/font`, self-hosted. Rockwell só no logo real (`public/logo_horizontal.png`).
+   **Geist assumiu o display em 2026-09-20** (decisão do cliente, handoff do Claude
+   Design): Roboto Slab saiu do `app/layout.tsx` (deixou de ser baixado); no `:root`
+   do `app/globals.css`, `--font-slab: var(--font-geist);` — os tokens `--slab-*`
+   **conservam o nome de propósito** (o papel continua "display", só a fonte por
+   trás mudou; renomear seria vassoura, §🌿-2 do rizzo-os). Pesos do Geist
+   carregados no `layout.tsx`: `200 · 300 · 400 · 500 · 600 · 700 · 800` — peso
+   fora desta lista é sintético e proibido. Ink sobre papel `#16130E`; corpo
+   `#3A3628`. **Tamanho e tracking saem da ESCALA** declarada no `:root` do
+   `app/globals.css` (`--slab-*`, `--corpo-*`, `--mono-*`, `--ls-*`, `--lh-*`) —
+   base: a peça Athos·Papel do e-mail (rizzo-os → `COMUNICADO_NOVA_STACK_MAPA.md`
+   §4). Nada de número solto no meio do CSS nem de tipo inline no `.tsx`:
+   `scripts/checar-tipografia.mjs` reprova o build (font-size/letter-spacing —
+   font-weight não é vigiado pelo gate; confira por grep antes de somar peso novo).
+   Degrau novo só com motivo, declarado no `:root`. Teal é acento raro (A11):
+   headline, links e foco — rótulo e kicker são cinza, como o eyebrow do e-mail.
 4. **Duas portas, e as duas em destaque** (rizzo-os → `FUNIL_ENTRADA_MAPA.md` §5).
    Registro único das duas + do menu do topo: **`lib/nav.ts`** — item de menu, rótulo
    de CTA e rota do portão entram AÍ, nunca no componente. A porta **fria 24/7** é

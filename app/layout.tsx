@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto_Slab, JetBrains_Mono, Geist } from "next/font/google";
+import { JetBrains_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { INDEXABLE, SITE_URL, ORG_JSONLD } from "@/lib/site";
 import { Medicao } from "@/components/Medicao";
@@ -7,17 +7,23 @@ import { GuardaOrigem } from "@/components/GuardaOrigem";
 import { Analytics } from "@vercel/analytics/next";
 
 // Tipografia oficial da Linha Athos (self-hosted via next/font — zero request externo):
-// Roboto Slab (display) · Geist (voz única das duas marcas) · JetBrains Mono (kickers).
-// Roboto Slab ganhou o peso 300 em 2026-09-13: o H1 da landing v3 de cidade
-// pede display LEVE (§44.21-6 do SITE_MANIFESTO_MAPA.md). 300 é o mais leve que
-// o next/font serve nesta família — peso sintético está proibido, e é por isso
-// que o peso entra aqui em vez de um `font-weight: 200` sem face por trás.
-const slab = Roboto_Slab({ subsets: ["latin"], weight: ["300", "700", "800"], variable: "--font-slab", display: "swap" });
-// Geist ganhou o peso 200 em 2026-09-13: o H1 da linha v3 do Claude Design é
-// display LEVE (`font-weight:200` no `.dc.html` e no artifact), e peso
-// sintético está proibido — sem a face real o navegador "afina" o 300 e a
-// letra sai deformada.
-const geist = Geist({ subsets: ["latin"], weight: ["200", "300", "400", "500", "700", "800"], variable: "--font-geist", display: "swap" });
+// Geist (display e corpo) · JetBrains Mono (kickers). Rockwell só no logo real.
+// Roboto Slab SAIU em 2026-09-20 (handoff do Claude Design, decisão do cliente):
+// o papel de display passa a ser servido por Geist — `--font-slab` no
+// `app/globals.css` vira alias pra `--font-geist`, os tokens `--slab-*`
+// mantêm o nome de propósito (renomear seria vassoura, §🌿-2 do rizzo-os).
+// Geist ganhou o peso 200 em 2026-09-13 (display leve do Claude Design) e o
+// 600 em 2026-09-20: além do handoff usar peso 600 span 31 vezes na Home, o
+// `ar-v3.css`/`home-diagonal.css`/`cidade-v3.css` já pediam Geist 600 sem a
+// face carregada — peso sintético, que esta lista corrige de graça. Peso
+// sintético está proibido: sem a face real o navegador "engrossa"/"afina" o
+// vizinho e a letra sai deformada.
+const geist = Geist({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  variable: "--font-geist",
+  display: "swap",
+});
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
@@ -45,7 +51,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${slab.variable} ${geist.variable} ${mono.variable}`}>
+    <html lang="pt-BR" className={`${geist.variable} ${mono.variable}`}>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }} />
       </head>
