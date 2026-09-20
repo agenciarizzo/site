@@ -27,10 +27,18 @@
 //   [data-gal-titulo] [data-gal-resumo] [data-gal-pagina] [data-gal-aviso]
 //   [data-gal-vazio]   os textos de estado
 //
-// A geolocalização do protótipo ("Você está em GO? Ver 12 peças", a seção
-// "Perto de você") NÃO veio — ipapi.co é dado do visitante indo pra terceiro;
-// [H-08] no doc-mapa. Sem geo o protótipo simplesmente não mostra os dois.
+//   [data-geo-sugere]  o botão "Você está em GO? Ver 12 peças" (01), com
+//                      [data-geo-nome] e [data-geo-n]
+//   [data-perto]       a seção "02 Perto de você", com [data-perto-lista]
+//                      (recebe CÓPIAS de até 6 peças da UF), [data-perto-nome],
+//                      [data-perto-n], [data-perto-uf] e [data-perto-ver]
+//
+// A geolocalização (autorizada pelo cliente em 2026-09-20, [H-08]) vem do
+// header da Vercel via /api/geo (components/ar/geo.ts), não do ipapi.co do
+// protótipo. Sem sigla, o protótipo simplesmente não mostra a sugestão nem o
+// "perto de você" — e é o que acontece aqui.
 import { useEffect } from "react";
+import { ufDoVisitante } from "@/components/ar/geo";
 
 const LIM = 6;
 
@@ -58,6 +66,9 @@ export function PortfolioFiltro({ ufNome }: { ufNome: Record<string, string> }) 
     const avisoUf = um<HTMLElement>("[data-gal-uf]");
     const vazio = um<HTMLElement>("[data-gal-vazio]");
     const total = itens.length;
+    const geoSugere = um<HTMLButtonElement>("[data-geo-sugere]");
+    const perto = um<HTMLElement>("[data-perto]");
+    let geoUf = "";
 
     const f: Filtro = { grupo: "Todos", espec: "", uf: "", soAr: false };
     const dado = (el: HTMLElement) => ({ grupo: el.dataset.grupo ?? "", espec: el.dataset.espec ?? "", uf: el.dataset.uf ?? "", url: el.dataset.url === "1" });
@@ -135,6 +146,10 @@ export function PortfolioFiltro({ ufNome }: { ufNome: Record<string, string> }) 
       if (vazio) vazio.hidden = !(temFiltro && lista === 0);
       if (temFiltro) raiz.dataset.filtro = "";
       else delete raiz.dataset.filtro;
+      // geo: a sugestão só sem estado escolhido; o "perto de você" só sem filtro nenhum
+      const geoN = geoUf ? itens.filter((el) => dado(el).uf === geoUf).length : 0;
+      if (geoSugere) geoSugere.hidden = !geoUf || !!f.uf || geoN === 0;
+      if (perto) perto.hidden = !geoUf || temFiltro || geoN === 0;
     };
 
     // escolha feita: aplica e leva ao resultado
@@ -172,9 +187,45 @@ export function PortfolioFiltro({ ufNome }: { ufNome: Record<string, string> }) 
     for (const b of q<HTMLButtonElement>("[data-f-limpar]")) liga(b, "click", () => escolher({ grupo: "Todos", espec: "", uf: "", soAr: false }));
     for (const b of q<HTMLButtonElement>("[data-ver-todas]")) liga(b, "click", () => escolher({ espec: b.dataset.verTodas ?? "", grupo: "Todos" }));
 
+    liga(geoSugere, "click", () => escolher({ uf: geoUf }));
+    liga(um<HTMLButtonElement>("[data-perto-ver]"), "click", () => escolher({ uf: geoUf }));
+
     raiz.dataset.vivo = "";
     aplicar();
-    return () => limpezas.forEach((l) => l());
+
+    // o estado do visitante chega depois: acende a sugestão e monta o "perto
+    // de você" com CÓPIAS das primeiras 6 peças daquela UF (o lightbox de cada
+    // uma continua sendo o original — a cópia só leva a miniatura e a legenda,
+    // então nenhum id se repete)
+    let vivo = true;
+    ufDoVisitante().then((uf) => {
+      if (!vivo || !uf) return;
+      const daUf = itens.filter((el) => dado(el).uf === uf);
+      if (daUf.length === 0) return;
+      geoUf = uf;
+      const nome = ufNome[uf] ?? uf;
+      for (const el of q<HTMLElement>("[data-geo-nome], [data-perto-nome]")) el.textContent = nome;
+      for (const el of q<HTMLElement>("[data-geo-n], [data-perto-n]")) el.textContent = String(daUf.length);
+      for (const el of q<HTMLElement>("[data-geo-pl]")) el.textContent = daUf.length === 1 ? "peça" : "peças";
+      for (const el of q<HTMLElement>("[data-perto-as]")) el.textContent = daUf.length === 1 ? "a" : "as";
+      for (const el of q<HTMLElement>("[data-perto-uf]")) el.textContent = uf;
+      const listaPerto = um<HTMLElement>("[data-perto-lista]");
+      if (listaPerto && listaPerto.childElementCount === 0) {
+        for (const el of daUf.slice(0, 6)) {
+          const li = document.createElement("li");
+          const copia = el.cloneNode(true) as HTMLElement;
+          copia.hidden = false;
+          copia.querySelector(".peca-lightbox")?.remove();
+          li.appendChild(copia);
+          listaPerto.appendChild(li);
+        }
+      }
+      aplicar();
+    });
+    return () => {
+      vivo = false;
+      limpezas.forEach((l) => l());
+    };
   }, [ufNome]);
   return null;
 }

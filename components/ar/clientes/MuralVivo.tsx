@@ -14,15 +14,16 @@
 // só `hidden`, `order` e dois `data-*` mudam.
 //
 // A ordem é sorteada por visita (Park–Miller semeado no relógio, como o
-// protótipo). A parte "com geo, as casas da UF do visitante vêm primeiro" NÃO
-// veio: o protótipo consulta ipapi.co, que é dado do visitante indo pra um
-// terceiro — decisão de negócio + LGPD (a política de privacidade lista o que
-// o site coleta), registrada como [H-08] no doc-mapa. Sem geo, o protótipo
-// embaralha — e é isso que está aqui.
+// protótipo) e, com geo, "as casas do estado do visitante abrem o mural": o
+// cliente autorizou a geolocalização em 2026-09-20 ([H-08] do doc-mapa), e ela
+// vem do header da Vercel via /api/geo (components/ar/geo.ts), não do ipapi.co
+// do protótipo — nenhum IP sai pra terceiro. Sem sigla (preview, dev, fora do
+// Brasil, falha), fica o embaralhado puro, que é o fallback do protótipo.
 //
 // `prefers-reduced-motion: reduce` desliga a batida: fica o mural inteiro,
 // parado (a preferência é de quem olha, não do desenho).
 import { useEffect } from "react";
+import { ufDoVisitante } from "@/components/ar/geo";
 
 export function MuralVivo() {
   useEffect(() => {
@@ -38,11 +39,15 @@ export function MuralVivo() {
       x = (x * 16807) % 2147483647;
       return (x - 1) / 2147483646;
     };
-    const ordem = [...casas];
-    for (let i = ordem.length - 1; i > 0; i--) {
-      const j = Math.floor(rnd() * (i + 1));
-      [ordem[i], ordem[j]] = [ordem[j], ordem[i]];
-    }
+    const embaralha = (lista: HTMLElement[]) => {
+      const a = [...lista];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(rnd() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+    let ordem = embaralha(casas);
 
     // N casas = colunas × fileiras do protótipo (2/3/4 colunas · 8 fileiras no
     // celular, 4 no resto); as colunas em si são do CSS.
@@ -104,6 +109,16 @@ export function MuralVivo() {
     };
     const t = setInterval(batida, 700);
 
+    // com geo: as casas da UF do visitante primeiro (embaralhadas entre si),
+    // depois as outras — e o mural remonta a partir daí
+    let vivo = true;
+    ufDoVisitante().then((uf) => {
+      if (!vivo || !uf || !casas.some((c) => c.dataset.uf === uf)) return;
+      ordem = [...embaralha(casas.filter((c) => c.dataset.uf === uf)), ...embaralha(casas.filter((c) => c.dataset.uf !== uf))];
+      grade.dataset.geo = uf;
+      montar();
+    });
+
     let pedido = 0;
     const aoRedim = () => {
       if (pedido) return;
@@ -114,6 +129,7 @@ export function MuralVivo() {
     };
     addEventListener("resize", aoRedim);
     return () => {
+      vivo = false;
       clearInterval(t);
       removeEventListener("resize", aoRedim);
       if (pedido) cancelAnimationFrame(pedido);

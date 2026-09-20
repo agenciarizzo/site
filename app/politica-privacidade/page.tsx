@@ -1,9 +1,11 @@
 // Política de privacidade + termos de uso.
 //
 // Página FACTUAL: descreve exatamente o que este site coleta hoje — GA4, Meta Pixel, UET
-// do Microsoft Advertising (Bing), o evento de clique no WhatsApp e os identificadores de
+// do Microsoft Advertising (Bing), o evento de clique no WhatsApp, os identificadores de
 // clique de anúncio guardados no `localStorage` (ver components/Medicao.tsx, que é a fonte
-// da verdade do que roda).
+// da verdade do que roda) e, desde 2026-09-20, a sigla do estado do visitante lida do
+// header da Vercel (app/api/geo/route.ts — o cliente autorizou a geolocalização; [H-08]
+// do redesenho).
 // Se a medição mudar, esta página muda no MESMO PR — política que descreve o site errado
 // é pior que não ter política.
 //
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 const WA = "Olá! Tenho uma dúvida sobre privacidade e dados no site da agência.";
-const ATUALIZADO = "15 de setembro de 2026";
+const ATUALIZADO = "20 de setembro de 2026";
 
 export default function PrivacidadePage() {
   const faixa = panoPrivacidade();
@@ -127,10 +129,20 @@ export default function PrivacidadePage() {
               navegador, endereço solicitado e horário) para segurança, prevenção de abuso e diagnóstico de falhas.
             </p>
 
+            <h3 className="legal-h3">8 · O estado de onde você acessa</h3>
+            <p>
+              Nas páginas de clientes e de portfólio, o site pergunta à própria hospedagem em que <b>estado</b> do
+              Brasil você está — a Vercel deduz isso do endereço IP da conexão e devolve só a sigla (por exemplo,{" "}
+              <code>GO</code>). Serve para mostrar primeiro as marcas e as peças perto de você. A sigla fica no{" "}
+              <i>sessionStorage</i> do seu navegador (<code>ar_uf</code>) enquanto a aba está aberta e some quando
+              você a fecha. Não é cidade, não é endereço, não é enviada a nenhum outro serviço e não é guardada por
+              nós. Fora do Brasil, ou quando a hospedagem não sabe, nada muda na página.
+            </p>
+
             <p>
               A medição descrita nos itens 1 a 5 <b>só roda no site publicado</b>. Ambientes de desenvolvimento e de
               pré-visualização não medem nada. O item 6 não é medição: existe para a conversa abrir com o assunto
-              certo, e vale em qualquer ambiente.
+              certo, e vale em qualquer ambiente. O item 8 também não é medição — só ordena o que você já ia ver.
             </p>
 
             <h2 className="sec">O que este site NÃO coleta</h2>
@@ -185,7 +197,7 @@ export default function PrivacidadePage() {
                 <b>Microsoft</b> (Advertising e Bing) — medição de campanha na busca da Microsoft.
               </li>
               <li>
-                <b>Vercel</b> — hospedagem do site e registros técnicos de acesso.
+                <b>Vercel</b> — hospedagem do site, registros técnicos de acesso e a sigla do estado (item 8).
               </li>
             </ul>
             <p>

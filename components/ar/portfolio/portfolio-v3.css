@@ -93,6 +93,29 @@
   max-width: 100%;
 }
 .pfa-uf select:has(option:checked:not([value=""])) { border-bottom-color: var(--amarelo); }
+/* a sugestão de estado (só com geo): losango amarelo + frase */
+.pfa-geo {
+  border: 0;
+  background: transparent;
+  color: var(--cinza-texto);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pfa-geo:hover { color: var(--chumbo); }
+.pfa-geo i {
+  width: 8px;
+  height: 8px;
+  background: var(--amarelo);
+  transform: rotate(45deg);
+}
+.pfa-geo b,
+.pfp-ver b { font-weight: inherit; }
 .pfa-lista {
   border-top: 1px solid var(--chumbo);
   columns: 3;
@@ -146,6 +169,73 @@
   padding-left: 28px;
 }
 .pfa-lista button[aria-selected="true"] i { width: 18px; }
+
+/* ---- 02 · perto de você (só com geo) ---- */
+.pfp {
+  background: var(--papel-claro);
+  padding: 72px 0 88px;
+  overflow: hidden;
+}
+.pfp-cabeca {
+  padding: 0 var(--lado);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 32px;
+  margin-bottom: 28px;
+}
+.pfp-cabeca > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pfp-cabeca h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--chumbo);
+}
+.pfp-ver {
+  border: 0;
+  background: transparent;
+  color: var(--chumbo);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 0 0 2px;
+  cursor: pointer;
+  border-bottom: 2px solid var(--amarelo);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pfp-ver:hover { border-bottom-color: var(--chumbo); }
+.pfp-lista {
+  margin: 0;
+  padding: 0 var(--lado);
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.pfp-lista::-webkit-scrollbar { display: none; }
+.pfp-lista li {
+  flex: 0 0 min(76vw, 320px);
+  scroll-snap-align: start;
+}
+/* a cópia da peça vira cartão 4:3 recortado, como no protótipo */
+.pfp-lista .gal-item { margin: 0; }
+.pfp-lista .gal-abre img,
+.pfp-lista .gal-item video {
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+}
 
 /* ---- 03 · resultado ---- */
 .gal {

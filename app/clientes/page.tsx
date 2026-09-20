@@ -19,11 +19,11 @@
 //     a porta quente mora no topo). Depois, o rodapé chumbo da linha v3, que é
 //     quem cumpre o checar-navegacao.mjs.
 //
-// O que NÃO veio do protótipo, e por quê: a geolocalização por IP (ipapi.co —
-// "as casas do estado do visitante abrem o mural"). É dado do visitante indo
-// pra um terceiro; a política de privacidade lista o que o site coleta e diz
-// que muda no mesmo PR. Decisão de negócio, não de código — [H-08] no doc-mapa.
-// Sem geo o protótipo embaralha por visita, e é isso que está no ar.
+// Geolocalização ("as casas do estado do visitante abrem o mural"): autorizada
+// pelo cliente em 2026-09-20 ([H-08]), e vem do header da Vercel via /api/geo
+// (app/api/geo/route.ts), não do ipapi.co do protótipo — nenhum IP sai pra
+// terceiro. Cada casa leva a UF no `data-uf`; quem reordena é o MuralVivo.
+// Sem sigla (preview, dev, fora do Brasil) fica o embaralhado do protótipo.
 //
 // `content/clientes.ts` (a antiga grade de 18) segue sem alimentar esta página
 // — fica como registro auditado contra o oráculo pelo checar-portfolio.mjs.
@@ -150,7 +150,7 @@ export default function ClientesPage() {
         <section className="cli-mural" aria-label="Marcas de clientes" data-topo="escuro">
           <div className="mural-grade" data-mural>
             {noMural.map(({ c, logo }) => (
-              <figure className="mural-casa" key={c.nome}>
+              <figure className="mural-casa" data-uf={c.uf} key={c.nome}>
                 {/* Só a marca — nenhum texto. O nome viaja no `alt` (busca por
                     imagem) e aparece por extenso na lista por área. `<img>` cru:
                     o site é SSG ~zero JS e o logo já vem otimizado do repo. */}

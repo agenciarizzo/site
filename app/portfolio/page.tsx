@@ -21,14 +21,19 @@
 //     build (lib/portfolio-moldura.ts) e trocadas pela rolagem (MolduraScroll);
 //   · 05 CTA — o CtaConversa amarelo da fatia 2, com a frase do protótipo.
 //
-// O que NÃO veio: "02 Perto de você" e o "Você está em GO?" — os dois só
-// existem com geolocalização por IP (ipapi.co), que é dado do visitante indo
-// pra um terceiro; [H-08] no doc-mapa. E o lightbox: em vez do modal em JS do
-// protótipo, o PecaLightbox da casa (`:target`, zero JS, URL própria por peça)
-// — as setas andam pela ordem da PÁGINA, não do recorte filtrado.
+//   · 02 Perto de você e o "Você está em GO? Ver 12 peças" (01) — os dois
+//     dependem do estado do visitante, que o cliente autorizou em 2026-09-20
+//     ([H-08]) e que vem do header da Vercel via /api/geo, não do ipapi.co do
+//     protótipo. Nascem `hidden` no HTML e a ilha os acende quando a sigla
+//     chega; sem sigla ficam invisíveis, como no protótipo sem geo.
+//
+// O que NÃO veio: o lightbox. Em vez do modal em JS do protótipo, o
+// PecaLightbox da casa (`:target`, zero JS, URL própria por peça) — as setas
+// andam pela ordem da PÁGINA, não do recorte filtrado.
 //
 // "Site no ar" só onde o cadastro tem endereço (lib/enderecos.ts, regra 9):
-// 9 peças hoje. Nome sem endereço fica sem link — zero domínio adivinhado.
+// 13 peças de 9 casas hoje. Nome sem endereço fica sem link — zero domínio
+// adivinhado.
 import type { Metadata } from "next";
 import "../home-diagonal.css";
 import "@/components/ar/portfolio/portfolio-v3.css";
@@ -200,6 +205,12 @@ export default function PortfolioPage() {
                     </option>
                   ))}
                 </select>
+                <button type="button" className="pfa-geo" data-geo-sugere hidden>
+                  <i aria-hidden />
+                  <span>
+                    Você está em <b data-geo-nome />? Ver <b data-geo-n /> <b data-geo-pl>peças</b>
+                  </span>
+                </button>
               </div>
             </div>
             <div className="pfa-lista" role="listbox" aria-label="Especialidades">
@@ -212,6 +223,25 @@ export default function PortfolioPage() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* 02 · PERTO DE VOCÊ — só com o estado do visitante; a ilha preenche */}
+        <section className="pfp" aria-labelledby="h-perto" data-topo="escuro" data-perto hidden>
+          <div className="pfp-cabeca">
+            <div>
+              <p className="rot">Perto de você</p>
+              <h2 id="h-perto">
+                Peças em <span data-perto-nome />
+              </h2>
+            </div>
+            <button type="button" className="pfp-ver" data-perto-ver>
+              <span>
+                Ver <b data-perto-as>as</b> <b data-perto-n /> <b data-geo-pl>peças</b> em <b data-perto-uf />
+              </span>
+              <span aria-hidden>→</span>
+            </button>
+          </div>
+          <ul className="pfp-lista" data-perto-lista />
         </section>
 
         {/* 03 · RESULTADO — o acervo inteiro, indexável, agrupado por especialidade */}
