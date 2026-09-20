@@ -4,7 +4,9 @@
    Linha Athos — tokens oficiais (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §2)
    papel #F4EFE6 · ink #16130E · corpo #3A3628 · navy #0F172A (bloco RizzoOS)
    teal #0097A7 (acento raro) · ouro #F0A400 (tempera) · amarelo #FFD200 (só sobre navy)
-   Tipografia: Roboto Slab (display) · Geist (voz única) · JetBrains Mono (kickers)
+   Tipografia: Geist (display e corpo) · JetBrains Mono (kickers) — Roboto Slab
+   saiu em 2026-09-20 (handoff do Claude Design, decisão do cliente); ver
+   --font-slab abaixo.
    ============================================================ */
 @theme inline {
   --color-papel: #f4efe6;
@@ -34,6 +36,13 @@
      SÓ pra texto pequeno — display/acentos/bordas/foco continuam no --teal. */
   --teal-texto: #007681;
 
+  /* `--font-slab` deixou de vir do `next/font` (Roboto_Slab) em 2026-09-20:
+     o cliente decidiu Geist pros títulos (handoff do Claude Design), então o
+     PAPEL "display" continua se chamando slab — só a FONTE por trás muda.
+     `--slab-1..5` abaixo mantêm nome e valor: renomear pra `--display-*`
+     seria vassoura (§🌿-2 do rizzo-os) só pra não incomodar ninguém. */
+  --font-slab: var(--font-geist);
+
   /* ============================================================
      ESCALA TIPOGRÁFICA — base: a peça Athos·Papel do e-mail
      (rizzo-os → docs/comunicados/2026-07-nova-stack/gerar-email.mjs,
@@ -53,13 +62,26 @@
      (§2, "quase-preto quente, NÃO navy") vence sobre papel.
      ============================================================ */
 
-  /* display/títulos — Roboto Slab. e-mail: 33 · 21 · 17 · 16px */
+  /* display/títulos — Geist (Roboto Slab até 2026-09-20). e-mail: 33 · 21 · 17 · 16px */
   --slab-1: clamp(2.5rem, 7vw, 4.4rem); /* headline da página (A5) */
   --slab-2: clamp(1.9rem, 5vw, 2.7rem); /* headline do fecho/CTA */
   --slab-3: clamp(1.35rem, 3vw, 1.7rem); /* título de seção (barra ouro) */
   --slab-4: 1.08rem; /* título de card/caixa */
   --slab-5: 1rem; /* título curto em linha (passo, FAQ, nome) */
   --wordmark: 1.5rem; /* wordmark RizzoOS — construção oficial (A7) */
+
+  /* Degraus NOVOS do handoff do Claude Design (2026-09-20) — aditivos: os
+     --slab-1..5 acima NÃO mudam de valor, só de fonte. Cada página que
+     adotar o layout do handoff passa a usar o degrau abaixo quando for
+     reescrita (fatia 2+); nenhuma página existente usa estes ainda. */
+  --slab-hero: clamp(34px, 4.2vw, 58px); /* H1 de hero (peso 200, complemento 400) —
+     medido em Home, Sobre, Mídia Sites e nos moldes de Cidade e Especialidade do
+     handoff. O prompt desta fatia citava clamp(40px,6vw,88px); nenhum .dc.html
+     tem esse valor — corrigido na Fase 2 pelo protótipo, que é a fonte. */
+  --slab-pano: clamp(26px, 3.4vw, 48px); /* H1 do futuro PanoHeader (peso 200,
+     span 600) — Secao - Pano Header.dc.html; componente ainda não existe (fatia 2) */
+  --slab-cta: clamp(36px, 4.6vw, 72px); /* H2 de fechamento/CTA do handoff —
+     ex. #h-cta da Pagina - Home.dc.html */
 
   /* corpo — Geist. e-mail: 15 · 14 · 13px, razão ~0,93 entre degraus */
   --corpo-lede: 1.16rem; /* abre-alas do hero */
@@ -92,6 +114,13 @@
   --ls-rotulo: 0.18em; /* rótulo de seção, beta, "ler" */
   --ls-nav: 0.12em; /* navegação, cargo, meta */
   --ls-micro: 0.06em; /* legal, rodapé fino, botão */
+
+  /* Tracking NOVO do handoff (2026-09-20) — os H1 leves (peso 200) do
+     Claude Design usam um tracking mais fechado que o --ls-display atual
+     (-0.025em); o kicker do Pano Header é mais compacto que o --ls-kicker
+     padrão (0.28em) — não se reaproveita esse token só pra passar no gate. */
+  --ls-slab-leve: -0.03em; /* título do H1 de hero e do H1 de Pano Header */
+  --ls-kicker-pano: 0.08em; /* kicker do Pano Header */
 
   /* entrelinha */
   --lh-display: 1.06;
@@ -435,7 +464,12 @@ footer.fim { text-align: center; padding: 1.8rem 1.4rem 2.6rem; }
 footer.fim a { color: var(--teal-texto); text-decoration: none; }
 .wm { font-family: var(--font-geist), Arial, sans-serif; font-size: var(--corpo-1); color: var(--corpo); margin-bottom: 0.7rem; }
 .wm .light { font-weight: 300; }
-.wm .bar { color: var(--amarelo); font-weight: 900; margin: 0 0.18rem; }
+/* 900 achado em 2026-09-20 (revisão da fatia 1 do redesenho): Geist só carregava
+   até 800, então o "|" saía com peso sintético — o navegador "engrossava" o 800
+   em silêncio, e o checar-tipografia.mjs não vigia font-weight. Não é título de
+   destaque (é o separador do wordmark do rodapé): desce pra 800, já carregado,
+   em vez de acrescentar mais uma face pro Geist por um caractere. */
+.wm .bar { color: var(--amarelo); font-weight: 800; margin: 0 0.18rem; }
 .wm b { font-weight: 700; color: var(--ink); }
 footer.fim .linha { font-family: var(--font-mono), monospace; font-size: var(--mono-2); letter-spacing: var(--ls-micro); margin-top: 0.5rem; color: var(--cinza); }
 
