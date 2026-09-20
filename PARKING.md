@@ -152,3 +152,54 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
   manual acima). O que fica sem prova é a camada de cima: elegibilidade de rich result
   e avisos que só o crawler do Google detecta.
 - **Prazo sugerido:** checkpoint pro cliente logo após o merge desta entrega.
+
+---
+
+# PARKING — redesenho do site (handoff do Claude Design)
+
+O que a fatia 4 (cidade-molde) deixou **sem decidir sozinha**. Os itens
+`[H-*]` seguem a numeração do doc-mapa do tronco (rizzo-os →
+`docs/SITE_REDESENHO_HANDOFF_MAPA.md` §5) — o doc-mapa é a fonte da verdade e
+precisa receber estes dois de volta numa sessão com escrita no `rizzo-os`.
+
+## [H-09] O mapa real de fundo do pôster de cidade (seção 01c) não veio
+
+- **Estado:** a `Pagina Cidade - Modelo.dc.html` põe um **mapa real** atrás do
+  pôster (iframe `mapa-cidade.html` → Leaflet + tiles do MapTiler, chave de API
+  no HTML; o README manda "usar componente de mapa próprio/MapLibre"). O
+  cidade-molde (`components/ar/cidade/Praca.tsx`) põe no lugar o **campo de
+  azulejos da própria praça** (motor Athos, tweaks da cidade, opacidade .28),
+  e os três elementos de conteúdo do pôster — números, tese e chips — estão
+  todos lá.
+- **Por que não decidi:** tiles de terceiro mandam o **IP de cada visitante**
+  pro provedor do mapa (MapTiler/OSM) — exatamente o que a D6 (geolocalização
+  pelo header da Vercel, "nenhum IP sai pra terceiro") acabou de evitar —, além
+  de chave de API exposta, JS de biblioteca de mapa num site SSG "~zero JS" e
+  mais uma linha na política de privacidade. É decisão de negócio, não de
+  layout.
+- **Minha recomendação:** se o cliente quiser o mapa, uma **imagem estática
+  por praça** (um PNG do recorte, gerado uma vez, servido do `public/`) dá o
+  mesmo pôster sem terceiro, sem chave e sem JS; MapLibre com chave própria
+  só se o mapa precisar ser interativo — e aí a política muda no mesmo PR.
+- **Custo de não decidir:** nenhum mensurável — o pôster funciona e é da casa.
+
+## [H-10] Praça nova no cidade-molde: quem passa a régua e quem não passa
+
+- **Estado:** medido nos registries em 2026-09-20 (o que `lib/praca.ts`
+  contaria). **São Paulo** (`cidades.js` do handoff traz o registro): 25
+  clientes em 9 cidades e 15 áreas na carteira, **10 peças** no acervo (SP +
+  Pindamonhangaba + Bauru) — passa a prova mínima da régua §3.3 (≥ 4 peças + ≥
+  1 cliente) e o piso do palco (≥ 6). **Anápolis** (sede; está no `paginas.js`
+  do handoff): **zero** cliente na carteira pública e **zero** peça no acervo
+  com essa praça — não passa, e segue em 301 pra home como a regra 8 manda.
+- **Por que não decidi:** URL nova de cidade é a **Fase 2** congelada pela
+  regra 10 ("não iniciar sem o cliente pedir") e o [H-03] do doc-mapa; e a
+  página só nasce com a copy da praça escrita (posição, método, FAQ — balde 3
+  do §6, lote ≤ 5, checkpoint do cliente antes de indexar). O molde está
+  pronto pra receber: cidade nova = um registro em `content/cidades.ts` + uma
+  rota, e os números vêm sozinhos.
+- **Minha recomendação:** São Paulo é a próxima candidata, com uma rota nova
+  (`/marketing-medico-sao-paulo`, sem histórico — sem 301 a fazer) e a copy
+  escrita pro bairro (a tese do handoff: "bairro é a nova cidade").
+- **Custo de não decidir:** nenhum — a página não existe hoje e não some nada.
+

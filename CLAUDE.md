@@ -82,7 +82,15 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    **mídia** entra na grade da home; recorte de **público** (`eixo: "segmento"`, hoje
    rede hospitalar) fica fora dela e é linkado por parágrafo próprio.
 8. **Landings de cidade moram NA URL antiga** (`content/cidades.ts` +
-   `components/CidadeLanding.tsx`; schema `Service` + `ItemList`, sem `FAQPage`).
+   `components/ar/cidade/CidadeMolde.tsx`, o cidade-molde da fatia 4 do redesenho;
+   schema `Service` + `ItemList`, sem `FAQPage`). **O molde é do layout, nunca do
+   conteúdo** (rizzo-os → `SITE_REDESENHO_HANDOFF_MAPA.md` §6): o que está escrito
+   é o registro da cidade (posição, método, FAQ da praça, prova curada); o que é
+   contado — os 3 números do pôster, o histórico local por especialidade e o acervo
+   do palco — sai de `lib/praca.ts` a partir de `carteira.ts`, `portfolio.ts` e das
+   declarações de `cidades.ts` (`alcance`, `areasCarteira`, `carteira:` — vínculo
+   declarado, zero heurística). `scripts/checar-praca.mjs` reconta tudo no HTML
+   gerado e reprova o build no número que a carteira não sustenta.
    `/marketing-medico-goiania` e `/marketing-medico-brasilia` são **páginas de verdade**
    porque carregam 17.208 e 9.290 impressões de histórico — recriar na URL antiga
    preserva mais que qualquer 301. **Nunca transformá-las de volta em origem de

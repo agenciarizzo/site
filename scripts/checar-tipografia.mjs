@@ -32,14 +32,19 @@ const props = Object.keys(LIVRE);
 const erros = [];
 
 /**
- * EXCEÇÃO EXPLÍCITA E MÍNIMA — a HOME v3 e a LANDING v3 de cidade.
+ * EXCEÇÃO EXPLÍCITA E MÍNIMA — a HOME v3 e as páginas do REDESENHO
+ * (components/ar/: /clientes, /portfolio e, desde a fatia 4, o cidade-molde
+ * das landings de praça).
  *
  * Decisão do cliente registrada em rizzo-os → docs/SITE_MANIFESTO_MAPA.md
  * §44.15 D4 ("ignorar todas as regras do site que eu criei no passado") e
- * estendida à Brasília pelo §44.21-6: as duas páginas nascem do handoff do
- * Claude Design e seguem a tipografia e a paleta DELE (tinta azul-chumbo
- * #323C46, amarelo #FFD200 no card recomendado), não a escala `--slab-*` /
- * `--corpo-*` do `app/globals.css`.
+ * estendida à Brasília pelo §44.21-6 e ao redesenho pela D5 (2026-09-20, "o
+ * protótipo sobrepõe qualquer regra anterior"): essas páginas nascem do
+ * handoff do Claude Design e seguem a tipografia e a paleta DELE (tinta
+ * azul-chumbo #323C46, amarelo #FFD200 no card recomendado), não a escala
+ * `--slab-*` / `--corpo-*` do `app/globals.css`. O `ar-v3.css`/`cidade-v3.css`
+ * da landing v3 de Brasília saíram na fatia 4 — as duas cidades vivem no
+ * `.dg` (home-diagonal.css + components/ar/cidade/cidade-molde.css).
  *
  * A exceção é por CAMINHO e só por caminho: o resto do site — as 10 cartas, as
  * páginas de especialidade, os combos, /sobre, /clientes, /rizzoos e o próprio
@@ -59,13 +64,9 @@ const EXCECAO_HANDOFF = [
   "app/opengraph-image.tsx",
   "app/home-diagonal.css",
   "components/ar/home/",
-  "app/ar-v3.css",
   "app/home-v3.css",
-  "app/cidade-v3.css",
   "app/page.tsx",
-  "app/marketing-medico-brasilia/page.tsx",
   "components/ar/",
-  "components/home/",
   "components/CidadeLandingV3.tsx",
 ];
 const foraDaEscala = (arquivo) => {

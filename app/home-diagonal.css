@@ -6,10 +6,13 @@
    Home"*. Todo valor daqui (px, cor, peso, clamp) saiu do `style=""` inline do
    `AR Home Diagonal.dc.html`, seção por seção; nada foi inventado.
 
-   ⚠️ ESTA FOLHA É SÓ DA HOME. A landing de praça segue no `cidade-v3.css` +
-   `ar-v3.css` — são peças irmãs, mas o desenho desta tem movimentos que a outra
-   não tem (folhas empilhadas, palco de 700svh, portfólio morfo), e misturar as
-   duas folhas foi o que produziu as duas rodadas anteriores.
+   ⚠️ ESTA FOLHA É A DA LINHA `.dg`: nasceu SÓ DA HOME e, desde o redesenho
+   (fatia 3: /clientes e /portfolio; fatia 4: o cidade-molde das landings de
+   praça, components/ar/cidade/), as páginas irmãs a importam pelas seções que
+   compartilham com a home — cada uma com a SUA folha ao lado pras seções
+   próprias (clientes-v3.css, portfolio-v3.css, cidade-molde.css). A landing v3
+   de Brasília (`cidade-v3.css` + `ar-v3.css`) saiu na fatia 4: misturar duas
+   folhas de linhas diferentes foi o que produziu as duas rodadas anteriores.
 
    Fora da escala tipográfica do site, de propósito (§44.15 D4) — a exceção está
    declarada por caminho em `scripts/checar-tipografia.mjs`.

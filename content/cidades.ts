@@ -21,11 +21,48 @@ export interface ProvaCliente {
   nome: string;
   /** URL do site do cliente. Ausente = não há endereço no cadastro; fica sem link. */
   site?: string;
+  /**
+   * A linha de content/carteira.ts que é ESTA MESMA casa, quando a grafia daqui
+   * difere da do oráculo além do padrão "Marca – descrição" (ex.: "Hospital
+   * Daher" ↔ "Daher Hospital Lago Sul"). É vínculo DECLARADO (§24.9 — zero
+   * casamento por adivinhação), o mesmo papel do `oraculo:` de clientes.ts: o
+   * motor da praça (lib/praca.ts) só reconhece a mesma casa por igualdade
+   * exata com o nome do oráculo (ou com a parte antes do travessão dele) ou
+   * por este campo. Sem um dos dois, são dois nomes na página — e o
+   * checar-praca.mjs cobra que o valor exista na carteira, grafia exata.
+   */
+  carteira?: string;
 }
 
 export interface GrupoProva {
   especialidade: string;
   clientes: ProvaCliente[];
+  /**
+   * Áreas de content/carteira.ts (grafia EXATA das `area` de lá) que este grupo
+   * abriga na praça: o motor traz pra cá todas as casas dessas áreas dentro do
+   * alcance da cidade, além dos nomes escritos acima. É como a página fala com
+   * o vocabulário do cliente ("Hospitais, clínicas e laboratórios") sobre o
+   * vocabulário do oráculo ("Saúde Geral", "Medicina Especializada"), sem
+   * heurística. Grupo pode nascer só com `areasCarteira` e `clientes: []`.
+   * Área não reivindicada por nenhum grupo vira grupo próprio (com ≥ 2 casas)
+   * ou entra em "Outras especialidades".
+   */
+  areasCarteira?: string[];
+}
+
+/**
+ * O ALCANCE da praça — o recorte da carteira e do acervo que a página conta
+ * (rizzo-os → TAXONOMIA_PRACAS_SITE_MAPA.md §7: "prova larga vende"). É a
+ * única coisa DECLARADA por trás dos números do pôster: os números em si são
+ * contados por lib/praca.ts e recontados em build por scripts/checar-praca.mjs.
+ */
+export interface Alcance {
+  /** Estados inteiros que a praça abrange (siglas). */
+  ufs: string[];
+  /** Cidades FORA desses estados que também são da praça (grafia exata da carteira) — o entorno goiano de Brasília. */
+  cidades?: string[];
+  /** Como a página nomeia o recorte: "no Distrito Federal e no entorno". Vai atrás de cada número. */
+  rotulo: string;
 }
 
 export interface Cidade {
@@ -48,8 +85,8 @@ export interface Cidade {
   waText: string;
 
   /* ── Campos OPCIONAIS da landing v3 (rizzo-os → SITE_MANIFESTO_MAPA.md
-       §44.21-9). Aditivos: cidade que não os declara segue funcionando
-       exatamente como antes, no `CidadeLanding` de sempre. ────────────── */
+       §44.21-9). Aditivos: cidade que não os declara segue funcionando —
+       o cidade-molde (components/ar/cidade/) trata a ausência. ──────────── */
 
   /**
    * Os bairros e as cidades do entorno que a praça atende, na ordem em que o
@@ -69,6 +106,20 @@ export interface Cidade {
    * nasce com visual próprio sem ninguém escolher nada.
    */
   tweaks?: Partial<Tweaks>;
+
+  /* ── Campos do CIDADE-MOLDE (fatia 4 do redesenho — rizzo-os →
+       SITE_REDESENHO_HANDOFF_MAPA.md §4 e §6). O que é LÓGICA (números,
+       histórico, acervo) NÃO mora aqui: sai de lib/praca.ts. O que mora aqui
+       é o balde 3 do §6 — a copy que só a praça sabe dizer. ──────────────── */
+
+  /** A sobrancelha do hero (o kicker acima do H1). */
+  sobrancelha?: string;
+  /** A unidade que o paciente usa pra procurar, no H2 do pôster: "na sua região administrativa", "no seu setor". */
+  unidade?: string;
+  /** O recorte que os números do pôster contam. Ausente = só a própria cidade. */
+  alcance?: Alcance;
+  /** As 5 perguntas da praça (seção 14 do molde). Ausente = a FAQ compartilhada da agência. */
+  faq?: { p: string; r: string }[];
 }
 
 export const CIDADES: Cidade[] = [
@@ -81,6 +132,13 @@ export const CIDADES: Cidade[] = [
     descricao:
       "Marketing médico em Goiânia: como fazemos médicos e clínicas serem encontrados por bairro, por procedimento e pelas IAs — com site rápido, busca local e anúncio dentro do CFM.",
     head: ["Marketing médico", "em Goiânia.", "De perto faz diferença."],
+    sobrancelha: "Marketing para clínicas e hospitais em Goiânia e no interior de Goiás",
+    unidade: "no seu setor",
+    // Goiânia é a capital de uma região: quem opera aqui recebe paciente do
+    // interior de Goiás, do Tocantins e do sul do Pará — é o que a posição já
+    // diz, e é o recorte que a carteira sustenta (Rio Verde, Uruaçu, Ceres,
+    // Mineiros, Araguaína, Parauapebas, Marabá…).
+    alcance: { ufs: ["GO", "TO", "PA"], rotulo: "em Goiás, Tocantins e Pará" },
     lede:
       "Goiânia tem especialista bom em quase toda esquina do Setor Oeste, do Marista e do Jardim Goiás. Numa cidade assim, ser encontrado deixa de ser detalhe: é o que separa a agenda que se enche sozinha da agenda que depende de indicação.",
     posicao: [
@@ -120,9 +178,15 @@ export const CIDADES: Cidade[] = [
     provaTitulo: "Médicos e clínicas de Goiânia que construíram presença com a gente",
     provaLede:
       "Nomes reais, com o endereço do trabalho quando ele está no ar. É a régua que usamos pra falar de qualquer praça: se não houver caso pra mostrar, não há página.",
+    // Os grupos são a VOZ do cliente; os nomes escritos aqui são a prova curada
+    // (com endereço quando há), e `areasCarteira` diz ao motor (lib/praca.ts)
+    // quais áreas do oráculo entram em cada grupo — as casas da carteira dentro
+    // do alcance chegam sozinhas. `carteira:` só onde a grafia curta daqui não
+    // é a parte antes do travessão do nome do oráculo.
     provas: [
       {
         especialidade: "Ortopedia e traumatologia",
+        areasCarteira: ["Ortopedia"],
         clientes: [
           { nome: "Dr. Vinicio Nunes" },
           { nome: "Dr. Walter Borges" },
@@ -135,6 +199,7 @@ export const CIDADES: Cidade[] = [
       },
       {
         especialidade: "Cirurgia vascular e angiologia",
+        areasCarteira: ["Medicina Vascular", "Medicina Especializada"],
         clientes: [
           { nome: "Dr. Felipe Mendonça", site: "https://drfelipevascular.com.br" },
           { nome: "Dr. Davi Heckmann" },
@@ -143,22 +208,81 @@ export const CIDADES: Cidade[] = [
       },
       {
         especialidade: "Dermatologia",
+        areasCarteira: ["Dermatologia e Estética"],
         clientes: [
-          { nome: "Dra. Patrícia Ferreira", site: "https://patriciaferreiradermato.com.br" },
+          {
+            nome: "Dra. Patrícia Ferreira",
+            site: "https://patriciaferreiradermato.com.br",
+            carteira: "Dra. Patrícia Andréia Rodrigues Ferreira – Dermatologista",
+          },
           { nome: "Dra. Ana Lúcia" },
         ],
       },
       {
-        especialidade: "Cirurgia oncológica e bariátrica",
-        clientes: [{ nome: "Dr. Renan Marangoni", site: "https://drrenanmarangoni.com.br" }],
+        especialidade: "Cirurgia do aparelho digestivo e bariátrica",
+        areasCarteira: ["Cirurgia", "Cirurgia Geral"],
+        clientes: [
+          {
+            nome: "Dr. Renan Marangoni",
+            site: "https://drrenanmarangoni.com.br",
+            carteira: "Dr. Renan R. Marangoni – Cirurgia do Aparelho Digestivo, Cirurgia Geral",
+          },
+        ],
       },
-      { especialidade: "Cardiologia", clientes: [{ nome: "Dr. Arnaldo Porto" }] },
-      { especialidade: "Endocrinologia", clientes: [{ nome: "Dra. Maysa Melo" }] },
-      { especialidade: "Geriatria", clientes: [{ nome: "Dra. Flávia Loyola" }] },
-      { especialidade: "Oftalmologia", clientes: [{ nome: "IOP — Instituto de Olhos" }] },
-      { especialidade: "Odontologia", clientes: [{ nome: "Oral Prime" }] },
+      { especialidade: "Cardiologia", areasCarteira: ["Cardiologia"], clientes: [{ nome: "Dr. Arnaldo Porto" }] },
+      {
+        especialidade: "Endocrinologia",
+        areasCarteira: ["Endocrinologia"],
+        clientes: [{ nome: "Dra. Maysa Melo", carteira: "Dra. Maysa Araujo Melo" }],
+      },
+      { especialidade: "Geriatria", areasCarteira: ["Geriatria"], clientes: [{ nome: "Dra. Flávia Loyola" }] },
+      { especialidade: "Oftalmologia", areasCarteira: ["Oftalmologia"], clientes: [{ nome: "IOP — Instituto de Olhos" }] },
+      { especialidade: "Odontologia", areasCarteira: ["Odontologia"], clientes: [{ nome: "Oral Prime" }] },
+      { especialidade: "Urologia", areasCarteira: ["Urologia"], clientes: [] },
+      { especialidade: "Hospitais, clínicas e laboratórios", areasCarteira: ["Saúde Geral", "Laboratório"], clientes: [] },
     ],
     waText: "Olá! Vi a página de Goiânia no site da agência e quero conversar sobre a minha clínica.",
+    // Os setores onde o paciente procura e as cidades de onde ele vem — a
+    // mesma lista que a posição e o método já nomeiam, agora em chips no pôster.
+    regioes: [
+      "Setor Bueno",
+      "Setor Marista",
+      "Setor Oeste",
+      "Jardim Goiás",
+      "Aparecida de Goiânia",
+      "Anápolis",
+      "Rio Verde",
+      "Uruaçu",
+      "Ceres",
+      "Araguaína",
+      "Parauapebas",
+      "Marabá",
+    ],
+    // As 5 perguntas da praça — escritas pra Goiânia (fatia 4, D4 do doc-mapa:
+    // a voz é da agência; a régua de comprimento é o molde do handoff). CFM:
+    // zero promessa de resultado, zero número que a carteira não sustente.
+    faq: [
+      {
+        p: "Vocês já atendem outro médico da minha especialidade em Goiânia?",
+        r: "Pode ser — e a resposta vem na primeira conversa. A régua é um cliente por especialidade em cada cidade: se a sua vaga estiver ocupada, a gente diz antes de qualquer proposta, em vez de você descobrir isso depois.",
+      },
+      {
+        p: "Minha clínica fica no interior de Goiás, no Tocantins ou no sul do Pará. Faz sentido?",
+        r: "Faz. Rio Verde, Uruaçu, Ceres, Mineiros, Araguaína, Parauapebas e Marabá já estão na carteira. A rotina é remota, com aprovação das peças no RizzoOS, e a campanha é desenhada pro raio real de cada cidade — não pro estado inteiro.",
+      },
+      {
+        p: "Vocês vêm até a clínica?",
+        r: "Quando faz diferença, sim: a sede fica em Anápolis, a menos de uma hora de Goiânia, e gravação e foto acontecem na sua clínica sem custo de deslocamento. O dia a dia — planejamento, peças, relatório — roda remoto.",
+      },
+      {
+        p: "Como fica a publicidade médica dentro das normas do CFM?",
+        r: "Em Goiânia a disputa entre especialistas aparece no próprio Google, e anúncio fora da norma é reprovado e derruba a campanha. Toda peça é revisada contra a Resolução CFM nº 2.336/2023 antes de ir pra sua aprovação: sem promessa de resultado, sem antes-e-depois, sem sensacionalismo.",
+      },
+      {
+        p: "Em quanto tempo os primeiros pacientes começam a chegar?",
+        r: "Depende da mídia. Com Google Ads bem estruturado, os primeiros contatos costumam aparecer nas primeiras semanas; site, busca local e conteúdo são construção de meses — em capital, com especialista bom em toda esquina, ninguém compra a primeira posição em trinta dias. O relatório mensal mostra o que está trazendo consulta.",
+      },
+    ],
   },
   {
     slug: "marketing-medico-brasilia",
@@ -168,6 +292,25 @@ export const CIDADES: Cidade[] = [
     descricao:
       "Marketing médico em Brasília: médicos, clínicas e hospitais encontrados por região do DF, pelo entorno goiano e pelas IAs — busca local dentro do CFM.",
     head: ["Marketing médico", "em Brasília.", "Aqui, região é tudo."],
+    sobrancelha: "Marketing para clínicas e hospitais no Distrito Federal e no entorno",
+    unidade: "na sua região administrativa",
+    // O DF inteiro (a carteira registra as RAs como "Brasília" e "Taguatinga")
+    // mais o entorno goiano que a posição nomeia — quem atravessa a divisa pra
+    // operar e fazer exame em Brasília é demanda desta praça, não de Goiânia.
+    alcance: {
+      ufs: ["DF"],
+      cidades: [
+        "Valparaíso de Goiás",
+        "Luziânia",
+        "Novo Gama",
+        "Águas Lindas de Goiás",
+        "Cidade Ocidental",
+        "Formosa",
+        "Planaltina",
+        "Santo Antônio do Descoberto",
+      ],
+      rotulo: "no Distrito Federal e no entorno",
+    },
     lede:
       "Asa Sul, Águas Claras, Taguatinga, Sobradinho — e o entorno goiano atravessando a divisa todo dia. Em Brasília o paciente não procura “no DF”: procura onde ele consegue chegar. Quem entende isso aparece na hora da decisão.",
     posicao: [
@@ -211,9 +354,13 @@ export const CIDADES: Cidade[] = [
     provaTitulo: "Médicos, clínicas e hospitais de Brasília que construíram presença com a gente",
     provaLede:
       "Nomes reais, com o endereço do trabalho quando ele está no ar. É a régua que usamos pra falar de qualquer praça: se não houver caso pra mostrar, não há página.",
+    // Ver o comentário do bloco de Goiânia: grupos na voz do cliente, nomes
+    // curados com endereço, `areasCarteira` ligando o oráculo ao grupo e
+    // `carteira:` só onde a grafia curta não é a parte antes do travessão.
     provas: [
       {
         especialidade: "Urologia e andrologia",
+        areasCarteira: ["Urologia"],
         clientes: [
           { nome: "Dr. Homero Ribeiro", site: "https://drhomeroribeiro.com.br" },
           { nome: "UROS" },
@@ -223,9 +370,10 @@ export const CIDADES: Cidade[] = [
       },
       {
         especialidade: "Cirurgia vascular e angiologia",
+        areasCarteira: ["Medicina Vascular"],
         clientes: [
           { nome: "Dr. Antonio Carlos de Souza", site: "https://drantoniocarlos.com.br" },
-          { nome: "Clínica AngioMedi", site: "https://angiomedi.com.br" },
+          { nome: "Clínica AngioMedi", site: "https://angiomedi.com.br", carteira: "Angiomedi – Centro Integrado de Angiologia" },
           { nome: "Clínica de Veias", site: "https://clinicadeveias.com.br" },
           { nome: "Dr. Bruno Lorenção" },
           { nome: "Dr. Davi Heckmann" },
@@ -233,37 +381,83 @@ export const CIDADES: Cidade[] = [
       },
       {
         especialidade: "Oftalmologia",
+        areasCarteira: ["Oftalmologia"],
         clientes: [
           { nome: "Hospital de Olhos Sobradinho", site: "https://hosobradinho.com.br" },
-          { nome: "Hospital de Olhos do DF" },
-          { nome: "Oculare" },
+          { nome: "Hospital de Olhos do DF", carteira: "Hospital de Olhos do Distrito Federal" },
+          { nome: "Oculare", carteira: "Oculare Oftalmologia" },
         ],
       },
       {
         especialidade: "Cirurgia plástica",
-        clientes: [{ nome: "Hospital Daher" }, { nome: "Dra. Marcela Cammarota" }],
+        areasCarteira: ["Cirurgia Plástica"],
+        clientes: [{ nome: "Hospital Daher", carteira: "Daher Hospital Lago Sul" }, { nome: "Dra. Marcela Cammarota" }],
       },
       {
         especialidade: "Ginecologia",
+        areasCarteira: ["Saúde da Mulher", "Endoscopia Ginecológica"],
         clientes: [
           { nome: "Dra. Maria Eduarda Amaral", site: "https://www.dramariaeduardaamaral.com.br" },
           { nome: "Dr. Pedro Rosa" },
+          // A página antiga truncou o nome no meio do sobrenome ("Elielma Almeida
+          // Ferreira de"); a arte assina "Dra. Elielma Almeida" (content/carteira-viva.ts).
+          { nome: "Dra. Elielma Almeida", carteira: "Elielma Almeida Ferreira de" },
         ],
       },
       {
         especialidade: "Reprodução humana",
+        areasCarteira: ["Medicina Reprodutiva"],
         clientes: [{ nome: "Bonvena", site: "https://bonvena.med.br" }, { nome: "Dr. Carlos Portocarrero" }],
       },
-      { especialidade: "Cardiologia", clientes: [{ nome: "CBCOR" }, { nome: "MaxiCor" }] },
+      {
+        especialidade: "Cardiologia",
+        areasCarteira: ["Cardiologia"],
+        clientes: [{ nome: "CBCOR" }, { nome: "MaxiCor", carteira: "MaxiCor Clínica" }],
+      },
       {
         especialidade: "Cirurgia oncológica",
+        areasCarteira: ["Oncologia", "Cirurgia"],
         clientes: [{ nome: "Dra. Rayane Cardoso", site: "https://rayanecardoso.com.br" }],
       },
-      { especialidade: "Neurologia e dor", clientes: [{ nome: "Dra. Verônica Beloni" }] },
-      { especialidade: "Otorrinolaringologia", clientes: [{ nome: "Clínica Inspire" }] },
-      { especialidade: "Pediatria e vacinação", clientes: [{ nome: "Imunocentro" }] },
+      { especialidade: "Neurologia e dor", areasCarteira: ["Neurologia", "Medicina do Sono"], clientes: [{ nome: "Dra. Verônica Beloni" }] },
+      { especialidade: "Otorrinolaringologia", areasCarteira: ["Otorrinolaringologia"], clientes: [{ nome: "Clínica Inspire" }] },
+      { especialidade: "Pediatria e vacinação", areasCarteira: ["Pediatria", "Vacinação"], clientes: [{ nome: "Imunocentro" }] },
+      {
+        especialidade: "Hospitais, clínicas e laboratórios",
+        areasCarteira: ["Saúde Geral", "Medicina Especializada", "Laboratório", "Farmácia"],
+        clientes: [],
+      },
+      { especialidade: "Diagnóstico por imagem", areasCarteira: ["Diagnóstico Médico"], clientes: [] },
+      { especialidade: "Dermatologia e estética", areasCarteira: ["Dermatologia e Estética"], clientes: [] },
+      { especialidade: "Ortopedia e traumatologia", areasCarteira: ["Ortopedia"], clientes: [] },
+      { especialidade: "Gastroenterologia e endocrinologia", areasCarteira: ["Gastroenterologia", "Endocrinologia"], clientes: [] },
+      { especialidade: "Saúde mental", areasCarteira: ["Psiquiatria", "Psicologia"], clientes: [] },
+      { especialidade: "Odontologia", areasCarteira: ["Odontologia"], clientes: [] },
     ],
     waText: "Olá! Vi a página de Brasília no site da agência e quero conversar sobre a minha clínica.",
+    // As 5 perguntas da praça — escritas pra Brasília (fatia 4, D4 do doc-mapa).
+    faq: [
+      {
+        p: "Vocês atendem o meu concorrente em Brasília?",
+        r: "A régua é um cliente por especialidade em cada praça. Se a sua vaga estiver ocupada, a gente avisa na primeira conversa, antes de qualquer proposta — é assim que a exclusividade continua valendo pra quem já está com a gente.",
+      },
+      {
+        p: "Vocês atendem hospitais e redes com mais de uma unidade?",
+        r: "Sim. Hospital Daher, Hospital de Olhos Sobradinho, Hospital de Olhos do DF e CBCOR estão na carteira, e o fundador foi gerente de comunicação de um hospital certificado ONA/ISO. Rede com mais de um endereço ganha um perfil no Google por unidade e campanha por linha de serviço.",
+      },
+      {
+        p: "Minha clínica recebe paciente do entorno goiano. A campanha alcança quem atravessa a divisa?",
+        r: "Alcança, e trata essa origem à parte: Valparaíso, Luziânia, Novo Gama e Águas Lindas buscam com o nome da própria cidade junto do procedimento. O site diz onde você atende e como se chega, e a verba vai pra quem consegue vir.",
+      },
+      {
+        p: "Precisam vir à clínica?",
+        r: "Não para o trabalho rodar: planejamento, peças e relatório são remotos, com aprovação no RizzoOS. A captação presencial em Brasília — sessão de foto ou vídeo na sua clínica — é um adicional mensal, quando fizer sentido pro seu pacote.",
+      },
+      {
+        p: "Como fica a conformidade com o CFM numa praça tão vigiada?",
+        r: "Toda peça é revisada contra a Resolução CFM nº 2.336/2023 antes de ir pra aprovação: sem promessa de resultado, sem antes-e-depois fora da norma, sem sensacionalismo. É o que mantém a campanha no ar enquanto a do concorrente é reprovada — e nada é publicado sem a sua aprovação.",
+      },
+    ],
     // As 12 regiões do protótipo: 8 do DF + 4 do entorno goiano — a mesma lista
     // que o texto de posição já nomeia, agora navegável.
     regioes: [

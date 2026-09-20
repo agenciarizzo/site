@@ -1,0 +1,621 @@
+/* O CIDADE-MOLDE — folha das seções PRÓPRIAS da página de praça (fatia 4 do
+   redesenho). Medidas da `Pagina Cidade - Modelo.dc.html` do handoff; tokens
+   de cor do `.dg` (home-diagonal.css), que é a linha em que a página vive.
+   As seções compartilhadas com a home (hero, autoridade, clientes, cases,
+   RizzoOS, portfólio, FAQ…) usam as regras da home — nada se duplica aqui.
+
+   Está em components/ar/ pelo mesmo motivo de clientes-v3.css e
+   portfolio-v3.css: a página nasce do handoff e segue a tipografia DELE (D5);
+   o caminho é exceção declarada no checar-tipografia.mjs.
+
+   `.dg.cid` na frente de toda regra: o `.dg a` da home (teal, (0,1,1)) vence
+   qualquer classe solta de link desta folha — furo achado na fatia 3. */
+
+.dg.cid .cid-mono {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chumbo);
+}
+.dg.cid .cid-prosa {
+  margin: 0;
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+
+/* ============================================================ 01c · pôster ===
+   O protótipo põe um mapa real de fundo; aqui é o campo de azulejos da praça
+   (motor Athos, tweaks da cidade), a .28 — ver o porquê em Praca.tsx e o
+   [H-09] do PARKING.md. */
+.dg.cid .cid-poster {
+  position: relative;
+  background: var(--papel);
+  color: var(--chumbo);
+  overflow: hidden;
+  min-height: 100svh;
+  padding: clamp(96px, 14vh, 160px) var(--lado);
+  box-sizing: border-box;
+}
+.dg.cid .cid-poster-campo {
+  position: absolute;
+  inset: -18% 0 -2%;
+  pointer-events: none;
+  opacity: 0.28;
+}
+.dg.cid .cid-poster-campo .pano-campo {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  width: 100%;
+  align-content: start;
+}
+.dg.cid .cid-poster-campo .pano-campo > div {
+  aspect-ratio: 1;
+}
+.dg.cid .cid-poster-traco {
+  position: absolute;
+  left: var(--lado);
+  top: clamp(96px, 14vh, 160px);
+  width: 120px;
+  height: 6px;
+  background: var(--chumbo);
+}
+.dg.cid .cid-poster-grade {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0 12px;
+  align-items: end;
+  margin-top: 48px;
+}
+.dg.cid .cid-poster-numeros {
+  grid-column: 1 / 6;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px 24px 28px;
+  margin-bottom: 32px;
+  align-self: end;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: rgba(244, 239, 230, 0.92);
+  backdrop-filter: blur(4px);
+}
+.dg.cid .cid-poster-numeros ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.dg.cid .cid-poster-numeros li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dg.cid .cid-poster-num {
+  font-weight: 800;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--chumbo);
+}
+.dg.cid .cid-poster-numeros li > span:last-child {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--chumbo);
+  max-width: 260px;
+}
+.dg.cid .cid-poster-bloco {
+  grid-column: 6 / 12;
+  position: relative;
+  background: var(--amarelo);
+  padding: clamp(28px, 4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.dg.cid .cid-poster-bloco h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(36px, 4.8vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+  color: var(--chumbo);
+}
+.dg.cid .cid-poster-bloco h2 span {
+  font-weight: 300;
+}
+.dg.cid .cid-poster-bloco > p:not(.rot) {
+  margin: 0;
+  max-width: 560px;
+  font-size: 17px;
+  line-height: 1.55;
+  text-wrap: pretty;
+  color: var(--chumbo);
+}
+.dg.cid .cid-chips {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dg.cid .cid-chips li {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--chumbo);
+  border: 1.5px solid var(--chumbo);
+  padding: 6px 12px;
+}
+.dg.cid .cid-poster-tarja {
+  position: relative;
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px 32px;
+  padding: 16px 24px;
+  background: rgba(244, 239, 230, 0.92);
+  backdrop-filter: blur(4px);
+}
+.dg.cid .cid-poster-tarja ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+}
+.dg.cid .cid-poster-tarja a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 26px);
+  letter-spacing: -0.02em;
+  color: var(--chumbo);
+}
+.dg.cid .cid-poster-tarja a:hover {
+  color: var(--teal);
+}
+.dg.cid .cid-poster-tarja a i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--chumbo);
+}
+.dg.cid .cid-poster-tarja a[aria-current="page"] i {
+  background: var(--amarelo);
+}
+.dg.cid .cid-poster-tarja .cid-mono {
+  letter-spacing: 0.06em;
+  color: var(--cinza-texto);
+}
+
+/* ============================================================ 01c2 · método */
+.dg.cid .cid-met {
+  background: var(--papel);
+  padding: 112px var(--lado);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 48px 64px;
+  align-items: start;
+}
+.dg.cid .cid-met-esq {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.dg.cid .cid-met-esq > div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dg.cid .cid-met h2 {
+  margin: 0;
+  max-width: 520px;
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--chumbo);
+  text-wrap: balance;
+}
+.dg.cid .cid-met-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--linha-bege);
+}
+.dg.cid .cid-met-lista li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 16px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--linha-bege);
+}
+.dg.cid .cid-met-lista .cifra {
+  font-size: 13px;
+  color: #8b939b;
+  padding-top: 4px;
+}
+.dg.cid .cid-met-lista li > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dg.cid .cid-met-lista h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--chumbo);
+  text-wrap: balance;
+}
+.dg.cid .cid-met-lista p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+@media (min-width: 1100px) {
+  .dg.cid .cid-met-esq {
+    position: sticky;
+    top: 112px;
+  }
+}
+
+/* ========================================================== 01d · histórico
+   O acordeão de faixas do protótipo em `<details name>`: fechado, cada grupo
+   é uma faixa de 56px com o rótulo de pé; aberto, cresce (flex 8) e mostra
+   os nomes. Com mais de 10 grupos (ou no estreito) as faixas viram linhas —
+   é o `cliEstreito` do protótipo, resolvido no build/CSS em vez de medir a
+   tela. */
+.dg.cid .cid-hist {
+  background: #e6e2da;
+  padding: 112px var(--lado);
+}
+.dg.cid .cid-hist-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.dg.cid .cid-hist-cabeca > div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dg.cid .cid-hist h2 {
+  margin: 0;
+  max-width: 720px;
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--chumbo);
+  text-wrap: balance;
+}
+.dg.cid .cid-hist-cabeca > p {
+  margin: 0;
+  max-width: 420px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+.dg.cid .cid-hist-faixas {
+  display: flex;
+  gap: 4px;
+  min-height: 560px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.dg.cid .cid-hist details {
+  --bg: var(--papel);
+  --fg: var(--chumbo);
+  position: relative;
+  flex: 0 0 56px;
+  min-width: 0;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+  transition: flex 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.dg.cid .cid-hist details[data-k="0"],
+.dg.cid .cid-hist details[data-k="4"] {
+  --bg: var(--amarelo);
+}
+.dg.cid .cid-hist details[data-k="2"] {
+  --bg: var(--chumbo);
+  --fg: var(--papel);
+}
+.dg.cid .cid-hist details[data-k="3"] {
+  --bg: #c9c3b6;
+}
+.dg.cid .cid-hist details[open] {
+  flex: 8 1 0;
+}
+.dg.cid .cid-hist summary {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  padding: 0 0 22px;
+  box-sizing: border-box;
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+}
+.dg.cid .cid-hist summary::-webkit-details-marker {
+  display: none;
+}
+.dg.cid .cid-hist summary:focus-visible {
+  box-shadow: inset 0 0 0 3px var(--amarelo);
+}
+.dg.cid .cid-hist details[data-k="0"] summary:focus-visible,
+.dg.cid .cid-hist details[data-k="4"] summary:focus-visible {
+  box-shadow: inset 0 0 0 3px var(--chumbo);
+}
+.dg.cid .cid-hist-rotulo {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.dg.cid .cid-hist summary .cifra {
+  font-size: 12px;
+}
+.dg.cid .cid-hist summary b {
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1;
+  transition: transform 0.3s;
+}
+.dg.cid .cid-hist details[open] summary b {
+  transform: rotate(45deg);
+}
+.dg.cid .cid-hist-painel {
+  position: absolute;
+  inset: 0 0 0 56px;
+  padding: 28px 28px 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 320px;
+}
+.dg.cid .cid-hist-painel-cabeca {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 16px;
+}
+.dg.cid .cid-hist-painel h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(22px, 2.2vw, 32px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.dg.cid .cid-hist-painel-cabeca .cifra {
+  font-size: 12px;
+  white-space: nowrap;
+}
+.dg.cid .cid-hist-painel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 6px 20px;
+  overflow: auto;
+  align-content: start;
+}
+.dg.cid .cid-hist-painel li {
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 4px 0;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.9;
+}
+.dg.cid .cid-hist-painel li small {
+  font-size: 12px;
+  opacity: 0.75;
+}
+.dg.cid .cid-hist-painel a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--teal);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+.dg.cid .cid-hist-painel a:hover {
+  color: var(--teal);
+}
+.dg.cid .cid-hist details[data-k="2"] .cid-hist-painel a {
+  text-decoration-color: var(--amarelo);
+}
+.dg.cid .cid-hist details[data-k="2"] .cid-hist-painel a:hover {
+  color: var(--amarelo);
+}
+
+/* linhas: mais de 10 grupos, ou tela abaixo de 1250px — a conta do protótipo
+   (`cliEstreito`: 56px por faixa + 4 de vão + 480 de painel + 112 de margem)
+   dá 1248px pra 10 faixas; abaixo disso as faixas não cabem lado a lado. */
+.dg.cid .cid-hist-linhas {
+  flex-direction: column;
+  min-height: 0;
+}
+.dg.cid .cid-hist-linhas details,
+.dg.cid .cid-hist-linhas details[open] {
+  flex: 0 0 auto;
+  min-height: 56px;
+}
+.dg.cid .cid-hist-linhas summary {
+  position: static;
+  width: 100%;
+  height: 56px;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0 20px;
+}
+.dg.cid .cid-hist-linhas .cid-hist-rotulo {
+  writing-mode: horizontal-tb;
+  transform: none;
+}
+.dg.cid .cid-hist-linhas summary b {
+  margin-left: auto;
+}
+.dg.cid .cid-hist-linhas .cid-hist-painel {
+  position: static;
+  min-width: 0;
+  padding: 4px 20px 24px;
+}
+.dg.cid .cid-hist-linhas .cid-hist-painel h3 {
+  display: none;
+}
+@media (max-width: 1249px) {
+  .dg.cid .cid-hist-faixas {
+    flex-direction: column;
+    min-height: 0;
+  }
+  .dg.cid .cid-hist details,
+  .dg.cid .cid-hist details[open] {
+    flex: 0 0 auto;
+    min-height: 56px;
+  }
+  .dg.cid .cid-hist summary {
+    position: static;
+    width: 100%;
+    height: 56px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 20px;
+  }
+  .dg.cid .cid-hist-rotulo {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+  .dg.cid .cid-hist summary b {
+    margin-left: auto;
+  }
+  .dg.cid .cid-hist-painel {
+    position: static;
+    min-width: 0;
+    padding: 4px 20px 24px;
+  }
+  .dg.cid .cid-hist-painel h3 {
+    display: none;
+  }
+}
+
+/* ================================================= 13 · portfólio (o link) */
+.dg.cid .cid-pf-link {
+  background: var(--papel-claro);
+  padding: 40px var(--lado) 0;
+  display: flex;
+}
+
+/* ============================================================ quando NÃO ===
+   Papel, antes do CTA amarelo: a pergunta que a landing sempre fez. */
+.dg.cid .cid-qn {
+  background: var(--papel);
+  padding: 96px var(--lado);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 48px;
+  border-top: 1px solid var(--linha-bege);
+}
+.dg.cid .cid-qn h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--chumbo);
+  text-wrap: balance;
+}
+.dg.cid .cid-qn > div {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dg.cid .cid-qn p {
+  margin: 0;
+  max-width: 640px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+
+/* ================================================================ mobile === */
+@media (max-width: 899px) {
+  .dg.cid .cid-poster {
+    min-height: 0;
+    padding-top: 88px;
+  }
+  .dg.cid .cid-poster-traco {
+    top: 56px;
+  }
+  .dg.cid .cid-poster-grade {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .dg.cid .cid-poster-numeros,
+  .dg.cid .cid-poster-bloco {
+    grid-column: auto;
+    width: auto;
+    margin-bottom: 0;
+  }
+  .dg.cid .cid-poster-numeros ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+  }
+  .dg.cid .cid-met,
+  .dg.cid .cid-hist {
+    padding: 80px var(--lado);
+  }
+  .dg.cid .cid-qn {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 72px var(--lado);
+  }
+}
+
+/* ================================================= prefers-reduced-motion === */
+@media (prefers-reduced-motion: reduce) {
+  .dg.cid .cid-hist details,
+  .dg.cid .cid-hist summary b {
+    transition: none;
+  }
+}
