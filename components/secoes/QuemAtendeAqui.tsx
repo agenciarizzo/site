@@ -16,7 +16,10 @@ export function QuemAtendeAqui({
   praca: Praca;
   pracaSlugsLargos: string[];
 }) {
-  const clientes = clientesDaProvaLarga(e.slug, pracaSlugsLargos);
+  // §26.3 do mapa: o eixo do banco (client_specialty_axes) pode divergir do slug
+  // da ROTA — usar `e.slug` aqui erra o cliente em 5 das 20 páginas (ex.: rota
+  // "urologia", eixo "urologia-e-andrologia") e a seção some em silêncio (§⚖️).
+  const clientes = clientesDaProvaLarga(e.eixoSlug ?? e.slug, pracaSlugsLargos);
   if (clientes.length === 0) {
     // §⚖️: sem cliente ativo do eixo nesta praça, a seção não afirma nada — nem
     // "em breve", nem lista vazia com título. Ausência honesta.

@@ -3,6 +3,7 @@ import { CARTAS } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
 import { COMBOS } from "@/content/combos";
 import { ESPECIALIDADES_INDEXAVEIS, rotaEspecialidade } from "@/content/especialidades";
+import { paresIndexaveis, rotaEspecialidadePraca } from "@/content/especialidade-praca";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -42,5 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: 0.7,
   }));
-  return [...estaticas, ...cartas, ...cidades, ...combos, ...especialidades];
+  // Pares especialidade × praça (F2 taxonomia, Fatia B): mesma régua — só os
+  // indexáveis (≥4 peças de ≥2 casas + texto local, D7) entram aqui.
+  const pares: MetadataRoute.Sitemap = paresIndexaveis().map((par) => ({
+    url: `${SITE_URL}${rotaEspecialidadePraca(par.slug, par.praca)}`,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+  return [...estaticas, ...cartas, ...cidades, ...combos, ...especialidades, ...pares];
 }

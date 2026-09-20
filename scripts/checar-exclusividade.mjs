@@ -16,6 +16,7 @@
 // da verdade é o HTML gerado em .next/server/app, nunca uma lista paralela.
 import { readdirSync, readFileSync, statSync, existsSync } from "fs";
 import { join } from "path";
+import { semComentarios } from "./lib/sem-comentarios.mjs";
 
 const raizApp = join(process.cwd(), ".next", "server", "app");
 const snapshotPath = join(process.cwd(), "content", "clientes-snapshot.json");
@@ -26,6 +27,48 @@ if (!existsSync(snapshotPath)) {
 }
 
 const { linhas } = JSON.parse(readFileSync(snapshotPath, "utf8"));
+
+// ── B1 (§26.3/§28 do mapa): todo `eixoSlug` DECLARADO em content/especialidades.ts
+// precisa existir em alguma linha do snapshot — senão QuemAtendeAqui/BlocoExclusividade
+// casariam com um eixo que o banco não conhece, e a seção sumiria em silêncio (§⚖️),
+// exatamente o defeito que esta fatia cura. Só valida quem DECLARA o campo — página
+// sem `eixoSlug` continua usando `slug`, como sempre (comportamento intacto).
+//
+// ⚠️ DUAS travas que este bloco nasceu SEM, e que a F3 pôs (§33 do mapa):
+//   1. `semComentarios()` — content/especialidades.ts tem comentários com `{...}`
+//      (o raciocínio das grades de vitrine), e a chave deles dessincronizava o
+//      casamento de blocos: 24 "blocos" para 20 páginas, e o `eixoSlug` de
+//      `cirurgia-do-aparelho-digestivo` ficava FORA da varredura — o gate
+//      validava 4 das 5 páginas e anunciava sucesso. Comentário nunca é dado.
+//   2. A trava de forma do checar-portfolio.mjs: bloco(s) ≠ `slug:` ⇒ reprova.
+//      Sem ela, qualquer escorregão futuro da regex volta a validar metade
+//      achando que validou tudo.
+{
+  const eixosConhecidos = new Set(linhas.map((l) => l.especialidadeSlug));
+  const especialidadesSrc = semComentarios(readFileSync(join(process.cwd(), "content", "especialidades.ts"), "utf8"));
+  const corpo = especialidadesSrc.slice(especialidadesSrc.indexOf("export const ESPECIALIDADES"));
+  const arrayEspecialidades = corpo.slice(0, corpo.indexOf("\n];"));
+  const blocos = [...arrayEspecialidades.matchAll(/\{[^{}]*\}/g)].map((m) => m[0]);
+  const quantosSlugs = [...arrayEspecialidades.matchAll(/\bslug:\s*"/g)].length;
+  const errosEixo = [];
+  if (blocos.length === 0 || blocos.length !== quantosSlugs)
+    errosEixo.push(
+      `content/especialidades.ts: li ${blocos.length} bloco(s) para ${quantosSlugs} slug(s) — ` +
+        "a forma do registry mudou; ajuste este checador antes de publicar",
+    );
+  for (const b of blocos) {
+    const slug = b.match(/\bslug:\s*"([^"]*)"/)?.[1];
+    const eixoSlug = b.match(/\beixoSlug:\s*"([^"]*)"/)?.[1];
+    if (!eixoSlug) continue;
+    if (!eixosConhecidos.has(eixoSlug))
+      errosEixo.push(`/marketing-medico/${slug}: eixoSlug "${eixoSlug}" não existe em nenhuma linha do snapshot`);
+  }
+  if (errosEixo.length > 0) {
+    console.error(`✗ checar-exclusividade: ${errosEixo.length} eixoSlug inválido(s):`);
+    for (const e of errosEixo) console.error("  - " + e);
+    process.exit(1);
+  }
+}
 
 /** §6.1 do mapa, aplicado ao snapshot congelado. */
 function vagaFechada(especialidadeSlug, pracaSlug) {
