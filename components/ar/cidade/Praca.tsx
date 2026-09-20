@@ -24,6 +24,7 @@ import { panoCidadeFaixa } from "@/lib/athos/panos";
 import { CIDADES, type Cidade } from "@/content/cidades";
 import { FAQ } from "@/content/landing-v3";
 import { alcanceDe, type GrupoHistorico, type NumerosPraca } from "@/lib/praca";
+import { MapaPraca } from "./MapaPraca";
 
 /* ────────────────────────────────────────────────────────────── 01 · hero ── */
 
@@ -101,12 +102,12 @@ export type NumeroPoster = { chave: keyof NumerosPraca; valor: number; rotulo: s
  * com a tese (`posicao[0]`, que o repo já tinha) e os chips das regiões, e a
  * tarja com as outras praças e o alcance da casa.
  *
- * O protótipo põe um MAPA real de fundo (iframe do MapTiler). Ele não veio:
- * tiles de terceiro mandam o IP de cada visitante pro provedor — exatamente o
- * que a D6 (geolocalização pela Vercel, sem terceiro) acabou de evitar —, além
- * de chave de API e JS. No lugar, o campo de azulejos da própria praça
- * (motor Athos, tweaks da cidade), a .28 como a faixa da vinheta. Registrado
- * em PARKING.md como [H-09]; se o cliente quiser o mapa, é decisão dele.
+ * O fundo é o MAPA real da praça, como no protótipo (cliente, 2026-09-20: "eu
+ * quero o mapa … do jeito que desenhei") — fixo por cidade, sem geolocalizar
+ * ninguém: uma imagem por praça montada dos mesmos tiles do protótipo
+ * (MapaPraca.tsx + scripts/gerar-mapas.mjs), o que resolve o [H-09] sem
+ * terceiro em tempo de visita. Praça sem `mapa` declarado cai no campo de
+ * azulejos da própria praça (motor Athos, tweaks da cidade), a .28.
  */
 export function PracaPoster({
   c,
@@ -121,7 +122,11 @@ export function PracaPoster({
 }) {
   return (
     <section className="cid-poster" aria-labelledby="h-cid" data-topo="escuro">
-      <div className="cid-poster-campo" aria-hidden data-par="-0.06" dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }} />
+      {c.mapa ? (
+        <MapaPraca mapa={c.mapa} />
+      ) : (
+        <div className="cid-poster-campo" aria-hidden data-par="-0.06" dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }} />
+      )}
       <i className="cid-poster-traco" aria-hidden />
       <div className="cid-poster-grade">
         <div className="cid-poster-numeros">

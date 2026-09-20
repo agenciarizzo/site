@@ -312,6 +312,18 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
           if (foco && titulo) titulo.textContent = foco.dataset.titulo || "";
           const cur = pf.querySelector<HTMLElement>("[data-pf-cur]");
           if (cur) cur.textContent = String(idx + 1).padStart(2, "0");
+          // "Site no ar" da legenda (o `pfLink` do protótipo de cidade): só
+          // aparece quando a peça em foco tem endereço no cadastro (regra 9).
+          const link = pf.querySelector<HTMLAnchorElement>("[data-pf-link]");
+          if (link) {
+            const url = foco?.dataset.url;
+            if (url) {
+              link.href = url;
+              link.hidden = false;
+            } else {
+              link.hidden = true;
+            }
+          }
         }
       }
 

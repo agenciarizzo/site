@@ -70,6 +70,7 @@ export function PortfolioPraca({
                   data-pf-peca={i}
                   data-tipo={p.servico}
                   data-titulo={`${p.espec} · ${p.praca}`}
+                  data-url={p.url}
                   style={{
                     left: `${vaga ? vaga[0] : 50}%`,
                     top: `${vaga ? vaga[1] : 50}%`,
@@ -99,6 +100,13 @@ export function PortfolioPraca({
                   {foco && `${foco.espec} · ${foco.praca}`}
                 </span>
               </div>
+              {/* O `pfLink` do protótipo de cidade (Goiânia/São Paulo, 18/09):
+                  "Site no ar" na legenda quando a peça em foco tem endereço no
+                  cadastro (lib/enderecos.ts, regra 9). O Motor troca o href e
+                  esconde/mostra a cada cena. */}
+              <a className="pf-link" data-pf-link href={foco?.url ?? "#"} target="_blank" rel="noopener" hidden={!foco?.url}>
+                Site no ar <span aria-hidden>↗</span>
+              </a>
               <span className="pf-cont cifra">
                 <span data-pf-cur>01</span>
                 <span>/ {String(cenas.length).padStart(2, "0")}</span>

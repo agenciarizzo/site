@@ -33,6 +33,7 @@ tipos só acontecem lá.
 | `content/cartas.ts` | O conteúdo editorial por mídia e por recorte de público (`/cartas/<slug>`). |
 | `content/cidades.ts` | As landings de praça, que moram nas URLs antigas com histórico de busca. |
 | `lib/praca.ts` | O motor de derivação da praça: números, histórico local e acervo contados a partir dos registries (fatia 4 do redesenho). |
+| `scripts/gerar-mapas.mjs` | O mapa de cada praça (fundo do pôster do cidade-molde): uma imagem por cidade montada dos tiles toner do MapTiler, uma vez, com `MAPTILER_KEY` no ambiente; saída em `public/mapas/`. |
 | `content/clientes.ts` | A prova nominal — só nome que já era público. |
 | `content/rizzoos.ts` | O conteúdo da página da plataforma (`/rizzoos`). |
 | `lib/athos/panos.ts` | Todo pano declarado (pattern + cores + escala + seed). |

@@ -120,6 +120,32 @@ export interface Cidade {
   alcance?: Alcance;
   /** As 5 perguntas da praça (seção 14 do molde). Ausente = a FAQ compartilhada da agência. */
   faq?: { p: string; r: string }[];
+
+  /* ── Os TWEAKS FIXOS do protótipo de cada praça (rodada de 2026-09-20 — D5,
+       cliente: "não seguiu o que os tweaks tinham hardcodado em motores do
+       pano que eu tinha predefinido"). O hero usa `tweaks` (acima); o resto do
+       `data-props` de cada `Pagina Cidade - *.dc.html` mora aqui. ──────────── */
+
+  /**
+   * O mapa do pôster (seção 01c): a chave em `PRACAS` de scripts/gerar-mapas.mjs
+   * — o centro e o zoom que o protótipo (mapa-cidade.html) fixou pra praça —,
+   * que é também o nome das imagens em public/mapas/. Ausente = o campo de
+   * azulejos da praça no lugar (o checar-praca.mjs cobra que as imagens existam).
+   */
+  mapa?: string;
+  /**
+   * O pano da seção 03 (exclusividade): `exclElemento` · `exclAntes` ·
+   * `exclDepois` do protótipo desta cidade — um motivo do motor Athos (ou
+   * "paulista", só em São Paulo) e dois pares de lib/ar/conquista.mjs
+   * (`PARES_EXCLUSIVIDADE`). Ausente = o pano da home.
+   */
+  exclusividade?: { elemento: string; antes: string; depois: string };
+  /**
+   * O add-on de captação presencial — só nas praças com equipe (Brasília,
+   * Goiânia): entra no letreiro de adicionais da página, na 6ª posição, como
+   * no protótipo (`nomesAddons`). Ausente = a página não oferece captação.
+   */
+  captacao?: { curto: string; nome: string; desc: string };
 }
 
 export const CIDADES: Cidade[] = [
@@ -283,6 +309,17 @@ export const CIDADES: Cidade[] = [
         r: "Depende da mídia. Com Google Ads bem estruturado, os primeiros contatos costumam aparecer nas primeiras semanas; site, busca local e conteúdo são construção de meses — em capital, com especialista bom em toda esquina, ninguém compra a primeira posição em trinta dias. O relatório mensal mostra o que está trazendo consulta.",
       },
     ],
+    // Os tweaks FIXOS do protótipo desta praça (`Pagina Cidade - Goiania.dc.html`,
+    // data-props): hero em `deco` sobre xadrez, só ouro; exclusividade em
+    // `virgula`; o mapa da praça; e a captação, porque a equipe grava aqui.
+    tweaks: { elemento: "deco", pano: "xadrez", cores: "ouro", seed: 28, abertura: "sequencia" },
+    exclusividade: { elemento: "virgula", antes: "branco · amarelo", depois: "amarelo · branco" },
+    mapa: "goiania",
+    captacao: {
+      curto: "Captação Goiânia",
+      nome: "Captação Goiânia e Anápolis",
+      desc: "Sessão mensal de 3 horas com videomaker ou fotógrafo, na sua clínica. A 50 km da sede, sem custo de deslocamento. Interior, Tocantins e Pará sob demanda.",
+    },
   },
   {
     slug: "marketing-medico-brasilia",
@@ -474,9 +511,149 @@ export const CIDADES: Cidade[] = [
       "Novo Gama",
       "Águas Lindas",
     ],
-    // Brasília DEFINE o padrão de fábrica (README do handoff): é a única praça
-    // que declara os tweaks à mão. As próximas cidades sorteiam pelo slug.
-    tweaks: { elemento: "triangulo", pano: "canto", cores: "cinza · ouro", seed: 5, abertura: "sequencia" },
+    // Os tweaks FIXOS do protótipo desta praça (`Pagina Cidade - Brasilia.dc.html`,
+    // data-props): hero em `elos` sobre bloco, só cinza; exclusividade em `elos`;
+    // o mapa do DF; e a captação, porque a equipe grava aqui. (Até a fatia 4
+    // valia o padrão de fábrica do README da landing v3 — triangulo/canto.)
+    tweaks: { elemento: "elos", pano: "bloco", cores: "cinza", seed: 32, abertura: "sequencia" },
+    exclusividade: { elemento: "elos", antes: "branco · amarelo", depois: "amarelo · grafite" },
+    mapa: "brasilia",
+    captacao: {
+      curto: "Captação Brasília",
+      nome: "Captação Brasília",
+      desc: "Sessão mensal de captação profissional em Brasília-DF, 3 horas com videomaker ou fotógrafo. Insumos prontos para todos os seus pacotes de vídeo e redes sociais.",
+    },
+  },
+  {
+    // SÃO PAULO — a terceira praça (rodada de 2026-09-20). URL nova, sem
+    // histórico no site antigo (nenhum 301). Passa a régua §3.3 ([H-10]): 26
+    // clientes em 9 cidades, 15 áreas na carteira, 10 peças no acervo. A copy
+    // vem do registro que o próprio handoff traz (`cidades.js` › saopaulo —
+    // tese, método, regiões e FAQ, na voz que o cliente revisou lá); o que o
+    // registro do handoff não tinha (2 parágrafos de posição, o "quando NÃO",
+    // o RizzoOS) foi escrito na mesma voz (D4 — checkpoint em produção). O que
+    // é contado (números, histórico, acervo) sai de lib/praca.ts, como nas
+    // outras duas.
+    slug: "marketing-medico-sao-paulo",
+    cidade: "São Paulo",
+    uf: "SP",
+    titulo: "Marketing médico em São Paulo",
+    descricao:
+      "Marketing médico em São Paulo: médicos e clínicas encontrados por bairro — Paulista, Itaim, Moema — e no interior, com site rápido, busca local e anúncio dentro do CFM.",
+    head: ["Marketing médico", "em São Paulo.", "Bairro é a nova cidade."],
+    sobrancelha: "Marketing para clínicas e hospitais em São Paulo e no interior",
+    unidade: "no seu bairro",
+    // O estado inteiro: a capital e o interior que a carteira sustenta
+    // (Campinas, Sorocaba, Piracicaba, Bauru, Araçatuba, São José dos Campos,
+    // Pindamonhangaba, São Caetano do Sul).
+    alcance: { ufs: ["SP"], rotulo: "em São Paulo e no interior" },
+    lede:
+      "Paulista, Itaim, Moema, Perdizes e o ABC, mas também Campinas, Sorocaba, Piracicaba, Bauru, Araçatuba e o Vale do Paraíba: a maior praça médica do país pede recorte por bairro e por especialidade. Site, Google, Meta e vídeo por uma única equipe, dentro do CFM.",
+    posicao: [
+      "Em São Paulo ninguém atravessa a cidade para uma consulta. Quem busca um especialista pesquisa pelo bairro onde consegue chegar em 20 minutos, e a exclusividade aqui é por bairro. No interior, a lógica volta a ser a da cidade: Campinas, Sorocaba, Piracicaba, Bauru, Araçatuba e o Vale do Paraíba recebem paciente da região inteira.",
+      "É a praça com mais especialista por quilômetro quadrado do país, e isso muda a conta: aparecer “em São Paulo” não diz nada para quem mora em Perdizes e trabalha na Paulista. O paciente digita a especialidade com o nome do bairro, abre o mapa, confere avaliação, convênio e endereço — e a decisão acontece nesse caminho, antes de qualquer contato. Site, perfil no Google e campanha precisam falar o bairro que ele digita, não a cidade inteira.",
+      "E existe a segunda porta, que cresce todo mês: as inteligências artificiais. Cada vez mais gente pergunta ao ChatGPT ou ao Gemini quem procurar no Itaim ou em Campinas para um problema específico. A resposta é montada com o que essas máquinas conseguem ler — site rápido, dados organizados por especialidade e endereço, conteúdo verdadeiro publicado com constância. Numa praça deste tamanho, é aí que a diferença aparece.",
+    ],
+    como: [
+      {
+        t: "Bairro, não cidade",
+        d: "Paulista, Itaim, Moema: site e campanha falam a língua de quem procura perto de casa ou do trabalho.",
+      },
+      {
+        t: "Interior com raio de cidade",
+        d: "Em Bauru, Araçatuba, Piracicaba e no Vale do Paraíba o paciente vem de toda a região. A campanha muda de escala e o site ganha página por origem.",
+      },
+      {
+        t: "Um perfil no Google por unidade",
+        d: "Clínica com mais de um endereço precisa de um perfil por unidade, com categoria, horário e avaliação em ordem.",
+      },
+      {
+        t: "Site que carrega e responde convênio",
+        d: "Uma página por especialidade, procedimento e unidade, com convênio e localização visíveis.",
+      },
+      {
+        t: "Anúncio escrito dentro do CFM",
+        d: "Sem promessa de resultado, sem antes-e-depois, sem sensacionalismo.",
+      },
+      {
+        t: "Constância e medição em rotina",
+        d: "Publicação e leitura de números todo mês, com relatório na sua mão.",
+      },
+    ],
+    os:
+      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês — busca, mapa e anúncio no mesmo lugar. Em São Paulo isso quer dizer enxergar de qual bairro vieram as consultas e, no interior, de qual cidade da região.",
+    quandoNaoTitulo: "Quando NÃO é com a gente",
+    quandoNao: [
+      "Se a sua agenda no bairro já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio — e a gente te diz isso antes de você assinar.",
+      "E se a ideia é aparecer “para São Paulo inteira” com uma campanha só, também não é assim que funciona: verba espalhada pela cidade paga clique de quem nunca vai conseguir chegar até a sua sala. A campanha aqui é desenhada por bairro e por deslocamento real — e é isso que a gente combina na primeira conversa.",
+    ],
+    provaTitulo: "Médicos e clínicas de São Paulo e do interior que construíram presença com a gente",
+    provaLede:
+      "Nomes reais, com o endereço do trabalho quando ele está no ar. É a régua que usamos pra falar de qualquer praça: se não houver caso pra mostrar, não há página.",
+    // Os grupos na voz do cliente (o `clientes` do cidades.js do handoff); as
+    // casas vêm da carteira pelas `areasCarteira`. O único nome escrito é o que
+    // a carteira pública não tem e o cadastro vivo tem (content/carteira-viva.ts:
+    // Dr. Luciano Onofre, São Paulo/SP, contrato 2025–2026 — ex-cliente entra
+    // pelo nome real, regra 9). Áreas com uma casa só (dermatologia, esportiva,
+    // pediatria, cirurgia, odontologia) caem em "Outras especialidades".
+    provas: [
+      { especialidade: "Hospitais, clínicas e laboratórios", areasCarteira: ["Saúde Geral", "Saúde Integrativa"], clientes: [] },
+      { especialidade: "Urologia e uro-oncologia", areasCarteira: ["Urologia"], clientes: [{ nome: "Dr. Luciano Onofre" }] },
+      { especialidade: "Cirurgia vascular e angiologia", areasCarteira: ["Medicina Vascular"], clientes: [] },
+      { especialidade: "Cirurgia plástica e otorrinolaringologia", areasCarteira: ["Cirurgia Plástica", "Otorrinolaringologia"], clientes: [] },
+      { especialidade: "Oftalmologia e diagnóstico por imagem", areasCarteira: ["Oftalmologia", "Diagnóstico Médico"], clientes: [] },
+      { especialidade: "Saúde mental", areasCarteira: ["Psiquiatria", "Psicologia"], clientes: [] },
+    ],
+    waText: "Olá! Vi a página de São Paulo no site da agência e quero conversar sobre a minha clínica.",
+    // Os bairros da capital e as cidades do interior, como o handoff os nomeia.
+    regioes: [
+      "Paulista",
+      "Itaim Bibi",
+      "Moema",
+      "Perdizes",
+      "Pinheiros",
+      "Vila Mariana",
+      "Tatuapé",
+      "Santana",
+      "São Caetano do Sul",
+      "Campinas",
+      "Sorocaba",
+      "Piracicaba",
+      "Bauru",
+      "Araçatuba",
+      "São José dos Campos",
+      "Pindamonhangaba",
+    ],
+    // As 5 perguntas do registro do handoff (`cidades.js` › saopaulo › faq).
+    faq: [
+      {
+        p: "Vocês atendem o meu concorrente em São Paulo?",
+        r: "Não no mesmo bairro. Um cliente por especialidade em cada bairro. Se a sua vaga estiver ocupada, a gente avisa na primeira conversa.",
+      },
+      {
+        p: "Minha clínica fica no interior. Vocês atendem?",
+        r: "Sim. Campinas, Sorocaba, Piracicaba, Bauru, Araçatuba, São José dos Campos e Pindamonhangaba já estão na carteira. A rotina é remota, com aprovação no RizzoOS.",
+      },
+      {
+        p: "Vocês vêm à clínica?",
+        r: "A rotina é remota, com aprovação no RizzoOS. Captação presencial em São Paulo é combinada sob demanda.",
+      },
+      {
+        p: "Como fica a conformidade com o CFM?",
+        r: "Toda peça é revisada contra a Resolução CFM nº 2.336/2023 antes de ir pra aprovação. E nada é publicado sem a sua aprovação.",
+      },
+      {
+        p: "Quanto tempo até os primeiros contatos?",
+        r: "Com Google Ads, os primeiros contatos costumam chegar nos primeiros 30 dias. Site, SEO e conteúdo levam 3 a 6 meses.",
+      },
+    ],
+    // Os tweaks FIXOS do protótipo (`Pagina Cidade - Sao Paulo.dc.html`,
+    // data-props): o elemento "paulista" no hero E na exclusividade (a banda em
+    // Z da calçada — só aqui), o mapa da zona oeste (`saopaulo-oeste`, como o
+    // protótipo escolhe pra este slug). Sem captação: aqui é sob demanda.
+    tweaks: { elemento: "paulista", pano: "xadrez", cores: "cinza · ouro", seed: 28, abertura: "sequencia" },
+    exclusividade: { elemento: "paulista", antes: "branco · grafite", depois: "amarelo · grafite" },
+    mapa: "saopaulo-oeste",
   },
 ];
 

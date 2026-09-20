@@ -23,6 +23,7 @@
 
 import { CARTAS_MIDIA } from "./cartas";
 import { ESPECIALIDADES, rotaEspecialidade } from "./especialidades";
+import { SELOS } from "./landing-v3";
 
 /** Texto que abre a conversa quando a pessoa sai da home pelo portão. */
 export const WA_HOME = "Olá! Estava no site da agência e quero conversar sobre a minha clínica.";
@@ -217,8 +218,13 @@ export const ESPECIALIDADES_BLOCO = {
   rodape: { antes: "55 áreas na carteira. Não achou a sua? ", link: "Fale com a gente." },
 };
 
-/** As 19 páginas de especialidade que existem de verdade (`content/especialidades.ts`). */
-export const ESPECIALIDADES_HOME = ESPECIALIDADES.map((e) => ({ nome: e.espec, href: rotaEspecialidade(e.slug) }));
+/**
+ * As 19 páginas de especialidade que existem de verdade (`content/especialidades.ts`).
+ * O rótulo é o do EIXO quando existe (`nomeEixo`): ginecologia e reprodução
+ * humana partilham o `espec` "Saúde da Mulher", e a lista mostrava o mesmo
+ * nome duas vezes (achado no rodapé, 2026-09-20).
+ */
+export const ESPECIALIDADES_HOME = ESPECIALIDADES.map((e) => ({ nome: e.nomeEixo ?? e.espec, href: rotaEspecialidade(e.slug) }));
 
 /* ──────────────────────────────────────────────────────────── portfólio ──── */
 
@@ -472,6 +478,6 @@ export const RODAPE = {
   ],
   /** As 6 frentes do rodapé são as MESMAS cartas do menu — fonte única. */
   servicos: CARTAS_MIDIA.map((c) => ({ rotulo: c.titulo, href: `/cartas/${c.slug}` })),
-  /** §44.21-4: "Google Partner" fora até o selo chegar. A SBH fica, e sem o SVG (não existe no repo). */
-  selo: "Agência parceira da SBH",
+  /** Os 3 selos com link (content/landing-v3.ts → SELOS; §44.21-4 revogado pelo cliente em 2026-09-20). */
+  selos: SELOS,
 };

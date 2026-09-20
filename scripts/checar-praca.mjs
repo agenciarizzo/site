@@ -141,6 +141,21 @@ for (const arquivo of htmls) {
 
   // 5. nenhum wa.me
   if (/wa\.me/.test(html)) erros.push(`${rota}: \`wa.me\` no HTML — todo WhatsApp passa pelo portão /whatsapp (regra 4)`);
+
+  // 6. o mapa do pôster: praça que declara `mapa` precisa das duas imagens em
+  // public/mapas/ (scripts/gerar-mapas.mjs) — sem elas o pôster abriria com um
+  // 404 silencioso no lugar do mapa.
+  const mapa = attr("mapa");
+  if (mapa) {
+    for (const v of ["largo", "alto"]) {
+      const caminho = `${process.cwd()}/public/mapas/${mapa}-${v}.webp`;
+      try {
+        if (statSync(caminho).size < 10_000) erros.push(`${rota}: public/mapas/${mapa}-${v}.webp está vazio ou truncado`);
+      } catch {
+        erros.push(`${rota}: declara mapa "${mapa}" e public/mapas/${mapa}-${v}.webp não existe — rode MAPTILER_KEY=… node scripts/gerar-mapas.mjs ${mapa}`);
+      }
+    }
+  }
 }
 
 if (pracas === 0) {

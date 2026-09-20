@@ -120,6 +120,7 @@ export function CidadeMolde({ c }: { c: Cidade }) {
       data-praca-cidades-n={n.cidades}
       data-praca-pecas={n.pecas}
       data-praca-local={local ? "1" : "0"}
+      data-praca-mapa={c.mapa}
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cidadeJsonLd(c, nomes)) }} />
       <Topo waText={c.waText} />
@@ -129,9 +130,11 @@ export function CidadeMolde({ c }: { c: Cidade }) {
       <MetodoLocal c={c} />
       <HistoricoLocal c={c} grupos={grupos} total={n.clientes} />
       <Clientes />
-      <Exclusividade waText={waVaga} />
+      {/* Os tweaks do protótipo DESTA cidade (D5): o pano Athos da exclusividade
+          e o add-on de captação só onde a praça tem equipe — content/cidades.ts. */}
+      <Exclusividade waText={waVaga} pano={c.exclusividade} />
       <Servicos />
-      <Pacotes />
+      <Pacotes addonExtra={c.captacao?.curto} />
       <Cases />
       <Resultado />
       <Chamada texto="O seu caso pode ser o próximo desta lista." waText={c.waText} />

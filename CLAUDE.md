@@ -30,6 +30,12 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    `assertA2` não roda nele), `trevo` continua fora, e fundo navy segue exclusivo do
    bloco RizzoOS. Fora desses dois arquivos, A2 é lei como sempre foi. O caminho
    derivado (`chave` → `panoDe`) continua existindo neles como fallback.
+   **Mesma exceção, mesma origem, na seção Exclusividade das páginas de praça
+   (fatia 4, 2026-09-20):** o pano das quadras segue o `exclElemento` e os pares
+   `exclAntes`/`exclDepois` que o protótipo de CADA cidade declara
+   (`content/cidades.ts` → `exclusividade`; tabela `PARES_EXCLUSIVIDADE` em
+   `lib/ar/conquista.mjs`, verbatim do `data-props`) — "branco · amarelo"
+   inclusive. A home segue no par da casa.
    **Cada página com o SEU pano, sem repetir** (mesma régua da fila de e-mails —
    rizzo-os → `ACESSO_MENU_CLIENTE_MAPA.md` §D.7): a distribuição roda de uma vez
    sobre `ROTAS_COM_PANO` e só repete motivo depois de gastar a biblioteca inteira,
@@ -97,7 +103,17 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    redirect**: só a variante `.html` delas redireciona (o `mesmaRota` do
    `next.config.ts` cuida disso), e as canibais consolidam nelas. Praça nova só ganha
    landing com a **prova mínima real** da régua §3.3 — Anápolis e Aracaju seguem em 301
-   pra home justamente por não terem.
+   pra home justamente por não terem; `/marketing-medico-sao-paulo` (2026-09-20) é a
+   terceira praça porque passa (URL nova, sem histórico — sem 301).
+   **Os tweaks de cada praça são os do SEU protótipo** (`Pagina Cidade -
+   <cidade>.dc.html` › `data-props`, D5): hero (`tweaks`), exclusividade
+   (`exclusividade`), mapa (`mapa`) e captação (`captacao`) moram no registro da
+   cidade; o sorteio por slug de `lib/tweaks.mjs` só vale pra praça que não declara.
+   O elemento `paulista` (banda em Z, `lib/ar/heroGeo.mjs`) só em São Paulo. **O mapa
+   do pôster é uma imagem por praça** (`public/mapas/<mapa>-{largo,alto}.webp`),
+   gerada UMA vez por `scripts/gerar-mapas.mjs` com `MAPTILER_KEY` no ambiente (nunca
+   no repo), com os mesmos tiles, centro e zoom do `mapa-cidade.html` do handoff —
+   zero tile de terceiro em tempo de visita, atribuição no canto.
 9. **Prova = nome real de quem foi cliente de verdade.** A fonte é o cadastro da
    própria agência: o §12.2 do mapa, `content/clientes.ts` e a **lista viva de clientes
    do Drive** (doc "AR - Clientes", que é mais nova e mais completa que a página antiga).
