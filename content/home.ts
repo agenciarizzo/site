@@ -23,6 +23,7 @@
 
 import { CARTAS_MIDIA } from "./cartas";
 import { ESPECIALIDADES, rotaEspecialidade } from "./especialidades";
+import type { ModoPortfolio } from "@/lib/tweaks.mjs";
 
 /** Texto que abre a conversa quando a pessoa sai da home pelo portão. */
 export const WA_HOME = "Olá! Estava no site da agência e quero conversar sobre a minha clínica.";
@@ -230,6 +231,18 @@ export const PORTFOLIO_CABECA = {
   /** A parede de peças inteira mora em `/portfolio` (desde a entrega de 2026-09-18). */
   completo: { rotulo: "Ver o portfólio completo", href: "/portfolio" },
 };
+
+/**
+ * O tweak `portfolio` do painel do Design (`Pagina - Home.dc.html`, seção
+ * "Portfólio" — handoff `design_handoff_site_rizzo/`, rizzo-os, 2026-09-20): o
+ * MODO do palco. O protótipo oferece `morfo | assimetrico | moldura` e nasce em
+ * `moldura`; o porte de 14/09 ("AR Home Diagonal") só tinha trazido o `morfo`,
+ * e a fatia 1 do redesenho (#92) foi só tipografia. O enum mora em
+ * `lib/tweaks.mjs` (`OPCOES.portfolio` — `assimetrico` não foi portado, então
+ * não está lá); a geometria do moldura, em `lib/ar/moldura.mjs`; quem a aplica
+ * é o `Motor.tsx`, e o `<section class="pf">` carrega o modo em `data-pf-modo`.
+ */
+export const PORTFOLIO_MODO: ModoPortfolio = "moldura";
 
 /**
  * Achados #10-#13 (§44.24): a lista fixa tinha 9 peças pra 30 vagas em 6 cenas
