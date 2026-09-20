@@ -56,9 +56,10 @@
      `scripts/checar-tipografia.mjs` reprova o build se aparecer
      tamanho ou tracking fora desta escala.
 
-     As fontes seguem a regra 3 do CLAUDE.md (Roboto Slab · Geist ·
-     JetBrains Mono) e a cor de título continua ink #16130E — o
-     e-mail usa navy porque é peça de caixa de entrada; o mapa
+     As fontes seguem a regra 3 do CLAUDE.md (Geist no display e no
+     corpo · JetBrains Mono nos kickers, desde 2026-09-20) e a cor
+     de título continua ink #16130E — o e-mail usa navy porque é
+     peça de caixa de entrada; o mapa
      (§2, "quase-preto quente, NÃO navy") vence sobre papel.
      ============================================================ */
 
