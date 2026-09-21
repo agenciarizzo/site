@@ -179,10 +179,31 @@ export function Rodape() {
                 </Link>
               </li>
             ))}
-            {/* Especialidade × praça (F2 taxonomia, "o molde") — mesmo
-                mecanismo de N×N do checar-navegacao.mjs que COMBOS já usa
-                aqui; ver components/athos/FooterMapa.tsx pro mesmo bloco no
-                rodapé de sempre. */}
+          </ul>
+        </div>
+
+        {/* As listas longas (19 especialidades, 12 pares especialidade × praça)
+            tomam a largura inteira e correm em colunas — antes moravam numa
+            coluna estreita e o rodapé virava uma torre de 1.700px (cliente,
+            2026-09-20: "o menu do footer está estourando"). */}
+        <div className="rodape-col rodape-esp">
+          <h3>Especialidades</h3>
+          <ul>
+            {ESPECIALIDADES_HOME.map((e) => (
+              <li key={e.href}>
+                <Link href={e.href}>{e.nome}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Especialidade × praça (F2 taxonomia, "o molde") — mesmo mecanismo
+            de N×N do checar-navegacao.mjs que COMBOS já usa aqui; ver
+            components/athos/FooterMapa.tsx pro mesmo bloco no rodapé de
+            sempre. */}
+        <div className="rodape-col rodape-esp">
+          <h3>Especialidade por cidade</h3>
+          <ul>
             {PARES_ESPECIALIDADE_PRACA.map((par) => {
               const e = especialidadePorSlug(par.slug);
               const p = pracaBySlug(par.praca);
@@ -198,27 +219,19 @@ export function Rodape() {
             })}
           </ul>
         </div>
-
-        <div className="rodape-col rodape-esp">
-          <h3>Especialidades</h3>
-          <ul>
-            {ESPECIALIDADES_HOME.map((e) => (
-              <li key={e.href}>
-                <Link href={e.href}>{e.nome}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
 
       <div className="rodape-fecho">
         <span>© 2026 Agência Rizzo</span>
-        {/* §44.21-4: "Google Partner" saiu do fecho até a URL do selo chegar.
-            A SBH fica — o Sindicato Brasiliense de Hospitais está na carteira —
-            e sem o SVG, que não existe no repo. */}
-        <span className="rodape-selo">
-          <i aria-hidden />
-          {RODAPE.selo}
+        {/* Os 3 selos, cada um linkando pra home de quem certifica (cliente,
+            2026-09-20 — revoga o §44.21-4). */}
+        <span className="rodape-selos">
+          {RODAPE.selos.map((s) => (
+            <a className="rodape-selo" key={s.href} href={s.href} target="_blank" rel="noopener">
+              <i aria-hidden />
+              {s.rotulo}
+            </a>
+          ))}
         </span>
       </div>
     </footer>

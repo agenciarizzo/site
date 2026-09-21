@@ -23,7 +23,7 @@ import { ESPECIALIDADES, especialidadePorSlug, rotaEspecialidade } from "@/conte
 import { pracaBySlug } from "@/content/pracas";
 import { PARES_ESPECIALIDADE_PRACA, rotaEspecialidadePraca } from "@/content/especialidade-praca";
 
-export type CardRef = "seo" | "clientes" | "portfolio" | "panorama" | "contato" | "goiania" | "brasilia" | "home";
+export type CardRef = "seo" | "clientes" | "portfolio" | "panorama" | "contato" | "goiania" | "brasilia" | "saopaulo" | "home";
 
 const CARDS: Record<CardRef, { href: string; kicker: string; titulo: string; texto: string }> = {
   seo: {
@@ -67,6 +67,12 @@ const CARDS: Record<CardRef, { href: string; kicker: string; titulo: string; tex
     kicker: "Cidade",
     titulo: "Marketing médico em Brasília",
     texto: "Como atendemos clínicas e consultórios no DF.",
+  },
+  saopaulo: {
+    href: "/marketing-medico-sao-paulo",
+    kicker: "Cidade",
+    titulo: "Marketing médico em São Paulo",
+    texto: "Como atendemos clínicas e consultórios por bairro, na capital e no interior.",
   },
   home: {
     href: "/",
@@ -120,6 +126,9 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
               </Link>
               <Link href="/marketing-medico-brasilia" aria-current={cur("/marketing-medico-brasilia")}>
                 Brasília
+              </Link>
+              <Link href="/marketing-medico-sao-paulo" aria-current={cur("/marketing-medico-sao-paulo")}>
+                São Paulo
               </Link>
               <Link href="/" aria-current={cur("/")}>
                 Anápolis–GO (sede)

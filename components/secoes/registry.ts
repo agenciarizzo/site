@@ -9,8 +9,8 @@
 // existem e já foram aprovados em produção:
 //   · EspecialidadeLanding (components/EspecialidadeLanding.tsx) — hero, parede de
 //     peças, CTA — para a busca POR ESPECIALIDADE;
-//   · HeroGeo/Corpo (components/ar/HeroGeo.tsx, components/ar/Corpo.tsx) — o
-//     kicker geolocalizado e o corpo de prova — para a busca POR PRAÇA.
+//   · a landing de praça — hoje o cidade-molde (components/ar/cidade/, fatia 4
+//     do redesenho; antes, HeroGeo/Corpo da v3) — para a busca POR PRAÇA.
 // Mesmas classes CSS (.hero/.wrap/.kicker/.display/.acento/.lede/.sec/.parede),
 // zero vocabulário visual novo. Fatia B/C revisita com o cliente (§🎬: "quem vai
 // revisar serei eu") quando o bundle certo chegar.

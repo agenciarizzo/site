@@ -1,0 +1,233 @@
+/* PanoHeader — folha do componente (components/secoes/PanoHeader.tsx).
+   Medidas do `Secao - Pano Header.dc.html`; tamanho e tracking de tipo saem
+   da escala do :root (globals.css), como o checar-tipografia.mjs cobra.
+
+   Geometria em cqw: a peça é `100cqw / cols`, e TUDO (altura da faixa, topo e
+   altura da placa) é múltiplo dela — é o que o protótipo calcula em JS com
+   `tile = w / cols`. Colunas e placa mudam por container query nos mesmos
+   pontos do protótipo (900px: 18 colunas · placa de 2 fileiras; abaixo, 8
+   colunas · 2,4 fileiras; 700px: recuo lateral 56 → 24px). */
+
+.pano-header {
+  container-type: inline-size;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  overflow: clip;
+  background: var(--papel);
+  color: var(--cinza);
+}
+
+.ph-secao {
+  --ph-cols: 8;
+  --ph-placa-rows: 2.4;
+  --ph-padx: 24px;
+  --ph-peca: calc(100cqw / var(--ph-cols));
+  /* rowsTot = 1 (quieta) + linhas + 0,6 (folga de meia peça embaixo) */
+  --ph-altura: calc(var(--ph-peca) * (var(--ph-linhas) + 1.6));
+  position: relative;
+  width: 100%;
+  height: var(--ph-altura);
+}
+@container (min-width: 700px) {
+  .ph-secao { --ph-padx: 56px; }
+}
+@container (min-width: 900px) {
+  .ph-secao { --ph-cols: 18; --ph-placa-rows: 2; }
+}
+
+/* ---- azulejos ---- */
+.ph-grade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--ph-cols), 1fr);
+  grid-auto-rows: var(--ph-peca);
+  gap: 0;
+  align-content: start;
+}
+/* as duas malhas existem no HTML; a tela escolhe uma */
+.ph-grade-larga { display: none; }
+@container (min-width: 900px) {
+  .ph-grade-larga { display: grid; }
+  .ph-grade-estreita { display: none; }
+}
+.ph-peca {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+.ph-peca > div {
+  position: absolute;
+  inset: var(--ph-rejunte);
+  transform: rotate(var(--rot));
+}
+
+/* ---- linhas diagonais (grafismo das páginas de especialidade) ---- */
+.ph-linhas {
+  position: absolute;
+  top: var(--ph-peca);
+  left: 0;
+  right: 0;
+  height: calc(var(--ph-peca) * (var(--ph-linhas) + 0.6));
+  overflow: hidden;
+}
+.ph-linhas-campo {
+  position: absolute;
+  inset: -30% -20%;
+}
+.ph-traco {
+  position: absolute;
+  left: var(--ph-padx);
+  top: calc(var(--ph-peca) * 0.5);
+  width: 120px;
+  height: 6px;
+  background: var(--cinza);
+  transform-origin: left;
+}
+
+/* ---- placa do título ---- */
+.ph-placa-area {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: calc(var(--ph-peca) * (var(--ph-linhas) + 1 - var(--ph-placa-rows)));
+  height: calc(var(--ph-peca) * var(--ph-placa-rows));
+  display: flex;
+  align-items: flex-end;
+  padding: 0 var(--ph-padx);
+  pointer-events: none;
+}
+.ph-placa {
+  pointer-events: auto;
+  background: var(--papel);
+  color: var(--cinza);
+  min-height: calc(var(--ph-peca) * var(--ph-placa-rows));
+  padding: 18px 32px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  transform-origin: bottom;
+}
+.ph-kicker {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--mono-kicker-pano);
+  letter-spacing: var(--ls-kicker-pano);
+  text-transform: uppercase;
+  color: var(--cinza);
+}
+.ph-titulo {
+  margin: 0;
+  font-family: var(--font-geist), "Helvetica Neue", Arial, sans-serif;
+  font-weight: 200;
+  font-size: var(--slab-pano);
+  line-height: var(--lh-pano);
+  letter-spacing: var(--ls-slab-leve);
+  text-wrap: balance;
+  color: var(--cinza);
+}
+.ph-destaque { font-weight: 600; }
+
+/* ============================================================ movimento ===
+   Tudo abaixo é decoração: sem ele o header já está no estado final. Só
+   roda pra quem não pediu menos movimento (o protótipo respeita a mesma
+   preferência — `this.reduced` desliga o boot e o giro). */
+@media (prefers-reduced-motion: no-preference) {
+  /* boot (700ms de espera no protótipo) — a peça assenta do centro pra fora,
+     cada uma com o seu atraso (`--d` = distância ao centro × 55ms) */
+  .ph-peca > div {
+    animation: ph-assenta 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(700ms + var(--d, 0ms));
+  }
+  @keyframes ph-assenta {
+    from { opacity: 0; transform: rotate(var(--rot)) scale(0.4); }
+    to { opacity: 1; transform: rotate(var(--rot)) scale(1); }
+  }
+
+  /* azulejo vivo: no protótipo 3 peças giram 90° a cada 900ms (setInterval).
+     Aqui duas famílias de peças (13n+5 e 19n+11 — primos, pra não coincidir)
+     dão um quarto de volta a cada 5,6s, com a volta em 0,9s; na malha larga
+     isso soma ~2,5 giros por segundo no campo. A rotação-base da peça está
+     no filho (`--rot`); o giro é do pai, que é quadrado — visualmente é a
+     mesma coisa que girar a peça. */
+  .ph-peca:nth-child(13n + 5) {
+    animation: ph-gira 22.5s cubic-bezier(0.2, 0.8, 0.2, 1) 2.6s infinite;
+  }
+  .ph-peca:nth-child(19n + 11) {
+    animation: ph-gira 22.5s cubic-bezier(0.2, 0.8, 0.2, 1) 5.3s infinite;
+  }
+  @keyframes ph-gira {
+    0%, 21% { transform: rotate(0deg); }
+    25%, 46% { transform: rotate(90deg); }
+    50%, 71% { transform: rotate(180deg); }
+    75%, 96% { transform: rotate(270deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* linhas diagonais: entram deslizando, e o traço se estende depois */
+  .ph-linhas-campo {
+    animation: ph-linhas-entra 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.7s both;
+  }
+  @keyframes ph-linhas-entra {
+    from { opacity: 0; transform: translateX(-6%); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .ph-traco {
+    animation: ph-traco-estende 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 1.2s both;
+  }
+  @keyframes ph-traco-estende {
+    from { width: 0; }
+    to { width: 120px; }
+  }
+
+  /* placa: sobe da base; kicker e título acendem em seguida */
+  .ph-placa {
+    animation: ph-placa-sobe 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s both;
+  }
+  @keyframes ph-placa-sobe {
+    from { transform: scaleY(0); }
+    to { transform: none; }
+  }
+  .ph-kicker {
+    animation: ph-acende 0.5s ease 1.5s both;
+  }
+  .ph-titulo {
+    animation: ph-titulo-acende 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 1.6s both;
+  }
+  @keyframes ph-acende {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes ph-titulo-acende {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* paralaxe: o pano sobe a 45% da rolagem enquanto o header sai da tela
+     (`translateY(-sy·.45)` do protótipo). Sem JS: linha do tempo de scroll,
+     só onde o navegador a tem — no Safari o pano fica parado, que é o
+     estado neutro correto. */
+  @supports (animation-timeline: view()) {
+    .ph-grade, .ph-linhas {
+      animation-name: ph-paralaxe;
+      animation-duration: 1s; /* ignorada: quem manda é a timeline */
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+      will-change: transform;
+    }
+    /* o giro das peças e a paralaxe vivem em elementos diferentes (peça ×
+       malha), então não disputam `transform`. */
+    @keyframes ph-paralaxe {
+      from { transform: translateY(0); }
+      to { transform: translateY(calc(var(--ph-altura) * -0.45)); }
+    }
+  }
+}

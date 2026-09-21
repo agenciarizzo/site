@@ -40,6 +40,11 @@ export const MENU_TOPO: readonly ItemMenu[] = [
 /** Rótulos dos CTAs — um lugar só, pra não divergirem entre topo, barra e fecho. */
 export const CTA_PROPOSTA = "Montar proposta agora";
 export const CTA_WHATSAPP = "WhatsApp";
+/** Os rótulos do fecho do handoff do Claude Design (seção "15 CTA" dos
+ *  protótipos de página) — mais curtos que os do topo, e iguais nos 5
+ *  protótipos medidos. Consumidos por `components/CtaConversa.tsx`. */
+export const CTA_PROPOSTA_CURTO = "Montar proposta";
+export const CTA_WHATSAPP_FALAR = "Falar no WhatsApp";
 
 /**
  * Texto que abre a conversa quando a pessoa chega no portão sem origem

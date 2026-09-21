@@ -2339,3 +2339,87 @@ export const PORTFOLIO: PecaPortfolio[] = [
 
 /** Peças de uma carta, na ordem do registry. */
 export const pecasDaCarta = (slug: string) => PORTFOLIO.filter((p) => p.cartas.includes(slug));
+
+/* ════════════════════════════════════════════════════════════════════════════
+   BALDE E ORIENTAÇÃO — D2 do redesenho (rizzo-os →
+   docs/SITE_REDESENHO_HANDOFF_MAPA.md §2), fatia 3.
+   ────────────────────────────────────────────────────────────────────────────
+   O handoff do /portfolio agrupa a peça por `grupo` (7 baldes) e a encaixa na
+   moldura por `orient` (h/q/v). As 156 linhas acima NÃO ganham campo novo: o
+   `grupo` sai desta tabela DECLARADA a partir do `servico` que toda peça já
+   tem, e o `orient` sai de `largura`/`altura`, que toda peça já tem. Cobre as
+   156, não as 61 que casariam por nome com o `portfolio.json` do pacote.
+
+   `scripts/checar-portfolio.mjs` reprova o build no `servico` sem balde —
+   serviço novo não entra em silêncio como "Outro".
+   ════════════════════════════════════════════════════════════════════════════ */
+export const GRUPOS = ["Site", "Vídeo", "Redes", "Impresso", "Identidade", "Mídia externa", "Outro"] as const;
+export type Grupo = (typeof GRUPOS)[number];
+
+/**
+ * Serviço → balde. Os 27 pares que o `portfolio.json` do pacote revela entram
+ * VERBATIM (inclusive "Padronização de redes sociais" → "Outro", que é como o
+ * pacote o classifica); "Portfólio digital" aparece lá 7× como Redes e 1× como
+ * Impresso — vale a maioria. Os 5 últimos são serviços do repo que o pacote
+ * não tem, mapeados um a um, visíveis aqui.
+ *
+ * ⚠️ Chave sempre entre aspas: o checar-portfolio.mjs lê a tabela com
+ * /"([^"]+)":\s*"([^"]+)"/g, e chave sem aspas ficaria invisível pro gate.
+ */
+export const SERVICO_PARA_GRUPO: Record<string, Grupo> = {
+  "Anúncio": "Mídia externa",
+  "Banner": "Mídia externa",
+  "Cartaz": "Impresso",
+  "Cartão de visita": "Identidade",
+  "Cartão pré-natal": "Impresso",
+  "Cartão virtual": "Redes",
+  "E-book": "Impresso",
+  "Folder": "Impresso",
+  "Folder educativo": "Impresso",
+  "Folder institucional": "Impresso",
+  "Guia pós-operatório": "Impresso",
+  "Manual da marca": "Identidade",
+  "Outdoor": "Mídia externa",
+  "Padronização de redes sociais": "Outro",
+  "Panfleto": "Impresso",
+  "Papelaria": "Identidade",
+  "Pasta institucional": "Identidade",
+  "Portfólio digital": "Redes",
+  "Portfólio impresso": "Impresso",
+  "Redes sociais": "Redes",
+  "Reels": "Vídeo",
+  "Sinalização": "Mídia externa",
+  "Site": "Site",
+  "Story em vídeo": "Vídeo",
+  "Vinheta": "Vídeo",
+  "Vídeo": "Vídeo",
+  // serviços do repo sem par no pacote:
+  "Brinde institucional": "Identidade",
+  "Folder impresso": "Impresso",
+  "Identidade": "Identidade",
+  "Papelaria institucional": "Identidade",
+  "Portfólio virtual": "Redes",
+};
+
+/** O balde da peça. Serviço fora da tabela quebra o render de propósito — o
+ *  gate já teria reprovado o build antes; aqui é a segunda trava, não a primeira. */
+export function grupoDe(p: Pick<PecaPortfolio, "servico">): Grupo {
+  const g = SERVICO_PARA_GRUPO[p.servico];
+  if (!g) throw new Error(`serviço "${p.servico}" sem balde em SERVICO_PARA_GRUPO (content/portfolio.ts)`);
+  return g;
+}
+
+export type Orient = "h" | "q" | "v";
+
+/**
+ * Orientação pela proporção declarada. Medido no acervo (2026-09-20): os sites
+ * são 2,4 (paisagem) ou 0,8 (a composição vertical de home + celular); as
+ * composições de celular 0,56–0,67; o grosso dos mockups 1,22–1,78; e um bloco
+ * de 1,0–1,04 (quadrados). Os cortes: ≥ 1,15 é paisagem, ≤ 0,7 é retrato, o
+ * resto é quadrado — o 0,8 do site vertical cai em quadrado de propósito
+ * (numa vaga 9:16 ele perderia 30% das laterais; numa 1:1 perde 20% de altura).
+ */
+export function orientDe(p: Pick<PecaPortfolio, "largura" | "altura">): Orient {
+  const r = p.largura / p.altura;
+  return r >= 1.15 ? "h" : r <= 0.7 ? "v" : "q";
+}

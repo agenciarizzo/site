@@ -172,3 +172,47 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
   manual acima). O que fica sem prova é a camada de cima: elegibilidade de rich result
   e avisos que só o crawler do Google detecta.
 - **Prazo sugerido:** checkpoint pro cliente logo após o merge desta entrega.
+
+---
+
+# PARKING — redesenho do site (handoff do Claude Design)
+
+O que o cidade-molde (fatia 4) deixou **sem decidir sozinho** — e o que o
+cliente decidiu depois. Os itens `[H-*]` seguem a numeração do doc-mapa do
+tronco (rizzo-os → `docs/SITE_REDESENHO_HANDOFF_MAPA.md` §5), que é a fonte da
+verdade.
+
+## [H-09] ✅ O mapa real do pôster de cidade — DECIDIDO pelo cliente em 2026-09-20
+
+- **Decisão:** *"eu quero o mapa … o mapa é hardcodado na página específica …
+  e lá quero o mapa do jeito que desenhei."* Entrou na rodada seguinte da
+  fatia 4 (site #94).
+- **Como entrou:** uma **imagem por praça** (`public/mapas/<mapa>-{largo,alto}.webp`),
+  montada UMA vez com os mesmos tiles toner do MapTiler que o Leaflet do
+  protótipo pedia, no mesmo centro e zoom do `mapa-cidade.html`
+  (`scripts/gerar-mapas.mjs`, `MAPTILER_KEY` no ambiente — nunca no repo), e
+  servida pelo próprio site em `multiply` sobre o papel
+  (`components/ar/cidade/MapaPraca.tsx`). O visitante não fala com terceiro
+  nenhum (a razão do parqueamento, a D6, fica de pé), não baixa biblioteca de
+  mapa, e a atribuição © MapTiler © OpenStreetMap fica no canto, como no
+  Leaflet. Praça nova = gerar as duas imagens antes do build
+  (`scripts/checar-praca.mjs` reprova sem elas).
+- **Aberto, só se o cliente quiser:** mapa **interativo** (arrastar, zoom) — o
+  protótipo também não tem. Se um dia tiver, é MapLibre com chave própria, e a
+  política de privacidade muda no mesmo PR.
+
+## [H-10] ✅ São Paulo é a terceira praça — ENTREGUE em 2026-09-20
+
+- **Estado:** `/marketing-medico-sao-paulo` (site #94, mesma rodada). Passa a
+  régua §3.3 — contado pelo motor no build: 26 clientes em 9 cidades, 15 áreas
+  na carteira, 10 peças no acervo. URL nova, sem histórico no site antigo —
+  sem 301 a fazer. Tweaks do protótipo dela (`Pagina Cidade - Sao
+  Paulo.dc.html`): elemento `paulista` no hero e na exclusividade, mapa da
+  zona oeste (`saopaulo-oeste`). Sem captação (é sob demanda em SP).
+- 🧪 **Checkpoint do cliente (D4):** a copy da praça vem do registro que o
+  próprio handoff traz (`cidades.js` › saopaulo — tese, método, regiões, FAQ);
+  os 2 parágrafos de posição a mais, o "quando NÃO" e o texto do RizzoOS foram
+  escritos na mesma voz. Pedir reescrita é rodada, não bug.
+- **Anápolis** segue em 301 pra home: zero cliente na carteira pública e zero
+  peça no acervo com essa praça (regra 8).
+

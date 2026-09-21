@@ -6,6 +6,12 @@
 // somem e reaparecem, elas se remontam numa composição nova. Quem troca a cena
 // é o motor de scroll, por progresso do trilho.
 //
+// No modo MOLDURA (`PORTFOLIO_MODO` — o tweak `portfolio` do handoff de
+// 2026-09-20, o padrão de toda página com hero) a transição de caixa não roda:
+// o Motor faz de cada peça uma caixa do tamanho do palco e anda o RECORTE dela
+// de vaga em vaga, quadro a quadro (`lib/ar/moldura.mjs`). O HTML abaixo é o
+// mesmo nos dois modos — a 1ª cena, com as peças na vaga, é o estado sem JS.
+//
 // ⚠️ A ORDEM é lista fixa por VAGA (§44.19 + achados #10-#13 do §44.24), não o
 // `pfResolver` do protótipo: cada vaga de cada cena aponta pra uma peça
 // específica, orientação casada, sem repetição — a decisão é de régua, não de
@@ -13,7 +19,7 @@
 // pra montar o `<Motor cenas={...}>` com o mesmo índice global que `<Portfolio
 // />` usa).
 import Link from "next/link";
-import { PF_CENAS, PORTFOLIO_VIDEOS, PORTFOLIO_CABECA } from "@/content/home";
+import { PF_CENAS, PORTFOLIO_VIDEOS, PORTFOLIO_CABECA, PORTFOLIO_MODO } from "@/content/home";
 import { PORTFOLIO } from "@/content/portfolio";
 
 interface PecaMorfo {
@@ -107,7 +113,7 @@ export function Portfolio() {
         <p>{PORTFOLIO_CABECA.lede}</p>
       </section>
 
-      <section className="pf" aria-label="Peças do portfólio" data-topo="claro" data-pf-track>
+      <section className="pf" aria-label="Peças do portfólio" data-topo="claro" data-pf-track data-pf-modo={PORTFOLIO_MODO}>
         <div className="pf-palco">
           <div className="pf-tela">
             {pecas.map((p, i) => {

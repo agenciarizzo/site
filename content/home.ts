@@ -23,6 +23,8 @@
 
 import { CARTAS_MIDIA } from "./cartas";
 import { ESPECIALIDADES, rotaEspecialidade } from "./especialidades";
+import { SELOS } from "./landing-v3";
+import type { ModoPortfolio } from "@/lib/tweaks.mjs";
 
 /** Texto que abre a conversa quando a pessoa sai da home pelo portão. */
 export const WA_HOME = "Olá! Estava no site da agência e quero conversar sobre a minha clínica.";
@@ -217,8 +219,13 @@ export const ESPECIALIDADES_BLOCO = {
   rodape: { antes: "55 áreas na carteira. Não achou a sua? ", link: "Fale com a gente." },
 };
 
-/** As 19 páginas de especialidade que existem de verdade (`content/especialidades.ts`). */
-export const ESPECIALIDADES_HOME = ESPECIALIDADES.map((e) => ({ nome: e.espec, href: rotaEspecialidade(e.slug) }));
+/**
+ * As 19 páginas de especialidade que existem de verdade (`content/especialidades.ts`).
+ * O rótulo é o do EIXO quando existe (`nomeEixo`): ginecologia e reprodução
+ * humana partilham o `espec` "Saúde da Mulher", e a lista mostrava o mesmo
+ * nome duas vezes (achado no rodapé, 2026-09-20).
+ */
+export const ESPECIALIDADES_HOME = ESPECIALIDADES.map((e) => ({ nome: e.nomeEixo ?? e.espec, href: rotaEspecialidade(e.slug) }));
 
 /* ──────────────────────────────────────────────────────────── portfólio ──── */
 
@@ -230,6 +237,18 @@ export const PORTFOLIO_CABECA = {
   /** A parede de peças inteira mora em `/portfolio` (desde a entrega de 2026-09-18). */
   completo: { rotulo: "Ver o portfólio completo", href: "/portfolio" },
 };
+
+/**
+ * O tweak `portfolio` do painel do Design (`Pagina - Home.dc.html`, seção
+ * "Portfólio" — handoff `design_handoff_site_rizzo/`, rizzo-os, 2026-09-20): o
+ * MODO do palco. O protótipo oferece `morfo | assimetrico | moldura` e nasce em
+ * `moldura`; o porte de 14/09 ("AR Home Diagonal") só tinha trazido o `morfo`,
+ * e a fatia 1 do redesenho (#92) foi só tipografia. O enum mora em
+ * `lib/tweaks.mjs` (`OPCOES.portfolio` — `assimetrico` não foi portado, então
+ * não está lá); a geometria do moldura, em `lib/ar/moldura.mjs`; quem a aplica
+ * é o `Motor.tsx`, e o `<section class="pf">` carrega o modo em `data-pf-modo`.
+ */
+export const PORTFOLIO_MODO: ModoPortfolio = "moldura";
 
 /**
  * Achados #10-#13 (§44.24): a lista fixa tinha 9 peças pra 30 vagas em 6 cenas
@@ -472,6 +491,6 @@ export const RODAPE = {
   ],
   /** As 6 frentes do rodapé são as MESMAS cartas do menu — fonte única. */
   servicos: CARTAS_MIDIA.map((c) => ({ rotulo: c.titulo, href: `/cartas/${c.slug}` })),
-  /** §44.21-4: "Google Partner" fora até o selo chegar. A SBH fica, e sem o SVG (não existe no repo). */
-  selo: "Agência parceira da SBH",
+  /** Os 3 selos com link (content/landing-v3.ts → SELOS; §44.21-4 revogado pelo cliente em 2026-09-20). */
+  selos: SELOS,
 };

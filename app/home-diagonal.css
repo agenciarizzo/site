@@ -6,10 +6,13 @@
    Home"*. Todo valor daqui (px, cor, peso, clamp) saiu do `style=""` inline do
    `AR Home Diagonal.dc.html`, seção por seção; nada foi inventado.
 
-   ⚠️ ESTA FOLHA É SÓ DA HOME. A landing de praça segue no `cidade-v3.css` +
-   `ar-v3.css` — são peças irmãs, mas o desenho desta tem movimentos que a outra
-   não tem (folhas empilhadas, palco de 700svh, portfólio morfo), e misturar as
-   duas folhas foi o que produziu as duas rodadas anteriores.
+   ⚠️ ESTA FOLHA É A DA LINHA `.dg`: nasceu SÓ DA HOME e, desde o redesenho
+   (fatia 3: /clientes e /portfolio; fatia 4: o cidade-molde das landings de
+   praça, components/ar/cidade/), as páginas irmãs a importam pelas seções que
+   compartilham com a home — cada uma com a SUA folha ao lado pras seções
+   próprias (clientes-v3.css, portfolio-v3.css, cidade-molde.css). A landing v3
+   de Brasília (`cidade-v3.css` + `ar-v3.css`) saiu na fatia 4: misturar duas
+   folhas de linhas diferentes foi o que produziu as duas rodadas anteriores.
 
    Fora da escala tipográfica do site, de propósito (§44.15 D4) — a exceção está
    declarada por caminho em `scripts/checar-tipografia.mjs`.
@@ -685,6 +688,18 @@
   background: var(--chumbo);
   flex: none;
 }
+/* Os selos são links (Meta Business Partners · Google Partners · SBH): na
+   tarja amarela o sublinhado da casa seria amarelo sobre amarelo, então o
+   traço só aparece no hover/foco, em chumbo. */
+.dg .autoridade a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.dg .autoridade a:hover,
+.dg .autoridade a:focus-visible {
+  border-bottom-color: var(--chumbo);
+}
 
 /* ═══════════════════════════════════════════════════════ 3 · clientes ═══ */
 .dg .clientes {
@@ -845,8 +860,13 @@
   background: var(--q-bloco);
 }
 .dg .quadra .q-arte {
-  background: var(--q-arte);
+  /* `--arte-a`/`--arte-d` e `--rot` só existem no pano Athos das páginas de
+     praça (lib/ar/conquista.mjs): o azulejo do motivo na cor da arte de cada
+     lado, girado como o protótipo gira. Sem eles, a arte é a cor chapada da
+     seção — a home de sempre. */
+  background: var(--arte-a, var(--q-arte));
   clip-path: var(--clip);
+  transform: rotate(var(--rot, 0deg));
 }
 .dg .q-depois {
   position: absolute;
@@ -857,6 +877,9 @@
   --q-arte: var(--q-arte-2);
   clip-path: inset(clamp(0%, calc((var(--o) - var(--conq, 0)) * 10000%), 100%) 0 0 0);
   transition: clip-path 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.dg .q-depois .q-arte {
+  background: var(--arte-d, var(--q-arte));
 }
 .dg .excl-cartao {
   position: relative;
@@ -2871,6 +2894,17 @@
   object-fit: cover;
   background: var(--chumbo);
 }
+/* O modo MOLDURA (tweak `portfolio` do handoff `design_handoff_site_rizzo/`,
+   2026-09-20 — `PORTFOLIO_MODO` em content/home.ts, geometria em
+   lib/ar/moldura.mjs): a peça vira caixa do tamanho do palco e é o RECORTE
+   (clip-path) que anda de vaga em vaga; a imagem fica parada na vaga, com folga
+   de parallax. Sem transição de caixa — quem interpola é o Motor, quadro a
+   quadro; a transição de 0,9s faria a caixa "viajar" no quadro em que o motor
+   assume a peça. O estado sem JS (a 1ª cena, com a calha de 4px) segue sendo o
+   que o HTML entrega. */
+.dg .pf[data-pf-modo="moldura"] .pf-peca {
+  transition: none;
+}
 .dg .pf-legenda {
   position: absolute;
   left: 12px;
@@ -2878,12 +2912,37 @@
   z-index: 5;
   max-width: min(70%, 520px);
   display: grid;
-  grid-template-columns: 1fr auto;
+  /* texto · "Site no ar" (só nas páginas de praça, e só quando há endereço) · contador */
+  grid-template-columns: 1fr auto auto;
   gap: 20px;
   align-items: center;
   padding: 12px 16px;
   background: var(--papel);
   color: var(--chumbo);
+}
+/* O `pfLink` do protótipo de cidade: o botão amarelo da legenda que leva ao
+   site do cliente quando a peça em foco tem endereço no cadastro (regra 9). O
+   Motor esconde/mostra a cada cena. */
+.dg .pf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--amarelo);
+  color: var(--chumbo);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.dg .pf-link[hidden] {
+  display: none;
+}
+.dg .pf-link:hover {
+  background: var(--chumbo);
+  color: var(--amarelo);
 }
 .dg .pf-legenda > div {
   display: flex;
@@ -3213,20 +3272,29 @@
   text-transform: uppercase;
   color: var(--amarelo);
 }
-/* "Especialidades" são 19: a coluna toma a largura que sobrar e quebra em duas,
-   pra o rodapé não virar uma torre. */
+/* As listas longas ("Especialidades" são 19, "Especialidade por cidade" são
+   12) tomam a largura inteira e correm em três colunas, pra o rodapé não virar
+   uma torre. ⚠️ `columns` não age sobre um `ul` em flex (a regra geral de
+   `.rodape-col ul` abaixo) — era por isso que as 19 desciam numa coluna só e o
+   rodapé passava de 1.700px (cliente, 2026-09-20: "o menu do footer está
+   estourando"). Aqui a lista volta a ser bloco, e o respiro vem do `li`. */
 .dg .rodape-esp {
   grid-column: 1 / -1;
 }
-.dg .rodape-esp ul {
+/* `.rodape-col.rodape-esp`: a regra geral `.rodape-col ul { display: flex }`
+   vem depois e tem a mesma especificidade — sem o seletor composto ela vencia
+   e a lista seguia em flex, sem colunas. */
+.dg .rodape-col.rodape-esp ul {
+  display: block;
   columns: 3;
   column-gap: 40px;
 }
-.dg .rodape-esp li {
+.dg .rodape-col.rodape-esp li {
   break-inside: avoid;
+  padding: 0 0 10px;
 }
 @media (max-width: 699px) {
-  .dg .rodape-esp ul {
+  .dg .rodape-col.rodape-esp ul {
     columns: 2;
   }
 }
@@ -3257,10 +3325,19 @@
   font-size: 13px;
   color: var(--papel);
 }
+.dg .rodape-selos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+}
 .dg .rodape-selo {
   display: flex;
   align-items: center;
   gap: 10px;
+  color: var(--papel);
+}
+.dg .rodape-selo:hover {
+  color: var(--amarelo);
 }
 .dg .rodape-selo i {
   width: 8px;

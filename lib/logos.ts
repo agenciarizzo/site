@@ -3,7 +3,7 @@
 // `LOGOS.md` (raiz do repo). O deploy seguinte da Vercel faz o logo aparecer
 // sozinho na grade de /clientes — nenhum código muda pra entrar ou trocar imagem.
 //
-// Mesma receita de `lib/mockups.ts` (peças de /clientes → agora /portfolio),
+// Mesma receita do antigo `lib/mockups.ts` (aposentado na fatia 3 do redesenho),
 // aplicada ao logo: enquanto o arquivo não existe, o tile fica só com nome +
 // cidade + área (§⚖️ do CLAUDE.md — ausência honesta > presença defeituosa). A
 // checagem é de BUILD (fs), nunca de runtime: o site segue SSG puro.
