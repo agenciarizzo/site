@@ -21,7 +21,11 @@
 //  · `[data-fichas]`   as fichas dos cases: clique na aba abre a leitura
 //                      (uma por vez); as barras crescem no CSS, ao abrir
 //  · `[data-os-track]` o palco do RizzoOS: 6 estados por progresso do trilho
-//  · `[data-pf-track]` o palco do portfólio: 6 cenas por progresso do trilho
+//  · `[data-pf-track]` o palco do portfólio: 6 cenas por progresso do trilho —
+//    no modo `morfo`, a caixa de cada peça muda por cena e o CSS faz a
+//    transição; no modo `moldura` (tweak `portfolio` do handoff de
+//    2026-09-20, o padrão — `PORTFOLIO_MODO`), a peça é caixa cheia e o motor
+//    anda o RECORTE dela quadro a quadro (`lib/ar/moldura.mjs`)
 //  · `[data-regua]`    os 64 traços sobem quando a régua entra
 //  · `.topo`           `data-rolou` (pílula) e `data-tinta` (cor da tinta)
 //  · `[data-serv-grade]` a animação de entrada da grade de serviços (1×)
@@ -38,12 +42,14 @@
 // não enfeite. O giro do hero PARA (nem entra no intervalo).
 import { useEffect } from "react";
 import { heroPecas } from "@/lib/ar/heroGeo.mjs";
+import { quadroMoldura } from "@/lib/ar/moldura.mjs";
+import type { ModoPortfolio } from "@/lib/tweaks.mjs";
 import { HERO } from "@/content/home";
 
 /** A ordem em que a grade de serviços acende antes de estacionar em 0 e 4. */
 const ORDEM_SERV = [0, 1, 2, 5, 4, 3, 0, 1, 2, 5, 4, 3, 0, 1, 2, 5, 4];
 
-export function Motor({ cenas }: { cenas: Record<number, [number, number, number, number]>[] }) {
+export function Motor({ cenas, modo = "morfo" }: { cenas: Record<number, [number, number, number, number]>[]; modo?: ModoPortfolio }) {
   useEffect(() => {
     const reduzido = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const raiz = document.querySelector<HTMLElement>(".dg");
@@ -192,6 +198,35 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
     let osIdx = -1;
     let pfIdx = -1;
 
+    // O modo MOLDURA (`PORTFOLIO_MODO` em content/home.ts; a geometria em
+    // lib/ar/moldura.mjs, provada em build pelo checar-moldura.mjs): a peça
+    // vira caixa do tamanho do palco e é o RECORTE dela que anda de vaga em
+    // vaga, quadro a quadro, com a imagem parada na vaga. O motor só escreve o
+    // que muda — recorte, vaga da imagem e parallax nas peças visíveis, a cada
+    // quadro; caixa, opacidade e vídeo só quando o ESTADO da peça vira:
+    //  · `fora`    caixa colapsada (0×0) — pra o `loading="lazy"` não puxar as
+    //              30 imagens de uma vez quando o palco entra na tela;
+    //  · `oculta`  caixa cheia invisível — é o pré-carregamento da PRÓXIMA
+    //              cena, uma cena antes de ela aparecer;
+    //  · `visivel` recorte + vaga + parallax.
+    // O palco (W×H) entra na conta da meia-calha (3px em %); é medido no
+    // resize, nunca por quadro — mesma disciplina de INP do cache acima.
+    const moldura = modo === "moldura";
+    const pecasPalco = pf ? Array.from(pf.querySelectorAll<HTMLElement>("[data-pf-peca]")) : [];
+    const estadoPeca = new Map<HTMLElement, string>();
+    const palco = pf?.querySelector<HTMLElement>(".pf-palco") ?? null;
+    let palcoW = 0;
+    let palcoH = 0;
+    let pfProg = -1;
+    const medirPalco = () => {
+      if (!palco) return;
+      palcoW = palco.clientWidth;
+      palcoH = palco.clientHeight;
+      pfProg = -1;
+    };
+    medirPalco();
+    addEventListener("resize", medirPalco);
+
     // "precisa ajudar o portfólio para celular, está sem condições de ver —
     // diminua as peças e foque em mostrar bem" (cliente, 14/09). Medido a 390
     // na 1ª cena: as 4 peças saíam 255×836, 127×627, **64×209 e 64×209** — um
@@ -216,7 +251,47 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
             });
       // A cena só é reaplicada quando o índice muda; virar o telefone trocaria
       // a malha sem redesenhar. Zerar o índice força o próximo quadro a repor.
-      if (antes !== cenasAtuais) pfIdx = -1;
+      if (antes !== cenasAtuais) {
+        pfIdx = -1;
+        pfProg = -1;
+      }
+    };
+
+    const aplicarMoldura = (prog: number) => {
+      const { pecas } = quadroMoldura({ cenas: cenasAtuais, prog, n: pecasPalco.length, largura: palcoW, altura: palcoH, reduzido });
+      for (const el of pecasPalco) {
+        const p = pecas[Number(el.dataset.pfPeca)];
+        if (!p) continue;
+        const antes = estadoPeca.get(el);
+        const midia = el.querySelector<HTMLElement>("img,video");
+        const video = el.querySelector<HTMLVideoElement>("video");
+        if (p.estado === "visivel") {
+          if (antes !== "visivel") {
+            // A caixa vira o palco inteiro; daqui em diante só o recorte anda.
+            Object.assign(el.style, { left: "0", top: "0", width: "100%", height: "100%", padding: "0", opacity: "1", zIndex: "2" });
+            if (midia) midia.style.position = "absolute";
+            // Achado #13: só toca a peça que está na tela.
+            video?.play().catch(() => {});
+          }
+          el.style.clipPath = p.clip;
+          if (midia) {
+            midia.style.left = `${p.vaga[0]}%`;
+            midia.style.top = `${p.vaga[1]}%`;
+            midia.style.width = `${p.vaga[2]}%`;
+            midia.style.height = `${p.vaga[3]}%`;
+            midia.style.transform = `scale(${p.escala.toFixed(3)}) translateX(${p.parallax.toFixed(2)}%)`;
+          }
+        } else if (p.estado !== antes) {
+          if (p.estado === "oculta") {
+            Object.assign(el.style, { left: "0", top: "0", width: "100%", height: "100%", padding: "0", opacity: "0", zIndex: "1", clipPath: "inset(50%)" });
+            if (midia) midia.style.position = "absolute";
+          } else {
+            Object.assign(el.style, { left: "50%", top: "50%", width: "0%", height: "0%", opacity: "0", zIndex: "1", clipPath: "" });
+          }
+          video?.pause();
+        }
+        estadoPeca.set(el, p.estado);
+      }
     };
     medirCenas();
     addEventListener("resize", medirCenas);
@@ -273,7 +348,9 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
         if (idx !== pfIdx) {
           pfIdx = idx;
           const cena = cenasAtuais[idx];
-          for (const el of Array.from(pf.querySelectorAll<HTMLElement>("[data-pf-peca]"))) {
+          // No modo `moldura` a caixa não muda por cena — é o `aplicarMoldura`
+          // abaixo, por quadro, que desenha; aqui só a legenda e o contador.
+          for (const el of moldura ? [] : pecasPalco) {
             const vaga = cena[Number(el.dataset.pfPeca)];
             const video = el.querySelector<HTMLVideoElement>("video");
             if (vaga) {
@@ -302,6 +379,12 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
           if (foco && titulo) titulo.textContent = foco.dataset.titulo || "";
           const cur = pf.querySelector<HTMLElement>("[data-pf-cur]");
           if (cur) cur.textContent = String(idx + 1).padStart(2, "0");
+        }
+        // O progresso só muda enquanto o palco está na tela (fora dela fica
+        // preso em 0 ou 1) — então o custo por quadro é zero no resto da página.
+        if (moldura && prog !== pfProg) {
+          pfProg = prog;
+          aplicarMoldura(prog);
         }
       }
 
@@ -456,6 +539,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       removeEventListener("resize", medirPares);
       removeEventListener("resize", medirSecoes);
       removeEventListener("resize", medirCenas);
+      removeEventListener("resize", medirPalco);
       removeEventListener("resize", medirConq);
       if (quadro) cancelAnimationFrame(quadro);
       if (tempos) clearTimeout(tempos);
@@ -468,7 +552,7 @@ export function Motor({ cenas }: { cenas: Record<number, [number, number, number
       obsAltura?.disconnect();
       if (giroHero) clearInterval(giroHero);
     };
-  }, [cenas]);
+  }, [cenas, modo]);
 
   return null;
 }
