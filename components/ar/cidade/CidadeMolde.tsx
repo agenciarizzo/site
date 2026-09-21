@@ -38,7 +38,7 @@ import { tweaksDe } from "@/lib/tweaks.mjs";
 import { SITE_URL } from "@/lib/site";
 import { VINHETA } from "@/content/landing-v3";
 import type { Cidade } from "@/content/cidades";
-import { resolverCenas } from "@/lib/portfolio-moldura";
+import { resolverCenas, type Cena } from "@/lib/portfolio-moldura";
 import { UF_NOME } from "@/lib/portfolio-galeria";
 import { alcanceDaCasa, alcanceDe, historicoDaPraca, nomesDoHistorico, numerosDaPraca, pecasDaPraca, type NomeHistorico } from "@/lib/praca";
 import { HeroCidade, PracaPoster, MetodoLocal, HistoricoLocal, QuandoNao, FaqPraca, type NumeroPoster } from "./Praca";
@@ -90,8 +90,19 @@ export function CidadeMolde({ c }: { c: Cidade }) {
   const nomes = nomesDoHistorico(grupos);
   const n = numerosDaPraca(c, grupos);
   const { pecas, local } = pecasDaPraca(c);
-  const cenas = resolverCenas(pecas, 16, 9);
-  const usadas = [...new Set(cenas.flatMap((k) => Object.keys(k.pos).map(Number)))].sort((x, y) => x - y);
+  // O palco só leva as peças que alguma cena usa, RENUMERADAS de 0 a n−1: o
+  // motor do modo moldura (lib/ar/moldura.mjs, fatia 1b — o tweak `portfolio`
+  // da cidade, padrão `moldura`) indexa as peças de 0 a n−1, e o índice do
+  // pool inteiro da praça (que passa de 150) deixaria peça sem quadro.
+  const cenasPool = resolverCenas(pecas, 16, 9);
+  const usadas = [...new Set(cenasPool.flatMap((k) => Object.keys(k.pos).map(Number)))].sort((x, y) => x - y);
+  const indice = new Map(usadas.map((g, k) => [g, k]));
+  const palco = usadas.map((g) => pecas[g]);
+  const cenas: Cena[] = cenasPool.map((k) => ({
+    ...k,
+    foco: indice.get(k.foco) ?? 0,
+    pos: Object.fromEntries(Object.entries(k.pos).map(([g, v]) => [indice.get(Number(g)) ?? 0, v])) as Cena["pos"],
+  }));
   const casa = alcanceDaCasa();
 
   // Os 3 números do pôster — o 3º é o acervo local; se a praça ainda não
@@ -144,12 +155,14 @@ export function CidadeMolde({ c }: { c: Cidade }) {
       <Sobre />
       <Cidades waText={c.waText} />
       <Vinheta waText={waVaga} />
-      <PortfolioPraca pecas={pecas} cenas={cenas} usadas={usadas} local={local} rotulo={a.rotulo} cidade={c.cidade} />
+      <PortfolioPraca pecas={palco} cenas={cenas} local={local} rotulo={a.rotulo} cidade={c.cidade} modo={t.portfolio} />
       <FaqPraca c={c} />
       <QuandoNao c={c} />
       <CtaConversa waText={c.waText} />
       <Rodape />
-      <Motor cenas={cenas.map((k) => k.pos)} />
+      {/* O modo do palco é o tweak `portfolio` do protótipo da cidade (`moldura`
+          nas três) — o mesmo `data-pf-modo` que o palco carrega. */}
+      <Motor cenas={cenas.map((k) => k.pos)} modo={t.portfolio} />
     </div>
   );
 }
