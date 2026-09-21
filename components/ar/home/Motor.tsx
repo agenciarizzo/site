@@ -49,7 +49,19 @@ import { HERO } from "@/content/home";
 /** A ordem em que a grade de serviços acende antes de estacionar em 0 e 4. */
 const ORDEM_SERV = [0, 1, 2, 5, 4, 3, 0, 1, 2, 5, 4, 3, 0, 1, 2, 5, 4];
 
-export function Motor({ cenas, modo = "morfo" }: { cenas: Record<number, [number, number, number, number]>[]; modo?: ModoPortfolio }) {
+export function Motor({
+  cenas,
+  modo = "morfo",
+  focos,
+}: {
+  cenas: Record<number, [number, number, number, number]>[];
+  modo?: ModoPortfolio;
+  // Qual peça da cena manda na legenda. A home não passa: lá a chave mais baixa
+  // serve. O /portfolio passa, porque a vaga de abertura de cada cena é escolha
+  // do resolver (`lib/portfolio-moldura.ts`) e não coincide com a chave mínima —
+  // `Object.keys` ordena índice inteiro por valor, não por inserção.
+  focos?: number[];
+}) {
   useEffect(() => {
     const reduzido = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const raiz = document.querySelector<HTMLElement>(".dg");
@@ -382,7 +394,7 @@ export function Motor({ cenas, modo = "morfo" }: { cenas: Record<number, [number
               video?.pause();
             }
           }
-          const foco = pf.querySelector<HTMLElement>(`[data-pf-peca="${Object.keys(cena)[0]}"]`);
+          const foco = pf.querySelector<HTMLElement>(`[data-pf-peca="${focos?.[idx] ?? Object.keys(cena)[0]}"]`);
           const tipo = pf.querySelector<HTMLElement>("[data-pf-tipo]");
           const titulo = pf.querySelector<HTMLElement>("[data-pf-titulo]");
           if (foco && tipo) tipo.textContent = foco.dataset.tipo || "";
@@ -574,7 +586,7 @@ export function Motor({ cenas, modo = "morfo" }: { cenas: Record<number, [number
       obsAltura?.disconnect();
       if (giroHero) clearInterval(giroHero);
     };
-  }, [cenas, modo]);
+  }, [cenas, modo, focos]);
 
   return null;
 }

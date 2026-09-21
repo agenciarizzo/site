@@ -71,12 +71,19 @@ export function CtaFinal({ waText }: { waText: string }) {
   );
 }
 
-export function Rodape() {
+/**
+ * `waText`: o texto que abre a conversa quando a pessoa sai POR AQUI (regra 4 —
+ * a atribuição é por página). Sem ele o portão cai no `WA_PADRAO` e o rodapé
+ * some do relatório, que era o caso em todas as 5 páginas que o usam.
+ */
+export function Rodape({ waText }: { waText?: string }) {
   return (
     <footer className="rodape" data-topo="claro">
       <div className="rodape-grade">
         <div className="rodape-marca">
-          <Image src="/logo_fundo_escuro_horizontal.png" alt="Agência Rizzo — marketing médico digital" width={176} height={22} />
+          <Link href="/" aria-label="Agência Rizzo — início">
+            <Image src="/logo_fundo_escuro_horizontal.png" alt="Agência Rizzo — marketing médico digital" width={176} height={22} />
+          </Link>
           <p>
             {RODAPE.razao.map((l, i) => (
               <span key={l}>
@@ -88,7 +95,9 @@ export function Rodape() {
           <p>
             {RODAPE.atendimento}
             <br />
-            <Link href={ROTA_PORTAO}>{RODAPE.telefone}</Link>
+            <Link href={ROTA_PORTAO} data-wa={waText}>
+              {RODAPE.telefone}
+            </Link>
             <br />
             {RODAPE.horario}
           </p>
@@ -115,8 +124,11 @@ export function Rodape() {
         <div className="rodape-col">
           <h3>Prova</h3>
           <ul>
+            {/* Âncoras da HOME, com a barra na frente: este rodapé também
+                serve /clientes, /portfolio, /whatsapp e as praças, onde as
+                duas seções não existem e `#h-cases` não ia a lugar nenhum. */}
             <li>
-              <a href="#h-cases">Cases</a>
+              <Link href="/#h-cases">Cases</Link>
             </li>
             <li>
               <Link href="/clientes">Clientes atendidos</Link>
@@ -125,11 +137,11 @@ export function Rodape() {
               <Link href="/portfolio">Portfólio</Link>
             </li>
             <li>
-              <a href="#h-depo">Depoimentos</a>
+              <Link href="/#h-depo">Depoimentos</Link>
             </li>
             {CARTAS_SEGMENTO.map((c) => (
               <li key={c.slug}>
-                <Link href={`/cartas/${c.slug}`}>{c.titulo}</Link>
+                <Link href={`/cartas/${c.slug}`}>{c.midia}</Link>
               </li>
             ))}
           </ul>
@@ -172,15 +184,28 @@ export function Rodape() {
                 <Link href={`/${c.slug}`}>{c.cidade}</Link>
               </li>
             ))}
-            {COMBOS.map((c) => (
-              <li key={c.rota}>
-                <Link href={c.rota}>
-                  {c.especialidade.charAt(0).toUpperCase() + c.especialidade.slice(1)} em {c.cidade}
-                </Link>
-              </li>
-            ))}
           </ul>
         </div>
+
+        {/* Os COMBOS moravam dentro de "Cidades", e o título "Especialidade por
+            cidade" estava sobre os pares de PRAÇA logo abaixo — as duas listas
+            trocadas de rótulo. São coisas diferentes (combo é conteúdo escrito
+            à mão, par vem da taxonomia) e o rodapé de sempre já as separa
+            assim; ver components/athos/FooterMapa.tsx. */}
+        {COMBOS.length > 0 && (
+          <div className="rodape-col">
+            <h3>Especialidade × cidade</h3>
+            <ul>
+              {COMBOS.map((c) => (
+                <li key={c.rota}>
+                  <Link href={c.rota}>
+                    {c.especialidade.charAt(0).toUpperCase() + c.especialidade.slice(1)} em {c.cidade}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* As listas longas (19 especialidades, 12 pares especialidade × praça)
             tomam a largura inteira e correm em colunas — antes moravam numa
@@ -202,7 +227,7 @@ export function Rodape() {
             components/athos/FooterMapa.tsx pro mesmo bloco no rodapé de
             sempre. */}
         <div className="rodape-col rodape-esp">
-          <h3>Especialidade por cidade</h3>
+          <h3>Especialidade × praça</h3>
           <ul>
             {PARES_ESPECIALIDADE_PRACA.map((par) => {
               const e = especialidadePorSlug(par.slug);
@@ -222,7 +247,7 @@ export function Rodape() {
       </div>
 
       <div className="rodape-fecho">
-        <span>© 2026 Agência Rizzo</span>
+        <span>© {new Date().getFullYear()} Agência Rizzo</span>
         {/* Os 3 selos, cada um linkando pra home de quem certifica (cliente,
             2026-09-20 — revoga o §44.21-4). */}
         <span className="rodape-selos">

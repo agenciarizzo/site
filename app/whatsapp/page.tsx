@@ -230,7 +230,7 @@ export default function PortaoPage() {
           </div>
         </section>
       </main>
-      <Rodape />
+      <Rodape waText={WA_PADRAO} />
       <Script id="ar-portao" strategy="afterInteractive">
         {PORTAO_JS}
       </Script>

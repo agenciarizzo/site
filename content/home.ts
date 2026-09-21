@@ -489,8 +489,14 @@ export const RODAPE = {
     { rotulo: "Facebook", href: "https://www.facebook.com/agenciarizzo" },
     { rotulo: "LinkedIn", href: "https://www.linkedin.com/company/agenciarizzo" },
   ],
-  /** As 6 frentes do rodapé são as MESMAS cartas do menu — fonte única. */
-  servicos: CARTAS_MIDIA.map((c) => ({ rotulo: c.titulo, href: `/cartas/${c.slug}` })),
+  /**
+   * As 6 frentes do rodapé são as MESMAS cartas do menu — fonte única. O
+   * rótulo é o nome curto (`midia`), não o `titulo`, que é a headline de
+   * busca: "Google Ads para Médicos: Estratégia e Gestão" num item de menu
+   * é o que deixava este rodapé discrepante do de sempre (components/athos/
+   * FooterMapa.tsx), que sempre usou o nome curto.
+   */
+  servicos: CARTAS_MIDIA.map((c) => ({ rotulo: c.midia, href: `/cartas/${c.slug}` })),
   /** Os 3 selos com link (content/landing-v3.ts → SELOS; §44.21-4 revogado pelo cliente em 2026-09-20). */
   selos: SELOS,
 };

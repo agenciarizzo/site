@@ -18,7 +18,12 @@
 //     Sem JS tudo aparece (é o `<noscript>` no fim da seção) — o estado que
 //     o Google vê é o acervo completo;
 //   · 04 Moldura — o palco 6×4 sobre o acervo inteiro, cenas resolvidas no
-//     build (lib/portfolio-moldura.ts) e trocadas pela rolagem (MolduraScroll);
+//     build (lib/portfolio-moldura.ts) e andadas pelo MESMO motor da home
+//     (components/ar/home/Motor.tsx → lib/ar/moldura.mjs). Já houve DUAS
+//     versões paralelas deste palco aqui: o `Motor` e uma ilha própria que
+//     reimplementava o modo `morfo` antigo com outro nome. O palco é um só —
+//     `scripts/checar-palco.mjs` reprova o build se alguma página voltar a
+//     servir `data-pf-track` sem o modo do motor;
 //   · 05 CTA — o CtaConversa amarelo da fatia 2, com a frase do protótipo.
 //
 //   · 02 Perto de você e o "Você está em GO? Ver 12 peças" (01) — os dois
@@ -44,10 +49,11 @@ import { PanoHeader } from "@/components/secoes/PanoHeader";
 import { CtaConversa } from "@/components/CtaConversa";
 import { PecaLightbox } from "@/components/PecaLightbox";
 import { PortfolioFiltro } from "@/components/ar/portfolio/PortfolioFiltro";
-import { MolduraScroll } from "@/components/ar/portfolio/MolduraScroll";
+import { Motor } from "@/components/ar/home/Motor";
 import { GRUPOS } from "@/content/portfolio";
 import { poolGaleria, altSeo, tituloDe, paginaDe, UF_NOME, type PecaGaleria } from "@/lib/portfolio-galeria";
 import { PF_CENAS_MOLDURA, resolverCenas } from "@/lib/portfolio-moldura";
+import { PORTFOLIO_MODO } from "@/content/home";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -89,11 +95,13 @@ export default function PortfolioPage() {
   const ordemLb = grupos.flatMap((g) => g.itens).filter((p) => p.ancora).map((p) => p.ancora as string);
   const posLb = new Map(ordemLb.map((a, i) => [a, i]));
 
-  // A moldura: cenas prontas pras duas proporções; no HTML entra só quem
-  // aparece em alguma cena (como na home: ~30 peças, não 163).
+  // A moldura: cenas resolvidas no build; no HTML entra só quem aparece em
+  // alguma cena (como na home: ~30 peças, não 163). Uma resolução só, a de
+  // tela larga — no estreito quem manda é o motor, que reduz cada cena à peça
+  // de maior vaga e a abre no palco inteiro (o pedido do cliente de 14/09:
+  // peça legível no telefone em vez do mosaico inteiro em miniatura).
   const larga = resolverCenas(pool, 16, 9);
-  const estreita = resolverCenas(pool, 9, 16);
-  const usadas = [...new Set([...larga, ...estreita].flatMap((c) => Object.keys(c.pos).map(Number)))].sort((a, b) => a - b);
+  const usadas = [...new Set(larga.flatMap((c) => Object.keys(c.pos).map(Number)))].sort((a, b) => a - b);
   const cena0 = larga[0];
 
   // Dados estruturados pro Google Imagens: uma ImageObject por peça, com a
@@ -166,7 +174,7 @@ export default function PortfolioPage() {
   return (
     <div className="dg pf-v3" data-portfolio>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Topo waText={WA} />
+      <Topo waText={WA} rota="/portfolio" />
       <TopoDg />
       <PanoHeader kicker="Portfólio" tituloA="O que já fizemos" tituloB="para a sua especialidade" motivo="virgula" cores="ouro" semente={103} />
       <main>
@@ -382,7 +390,7 @@ export default function PortfolioPage() {
           </div>
           <p>Sites, vídeos, redes, impressos e identidade em sequência. Continue rolando.</p>
         </section>
-        <section className="pf" aria-label="Seleção do portfólio" data-topo="claro" data-pf-track>
+        <section className="pf" aria-label="Seleção do portfólio" data-topo="claro" data-pf-track data-pf-modo={PORTFOLIO_MODO}>
           <div className="pf-palco">
             <div className="pf-tela">
               {usadas.map((i) => {
@@ -435,13 +443,13 @@ export default function PortfolioPage() {
               </div>
             </div>
           </div>
-          <MolduraScroll larga={larga} estreita={estreita} />
+          <Motor cenas={larga.map((c) => c.pos)} focos={larga.map((c) => c.foco)} modo={PORTFOLIO_MODO} />
         </section>
 
         {/* 05 · CTA */}
         <CtaConversa titulo="A próxima peça deste portfólio pode ser a sua." waText={WA} />
       </main>
-      <Rodape />
+      <Rodape waText={WA} />
     </div>
   );
 }

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/checar-tipografia.mjs && node scripts/checar-tweaks.mjs && node scripts/checar-moldura.mjs && next build && node scripts/checar-navegacao.mjs && node scripts/checar-panos.mjs && node scripts/checar-vitrine.mjs && node scripts/checar-portfolio.mjs && node scripts/checar-exclusividade.mjs && node scripts/checar-praca.mjs",
+    "build": "node scripts/checar-tipografia.mjs && node scripts/checar-tweaks.mjs && node scripts/checar-moldura.mjs && next build && node scripts/checar-navegacao.mjs && node scripts/checar-panos.mjs && node scripts/checar-vitrine.mjs && node scripts/checar-portfolio.mjs && node scripts/checar-exclusividade.mjs && node scripts/checar-praca.mjs && node scripts/checar-palco.mjs",
     "start": "next start",
     "lint": "eslint"
   },

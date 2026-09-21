@@ -39,6 +39,7 @@ import { SITE_URL } from "@/lib/site";
 import { VINHETA } from "@/content/landing-v3";
 import type { Cidade } from "@/content/cidades";
 import { resolverCenas } from "@/lib/portfolio-moldura";
+import { PORTFOLIO_MODO } from "@/content/home";
 import { UF_NOME } from "@/lib/portfolio-galeria";
 import { alcanceDaCasa, alcanceDe, historicoDaPraca, nomesDoHistorico, numerosDaPraca, pecasDaPraca, type NomeHistorico } from "@/lib/praca";
 import { HeroCidade, PracaPoster, MetodoLocal, HistoricoLocal, QuandoNao, FaqPraca, type NumeroPoster } from "./Praca";
@@ -123,7 +124,7 @@ export function CidadeMolde({ c }: { c: Cidade }) {
       data-praca-mapa={c.mapa}
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cidadeJsonLd(c, nomes)) }} />
-      <Topo waText={c.waText} />
+      <Topo waText={c.waText} rota={`/${c.slug}`} />
       <HeroCidade c={c} t={t} />
       <Autoridade />
       <PracaPoster c={c} t={t} numeros={numeros} casa={casa} />
@@ -148,8 +149,8 @@ export function CidadeMolde({ c }: { c: Cidade }) {
       <FaqPraca c={c} />
       <QuandoNao c={c} />
       <CtaConversa waText={c.waText} />
-      <Rodape />
-      <Motor cenas={cenas.map((k) => k.pos)} />
+      <Rodape waText={c.waText} />
+      <Motor cenas={cenas.map((k) => k.pos)} focos={cenas.map((k) => k.foco)} modo={PORTFOLIO_MODO} />
     </div>
   );
 }

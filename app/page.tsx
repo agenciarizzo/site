@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="dg">
-      <Topo waText={WA_HOME} />
+      <Topo waText={WA_HOME} rota="/" />
       <Hero waText={WA_HOME} />
       <Autoridade />
       <Clientes />
@@ -72,7 +72,7 @@ export default function Home() {
       <Chamada texto="Peça desse nível, com o seu nome, todo mês." waText={WA_HOME} />
       <Faq />
       <CtaFinal waText={WA_HOME} />
-      <Rodape />
+      <Rodape waText={WA_HOME} />
       <Motor cenas={cenasDoPortfolio(pecasDoPortfolio())} modo={PORTFOLIO_MODO} />
     </div>
   );

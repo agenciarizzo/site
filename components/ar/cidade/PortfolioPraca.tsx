@@ -18,7 +18,7 @@
 import Link from "next/link";
 import type { PecaGaleria } from "@/lib/portfolio-galeria";
 import type { Cena } from "@/lib/portfolio-moldura";
-import { PORTFOLIO_CABECA } from "@/content/home";
+import { PORTFOLIO_CABECA, PORTFOLIO_MODO } from "@/content/home";
 
 export function PortfolioPraca({
   pecas,
@@ -57,7 +57,7 @@ export function PortfolioPraca({
         </p>
       </section>
 
-      <section className="pf" aria-label="Peças do portfólio" data-topo="claro" data-pf-track>
+      <section className="pf" aria-label="Peças do portfólio" data-topo="claro" data-pf-track data-pf-modo={PORTFOLIO_MODO}>
         <div className="pf-palco">
           <div className="pf-tela">
             {usadas.map((i) => {
