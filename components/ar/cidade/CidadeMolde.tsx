@@ -39,6 +39,7 @@ import { SITE_URL } from "@/lib/site";
 import { VINHETA } from "@/content/landing-v3";
 import type { Cidade } from "@/content/cidades";
 import { resolverCenas } from "@/lib/portfolio-moldura";
+import { PORTFOLIO_MODO } from "@/content/home";
 import { UF_NOME } from "@/lib/portfolio-galeria";
 import { alcanceDaCasa, alcanceDe, historicoDaPraca, nomesDoHistorico, numerosDaPraca, pecasDaPraca, type NomeHistorico } from "@/lib/praca";
 import { HeroCidade, PracaPoster, MetodoLocal, HistoricoLocal, QuandoNao, FaqPraca, type NumeroPoster } from "./Praca";
@@ -149,7 +150,7 @@ export function CidadeMolde({ c }: { c: Cidade }) {
       <QuandoNao c={c} />
       <CtaConversa waText={c.waText} />
       <Rodape />
-      <Motor cenas={cenas.map((k) => k.pos)} />
+      <Motor cenas={cenas.map((k) => k.pos)} focos={cenas.map((k) => k.foco)} modo={PORTFOLIO_MODO} />
     </div>
   );
 }
