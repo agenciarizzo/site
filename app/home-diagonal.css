@@ -2894,6 +2894,17 @@
   object-fit: cover;
   background: var(--chumbo);
 }
+/* O modo MOLDURA (tweak `portfolio` do handoff `design_handoff_site_rizzo/`,
+   2026-09-20 — `PORTFOLIO_MODO` em content/home.ts, geometria em
+   lib/ar/moldura.mjs): a peça vira caixa do tamanho do palco e é o RECORTE
+   (clip-path) que anda de vaga em vaga; a imagem fica parada na vaga, com folga
+   de parallax. Sem transição de caixa — quem interpola é o Motor, quadro a
+   quadro; a transição de 0,9s faria a caixa "viajar" no quadro em que o motor
+   assume a peça. O estado sem JS (a 1ª cena, com a calha de 4px) segue sendo o
+   que o HTML entrega. */
+.dg .pf[data-pf-modo="moldura"] .pf-peca {
+  transition: none;
+}
 .dg .pf-legenda {
   position: absolute;
   left: 12px;

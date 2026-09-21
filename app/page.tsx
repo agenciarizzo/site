@@ -28,7 +28,7 @@
 // sem re-render, sem runtime do Design, e a página inteira legível sem JS.
 import type { Metadata } from "next";
 import "./home-diagonal.css";
-import { HOME_META, WA_HOME } from "@/content/home";
+import { HOME_META, WA_HOME, PORTFOLIO_MODO } from "@/content/home";
 import { Topo } from "@/components/ar/home/Topo";
 import { Hero } from "@/components/ar/home/Hero";
 import { Autoridade, Clientes, Exclusividade } from "@/components/ar/home/Prova";
@@ -73,7 +73,7 @@ export default function Home() {
       <Faq />
       <CtaFinal waText={WA_HOME} />
       <Rodape />
-      <Motor cenas={cenasDoPortfolio(pecasDoPortfolio())} />
+      <Motor cenas={cenasDoPortfolio(pecasDoPortfolio())} modo={PORTFOLIO_MODO} />
     </div>
   );
 }
