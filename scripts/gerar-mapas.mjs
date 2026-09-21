@@ -25,9 +25,14 @@ import { promisify } from "node:util";
 
 const run = promisify(execFile);
 
-/** Centro e zoom (do Leaflet) de cada praça — verbatim do `PRACAS` do mapa-cidade.html. */
+/** Centro e zoom (do Leaflet) de cada praça — do `PRACAS` do mapa-cidade.html. */
 export const PRACAS = {
-  brasilia: { c: [-15.8, -47.87], z: 11 },
+  // Brasília sai do valor do protótipo por pedido do cliente (2026-09-21): a
+  // z11 o quadro cobria o DF inteiro e o Plano Piloto virava um detalhe, e o
+  // centro o punha em ~49% da largura, bem atrás do bloco amarelo do pôster
+  // (que ocupa da coluna 6 à 12, ~42%–92%). Centro mais a leste empurra o
+  // desenho PRA ESQUERDA, pra faixa livre da coluna dos números.
+  brasilia: { c: [-15.8265, -47.7562], z: 12, alto: { c: [-15.8431, -47.8671] } },
   goiania: { c: [-16.7, -49.228], z: 13.5 },
   saopaulo: { c: [-23.5505, -46.6333], z: 11 },
   "saopaulo-estado": { c: [-22.55, -48.3], z: 7 },
@@ -88,7 +93,12 @@ async function tile(t, x, y) {
 }
 
 async function gerar(slug, nome, [W, H]) {
-  const p = PRACAS[slug];
+  // Os dois recortes podem pedir enquadramentos diferentes, e em Brasília pedem
+  // opostos: no LARGO o pôster põe um bloco opaco de ~42% a ~92% da largura, e
+  // o assunto tem que ficar na faixa livre da esquerda; no ALTO (abaixo de
+  // 900px) a grade empilha, a largura inteira é do conteúdo e o assunto fica
+  // centrado. `PRACAS[slug].alto` / `.largo` sobrepõem `c`/`z` só onde precisa.
+  const p = { ...PRACAS[slug], ...(PRACAS[slug][nome] ?? {}) };
   // O Leaflet (zoomSnap .25) desenha o zoom fracionário com os tiles do zoom
   // inteiro mais próximo, escalados — a mesma conta aqui, pro traço bater.
   const zl = Math.round(p.z);
