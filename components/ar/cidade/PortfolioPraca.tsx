@@ -1,8 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 // 13 · PORTFÓLIO DA PRAÇA — o palco 6×4 do protótipo (`Pagina Cidade -
-// Modelo.dc.html`, seção 13), com o MESMO desenho e a mesma transição de morfo
-// da home (`.pf`, `.pf-palco`, `.pf-tela`, `.pf-peca` de home-diagonal.css) e
-// o mesmo motor de scroll (Motor.tsx, `[data-pf-track]`).
+// Modelo.dc.html`, seção 13), com o MESMO desenho da home (`.pf`, `.pf-palco`,
+// `.pf-tela`, `.pf-peca` de home-diagonal.css), o mesmo motor de scroll
+// (Motor.tsx, `[data-pf-track]`) e o MESMO modo do palco: o tweak `portfolio`
+// do protótipo da cidade (`data-props`, padrão `moldura` — fatia 1b, #95: a
+// imagem fica parada na vaga e é o RECORTE que anda de vaga em vaga), que o
+// `<section>` carrega em `data-pf-modo` como na home.
 //
 // A diferença é o POOL, e é ela que o §6 do doc-mapa pede: em vez da lista
 // fixa por vaga da home (§44.19) ou da curadoria à mão (`pecas: [...]`), as
@@ -12,32 +15,38 @@
 // Brasília no registry entra no palco de Brasília no deploy seguinte, sem
 // ninguém editar a cidade.
 //
+// `pecas` já é o pool DO PALCO — só as peças que alguma cena usa, renumeradas
+// de 0 a n−1 (CidadeMolde.tsx): o motor do modo moldura (lib/ar/moldura.mjs)
+// indexa as peças de 0 a n−1, e o índice do pool inteiro da praça (que passa
+// de 150) deixaria peça sem quadro. `cenas` já vem com esses índices.
+//
 // Com menos de MIN_PECAS_LOCAIS peças locais, o palco mostra o acervo inteiro
 // e o cabeçalho DIZ isso (`local: false`) — nunca peça de outra praça
 // apresentada como daqui (§⚖️).
 import Link from "next/link";
 import type { PecaGaleria } from "@/lib/portfolio-galeria";
 import type { Cena } from "@/lib/portfolio-moldura";
+import type { ModoPortfolio } from "@/lib/tweaks.mjs";
 import { PORTFOLIO_CABECA } from "@/content/home";
 
 export function PortfolioPraca({
   pecas,
   cenas,
-  usadas,
   local,
   rotulo,
   cidade,
+  modo,
 }: {
-  /** O pool inteiro (o índice de cada peça aqui é o `data-pf-peca`). */
+  /** O pool do palco, já renumerado (o índice aqui é o `data-pf-peca`). */
   pecas: PecaGaleria[];
-  /** As cenas resolvidas no build (tela larga). */
+  /** As cenas resolvidas no build (tela larga), nos índices do pool do palco. */
   cenas: Cena[];
-  /** Os índices que aparecem em alguma cena — só esses vão pro HTML. */
-  usadas: number[];
   local: boolean;
   /** "no Distrito Federal e no entorno" — o rótulo do alcance. */
   rotulo: string;
   cidade: string;
+  /** O tweak `portfolio` da cidade: `moldura` (padrão do handoff) ou `morfo`. */
+  modo: ModoPortfolio;
 }) {
   const cena0 = cenas[0];
   const foco = pecas[cena0?.foco ?? 0];
@@ -57,11 +66,10 @@ export function PortfolioPraca({
         </p>
       </section>
 
-      <section className="pf" aria-label="Peças do portfólio" data-topo="claro" data-pf-track>
+      <section className="pf" aria-label="Peças do portfólio" data-topo="claro" data-pf-track data-pf-modo={modo}>
         <div className="pf-palco">
           <div className="pf-tela">
-            {usadas.map((i) => {
-              const p = pecas[i];
+            {pecas.map((p, i) => {
               const vaga = cena0?.pos[i];
               return (
                 <div
