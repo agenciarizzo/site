@@ -30,7 +30,14 @@ import { CIDADES } from "@/content/cidades";
 import { COMBOS } from "@/content/combos";
 import { ESPECIALIDADES_HOME } from "@/content/home";
 
-export function Topo({ waText }: { waText: string }) {
+/**
+ * `rota`: qual página está aberta, pra marcar o item certo. Era fixo em "Home",
+ * então /clientes, /portfolio, /whatsapp e as 3 praças anunciavam ao leitor de
+ * tela que a página atual era a inicial. Sem `rota`, nada é marcado — mentir é
+ * pior que calar.
+ */
+export function Topo({ waText, rota }: { waText: string; rota?: string }) {
+  const atual = (r: string) => (rota === r ? "page" : undefined);
   return (
     <header className="topo" data-tinta="escuro">
       <Link className="topo-logo" href="/" aria-label="Agência Rizzo — página inicial">
@@ -66,15 +73,27 @@ export function Topo({ waText }: { waText: string }) {
               <span aria-hidden>✕</span>
             </label>
               <div className="menu-grandes">
-                <Link className="menu-pill" href="/" aria-current="page">
+                <Link className="menu-pill" href="/" aria-current={atual("/")}>
                   Home
                 </Link>
-                <Link href="/marketing-medico">Marketing médico</Link>
-                <Link href="/clientes">Clientes atendidos</Link>
-                <Link href="/portfolio">Portfólio</Link>
-                <Link href="/rizzoos">RizzoOS</Link>
-                <Link href="/sobre">Sobre</Link>
-                <Link href="/contato">Contato</Link>
+                <Link href="/marketing-medico" aria-current={atual("/marketing-medico")}>
+                  Marketing médico
+                </Link>
+                <Link href="/clientes" aria-current={atual("/clientes")}>
+                  Clientes atendidos
+                </Link>
+                <Link href="/portfolio" aria-current={atual("/portfolio")}>
+                  Portfólio
+                </Link>
+                <Link href="/rizzoos" aria-current={atual("/rizzoos")}>
+                  RizzoOS
+                </Link>
+                <Link href="/sobre" aria-current={atual("/sobre")}>
+                  Sobre
+                </Link>
+                <Link href="/contato" aria-current={atual("/contato")}>
+                  Contato
+                </Link>
                 <a className="amarelo" data-cta="proposta" href={PROPOSTA_URL}>
                   Montar proposta →
                 </a>

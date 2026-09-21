@@ -174,7 +174,7 @@ export default function PortfolioPage() {
   return (
     <div className="dg pf-v3" data-portfolio>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Topo waText={WA} />
+      <Topo waText={WA} rota="/portfolio" />
       <TopoDg />
       <PanoHeader kicker="Portfólio" tituloA="O que já fizemos" tituloB="para a sua especialidade" motivo="virgula" cores="ouro" semente={103} />
       <main>
@@ -449,7 +449,7 @@ export default function PortfolioPage() {
         {/* 05 · CTA */}
         <CtaConversa titulo="A próxima peça deste portfólio pode ser a sua." waText={WA} />
       </main>
-      <Rodape />
+      <Rodape waText={WA} />
     </div>
   );
 }

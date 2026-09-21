@@ -124,7 +124,7 @@ export function CidadeMolde({ c }: { c: Cidade }) {
       data-praca-mapa={c.mapa}
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cidadeJsonLd(c, nomes)) }} />
-      <Topo waText={c.waText} />
+      <Topo waText={c.waText} rota={`/${c.slug}`} />
       <HeroCidade c={c} t={t} />
       <Autoridade />
       <PracaPoster c={c} t={t} numeros={numeros} casa={casa} />
@@ -149,7 +149,7 @@ export function CidadeMolde({ c }: { c: Cidade }) {
       <FaqPraca c={c} />
       <QuandoNao c={c} />
       <CtaConversa waText={c.waText} />
-      <Rodape />
+      <Rodape waText={c.waText} />
       <Motor cenas={cenas.map((k) => k.pos)} focos={cenas.map((k) => k.foco)} modo={PORTFOLIO_MODO} />
     </div>
   );

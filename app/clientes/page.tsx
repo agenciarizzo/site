@@ -125,7 +125,7 @@ export default function ClientesPage() {
   return (
     <div className="dg cli">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Topo waText={WA} />
+      <Topo waText={WA} rota="/clientes" />
       <TopoDg />
       <PanoHeader
         kicker="Clientes · desde 2012"
@@ -222,7 +222,7 @@ export default function ClientesPage() {
           </div>
         </section>
       </main>
-      <Rodape />
+      <Rodape waText={WA} />
     </div>
   );
 }
