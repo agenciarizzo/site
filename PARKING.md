@@ -67,24 +67,44 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
   host errado, só não recebe a dica.
 - **Prazo sugerido:** no tronco da OG por rota.
 
-## [E-01] LGPD: rastreamento sem política vinculada nem consentimento de cookie
+## [E-01] ✅ RESOLVIDO em 2026-09-18 — Consent Mode nas três tags
 
-- **Estado:** o §E do Padrão Rizzo **bloqueia entrega** sem consentimento de cookie
-  quando há rastreamento. O site roda **GA4 + Meta Pixel** e não tem banner de
-  consentimento. A `/politica-privacidade` existe e é alcançável de qualquer página
-  (o passo 1 do `checar-navegacao.mjs` prova isso — 38×38).
-- **Por que não decidi:** não é achado novo nem desta entrega — está registrado no
-  **§12.4 do mapa** como lacuna aberta e **gated no cliente**, porque é texto
-  jurídico no nome dele. Uma entrega de SEO técnico não fecha lacuna de LGPD por
-  conta própria, e banner de cookie é decisão de produto (o site é SSG puro, zero JS
-  no cliente — banner é a primeira exceção a essa regra).
-- **Minha recomendação:** tronco próprio de LGPD, com o cliente: (a) revisar a
-  `/politica-privacidade` contra o que é de fato coletado — GA4, Pixel, clique no
-  WhatsApp e os `gclid/gbraid/wbraid/fbclid` no `localStorage`; (b) decidir se o
-  consentimento entra como banner (custa o "zero JS") ou se GA4/Pixel passam a
-  carregar só após consentimento.
-- **Custo de não decidir:** risco regulatório, e ele já existia antes desta entrega.
-- **Prazo sugerido:** próxima conversa com o cliente. É o item de maior custo aqui.
+- **Era:** o site rodava **GA4 + Meta Pixel + Bing UET** sem nenhum consentimento. O §E
+  do Padrão Rizzo bloqueia entrega nessa situação. A recomendação parada aqui era
+  "banner ou carregar só após consentimento", e as duas custavam o "zero JS".
+- **Ficou:** **Consent Mode v2 com default NEGADO**, num `<script>` cru no topo do
+  `<body>` — antes do `gtag.js` e do `bat.js`. Verificado no HTML gerado: a negação sai
+  no **byte 5.833** (gtag) e **6.008** (uetq), e a primeira tag só aparece no **226.358**.
+  Default que chega depois da tag não vale nada; por isso foi medido, não presumido.
+  - **GA4** — `gtag('consent','default')` com os 4 sinais v2.
+  - **Bing** — `window.uetq.push('consent','default')` **enfileirado** antes do `bat.js`:
+    o snippet faz `o.q = w.uetq` e a UET repassa a fila antes do `pageLoad`.
+  - **Pixel** — `fbq('consent','revoke')` antes do `init` (só existe depois do snippet
+    dele, então mora lá dentro).
+- **O aviso:** faixa discreta no pé da tela, **não modal** — modal tapa a primeira dobra,
+  atrasa o LCP e vira reflexo de fechar janela. Alvo de toque de 44px, some pra quem já
+  decidiu, e **zero `"use client"`**: é JS de página, não componente. A exceção ao
+  "zero JS" que a recomendação temia **não foi necessária**.
+- **O que isto NÃO fecha:** a revisão da `/politica-privacidade` contra o que é de fato
+  coletado — GA4, Pixel, Bing, clique no WhatsApp e os `gclid/gbraid/wbraid/fbclid/msclkid`
+  no `localStorage`. **Continua gated no cliente**, porque é texto jurídico no nome dele.
+  Isso vira item novo abaixo.
+- **Consequência esperada:** conversão reportada cai até a pessoa aceitar. É o Consent
+  Mode funcionando, não regressão.
+
+## [E-02] A política de privacidade não lista tudo que é coletado
+
+- **Estado:** a `/politica-privacidade` existe e é alcançável de qualquer página, mas foi
+  escrita antes do Bing UET e antes da captura de `msclkid`. O consentimento agora existe
+  (E-01); o texto que ele referencia é que ficou para trás.
+- **Por que não decidi:** é texto jurídico no nome do cliente. Não se escreve por conta
+  própria.
+- **Minha recomendação:** revisar contra a lista literal do que o site coleta hoje — GA4,
+  Meta Pixel, Bing UET, clique no WhatsApp, e os identificadores de anúncio
+  (`gclid`, `gbraid`, `wbraid`, `fbclid`, `msclkid`) guardados no `localStorage`.
+- **Custo de não decidir:** o aviso de consentimento aponta pra um texto incompleto.
+- **Prazo sugerido:** próxima conversa com o cliente.
+
 
 ## [D-01] O `provider` dos blocos `Service` não referencia o `@id` da organização
 
