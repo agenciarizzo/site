@@ -84,6 +84,16 @@
   --slab-cta: clamp(36px, 4.6vw, 72px); /* H2 de fechamento/CTA do handoff —
      ex. #h-cta da Pagina - Home.dc.html */
 
+  /* Fatia 2 do redesenho (2026-09-20) — os degraus que faltavam pra o
+     PanoHeader e o CtaConversa saírem HIFI do .dc.html, medidos lá (não no
+     README do pacote, que diverge — [H-06] do doc-mapa). O degrau mais
+     próximo da escala errava por meio pixel em cada um: --mono-1 é 11,52px
+     onde o kicker do Pano Header é 12px; --corpo-2 é 15,5px onde o CTA usa
+     15px em botão e parágrafo nos 5 protótipos. O cliente decidiu que o
+     protótipo sobrepõe a regra anterior — então o degrau é o dele. */
+  --mono-kicker-pano: 0.75rem; /* kicker do Pano Header (12px) */
+  --corpo-cta: 0.9375rem; /* botão e parágrafo do CtaConversa (15px) */
+
   /* corpo — Geist. e-mail: 15 · 14 · 13px, razão ~0,93 entre degraus */
   --corpo-lede: 1.16rem; /* abre-alas do hero */
   --corpo-1: 1.0625rem; /* corpo (= os 17px de sempre) */
@@ -122,6 +132,8 @@
      padrão (0.28em) — não se reaproveita esse token só pra passar no gate. */
   --ls-slab-leve: -0.03em; /* título do H1 de hero e do H1 de Pano Header */
   --ls-kicker-pano: 0.08em; /* kicker do Pano Header */
+  --ls-slab-cta: -0.035em; /* H2 do CtaConversa (peso 700 fecha mais que o 200) —
+     #h-cta dos 5 protótipos de página, fatia 2 */
 
   /* entrelinha */
   --lh-display: 1.06;
@@ -129,6 +141,12 @@
   --lh-corpo: 1.68;
   --lh-apoio: 1.55;
   --lh-lista: 1.85; /* colunas de link do rodapé-mapa */
+  /* entrelinhas do handoff (fatia 2, medidas no .dc.html): o H1 leve do Pano
+     Header e o H2 pesado do CTA fecham mais que o --lh-display; o parágrafo
+     do CTA abre um pouco mais que o --lh-apoio. */
+  --lh-pano: 1.02; /* H1 do Pano Header */
+  --lh-cta: 1; /* H2 do CtaConversa */
+  --lh-cta-apoio: 1.6; /* parágrafo sob cada botão do CtaConversa */
 }
 
 * { box-sizing: border-box; }

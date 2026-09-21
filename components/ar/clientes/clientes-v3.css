@@ -1,0 +1,266 @@
+/* /clientes do redesenho — folha da página (fatia 3). Medidas da
+   `Pagina - Clientes.dc.html` do handoff; tokens de cor do `.dg`
+   (home-diagonal.css), que é a linha em que a página passa a viver.
+
+   Está em components/ar/ pelo mesmo motivo de home-diagonal.css e cidade-v3.css
+   estarem fora da escala do `checar-tipografia.mjs`: a página nasce do handoff
+   do Claude Design e segue a tipografia DELE (D5 — "o protótipo sobrepõe
+   qualquer regra anterior"). O caminho `components/ar/` já é exceção declarada
+   no gate; nada muda lá. */
+
+/* link de PROSA (lede e nota), como o protótipo: chumbo com filete amarelo. Só
+   na prosa — botão, topo e rodapé têm estilo próprio. `.dg.cli` porque o
+   `.dg a` da home (teal, sem sublinhado) tem especificidade (0,1,1) e venceria
+   qualquer classe solta de link desta folha. */
+.dg.cli .cli-lede a,
+.dg.cli .cli-nota a {
+  color: var(--chumbo);
+  text-decoration: underline;
+  text-decoration-color: var(--amarelo);
+  text-decoration-thickness: 2px;
+}
+.dg.cli .cli-lede a:hover,
+.dg.cli .cli-nota a:hover { text-decoration-color: var(--chumbo); }
+.cli [hidden] { display: none !important; }
+
+/* ---- 01 · lede ---- */
+.cli-lede {
+  background: var(--papel);
+  padding: 56px var(--lado) 64px;
+}
+.cli-lede p {
+  margin: 0;
+  max-width: 720px;
+  font-size: clamp(19px, 1.8vw, 24px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--chumbo);
+  text-wrap: pretty;
+}
+
+/* ---- 02 · mural ---- */
+.cli-mural {
+  background: var(--papel);
+  padding: 0 var(--lado) 48px;
+}
+.mural-grade {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--linha-bege);
+  border: 1px solid var(--linha-bege);
+}
+@media (max-width: 999px) { .mural-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 639px) { .mural-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.mural-casa {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 5 / 2;
+  overflow: hidden;
+  background: var(--papel);
+  transition: background 0.35s ease;
+}
+.mural-casa img {
+  position: absolute;
+  inset: 14px;
+  width: calc(100% - 28px);
+  height: calc(100% - 28px);
+  object-fit: contain;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+/* a batida: a casa quente pinta de amarelo e a marca some; a que entra nasce
+   pequena e acende */
+.mural-casa[data-quente] { background: var(--amarelo); }
+.mural-casa[data-quente] img,
+.mural-casa[data-entra] img {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+/* ---- 03 · por área ---- */
+.cli-area {
+  background: var(--papel-claro);
+  padding: 56px var(--lado) 104px;
+}
+.cli-area-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px 40px;
+  margin-bottom: 40px;
+}
+.cli-area-cabeca h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(28px, 3.4vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.cli-filtro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.cli-filtro select {
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--chumbo);
+  background: var(--papel) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' fill='none' stroke='%23323C46' stroke-width='1.6'/></svg>") no-repeat right 16px center;
+  border: 1.5px solid var(--chumbo);
+  border-radius: 999px;
+  padding: 10px 40px 10px 18px;
+  cursor: pointer;
+  max-width: 100%;
+}
+.cli-filtro output {
+  font-size: 13px;
+  color: var(--cinza-texto);
+  padding-left: 6px;
+}
+.cli-filtro button {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--chumbo);
+  text-decoration: underline;
+  text-decoration-color: var(--amarelo);
+  text-decoration-thickness: 2px;
+  cursor: pointer;
+  padding: 6px 4px;
+}
+.cli-lista {
+  columns: 4;
+  column-gap: 40px;
+}
+@media (max-width: 1399px) { .cli-lista { columns: 3; } }
+@media (max-width: 999px) { .cli-lista { columns: 2; } }
+@media (max-width: 639px) { .cli-lista { columns: 1; } }
+.cli-grupo {
+  break-inside: avoid;
+  margin-bottom: 32px;
+}
+.cli-grupo h3 {
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--chumbo);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--chumbo);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+/* o protótipo pede JetBrains Mono 500; o site carrega 400 e 700 (layout.tsx) e
+   peso sem face é sintético (regra 3) — fica o 400. */
+.cli-grupo h3 .cifra {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--cinza-texto);
+}
+.cli-grupo ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.cli-grupo li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--linha-bege);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--chumbo);
+}
+.cli-grupo li .nome { font-weight: 600; }
+.cli-grupo li .praca {
+  color: var(--cinza-texto);
+  white-space: nowrap;
+}
+.cli-nota {
+  margin: 56px 0 0;
+  max-width: 640px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--chumbo);
+  text-wrap: pretty;
+}
+
+/* ---- fatos: o letreiro do .dg (.autoridade/.marquee), no tempo do protótipo ---- */
+.cli .marquee { animation-duration: 40s; }
+.cli .autoridade span { letter-spacing: 0.12em; }
+
+/* ---- CTA: a caixa de papel com uma porta (o protótipo do /clientes) ---- */
+.cli-cta {
+  background: var(--papel);
+  padding: 96px var(--lado) 120px;
+}
+.cli-cta-caixa {
+  max-width: 640px;
+  background: var(--papel);
+  padding: clamp(32px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: 0 0 0 1px var(--chumbo);
+}
+.cli-cta-caixa h2 {
+  margin: 0;
+  font-weight: 200;
+  font-size: clamp(36px, 4.6vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.cli-cta-caixa h2 span { font-weight: 600; }
+.dg.cli .cli-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  background: var(--chumbo);
+  color: var(--papel);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 16px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+.dg.cli .cli-cta-btn:hover,
+.dg.cli .cli-cta-btn:focus-visible {
+  background: var(--amarelo);
+  color: var(--chumbo);
+}
+.cli-cta-caixa p {
+  margin: 0;
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+
+@media (max-width: 719px) {
+  .cli { --lado: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mural-casa,
+  .mural-casa img { transition: none; }
+  .cli .marquee { animation: none; }
+}

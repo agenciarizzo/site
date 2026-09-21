@@ -18,6 +18,18 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    `lib/athos/panos.ts` com pattern + 1–2 cores + escala + seed (A1/A3); **A2 é
    validada em build** (`coresValidas` → throw): amarelo `#FFD200` NUNCA sobre papel;
    fundo navy é EXCLUSIVO do bloco RizzoOS (A4). Azulejo desenhado à mão = violação.
+   **Exceção declarada — os componentes do redesenho (2026-09-20, fatia 2):** o
+   cliente decidiu que **o protótipo do handoff sobrepõe qualquer regra anterior**
+   (rizzo-os → `SITE_REDESENHO_HANDOFF_MAPA.md` §4, fatia 2). Em
+   `components/secoes/PanoHeader.tsx` e `components/CtaConversa.tsx` vale a paleta
+   do `.dc.html`: o que o pacote chama de "ouro" é `#FFD200`, e o amarelo pode ser
+   **azulejo** do header (as 7 paletas do protótipo, escolhidas POR INSTÂNCIA — motivo,
+   cores e semente são props, como no `data-props`) e **fundo sangrado** do CTA.
+   Continua proibido como **texto** sobre papel (regra do próprio handoff), o motor
+   `athosPatterns.js` continua verbatim (a tabela de paletas mora no componente,
+   `assertA2` não roda nele), `trevo` continua fora, e fundo navy segue exclusivo do
+   bloco RizzoOS. Fora desses dois arquivos, A2 é lei como sempre foi. O caminho
+   derivado (`chave` → `panoDe`) continua existindo neles como fallback.
    **Cada página com o SEU pano, sem repetir** (mesma régua da fila de e-mails —
    rizzo-os → `ACESSO_MENU_CLIENTE_MAPA.md` §D.7): a distribuição roda de uma vez
    sobre `ROTAS_COM_PANO` e só repete motivo depois de gastar a biblioteca inteira,
