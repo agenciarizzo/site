@@ -139,8 +139,15 @@ for (const arquivo of htmls) {
   for (const k of casas) if (!daCarteira.has(k.nome)) erros.push(`${rota}: "${k.nome}" (${k.cidade}/${k.uf}) está na carteira, no alcance, e ficou fora do histórico`);
   if (daCarteira.size !== casas.length) erros.push(`${rota}: ${daCarteira.size} nome(s) da carteira na página para ${casas.length} casa(s) no alcance`);
 
-  // 5. nenhum wa.me
-  if (/wa\.me/.test(html)) erros.push(`${rota}: \`wa.me\` no HTML — todo WhatsApp passa pelo portão /whatsapp (regra 4)`);
+  // 5. nenhum wa.me — o que a regra 4 proíbe é o DESTINO: um link que leve o
+  // visitante direto ao WhatsApp, sem passar pelo portão. Procurar `wa.me` no
+  // HTML inteiro pegava também o seletor do próprio medidor
+  // (`a[href*="wa.me"]`, components/Medicao.tsx), que existe justamente pra
+  // contar esse clique — e como a medição só renderiza em produção, o build
+  // passava aqui e reprovava na Vercel. `href*=` não casa com `href=`.
+  if (/href=["'][^"']*wa\.me|https?:\/\/wa\.me/.test(html)) {
+    erros.push(`${rota}: link direto pro \`wa.me\` — todo WhatsApp passa pelo portão /whatsapp (regra 4)`);
+  }
 
   // 6. o mapa do pôster: praça que declara `mapa` precisa das duas imagens em
   // public/mapas/ (scripts/gerar-mapas.mjs) — sem elas o pôster abriria com um

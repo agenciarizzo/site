@@ -167,9 +167,17 @@ da revisão — então pode rodar num flow só.
 ## Comandos
 
 ```bash
-npm run dev     # dev server
-npm run build   # build de produção (valida A2 dos panos em build)
-npm run lint    # eslint
+npm run dev         # dev server
+npm run build       # build + os checadores (valida A2 dos panos em build)
+npm run build:prod  # o MESMO build com VERCEL_ENV=production
+npm run lint        # eslint
 ```
 
-Sempre `npm run build` antes de commitar.
+Sempre `npm run build` antes de commitar — e **`npm run build:prod` antes de
+mergear**. Os dois não são o mesmo build: com `VERCEL_ENV=production` o site
+nasce indexável (`INDEXABLE` em `lib/site.ts`), o sitemap passa a ser cruzado
+de verdade e as tags de medição (`components/Medicao.tsx`) entram no HTML —
+markup que o build local não gera e que os checadores, portanto, não veem.
+Foi assim que a produção ficou vermelha em 2026-09-21 com todo build local
+verde: o `checar-praca` procurava `wa.me` no HTML inteiro e encontrava o
+seletor do próprio medidor, que só existe em produção.
