@@ -163,18 +163,28 @@ export function Motor({ cenas, modo = "morfo" }: { cenas: Record<number, [number
     // malhas (5×5 larga, 5×4 estreita) recebem o MESMO seed sorteado — só
     // uma está visível por vez (a outra, display:none), mas ambas ficam
     // corretas se a viewport mudar de faixa no meio do giro.
-    const malhas: { el: HTMLElement; rows: number }[] = [];
+    // Fora da home (o cidade-molde, fatia 4 do redesenho) a malha declara os
+    // PRÓPRIOS tweaks em `data-tweaks` (elemento · pano · cores da praça) —
+    // sem isso o giro redesenharia o hero de Brasília com o desenho da home.
+    const tweaksDe = (el: HTMLElement): typeof HERO.tweaks => {
+      try {
+        return el.dataset.tweaks ? { ...HERO.tweaks, ...JSON.parse(el.dataset.tweaks) } : HERO.tweaks;
+      } catch {
+        return HERO.tweaks;
+      }
+    };
+    const malhas: { el: HTMLElement; rows: number; tw: typeof HERO.tweaks }[] = [];
     const larga = raiz.querySelector<HTMLElement>(".geo-larga");
     const estreita = raiz.querySelector<HTMLElement>(".geo-estreita");
-    if (larga) malhas.push({ el: larga, rows: 5 });
-    if (estreita) malhas.push({ el: estreita, rows: 4 });
+    if (larga) malhas.push({ el: larga, rows: 5, tw: tweaksDe(larga) });
+    if (estreita) malhas.push({ el: estreita, rows: 4, tw: tweaksDe(estreita) });
     let giroHero: ReturnType<typeof setInterval> | undefined;
     if (!reduzido && malhas.length) {
       giroHero = setInterval(() => {
         if (scrollY >= innerHeight * 0.9) return;
         const seed = Math.floor(Math.random() * 61);
-        for (const { el, rows } of malhas) {
-          const { pecas } = heroPecas({ ...HERO.tweaks, seed }, rows);
+        for (const { el, rows, tw } of malhas) {
+          const { pecas } = heroPecas({ ...tw, seed }, rows);
           pecas.forEach((p, i) => {
             const peca = el.querySelector<HTMLElement>(`i[data-pn="${i}"]`);
             if (!peca) return;
@@ -379,6 +389,18 @@ export function Motor({ cenas, modo = "morfo" }: { cenas: Record<number, [number
           if (foco && titulo) titulo.textContent = foco.dataset.titulo || "";
           const cur = pf.querySelector<HTMLElement>("[data-pf-cur]");
           if (cur) cur.textContent = String(idx + 1).padStart(2, "0");
+          // "Site no ar" da legenda (o `pfLink` do protótipo de cidade): só
+          // aparece quando a peça em foco tem endereço no cadastro (regra 9).
+          const link = pf.querySelector<HTMLAnchorElement>("[data-pf-link]");
+          if (link) {
+            const url = foco?.dataset.url;
+            if (url) {
+              link.href = url;
+              link.hidden = false;
+            } else {
+              link.hidden = true;
+            }
+          }
         }
         // O progresso só muda enquanto o palco está na tela (fora dela fica
         // preso em 0 ou 1) — então o custo por quadro é zero no resto da página.

@@ -9,7 +9,7 @@ import { ATRIBUTOS, EXCLUSIVIDADE } from "@/content/landing-v3";
 import { CARTEIRA, OCULTOS } from "@/content/carteira";
 import { chave } from "@/content/portfolio";
 import { logoDe } from "@/lib/logos";
-import { quadras } from "@/lib/ar/conquista.mjs";
+import { quadras, PARES_EXCLUSIVIDADE } from "@/lib/ar/conquista.mjs";
 
 /**
  * "Remova por completo logos que não ficam boas em P&B" (cliente, 14/09) — e a
@@ -86,20 +86,31 @@ const CARTEIRA_VISIVEL = (() => {
 /* ─────────────────────────────────────────────────────── 2 · autoridade ── */
 
 /**
- * §44.21-4: "Google Partner" está FORA da lista até a URL do selo chegar — é
- * slot do cliente, e afirmação de parceria sem o selo é prova que não se prova.
- * A lista duplica pra o letreiro emendar sem salto.
+ * A tarja de atributos. Os selos (Meta Business Partners · Google Partners ·
+ * Agência parceira do SBH) são LINKS pra home de cada um — decisão do cliente
+ * em 2026-09-20, que revoga o §44.21-4 ("Google Partner fora até o selo
+ * chegar"). A lista duplica pra o letreiro emendar sem salto; a cópia é
+ * decorativa (aria-hidden, fora do tab).
  */
 export function Autoridade() {
   return (
     <section className="autoridade" aria-label="Atributos e autoridade" data-topo="claro">
       <div className="marquee">
-        {[...ATRIBUTOS, ...ATRIBUTOS].map((a, i) => (
-          <span key={i}>
-            {a}
-            <i className="losango" aria-hidden />
-          </span>
-        ))}
+        {[...ATRIBUTOS, ...ATRIBUTOS].map((a, i) => {
+          const copia = i >= ATRIBUTOS.length;
+          return (
+            <span key={i} aria-hidden={copia ? true : undefined}>
+              {a.href ? (
+                <a href={a.href} target="_blank" rel="noopener" tabIndex={copia ? -1 : undefined}>
+                  {a.texto}
+                </a>
+              ) : (
+                a.texto
+              )}
+              <i className="losango" aria-hidden />
+            </span>
+          );
+        })}
       </div>
     </section>
   );
@@ -190,13 +201,43 @@ export function Clientes() {
  * (regra 2 do CLAUDE.md, A2), então o "antes" usa o par vizinho do próprio
  * canvas, "branco · grafite"; o "depois" ("amarelo · branco") fica como no
  * canvas. É uma troca de duas cores no CSS se o cliente preferir o original.
+ *
+ * `pano` (fatia 4, D5): a página de praça passa os tweaks do SEU protótipo —
+ * `exclElemento` (o azulejo Athos da quadra, ou o "paulista" em SP) e os
+ * pares `exclAntes`/`exclDepois` — e a seção segue o `data-props` da cidade
+ * (lib/ar/conquista.mjs). Sem `pano`, é a home de sempre.
  */
-export function Exclusividade({ waText }: { waText: string }) {
+export type PanoExclusividade = { elemento: string; antes: string; depois: string };
+
+export function Exclusividade({ waText, pano }: { waText: string; pano?: PanoExclusividade }) {
+  const antes = pano ? PARES_EXCLUSIVIDADE[pano.antes as keyof typeof PARES_EXCLUSIVIDADE] : undefined;
+  const depois = pano ? PARES_EXCLUSIVIDADE[pano.depois as keyof typeof PARES_EXCLUSIVIDADE] : undefined;
+  const paleta =
+    antes && depois
+      ? ({
+          "--q-fundo": antes.fundo,
+          "--q-arte": antes.arte,
+          "--q-bloco": antes.bloco,
+          "--q-fundo-2": depois.fundo,
+          "--q-arte-2": depois.arte,
+          "--q-bloco-2": depois.bloco,
+        } as React.CSSProperties)
+      : undefined;
   return (
-    <section className="exclusividade" aria-labelledby="h-vaga" data-topo="escuro" data-conquista>
+    <section className="exclusividade" aria-labelledby="h-vaga" data-topo="escuro" data-conquista style={paleta} data-excl-pano={pano?.elemento}>
       <div className="excl-quadras" aria-hidden>
-        {quadras().map((q, i) => (
-          <div className="quadra" key={i} style={{ "--clip": q.clip } as React.CSSProperties}>
+        {quadras(undefined, undefined, pano).map((q, i) => (
+          <div
+            className="quadra"
+            key={i}
+            style={
+              {
+                "--clip": q.clip,
+                ...(q.rot ? { "--rot": `${q.rot}deg` } : {}),
+                ...(q.arteAntes ? { "--arte-a": q.arteAntes, "--arte-d": q.arteDepois } : {}),
+              } as React.CSSProperties
+            }
+          >
             <i className="q-bloco" />
             <i className="q-arte" />
             <b className="q-depois" style={{ "--o": q.ordem } as React.CSSProperties}>

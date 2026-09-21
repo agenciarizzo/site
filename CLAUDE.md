@@ -30,6 +30,12 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    `assertA2` não roda nele), `trevo` continua fora, e fundo navy segue exclusivo do
    bloco RizzoOS. Fora desses dois arquivos, A2 é lei como sempre foi. O caminho
    derivado (`chave` → `panoDe`) continua existindo neles como fallback.
+   **Mesma exceção, mesma origem, na seção Exclusividade das páginas de praça
+   (fatia 4, 2026-09-20):** o pano das quadras segue o `exclElemento` e os pares
+   `exclAntes`/`exclDepois` que o protótipo de CADA cidade declara
+   (`content/cidades.ts` → `exclusividade`; tabela `PARES_EXCLUSIVIDADE` em
+   `lib/ar/conquista.mjs`, verbatim do `data-props`) — "branco · amarelo"
+   inclusive. A home segue no par da casa.
    **Cada página com o SEU pano, sem repetir** (mesma régua da fila de e-mails —
    rizzo-os → `ACESSO_MENU_CLIENTE_MAPA.md` §D.7): a distribuição roda de uma vez
    sobre `ROTAS_COM_PANO` e só repete motivo depois de gastar a biblioteca inteira,
@@ -82,14 +88,32 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    **mídia** entra na grade da home; recorte de **público** (`eixo: "segmento"`, hoje
    rede hospitalar) fica fora dela e é linkado por parágrafo próprio.
 8. **Landings de cidade moram NA URL antiga** (`content/cidades.ts` +
-   `components/CidadeLanding.tsx`; schema `Service` + `ItemList`, sem `FAQPage`).
+   `components/ar/cidade/CidadeMolde.tsx`, o cidade-molde da fatia 4 do redesenho;
+   schema `Service` + `ItemList`, sem `FAQPage`). **O molde é do layout, nunca do
+   conteúdo** (rizzo-os → `SITE_REDESENHO_HANDOFF_MAPA.md` §6): o que está escrito
+   é o registro da cidade (posição, método, FAQ da praça, prova curada); o que é
+   contado — os 3 números do pôster, o histórico local por especialidade e o acervo
+   do palco — sai de `lib/praca.ts` a partir de `carteira.ts`, `portfolio.ts` e das
+   declarações de `cidades.ts` (`alcance`, `areasCarteira`, `carteira:` — vínculo
+   declarado, zero heurística). `scripts/checar-praca.mjs` reconta tudo no HTML
+   gerado e reprova o build no número que a carteira não sustenta.
    `/marketing-medico-goiania` e `/marketing-medico-brasilia` são **páginas de verdade**
    porque carregam 17.208 e 9.290 impressões de histórico — recriar na URL antiga
    preserva mais que qualquer 301. **Nunca transformá-las de volta em origem de
    redirect**: só a variante `.html` delas redireciona (o `mesmaRota` do
    `next.config.ts` cuida disso), e as canibais consolidam nelas. Praça nova só ganha
    landing com a **prova mínima real** da régua §3.3 — Anápolis e Aracaju seguem em 301
-   pra home justamente por não terem.
+   pra home justamente por não terem; `/marketing-medico-sao-paulo` (2026-09-20) é a
+   terceira praça porque passa (URL nova, sem histórico — sem 301).
+   **Os tweaks de cada praça são os do SEU protótipo** (`Pagina Cidade -
+   <cidade>.dc.html` › `data-props`, D5): hero (`tweaks`), exclusividade
+   (`exclusividade`), mapa (`mapa`) e captação (`captacao`) moram no registro da
+   cidade; o sorteio por slug de `lib/tweaks.mjs` só vale pra praça que não declara.
+   O elemento `paulista` (banda em Z, `lib/ar/heroGeo.mjs`) só em São Paulo. **O mapa
+   do pôster é uma imagem por praça** (`public/mapas/<mapa>-{largo,alto}.webp`),
+   gerada UMA vez por `scripts/gerar-mapas.mjs` com `MAPTILER_KEY` no ambiente (nunca
+   no repo), com os mesmos tiles, centro e zoom do `mapa-cidade.html` do handoff —
+   zero tile de terceiro em tempo de visita, atribuição no canto.
 9. **Prova = nome real de quem foi cliente de verdade.** A fonte é o cadastro da
    própria agência: o §12.2 do mapa, `content/clientes.ts` e a **lista viva de clientes
    do Drive** (doc "AR - Clientes", que é mais nova e mais completa que a página antiga).

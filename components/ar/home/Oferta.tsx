@@ -76,9 +76,16 @@ function Faixa({ nomes, reverso }: { nomes: string[]; reverso?: boolean }) {
 
 /** 6b · ADICIONAIS — extras sob demanda, sem preço: só o nome, passando.
  *  Tweak escolhido pelo cliente no canvas (18/09): pano "areia" (papel),
- *  relevo "baixo", forma "liso" — sem peça geométrica, só o texto. */
-export function Adicionais() {
+ *  relevo "baixo", forma "liso" — sem peça geométrica, só o texto.
+ *
+ *  `extra` é o add-on que só a página tem — a "Captação Brasília"/"Captação
+ *  Goiânia" das praças com equipe (content/cidades.ts → `captacao`). Entra na
+ *  6ª posição, abrindo o segundo letreiro, como no protótipo do cidade-molde
+ *  (`nomesAddons`: os 5 primeiros, a captação da praça, os 4 últimos). A home
+ *  não passa nada e fica sem captação (cliente, 2026-09-20). */
+export function Adicionais({ extra }: { extra?: string } = {}) {
   const nomes = ADDONS.map((a) => a.curto);
+  if (extra) nomes.splice(5, 0, extra);
   return (
     <div className="addons" aria-labelledby="h-addons">
       <div className="addons-cabeca">
@@ -96,7 +103,7 @@ export function Adicionais() {
   );
 }
 
-export function Pacotes() {
+export function Pacotes({ addonExtra }: { addonExtra?: string } = {}) {
   return (
     <section id="pacotes" className="pacotes" aria-labelledby="h-pacotes" data-topo="claro">
       <div className="pac-cabeca">
@@ -153,7 +160,7 @@ export function Pacotes() {
 
       <p className="pac-nota">{PACOTES_NOTA}</p>
 
-      <Adicionais />
+      <Adicionais extra={addonExtra} />
 
       <div className="pac-faixa">
         <p>O valor do seu pacote sai na calculadora, na hora, sem reunião.</p>

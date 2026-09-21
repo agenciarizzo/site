@@ -149,18 +149,25 @@ export const PACOTES = [
   }),
 ];
 
+export type Addon = { curto: string; nome: string; desc: string };
+
 /**
- * Os 10 add-ons do artifact (18/09) — extras sob demanda, SEM preço no site.
+ * Os add-ons do artifact (18/09) — extras sob demanda, SEM preço no site.
  * `curto` é o que roda no letreiro; `nome`/`desc` ficam pra quando o detalhe
  * ganhar lugar (proposta no app, não aqui).
+ *
+ * São 9 aqui, não 10: a "Captação" saiu desta lista em 2026-09-20 (cliente,
+ * fatia 4 do redesenho — o protótipo só a mostra "nas praças com equipe"). É
+ * a praça que a declara (content/cidades.ts → `captacao`: "Captação Brasília",
+ * "Captação Goiânia"), e ela entra na 6ª posição do letreiro, como no
+ * protótipo; home e demais páginas ficam sem.
  */
-export const ADDONS = [
+export const ADDONS: Addon[] = [
   { curto: "Apresentação Digital", nome: "Apresentação Digital", desc: "Portfólio, Cartão Virtual e Assinatura de E-mail para destacar o profissional." },
   { curto: "Material Educativo", nome: "Material Educativo / Captura de Lead", desc: "Ebook diagramado (15 páginas) + Folder virtual: você envia o conteúdo, nós transformamos em material rico para captar leads em campanhas de Meta/Google Ads." },
   { curto: "CHs Extras", nome: "CHs Extras", desc: "Horas flexíveis sob demanda para imprevistos, oportunidades ou escopo expandido." },
   { curto: "Branding Completo", nome: "Branding Completo", desc: "Identidade Visual e Papelaria — essencial para quem precisa desenvolver sua marca." },
   { curto: "Impulsionamento Meta Ads", nome: "Impulsionamento Meta Ads", desc: "Serviços de impulsionamento no Instagram e Facebook conectando médicos a pacientes qualificados." },
-  { curto: "Captação Brasília", nome: "Captação Brasília", desc: "Sessão mensal de captação profissional em Brasília-DF, 3 horas com videomaker ou fotógrafo. Insumos prontos para todos os seus pacotes de vídeo e redes sociais." },
   { curto: "Pacote Reels", nome: "Pacote Reels (Animações)", desc: "Pacote de animações gráficas para Reels — 1 vídeo a cada duas semanas." },
   { curto: "SEO Conteúdo", nome: "SEO Conteúdo", desc: "Potencia o tráfego orgânico do seu site: 2 matérias com SEO por mês + manutenção contínua. Ideal para subir no Google sem depender só de tráfego pago." },
   { curto: "TV Corporativa", nome: "TV Corporativa Recepção", desc: "Mantenha sua sala de espera com conteúdo profissional: 1 animação gráfica nova por mês + manutenção remota da programação da TV." },
@@ -498,17 +505,30 @@ export const EXCLUSIVIDADE = {
 /* ───────────────────────────────────────────────────────────── atributos ─── */
 
 /**
- * §44.21-4: "Google Partner" SAI até a URL do selo chegar (slot do cliente).
- * "Agência parceira da SBH" fica — o Sindicato Brasiliense de Hospitais está
- * na carteira. Números canônicos do §44.1.
+ * Os SELOS da casa, cada um com o link externo pra home do programa/entidade
+ * (cliente, 2026-09-20: "colocar Meta Business Partners, Google Partners;
+ * trocar 'da SBH' por 'do SBH'; link externo pra home de cada"). Isto REVOGA
+ * o §44.21-4 ("Google Partner fora até o selo chegar"): a decisão de mostrar
+ * é do cliente, e o link é a prova que o texto sozinho não dava. Fonte única
+ * pra tarja de atributos (ATRIBUTOS) e pro fecho do rodapé (RODAPE.selos).
  */
-export const ATRIBUTOS = [
-  "Desde 2012",
-  "259 médicos, clínicas e hospitais",
-  "21 estados · 53 cidades",
-  "55 áreas na carteira",
-  "Agência parceira da SBH",
-  "Vivência hospitalar (ONA/ISO)",
+export const SELOS = [
+  { rotulo: "Meta Business Partners", href: "https://www.facebook.com/business/marketing-partners" },
+  { rotulo: "Google Partners", href: "https://www.google.com/partners/" },
+  // "do SBH" — o Sindicato Brasiliense de Hospitais está na carteira.
+  { rotulo: "Agência parceira do SBH", href: "https://sbhdf.org.br/" },
+] as const;
+
+export type Atributo = { texto: string; href?: string };
+
+/** A tarja de atributos (01b). Números canônicos do §44.1; os selos linkados. */
+export const ATRIBUTOS: Atributo[] = [
+  { texto: "Desde 2012" },
+  { texto: "259 médicos, clínicas e hospitais" },
+  { texto: "21 estados · 53 cidades" },
+  { texto: "55 áreas na carteira" },
+  ...SELOS.map((s) => ({ texto: s.rotulo, href: s.href })),
+  { texto: "Vivência hospitalar (ONA/ISO)" },
 ];
 
 /* ─────────────────────────────────────────────────────────────────── FAQ ─── */
