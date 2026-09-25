@@ -18,6 +18,18 @@
 /** A tela anti-robô. Todo caminho pro WhatsApp passa por aqui. */
 export const ROTA_PORTAO = "/whatsapp";
 
+/**
+ * Rotas de PORTA ÚNICA: só WhatsApp, zero porta de proposta — topo, barra do
+ * polegar, menu e rodapé inclusive. Aqui porque o registro das portas é um só
+ * (a mesma razão de `MENU_TOPO` morar neste arquivo e não no componente).
+ *
+ * O caso que a abriu (rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md, D1 → D12): a
+ * pílula "Montar proposta" leva à calculadora de PACOTE DE CLÍNICA, e o gestor
+ * de um hospital não tem o que fazer com ela — oferecer é prometer um preço de
+ * tabela que não existe para esse porte. Rota fora desta lista não muda em nada.
+ */
+export const ROTAS_SO_WHATSAPP: readonly string[] = ["/cartas/rede-hospitalar"];
+
 /** Política de privacidade — linkada do rodapé e do aviso de consentimento. */
 export const ROTA_PRIVACIDADE = "/politica-privacidade";
 

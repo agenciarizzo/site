@@ -13,7 +13,11 @@ import { SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
 
 export function generateStaticParams() {
-  return CARTAS.map((c) => ({ slug: c.slug }));
+  // `rede-hospitalar` tem rota ESTÁTICA própria (`app/cartas/rede-hospitalar/`)
+  // desde o capítulo hospitalar. Sem este filtro o Next 16.2.2 gera o caminho
+  // duas vezes e quem escreve o `.html` é detalhe interno do build — medido em
+  // rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md §12.3 (D20).
+  return CARTAS.filter((c) => c.slug !== "rede-hospitalar").map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
