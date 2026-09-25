@@ -339,7 +339,7 @@ export const CARTAS: Carta[] = [
       },
       {
         q: "como uma rede de saúde mede o retorno de cada linha de serviço separadamente?",
-        a: "Com relatório por unidade e por linha, não um número institucional único — porque um número só esconde a linha que está indo bem dentro da que está indo mal. É o que o RizzoOS organiza: busca, contato e agenda lidos linha a linha, mês a mês.",
+        a: "Com relatório por unidade e por linha, não um número institucional único — porque um número só esconde a linha que está indo bem dentro da que está indo mal. É o que o RizzoOS organiza: busca e contato lidos linha a linha, mês a mês.",
       },
     ],
     ctaAcento: "a sua instituição?",

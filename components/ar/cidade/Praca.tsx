@@ -35,7 +35,7 @@ import { MapaPraca } from "./MapaPraca";
  * e o `data-tweaks` é o que o Motor lê pra girar a seed a cada 3s com o
  * elemento/pano/cores DESTA página, e não os da home.
  */
-function Malha({ t, rows, classe }: { t: Tweaks; rows: number; classe: string }) {
+export function Malha({ t, rows, classe }: { t: Tweaks; rows: number; classe: string }) {
   const { pecas, cols } = heroPecas(t, rows);
   return (
     <div

@@ -1,0 +1,294 @@
+/* O HOSPITAL-MOLDE — folha dos blocos que só existem em
+   `/cartas/rede-hospitalar` (as Frentes, os Perfis, o RizzoOS do hospital e os
+   ajustes de porta única). Plano: rizzo-os →
+   docs/CAPITULO_HOSPITALAR_MAPA.md §11.
+
+   Tokens de cor e tipo do `.dg` (app/home-diagonal.css); as seções que a
+   página herda do cidade-molde (hero, pôster, método, histórico, FAQ, "quando
+   NÃO", palco) usam as regras de `components/ar/cidade/cidade-molde.css` — nada
+   se duplica aqui. Está em components/ar/ pelo mesmo motivo daquela: a página
+   nasce do handoff e segue a tipografia DELE (D5); o caminho é exceção
+   declarada no `checar-tipografia.mjs`.
+
+   `.dg.hosp` na frente de toda regra, pela mesma razão do `.dg.cid`: o `.dg a`
+   da home (teal, especificidade (0,1,1)) vence qualquer classe solta de link.
+   Peso de fonte só entre os sete carregados no layout (200–800). */
+
+/* ───────────────────────────────────── porta única (D12) ─────────────────── */
+
+/* Com UMA porta, as caixas de ação do molde — feitas para duas — deixam de
+   esticar o botão sozinho pela largura toda. */
+.dg.hosp .hosp-uma-porta {
+  justify-content: flex-start;
+}
+.dg.hosp .cta-grade.hosp-uma-porta {
+  grid-template-columns: minmax(0, 520px);
+}
+
+/* A tarja do pôster sem a lista de praças: sobra só a linha mono, que ganha o
+   selo do SBH como link (D22). */
+.dg.hosp .hosp-tarja {
+  justify-content: flex-start;
+}
+/* A tarja do molde estiliza `a` como link de PRAÇA (700, até 26px) — aqui o
+   único link é o selo, que mora DENTRO da linha mono e tem de ler como ela. */
+.dg.hosp .hosp-tarja .cid-mono a {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ─────────────────────────────── cabeça compartilhada dos blocos novos ───── */
+
+.dg.hosp .hosp-cabeca {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 24px 64px;
+  align-items: start;
+}
+.dg.hosp .hosp-cabeca > div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dg.hosp .hosp-cabeca .h2 {
+  max-width: 640px;
+}
+
+/* A linha de prova: o que a casa fez, com nome público. Cinza e menor que o
+   texto da frente — é lastro, não argumento. */
+.dg.hosp .hosp-prova {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--cinza-neutro);
+  border-left: 2px solid var(--linha-bege);
+  padding-left: 14px;
+  text-wrap: pretty;
+}
+
+/* ──────────────────────────────────────────────── 06 · as frentes ────────── */
+
+.dg.hosp .hosp-frentes {
+  background: var(--papel);
+  padding: 112px var(--lado);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.dg.hosp .hosp-caso {
+  background: var(--papel-claro);
+  border: 1px solid var(--linha-bege);
+  border-left: 4px solid var(--amarelo);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 860px;
+}
+.dg.hosp .hosp-caso p:last-child {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--chumbo);
+  text-wrap: pretty;
+}
+.dg.hosp .hosp-frentes-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: 0 64px;
+  border-top: 1px solid var(--linha-bege);
+}
+.dg.hosp .hosp-frentes-lista li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 16px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--linha-bege);
+}
+.dg.hosp .hosp-frentes-lista .cifra {
+  font-size: 13px;
+  color: var(--cinza-neutro);
+  padding-top: 4px;
+}
+.dg.hosp .hosp-frentes-lista li > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dg.hosp .hosp-frentes-lista h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--chumbo);
+  text-wrap: balance;
+}
+.dg.hosp .hosp-frentes-lista p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+.dg.hosp .hosp-transversal {
+  margin: 0;
+  max-width: 860px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--chumbo);
+  text-wrap: pretty;
+}
+
+/* ───────────────────────────────────────────────────── 07 · perfis ───────── */
+
+.dg.hosp .hosp-perfis {
+  background: var(--bege);
+  padding: 112px var(--lado);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.dg.hosp .hosp-perfis-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 24px;
+}
+.dg.hosp .hosp-perfis-grade article {
+  background: var(--papel);
+  border: 1px solid var(--linha-bege);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dg.hosp .hosp-perfis-grade h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--chumbo);
+  text-wrap: balance;
+}
+.dg.hosp .hosp-perfis-grade p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+
+/* ────────────────────────────────────────────────── 10 · RizzoOS ─────────── */
+
+/* Fundo navy — EXCLUSIVO do bloco RizzoOS (A4 do CLAUDE.md do site), e este é
+   ele. O amarelo do wordmark é legítimo porque o fundo é navy (A2). */
+.dg.hosp .hosp-os {
+  background: #0f172a;
+  color: #e6e2da;
+  padding: 112px var(--lado);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.dg.hosp .hosp-os-cabeca {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 24px 64px;
+  align-items: end;
+}
+.dg.hosp .hosp-os-cabeca .h2 {
+  font-weight: 300;
+  color: #ffffff;
+}
+.dg.hosp .hosp-os-cabeca .h2 b {
+  font-weight: 800;
+  color: var(--amarelo);
+}
+.dg.hosp .hosp-os-cabeca p {
+  margin: 0;
+  max-width: 520px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #c9c3b6;
+  text-wrap: pretty;
+}
+.dg.hosp .hosp-os-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 0 64px;
+  border-top: 1px solid rgba(230, 226, 218, 0.18);
+}
+.dg.hosp .hosp-os-lista li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 16px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(230, 226, 218, 0.18);
+}
+.dg.hosp .hosp-os-lista .cifra {
+  font-size: 13px;
+  color: var(--amarelo);
+  padding-top: 4px;
+}
+.dg.hosp .hosp-os-lista li > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dg.hosp .hosp-os-lista h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-wrap: balance;
+}
+.dg.hosp .hosp-os-lista p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #c9c3b6;
+  text-wrap: pretty;
+}
+
+/* ───────────────────────────────────────────── celular (390×844) ─────────── */
+
+@media (max-width: 720px) {
+  .dg.hosp .hosp-frentes,
+  .dg.hosp .hosp-perfis,
+  .dg.hosp .hosp-os {
+    padding: 72px 20px;
+    gap: 32px;
+  }
+  .dg.hosp .hosp-caso {
+    padding: 20px;
+  }
+  .dg.hosp .hosp-frentes-lista li,
+  .dg.hosp .hosp-os-lista li {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .dg.hosp .hosp-perfis-grade article {
+    padding: 20px;
+  }
+}
+
+/* ──────────────────────────────────── 01d · histórico (ajuste de porte) ──── */
+
+/* A cidade/UF de cada casa quebra como UMA unidade — sem isto, "Remanso/BA"
+   descia sozinho e a linha seguinte abria com um "·" órfão. */
+.dg.cid.hosp .cid-hist-painel li small {
+  white-space: nowrap;
+}

@@ -23,7 +23,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PROPOSTA_URL } from "@/lib/site";
-import { ROTA_PORTAO } from "@/lib/nav";
+import { ROTA_PORTAO, ROTAS_SO_WHATSAPP } from "@/lib/nav";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
@@ -38,6 +38,11 @@ import { ESPECIALIDADES_HOME } from "@/content/home";
  */
 export function Topo({ waText, rota }: { waText: string; rota?: string }) {
   const atual = (r: string) => (rota === r ? "page" : undefined);
+  // PORTA ÚNICA (rizzo-os → CAPITULO_HOSPITALAR_MAPA.md, D12): nas rotas de
+  // `ROTAS_SO_WHATSAPP` as três portas de proposta deste componente — a pílula,
+  // o item amarelo do menu e o botão da barra do polegar — não são renderizadas.
+  // Aditivo: sem `rota`, ou com rota fora da lista, o HTML é o mesmo de sempre.
+  const soWhats = rota !== undefined && ROTAS_SO_WHATSAPP.includes(rota);
   return (
     <header className="topo" data-tinta="escuro">
       <Link className="topo-logo" href="/" aria-label="Agência Rizzo — página inicial">
@@ -46,9 +51,11 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
       </Link>
 
       <div className="topo-acoes">
-        <a className="topo-cta" data-cta="proposta" href={PROPOSTA_URL}>
-          Montar proposta <span aria-hidden>→</span>
-        </a>
+        {!soWhats && (
+          <a className="topo-cta" data-cta="proposta" href={PROPOSTA_URL}>
+            Montar proposta <span aria-hidden>→</span>
+          </a>
+        )}
         <Link className="topo-zap" href={ROTA_PORTAO} data-wa={waText} aria-label="Falar no WhatsApp">
           <span className="zap">
             <IconeWhats />
@@ -94,9 +101,11 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
                 <Link href="/contato" aria-current={atual("/contato")}>
                   Contato
                 </Link>
-                <a className="amarelo" data-cta="proposta" href={PROPOSTA_URL}>
-                  Montar proposta →
-                </a>
+                {!soWhats && (
+                  <a className="amarelo" data-cta="proposta" href={PROPOSTA_URL}>
+                    Montar proposta →
+                  </a>
+                )}
               </div>
               {/* Achado #1 (§44.24): os 40 links da parede única estouravam o
                   painel — em cascata, estilo UOL: coluna 1 lista as SEÇÕES,
@@ -180,9 +189,11 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
             <IconeWhats />
           </span>
         </Link>
-        <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
-          Montar proposta <span aria-hidden>→</span>
-        </a>
+        {!soWhats && (
+          <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
+            Montar proposta <span aria-hidden>→</span>
+          </a>
+        )}
       </div>
     </header>
   );

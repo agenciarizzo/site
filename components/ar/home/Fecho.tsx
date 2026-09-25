@@ -11,7 +11,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PROPOSTA_URL } from "@/lib/site";
-import { ROTA_PORTAO } from "@/lib/nav";
+import { ROTA_PORTAO, ROTAS_SO_WHATSAPP } from "@/lib/nav";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import { FAQ, CTA_FINAL } from "@/content/landing-v3";
 import { RODAPE, ESPECIALIDADES_HOME } from "@/content/home";
@@ -76,7 +76,10 @@ export function CtaFinal({ waText }: { waText: string }) {
  * a atribuição é por página). Sem ele o portão cai no `WA_PADRAO` e o rodapé
  * some do relatório, que era o caso em todas as 5 páginas que o usam.
  */
-export function Rodape({ waText }: { waText?: string }) {
+export function Rodape({ waText, rota }: { waText?: string; rota?: string }) {
+  // PORTA ÚNICA (D12, como no `Topo`): nas rotas de `ROTAS_SO_WHATSAPP` o link
+  // "Montar proposta" da coluna Agência sai. Sem `rota`, nada muda.
+  const soWhats = rota !== undefined && ROTAS_SO_WHATSAPP.includes(rota);
   return (
     <footer className="rodape" data-topo="claro">
       <div className="rodape-grade">
@@ -165,11 +168,13 @@ export function Rodape({ waText }: { waText?: string }) {
             <li>
               <Link href="/contato">Contato</Link>
             </li>
-            <li>
-              <a data-cta="proposta" href={PROPOSTA_URL}>
-                Montar proposta
-              </a>
-            </li>
+            {!soWhats && (
+              <li>
+                <a data-cta="proposta" href={PROPOSTA_URL}>
+                  Montar proposta
+                </a>
+              </li>
+            )}
             <li>
               <Link href="/politica-privacidade">Política de privacidade</Link>
             </li>
