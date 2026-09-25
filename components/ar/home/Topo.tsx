@@ -172,7 +172,13 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
                       <Link href="/politica-privacidade">Política de privacidade</Link>
                     </li>
                     <li>
-                      <Link href={ROTA_PORTAO}>Falar no WhatsApp</Link>
+                      {/* Com o `data-wa` da página, como as outras portas deste
+                          componente: sem ele o `GuardaOrigem` não guardava nada, o
+                          portão abria com o `WA_PADRAO` ("…a minha clínica") e o
+                          clique saía do relatório por página (regra 4). */}
+                      <Link href={ROTA_PORTAO} data-wa={waText}>
+                        Falar no WhatsApp
+                      </Link>
                     </li>
                   </ul>
                 </div>
