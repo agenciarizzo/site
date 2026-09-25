@@ -209,7 +209,14 @@ export function HistoricoHospital({ grupos, total }: { grupos: GrupoHospital[]; 
         </div>
         <p>{HOSPITALAR.historico.lede}</p>
       </div>
-      <div className="cid-hist-faixas">
+      {/* A variante de LINHAS do molde (`cid-hist-linhas`), não as faixas
+          verticais. Medido a 1440×900: com 3 grupos de 4 nomes, a faixa aberta
+          deixava 254px de campo amarelo vazio e a etiqueta de pé do 3º grupo
+          ("Policlínicas e centros de referência") não cabia — transbordava 7px
+          no piso que o resto do bloco permitia. A praça usa as faixas porque
+          abre um grupo de ~15 nomes; aqui a mesma caixa não presta (§⚖️), e a
+          variante que o próprio molde já tem para lista curta presta. */}
+      <div className="cid-hist-faixas cid-hist-linhas">
         {grupos.map((g, i) => (
           <details name="cid-hist" open={i === 0 ? true : undefined} data-k={i % 6} key={g.titulo}>
             <summary>

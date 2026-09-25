@@ -30,8 +30,13 @@
 .dg.hosp .hosp-tarja {
   justify-content: flex-start;
 }
+/* A tarja do molde estiliza `a` como link de PRAÇA (700, até 26px) — aqui o
+   único link é o selo, que mora DENTRO da linha mono e tem de ler como ela. */
 .dg.hosp .hosp-tarja .cid-mono a {
   color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -278,4 +283,12 @@
   .dg.hosp .hosp-perfis-grade article {
     padding: 20px;
   }
+}
+
+/* ──────────────────────────────────── 01d · histórico (ajuste de porte) ──── */
+
+/* A cidade/UF de cada casa quebra como UMA unidade — sem isto, "Remanso/BA"
+   descia sozinho e a linha seguinte abria com um "·" órfão. */
+.dg.cid.hosp .cid-hist-painel li small {
+  white-space: nowrap;
 }
