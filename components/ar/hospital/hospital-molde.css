@@ -291,6 +291,224 @@
    `style=""` inline da `Pagina - Rede Hospitalar.dc.html`, seção por seção.
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ──────────────────────────── a prosa de posição (seção estática, §10.3-a) ── */
+.dg.hosp .hosp-prosa {
+  background: var(--papel);
+  padding: 96px var(--lado);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dg.hosp .hosp-prosa .cid-prosa {
+  max-width: 640px;
+}
+
+/* ═══════════════════════════════ os tracks — o palco e os DOIS MODOS ══════
+   Método, Escada e telas do RizzoOS são tracks guiados pela rolagem no
+   protótipo. Aqui cada um tem dois modos e o padrão é o EMPILHADO: é o que o
+   HTML entrega, o que vale abaixo de 900px e em `prefers-reduced-motion`
+   (critério 6 do §10.2), e o que sobra sem JS. O modo CENA (sticky +
+   coreografia) só existe sob `[data-cena-on]`, que a ilha `MotorHospital.tsx`
+   escreve com ≥ 900px E sem reduced-motion — e o CSS repete a mesma condição
+   na media query, pra SSR e JS concordarem (decisão g do §10.3). */
+
+/* o que os três compartilham: o kicker amarelo (sobre chumbo/carvão/navy,
+   nunca sobre papel — A2), o número mono e o pé com a barra */
+.dg.hosp .hosp-track-kicker {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+}
+.dg.hosp .hosp-track-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--amarelo);
+}
+/* empilhado: sem contador — todos os itens estão na tela */
+.dg.hosp .hosp-track-pe {
+  display: none;
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .dg.hosp [data-cena-on] .hosp-track-pe {
+    position: absolute;
+    left: var(--lado);
+    right: var(--lado);
+    bottom: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    white-space: nowrap;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bege-escuro);
+  }
+  .dg.hosp [data-cena-on] .hosp-track-trilho {
+    flex: 1;
+    height: 1px;
+    background: rgba(244, 239, 230, 0.25);
+    position: relative;
+  }
+  .dg.hosp [data-cena-on] .hosp-track-trilho > span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: var(--amarelo);
+    transition: width 0.3s;
+  }
+}
+
+/* ────────────────────────────────── 01c2 · o Método (a linha que se desenha) */
+.dg.hosp .hosp-met {
+  background: var(--chumbo);
+  color: var(--papel);
+}
+/* empilhado: cabeça → desenho (a linha inteira) → os 6 passos em grade */
+.dg.hosp .hosp-met-palco {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 96px var(--lado);
+  box-sizing: border-box;
+}
+.dg.hosp .hosp-met-cabeca {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.dg.hosp .hosp-met h2 {
+  margin: 0;
+  max-width: 560px;
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--papel);
+  text-wrap: balance;
+}
+.dg.hosp .hosp-met h2 span {
+  font-weight: 300;
+}
+.dg.hosp .hosp-met-desenho {
+  position: relative;
+  width: 100%;
+  height: clamp(200px, 42vw, 520px);
+}
+.dg.hosp .hosp-met-desenho svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.dg.hosp .hosp-met-num {
+  position: absolute;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--papel);
+  transition: opacity 0.4s;
+}
+.dg.hosp .hosp-met-passos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 32px 64px;
+}
+.dg.hosp .hosp-met-passo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 440px;
+}
+.dg.hosp .hosp-met-passo h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.dg.hosp .hosp-met-passo p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--bege-escuro);
+  text-wrap: pretty;
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* cena: 700svh de trilho, palco sticky de 100svh; a grade do texto
+     (`minmax(0,1fr) minmax(0,440px)`, left/right 56, top 96) é o padding do
+     palco; o desenho gruda no pé (bottom 84, min(66svh, 520px)) */
+  .dg.hosp .hosp-met[data-cena-on] {
+    height: 700svh;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-palco {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    gap: 32px 64px;
+    align-items: start;
+    align-content: start;
+    padding: 96px var(--lado) 0;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-desenho {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 84px;
+    width: auto;
+    height: min(66svh, 520px);
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-passos {
+    display: block;
+    position: relative;
+    min-height: 180px;
+    max-width: 440px;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-passo {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(24px);
+    transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-passo[data-passado] {
+    transform: translateX(-24px);
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-passo[data-on] {
+    opacity: 1;
+    transform: none;
+  }
+  /* vértice e número acendem quando a linha passa por eles */
+  .dg.hosp .hosp-met[data-cena-on] [data-met-v] {
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .dg.hosp .hosp-met[data-cena-on] [data-met-v][data-aceso] {
+    opacity: 1;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-num {
+    opacity: 0;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-num[data-aceso] {
+    opacity: 1;
+  }
+}
+
 /* ───────────────────────────────── 06 · o transversal, seção própria ────── */
 /* O parágrafo que fechava as Frentes vira seção depois da Escada (§10.1 06):
    papel, `padding: 56px 56px 112px`, texto max 860. */

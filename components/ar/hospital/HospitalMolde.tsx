@@ -4,9 +4,14 @@
 //
 // A ORDEM dos blocos é a do §11.0, e nenhum a mais:
 //
-//   topo · hero · autoridade · pôster · método · frentes · perfis · histórico ·
-//   chamada · RizzoOS · chamada · portfólio · FAQ · quando NÃO · CTA · rodapé ·
-//   motor
+//   topo · hero · autoridade · pôster · prosa de posição · método (track) ·
+//   frentes · escada (track) · transversal · perfis · histórico · chamada ·
+//   RizzoOS (cabeça · telas · lista) · chamada · portfólio (cabeça · palco ·
+//   faixa) · FAQ · quando NÃO · CTA · rodapé · motores
+//
+// (A ordem acima é a da fatia 4 do handoff — rizzo-os →
+// docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md §10.2-1; a do §11.0 do capítulo
+// era a mesma sem os tracks.)
 //
 // O que fica FORA, de propósito (D18 + §6.2 do F0): Pacotes, Exclusividade,
 // Cidades, Vinheta, Resultado, Cases, Clientes, Serviços, Depoimentos e Sobre.
@@ -40,7 +45,8 @@ import { alcanceDaCasa } from "@/lib/praca";
 import type { Carta } from "@/content/cartas";
 import { HOSPITALAR } from "@/content/hospitalar";
 import { historicoHospitalar, numerosHospitalares, pecasHospitalares } from "@/lib/hospital";
-import { HeroHospital, HospitalPoster, MetodoHospital, HistoricoHospital, FaqHospital, QuandoNaoHospital } from "./Hospital";
+import { HeroHospital, HospitalPoster, HistoricoHospital, FaqHospital, QuandoNaoHospital } from "./Hospital";
+import { ProsaPosicao, MetodoHospital } from "./Metodo";
 import { Frentes, Transversal, Perfis, RizzoOsHospital, ChamadaHospital, CtaHospital } from "./Frentes";
 import { PortfolioHospital } from "./PortfolioHospital";
 
@@ -110,6 +116,7 @@ export function HospitalMolde({ c }: { c: Carta }) {
       <HeroHospital c={c} t={t} />
       <Autoridade />
       <HospitalPoster c={c} n={n} casa={casa} />
+      <ProsaPosicao c={c} />
       <MetodoHospital c={c} />
       <Frentes />
       <Transversal />

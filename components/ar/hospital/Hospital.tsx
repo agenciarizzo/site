@@ -1,6 +1,7 @@
 // As seções da página de hospital DERIVADAS do cidade-molde (§11.0 do doc-mapa:
-// rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md): hero, pôster, método,
-// histórico, FAQ e "quando NÃO". São as mesmas caixas de
+// rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md): hero, pôster, histórico, FAQ e
+// "quando NÃO" (o Método saiu daqui na fatia 4 do handoff — virou o track de
+// `Metodo.tsx`, com a prosa de posição em seção própria). São as mesmas caixas de
 // `components/ar/cidade/Praca.tsx` com OUTRA fonte de conteúdo — o registro
 // `rede-hospitalar` de `content/cartas.ts` (verbatim, D13) mais o que é novo em
 // `content/hospitalar.ts` —, por isso vivem aqui e não lá: o molde é do layout,
@@ -140,45 +141,6 @@ export function HospitalPoster({
           · {casa.cidades} cidades · {casa.estados} estados · {HOSPITALAR.poster.desde}
         </p>
       </div>
-    </section>
-  );
-}
-
-/* ───────────────────────────────────────────────────────── 01c2 · método ──── */
-
-/**
- * Esquerda: o título do bloco e os parágrafos de posição que sobraram do pôster
- * — o `posicao[3]` fica de fora de propósito: ele é o hospital de um dono só, e
- * abre os Perfis (§11.3/§11.5). Direita: o `como` numerado, verbatim.
- */
-export function MetodoHospital({ c }: { c: Carta }) {
-  const prosa = [c.posicao[1], c.posicao[2], c.posicao[4]];
-  return (
-    <section className="cid-met" aria-labelledby="h-met" data-topo="escuro">
-      <div className="cid-met-esq">
-        <div>
-          <p className="rot">{HOSPITALAR.metodo.rotulo}</p>
-          <h2 id="h-met" data-reveal>
-            {HOSPITALAR.metodo.h2}
-          </h2>
-        </div>
-        {prosa.map((p) => (
-          <p className="cid-prosa" key={p.slice(0, 24)}>
-            {p}
-          </p>
-        ))}
-      </div>
-      <ol className="cid-met-lista">
-        {c.como.map((m, i) => (
-          <li key={m.t}>
-            <span className="cifra">{String(i + 1).padStart(2, "0")}</span>
-            <div>
-              <h3>{m.t}</h3>
-              <p>{m.d}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
     </section>
   );
 }

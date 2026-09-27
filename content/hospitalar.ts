@@ -105,6 +105,10 @@ export const HOSPITALAR = {
   metodo: {
     rotulo: "Método",
     h2: "Cada linha de serviço é um mercado.",
+    /** O trecho do H2 em peso 300 no track do protótipo v3 (fatia 4) — tem que ser o FIM de `h2`. */
+    h2Leve: "é um mercado.",
+    /** O pé do track: o rótulo à esquerda da barra "01 / 06". */
+    pe: "Linha de serviço → mercado",
   },
 
   /* ────────────────────────────────────────────────────────── frentes (§11.4) ── */
