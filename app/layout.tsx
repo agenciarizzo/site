@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "Agência Rizzo",
-    images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "Agência Rizzo — marketing médico" }],
+    images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "Agência Rizzo, marketing médico" }],
   },
   twitter: { card: "summary_large_image" },
   // Produção indexa; preview e dev nascem noindex (ver INDEXABLE em lib/site.ts).

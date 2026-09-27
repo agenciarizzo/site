@@ -102,7 +102,7 @@ export function poolGaleria(): PecaGaleria[] {
  */
 export function altSeo(p: PecaGaleria): string {
   const base = `Exemplo de ${p.servico.toLowerCase()} para ${p.espec ? p.espec.toLowerCase() : "médicos"}${p.cidade ? ` em ${p.cidade}` : ""}`;
-  return /exemplo|refer[eê]ncia|inspira/i.test(p.alt) ? p.alt : `${base} — ${p.alt}`;
+  return /exemplo|refer[eê]ncia|inspira/i.test(p.alt) ? p.alt : `${base}. ${p.alt}`;
 }
 
 /** O H2 do grupo por especialidade, como o protótipo o escreve. */

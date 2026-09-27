@@ -19,7 +19,7 @@ export function Band({ html, carta = false }: { html: string; carta?: boolean })
 export function Header({ waText }: { waText: string }) {
   return (
     <header className="topo">
-      <Link href="/" aria-label="Agência Rizzo — início">
+      <Link href="/" aria-label="Agência Rizzo, início">
         <Image src="/logo_horizontal.png" alt="Agência Rizzo" width={182} height={30} priority />
       </Link>
       {/* Também pelo portão: nenhum wa.me solto no site (lib/nav.ts). */}

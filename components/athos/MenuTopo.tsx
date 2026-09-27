@@ -156,7 +156,7 @@ export function MenuTopo({
   return (
     <>
       <header className="topo menu">
-        <Link href="/" aria-label="Agência Rizzo — início">
+        <Link href="/" aria-label="Agência Rizzo, início">
           <Image src="/logo_horizontal.png" alt="Agência Rizzo" width={182} height={30} priority />
         </Link>
         <nav aria-label="Principal">

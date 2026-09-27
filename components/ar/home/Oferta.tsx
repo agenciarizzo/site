@@ -130,7 +130,7 @@ export function Pacotes({ addonExtra }: { addonExtra?: string } = {}) {
               href={PROPOSTA_URL}
               target="_blank"
               rel="noopener"
-              aria-label={`${p.nome} — ${p.frase} A partir de R$ ${p.aPartir} por mês. Abre a proposta em nova aba.`}
+              aria-label={`${p.nome}. ${p.frase} A partir de R$ ${p.aPartir} por mês. Abre a proposta em nova aba.`}
             >
               <span className="pac-chip cifra">
                 <span>{p.tipo}</span>

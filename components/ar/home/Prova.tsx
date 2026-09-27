@@ -167,7 +167,7 @@ export function Clientes() {
                         fixa — o `object-fit: contain` é quem manda, e o
                         otimizador não teria o que otimizar. */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={m.src} alt={i < linha.length && r === 0 ? `Logo ${m.nome} — cliente da Agência Rizzo` : ""} loading="lazy" />
+                    <img src={m.src} alt={i < linha.length && r === 0 ? `Logo ${m.nome}, cliente da Agência Rizzo` : ""} loading="lazy" />
                   </li>
                 ))}
               </ul>

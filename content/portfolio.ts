@@ -137,7 +137,7 @@ export const chave = (s: string) =>
 export const PORTFOLIO: PecaPortfolio[] = [
   {
     cliente: "Dr. Eder Nisi Ilario – Urologista/Uro-oncologista",
-    contexto: "Marketing médico para urologia e cirurgia robótica — São Paulo",
+    contexto: "Marketing médico para urologia e cirurgia robótica · São Paulo",
     espec: "Urologia",
     servico: "Portfólio digital",
     praca: "São Paulo/SP",
@@ -150,7 +150,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Urocentro",
-    contexto: "Identidade digital para clínica de urologia — Brasília",
+    contexto: "Identidade digital para clínica de urologia · Brasília",
     espec: "Urologia",
     servico: "Identidade",
     praca: "Brasília/DF",
@@ -163,7 +163,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "S2 Medica",
-    contexto: "Redes sociais para clínica médica — Brasília",
+    contexto: "Redes sociais para clínica médica · Brasília",
     espec: "Clínica Médica",
     servico: "Redes sociais",
     praca: "Brasília/DF",
@@ -176,7 +176,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Casa de Saúde de Remanso",
-    contexto: "Folder institucional para hospital — Remanso, Bahia",
+    contexto: "Folder institucional para hospital · Remanso, Bahia",
     espec: "Hospital",
     servico: "Folder institucional",
     praca: "Remanso/BA",
@@ -189,7 +189,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Casa de Saúde de Remanso",
-    contexto: "Cartão de visita para hospital — Remanso, Bahia",
+    contexto: "Cartão de visita para hospital · Remanso, Bahia",
     espec: "Hospital",
     servico: "Cartão de visita",
     praca: "Remanso/BA",
@@ -202,7 +202,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica do Rim e Hipertensão",
-    contexto: "Portfólio digital para clínica de nefrologia — Valparaíso de Goiás",
+    contexto: "Portfólio digital para clínica de nefrologia · Valparaíso de Goiás",
     espec: "Nefrologia",
     servico: "Portfólio digital",
     praca: "Valparaíso de Goiás/GO",
@@ -215,7 +215,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica do Rim e Hipertensão",
-    contexto: "Folder de serviços para clínica de nefrologia e diálise — Valparaíso de Goiás",
+    contexto: "Folder de serviços para clínica de nefrologia e diálise · Valparaíso de Goiás",
     espec: "Nefrologia",
     servico: "Folder institucional",
     praca: "Valparaíso de Goiás/GO",
@@ -228,7 +228,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "IMED",
-    contexto: "Portfólio digital para clínica de gastroenterologia — Brasília",
+    contexto: "Portfólio digital para clínica de gastroenterologia · Brasília",
     espec: "Gastroenterologia",
     servico: "Portfólio digital",
     praca: "Brasília/DF",
@@ -241,7 +241,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "IMED",
-    contexto: "Folder impresso para clínica de endoscopia e coloproctologia — Brasília",
+    contexto: "Folder impresso para clínica de endoscopia e coloproctologia · Brasília",
     espec: "Gastroenterologia",
     servico: "Folder institucional",
     praca: "Brasília/DF",
@@ -254,7 +254,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Daniele Pollo – Oftalmologista",
-    contexto: "Portfólio impresso para oftalmologista — Parauapebas",
+    contexto: "Portfólio impresso para oftalmologista · Parauapebas",
     espec: "Oftalmologia",
     servico: "Portfólio impresso",
     praca: "Parauapebas/PA",
@@ -267,7 +267,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Centro Médico Navegantes",
-    contexto: "Portfólio digital para centro médico — Rio de Janeiro",
+    contexto: "Portfólio digital para centro médico · Rio de Janeiro",
     espec: "Clínica Médica",
     servico: "Portfólio digital",
     praca: "Rio de Janeiro/RJ",
@@ -280,7 +280,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Centro Médico Navegantes",
-    contexto: "Folder institucional para centro médico e odontológico — Rio de Janeiro",
+    contexto: "Folder institucional para centro médico e odontológico · Rio de Janeiro",
     espec: "Clínica Médica",
     servico: "Folder institucional",
     praca: "Rio de Janeiro/RJ",
@@ -293,7 +293,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "CLIAOD – Otorrinolaringologia",
-    contexto: "Folder institucional para clínica de otorrinolaringologia — Brasília",
+    contexto: "Folder institucional para clínica de otorrinolaringologia · Brasília",
     espec: "Otorrinolaringologia",
     servico: "Folder institucional",
     praca: "Brasília/DF",
@@ -306,7 +306,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "CLIAOD – Otorrinolaringologia",
-    contexto: "Portfólio digital para clínica de otorrino e audiologia — Brasília",
+    contexto: "Portfólio digital para clínica de otorrino e audiologia · Brasília",
     espec: "Otorrinolaringologia",
     servico: "Portfólio digital",
     praca: "Brasília/DF",
@@ -319,7 +319,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Thiago Becker – Cirurgia Gástrica e Bariátrica",
-    contexto: "Portfólio digital para cirurgião do aparelho digestivo — Goiânia",
+    contexto: "Portfólio digital para cirurgião do aparelho digestivo · Goiânia",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Portfólio digital",
     praca: "Goiânia/GO",
@@ -332,7 +332,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Thiago Becker – Cirurgia Gástrica e Bariátrica",
-    contexto: "Folder impresso para cirurgia digestiva e bariátrica — Goiânia",
+    contexto: "Folder impresso para cirurgia digestiva e bariátrica · Goiânia",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Folder institucional",
     praca: "Goiânia/GO",
@@ -345,7 +345,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Thiago Becker – Cirurgia Gástrica e Bariátrica",
-    contexto: "E-book sobre pós-operatório da cirurgia bariátrica — Goiânia",
+    contexto: "E-book sobre pós-operatório da cirurgia bariátrica · Goiânia",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "E-book",
     praca: "Goiânia/GO",
@@ -358,7 +358,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Fernando Ferro",
-    contexto: "Pasta institucional para ortopedista — Goiânia",
+    contexto: "Pasta institucional para ortopedista · Goiânia",
     espec: "Ortopedia e Traumatologia",
     servico: "Pasta institucional",
     praca: "Goiânia/GO",
@@ -371,7 +371,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Fernando Ferro",
-    contexto: "Site para cirurgia do quadril — Goiânia",
+    contexto: "Site para cirurgia do quadril · Goiânia",
     espec: "Ortopedia e Traumatologia",
     servico: "Site",
     praca: "Goiânia/GO",
@@ -384,7 +384,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Policlínica Corrente",
-    contexto: "Outdoor para policlínica — Corrente, Piauí",
+    contexto: "Outdoor para policlínica · Corrente, Piauí",
     espec: "Clínica Médica",
     servico: "Outdoor",
     praca: "Corrente/PI",
@@ -397,7 +397,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Incordis",
-    contexto: "Folder institucional para clínica de cardiologia e cirurgia vascular — Brasília",
+    contexto: "Folder institucional para clínica de cardiologia e cirurgia vascular · Brasília",
     espec: "Cardiologia",
     servico: "Folder institucional",
     praca: "Brasília/DF",
@@ -410,7 +410,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Otoplus Saúde Plena – Otorrinolaringologia",
-    contexto: "Sinalização de ambiente para clínica de otorrinolaringologia — Brasília",
+    contexto: "Sinalização de ambiente para clínica de otorrinolaringologia · Brasília",
     espec: "Otorrinolaringologia",
     servico: "Sinalização",
     praca: "Brasília/DF",
@@ -423,7 +423,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Renovare – Urologia e Andrologia",
-    contexto: "Cartão de visita para clínica de urologia e andrologia — Brasília",
+    contexto: "Cartão de visita para clínica de urologia e andrologia · Brasília",
     espec: "Urologia",
     servico: "Cartão de visita",
     praca: "Brasília/DF",
@@ -436,7 +436,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "CON – Clínica Oncologia Hematologia",
-    contexto: "Panfleto de nova unidade para clínica de oncologia — Rio de Janeiro",
+    contexto: "Panfleto de nova unidade para clínica de oncologia · Rio de Janeiro",
     espec: "Oncologia",
     servico: "Panfleto",
     praca: "Rio de Janeiro/RJ",
@@ -449,7 +449,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Douglas Pigosso",
-    contexto: "E-book sobre descolamento de retina para oftalmologista — Brasília",
+    contexto: "E-book sobre descolamento de retina para oftalmologista · Brasília",
     espec: "Oftalmologia",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -462,7 +462,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Tiago Amaral",
-    contexto: "Site para ortopedista de quadril e joelho — Goiânia",
+    contexto: "Site para ortopedista de quadril e joelho · Goiânia",
     espec: "Ortopedia e Traumatologia",
     servico: "Site",
     praca: "Goiânia/GO",
@@ -475,7 +475,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Rayane Cardoso",
-    contexto: "Site para cirurgia oncológica e laparoscópica — Brasília",
+    contexto: "Site para cirurgia oncológica e laparoscópica · Brasília",
     espec: "Oncologia",
     servico: "Site",
     praca: "Brasília/DF",
@@ -488,7 +488,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Rayane Cardoso",
-    contexto: "E-book sobre câncer de colo do útero — Brasília",
+    contexto: "E-book sobre câncer de colo do útero · Brasília",
     espec: "Oncologia",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -501,7 +501,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Rodrigo Villalva",
-    contexto: "Site para urologia e cirurgia robótica — Brasília",
+    contexto: "Site para urologia e cirurgia robótica · Brasília",
     espec: "Urologia",
     servico: "Site",
     praca: "Brasília/DF",
@@ -514,7 +514,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Fabyanne Mazutti",
-    contexto: "Site para ginecologia e reprodução humana — Brasília",
+    contexto: "Site para ginecologia e reprodução humana · Brasília",
     espec: "Saúde da Mulher",
     servico: "Site",
     praca: "Brasília/DF",
@@ -527,7 +527,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Celso Melo – Nutrólogo",
-    contexto: "Site para nutrologia — Brasília",
+    contexto: "Site para nutrologia · Brasília",
     espec: "Nutrologia",
     servico: "Site",
     praca: "Brasília/DF",
@@ -540,7 +540,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica VivaVita",
-    contexto: "Site para clínica de medicina integrativa — Pindamonhangaba",
+    contexto: "Site para clínica de medicina integrativa · Pindamonhangaba",
     espec: "Clínica Médica",
     servico: "Site",
     praca: "Pindamonhangaba/SP",
@@ -553,7 +553,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Instituto CV",
-    contexto: "Landing page de tratamento para menopausa — Salvador",
+    contexto: "Landing page de tratamento para menopausa · Salvador",
     espec: "Saúde da Mulher",
     servico: "Site",
     praca: "Salvador/BA",
@@ -566,7 +566,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Homero Ribeiro",
-    contexto: "E-book sobre vasectomia para urologista — Brasília",
+    contexto: "E-book sobre vasectomia para urologista · Brasília",
     espec: "Urologia",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -579,7 +579,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Maria Eduarda Amaral",
-    contexto: "E-book sobre fertilidade para ginecologia e reprodução humana — Brasília",
+    contexto: "E-book sobre fertilidade para ginecologia e reprodução humana · Brasília",
     espec: "Saúde da Mulher",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -592,7 +592,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Antonio Carlos de Souza",
-    contexto: "Folder educativo sobre lipedema para cirurgia vascular — Brasília",
+    contexto: "Folder educativo sobre lipedema para cirurgia vascular · Brasília",
     espec: "Angiologia e Vascular",
     servico: "Folder educativo",
     praca: "Brasília/DF",
@@ -605,7 +605,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Cardio Clinic",
-    contexto: "Papelaria para clínica de cardiologia — Parauapebas",
+    contexto: "Papelaria para clínica de cardiologia · Parauapebas",
     espec: "Cardiologia",
     servico: "Papelaria",
     praca: "Parauapebas/PA",
@@ -618,7 +618,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Instituto Sono e Neuro",
-    contexto: "Padronização de redes sociais para instituto de medicina do sono — Balneário Camboriú",
+    contexto: "Padronização de redes sociais para instituto de medicina do sono · Balneário Camboriú",
     espec: "Medicina do Sono",
     servico: "Redes sociais",
     praca: "Balneário Camboriú/SC",
@@ -633,7 +633,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // indice-sprints.csv (emenda §16.6-2 do doc-mapa).
   {
     cliente: "Dr. Felipe Mendonça",
-    contexto: "Portfólio impresso para cirurgia vascular e endovascular — Goiânia",
+    contexto: "Portfólio impresso para cirurgia vascular e endovascular · Goiânia",
     espec: "Angiologia e Vascular",
     servico: "Portfólio impresso",
     praca: "Goiânia/GO",
@@ -646,7 +646,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "MaxiCor Clínica",
-    contexto: "Portfólio impresso para clínica de cardiologia — Brasília",
+    contexto: "Portfólio impresso para clínica de cardiologia · Brasília",
     espec: "Cardiologia",
     servico: "Portfólio impresso",
     praca: "Brasília/DF",
@@ -659,7 +659,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Auricelio Batista Cezar Júnior",
-    contexto: "Site para neurocirurgia e tratamento de metástases cerebrais — Recife",
+    contexto: "Site para neurocirurgia e tratamento de metástases cerebrais · Recife",
     espec: "Neurocirurgia",
     servico: "Site",
     praca: "Recife/PE",
@@ -672,7 +672,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Via Oftalmocenter",
-    contexto: "Banner de prevenção ao glaucoma para clínica de oftalmologia — Brasília",
+    contexto: "Banner de prevenção ao glaucoma para clínica de oftalmologia · Brasília",
     espec: "Oftalmologia",
     servico: "Banner",
     praca: "Brasília/DF",
@@ -685,7 +685,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Via Oftalmocenter",
-    contexto: "Folder sobre trabeculoplastia a laser para tratamento de glaucoma — Brasília",
+    contexto: "Folder sobre trabeculoplastia a laser para tratamento de glaucoma · Brasília",
     espec: "Oftalmologia",
     servico: "Folder educativo",
     praca: "Brasília/DF",
@@ -698,7 +698,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Allan Garcia",
-    contexto: "Conjunto de banners para cirurgia da coluna — Grande Vitória e Linhares",
+    contexto: "Conjunto de banners para cirurgia da coluna · Grande Vitória e Linhares",
     espec: "Ortopedia e Traumatologia",
     servico: "Banner",
     praca: "Vitória/ES",
@@ -711,7 +711,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Rhaiana Gondim – Urologia e Uropediatria",
-    contexto: "Cartão de visita para urologista e uropediatra — Brasília",
+    contexto: "Cartão de visita para urologista e uropediatra · Brasília",
     espec: "Urologia",
     servico: "Cartão de visita",
     praca: "Brasília/DF",
@@ -724,7 +724,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Thiago Vergílio – Urologista",
-    contexto: "Portfólio impresso para urologista especialista em uro-oncologia — Porto Velho",
+    contexto: "Portfólio impresso para urologista especialista em uro-oncologia · Porto Velho",
     espec: "Urologia",
     servico: "Portfólio impresso",
     praca: "Porto Velho/RO",
@@ -737,7 +737,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Renan R. Marangoni – Cirurgia do Aparelho Digestivo, Cirurgia Geral",
-    contexto: "Site para cirurgia de diástase abdominal — Goiânia",
+    contexto: "Site para cirurgia de diástase abdominal · Goiânia",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Site",
     praca: "Goiânia/GO",
@@ -750,7 +750,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Renan R. Marangoni – Cirurgia do Aparelho Digestivo, Cirurgia Geral",
-    contexto: "E-book sobre gastrite para cirurgia do aparelho digestivo — Goiânia",
+    contexto: "E-book sobre gastrite para cirurgia do aparelho digestivo · Goiânia",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "E-book",
     praca: "Goiânia/GO",
@@ -763,7 +763,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Mariana Alcantara",
-    contexto: "Papelaria para cirurgia plástica — São Paulo",
+    contexto: "Papelaria para cirurgia plástica · São Paulo",
     espec: "Cirurgia Plástica",
     servico: "Papelaria",
     praca: "São Paulo/SP",
@@ -776,7 +776,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Rodolpho Lemes – Ortopedia e Traumatologia",
-    contexto: "Cartão virtual de endereço para ortopedista — Uruaçu",
+    contexto: "Cartão virtual de endereço para ortopedista · Uruaçu",
     espec: "Ortopedia e Traumatologia",
     servico: "Cartão virtual",
     praca: "Uruaçu/GO",
@@ -789,7 +789,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Gilvan Furtado",
-    contexto: "E-book para urologia e cirurgia robótica — Brasília",
+    contexto: "E-book para urologia e cirurgia robótica · Brasília",
     espec: "Urologia",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -802,7 +802,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Bruno Lorenção",
-    contexto: "Cartão virtual para medicina vascular — Brasília",
+    contexto: "Cartão virtual para medicina vascular · Brasília",
     espec: "Angiologia e Vascular",
     servico: "Cartão virtual",
     praca: "Brasília/DF",
@@ -815,7 +815,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Janina Huguenin",
-    contexto: "Cartão virtual para cirurgia oncológica — Rio de Janeiro",
+    contexto: "Cartão virtual para cirurgia oncológica · Rio de Janeiro",
     espec: "Oncologia",
     servico: "Cartão virtual",
     praca: "Rio de Janeiro/RJ",
@@ -828,7 +828,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Medicina da Dor",
-    contexto: "Site para clínica de medicina da dor — Araguaína",
+    contexto: "Site para clínica de medicina da dor · Araguaína",
     espec: "Medicina da Dor",
     servico: "Site",
     praca: "Araguaína/TO",
@@ -846,7 +846,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Daniela Machado",
-    contexto: "Papelaria para dermatologia, estética e saúde capilar — Brasília",
+    contexto: "Papelaria para dermatologia, estética e saúde capilar · Brasília",
     espec: "Dermatologia",
     servico: "Papelaria",
     praca: "Brasília/DF",
@@ -859,7 +859,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Hospital de Olhos do Distrito Federal",
-    contexto: "Banner sobre prevenção de glaucoma para hospital de oftalmologia — Brasília",
+    contexto: "Banner sobre prevenção de glaucoma para hospital de oftalmologia · Brasília",
     espec: "Oftalmologia",
     servico: "Banner",
     praca: "Brasília/DF",
@@ -872,7 +872,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Examine Agora – Imagem e Medicina",
-    contexto: "Site para clínica de ultrassom e diagnóstico por imagem — Recanto das Emas, Brasília",
+    contexto: "Site para clínica de ultrassom e diagnóstico por imagem · Recanto das Emas, Brasília",
     espec: "Diagnóstico por Imagem",
     servico: "Site",
     praca: "Brasília/DF",
@@ -887,7 +887,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Fernando Ferro",
-    contexto: "E-book sobre artroplastia total de quadril para ortopedia — Goiânia",
+    contexto: "E-book sobre artroplastia total de quadril para ortopedia · Goiânia",
     espec: "Ortopedia e Traumatologia",
     servico: "E-book",
     praca: "Goiânia/GO",
@@ -900,7 +900,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Homero Ribeiro",
-    contexto: "Folder sobre andrologia e medicina sexual masculina — Brasília",
+    contexto: "Folder sobre andrologia e medicina sexual masculina · Brasília",
     espec: "Urologia",
     servico: "Folder educativo",
     praca: "Brasília/DF",
@@ -913,7 +913,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Renovare – Urologia e Andrologia",
-    contexto: "Banner de Novembro Azul para clínica de urologia e andrologia — Brasília",
+    contexto: "Banner de Novembro Azul para clínica de urologia e andrologia · Brasília",
     espec: "Urologia",
     servico: "Banner",
     praca: "Brasília/DF",
@@ -926,7 +926,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Incordis",
-    contexto: "Cartão virtual para clínica de cardiologia e cirurgia vascular — Brasília",
+    contexto: "Cartão virtual para clínica de cardiologia e cirurgia vascular · Brasília",
     espec: "Cardiologia",
     servico: "Cartão virtual",
     praca: "Brasília/DF",
@@ -941,7 +941,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // (§16.6-2), uma peça por página pra cruzar as 4 e destravar o índice.
   {
     cliente: "Clínica Inspire",
-    contexto: "Portfólio impresso para clínica de otorrinolaringologia e cirurgia de cabeça e pescoço — Brasília",
+    contexto: "Portfólio impresso para clínica de otorrinolaringologia e cirurgia de cabeça e pescoço · Brasília",
     espec: "Otorrinolaringologia",
     servico: "Portfólio impresso",
     praca: "Brasília/DF",
@@ -955,7 +955,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Sense Ginecologia Ltda",
-    contexto: "Portfólio impresso para clínica de ginecologia e obstetrícia — Brasília",
+    contexto: "Portfólio impresso para clínica de ginecologia e obstetrícia · Brasília",
     espec: "Saúde da Mulher",
     servico: "Portfólio impresso",
     praca: "Brasília/DF",
@@ -969,7 +969,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica de Veias",
-    contexto: "Anúncio A3 sobre saúde vascular para clínica de angiologia e cirurgia vascular — Brasília",
+    contexto: "Anúncio A3 sobre saúde vascular para clínica de angiologia e cirurgia vascular · Brasília",
     espec: "Angiologia e Vascular",
     servico: "Anúncio",
     praca: "Brasília/DF",
@@ -984,7 +984,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // ver mapa) · Gastroenterologia · Ortopedia (completa em 7). Atribuição pela ARTE.
   {
     cliente: "IMED",
-    contexto: "Marca aplicada em sinalização de ambiente para clínica de gastroenterologia — Brasília",
+    contexto: "Marca aplicada em sinalização de ambiente para clínica de gastroenterologia · Brasília",
     espec: "Gastroenterologia",
     servico: "Sinalização",
     praca: "Brasília/DF",
@@ -998,7 +998,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Fernando Ferro",
-    contexto: "Cartão virtual para ortopedista especializado em quadril — Goiânia",
+    contexto: "Cartão virtual para ortopedista especializado em quadril · Goiânia",
     espec: "Ortopedia e Traumatologia",
     servico: "Cartão virtual",
     praca: "Goiânia/GO",
@@ -1015,7 +1015,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // Praça conferida na carteira (Porto Alegre/RS), não inferida da peça. Ver §16.9.
   {
     cliente: "Dr. Alfonso Soria",
-    contexto: "Guia de pós-operatório de túnel do carpo para ortopedista e cirurgião de mão — Porto Alegre",
+    contexto: "Guia de pós-operatório de túnel do carpo para ortopedista e cirurgião de mão · Porto Alegre",
     espec: "Ortopedia e Traumatologia",
     servico: "Guia pós-operatório",
     praca: "Porto Alegre/RS",
@@ -1033,7 +1033,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // nova de ≥2 clientes está no checar-portfolio.mjs.
   {
     cliente: "Dra. Mariana Alcantara",
-    contexto: "Portfólio virtual para cirurgia plástica — São Paulo",
+    contexto: "Portfólio virtual para cirurgia plástica · São Paulo",
     espec: "Cirurgia Plástica",
     servico: "Portfólio virtual",
     praca: "São Paulo/SP",
@@ -1046,7 +1046,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Mariana Alcantara",
-    contexto: "Cartão de visita para cirurgia plástica — São Paulo",
+    contexto: "Cartão de visita para cirurgia plástica · São Paulo",
     espec: "Cirurgia Plástica",
     servico: "Cartão de visita",
     praca: "São Paulo/SP",
@@ -1059,7 +1059,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Mariana Alcantara",
-    contexto: "Envelope institucional para cirurgia plástica — São Paulo",
+    contexto: "Envelope institucional para cirurgia plástica · São Paulo",
     espec: "Cirurgia Plástica",
     servico: "Papelaria",
     praca: "São Paulo/SP",
@@ -1074,7 +1074,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // não passa é tela de canal com contador. Aqui não há número no pixel.
   {
     cliente: "Dra. Daniela Machado",
-    contexto: "Capa de redes sociais para dermatologia, estética e saúde capilar — Brasília",
+    contexto: "Capa de redes sociais para dermatologia, estética e saúde capilar · Brasília",
     espec: "Dermatologia",
     servico: "Padronização de redes sociais",
     praca: "Brasília/DF",
@@ -1091,7 +1091,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // publicada desde o lote 1, diz "40 Anos cuidando da sua saúde". Medido, não suposto.
   {
     cliente: "Via Oftalmocenter",
-    contexto: "Outdoor de cirurgia refrativa a laser para clínica de oftalmologia — Brasília",
+    contexto: "Outdoor de cirurgia refrativa a laser para clínica de oftalmologia · Brasília",
     espec: "Oftalmologia",
     servico: "Outdoor",
     praca: "Brasília/DF",
@@ -1104,7 +1104,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Thiago Becker – Cirurgia Gástrica e Bariátrica",
-    contexto: "Landing page de jornada para pacientes de cirurgia bariátrica — Goiânia",
+    contexto: "Landing page de jornada para pacientes de cirurgia bariátrica · Goiânia",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Site",
     praca: "Goiânia/GO",
@@ -1118,7 +1118,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Policlínica Corrente",
-    contexto: "Site de clínica multidisciplinar com consultas, exames e pequenas cirurgias — Corrente",
+    contexto: "Site de clínica multidisciplinar com consultas, exames e pequenas cirurgias · Corrente",
     espec: "Clínica Médica",
     servico: "Site",
     praca: "Corrente/PI",
@@ -1131,7 +1131,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Via Oftalmocenter",
-    contexto: "Guia de marca impresso para clínica de oftalmologia — Brasília",
+    contexto: "Guia de marca impresso para clínica de oftalmologia · Brasília",
     espec: "Oftalmologia",
     servico: "Manual da marca",
     praca: "Brasília/DF",
@@ -1145,7 +1145,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Policlínica Corrente",
-    contexto: "Outdoor de corpo clínico, exames e laboratório para policlínica — Corrente",
+    contexto: "Outdoor de corpo clínico, exames e laboratório para policlínica · Corrente",
     espec: "Clínica Médica",
     servico: "Outdoor",
     praca: "Corrente/PI",
@@ -1158,7 +1158,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Renan R. Marangoni – Cirurgia do Aparelho Digestivo, Cirurgia Geral",
-    contexto: "Pasta institucional impressa para consultório de cirurgia do aparelho digestivo — Goiânia",
+    contexto: "Pasta institucional impressa para consultório de cirurgia do aparelho digestivo · Goiânia",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Papelaria institucional",
     praca: "Goiânia/GO",
@@ -1171,7 +1171,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Lúmina",
-    contexto: "Cartão de visita de clínica de ginecologia e saúde da mulher — Brasília",
+    contexto: "Cartão de visita de clínica de ginecologia e saúde da mulher · Brasília",
     espec: "Saúde da Mulher",
     servico: "Cartão de visita",
     praca: "Brasília/DF",
@@ -1184,7 +1184,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Lúmina",
-    contexto: "Receituário impresso para consultório de ginecologia — Brasília",
+    contexto: "Receituário impresso para consultório de ginecologia · Brasília",
     espec: "Saúde da Mulher",
     servico: "Papelaria institucional",
     praca: "Brasília/DF",
@@ -1197,7 +1197,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Carlos Portocarrero",
-    contexto: "E-book sobre inseminação artificial para reprodução humana — Brasília",
+    contexto: "E-book sobre inseminação artificial para reprodução humana · Brasília",
     espec: "Saúde da Mulher",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -1215,7 +1215,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // a composição publicável está no `insumos/mockup/` — §16.8.7-3.
   {
     cliente: "Incordis",
-    contexto: "Cartão de visita impresso para clínica de cardiologia — Brasília",
+    contexto: "Cartão de visita impresso para clínica de cardiologia · Brasília",
     espec: "Cardiologia",
     servico: "Cartão de visita",
     praca: "Brasília/DF",
@@ -1228,7 +1228,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Incordis",
-    contexto: "Pasta institucional para clínica de cardiologia — Brasília",
+    contexto: "Pasta institucional para clínica de cardiologia · Brasília",
     espec: "Cardiologia",
     servico: "Pasta institucional",
     praca: "Brasília/DF",
@@ -1241,7 +1241,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "CON – Clínica Oncologia Hematologia",
-    contexto: "Folder de orientação ao paciente em quimioterapia oral — Rio de Janeiro",
+    contexto: "Folder de orientação ao paciente em quimioterapia oral · Rio de Janeiro",
     espec: "Oncologia",
     servico: "Folder educativo",
     praca: "Rio de Janeiro/RJ",
@@ -1254,7 +1254,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "CLIAOD – Otorrinolaringologia",
-    contexto: "Mousepad institucional para clínica de otorrinolaringologia — Brasília",
+    contexto: "Mousepad institucional para clínica de otorrinolaringologia · Brasília",
     espec: "Otorrinolaringologia",
     servico: "Brinde institucional",
     praca: "Brasília/DF",
@@ -1267,7 +1267,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "CON – Clínica Oncologia Hematologia",
-    contexto: "Cartão de visita para clínica de oncologia e hematologia — Rio de Janeiro",
+    contexto: "Cartão de visita para clínica de oncologia e hematologia · Rio de Janeiro",
     espec: "Oncologia",
     servico: "Cartão de visita",
     praca: "Rio de Janeiro/RJ",
@@ -1280,7 +1280,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "CLIAOD – Otorrinolaringologia",
-    contexto: "Panfleto de consultas, exames e cirurgias de otorrino — Brasília",
+    contexto: "Panfleto de consultas, exames e cirurgias de otorrino · Brasília",
     espec: "Otorrinolaringologia",
     servico: "Panfleto",
     praca: "Brasília/DF",
@@ -1293,7 +1293,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Janina Huguenin",
-    contexto: "Envelope e papelaria de cirurgia oncológica — Rio de Janeiro",
+    contexto: "Envelope e papelaria de cirurgia oncológica · Rio de Janeiro",
     espec: "Oncologia",
     servico: "Papelaria",
     praca: "Rio de Janeiro/RJ",
@@ -1306,7 +1306,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Otoplus Saúde Plena – Otorrinolaringologia",
-    contexto: "Folder do exame de avaliação endoscópica da deglutição — Brasília",
+    contexto: "Folder do exame de avaliação endoscópica da deglutição · Brasília",
     espec: "Otorrinolaringologia",
     servico: "Folder educativo",
     praca: "Brasília/DF",
@@ -1319,7 +1319,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Cirúrgica Taguatinga",
-    contexto: "Folder de especialidades cirúrgicas e corpo clínico — Brasília",
+    contexto: "Folder de especialidades cirúrgicas e corpo clínico · Brasília",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Folder institucional",
     praca: "Brasília/DF",
@@ -1332,7 +1332,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Cirúrgica Taguatinga",
-    contexto: "Portfólio impresso de cirurgia e exames — Brasília",
+    contexto: "Portfólio impresso de cirurgia e exames · Brasília",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Portfólio impresso",
     praca: "Brasília/DF",
@@ -1345,7 +1345,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Meta Vita",
-    contexto: "Cartão de visita de cirurgia bariátrica e do aparelho digestivo — Pelotas",
+    contexto: "Cartão de visita de cirurgia bariátrica e do aparelho digestivo · Pelotas",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Cartão de visita",
     praca: "Pelotas/RS",
@@ -1359,7 +1359,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Thiago Hayashida",
-    contexto: "Cartão de visita de nefrologia e transplante renal — Brasília",
+    contexto: "Cartão de visita de nefrologia e transplante renal · Brasília",
     espec: "Nefrologia",
     servico: "Cartão de visita",
     praca: "Brasília/DF",
@@ -1373,7 +1373,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Flávio Viana Aleixo",
-    contexto: "Portfólio impresso de neurocirurgia e cirurgia da coluna — Rio Verde",
+    contexto: "Portfólio impresso de neurocirurgia e cirurgia da coluna · Rio Verde",
     espec: "Neurocirurgia",
     servico: "Portfólio impresso",
     praca: "Rio Verde/GO",
@@ -1387,7 +1387,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Flávio Viana Aleixo",
-    contexto: "Portfólio virtual de medicina da dor e coluna — Rio Verde",
+    contexto: "Portfólio virtual de medicina da dor e coluna · Rio Verde",
     espec: "Medicina da Dor",
     servico: "Portfólio virtual",
     praca: "Rio Verde/GO",
@@ -1408,7 +1408,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // portfólio → Saúde da Mulher.
   {
     cliente: "Maximagem",
-    contexto: "Panfleto de exames de imagem para clínica de diagnóstico — Valparaíso de Goiás",
+    contexto: "Panfleto de exames de imagem para clínica de diagnóstico · Valparaíso de Goiás",
     espec: "Diagnóstico por Imagem",
     servico: "Panfleto",
     praca: "Brasília/DF",
@@ -1422,7 +1422,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Centrus – Diagnóstico por imagem",
-    contexto: "Panfleto de exames com a rede de convênios da clínica de imagem — Taguatinga",
+    contexto: "Panfleto de exames com a rede de convênios da clínica de imagem · Taguatinga",
     espec: "Diagnóstico por Imagem",
     servico: "Panfleto",
     praca: "Brasília/DF",
@@ -1436,7 +1436,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Centrus – Diagnóstico por imagem",
-    contexto: "Adesivagem da porta principal da clínica de diagnóstico por imagem — Taguatinga",
+    contexto: "Adesivagem da porta principal da clínica de diagnóstico por imagem · Taguatinga",
     espec: "Diagnóstico por Imagem",
     servico: "Sinalização",
     praca: "Brasília/DF",
@@ -1450,7 +1450,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "CPAPS Terapia do Sono",
-    contexto: "Cartão de visita para clínica de terapia do sono — Brasília",
+    contexto: "Cartão de visita para clínica de terapia do sono · Brasília",
     espec: "Medicina do Sono",
     servico: "Cartão de visita",
     praca: "Brasília/DF",
@@ -1464,7 +1464,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Aline Mello",
-    contexto: "Portfólio impresso de ultrassonografia e medicina fetal — Ceres",
+    contexto: "Portfólio impresso de ultrassonografia e medicina fetal · Ceres",
     espec: "Saúde da Mulher",
     servico: "Portfólio impresso",
     praca: "Ceres/GO",
@@ -1478,7 +1478,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Gastrus Clínica",
-    contexto: "Panfleto educativo sobre plicoma para clínica de gastroenterologia — Taguatinga",
+    contexto: "Panfleto educativo sobre plicoma para clínica de gastroenterologia · Taguatinga",
     espec: "Gastroenterologia",
     servico: "Panfleto",
     praca: "Brasília/DF",
@@ -1492,7 +1492,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Rodrigo Cruvinel – Cirurgião Plástico",
-    contexto: "E-book sobre cirurgia plástica pós-gestacional — Brasília",
+    contexto: "E-book sobre cirurgia plástica pós-gestacional · Brasília",
     espec: "Cirurgia Plástica",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -1511,7 +1511,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // Aprovadas pelo cliente peça a peça antes de entrar; 1 peça por cliente (decisão dele).
   {
     cliente: "Clínica Sponte & Bedenken – Psiquiatria e Psicologia",
-    contexto: "Portfólio impresso de clínica de psiquiatria e psicologia — São Paulo",
+    contexto: "Portfólio impresso de clínica de psiquiatria e psicologia · São Paulo",
     espec: "Psiquiatria",
     servico: "Portfólio impresso",
     praca: "São Paulo/SP",
@@ -1525,7 +1525,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Osei Akuamoa Júnior – Urologia e Andrologia",
-    contexto: "Folder impresso sobre urologia minimamente invasiva — Brasília",
+    contexto: "Folder impresso sobre urologia minimamente invasiva · Brasília",
     espec: "Urologia",
     servico: "Folder impresso",
     praca: "Brasília/DF",
@@ -1539,7 +1539,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Heder Murari Borba",
-    contexto: "Portfólio virtual de urologista com expertise em transplante renal — Brasília",
+    contexto: "Portfólio virtual de urologista com expertise em transplante renal · Brasília",
     espec: "Urologia",
     servico: "Portfólio virtual",
     praca: "Brasília/DF",
@@ -1553,7 +1553,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Pedro Tolentino – Cirurgia de Cabeça e Pescoço",
-    contexto: "E-book sobre câncer de tireoide — Brasília",
+    contexto: "E-book sobre câncer de tireoide · Brasília",
     espec: "Cirurgia de Cabeça e Pescoço",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -1576,7 +1576,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // <title>/<h1> do site, não o slug do projeto.
   {
     cliente: "Dr. Eduardo Medeiros",
-    contexto: "Site para ortopedia e cirurgia do quadril — Mossoró",
+    contexto: "Site para ortopedia e cirurgia do quadril · Mossoró",
     espec: "Ortopedia e Traumatologia",
     servico: "Site",
     praca: "Mossoró/RN",
@@ -1590,7 +1590,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Francisco José de Carvalho",
-    contexto: "Site para ortopedia e cirurgia do joelho — Vitória",
+    contexto: "Site para ortopedia e cirurgia do joelho · Vitória",
     espec: "Ortopedia e Traumatologia",
     servico: "Site",
     praca: "Vitória/ES",
@@ -1604,7 +1604,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Hospital de Olhos Sobradinho",
-    contexto: "Site para hospital de olhos — Sobradinho, Brasília",
+    contexto: "Site para hospital de olhos · Sobradinho, Brasília",
     espec: "Oftalmologia",
     servico: "Site",
     praca: "Brasília/DF",
@@ -1618,7 +1618,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Angiomedi – Centro Integrado de Angiologia",
-    contexto: "Site para angiologia e tratamento de varizes — Brasília",
+    contexto: "Site para angiologia e tratamento de varizes · Brasília",
     espec: "Angiologia e Vascular",
     servico: "Site",
     praca: "Brasília/DF",
@@ -1632,7 +1632,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Elielma Almeida",
-    contexto: "Site para saúde da mulher e reprodução humana — Brasília",
+    contexto: "Site para saúde da mulher e reprodução humana · Brasília",
     espec: "Saúde da Mulher",
     servico: "Site",
     praca: "Brasília/DF",
@@ -1646,7 +1646,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "InMed – Instituto de Medicina e Diagnóstico",
-    contexto: "Site para clínica médica com 20 especialidades e exames — Recanto das Emas",
+    contexto: "Site para clínica médica com 20 especialidades e exames · Recanto das Emas",
     espec: "Clínica Médica",
     servico: "Site",
     praca: "Brasília/DF",
@@ -1664,7 +1664,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // As 4 peças (3 sites + 1 folder do Drive) aprovadas pelo cliente nesta sessão.
   {
     cliente: "Dra. Larissa Fouad",
-    contexto: "Site para oftalmologia e retina — Belo Horizonte",
+    contexto: "Site para oftalmologia e retina · Belo Horizonte",
     espec: "Oftalmologia",
     servico: "Site",
     praca: "Belo Horizonte/MG",
@@ -1678,7 +1678,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Marina Gressler",
-    contexto: "Site para urologia e cirurgia robótica — Porto Alegre",
+    contexto: "Site para urologia e cirurgia robótica · Porto Alegre",
     espec: "Urologia",
     servico: "Site",
     praca: "Porto Alegre/RS",
@@ -1692,7 +1692,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "UroClínica Rio",
-    contexto: "Site para clínica de urologia e cirurgia robótica — Rio de Janeiro",
+    contexto: "Site para clínica de urologia e cirurgia robótica · Rio de Janeiro",
     espec: "Urologia",
     servico: "Site",
     praca: "Rio de Janeiro/RJ",
@@ -1706,7 +1706,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Centro Digestivo de Brasília",
-    contexto: "Folder educativo de exames de endoscopia e colonoscopia — Brasília",
+    contexto: "Folder educativo de exames de endoscopia e colonoscopia · Brasília",
     espec: "Gastroenterologia",
     servico: "Folder educativo",
     praca: "Brasília/DF",
@@ -1722,7 +1722,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // do ZERO; as 7 peças aprovadas pelo cliente uma a uma nesta sessão.
   {
     cliente: "Clínica Dimas Dutra",
-    contexto: "Portfólio digital de ortodontia e odontopediatria — Brasília",
+    contexto: "Portfólio digital de ortodontia e odontopediatria · Brasília",
     espec: "Odontologia",
     servico: "Portfólio digital",
     praca: "Brasília/DF",
@@ -1736,7 +1736,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Janice Lamas Radiologia",
-    contexto: "Folder educativo de mamografia e câncer de mama — radiologia em Brasília",
+    contexto: "Folder educativo de mamografia e câncer de mama · radiologia em Brasília",
     espec: "Diagnóstico por Imagem",
     servico: "Folder educativo",
     praca: "Brasília/DF",
@@ -1750,7 +1750,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Folder de cirurgia segura — protocolo OMS explicado ao paciente",
+    contexto: "Folder de cirurgia segura · protocolo OMS explicado ao paciente",
     espec: "Hospital",
     servico: "Folder",
     praca: "Brasília/DF",
@@ -1764,7 +1764,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Donna",
-    contexto: "Cartão pré-natal de acompanhamento da gestação — Paracatu",
+    contexto: "Cartão pré-natal de acompanhamento da gestação · Paracatu",
     espec: "Saúde da Mulher",
     servico: "Cartão pré-natal",
     praca: "Paracatu/MG",
@@ -1778,7 +1778,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Rodolpho Lemes",
-    contexto: "Outdoor de ortopedia — ombro e cotovelo em Uruaçu",
+    contexto: "Outdoor de ortopedia · ombro e cotovelo em Uruaçu",
     espec: "Ortopedia e Traumatologia",
     servico: "Outdoor",
     praca: "Uruaçu/GO",
@@ -1792,7 +1792,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Visual Med Imperatriz",
-    contexto: "Folder de especialidades do centro médico integrado — Imperatriz",
+    contexto: "Folder de especialidades do centro médico integrado · Imperatriz",
     espec: "Clínica Médica",
     servico: "Folder",
     praca: "Imperatriz/MA",
@@ -1806,7 +1806,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "UROS",
-    contexto: "Folder da nova unidade de urologia em Taguatinga — robótica e oncologia",
+    contexto: "Folder da nova unidade de urologia em Taguatinga · robótica e oncologia",
     espec: "Urologia",
     servico: "Folder",
     praca: "Brasília/DF",
@@ -1824,7 +1824,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // Fernandes escolhidos na aprovação.
   {
     cliente: "Dra. Marcela De Caroli",
-    contexto: "Panfleto de cirurgia vascular e endovascular — São Paulo",
+    contexto: "Panfleto de cirurgia vascular e endovascular · São Paulo",
     espec: "Angiologia e Vascular",
     servico: "Panfleto",
     praca: "São Paulo/SP",
@@ -1838,7 +1838,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica IOT",
-    contexto: "Folder institucional de ortopedia e traumatologia — Asa Norte, Brasília",
+    contexto: "Folder institucional de ortopedia e traumatologia · Asa Norte, Brasília",
     espec: "Ortopedia e Traumatologia",
     servico: "Folder",
     praca: "Brasília/DF",
@@ -1852,7 +1852,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Murilo Almeida",
-    contexto: "Folder de cirurgia de prótese de quadril — ortopedia em Goiânia",
+    contexto: "Folder de cirurgia de prótese de quadril · ortopedia em Goiânia",
     espec: "Ortopedia e Traumatologia",
     servico: "Folder",
     praca: "Goiânia/GO",
@@ -1866,7 +1866,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Salus Ortopedia",
-    contexto: "E-book de doenças ortopédicas e tratamentos — Brasília",
+    contexto: "E-book de doenças ortopédicas e tratamentos · Brasília",
     espec: "Ortopedia e Traumatologia",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -1880,7 +1880,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Hospital Edmundo Fernandes",
-    contexto: "Portfólio digital do hospital geral de Uruaçu — Goiás",
+    contexto: "Portfólio digital do hospital geral de Uruaçu · Goiás",
     espec: "Hospital",
     servico: "Portfólio digital",
     praca: "Uruaçu/GO",
@@ -1894,7 +1894,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "MB Home Care – Assistência Médica Domiciliar",
-    contexto: "Panfleto de assistência médica domiciliar — home care em Brasília",
+    contexto: "Panfleto de assistência médica domiciliar · home care em Brasília",
     espec: "Home Care",
     servico: "Panfleto",
     praca: "Brasília/DF",
@@ -1908,7 +1908,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Tárik Jabour – Psiquiatra",
-    contexto: "E-book sobre transtornos de humor — psiquiatria em Juiz de Fora",
+    contexto: "E-book sobre transtornos de humor · psiquiatria em Juiz de Fora",
     espec: "Psiquiatria",
     servico: "E-book",
     praca: "Juiz de Fora/MG",
@@ -1922,7 +1922,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Manoel Ribeiro Jr",
-    contexto: "E-book sobre uveítes — oftalmologia em Brasília",
+    contexto: "E-book sobre uveítes · oftalmologia em Brasília",
     espec: "Oftalmologia",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -1936,7 +1936,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Mirian Helena Hoeschl Abreu",
-    contexto: "Folder de histeroscopia diagnóstica e cirúrgica — ginecologia em Brasília",
+    contexto: "Folder de histeroscopia diagnóstica e cirúrgica · ginecologia em Brasília",
     espec: "Saúde da Mulher",
     servico: "Folder",
     praca: "Brasília/DF",
@@ -1950,7 +1950,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Bem Estar",
-    contexto: "Cartaz de exames laboratoriais — laboratório de análises clínicas em Mineiros",
+    contexto: "Cartaz de exames laboratoriais · laboratório de análises clínicas em Mineiros",
     espec: "Laboratório",
     servico: "Cartaz",
     praca: "Mineiros/GO",
@@ -1964,7 +1964,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Nilse Querino – Infectologista",
-    contexto: "Portfólio impresso de infectologia — Salvador",
+    contexto: "Portfólio impresso de infectologia · Salvador",
     espec: "Infectologia",
     servico: "Portfólio impresso",
     praca: "Salvador/BA",
@@ -1978,7 +1978,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Cardio Mulher",
-    contexto: "Portfólio digital de cardiologia materno-fetal — mulheres e gestantes em Brasília",
+    contexto: "Portfólio digital de cardiologia materno-fetal · mulheres e gestantes em Brasília",
     espec: "Cardiologia",
     servico: "Portfólio digital",
     praca: "Brasília/DF",
@@ -1992,7 +1992,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Otorrino Center",
-    contexto: "Cartão virtual de otorrinolaringologista — Brasília",
+    contexto: "Cartão virtual de otorrinolaringologista · Brasília",
     espec: "Otorrinolaringologia",
     servico: "Cartão virtual",
     praca: "Brasília/DF",
@@ -2006,7 +2006,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Sinapse Neurologia",
-    contexto: "Portfólio digital de neurologia e neurocirurgia — Brasília",
+    contexto: "Portfólio digital de neurologia e neurocirurgia · Brasília",
     espec: "Neurocirurgia",
     servico: "Portfólio digital",
     praca: "Brasília/DF",
@@ -2020,7 +2020,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Pedro Rosa – Ginecologia e Obstetrícia, Histeroscopia e Reprodução Humana",
-    contexto: "Portfólio digital de ginecologia e obstetrícia — Brasília",
+    contexto: "Portfólio digital de ginecologia e obstetrícia · Brasília",
     espec: "Saúde da Mulher",
     servico: "Portfólio digital",
     praca: "Brasília/DF",
@@ -2034,7 +2034,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Rodrigo Petros – Ortopedista e Traumatologista, Ombro e Cotovelo",
-    contexto: "Portfólio digital de ortopedia, ombro e cotovelo — Rio de Janeiro",
+    contexto: "Portfólio digital de ortopedia, ombro e cotovelo · Rio de Janeiro",
     espec: "Ortopedia e Traumatologia",
     servico: "Portfólio digital",
     praca: "Rio de Janeiro/RJ",
@@ -2048,7 +2048,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Carlos Magno",
-    contexto: "Portfólio digital de cirurgia do aparelho digestivo — Uruaçu",
+    contexto: "Portfólio digital de cirurgia do aparelho digestivo · Uruaçu",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Portfólio digital",
     praca: "Uruaçu/GO",
@@ -2062,7 +2062,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Davi Heckmann",
-    contexto: "E-book sobre tratamentos para doenças vasculares — Brasília",
+    contexto: "E-book sobre tratamentos para doenças vasculares · Brasília",
     espec: "Angiologia e Vascular",
     servico: "E-book",
     praca: "Brasília/DF",
@@ -2077,7 +2077,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // Rodada 22 (2026-08-24) — Otorrino Center: card 3 do doc que já deu o card 1 (r21).
   {
     cliente: "Dr. Silvio Holenbach – Otorrinolaringologista",
-    contexto: "Cartão virtual de otorrinolaringologista — Brasília",
+    contexto: "Cartão virtual de otorrinolaringologista · Brasília",
     espec: "Otorrinolaringologia",
     servico: "Cartão virtual",
     praca: "Brasília/DF",
@@ -2093,7 +2093,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // Drive; destravadas com download manual do cliente pela interface do Docs.
   {
     cliente: "Clínica Appia",
-    contexto: "Portfólio digital para clínica de dermatologia e cirurgia plástica — Rio de Janeiro",
+    contexto: "Portfólio digital para clínica de dermatologia e cirurgia plástica · Rio de Janeiro",
     espec: "Dermatologia",
     servico: "Portfólio digital",
     praca: "Rio de Janeiro/RJ",
@@ -2107,7 +2107,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica Appia",
-    contexto: "Folder trifold impresso para clínica de dermatologia e cirurgia plástica — Rio de Janeiro",
+    contexto: "Folder trifold impresso para clínica de dermatologia e cirurgia plástica · Rio de Janeiro",
     espec: "Dermatologia",
     servico: "Folder institucional",
     praca: "Rio de Janeiro/RJ",
@@ -2121,7 +2121,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Clínica CAPELLI Bauru – Transplante Capilar",
-    contexto: "Portfólio impresso para clínica de tricologia e cirurgia capilar — Bauru",
+    contexto: "Portfólio impresso para clínica de tricologia e cirurgia capilar · Bauru",
     espec: "Dermatologia",
     servico: "Portfólio impresso",
     praca: "Bauru/SP",
@@ -2135,7 +2135,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Valter Moura – Neurologia e Eletroencefalografia",
-    contexto: "Folder trifold impresso sobre consultas em neurologia — Juazeiro do Norte",
+    contexto: "Folder trifold impresso sobre consultas em neurologia · Juazeiro do Norte",
     espec: "Neurologia",
     servico: "Folder institucional",
     praca: "Juazeiro do Norte/CE",
@@ -2149,7 +2149,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Ramon Teles – Otorrinolaringologia e Cirurgia Craniomaxilofacial",
-    contexto: "Folder trifold impresso sobre otorrinolaringologia e cirurgia crânio-maxilo-facial — Crato",
+    contexto: "Folder trifold impresso sobre otorrinolaringologia e cirurgia crânio-maxilo-facial · Crato",
     espec: "Otorrinolaringologia",
     servico: "Folder institucional",
     praca: "Crato/CE",
@@ -2163,7 +2163,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Cláudio Costa Neto",
-    contexto: "Folder trifold impresso sobre cirurgia ortopédica da coluna — Recife",
+    contexto: "Folder trifold impresso sobre cirurgia ortopédica da coluna · Recife",
     espec: "Ortopedia e Traumatologia",
     servico: "Folder institucional",
     praca: "Recife/PE",
@@ -2177,7 +2177,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "São José Gestão Ocupacional",
-    contexto: "Folder institucional para clínica de saúde ocupacional — Parauapebas",
+    contexto: "Folder institucional para clínica de saúde ocupacional · Parauapebas",
     espec: "Saúde Ocupacional",
     servico: "Folder institucional",
     praca: "Parauapebas/PA",
@@ -2195,7 +2195,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // cliente entre 2 opções mostradas (capa × diferencial/credenciais).
   {
     cliente: "Ana Laura de Souza",
-    contexto: "Portfólio digital para gerontologia — Goiânia",
+    contexto: "Portfólio digital para gerontologia · Goiânia",
     espec: "Gerontologia",
     servico: "Portfólio digital",
     praca: "Goiânia/GO",
@@ -2214,7 +2214,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // (session expired) e o link do Dropbox achado na r22 seguia bloqueado até então.
   {
     cliente: "Dr. Luciano Onofre",
-    contexto: "Portfólio digital para urologia pediátrica — São Paulo",
+    contexto: "Portfólio digital para urologia pediátrica · São Paulo",
     espec: "Urologia",
     servico: "Portfólio digital",
     praca: "São Paulo/SP",
@@ -2231,7 +2231,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // Mohamad Omairi" de carteira.ts — ver content/carteira-viva.ts.
   {
     cliente: "Dr. Mohamad Walid Omairi",
-    contexto: "Portfólio digital para cirurgia do aparelho digestivo e bariátrica — Foz do Iguaçu",
+    contexto: "Portfólio digital para cirurgia do aparelho digestivo e bariátrica · Foz do Iguaçu",
     espec: "Cirurgia do Aparelho Digestivo",
     servico: "Portfólio digital",
     praca: "Foz do Iguaçu/PR",
@@ -2248,7 +2248,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // listas — ver content/carteira-viva.ts.
   {
     cliente: "Sousa Brunelli",
-    contexto: "Cartão virtual de clínica de psiquiatria e saúde mental — Brasília",
+    contexto: "Cartão virtual de clínica de psiquiatria e saúde mental · Brasília",
     espec: "Psiquiatria",
     servico: "Cartão virtual",
     praca: "Brasília/DF",
@@ -2281,7 +2281,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // entregue no endereço final; entra quando publicar (§3.3, ausência honesta).
   {
     cliente: "ECOA Otorrinolaringologia",
-    contexto: "Site para clínica de otorrinolaringologia e doenças do ouvido — Asa Norte, Brasília",
+    contexto: "Site para clínica de otorrinolaringologia e doenças do ouvido · Asa Norte, Brasília",
     espec: "Otorrinolaringologia",
     servico: "Site",
     praca: "Brasília/DF",
@@ -2295,7 +2295,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Casa de Saúde de Remanso",
-    contexto: "Site para hospital com consultas, exames e laboratório — Remanso, Bahia",
+    contexto: "Site para hospital com consultas, exames e laboratório · Remanso, Bahia",
     espec: "Hospital",
     servico: "Site",
     praca: "Remanso/BA",
@@ -2309,7 +2309,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Carlos Portocarrero",
-    contexto: "Site para reprodução assistida e endometriose — Brasília",
+    contexto: "Site para reprodução assistida e endometriose · Brasília",
     espec: "Saúde da Mulher",
     servico: "Site",
     praca: "Brasília/DF",
@@ -2323,7 +2323,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dr. Luciano Morais",
-    contexto: "Site para cirurgia vascular, endovascular e hemodinâmica — São Lourenço, Minas Gerais",
+    contexto: "Site para cirurgia vascular, endovascular e hemodinâmica · São Lourenço, Minas Gerais",
     espec: "Angiologia e Vascular",
     servico: "Site",
     praca: "São Lourenço/MG",
@@ -2343,7 +2343,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   // centro cirúrgico não têm arte em lugar nenhum).
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "TV interna para hospital — recepção, Brasília",
+    contexto: "TV interna para hospital · recepção, Brasília",
     espec: "Hospital",
     servico: "TV interna",
     praca: "Brasília/DF",
@@ -2357,7 +2357,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "TV interna para centro de oncologia — Brasília",
+    contexto: "TV interna para centro de oncologia · Brasília",
     espec: "Oncologia",
     servico: "TV interna",
     praca: "Brasília/DF",
@@ -2371,7 +2371,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "TV interna com campanha de saúde do homem — sala de infusão, Brasília",
+    contexto: "TV interna com campanha de saúde do homem · sala de infusão, Brasília",
     espec: "Hospital",
     servico: "TV interna",
     praca: "Brasília/DF",
@@ -2385,7 +2385,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Google Ads para hospital — anúncio de busca, Brasília",
+    contexto: "Google Ads para hospital · anúncio de busca, Brasília",
     espec: "Hospital",
     servico: "Anúncio",
     praca: "Brasília/DF",
@@ -2399,7 +2399,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Totem para centro de oncologia — Fevereiro Verde, Brasília",
+    contexto: "Totem para centro de oncologia · Fevereiro Verde, Brasília",
     espec: "Oncologia",
     servico: "Totem",
     praca: "Brasília/DF",
@@ -2413,7 +2413,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Wallpaper de campanha para colaboradores de hospital — Novembro Azul, Brasília",
+    contexto: "Wallpaper de campanha para colaboradores de hospital · Novembro Azul, Brasília",
     espec: "Hospital",
     servico: "Wallpaper",
     praca: "Brasília/DF",
@@ -2427,7 +2427,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Boletim trimestral do RH para hospital — comunicação interna, Brasília",
+    contexto: "Boletim trimestral do RH para hospital · comunicação interna, Brasília",
     espec: "Hospital",
     servico: "Boletim",
     praca: "Brasília/DF",
@@ -2441,7 +2441,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Cartaz de conquista para hospital — Selo de Segurança do Paciente, Brasília",
+    contexto: "Cartaz de conquista para hospital · Selo de Segurança do Paciente, Brasília",
     espec: "Hospital",
     servico: "Cartaz",
     praca: "Brasília/DF",
@@ -2455,7 +2455,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Folder de pesquisa de satisfação para hemodinâmica — Brasília",
+    contexto: "Folder de pesquisa de satisfação para hemodinâmica · Brasília",
     espec: "Cardiologia",
     servico: "Folder",
     praca: "Brasília/DF",
@@ -2469,7 +2469,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Redes sociais para hospital — campanha de medicina hiperbárica, Brasília",
+    contexto: "Redes sociais para hospital · campanha de medicina hiperbárica, Brasília",
     espec: "Hospital",
     servico: "Redes sociais",
     praca: "Brasília/DF",
@@ -2483,7 +2483,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Anúncio de revista para hospital — página inteira, Brasília",
+    contexto: "Anúncio de revista para hospital · página inteira, Brasília",
     espec: "Hospital",
     servico: "Anúncio",
     praca: "Brasília/DF",
@@ -2497,7 +2497,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Daher Hospital Lago Sul",
-    contexto: "Redes sociais para hospital — certificação das UTIs, Brasília",
+    contexto: "Redes sociais para hospital · certificação das UTIs, Brasília",
     espec: "Hospital",
     servico: "Redes sociais",
     praca: "Brasília/DF",

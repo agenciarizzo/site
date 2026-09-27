@@ -84,8 +84,8 @@ export function Rodape({ waText, rota }: { waText?: string; rota?: string }) {
     <footer className="rodape" data-topo="claro">
       <div className="rodape-grade">
         <div className="rodape-marca">
-          <Link href="/" aria-label="Agência Rizzo — início">
-            <Image src="/logo_fundo_escuro_horizontal.png" alt="Agência Rizzo — marketing médico digital" width={176} height={22} />
+          <Link href="/" aria-label="Agência Rizzo, início">
+            <Image src="/logo_fundo_escuro_horizontal.png" alt="Agência Rizzo, marketing médico digital" width={176} height={22} />
           </Link>
           <p>
             {RODAPE.razao.map((l, i) => (
