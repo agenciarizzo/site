@@ -16,6 +16,7 @@
 // porque É o bloco RizzoOS (A4 do CLAUDE.md do site). O bloco RizzoOS da home
 // virou, na fatia 4 do handoff, cabeça (aqui) → track de telas
 // (`TelasHospital.tsx`) → lista resumida (aqui).
+import Link from "next/link";
 import { HOSPITALAR } from "@/content/hospitalar";
 import { PortaWhats } from "./Hospital";
 
@@ -81,7 +82,12 @@ export function RizzoOsHospital() {
           {r.wordmark[0]}
           <b>{r.wordmark[1]}</b>
         </h2>
-        <p>{r.lede}</p>
+        <div className="hosp-os-lede">
+          <p>{r.lede}</p>
+          <Link className="btn-linha hosp-os-conhecer" href="/rizzoos">
+            Conhecer o RizzoOS →
+          </Link>
+        </div>
       </div>
     </section>
   );

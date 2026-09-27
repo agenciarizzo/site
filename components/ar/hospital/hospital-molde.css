@@ -425,6 +425,22 @@
   color: #c9c3b6;
   text-wrap: pretty;
 }
+/* A porta pra página do RizzoOS (todo bloco de RizzoOS do site leva uma):
+   o contorno da casa, em papel sobre o navy; no hover acende no amarelo. */
+.dg.hosp .hosp-os-lede {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.dg.hosp .hosp-os-conhecer {
+  color: #ffffff;
+}
+.dg.hosp .hosp-os-conhecer:hover {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: #0f172a;
+}
 /* 10c · a lista resumida ("Resumo do RizzoOS"): só número + título por item,
    depois do track de telas — fatia 4 do handoff */
 .dg.hosp .hosp-os-resumo {

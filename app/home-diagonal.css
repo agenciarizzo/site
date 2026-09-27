@@ -3876,6 +3876,13 @@
     text-align: center;
     align-items: center;
   }
+  /* A porta pra /rizzoos fica, compacta: no palco de 100svh, o botão cheio
+     empurrava o aparelho 68px pra baixo e cortava a base dele a 375×667. */
+  .dg .os-conhecer {
+    align-self: center;
+    padding: 7px 16px;
+    font-size: 13px;
+  }
   .dg .os-caixa {
     display: flex;
     flex-direction: column;
