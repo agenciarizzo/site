@@ -4,11 +4,12 @@
 // §10.3 c/g). Faz TRÊS coisas, e nada além delas:
 //
 //  · `[data-met-track]`  o Método: por progresso do trilho, quanto da linha
-//                        está desenhado (`stroke-dashoffset` das 10 polilinhas,
-//                        a mestra e os 9 ecos a reboque), onde o ponto amarelo
-//                        está, quais vértices e números já acenderam
-//                        (`data-aceso`), o passo atual (`data-on` /
-//                        `data-passado`), o contador e a barra;
+//                        está desenhado (o `points` das 10 polilinhas — a
+//                        mestra e os 9 ecos a reboque —, a polilinha parcial
+//                        de `metTracado`), onde o ponto amarelo está, quais
+//                        vértices e números já acenderam (`data-aceso`), o
+//                        passo atual (`data-on` / `data-passado`), o contador
+//                        e a barra;
 //  · `[data-esc-track]`  a Escada: a posição de cada um dos 5 personagens, a
 //                        direção em que olham (`data-dir` → o `scale(±1,1)` do
 //                        flip), o balanço das pernas, a câmera que segue o
@@ -20,9 +21,11 @@
 //                        `Motor` da home. Os ESTADOS desse track (qual tela,
 //                        qual texto, contador, barra) são do `Motor` que já
 //                        existe — esta ilha NUNCA lê `[data-os-track]`, nem
-//                        `[data-pf-track]` (regra 2 do `checar-palco`).
+//                        `[data-pf-track]` (regra 2 do `checar-palco`); o
+//                        track das telas ela alcança pelo PAI do palco da
+//                        janela, só pra ligar e desligar a cena nele.
 //
-// QUANDO a cena liga (`data-cena-on` no track): largura ≥ 900px E sem
+// QUANDO a cena liga (`data-cena-on` nos três tracks): largura ≥ 900px E sem
 // `prefers-reduced-motion` — o mesmo `mqLargo && !mqReduz` do `MotorVoo`.
 // Fora disso ela não move NADA: os dois tracks ficam no estado EMPILHADO que o
 // HTML já entregou (a linha inteira, a escada nos patamares finais), e é o CSS
@@ -30,7 +33,7 @@
 // `lib/ar/hospital-cena.mjs` — a MESMA que o SSR usou pra desenhar o SVG —,
 // chamada por quadro com o progresso do trilho.
 //
-// Escreve ATRIBUTOS (`transform`, `cx`/`cy`, `stroke-dashoffset`, `data-*`) e
+// Escreve ATRIBUTOS (`transform`, `cx`/`cy`, `points`, `data-*`) e
 // só duas propriedades de estilo (a largura das barras e `--jan-escala`):
 // nada de `style.opacity` — assim o CSS do empilhado sempre ganha quando a cena
 // desliga. Um listener, `requestAnimationFrame`, zero re-render, zero
@@ -72,7 +75,7 @@ export function MotorHospital() {
       if (!met || prog === metProg) return;
       metProg = prog;
       const q = metQuadro(prog);
-      for (const { el, k } of metLinhas) el.setAttribute("stroke-dashoffset", (1000 * (1 - q.tracado(k))).toFixed(1));
+      for (const { el, k } of metLinhas) el.setAttribute("points", q.linhas(k));
       if (metPonto) {
         metPonto.setAttribute("cx", q.ponto[0].toFixed(1));
         metPonto.setAttribute("cy", q.ponto[1].toFixed(1));
@@ -143,6 +146,8 @@ export function MotorHospital() {
     // ── a janela das telas ──
     const jan = raiz.querySelector<HTMLElement>("[data-os-janela]");
     const palco = jan?.parentElement ?? null;
+    // o track das telas, pelo pai do palco — nunca por `[data-os-track]`
+    const telas = palco?.parentElement ?? null;
 
     const mqReduz = matchMedia("(prefers-reduced-motion: reduce)");
     const mqLargo = matchMedia("(min-width: 900px)");
@@ -176,6 +181,7 @@ export function MotorHospital() {
         cena = agora;
         liga(met, "data-cena-on", cena);
         liga(esc, "data-cena-on", cena);
+        liga(telas, "data-cena-on", cena);
         if (!cena) {
           metProg = -1;
           escProg = -1;

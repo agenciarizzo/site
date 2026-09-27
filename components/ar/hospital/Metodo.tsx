@@ -18,8 +18,8 @@
 // `MotorHospital.tsx` escreve `data-cena-on` no track — e ela só escreve com
 // ≥ 900px E sem `prefers-reduced-motion` —, e é o CSS sob `[data-cena-on]`
 // (hospital-molde.css) que esconde e posiciona. A ilha escreve ATRIBUTOS
-// (`stroke-dashoffset`, `cx`/`cy`, `data-on`/`data-passado`/`data-aceso`),
-// nunca `style`, pra o CSS do empilhado sempre ganhar quando a cena desliga.
+// (`points`, `cx`/`cy`, `data-on`/`data-passado`/`data-aceso`), nunca
+// `style`, pra o CSS do empilhado sempre ganhar quando a cena desliga.
 //
 // SSG puro: este arquivo é server component, sem diretiva de cliente; a ilha é outra.
 import type { Carta } from "@/content/cartas";
@@ -80,33 +80,30 @@ export function MetodoHospital({ c }: { c: Carta }) {
 
         <div className="hosp-met-desenho" aria-hidden>
           <svg viewBox="0 0 1000 560" preserveAspectRatio="none">
+            {/* Cada linha é a polilinha PARCIAL do seu traçado (`metTracado`),
+                não um dash: o Chrome ignora `pathLength` com
+                `non-scaling-stroke`, e o traço saía curto. */}
             {ecos.map((e) => (
               <polyline
                 key={e.k}
                 data-met-line={e.k}
-                points={e.pts}
-                pathLength={1000}
+                points={fim.linhas(e.k)}
                 fill="none"
                 stroke="#F4EFE6"
                 strokeOpacity={e.op}
                 strokeWidth={e.w}
                 strokeLinejoin="miter"
                 vectorEffect="non-scaling-stroke"
-                strokeDasharray={1000}
-                strokeDashoffset={(1000 * (1 - fim.tracado(e.k))).toFixed(1)}
               />
             ))}
             <polyline
               data-met-line={0}
-              points={P.map((p) => p.join(",")).join(" ")}
-              pathLength={1000}
+              points={fim.linhas(0)}
               fill="none"
               stroke="#FFD200"
               strokeWidth={7}
               strokeLinejoin="miter"
               vectorEffect="non-scaling-stroke"
-              strokeDasharray={1000}
-              strokeDashoffset={(1000 * (1 - fim.tracado(0))).toFixed(1)}
             />
             {vertices.map((p, i) => (
               <circle key={i} data-met-v={i} cx={p[0]} cy={p[1]} r={5} fill="#F4EFE6" />

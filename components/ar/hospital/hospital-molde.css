@@ -236,7 +236,9 @@
 .dg.hosp .hosp-lamp-pilula [aria-hidden] {
   font-size: 14px;
 }
-.dg.hosp .hosp-lamp-lendo {
+/* (`> .hosp-lamp-lendo`, e não a classe solta: a regra `> span` acima tem um
+   tipo a mais na especificidade e ganharia — as duas pílulas apareciam juntas) */
+.dg.hosp .hosp-lamp-pilula > .hosp-lamp-lendo {
   display: none;
 }
 /* a leitura: só o artigo do perfil aceso */
@@ -482,6 +484,11 @@
   .dg.hosp .hosp-os-lista li {
     grid-template-columns: 36px minmax(0, 1fr);
     gap: 12px;
+  }
+  /* a escada empilhada no estreito: caixa mais alta, senão o `slice` mostra
+     o mundo inteiro em miniatura */
+  .dg.hosp .hosp-esc-desenho {
+    height: min(100vw, 520px);
   }
   /* três prédios em 390px: a pílula quebra em vez de vazar */
   .dg.hosp .hosp-lampadas-palco {

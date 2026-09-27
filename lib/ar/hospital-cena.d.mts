@@ -8,13 +8,16 @@ export const MET_N: number;
 export const MET_ECOS: number;
 export function metGeo(): { P: Ponto[]; seg: number[]; tot: number; cum: number[] };
 export function metIndice(prog: number): number;
-export function metEcos(): { k: number; pts: string; op: number; w: number }[];
+export function metEcos(): { k: number; op: number; w: number }[];
+export function metPontos(k: number): Ponto[];
+export function metTracado(k: number, f: number): string;
 export function metQuadro(prog: number): {
   u: number;
   drawn: number;
   ponto: Ponto;
   idx: number;
   tracado: (k: number) => number;
+  linhas: (k: number) => string;
 };
 
 /* ── 06b · a Escada ── */

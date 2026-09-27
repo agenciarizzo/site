@@ -30,8 +30,9 @@
 //   7. `posEscada(t)`: `y` nunca cresce com `t` (quem sobe nunca desce) e
 //      `dir` ∈ {−1, 0, 1}.
 //   8. `metIndice`/`escIndice`: dentro de 0..n−1 e não-decrescentes no progresso.
-//   9. `metGeo().tot` = soma dos segmentos (e o mundo da escada tem os 14
-//      lances e 15 patamares do protótipo).
+//   9. `metGeo().tot` = soma dos segmentos; a polilinha parcial (`metTracado`)
+//      é a mestra inteira em f = 1 e nunca perde vértices com f (e o mundo da
+//      escada tem os 14 lances e 15 patamares do protótipo).
 //
 // Roda DEPOIS do `next build`. Vermelho quando qualquer um cai.
 import { readdirSync, readFileSync, statSync } from "fs";
@@ -47,6 +48,7 @@ import {
   metGeo,
   metIndice,
   metQuadro,
+  metTracado,
   posEscada,
 } from "../lib/ar/hospital-cena.mjs";
 
@@ -187,6 +189,15 @@ for (let i = 0; i < N; i++) {
   if (Math.abs(g.tot - soma) > 1e-9) erros.push(`hospital-cena: metGeo().tot (${g.tot}) ≠ soma dos segmentos (${soma})`);
   if (g.cum.length !== g.seg.length + 1 || Math.abs(g.cum[g.cum.length - 1] - g.tot) > 1e-9) erros.push("hospital-cena: metGeo().cum não acumula até o total");
   if (g.P.length !== MET_N + 1) erros.push(`hospital-cena: metGeo().P tem ${g.P.length} pontos, esperados ${MET_N + 1} (a partida + ${MET_N} passos)`);
+  // a polilinha parcial: inteira em f = 1 (todos os pontos da mestra), e o
+  // número de vértices nunca diminui com f
+  if (metTracado(0, 1) !== g.P.map((p) => p.join(",")).join(" ")) erros.push("hospital-cena: metTracado(0, 1) não é a mestra inteira");
+  let vAntes = 0;
+  for (let i = 0; i <= 100; i++) {
+    const v = metTracado(0, i / 100).split(" ").length;
+    if (v < vAntes) erros.push(`hospital-cena: metTracado(0, ${i / 100}) perde vértices`);
+    vAntes = v;
+  }
   const E = escGeo();
   if (E.flights.length !== ESC_K1 - ESC_K0) erros.push(`hospital-cena: ${E.flights.length} lances, esperados ${ESC_K1 - ESC_K0}`);
   if (E.landings.length !== ESC_K1 - ESC_K0 + 1) erros.push(`hospital-cena: ${E.landings.length} patamares, esperados ${ESC_K1 - ESC_K0 + 1}`);
