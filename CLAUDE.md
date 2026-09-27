@@ -139,6 +139,26 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
     (logo, h1, pano) — sem kicker, sem URL, sem CTA. Rota nova que queira a sua
     OG adiciona um `opengraph-image.tsx` de ~6 linhas; sem ele, cai na capa
     estática do `app/layout.tsx`, que segue valendo como padrão do site.
+    O desenho comporta três linhas de H1 entre o logo e o pano: H1 mais
+    comprido que isso encolhe os dois corpos juntos até caber (`escalaH1` em
+    `lib/og.tsx`, medindo pela própria fonte em `lib/og-medida.ts`), nunca
+    corta texto e nunca invade o pano. H1 que cabe sai nos 84/97px do handoff.
+12. **Texto importado passa por revisão, e travessão não entra** (cliente,
+    2026-09-27: "estamos importando erro chumbado e não corrigindo"). Doc-mapa,
+    protótipo e `data-props` trazem o texto E os erros dele: "verbatim" vale pro
+    layout, pros números e pra decisão de copy, nunca pro erro de português.
+    Todo texto que entra passa por revisão (concordância, regência, crase) no
+    mesmo PR, venha de onde vier. **Travessão (—) é proibido no texto público**
+    (corpo, alt, aria-label, title, meta, JSON-LD): no lugar dele vai a
+    pontuação que a frase pede (vírgula, dois-pontos, ponto, parênteses), nunca
+    outro traço. `scripts/checar-texto.mjs` reprova o build no travessão novo e
+    em todo erro que o cliente já apontou (`APONTADOS`, forma errada → certa:
+    correção pedida vira linha lá, no mesmo PR). O travessão que o site já tinha
+    quando a regra chegou é dívida declarada, rota a rota, em
+    `scripts/divida-travessao.json`, e só desce (`node scripts/checar-texto.mjs
+    --atualizar` depois de limpar uma página); rota nova nasce com zero.
+    Meia-risca de intervalo ("seg–sex") e a do nome registrado do cliente
+    (regra 9) não são travessão. Plano da limpeza do resto: `PARKING.md` [T-01].
 
 ## Fluxo de desenvolvimento (adaptado das regras do rizzo-os — 2026-08-07)
 
