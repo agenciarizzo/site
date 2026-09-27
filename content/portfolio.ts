@@ -2335,6 +2335,180 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "Vercel: projeto lm-dr-luciano-morais (www.drlucianomorais.com.br), último deploy de produção dpl_9cWxy9UBtS6cqJG9J7C2WzQDZpcT; repo agenciarizzo/lm-dr-luciano-morais, commit 7fdda31 (buildado do clone, next). Praça pelo cadastro do RizzoOS (São Lourenço/MG) — carteira.ts registra São Paulo/SP",
   },
+  // ── Hospital Daher, 12 peças (2026-09-27) — rizzo-os →
+  // docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md §4. Ex-cliente (2011→2023) entra pelo
+  // nome real (regra 9); a grafia é a da carteira. Cada `contexto`/`alt` foi escrito
+  // com a arte aberta (§34); onde a arte contradisse o plano, a arte venceu — o
+  // `origem` diz onde. Três são reservas do §4.1 (SIPAT, agenda cultural e placas do
+  // centro cirúrgico não têm arte em lugar nenhum).
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "TV interna para hospital — recepção, Brasília",
+    espec: "Hospital",
+    servico: "TV interna",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-tv-interna-recepcao.webp",
+    largura: 1024,
+    altura: 701,
+    alt: "TV corporativa na parede da recepção do Daher Hospital Lago Sul, com o vídeo institucional em exibição e a legenda em uma estrutura completa",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Dropbox: /Agência Rizzo/Clientes/2021/AR/sprint_2_AR_atualizacao_site/mockups/Tv/Hospital Daher TV.png (568.753 B, mockup da própria agência pro site de 2021). A ARTE atribui (§34): o lockup na tela lê daher · Hospital Lago Sul",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "TV interna para centro de oncologia — Brasília",
+    espec: "Oncologia",
+    servico: "TV interna",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-tv-interna-oncologia.webp",
+    largura: 1024,
+    altura: 768,
+    alt: "TV corporativa suspensa no teto da recepção do Centro de Oncologia e Terapia Infusional do Daher, com o vídeo institucional e a legenda garante um atendimento diferenciado",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Dropbox: /Agência Rizzo/Clientes/2021/AR/sprint_2_AR_atualizacao_site/mockups/Tv/Hospital Daher TV 1.png (1.424.156 B, mockup da própria agência pro site de 2021). A ARTE atribui (§34): o lockup na tela lê daher · Centro de Oncologia e Terapia Infusional — por isso espec Oncologia, e não Hospital como o plano previa",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "TV interna com campanha de saúde do homem — sala de infusão, Brasília",
+    espec: "Hospital",
+    servico: "TV interna",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-tv-interna-campanha-novembro-azul.webp",
+    largura: 1200,
+    altura: 818,
+    alt: "Sala de infusão do Daher Hospital Lago Sul com poltronas azuis e duas TVs exibindo as telas da campanha Novembro Azul",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Dropbox: /Agência Rizzo/Clientes/2021/AR/sprint_2_AR_atualizacao_site/mockups/Tv/Hospital Daher TV 2.png (1.396.707 B, 1280×872 → 1200px; mockup da própria agência pro site de 2021). A ARTE atribui (§34): o logo daher assina as duas telas da campanha",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Google Ads para hospital — anúncio de busca, Brasília",
+    espec: "Hospital",
+    servico: "Anúncio",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-google-ads.webp",
+    largura: 800,
+    altura: 800,
+    alt: "Mockup de notebook com o anúncio de busca do Google Ads para hospital Lago Sul, com o título Hospital Daher Lago Sul - Mais que um hospital",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Dropbox: /Agência Rizzo/Clientes/2021/AR/sprint_2_AR_atualizacao_site/mockups/Anúncio Google/anúncio_google_oncologia_hospital_daher.png (125.114 B). O NOME do arquivo diz oncologia, mas a ARTE mostra o anúncio institucional (hospitaldaher.com.br, Mais que um hospital) — espec Hospital pela arte (§34), não Oncologia como o plano previa pelo nome",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Totem para centro de oncologia — Fevereiro Verde, Brasília",
+    espec: "Oncologia",
+    servico: "Totem",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-totem-oncologia-fevereiro-verde.webp",
+    largura: 800,
+    altura: 800,
+    alt: "Mockup de totem roll-up do Daher Centro de Oncologia para o Fevereiro Verde, sobre câncer de vesícula biliar, com laço verde e telefones de contato",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Dropbox: /Agência Rizzo/Clientes/2021/AR/sprint_2_AR_atualizacao_site/mockups/peças gráficas/Daher-Centro-de-Oncologia-Totém.jpg (41.956 B, mockup da própria agência pro site de 2021). A ARTE atribui (§34): o rodapé assina daher · Centro de Oncologia",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Wallpaper de campanha para colaboradores de hospital — Novembro Azul, Brasília",
+    espec: "Hospital",
+    servico: "Wallpaper",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-wallpaper-novembro-azul.webp",
+    largura: 1200,
+    altura: 675,
+    alt: "Wallpaper do Novembro Azul do Daher Hospital Lago Sul, com laço azul, bigode e a frase sua saúde merece atenção e cuidado",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Dropbox: /Agência Rizzo/Clientes/6144125f5a83-wallpaper-novembro-azul-hospital-daher.png (1.831.632 B, 1920×1080 → 1200px). A ARTE atribui (§34): o logo daher hospital lago sul no topo",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Boletim trimestral do RH para hospital — comunicação interna, Brasília",
+    espec: "Hospital",
+    servico: "Boletim",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-boletim-rh.webp",
+    largura: 595,
+    altura: 842,
+    alt: "Primeira página do Boletim RH Daher do 4º trimestre de 2021, com as ações de outubro: Outubro Rosa e simulado de abandono no Centro de Imagem",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Drive: sprint_17_HD(I)_peca_grafica_boletim_RH_4_trimestre (export zip do Google Doc, images/image2.png, 595×842 — a resolução embutida no doc; a pasta do sprint não existe mais no Dropbox). A ARTE atribui (§34): o rodapé assina daher hospital lago sul",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Cartaz de conquista para hospital — Selo de Segurança do Paciente, Brasília",
+    espec: "Hospital",
+    servico: "Cartaz",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-selo-seguranca-do-paciente.webp",
+    largura: 596,
+    altura: 842,
+    alt: "Cartaz A4 do Hospital Daher anunciando a conquista do Selo de Segurança do Paciente 2023 da Epimed e do IBSP",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Drive: sprint_11_HD(I)_peca_grafica_selo_seguranca_paciente_u0 (export zip do Google Doc, images/image1.png — a peça A4 da dupla A4 + WhatsApp; 596×842, resolução embutida no doc). A ARTE atribui (§34): o rodapé assina daher hospital lago sul. Serviço Cartaz pela arte (é um comunicado A4), não Identidade como o plano previa",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Folder de pesquisa de satisfação para hemodinâmica — Brasília",
+    espec: "Cardiologia",
+    servico: "Folder",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-folder-hemodinamica.webp",
+    largura: 1200,
+    altura: 795,
+    alt: "Mockup do folder tríptico Pesquisa de Satisfação da Hemodinâmica do Daher Hospital Lago Sul, capa com a equipe e miolo com o questionário",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Drive: sprint_13_HD_peca_grafica_folder_hemodinamica (export zip do Google Doc, images/image2.png, 1999×1325 → 1200px). A ARTE atribui (§34): a capa assina daher hospital lago sul",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Redes sociais para hospital — campanha de medicina hiperbárica, Brasília",
+    espec: "Hospital",
+    servico: "Redes sociais",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-redes-sociais-medicina-hiperbarica.webp",
+    largura: 1200,
+    altura: 516,
+    alt: "Composição com três cartões do carrossel de Instagram sobre oxigenoterapia hiperbárica do Daher Hospital Lago Sul: capa, cicatrização de feridas e infecções ósseas",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Drive: sprint_12_HD_campanha_hiperbarica_u0 (export zip do Google Doc; cartões image5/image6/image8, 1600×1999 cada, compostos lado a lado sobre fundo papel — precedente da composição da S2 Médica). Reserva §4.1 no lugar do cronograma da SIPAT, cujo doc não traz arte. A ARTE atribui (§34): cada cartão assina daher hospital lago sul",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Anúncio de revista para hospital — página inteira, Brasília",
+    espec: "Hospital",
+    servico: "Anúncio",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-anuncio-revista.webp",
+    largura: 1200,
+    altura: 776,
+    alt: "Composição com as duas versões do anúncio de página inteira do Daher Hospital Lago Sul, mais que um hospital, um centro de hospitalidade, com fotos das instalações e os selos ONA e ISO",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Drive: sprint_13_HD_peca_grafica_anuncio_revista_u0 (export zip do Google Doc; images/image1.png e image2.png, 596×766 cada — os 2 anúncios 21×27 que o doc declara, compostos lado a lado). Reserva §4.1 no lugar da agenda cultural QualiDaher, cujo doc não traz arte. A ARTE atribui (§34): o topo assina daher · Hospital Lago Sul",
+  },
+  {
+    cliente: "Daher Hospital Lago Sul",
+    contexto: "Redes sociais para hospital — certificação das UTIs, Brasília",
+    espec: "Hospital",
+    servico: "Redes sociais",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-hospital-brasilia-redes-sociais-certificacao-uti.webp",
+    largura: 1200,
+    altura: 427,
+    alt: "Composição com três cartões do carrossel de Instagram sobre a cerimônia de entrega dos certificados UTIs Brasileiras e UTI Eficiente ao Hospital Daher Lago Sul",
+    cartas: ["rede-hospitalar"],
+    origem:
+      "Drive: sprint_10_HD_peca_grafica_certificacao_UTI_u0 (export zip do Google Doc; cartões image13/image7/image15, 1080×1080 cada, compostos lado a lado). Reserva §4.1 no lugar das placas do centro cirúrgico, cujo doc só traz miniaturas de 426×284. A ARTE atribui (§34): cada cartão assina daher hospital lago sul",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */
@@ -2399,6 +2573,13 @@ export const SERVICO_PARA_GRUPO: Record<string, Grupo> = {
   "Identidade": "Identidade",
   "Papelaria institucional": "Identidade",
   "Portfólio virtual": "Redes",
+  // Comunicação interna de hospital (Daher, 2026-09-27 — rizzo-os →
+  // docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md §4.2): a tabela nasceu do vocabulário
+  // de clínica e não tinha balde pra TV interna, boletim, totem e wallpaper.
+  "TV interna": "Vídeo",
+  "Boletim": "Impresso",
+  "Totem": "Mídia externa",
+  "Wallpaper": "Outro",
 };
 
 /** O balde da peça. Serviço fora da tabela quebra o render de propósito — o
