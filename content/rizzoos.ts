@@ -178,3 +178,161 @@ export const BLOCOS: Bloco[] = [
     ],
   },
 ];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PROTÓTIPO v3 — "voo de cruzeiro" (rizzo-os → docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md
+// §7, Fatia 3; desenho em `design_handoff_site_rizzo_v2/Pagina - RizzoOS v3.dc.html`).
+//
+// ADITIVO: nada acima desta linha mudou. `BLOCOS` continua sendo a fonte das
+// frases (seção 03 do v3) — o §7.2-b do mapa manda "o resto fica como está".
+// O que entra aqui é copy LITERAL do protótipo, e só onde o repo não tinha nada
+// pra pôr no lugar (herói, as 7 legendas do filme, a tese curta, o ciclo, o
+// combinado, o preço, a franqueza e a FAQ visível). Nada inventado: o que o
+// protótipo não escreve, esta página não diz.
+//
+// ⚠️ Desvio medido do plano (§8 do mapa): o §7.1-4 dizia que PITCH/CICLO/FAQ "já
+// existem" — o IMPORTACAO.md provou v3 = v2 (os dois PROTÓTIPOS), não v3 = repo.
+// Este arquivo nunca teve PITCH, CICLO nem FAQ; eles entram agora.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** O herói do v3. `titulo` + `destaque` são as duas metades do MESMO H1 — a
+ *  página renderiza as duas numa linha só; a OG (`app/rizzoos/opengraph-image.tsx`)
+ *  lê daqui, então o cartão do WhatsApp e a página não têm como divergir. */
+export const HERO_OS = {
+  // 42 + " | Agência Rizzo" (16) = 58 renderizados — dentro do teto de 60.
+  title: "RizzoOS — seu marketing em voo de cruzeiro",
+  // ⚠️ O protótipo escreve 211 caracteres, e o `checar-navegacao` reprova acima
+  // de 180. Recorte LITERAL: sai só a última frase ("Como a Agência Rizzo
+  // trabalha, tela por tela."), que já é o kicker do herói — 164 caracteres.
+  description:
+    "Aprovar do celular entre consultas, verba de anúncio à vista e no seu nome, campanha que você pausa quando a agenda lota, o ano escrito e o número que chega sozinho.",
+  kicker: "Como a agência trabalha, tela por tela",
+  titulo: "Seu marketing",
+  destaque: "em voo de cruzeiro",
+  lead: "Planejar o ano, produzir, aprovar, publicar no horário, anunciar e medir: tudo isso acontece num lugar só. Você entra pelo celular, no seu tempo, pra decidir e acompanhar.",
+} as const;
+
+/** As 7 telas do filme (`PITCH` do protótipo): a legenda de cada uma e o nome da
+ *  tela que aparece na barra do mock e no contador. O DESENHO de cada tela mora
+ *  em `components/ar/rizzoos/TelasOs.tsx` — é template, não conteúdo. */
+export const PITCH: { t: string; d: string; tela: string }[] = [
+  {
+    t: "CFM é trava, não revisão",
+    d: "Toda legenda é conferida antes de entrar na fila: promessa de resultado, antes-e-depois e preço de procedimento não passam. Se algo barra, a peça volta pra refação antes de chegar em você.",
+    tela: "Aprovação",
+  },
+  {
+    t: "Aprova do celular entre consultas",
+    d: "O aviso chega no seu celular. Você aprova num toque ou desenha em cima da arte o que quer mudar. Sem anexo, sem procurar a versão certa no e-mail.",
+    tela: "Aprovação",
+  },
+  {
+    t: "A verba é sua e está à vista",
+    d: "O dinheiro do anúncio sai de você direto pro Google, separado do honorário da agência. Boleto e nota ficam no seu nome; saldo e gasto aparecem ao vivo, campanha por campanha.",
+    tela: "Verba de mídia",
+  },
+  {
+    t: "Agenda lotou, você pausa a campanha",
+    d: "Cada especialidade anunciada tem um interruptor no seu acesso. Encheu a agenda, você pausa; abriu vaga, liga de novo. O gasto do dia acompanha na mesma tela.",
+    tela: "Campanhas",
+  },
+  {
+    t: "O ano escrito e o número que chega sozinho",
+    d: "O ano inteiro fica combinado peça por peça, com dia e hora. O que foi ao ar carrega o link; o que voltou chega em número lido direto da fonte, com um resumo escrito em cima.",
+    tela: "Calendário · Relatórios",
+  },
+  {
+    t: "A mesma peça nas redes, no site e na TV",
+    d: "Aprovou uma vez, vai pra todos os destinos combinados: redes, site e a TV da recepção, ligada por um link. No fim do mês você sabe o que ficou no ar e por quanto tempo.",
+    tela: "TV Corporativa",
+  },
+  {
+    t: "Seu corpo clínico não é banco de imagem",
+    d: "Cada profissional tem ficha própria: nome, especialidade, registro e as fotos dele. Quando o tema é da especialidade dele, é ele que entra na peça. Imagem gerada só entra com o aceite dele, e o aceite é por médico.",
+    tela: "Minha equipe · Corpo clínico",
+  },
+];
+
+/** Título da seção 03 — o mesmo `h2` que a página já tinha. As frases são `BLOCOS`. */
+export const FRASES_TITULO = "Se você já disse alguma destas frases";
+
+/** A tese, na forma curta do v3 (seção 05). */
+export const TESE = {
+  kicker: "A tese",
+  titulo: "Marketing de clínica raramente morre de falta de ideia.",
+  texto:
+    "Morre no meio do caminho: o post parado esperando aprovação, o anúncio que gastou no fim de semana sem ninguém olhar, o relatório que chega tarde e não é aberto.",
+} as const;
+
+export const CICLO_TITULO = "O ciclo, todo mês";
+export const CICLO: { t: string; d: string }[] = [
+  { t: "Combinar o ano", d: "Peça por peça, com dia e hora, antes da primeira publicação." },
+  { t: "Produzir", d: "Arte e legenda na sua identidade, conferidas antes de chegar em você." },
+  { t: "Aprovar do celular", d: "Um toque, ou um desenho em cima da arte. Fica registrado quem aprovou e quando." },
+  { t: "Publicar na hora", d: "Redes, site e TV da recepção. Quem publica é o sistema, no horário combinado." },
+  { t: "Medir e voltar", d: "O número chega sozinho, lido da fonte, e pauta o mês seguinte." },
+];
+
+export const COMBINADO_TITULO = "O combinado é o que vai ao ar";
+export const COMBINADO: { t: string; d: string }[] = [
+  {
+    t: "No dia e na hora marcados",
+    d: "Na hora combinada, quem publica é o sistema. Se passar da hora, ele reagenda em vez de sair fora de hora.",
+  },
+  {
+    t: "Uma vez só",
+    d: "O mesmo post não aparece duas vezes no seu perfil, nem quando dois processos disputam o mesmo horário.",
+  },
+  { t: "Inteiro", d: "A peça sai como foi aprovada: arte, legenda, responsável técnico e aviso legal." },
+  {
+    t: "Na conta certa",
+    d: "Antes de entrar na fila, o sistema confere a conta conectada e o texto. Se o perfil não é o seu, avisa antes de sair.",
+  },
+];
+
+/** O preço aberto (seção 08) — peso 200 + span 600, como o `#h-cta` do v3. */
+export const PRECO = {
+  titulo: "Quanto custa",
+  acento: "o que a sua clínica precisa?",
+  texto:
+    "Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote na hora, com o preço aberto.",
+} as const;
+
+/** A franqueza (seção 09) — o mesmo texto que a página já tinha, palavra por palavra. */
+export const FRANQUEZA = {
+  titulo: "O RizzoOS não se contrata sozinho",
+  paragrafos: [
+    "Ele não é um sistema que você assina e opera por conta. Existe dentro do trabalho da agência: quem toca o dia a dia é o time, e você entra pra decidir, aprovar e acompanhar — no seu tempo, do celular.",
+    "Se o que você procura é uma ferramenta pra sua equipe interna tocar o marketing sozinha, não é o nosso caso — e a gente prefere dizer isso agora, não depois de seis meses.",
+    "E nenhuma tela substitui o trabalho: a plataforma organiza, publica e mede. Quem constrói autoridade é a constância do que você tem a dizer, mês após mês.",
+  ],
+} as const;
+
+/**
+ * A FAQ VISÍVEL do v3 (seção 10). ⚠️ SEM schema `FAQPage` — o protótipo pede, o
+ * mapa proíbe (§7.1-5): não há pergunta literal do Search Console pra este tema,
+ * e FAQ marcada sem lastro de busca é o antipadrão do §17.4. A página mostra as
+ * perguntas; o `<head>` não as anuncia.
+ */
+export const FAQ_OS: { q: string; a: string }[] = [
+  {
+    q: "É um sistema que eu contrato e uso sozinho?",
+    a: "Não. Ele existe dentro do trabalho da agência: quem toca o dia a dia é o time, e você entra pra decidir, aprovar e acompanhar. O acesso vem junto com o trabalho, não se vende separado.",
+  },
+  {
+    q: "Preciso instalar alguma coisa pra aprovar?",
+    a: "Não. O aviso chega no seu celular e você aprova no navegador, com o seu acesso. Se algo precisa mudar, desenha o ajuste em cima da própria arte.",
+  },
+  {
+    q: "A verba do anúncio passa pela agência?",
+    a: "Não. O pagamento sai de você direto pro Google, separado do honorário da agência. Boleto e nota fiscal ficam no seu nome, e o gasto aparece ao vivo, campanha por campanha.",
+  },
+  {
+    q: "E se um médico da clínica não quiser imagem gerada por computador?",
+    a: "O consentimento é por médico e funciona como trava: sem o aceite dele, a peça daquele médico só usa as fotos dele. A escolha fica registrada na ficha do profissional.",
+  },
+  {
+    q: "Quem responde quando algo dá errado no fim de semana?",
+    a: "Sábado, domingo e feriado a fila publica igual e o alerta de verba dispara igual. E quando precisa ser gente, alguém da agência recebe pelo WhatsApp e encaminha.",
+  },
+];
