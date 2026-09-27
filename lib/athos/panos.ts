@@ -86,7 +86,6 @@ export const ROTAS_COM_PANO: readonly string[] = [
   "/clientes",
   "/portfolio",
   "/sobre",
-  "/rizzoos",
   "/contato",
   "/politica-privacidade",
   ...CARTAS.map((c) => `/cartas/${c.slug}`),
