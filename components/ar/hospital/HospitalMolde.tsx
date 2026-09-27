@@ -48,7 +48,8 @@ import { historicoHospitalar, numerosHospitalares, pecasHospitalares } from "@/l
 import { HeroHospital, HospitalPoster, HistoricoHospital, FaqHospital, QuandoNaoHospital } from "./Hospital";
 import { ProsaPosicao, MetodoHospital } from "./Metodo";
 import { Escada } from "./Escada";
-import { Frentes, Transversal, Perfis, RizzoOsHospital, RizzoOsLista, ChamadaHospital, CtaHospital } from "./Frentes";
+import { Frentes, Transversal, RizzoOsHospital, RizzoOsLista, ChamadaHospital, CtaHospital } from "./Frentes";
+import { Perfis } from "./PerfisPalco";
 import { TelasRizzoOsHospital } from "./TelasHospital";
 import { MotorHospital } from "./MotorHospital";
 import { PortfolioHospital } from "./PortfolioHospital";

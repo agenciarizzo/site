@@ -58,18 +58,6 @@
   max-width: 640px;
 }
 
-/* A linha de prova: o que a casa fez, com nome público. Cinza e menor que o
-   texto da frente — é lastro, não argumento. */
-.dg.hosp .hosp-prova {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--cinza-neutro);
-  border-left: 2px solid var(--linha-bege);
-  padding-left: 14px;
-  text-wrap: pretty;
-}
-
 /* ──────────────────────────────────────────────── 06 · as frentes ────────── */
 
 .dg.hosp .hosp-frentes {
@@ -114,20 +102,163 @@
   flex-direction: column;
   gap: 48px;
 }
-.dg.hosp .hosp-perfis-grade {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: 24px;
+/* O PALCO DAS LÂMPADAS (fatia 4 do handoff, §10.1 07): três pendentes, três
+   pictogramas; o clique acende o cone e revela o perfil. O estado é o RADIO
+   (`:checked ~`, decisão b): os três `<input>` vêm antes do palco e da
+   leitura no DOM, e tudo o que muda — cor do prédio, das janelas, cone,
+   bulbo, sombra, título, pílula, o artigo visível — é regra abaixo. */
+.dg.hosp .hosp-perfis-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
 }
-.dg.hosp .hosp-perfis-grade article {
-  background: var(--papel);
-  border: 1px solid var(--linha-bege);
-  padding: 28px;
+.dg.hosp .hosp-perfis-linha .cid-mono {
+  color: var(--cinza-texto);
+}
+.dg.hosp .hosp-lampadas {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 48px;
 }
-.dg.hosp .hosp-perfis-grade h3 {
+/* o radio fica fora da vista, não fora do teclado */
+.dg.hosp .hosp-perfil-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.dg.hosp .hosp-lampadas-palco {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  margin-top: -24px;
+}
+.dg.hosp .hosp-lampada {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0 0 8px;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: inherit;
+  font: inherit;
+  transition: transform 0.35s ease;
+}
+.dg.hosp .hosp-lampada:hover {
+  transform: translateY(-6px);
+}
+.dg.hosp .hosp-lampada svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.dg.hosp .hosp-lampada [data-par] {
+  will-change: transform;
+}
+/* apagado: prédio pedra, janelas areia, sem cone, bulbo a .35, sombra a .07 */
+.dg.hosp .hosp-lamp-cone {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.dg.hosp .hosp-lamp-bulbo {
+  opacity: 0.35;
+  transition: opacity 0.5s ease;
+}
+.dg.hosp .hosp-lamp-sombra {
+  opacity: 0.07;
+  transition: opacity 0.5s ease;
+}
+.dg.hosp .hosp-lamp-cor {
+  fill: #b7b0a3;
+  transition: fill 0.5s ease;
+}
+.dg.hosp .hosp-lamp-jan {
+  fill: var(--bege);
+  transition: fill 0.5s ease;
+}
+.dg.hosp .hosp-lamp-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--cinza-neutro);
+  transition: color 0.4s;
+}
+.dg.hosp .hosp-lamp-titulo {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(15px, 1.6vw, 22px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--cinza-neutro);
+  text-wrap: balance;
+  text-align: center;
+  padding: 0 8px;
+  transition: color 0.4s;
+}
+.dg.hosp .hosp-lamp-pilula {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid #b7b0a3;
+  background: transparent;
+  color: var(--cinza-texto);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.4s, color 0.4s, border-color 0.4s;
+}
+.dg.hosp .hosp-lamp-pilula > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.dg.hosp .hosp-lamp-pilula [aria-hidden] {
+  font-size: 14px;
+}
+.dg.hosp .hosp-lamp-lendo {
+  display: none;
+}
+/* a leitura: só o artigo do perfil aceso */
+.dg.hosp .hosp-perfis-leitura {
+  position: relative;
+  min-height: 120px;
+  max-width: 860px;
+}
+.dg.hosp .hosp-perfis-leitura article {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--papel);
+  border-left: 4px solid var(--amarelo);
+  padding: 24px 28px;
+}
+.dg.hosp .hosp-perfil-rot {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #6b7580;
+}
+.dg.hosp .hosp-perfis-leitura h3 {
   margin: 0;
   font-weight: 700;
   font-size: 22px;
@@ -136,12 +267,126 @@
   color: var(--chumbo);
   text-wrap: balance;
 }
-.dg.hosp .hosp-perfis-grade p {
+.dg.hosp .hosp-perfis-leitura p {
   margin: 0;
   font-size: 15px;
   line-height: 1.55;
   color: var(--cinza-texto);
   text-wrap: pretty;
+}
+.dg.hosp .hosp-perfil-prova {
+  font-size: 14px;
+  color: #6b7580;
+  border-left: 2px solid var(--linha-bege);
+  padding-left: 14px;
+}
+/* perfil 1 aceso */
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-cone,
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-bulbo {
+  opacity: 1;
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-sombra {
+  opacity: 0.18;
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-cor {
+  fill: var(--chumbo);
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-jan {
+  fill: var(--amarelo);
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-num,
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-titulo {
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-pilula {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-ler {
+  display: none;
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-lendo {
+  display: inline-flex;
+}
+.dg.hosp #perfil-1:checked ~ .hosp-perfis-leitura article[data-perfil="1"] {
+  display: flex;
+}
+.dg.hosp #perfil-1:focus-visible ~ .hosp-lampadas-palco [data-perfil="1"] {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
+}
+/* perfil 2 aceso */
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-cone,
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-bulbo {
+  opacity: 1;
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-sombra {
+  opacity: 0.18;
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-cor {
+  fill: var(--chumbo);
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-jan {
+  fill: var(--amarelo);
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-num,
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-titulo {
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-pilula {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-ler {
+  display: none;
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-lendo {
+  display: inline-flex;
+}
+.dg.hosp #perfil-2:checked ~ .hosp-perfis-leitura article[data-perfil="2"] {
+  display: flex;
+}
+.dg.hosp #perfil-2:focus-visible ~ .hosp-lampadas-palco [data-perfil="2"] {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
+}
+/* perfil 3 aceso */
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-cone,
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-bulbo {
+  opacity: 1;
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-sombra {
+  opacity: 0.18;
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-cor {
+  fill: var(--chumbo);
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-jan {
+  fill: var(--amarelo);
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-num,
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-titulo {
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-pilula {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-ler {
+  display: none;
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-lendo {
+  display: inline-flex;
+}
+.dg.hosp #perfil-3:checked ~ .hosp-perfis-leitura article[data-perfil="3"] {
+  display: flex;
+}
+.dg.hosp #perfil-3:focus-visible ~ .hosp-lampadas-palco [data-perfil="3"] {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
 }
 
 /* ────────────────────────────────────────────────── 10 · RizzoOS ─────────── */
@@ -238,7 +483,16 @@
     grid-template-columns: 36px minmax(0, 1fr);
     gap: 12px;
   }
-  .dg.hosp .hosp-perfis-grade article {
+  /* três prédios em 390px: a pílula quebra em vez de vazar */
+  .dg.hosp .hosp-lampadas-palco {
+    gap: 4px;
+  }
+  .dg.hosp .hosp-lamp-pilula {
+    white-space: normal;
+    text-align: center;
+    padding: 6px 10px;
+  }
+  .dg.hosp .hosp-perfis-leitura article {
     padding: 20px;
   }
 }

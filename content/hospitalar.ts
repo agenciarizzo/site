@@ -180,6 +180,12 @@ export const HOSPITALAR = {
     h2: "De policlínica a grande hospital",
     /** O 1º parágrafo da intro é o `posicao[3]` do registro da carta (verbatim). */
     intro: "Sem pacote pronto: o escopo sai das frentes que a instituição precisa.",
+    /* ── o palco das lâmpadas (fatia 4 do handoff), literais do protótipo v3 ── */
+    linha: "Três perfis, três leituras · clique em um prédio para ler o dele",
+    /** A pílula de cada prédio: parado / acesa. */
+    pilula: { ler: "Ler o perfil", lendo: "Lendo este perfil" },
+    /** O rótulo mono do artigo aberto ("Perfil 02 / 03"). */
+    rotuloArtigo: "Perfil",
     itens: [
       {
         titulo: "Policlínica",

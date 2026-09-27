@@ -1,5 +1,6 @@
-// Os blocos que só existem na página de hospital — as Frentes, os Perfis, o
-// bloco RizzoOS do hospital, as duas chamadas intermediárias e o CTA final.
+// Os blocos que só existem na página de hospital — as Frentes, o bloco
+// RizzoOS do hospital (cabeça e lista), as duas chamadas intermediárias e o
+// CTA final. (Os Perfis moram em `PerfisPalco.tsx` desde a fatia 4 do handoff.)
 // Plano: rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md §11.4 · §11.5 · §11.6 ·
 // §11.9 · §11.11.
 //
@@ -16,7 +17,6 @@
 // virou, na fatia 4 do handoff, cabeça (aqui) → track de telas
 // (`TelasHospital.tsx`) → lista resumida (aqui).
 import { HOSPITALAR } from "@/content/hospitalar";
-import type { Carta } from "@/content/cartas";
 import { PortaWhats } from "./Hospital";
 
 /* ──────────────────────────────────────────────────────── 06 · as frentes ── */
@@ -59,43 +59,6 @@ export function Transversal() {
   return (
     <section className="hosp-transversal-sec" data-topo="escuro">
       <p className="hosp-transversal">{HOSPITALAR.frentes.transversal}</p>
-    </section>
-  );
-}
-
-/* ────────────────────────────────────────────────────────────── 07 · perfis ── */
-
-/**
- * De policlínica a grande hospital. A intro abre com o parágrafo que o registro
- * da carta já publicava sobre o hospital de um dono só (`posicao[3]`, verbatim)
- * e fecha com a frase do escopo. O terceiro perfil fala de CAPACIDADE e não
- * nomeia ninguém (D6) — a página não promete cliente que não tem.
- */
-export function Perfis({ c }: { c: Carta }) {
-  const p = HOSPITALAR.perfis;
-  return (
-    <section className="hosp-perfis" aria-labelledby="h-perfis" data-topo="escuro">
-      <div className="hosp-cabeca">
-        <div>
-          <p className="rot">{p.rotulo}</p>
-          <h2 id="h-perfis" className="h2" data-reveal>
-            {p.h2}
-          </h2>
-        </div>
-        <div>
-          <p className="cid-prosa">{c.posicao[3]}</p>
-          <p className="cid-prosa">{p.intro}</p>
-        </div>
-      </div>
-      <div className="hosp-perfis-grade">
-        {p.itens.map((item) => (
-          <article key={item.titulo}>
-            <h3>{item.titulo}</h3>
-            <p>{item.texto}</p>
-            {item.prova && <p className="hosp-prova">{item.prova}</p>}
-          </article>
-        ))}
-      </div>
     </section>
   );
 }
