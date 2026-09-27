@@ -12,6 +12,10 @@
 //
 // §44.21-5: a aprovação é "aviso no celular, aprovação no RizzoOS" — nunca
 // "aprovação pelo WhatsApp".
+//
+// Todo bloco de RizzoOS do site leva a porta pra página dele (/rizzoos) — pedido
+// do cliente em 2026-09-27; o `OsBlock` legado já fazia isso.
+import Link from "next/link";
 import { OS_ITENS, OS_CABECA } from "@/content/home";
 import { Telas } from "./Telas";
 
@@ -36,6 +40,9 @@ export function RizzoOS() {
                 <span className="leve">{OS_CABECA.h2b}</span>
               </h2>
               <p className="os-lede">{OS_CABECA.lede}</p>
+              <Link className="btn-linha os-conhecer" href="/rizzoos">
+                Conhecer o RizzoOS →
+              </Link>
             </div>
 
             <div className="os-caixa">

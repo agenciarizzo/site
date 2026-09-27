@@ -253,8 +253,126 @@ export const PITCH: { t: string; d: string; tela: string }[] = [
   },
 ];
 
-/** Título da seção 03 — o mesmo `h2` que a página já tinha. As frases são `BLOCOS`. */
+/** Título da seção 03 — o mesmo `h2` que a página já tinha. */
 export const FRASES_TITULO = "Se você já disse alguma destas frases";
+
+/**
+ * As frases da seção 03, no v3 (`TEMAS` do protótipo, literal): 5 temas × 4 cards,
+ * resposta curta. Substituem `BLOCOS` na página por decisão do cliente (F3 da
+ * Fatia 4, 2026-09-27: "a versão do avião era pra substituir a atual toda").
+ * `BLOCOS` fica acima sem consumidor, com os outros órfãos do v3, até a validação
+ * em produção (rizzo-os → docs/ROADMAP.md §Pós-entrega).
+ */
+export const TEMAS: { t: string; cartas?: { h: string; l: string }[]; cards: { f: string; r: string }[] }[] = [
+  {
+    t: "Some, atrasa, e você fica sem saber",
+    cards: [
+      {
+        f: "Minha agência atrasa.",
+        r: "O ano está combinado peça por peça, com dia e hora. Na hora marcada, quem publica é o sistema.",
+      },
+      {
+        f: "Minha agência some.",
+        r: "Você abre o aplicativo e vê o que foi ao ar, o que vem esta semana e o que está esperando você.",
+      },
+      {
+        f: "Minha agência some no fim de semana.",
+        r: "Sábado, domingo e feriado a fila publica igual e o alerta de verba dispara igual.",
+      },
+      {
+        f: "Minha agência não tem alerta nenhum.",
+        r: "Verba acabando, queda de desempenho, peça travada: o aviso sai antes, não no relatório seguinte.",
+      },
+    ],
+  },
+  {
+    t: "Aprovar virou trabalho — e trabalho seu",
+    cards: [
+      {
+        f: "A peça chega por e-mail e aprovar é um sofrimento.",
+        r: "No celular: um toque pra aprovar e, se algo precisa mudar, você desenha em cima da própria arte.",
+      },
+      {
+        f: "Minha agência me manda cronograma em Excel.",
+        r: "O calendário do ano é uma tela, não uma planilha — a mesma onde você aprova.",
+      },
+      {
+        f: "Não existe um diretório com o que já foi feito pra mim.",
+        r: "Tudo o que foi produzido fica guardado, organizado e pronto pra baixar quando você precisar.",
+      },
+      {
+        f: "Ninguém sabe dizer quem aprovou aquilo.",
+        r: "Quem aprovou o quê, e quando, fica registrado. Não depende da memória de ninguém.",
+      },
+    ],
+  },
+  {
+    t: "O dinheiro do anúncio é seu — e tem que estar à vista",
+    cartas: [{ h: "/cartas/google-ads", l: "o que pensamos de Google Ads" }, { h: "/cartas/meta-ads", l: "o que pensamos de Meta Ads" }],
+    cards: [
+      {
+        f: "Minha agência não me mostra os gastos.",
+        r: "Saldo e gasto aparecem ao vivo, campanha por campanha — não uma vez por mês, num slide.",
+      },
+      {
+        f: "Não recebo nota fiscal do que foi investido no Google.",
+        r: "A verba não passa pela agência: sai de você direto pro Google. Boleto e nota ficam no seu nome.",
+      },
+      {
+        f: "Minha agência só me traz boa notícia.",
+        r: "O painel tem vermelho. Queda e verba acabando viram aviso antecipado, não assunto do mês seguinte.",
+      },
+      {
+        f: "Minha agência quer a senha das minhas contas.",
+        r: "A conexão é por autorização, e o segredo fica no servidor. As contas continuam suas.",
+      },
+    ],
+  },
+  {
+    t: "A sua marca e o seu corpo clínico não são banco de imagem",
+    cartas: [{ h: "/cartas/redes-sociais", l: "o que pensamos de redes sociais" }],
+    cards: [
+      {
+        f: "Minha agência troca as fotos do meu corpo clínico.",
+        r: "Cada profissional tem ficha própria com as fotos dele. Tema da especialidade dele, é ele que entra na peça.",
+      },
+      {
+        f: "Já disse que não quero imagem gerada, e usam mesmo assim.",
+        r: "O consentimento é por médico e é trava: sem o aceite, a peça daquele médico só usa as fotos dele.",
+      },
+      {
+        f: "Escrevem coisa que o CFM não permite.",
+        r: "Toda legenda é conferida antes de ir ao ar: promessa, antes-e-depois e preço de procedimento não passam.",
+      },
+      {
+        f: "Minha agência já trocou publicação de cliente.",
+        r: "Antes de entrar na fila, o sistema confere a conta conectada e o texto. Se o perfil não é o seu, avisa.",
+      },
+    ],
+  },
+  {
+    t: "O que fica de fora quando a agência só olha o anúncio",
+    cartas: [{ h: "/cartas/site-seo", l: "o que pensamos de site e SEO" }, { h: "/cartas/tv-corporativa", l: "o que pensamos de TV corporativa" }, { h: "/cartas/video", l: "o que pensamos de vídeo" }],
+    cards: [
+      {
+        f: "Cuidam dos anúncios, mas não mexem no meu site.",
+        r: "Todo mês tem manutenção de cada canal, inclusive o site — e ela chega pra você aprovar como um post.",
+      },
+      {
+        f: "Minha agência publica só no Instagram.",
+        r: "A mesma peça aprovada vai pro Instagram (feed, story, reels e carrossel), Facebook, YouTube, TikTok, LinkedIn, Google Meu Negócio, WordPress e o site da nova geração.",
+      },
+      {
+        f: "A TV da recepção passa o mesmo vídeo há anos.",
+        r: "A tela da recepção vira canal por um link, com prova do que ficou no ar e por quanto tempo.",
+      },
+      {
+        f: "Comentário e avaliação ficam sem resposta.",
+        r: "Caem num lugar só, com a resposta rascunhada na sua voz pra você aprovar ou reescrever.",
+      },
+    ],
+  },
+];
 
 /** A tese, na forma curta do v3 (seção 05). */
 export const TESE = {

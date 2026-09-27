@@ -58,18 +58,6 @@
   max-width: 640px;
 }
 
-/* A linha de prova: o que a casa fez, com nome público. Cinza e menor que o
-   texto da frente — é lastro, não argumento. */
-.dg.hosp .hosp-prova {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--cinza-neutro);
-  border-left: 2px solid var(--linha-bege);
-  padding-left: 14px;
-  text-wrap: pretty;
-}
-
 /* ──────────────────────────────────────────────── 06 · as frentes ────────── */
 
 .dg.hosp .hosp-frentes {
@@ -96,48 +84,6 @@
   color: var(--chumbo);
   text-wrap: pretty;
 }
-.dg.hosp .hosp-frentes-lista {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
-  gap: 0 64px;
-  border-top: 1px solid var(--linha-bege);
-}
-.dg.hosp .hosp-frentes-lista li {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
-  gap: 16px;
-  padding: 26px 0;
-  border-bottom: 1px solid var(--linha-bege);
-}
-.dg.hosp .hosp-frentes-lista .cifra {
-  font-size: 13px;
-  color: var(--cinza-neutro);
-  padding-top: 4px;
-}
-.dg.hosp .hosp-frentes-lista li > div {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.dg.hosp .hosp-frentes-lista h3 {
-  margin: 0;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: var(--chumbo);
-  text-wrap: balance;
-}
-.dg.hosp .hosp-frentes-lista p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--cinza-texto);
-  text-wrap: pretty;
-}
 .dg.hosp .hosp-transversal {
   margin: 0;
   max-width: 860px;
@@ -156,20 +102,165 @@
   flex-direction: column;
   gap: 48px;
 }
-.dg.hosp .hosp-perfis-grade {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: 24px;
+/* O PALCO DAS LÂMPADAS (fatia 4 do handoff, §10.1 07): três pendentes, três
+   pictogramas; o clique acende o cone e revela o perfil. O estado é o RADIO
+   (`:checked ~`, decisão b): os três `<input>` vêm antes do palco e da
+   leitura no DOM, e tudo o que muda — cor do prédio, das janelas, cone,
+   bulbo, sombra, título, pílula, o artigo visível — é regra abaixo. */
+.dg.hosp .hosp-perfis-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
 }
-.dg.hosp .hosp-perfis-grade article {
-  background: var(--papel);
-  border: 1px solid var(--linha-bege);
-  padding: 28px;
+.dg.hosp .hosp-perfis-linha .cid-mono {
+  color: var(--cinza-texto);
+}
+.dg.hosp .hosp-lampadas {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 48px;
 }
-.dg.hosp .hosp-perfis-grade h3 {
+/* o radio fica fora da vista, não fora do teclado */
+.dg.hosp .hosp-perfil-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.dg.hosp .hosp-lampadas-palco {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  margin-top: -24px;
+}
+.dg.hosp .hosp-lampada {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0 0 8px;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: inherit;
+  font: inherit;
+  transition: transform 0.35s ease;
+}
+.dg.hosp .hosp-lampada:hover {
+  transform: translateY(-6px);
+}
+.dg.hosp .hosp-lampada svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.dg.hosp .hosp-lampada [data-par] {
+  will-change: transform;
+}
+/* apagado: prédio pedra, janelas areia, sem cone, bulbo a .35, sombra a .07 */
+.dg.hosp .hosp-lamp-cone {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.dg.hosp .hosp-lamp-bulbo {
+  opacity: 0.35;
+  transition: opacity 0.5s ease;
+}
+.dg.hosp .hosp-lamp-sombra {
+  opacity: 0.07;
+  transition: opacity 0.5s ease;
+}
+.dg.hosp .hosp-lamp-cor {
+  fill: #b7b0a3;
+  transition: fill 0.5s ease;
+}
+.dg.hosp .hosp-lamp-jan {
+  fill: var(--bege);
+  transition: fill 0.5s ease;
+}
+.dg.hosp .hosp-lamp-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--cinza-neutro);
+  transition: color 0.4s;
+}
+.dg.hosp .hosp-lamp-titulo {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(15px, 1.6vw, 22px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--cinza-neutro);
+  text-wrap: balance;
+  text-align: center;
+  padding: 0 8px;
+  transition: color 0.4s;
+}
+.dg.hosp .hosp-lamp-pilula {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid #b7b0a3;
+  background: transparent;
+  color: var(--cinza-texto);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.4s, color 0.4s, border-color 0.4s;
+}
+.dg.hosp .hosp-lamp-pilula > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.dg.hosp .hosp-lamp-pilula [aria-hidden] {
+  font-size: 14px;
+}
+/* (`> .hosp-lamp-lendo`, e não a classe solta: a regra `> span` acima tem um
+   tipo a mais na especificidade e ganharia — as duas pílulas apareciam juntas) */
+.dg.hosp .hosp-lamp-pilula > .hosp-lamp-lendo {
+  display: none;
+}
+/* a leitura: só o artigo do perfil aceso */
+.dg.hosp .hosp-perfis-leitura {
+  position: relative;
+  min-height: 120px;
+  max-width: 860px;
+}
+.dg.hosp .hosp-perfis-leitura article {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--papel);
+  border-left: 4px solid var(--amarelo);
+  padding: 24px 28px;
+}
+.dg.hosp .hosp-perfil-rot {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #6b7580;
+}
+.dg.hosp .hosp-perfis-leitura h3 {
   margin: 0;
   font-weight: 700;
   font-size: 22px;
@@ -178,12 +269,126 @@
   color: var(--chumbo);
   text-wrap: balance;
 }
-.dg.hosp .hosp-perfis-grade p {
+.dg.hosp .hosp-perfis-leitura p {
   margin: 0;
   font-size: 15px;
   line-height: 1.55;
   color: var(--cinza-texto);
   text-wrap: pretty;
+}
+.dg.hosp .hosp-perfil-prova {
+  font-size: 14px;
+  color: #6b7580;
+  border-left: 2px solid var(--linha-bege);
+  padding-left: 14px;
+}
+/* perfil 1 aceso */
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-cone,
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-bulbo {
+  opacity: 1;
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-sombra {
+  opacity: 0.18;
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-cor {
+  fill: var(--chumbo);
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-jan {
+  fill: var(--amarelo);
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-num,
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-titulo {
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-pilula {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-ler {
+  display: none;
+}
+.dg.hosp #perfil-1:checked ~ .hosp-lampadas-palco [data-perfil="1"] .hosp-lamp-lendo {
+  display: inline-flex;
+}
+.dg.hosp #perfil-1:checked ~ .hosp-perfis-leitura article[data-perfil="1"] {
+  display: flex;
+}
+.dg.hosp #perfil-1:focus-visible ~ .hosp-lampadas-palco [data-perfil="1"] {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
+}
+/* perfil 2 aceso */
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-cone,
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-bulbo {
+  opacity: 1;
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-sombra {
+  opacity: 0.18;
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-cor {
+  fill: var(--chumbo);
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-jan {
+  fill: var(--amarelo);
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-num,
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-titulo {
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-pilula {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-ler {
+  display: none;
+}
+.dg.hosp #perfil-2:checked ~ .hosp-lampadas-palco [data-perfil="2"] .hosp-lamp-lendo {
+  display: inline-flex;
+}
+.dg.hosp #perfil-2:checked ~ .hosp-perfis-leitura article[data-perfil="2"] {
+  display: flex;
+}
+.dg.hosp #perfil-2:focus-visible ~ .hosp-lampadas-palco [data-perfil="2"] {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
+}
+/* perfil 3 aceso */
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-cone,
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-bulbo {
+  opacity: 1;
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-sombra {
+  opacity: 0.18;
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-cor {
+  fill: var(--chumbo);
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-jan {
+  fill: var(--amarelo);
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-num,
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-titulo {
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-pilula {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: var(--chumbo);
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-ler {
+  display: none;
+}
+.dg.hosp #perfil-3:checked ~ .hosp-lampadas-palco [data-perfil="3"] .hosp-lamp-lendo {
+  display: inline-flex;
+}
+.dg.hosp #perfil-3:checked ~ .hosp-perfis-leitura article[data-perfil="3"] {
+  display: flex;
+}
+.dg.hosp #perfil-3:focus-visible ~ .hosp-lampadas-palco [data-perfil="3"] {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
 }
 
 /* ────────────────────────────────────────────────── 10 · RizzoOS ─────────── */
@@ -193,7 +398,7 @@
 .dg.hosp .hosp-os {
   background: #0f172a;
   color: #e6e2da;
-  padding: 112px var(--lado);
+  padding: 112px var(--lado) 24px;
   display: flex;
   flex-direction: column;
   gap: 48px;
@@ -220,6 +425,29 @@
   color: #c9c3b6;
   text-wrap: pretty;
 }
+/* A porta pra página do RizzoOS (todo bloco de RizzoOS do site leva uma):
+   o contorno da casa, em papel sobre o navy; no hover acende no amarelo. */
+.dg.hosp .hosp-os-lede {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.dg.hosp .hosp-os-conhecer {
+  color: #ffffff;
+}
+.dg.hosp .hosp-os-conhecer:hover {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: #0f172a;
+}
+/* 10c · a lista resumida ("Resumo do RizzoOS"): só número + título por item,
+   depois do track de telas — fatia 4 do handoff */
+.dg.hosp .hosp-os-resumo {
+  background: #0f172a;
+  color: #e6e2da;
+  padding: 0 var(--lado) 112px;
+}
 .dg.hosp .hosp-os-lista {
   margin: 0;
   padding: 0;
@@ -233,56 +461,779 @@
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   gap: 16px;
-  padding: 24px 0;
+  padding: 20px 0;
   border-bottom: 1px solid rgba(230, 226, 218, 0.18);
 }
 .dg.hosp .hosp-os-lista .cifra {
   font-size: 13px;
   color: var(--amarelo);
-  padding-top: 4px;
-}
-.dg.hosp .hosp-os-lista li > div {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  padding-top: 2px;
 }
 .dg.hosp .hosp-os-lista h3 {
   margin: 0;
   font-weight: 600;
-  font-size: 19px;
-  line-height: 1.2;
+  font-size: 17px;
+  line-height: 1.25;
   letter-spacing: -0.02em;
   color: #ffffff;
   text-wrap: balance;
-}
-.dg.hosp .hosp-os-lista p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.55;
-  color: #c9c3b6;
-  text-wrap: pretty;
 }
 
 /* ───────────────────────────────────────────── celular (390×844) ─────────── */
 
 @media (max-width: 720px) {
   .dg.hosp .hosp-frentes,
-  .dg.hosp .hosp-perfis,
-  .dg.hosp .hosp-os {
+  .dg.hosp .hosp-perfis {
     padding: 72px 20px;
     gap: 32px;
+  }
+  .dg.hosp .hosp-os {
+    padding: 72px 20px 16px;
+    gap: 32px;
+  }
+  .dg.hosp .hosp-os-resumo {
+    padding: 0 20px 72px;
   }
   .dg.hosp .hosp-caso {
     padding: 20px;
   }
-  .dg.hosp .hosp-frentes-lista li,
   .dg.hosp .hosp-os-lista li {
     grid-template-columns: 36px minmax(0, 1fr);
     gap: 12px;
   }
-  .dg.hosp .hosp-perfis-grade article {
+  /* a escada empilhada no estreito: caixa mais alta, senão o `slice` mostra
+     o mundo inteiro em miniatura */
+  .dg.hosp .hosp-esc-desenho {
+    height: min(100vw, 520px);
+  }
+  /* três prédios em 390px: a pílula quebra em vez de vazar */
+  .dg.hosp .hosp-lampadas-palco {
+    gap: 4px;
+  }
+  .dg.hosp .hosp-lamp-pilula {
+    white-space: normal;
+    text-align: center;
+    padding: 6px 10px;
+  }
+  .dg.hosp .hosp-perfis-leitura article {
     padding: 20px;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FATIA 4 — a página no protótipo v3 (rizzo-os →
+   docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md §10). Todo valor abaixo saiu do
+   `style=""` inline da `Pagina - Rede Hospitalar.dc.html`, seção por seção.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────── a prosa de posição (seção estática, §10.3-a) ── */
+.dg.hosp .hosp-prosa {
+  background: var(--papel);
+  padding: 96px var(--lado);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dg.hosp .hosp-prosa .cid-prosa {
+  max-width: 640px;
+}
+
+/* ═══════════════════════════════ os tracks — o palco e os DOIS MODOS ══════
+   Método, Escada e telas do RizzoOS são tracks guiados pela rolagem no
+   protótipo. Aqui cada um tem dois modos e o padrão é o EMPILHADO: é o que o
+   HTML entrega, o que vale abaixo de 900px e em `prefers-reduced-motion`
+   (critério 6 do §10.2), e o que sobra sem JS. O modo CENA (sticky +
+   coreografia) só existe sob `[data-cena-on]`, que a ilha `MotorHospital.tsx`
+   escreve com ≥ 900px E sem reduced-motion — e o CSS repete a mesma condição
+   na media query, pra SSR e JS concordarem (decisão g do §10.3). */
+
+/* o que os três compartilham: o kicker amarelo (sobre chumbo/carvão/navy,
+   nunca sobre papel — A2), o número mono e o pé com a barra */
+.dg.hosp .hosp-track-kicker {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+}
+.dg.hosp .hosp-track-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--amarelo);
+}
+/* empilhado: sem contador — todos os itens estão na tela */
+.dg.hosp .hosp-track-pe {
+  display: none;
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .dg.hosp [data-cena-on] .hosp-track-pe {
+    position: absolute;
+    left: var(--lado);
+    right: var(--lado);
+    bottom: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    white-space: nowrap;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bege-escuro);
+  }
+  .dg.hosp [data-cena-on] .hosp-track-trilho {
+    flex: 1;
+    height: 1px;
+    background: rgba(244, 239, 230, 0.25);
+    position: relative;
+  }
+  .dg.hosp [data-cena-on] .hosp-track-trilho > span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: var(--amarelo);
+    transition: width 0.3s;
+  }
+}
+
+/* ────────────────────────────────── 01c2 · o Método (a linha que se desenha) */
+.dg.hosp .hosp-met {
+  background: var(--chumbo);
+  color: var(--papel);
+}
+/* empilhado: cabeça → desenho (a linha inteira) → os 6 passos em grade */
+.dg.hosp .hosp-met-palco {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 96px var(--lado);
+  box-sizing: border-box;
+}
+.dg.hosp .hosp-met-cabeca {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.dg.hosp .hosp-met h2 {
+  margin: 0;
+  max-width: 560px;
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--papel);
+  text-wrap: balance;
+}
+.dg.hosp .hosp-met h2 span {
+  font-weight: 300;
+}
+.dg.hosp .hosp-met-desenho {
+  position: relative;
+  width: 100%;
+  height: clamp(200px, 42vw, 520px);
+}
+.dg.hosp .hosp-met-desenho svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.dg.hosp .hosp-met-num {
+  position: absolute;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--papel);
+  transition: opacity 0.4s;
+}
+/* O vértice 06 fica em x = 1000, na borda da caixa: o número dele vai pro lado
+   esquerdo. Na cena ele nunca acende (só os já passados, até o 05); no empilhado
+   ele estourava a borda a 390px. */
+.dg.hosp .hosp-met-num[data-met-num="5"] {
+  transform: translateX(calc(-100% - 24px));
+}
+.dg.hosp .hosp-met-passos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 32px 64px;
+}
+.dg.hosp .hosp-met-passo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 440px;
+}
+.dg.hosp .hosp-met-passo h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.dg.hosp .hosp-met-passo p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--bege-escuro);
+  text-wrap: pretty;
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* cena: 700svh de trilho, palco sticky de 100svh; a grade do texto
+     (`minmax(0,1fr) minmax(0,440px)`, left/right 56, top 96) é o padding do
+     palco; o desenho gruda no pé (bottom 84, min(66svh, 520px)) */
+  .dg.hosp .hosp-met[data-cena-on] {
+    height: 700svh;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-palco {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    gap: 32px 64px;
+    align-items: start;
+    align-content: start;
+    padding: 96px var(--lado) 0;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-desenho {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 84px;
+    width: auto;
+    height: min(66svh, 520px);
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-passos {
+    display: block;
+    position: relative;
+    min-height: 180px;
+    max-width: 440px;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-passo {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(24px);
+    transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-passo[data-passado] {
+    transform: translateX(-24px);
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-passo[data-on] {
+    opacity: 1;
+    transform: none;
+  }
+  /* vértice e número acendem quando a linha passa por eles */
+  .dg.hosp .hosp-met[data-cena-on] [data-met-v] {
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .dg.hosp .hosp-met[data-cena-on] [data-met-v][data-aceso] {
+    opacity: 1;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-num {
+    opacity: 0;
+  }
+  .dg.hosp .hosp-met[data-cena-on] .hosp-met-num[data-aceso] {
+    opacity: 1;
+  }
+}
+
+/* ─────────────────────────────── 06b · a Escada (os personagens sobem) ──── */
+.dg.hosp .hosp-esc {
+  background: #1f262e;
+  color: var(--papel);
+}
+/* empilhado: cabeça → a escada parada (ilustração) → as 8 frentes em grade */
+.dg.hosp .hosp-esc-palco {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 80px var(--lado) 96px;
+  box-sizing: border-box;
+}
+.dg.hosp .hosp-esc-cabeca {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dg.hosp .hosp-esc-quem {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bege-escuro);
+}
+.dg.hosp .hosp-esc-desenho {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 56vw, 640px);
+  overflow: hidden;
+}
+.dg.hosp .hosp-esc-desenho svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.dg.hosp .hosp-esc-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  transition: opacity 0.4s;
+}
+.dg.hosp .hosp-esc-itens {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 32px 64px;
+}
+.dg.hosp .hosp-esc-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 440px;
+}
+.dg.hosp .hosp-esc-item h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(24px, 2.6vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.dg.hosp .hosp-esc-item p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--bege-escuro);
+  text-wrap: pretty;
+}
+.dg.hosp .hosp-esc-prova {
+  font-size: 14px;
+  color: var(--papel);
+  border-left: 2px solid var(--amarelo);
+  padding-left: 14px;
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* cena: 900svh de trilho; o SVG cobre o palco; a cabeça no alto à
+     esquerda (56/80), o texto da frente atual centrado à esquerda
+     (top calc(50% + 24px), 440px), o pé com a barra */
+  .dg.hosp .hosp-esc[data-cena-on] {
+    height: 900svh;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-palco {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+    display: block;
+    padding: 0;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-desenho {
+    position: absolute;
+    inset: 0;
+    height: auto;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-cabeca {
+    position: absolute;
+    left: var(--lado);
+    top: 80px;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-quem {
+    white-space: nowrap;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-itens {
+    display: block;
+    position: absolute;
+    left: var(--lado);
+    top: calc(50% + 24px);
+    transform: translateY(-50%);
+    width: min(440px, calc(100% - 2 * var(--lado)));
+    min-height: 260px;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-item {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-item[data-passado] {
+    transform: translateY(-24px);
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-item[data-on] {
+    opacity: 1;
+    transform: none;
+  }
+  /* os números acendem quando o líder chega ao patamar */
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-num {
+    opacity: 0;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-num[data-aceso] {
+    opacity: 1;
+  }
+}
+
+/* ──────────────────────────── 10b · as telas do RizzoOS (o track de telas) ── */
+/* Navy exclusivo do bloco RizzoOS (A4). Seis PARES texto + janela: na cena,
+   um aceso por vez (`data-on` escrito pelo `Motor` da home); no empilhado,
+   os seis em sequência — os invólucros das duas colunas somem
+   (`display: contents`) e cada peça ocupa a linha que o `--fila` declara. */
+.dg.hosp .hosp-os-track {
+  background: #0f172a;
+  color: #e6e2da;
+}
+.dg.hosp .hosp-os-palco {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px 40px;
+  padding: 24px var(--lado) 64px;
+  box-sizing: border-box;
+}
+.dg.hosp .hosp-os-esq,
+.dg.hosp .hosp-os-itens,
+.dg.hosp .hosp-os-janela,
+.dg.hosp .hosp-os-telas {
+  display: contents;
+}
+.dg.hosp .hosp-os-meta {
+  display: none;
+}
+.dg.hosp .hosp-os-item,
+.dg.hosp .hosp-os-jan {
+  grid-row: var(--fila);
+}
+.dg.hosp .hosp-os-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+}
+.dg.hosp .hosp-os-item:first-child {
+  margin-top: 0;
+}
+.dg.hosp .hosp-os-menu {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+}
+.dg.hosp .hosp-os-item h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  text-wrap: balance;
+  max-width: 14ch;
+}
+.dg.hosp .hosp-os-item > p:last-child {
+  margin: 0;
+  max-width: 440px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #c9c3b6;
+  text-wrap: pretty;
+}
+/* a janela: desenhada a 640×420, escalada por `--jan-escala` (a ilha mede a
+   célula — decisão c do §10.3; sem JS, 1:1 e a caixa recorta) */
+.dg.hosp .hosp-os-jan {
+  position: relative;
+  width: calc(640px * var(--jan-escala, 1));
+  height: calc(420px * var(--jan-escala, 1));
+  max-width: 100%;
+  overflow: hidden;
+}
+.dg.hosp .hosp-os-jan-in {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 640px;
+  height: 420px;
+  transform: scale(var(--jan-escala, 1));
+  transform-origin: 0 0;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: #0b1222;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 32px 1fr;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+  font-size: var(--hj-12);
+  line-height: normal;
+  color: #f1f5f9;
+}
+.dg.hosp .hosp-os-jan-barra {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  background: #0f172a;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+.dg.hosp .hosp-os-jan-corpo {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  min-height: 0;
+}
+.dg.hosp .hosp-os-jan-menu {
+  background: #0f172a;
+  border-right: 1px solid rgba(148, 163, 184, 0.14);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+}
+.dg.hosp .hosp-os-jan-menu p {
+  margin: 0 6px 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dg.hosp .hosp-os-jan-tela {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  background: #0f172a;
+}
+/* a escala do DESENHO da janela (a unidade da interface, não a do site —
+   como o `--os3-m-*` do /rizzoos): tamanho e tracking saem daqui */
+.dg.hosp .hosp-os-jan-in {
+  --hj-9: 9px;
+  --hj-95: 9.5px;
+  --hj-10: 10px;
+  --hj-105: 10.5px;
+  --hj-11: 11px;
+  --hj-12: 12px;
+  --hj-13: 13px;
+  --hj-14: 14px;
+  --hj-20: 20px;
+  --hj-ls-4: 0.04em;
+  --hj-ls-6: 0.06em;
+}
+.dg.hosp .hj-m9 {
+  font-size: var(--hj-9);
+}
+.dg.hosp .hj-m95 {
+  font-size: var(--hj-95);
+}
+.dg.hosp .hj-m10 {
+  font-size: var(--hj-10);
+}
+.dg.hosp .hj-m105 {
+  font-size: var(--hj-105);
+}
+.dg.hosp .hj-m11 {
+  font-size: var(--hj-11);
+}
+.dg.hosp .hj-m13 {
+  font-size: var(--hj-13);
+}
+.dg.hosp .hj-m14 {
+  font-size: var(--hj-14);
+}
+.dg.hosp .hj-m20 {
+  font-size: var(--hj-20);
+}
+.dg.hosp .hj-ls4 {
+  letter-spacing: var(--hj-ls-4);
+}
+.dg.hosp .hj-ls6 {
+  letter-spacing: var(--hj-ls-6);
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* cena: (telas + 1) × 100svh de trilho, palco sticky de 100svh com a grade
+     de duas colunas (`auto-fit minmax(350px, 1fr)`) do protótipo */
+  .dg.hosp .hosp-os-track[data-cena-on] {
+    height: calc((var(--telas, 6) + 1) * 100svh);
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-palco {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    grid-auto-rows: minmax(0, auto);
+    align-items: center;
+    align-content: center;
+    padding: 24px var(--lado);
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-esq {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    min-height: 220px;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-cont {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--amarelo);
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-cont > span:last-child {
+    color: #94a3b8;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-barra {
+    flex: 1;
+    max-width: 200px;
+    height: 2px;
+    background: rgba(230, 226, 218, 0.18);
+    position: relative;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-barra > span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: var(--amarelo);
+    transition: width 0.5s ease;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-role {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #94a3b8;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-itens {
+    display: block;
+    position: relative;
+    min-height: 220px;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-item {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    grid-row: auto;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-item[data-on] {
+    opacity: 1;
+    transform: none;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-janela {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-telas {
+    display: block;
+    position: relative;
+    width: calc(640px * var(--jan-escala, 1));
+    height: calc(420px * var(--jan-escala, 1));
+    max-width: 100%;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-jan {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    grid-row: auto;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-jan[data-on] {
+    opacity: 1;
+  }
+}
+
+/* ───────────────────────────────── 06 · o transversal, seção própria ────── */
+/* O parágrafo que fechava as Frentes vira seção depois da Escada (§10.1 06):
+   papel, `padding: 56px 56px 112px`, texto max 860. */
+.dg.hosp .hosp-transversal-sec {
+  background: var(--papel);
+  padding: 56px var(--lado) 112px;
+}
+
+/* ─────────────────────────────── 13 · a faixa: "Ver o site no ar" ───────── */
+/* O card da faixa do protótipo leva o link quando a peça tem endereço no
+   cadastro (regra 9); o da home não tem. Com o link depois do texto, o `p`
+   deixa de ser `:last-child` do `.pf-faixa-corpo` — o texto ganha a regra
+   pela classe, não pela posição. */
+.dg.hosp .pf-faixa-corpo p:not(.rot) {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+.dg.hosp .hosp-pf-site {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--chumbo);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--amarelo);
+  padding-bottom: 2px;
+  width: max-content;
+  transition: border-color 0.3s;
+}
+.dg.hosp .hosp-pf-site:hover {
+  color: var(--chumbo);
+  border-bottom-color: var(--chumbo);
+}
+
+/* ────────────────────────────────── 14 · FAQ e 14b · quando NÃO em grade ── */
+/* O protótipo põe o H2 à esquerda e a lista à direita numa grade `auto-fit
+   minmax(320px, 1fr)` (gap 48) — não no `1fr 1.4fr` da home nem da praça. O
+   resto (border-top, `<details>`, 18px/600, resposta 15px/1.65 max 640,
+   padding 120/96 × 56) é o que `.perguntas` e `.cid-qn` já desenham. */
+.dg.hosp .perguntas.hosp-faq,
+.dg.hosp .cid-qn.hosp-qn {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 48px;
+}
+/* O "+" teal do protótipo é um SVG de 14px, não o `<i>` de traços da home. */
+.dg.hosp .hosp-faq summary > span {
+  color: var(--teal);
+  font-size: 14px;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+}
+.dg.hosp .hosp-faq summary svg {
+  width: 1em;
+  height: 1em;
 }
 
 /* ──────────────────────────────────── 01d · histórico (ajuste de porte) ──── */

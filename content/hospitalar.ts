@@ -75,6 +75,13 @@ export const HOSPITALAR = {
       estados: "estados com instituição atendida",
     },
     rotulo: "Linha de serviço",
+    /**
+     * O fundo do pôster (fatia 4, §10.0 nó 2 do handoff): o mapa FIXO que o
+     * protótipo v3 põe atrás dos números — `mapa-cidade.html?c=saopaulo-hospitais`,
+     * o bairro dos hospitais de São Paulo. É o slug de `PRACAS` em
+     * `scripts/gerar-mapas.mjs`; as duas imagens moram em `public/mapas/`.
+     */
+    mapa: "saopaulo-hospitais",
     /** O H2 em três partes: os dois trechos em `<span>`, como o molde. */
     h2: ["Comunicação", "por linha de serviço", "e por", "público"],
     chips: [
@@ -98,6 +105,10 @@ export const HOSPITALAR = {
   metodo: {
     rotulo: "Método",
     h2: "Cada linha de serviço é um mercado.",
+    /** O trecho do H2 em peso 300 no track do protótipo v3 (fatia 4) — tem que ser o FIM de `h2`. */
+    h2Leve: "é um mercado.",
+    /** O pé do track: o rótulo à esquerda da barra "01 / 06". */
+    pe: "Linha de serviço → mercado",
   },
 
   /* ────────────────────────────────────────────────────────── frentes (§11.4) ── */
@@ -154,12 +165,27 @@ export const HOSPITALAR = {
     transversal: "Por baixo das oito, a mesma regra: a peça nasce dentro do CFM, com o responsável técnico e os protocolos da instituição — acreditação, convênios, o corpo clínico que entra e o que sai.",
   },
 
+  /* ──────────────────────────────────────── 06b · a Escada (fatia 4 do handoff) ── */
+  /** Os rótulos do track das oito frentes — literais do protótipo v3; os 8 itens são `frentes.itens`. */
+  escada: {
+    rotulo: "As oito frentes",
+    quemSobe: "Quem sobe: médico, paciente, acompanhante, gestor, equipe",
+    /** O pé do track: o rótulo à esquerda da barra "01 / 08". */
+    pe: "Departamento de comunicação → 8 frentes",
+  },
+
   /* ─────────────────────────────────────────────────────────── perfis (§11.5) ── */
   perfis: {
     rotulo: "Perfis",
     h2: "De policlínica a grande hospital",
     /** O 1º parágrafo da intro é o `posicao[3]` do registro da carta (verbatim). */
     intro: "Sem pacote pronto: o escopo sai das frentes que a instituição precisa.",
+    /* ── o palco das lâmpadas (fatia 4 do handoff), literais do protótipo v3 ── */
+    linha: "Três perfis, três leituras · clique em um prédio para ler o dele",
+    /** A pílula de cada prédio: parado / acesa. */
+    pilula: { ler: "Ler o perfil", lendo: "Lendo este perfil" },
+    /** O rótulo mono do artigo aberto ("Perfil 02 / 03"). */
+    rotuloArtigo: "Perfil",
     itens: [
       {
         titulo: "Policlínica",
@@ -234,6 +260,18 @@ export const HOSPITALAR = {
   rizzoos: {
     wordmark: ["Rizzo", "OS"],
     lede: "O painel onde o seu hospital acompanha, aprova e conversa com a agência. Nada vai ao ar sem aprovação.",
+    /* ── o track de telas (10b) e a lista resumida (10c) — fatia 4 do handoff, literais do protótipo v3 ── */
+    /** O `aria-label` do track. */
+    telasRotulo: "Funcionalidades do RizzoOS para hospitais",
+    /** O item do menu que cada tela acende, na ordem de `itens` (uma tela por funcionalidade). */
+    telasMenu: ["Calendário", "Aprovação", "Studio", "TV", "Financeiro", "Contrato"],
+    /** O menu da janela do painel, como o protótipo desenha a sidebar. */
+    menuJanela: ["Conversas", "Calendário", "Aprovação", "Studio", "TV", "Financeiro", "Contrato", "Relatórios"],
+    /** A barra da janela: o endereço do painel e o badge da unidade. */
+    janela: { url: "app.agenciarizzo.com.br", unidade: "Unidade: Centro" },
+    roleParaVer: "Role para ver",
+    /** O `aria-label` da lista resumida (10c). */
+    resumo: "Resumo do RizzoOS",
     itens: [
       {
         titulo: "O ano inteiro, escrito desde o primeiro dia",

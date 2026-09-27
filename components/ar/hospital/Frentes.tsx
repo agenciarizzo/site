@@ -1,5 +1,6 @@
-// Os blocos que só existem na página de hospital — as Frentes, os Perfis, o
-// bloco RizzoOS do hospital, as duas chamadas intermediárias e o CTA final.
+// Os blocos que só existem na página de hospital — as Frentes, o bloco
+// RizzoOS do hospital (cabeça e lista), as duas chamadas intermediárias e o
+// CTA final. (Os Perfis moram em `PerfisPalco.tsx` desde a fatia 4 do handoff.)
 // Plano: rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md §11.4 · §11.5 · §11.6 ·
 // §11.9 · §11.11.
 //
@@ -12,17 +13,20 @@
 // conteúdo (§11.9) — mesma marca, outra peça.
 //
 // SSG puro: zero "use client" e zero estado. O fundo navy é legítimo aqui
-// porque É o bloco RizzoOS (A4 do CLAUDE.md do site).
+// porque É o bloco RizzoOS (A4 do CLAUDE.md do site). O bloco RizzoOS da home
+// virou, na fatia 4 do handoff, cabeça (aqui) → track de telas
+// (`TelasHospital.tsx`) → lista resumida (aqui).
+import Link from "next/link";
 import { HOSPITALAR } from "@/content/hospitalar";
-import type { Carta } from "@/content/cartas";
 import { PortaWhats } from "./Hospital";
 
 /* ──────────────────────────────────────────────────────── 06 · as frentes ── */
 
 /**
- * As oito frentes do departamento de comunicação. Cada uma leva a PROVA de
- * escopo ao lado — o que a casa fez, com nome público e ex-cliente no passado
- * sem ambiguidade (critério D3). A numeração sai do índice, não do registro.
+ * A cabeça das oito frentes e o caso do Daher. As oito em si — cada uma com a
+ * PROVA de escopo ao lado, o que a casa fez, com nome público e ex-cliente no
+ * passado sem ambiguidade (critério D3) — sobem a Escada (`Escada.tsx`, fatia 4
+ * do handoff, §10.1 06/06b): esta seção ENCOLHEU pra cabeça + caso.
  */
 export function Frentes() {
   const f = HOSPITALAR.frentes;
@@ -42,65 +46,33 @@ export function Frentes() {
         <p className="cid-mono">{f.caso.rotulo}</p>
         <p>{f.caso.texto}</p>
       </div>
-
-      <ol className="hosp-frentes-lista">
-        {f.itens.map((item, i) => (
-          <li key={item.titulo}>
-            <span className="cifra">{String(i + 1).padStart(2, "0")}</span>
-            <div>
-              <h3>{item.titulo}</h3>
-              <p>{item.texto}</p>
-              <p className="hosp-prova">{item.prova}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-
-      <p className="hosp-transversal">{f.transversal}</p>
     </section>
   );
 }
 
-/* ────────────────────────────────────────────────────────────── 07 · perfis ── */
-
 /**
- * De policlínica a grande hospital. A intro abre com o parágrafo que o registro
- * da carta já publicava sobre o hospital de um dono só (`posicao[3]`, verbatim)
- * e fecha com a frase do escopo. O terceiro perfil fala de CAPACIDADE e não
- * nomeia ninguém (D6) — a página não promete cliente que não tem.
+ * O parágrafo transversal — "por baixo das oito, a mesma regra" — era o pé das
+ * Frentes; no protótipo v3 é seção própria, DEPOIS da Escada (fatia 4, §10.1
+ * 06 do handoff): as oito frentes agora sobem a escada, e a regra comum vem
+ * quando o leitor já as viu todas.
  */
-export function Perfis({ c }: { c: Carta }) {
-  const p = HOSPITALAR.perfis;
+export function Transversal() {
   return (
-    <section className="hosp-perfis" aria-labelledby="h-perfis" data-topo="escuro">
-      <div className="hosp-cabeca">
-        <div>
-          <p className="rot">{p.rotulo}</p>
-          <h2 id="h-perfis" className="h2" data-reveal>
-            {p.h2}
-          </h2>
-        </div>
-        <div>
-          <p className="cid-prosa">{c.posicao[3]}</p>
-          <p className="cid-prosa">{p.intro}</p>
-        </div>
-      </div>
-      <div className="hosp-perfis-grade">
-        {p.itens.map((item) => (
-          <article key={item.titulo}>
-            <h3>{item.titulo}</h3>
-            <p>{item.texto}</p>
-            {item.prova && <p className="hosp-prova">{item.prova}</p>}
-          </article>
-        ))}
-      </div>
+    <section className="hosp-transversal-sec" data-topo="escuro">
+      <p className="hosp-transversal">{HOSPITALAR.frentes.transversal}</p>
     </section>
   );
 }
 
 /* ───────────────────────────────────────────────────────────── 10 · RizzoOS ── */
 
-/** O painel, em leitura parada. Fundo navy — o único bloco do site que o usa (A4). */
+/**
+ * 10 · A cabeça do painel, em leitura parada. Fundo navy — o único bloco do
+ * site que o usa (A4). Na fatia 4 do handoff o bloco DIVIDIU em três (§10.1
+ * 10/10b/10c): esta cabeça → o track de telas (`TelasHospital.tsx`) → a lista
+ * resumida (`RizzoOsLista`, abaixo). `lede` e `itens` seguem de
+ * `HOSPITALAR.rizzoos`.
+ */
 export function RizzoOsHospital() {
   const r = HOSPITALAR.rizzoos;
   return (
@@ -110,16 +82,27 @@ export function RizzoOsHospital() {
           {r.wordmark[0]}
           <b>{r.wordmark[1]}</b>
         </h2>
-        <p>{r.lede}</p>
+        <div className="hosp-os-lede">
+          <p>{r.lede}</p>
+          <Link className="btn-linha hosp-os-conhecer" href="/rizzoos">
+            Conhecer o RizzoOS →
+          </Link>
+        </div>
       </div>
+    </section>
+  );
+}
+
+/** 10c · A lista inteira, pra quem lê parado: número + título de cada funcionalidade, depois do track. */
+export function RizzoOsLista() {
+  const r = HOSPITALAR.rizzoos;
+  return (
+    <section className="hosp-os-resumo" aria-label={r.resumo} data-topo="claro">
       <ol className="hosp-os-lista">
         {r.itens.map((item, i) => (
           <li key={item.titulo}>
             <span className="cifra">{String(i + 1).padStart(2, "0")}</span>
-            <div>
-              <h3>{item.titulo}</h3>
-              <p>{item.texto}</p>
-            </div>
+            <h3>{item.titulo}</h3>
           </li>
         ))}
       </ol>

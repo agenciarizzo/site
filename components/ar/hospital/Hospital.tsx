@@ -1,6 +1,7 @@
 // As seções da página de hospital DERIVADAS do cidade-molde (§11.0 do doc-mapa:
-// rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md): hero, pôster, método,
-// histórico, FAQ e "quando NÃO". São as mesmas caixas de
+// rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md): hero, pôster, histórico, FAQ e
+// "quando NÃO" (o Método saiu daqui na fatia 4 do handoff — virou o track de
+// `Metodo.tsx`, com a prosa de posição em seção própria). São as mesmas caixas de
 // `components/ar/cidade/Praca.tsx` com OUTRA fonte de conteúdo — o registro
 // `rede-hospitalar` de `content/cartas.ts` (verbatim, D13) mais o que é novo em
 // `content/hospitalar.ts` —, por isso vivem aqui e não lá: o molde é do layout,
@@ -21,10 +22,10 @@ import Link from "next/link";
 import { ROTA_PORTAO, CTA_WHATSAPP_FALAR } from "@/lib/nav";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import type { Tweaks } from "@/lib/tweaks.mjs";
-import { panoCidadeFaixa } from "@/lib/athos/panos";
 import type { Carta } from "@/content/cartas";
 import { HOSPITALAR } from "@/content/hospitalar";
 import { Malha } from "@/components/ar/cidade/Praca";
+import { MapaPraca } from "@/components/ar/cidade/MapaPraca";
 import type { GrupoHospital, NumerosHospital } from "@/lib/hospital";
 
 /* ─────────────────────────────────────────────────────────── a porta única ── */
@@ -75,18 +76,21 @@ export function HeroHospital({ c, t }: { c: Carta; t: Tweaks }) {
  * a tese que o registro da carta já publicava (`posicao[0]`, verbatim) e os
  * chips das linhas de serviço.
  *
- * Sem mapa: hospital não é praça, então o fundo é o campo de azulejos da
- * própria página (motor Athos, os tweaks D19) — `panoCidadeFaixa` é importada
- * do motor, nunca redesenhada aqui.
+ * O fundo é o MAPA do protótipo v3 (rizzo-os → SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA
+ * §10.0, nó 2): o `mapa-cidade.html?c=saopaulo-hospitais` fixo do `.dc.html` —
+ * o bairro dos hospitais de São Paulo — vira uma imagem por recorte, gerada uma
+ * vez pelo `scripts/gerar-mapas.mjs` e servida pelo `MapaPraca` do cidade-molde
+ * (importado, nunca redesenhado): zero tile de terceiro em tempo de visita
+ * (regra 8). O comentário do próprio protótipo ainda diz "sem mapa: hospital não
+ * é praça", mas o markup dele põe o mapa — LAYOUT = protótipo. O campo de
+ * azulejos que este bloco tinha até a fatia 4 saiu com ele.
  */
 export function HospitalPoster({
   c,
-  t,
   n,
   casa,
 }: {
   c: Carta;
-  t: Tweaks;
   n: NumerosHospital;
   casa: { cidades: number; estados: number };
 }) {
@@ -97,12 +101,7 @@ export function HospitalPoster({
   ];
   return (
     <section className="cid-poster" aria-labelledby="h-hosp" data-topo="escuro">
-      <div
-        className="cid-poster-campo"
-        aria-hidden
-        data-par="-0.06"
-        dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }}
-      />
+      <MapaPraca mapa={HOSPITALAR.poster.mapa} />
       <i className="cid-poster-traco" aria-hidden />
       <div className="cid-poster-grade">
         <div className="cid-poster-numeros">
@@ -142,45 +141,6 @@ export function HospitalPoster({
           · {casa.cidades} cidades · {casa.estados} estados · {HOSPITALAR.poster.desde}
         </p>
       </div>
-    </section>
-  );
-}
-
-/* ───────────────────────────────────────────────────────── 01c2 · método ──── */
-
-/**
- * Esquerda: o título do bloco e os parágrafos de posição que sobraram do pôster
- * — o `posicao[3]` fica de fora de propósito: ele é o hospital de um dono só, e
- * abre os Perfis (§11.3/§11.5). Direita: o `como` numerado, verbatim.
- */
-export function MetodoHospital({ c }: { c: Carta }) {
-  const prosa = [c.posicao[1], c.posicao[2], c.posicao[4]];
-  return (
-    <section className="cid-met" aria-labelledby="h-met" data-topo="escuro">
-      <div className="cid-met-esq">
-        <div>
-          <p className="rot">{HOSPITALAR.metodo.rotulo}</p>
-          <h2 id="h-met" data-reveal>
-            {HOSPITALAR.metodo.h2}
-          </h2>
-        </div>
-        {prosa.map((p) => (
-          <p className="cid-prosa" key={p.slice(0, 24)}>
-            {p}
-          </p>
-        ))}
-      </div>
-      <ol className="cid-met-lista">
-        {c.como.map((m, i) => (
-          <li key={m.t}>
-            <span className="cifra">{String(i + 1).padStart(2, "0")}</span>
-            <div>
-              <h3>{m.t}</h3>
-              <p>{m.d}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
     </section>
   );
 }
@@ -265,10 +225,14 @@ export function HistoricoHospital({ grupos, total }: { grupos: GrupoHospital[]; 
 
 /* ──────────────────────────────────────────────────── quando NÃO · FAQ ────── */
 
-/** A honestidade que a carta sempre teve, mais o parágrafo que o porte de hospital pede (§11.10). */
+/**
+ * A honestidade que a carta sempre teve, mais o parágrafo que o porte de
+ * hospital pede (§11.10). Fatia 4: a caixa é a `cid-qn` do molde na grade do
+ * protótipo v3 (`hosp-qn` — H2 à esquerda, os 3 parágrafos à direita).
+ */
 export function QuandoNaoHospital({ c }: { c: Carta }) {
   return (
-    <section className="cid-qn" aria-labelledby="h-qn" data-topo="escuro">
+    <section className="cid-qn hosp-qn" aria-labelledby="h-qn" data-topo="escuro">
       <h2 id="h-qn" data-reveal>
         {HOSPITALAR.quandoNao.titulo}
       </h2>
@@ -285,10 +249,12 @@ export function QuandoNaoHospital({ c }: { c: Carta }) {
 /**
  * As 11 perguntas do registro da carta, verbatim e na mesma ordem — é a MESMA
  * lista que o `FAQPage` publica, então a tela e o schema não têm como divergir.
+ * Fatia 4: a grade do protótipo v3 (`hosp-faq`) e o "+" teal em SVG, como ele
+ * desenha — o `<details>` continua nativo, zero JS.
  */
 export function FaqHospital({ c }: { c: Carta }) {
   return (
-    <section className="perguntas" aria-labelledby="h-faq" id="perguntas" data-topo="escuro">
+    <section className="perguntas hosp-faq" aria-labelledby="h-faq" id="perguntas" data-topo="escuro">
       <h2 id="h-faq" className="h2" data-reveal>
         {HOSPITALAR.faqH2}
       </h2>
@@ -297,7 +263,11 @@ export function FaqHospital({ c }: { c: Carta }) {
           <details key={f.q}>
             <summary>
               {f.q}
-              <i aria-hidden />
+              <span aria-hidden>
+                <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                  <path d="M11 3h2v8h8v2h-8v8h-2v-8H3v-2h8z" />
+                </svg>
+              </span>
             </summary>
             <p>{f.a}</p>
           </details>

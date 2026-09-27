@@ -4,9 +4,14 @@
 //
 // A ORDEM dos blocos é a do §11.0, e nenhum a mais:
 //
-//   topo · hero · autoridade · pôster · método · frentes · perfis · histórico ·
-//   chamada · RizzoOS · chamada · portfólio · FAQ · quando NÃO · CTA · rodapé ·
-//   motor
+//   topo · hero · autoridade · pôster · prosa de posição · método (track) ·
+//   frentes · escada (track) · transversal · perfis · histórico · chamada ·
+//   RizzoOS (cabeça · telas · lista) · chamada · portfólio (cabeça · palco ·
+//   faixa) · FAQ · quando NÃO · CTA · rodapé · motores
+//
+// (A ordem acima é a da fatia 4 do handoff — rizzo-os →
+// docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md §10.2-1; a do §11.0 do capítulo
+// era a mesma sem os tracks.)
 //
 // O que fica FORA, de propósito (D18 + §6.2 do F0): Pacotes, Exclusividade,
 // Cidades, Vinheta, Resultado, Cases, Clientes, Serviços, Depoimentos e Sobre.
@@ -40,8 +45,13 @@ import { alcanceDaCasa } from "@/lib/praca";
 import type { Carta } from "@/content/cartas";
 import { HOSPITALAR } from "@/content/hospitalar";
 import { historicoHospitalar, numerosHospitalares, pecasHospitalares } from "@/lib/hospital";
-import { HeroHospital, HospitalPoster, MetodoHospital, HistoricoHospital, FaqHospital, QuandoNaoHospital } from "./Hospital";
-import { Frentes, Perfis, RizzoOsHospital, ChamadaHospital, CtaHospital } from "./Frentes";
+import { HeroHospital, HospitalPoster, HistoricoHospital, FaqHospital, QuandoNaoHospital } from "./Hospital";
+import { ProsaPosicao, MetodoHospital } from "./Metodo";
+import { Escada } from "./Escada";
+import { Frentes, Transversal, RizzoOsHospital, RizzoOsLista, ChamadaHospital, CtaHospital } from "./Frentes";
+import { Perfis } from "./PerfisPalco";
+import { TelasRizzoOsHospital } from "./TelasHospital";
+import { MotorHospital } from "./MotorHospital";
 import { PortfolioHospital } from "./PortfolioHospital";
 
 /** Os tweaks do hero desta rota (D19) — a mesma chamada que a OG faz, pra as duas não divergirem. */
@@ -103,18 +113,24 @@ export function HospitalMolde({ c }: { c: Carta }) {
       data-hosp-hospitais={n.hospitais}
       data-hosp-estados={n.estados}
       data-hosp-pecas={pecas.length}
+      data-hosp-mapa={HOSPITALAR.poster.mapa}
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(hospitalJsonLd(c)) }} />
       <Topo waText={c.waText} rota={rota} />
       <HeroHospital c={c} t={t} />
       <Autoridade />
-      <HospitalPoster c={c} t={t} n={n} casa={casa} />
+      <HospitalPoster c={c} n={n} casa={casa} />
+      <ProsaPosicao c={c} />
       <MetodoHospital c={c} />
       <Frentes />
+      <Escada />
+      <Transversal />
       <Perfis c={c} />
       <HistoricoHospital grupos={grupos} total={n.instituicoes} />
       <ChamadaHospital texto={HOSPITALAR.chamadas.aposHistorico} waText={c.waText} />
       <RizzoOsHospital />
+      <TelasRizzoOsHospital />
+      <RizzoOsLista />
       <ChamadaHospital texto={HOSPITALAR.chamadas.aposRizzoOs} waText={c.waText} />
       <PortfolioHospital pecas={pecas} cenas={cenas} usadas={usadas} />
       <FaqHospital c={c} />
@@ -122,6 +138,9 @@ export function HospitalMolde({ c }: { c: Carta }) {
       <CtaHospital waText={c.waText} />
       <Rodape waText={c.waText} rota={rota} />
       <Motor cenas={cenas.map((k) => k.pos)} focos={cenas.map((k) => k.foco)} modo={PORTFOLIO_MODO} />
+      {/* A segunda ilha (fatia 4): o Método, a Escada e a medida da janela das
+          telas — nunca o palco nem o track das telas, que são do Motor acima. */}
+      <MotorHospital />
     </div>
   );
 }

@@ -14,6 +14,15 @@
 // `lib/hospital.ts`): mostrar de novo, no mesmo site, o que já está no ar em
 // /portfolio e nas cartas não muda exposição nenhuma. Peça ainda não publicada
 // segue atrás do opt-in do cliente — `content/portfolio.ts` não é tocado aqui.
+//
+// FATIA 4 (rizzo-os → docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md §10.1 13):
+// depois do palco entra a FAIXA da home — "Todas as peças", as setas, a lista
+// com `scroll-snap`, o trilho de 2px e o link pro /portfolio —, o bloco de
+// `components/ar/home/Portfolio.tsx` (classes `pf-faixa*`; o `Motor` já dirige
+// `[data-pf-faixa]`, `[data-pf-prev]`, `[data-pf-next]` e `[data-pf-fill]`).
+// Diferença única, do protótipo: o card leva "Ver o site no ar" quando a peça
+// tem endereço no cadastro (regra 9). A faixa mostra o POOL INTEIRO, na ordem
+// do pool (decisão e do §10.3) — o "Todas as peças" é literal.
 import Link from "next/link";
 import type { PecaGaleria } from "@/lib/portfolio-galeria";
 import type { Cena } from "@/lib/portfolio-moldura";
@@ -101,7 +110,70 @@ export function PortfolioHospital({
         </div>
       </section>
 
-      <section className="cid-pf-link" data-topo="escuro">
+      <section className="pf-faixa-sec" aria-label="Navegar no portfólio" data-topo="escuro">
+        <div className="pf-faixa-cabeca">
+          <p className="rot">{PORTFOLIO_CABECA.faixa}</p>
+          <div className="pf-faixa-nav">
+            <button type="button" aria-label="Peça anterior" data-pf-prev>
+              ←
+            </button>
+            <button type="button" aria-label="Próxima peça" data-pf-next>
+              →
+            </button>
+          </div>
+        </div>
+        <ul className="pf-faixa" data-pf-faixa>
+          {pecas.map((p) => (
+            <li key={p.key}>
+              {p.video ? (
+                // Toca só enquanto o cartão está visível na faixa — o Motor
+                // observa `.pf-faixa video` (achado #13 da home).
+                <video
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  poster={p.poster}
+                  aria-label={p.alt}
+                  style={{ "--r": `${p.largura} / ${p.altura}` } as React.CSSProperties}
+                >
+                  {p.webm && <source src={p.webm} type="video/webm" />}
+                  <source src={p.src} type="video/mp4" />
+                </video>
+              ) : (
+                <img
+                  src={p.src}
+                  alt={p.alt}
+                  loading="lazy"
+                  width={p.largura}
+                  height={p.altura}
+                  style={{ "--r": `${p.largura} / ${p.altura}` } as React.CSSProperties}
+                />
+              )}
+              <div className="pf-faixa-corpo">
+                <p className="rot">{p.servico}</p>
+                <h3>{p.cliente}</h3>
+                <p>{p.contexto}</p>
+                {p.url && (
+                  // Só com endereço no cadastro da agência (regra 9) — nome sem
+                  // endereço fica sem link. O `title` é o do protótipo.
+                  <a
+                    className="hosp-pf-site"
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener"
+                    title={`Abrir ${p.url.replace(/^https?:\/\/(www\.)?/, "")} em nova aba`}
+                  >
+                    Ver o site no ar <span aria-hidden>↗</span>
+                  </a>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="pf-faixa-trilho" aria-hidden>
+          <span data-pf-fill />
+        </div>
         <Link className="pf-completo" href={PORTFOLIO_CABECA.completo.href}>
           {PORTFOLIO_CABECA.completo.rotulo} <span aria-hidden>→</span>
         </Link>

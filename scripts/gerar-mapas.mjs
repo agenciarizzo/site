@@ -39,10 +39,11 @@ export const PRACAS = {
   // zona oeste (Pinheiros, Perdizes, Lapa) à esquerda; centro deslocado a leste
   "saopaulo-oeste": { c: [-23.565, -46.655], z: 13.5 },
   anapolis: { c: [-16.3281, -48.953], z: 13 },
+  "saopaulo-hospitais": { c: [-23.558315, -46.6563665], z: 16.5 }, // o bairro dos hospitais (Bela Vista/Paraíso), pôster de /cartas/rede-hospitalar
 };
 
 /** As praças que têm página hoje (o resto do `PRACAS` fica pronto pra quando tiver). */
-const EM_USO = ["brasilia", "goiania", "saopaulo-oeste"];
+const EM_USO = ["brasilia", "goiania", "saopaulo-oeste", "saopaulo-hospitais"];
 
 /**
  * Os dois recortes que o pôster usa: tela larga e tela em pé. 1600px de largura
