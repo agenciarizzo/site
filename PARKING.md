@@ -216,3 +216,30 @@ verdade.
 - **Anápolis** segue em 301 pra home: zero cliente na carteira pública e zero
   peça no acervo com essa praça (regra 8).
 
+## [T-01] Travessão no resto do site: a dívida está medida, travada, e só desce
+
+- **Estado:** a regra chegou em 2026-09-27, pedida na página de hospitais
+  (regra 12 do `CLAUDE.md`). Aquela página saiu sem travessão nenhum, junto
+  com tudo o que ela divide com o resto do site: as 168 legendas do acervo e
+  as 5 dos reels (" — " virou " · "), os rótulos do logo e as emendas
+  geradas em código (alt dos logos do letreiro, alt padrão da OG, alt e botão
+  "Ampliar" do `/portfolio`, rótulo dos pacotes). O que sobrou é **prosa**:
+  **767 travessões em 54 rotas**, medidos no HTML gerado e travados em
+  `scripts/divida-travessao.json`. O `scripts/checar-texto.mjs` reprova
+  qualquer travessão novo, e rota nova nasce com zero.
+- **Por que não decidi:** o pedido foi a página de hospitais. O resto é
+  reescrever frase por frase (cada travessão pede uma pontuação diferente, às
+  vezes a frase inteira), em cartas, especialidades e praças que carregam
+  histórico de busca. É entrega de copy própria, revisada uma a uma: a mesma
+  régua do [C-01].
+- **Minha recomendação:** limpar por FONTE, não por rota, porque o mesmo texto
+  se repete em muitas páginas. Pela ordem de alavanca: (1) o que se repete nos
+  moldes (`FooterMapa`: "O papel de cada frente — …" em 42 páginas;
+  `EspecialidadeLanding`: "O que a gente toca — …" em 40, mais três frases do
+  molde; `content/landing-v3.ts` e `content/vitrines.ts`); (2) as
+  `description` que levam travessão, que contam três vezes cada (description,
+  og e twitter); (3) as praças (`content/cidades.ts`); (4) cartas,
+  especialidades e pares, uma a uma. Cada lote no seu commit, com
+  `node scripts/checar-texto.mjs --atualizar` no fim.
+- **Custo de não decidir:** nenhum no SEO; é voz. O gate impede que cresça.
+- **Prazo sugerido:** quando o cliente quiser; o gate segura até lá.

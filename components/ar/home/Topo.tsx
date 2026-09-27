@@ -45,8 +45,8 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
   const soWhats = rota !== undefined && ROTAS_SO_WHATSAPP.includes(rota);
   return (
     <header className="topo" data-tinta="escuro">
-      <Link className="topo-logo" href="/" aria-label="Agência Rizzo — página inicial">
-        <Image className="logo-escuro" src="/logo_horizontal.png" alt="Agência Rizzo — marketing médico digital" width={176} height={35} priority />
+      <Link className="topo-logo" href="/" aria-label="Agência Rizzo, página inicial">
+        <Image className="logo-escuro" src="/logo_horizontal.png" alt="Agência Rizzo, marketing médico digital" width={176} height={35} priority />
         <Image className="logo-claro" src="/logo_fundo_escuro_horizontal.png" alt="" width={176} height={24} style={{ height: 24, width: "auto" }} />
       </Link>
 

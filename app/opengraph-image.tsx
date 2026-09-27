@@ -4,7 +4,7 @@
 import { HERO } from "@/content/home";
 import { imagemOg, TAMANHO_OG } from "@/lib/og";
 
-export const alt = "Agência Rizzo — marketing médico";
+export const alt = "Agência Rizzo, marketing médico";
 export const size = TAMANHO_OG;
 export const contentType = "image/png";
 

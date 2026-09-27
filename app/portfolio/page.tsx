@@ -146,7 +146,7 @@ export default function PortfolioPage() {
           <source src={p.src} type="video/mp4" />
         </video>
       ) : (
-        <a className="gal-abre" href={`#${p.ancora}`} aria-label={`Ampliar: ${p.servico} — ${p.cliente}`}>
+        <a className="gal-abre" href={`#${p.ancora}`} aria-label={`Ampliar: ${p.servico}, ${p.cliente}`}>
           {/* <img> cru: a composição já vem otimizada do repo (webp ≤1200px) e
               o site é SSG ~zero JS — next/image não paga aqui. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}

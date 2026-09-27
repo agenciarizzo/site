@@ -62,7 +62,7 @@ export const HOSPITALAR = {
   /* ───────────────────────────────────────────────────────────── hero (§11.1) ── */
   hero: {
     sobrancelha: "Comunicação e marketing para hospitais e policlínicas",
-    lede: "Cada linha de serviço disputa um mercado próprio, e cada público pede uma frente: quem procura atendimento, quem espera na recepção, o médico do corpo clínico, a equipe que trabalha lá dentro. É o departamento de comunicação do seu hospital, com contrato — e tudo acompanhado pelo RizzoOS.",
+    lede: "Cada linha de serviço disputa um mercado próprio, e cada público pede uma frente: quem procura atendimento, quem espera na recepção, o médico do corpo clínico, a equipe que trabalha lá dentro. É o departamento de comunicação do seu hospital, com contrato, e tudo acompanhado pelo RizzoOS.",
   },
 
   /* ─────────────────────────────────────────────────────────── pôster (§11.2) ── */
@@ -115,54 +115,54 @@ export const HOSPITALAR = {
   frentes: {
     rotulo: "As frentes",
     h2: "O departamento de comunicação do seu hospital, com contrato.",
-    lede: "Hospital fala ao mesmo tempo com quem procura atendimento, com quem acompanha o paciente, com o médico do corpo clínico e com a equipe que trabalha lá dentro. Cada público pede uma frente. São oito — e o contrato diz quais o hospital entrega para nós e quais continuam com a casa.",
+    lede: "Hospital fala ao mesmo tempo com quem procura atendimento, com quem acompanha o paciente, com o médico do corpo clínico e com a equipe que trabalha lá dentro. Cada público pede uma frente. São oito, e o contrato diz quais o hospital entrega para nós e quais continuam com a casa.",
     caso: {
       rotulo: "Caso · Hospital Daher, Brasília",
-      texto: "O fundador da agência foi gerente de comunicação do Hospital Daher antes de abrir a Rizzo. Depois, a agência fez a comunicação do hospital por frentes — externa, interna, TV interna, eventos, imprensa e mídia com verba por frente.",
+      texto: "O fundador da agência foi gerente de comunicação do Hospital Daher antes de abrir a Rizzo. Depois, a agência fez a comunicação do hospital por frentes: externa, interna, TV interna, eventos, imprensa e mídia com verba por frente.",
     },
     itens: [
       {
         titulo: "Institucional por linha de serviço",
-        texto: "Campanha por linha — pronto-socorro, centro cirúrgico, UTI, oncologia, diagnóstico —, as datas da saúde e o calendário da instituição, cada linha com a sua mensagem.",
+        texto: "Campanha por linha (pronto-socorro, centro cirúrgico, UTI, oncologia, diagnóstico), as datas da saúde e o calendário da instituição, cada linha com a sua mensagem.",
         prova: "Para o Hospital Daher, fizemos campanhas de medicina hiperbárica, centro cirúrgico, diagnóstico por imagem e oncologia.",
       },
       {
         titulo: "Comunicação interna",
-        texto: "Boletim do RH, comunicados, agenda cultural, pesquisa de clima, mural e as campanhas que acontecem lá dentro — segurança do paciente, higienização das mãos, vacinação, SIPAT.",
+        texto: "Boletim do RH, comunicados, agenda cultural, pesquisa de clima, mural e as campanhas que acontecem lá dentro: segurança do paciente, higienização das mãos, vacinação, SIPAT.",
         prova: "No Hospital Daher, a comunicação interna era frente própria: boletim trimestral do RH, agenda cultural mensal, campanha de segurança do paciente. Na Casa de Saúde de Remanso, do crachá à peça de higienização das mãos.",
       },
       {
         titulo: "TV corporativa",
-        texto: "A TV da recepção fala com quem espera; a TV interna, com a equipe — e a peça pensada para o centro cirúrgico ganha a sua versão de TV.",
+        texto: "A TV da recepção fala com quem espera; a TV interna, com a equipe. E a peça pensada para o centro cirúrgico ganha a sua versão de TV.",
         prova: "No Hospital Daher, fizemos as animações mensais da TV interna. Na InMed, o vídeo institucional da TV da sala de espera.",
       },
       {
         titulo: "Corpo clínico como canal",
-        texto: "A presença de cada médico com linha editorial comum e gravação por link — o médico continua autônomo, e a IA só usa o rosto de quem autorizou, com o consentimento registrado.",
+        texto: "A presença de cada médico com linha editorial comum e gravação por link. O médico continua autônomo, e a IA só usa o rosto de quem autorizou, com o consentimento registrado.",
         prova: "Na Casa de Saúde de Remanso, campanhas com o corpo clínico da casa.",
       },
       {
         titulo: "Mídia paga por linha e por unidade",
-        texto: "Verba separada para cada linha de serviço e cada unidade, no Google e na Meta, saindo do caixa do hospital direto para as plataformas — sem repasse.",
+        texto: "Verba separada para cada linha de serviço e cada unidade, no Google e na Meta, saindo do caixa do hospital direto para as plataformas, sem repasse.",
         prova: "No Hospital Daher, Google e Meta rodavam com verba separada por frente.",
       },
       {
         titulo: "Site, intranet e LGPD",
-        texto: "Site com uma página por linha de serviço e por unidade, adequação à LGPD e a intranet do colaborador — informativos, ramais, agenda de eventos, área do colaborador.",
+        texto: "Site com uma página por linha de serviço e por unidade, adequação à LGPD e a intranet do colaborador: informativos, ramais, agenda de eventos, área do colaborador.",
         prova: "Fizemos o projeto da intranet e o site do Hospital Edmundo Fernandes, em Uruaçu (GO), e o site da Casa de Saúde de Remanso (BA).",
       },
       {
         titulo: "Imprensa e reputação",
-        texto: "Press release, clipping, o registro do que saiu na mídia e a avaliação do Google respondida na voz da instituição — avaliação ruim passa por gente antes de sair.",
+        texto: "Press release, clipping, o registro do que saiu na mídia e a avaliação do Google respondida na voz da instituição. Avaliação ruim passa por gente antes de sair.",
         prova: "No Hospital Daher, fizemos clipping e press release.",
       },
       {
         titulo: "Eventos e marca empregadora",
-        texto: "SIPAT, festa junina, caminhada, confraternização, universidade corporativa, programa de líderes e vaga divulgada — hospital contrata o tempo todo.",
+        texto: "SIPAT, festa junina, caminhada, confraternização, universidade corporativa, programa de líderes e vaga divulgada. Hospital contrata o tempo todo.",
         prova: "No Hospital Daher, do Arraiá à Caminhada do Outubro Rosa, e a marca da universidade corporativa.",
       },
     ] as Frente[],
-    transversal: "Por baixo das oito, a mesma regra: a peça nasce dentro do CFM, com o responsável técnico e os protocolos da instituição — acreditação, convênios, o corpo clínico que entra e o que sai.",
+    transversal: "Por baixo das oito, a mesma regra: a peça nasce dentro do CFM, com o responsável técnico e os protocolos da instituição (acreditação, convênios, o corpo clínico que entra e o que sai).",
   },
 
   /* ──────────────────────────────────────── 06b · a Escada (fatia 4 do handoff) ── */
@@ -189,7 +189,7 @@ export const HOSPITALAR = {
     itens: [
       {
         titulo: "Policlínica",
-        texto: "Uma unidade, várias especialidades, sem time de marketing — quem decide é o dono. Entram a página e a campanha de cada especialidade, o perfil no Google, o site, a TV da recepção, o corpo clínico e as redes.",
+        texto: "Uma unidade, várias especialidades, sem time de marketing. Quem decide é o dono. Entram a página e a campanha de cada especialidade, o perfil no Google, o site, a TV da recepção, o corpo clínico e as redes.",
         prova: "Policlínica Corrente (PI) e InMed (DF), hoje.",
       },
       {
@@ -199,7 +199,7 @@ export const HOSPITALAR = {
       },
       {
         titulo: "Grande hospital e rede",
-        texto: "Para a instituição que já tem time de marketing: entramos como braço — produção, TV e mídia de cada unidade, dentro do CFM e dos protocolos da casa. A estrutura atende várias unidades, cada uma com a sua TV, o seu perfil no Google, a sua verba e o seu relatório.",
+        texto: "Para a instituição que já tem time de marketing: entramos como braço (produção, TV e mídia de cada unidade), dentro do CFM e dos protocolos da casa. A estrutura atende várias unidades, cada uma com a sua TV, o seu perfil no Google, a sua verba e o seu relatório.",
       },
     ] as Perfil[],
   },
@@ -215,7 +215,7 @@ export const HOSPITALAR = {
     rotulo: "Histórico · desde 2012",
     /** O H2 leva o número de instituições na frente — contado em `lib/hospital.ts`. */
     h2: "instituições de saúde atendidas",
-    lede: "Hospitais, policlínicas e centros de referência que passaram pela agência — alguns ainda hoje, outros em períodos anteriores.",
+    lede: "Hospitais, policlínicas e centros de referência que passaram pela agência: alguns ainda hoje, outros em períodos anteriores.",
     grupos: [
       {
         titulo: "Hospitais gerais",
@@ -279,7 +279,7 @@ export const HOSPITALAR = {
       },
       {
         titulo: "Aprovação no celular, com registro",
-        texto: "O aviso chega no celular de quem aprova e abre já na peça certa. Quem aprovou o quê, e quando, fica registrado — é o histórico que a auditoria pede.",
+        texto: "O aviso chega no celular de quem aprova e abre já na peça certa. Quem aprovou o quê, e quando, fica registrado: é o histórico que a auditoria pede.",
       },
       {
         titulo: "A trava do CFM",
@@ -295,7 +295,7 @@ export const HOSPITALAR = {
       },
       {
         titulo: "Contrato e entrega, lado a lado",
-        texto: "O que o hospital contratou ao lado do que já foi entregue, e o relatório do mês por canal — site, Google, Meta, redes, vídeo e TV — num lugar só.",
+        texto: "O que o hospital contratou ao lado do que já foi entregue, e o relatório do mês por canal (site, Google, Meta, redes, vídeo e TV), num lugar só.",
       },
     ] as ItemOs[],
   },
@@ -305,7 +305,7 @@ export const HOSPITALAR = {
   quandoNao: {
     titulo: "Quando NÃO contratar",
     /** O 3º parágrafo é novo; os dois primeiros vêm de `cartas.ts › quandoNao`. */
-    extra: "E se a instituição já mantém um departamento de comunicação completo, com equipe e agência, contratar o departamento de novo é pagar duas vezes. Aí a conversa é só sobre a frente que falta — a TV das unidades, a mídia de uma linha —, e às vezes a resposta honesta é que não falta nenhuma.",
+    extra: "E se a instituição já mantém um departamento de comunicação completo, com equipe e agência, contratar o departamento de novo é pagar duas vezes. Aí a conversa é só sobre a frente que falta (a TV das unidades, a mídia de uma linha), e às vezes a resposta honesta é que não falta nenhuma.",
   },
 
   /* ────────────────────────────────────────────────────── CTA final (§11.11) ── */
