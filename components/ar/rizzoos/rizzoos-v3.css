@@ -179,6 +179,14 @@
   text-transform: uppercase;
   color: #c9c3b6;
 }
+/* O logo do RizzoOS entre o kicker e o H1 (pedido do cliente, F3). Altura pela
+   largura da tela: um degrau acima do logo do topo (24–35px), sem disputar com
+   o H1 (22–46px). O PNG tem 725×144 — a largura segue a proporção. */
+.os3 .os3-marca {
+  display: block;
+  height: clamp(30px, 2.8vw, 40px);
+  width: auto;
+}
 .os3 .os3-h1 {
   margin: 0;
   font-weight: 700;

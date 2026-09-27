@@ -15,6 +15,7 @@
 // `data-cta="proposta"`; "WhatsApp" é o portão `/whatsapp` com o texto da
 // página no `data-wa`. Zero `wa.me` — o protótipo já não tinha nenhum.
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { FATOS, PROPOSTA_URL } from "@/lib/site";
 import { CTA_PROPOSTA_CURTO, CTA_WHATSAPP, ROTA_PORTAO } from "@/lib/nav";
@@ -42,6 +43,13 @@ export function Ceu({ waText }: { waText: string }) {
   return (
     <section className="os3-ceu" aria-labelledby="h1" data-topo="claro">
       <p className="os3-ceu-kicker">{HERO_OS.kicker}</p>
+      {/* O logo do RizzoOS (horizontal, versão pra fundo escuro), acima do H1 —
+          pedido do cliente na F3 (2026-09-27). É o MESMO arquivo que o app usa
+          (rizzo-os → `public/email/rizzoos-wordmark.png`, copiado byte a byte),
+          não um lockup em texto: o wordmark tem fonte própria, e a regra 3 do
+          site só admite fonte fora da escala em logo real. `priority` porque
+          está na 1ª dobra, como o logo do topo. */}
+      <Image className="os3-marca" src="/rizzoos_logo_horizontal.png" alt="RizzoOS" width={725} height={144} sizes="(max-width: 699px) 151px, 202px" priority />
       <h1 id="h1" className="os3-h1">
         {HERO_OS.titulo} {HERO_OS.destaque}
       </h1>
