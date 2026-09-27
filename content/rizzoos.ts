@@ -308,6 +308,9 @@ export const FRANQUEZA = {
   ],
 } as const;
 
+/** O cabeçalho da FAQ (coluna sticky da seção 10). */
+export const FAQ_CAB = { kicker: "FAQ", titulo: "Perguntas frequentes" } as const;
+
 /**
  * A FAQ VISÍVEL do v3 (seção 10). ⚠️ SEM schema `FAQPage` — o protótipo pede, o
  * mapa proíbe (§7.1-5): não há pergunta literal do Search Console pra este tema,

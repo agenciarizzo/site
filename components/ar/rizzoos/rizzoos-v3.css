@@ -1,0 +1,1012 @@
+/* ============================================================================
+   /rizzoos · protótipo v3 "voo de cruzeiro" — a folha da página.
+
+   Fonte: `design_handoff_site_rizzo_v2/Pagina - RizzoOS v3.dc.html` (rizzo-os)
+   + o README §1 do mesmo pacote. Plano e critérios: rizzo-os →
+   docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md §7. Todo valor (px, cor, peso,
+   clamp, ease) saiu do `style=""` inline do protótipo, seção por seção.
+
+   Mora ao lado da `.dg` (home-diagonal.css), que dá o topo em pílula, o
+   rodapé, a revelação (`[data-reveal][data-armado]`) e as cores de base. Esta
+   folha só desenha as 10 seções do v3, sob `.os3` — nenhum seletor aqui vale
+   fora desta página.
+
+   DOIS MODOS por seção guiada por scroll (filme e ciclo), e o padrão é o
+   EMPILHADO: é ele que o HTML estático entrega, é ele que vale abaixo de 900px
+   e em `prefers-reduced-motion` (§7.1-3), e é ele que sobra sem JS. O modo
+   CENA (sticky + coreografia) só existe quando o motor
+   (`components/ar/rizzoos/MotorVoo.tsx`) escreve `data-cine-on` /
+   `data-cena-on` — ele só escreve com ≥900px E sem reduced-motion.
+   ============================================================================ */
+
+/* ─────────────────────────────────────────────────────────────── escala ──── */
+/* A ESCALA DESTA PÁGINA — degraus declarados, cada um com o papel que tem no
+   protótipo (regra 3 do CLAUDE.md do site: "tamanho e tracking saem da
+   ESCALA"; degrau novo "só com motivo, declarado"). O motivo é um só e vale
+   pra todos: o v3 é hifi (README "Fidelidade: alta") e nenhum degrau do
+   `:root` do globals.css tem estes valores — o mais próximo erra por 1–4px em
+   cada um, e reaproveitar token de outro papel só pra passar no gate é o que
+   o próprio `:root` proíbe. Moram aqui, e não no `:root`, porque o §7.3 do
+   mapa deixa `app/globals.css` fora de posse deste tronco ("degrau novo entra
+   em CSS próprio da pasta nova"). Reaproveitados do `:root` por PAPEL igual:
+   `--ls-micro` (botão, .06em), `--ls-slab-cta` e `--corpo-cta` (H2 e parágrafo
+   do CTA de preço). */
+.os3 {
+  /* ritmo do filme: tweak `ritmo` do protótipo — curto 60vh · normal 80vh ·
+     longo 100vh por tela. Default `normal` (§7.2-a do mapa). */
+  --os3-ritmo: 80vh;
+
+  /* página */
+  --os3-kicker: 12px; /* kicker 800/.14em (herói, FAQ) */
+  --os3-h1: clamp(22px, 3.6vw, 46px); /* H1 do céu, caixa-alta .26em */
+  --os3-lead: clamp(16px, 1.4vw, 19px); /* lead do herói */
+  --os3-btn: 14px; /* pílula de CTA, caixa-alta */
+  --os3-mono: 12px; /* número mono: legenda, contador, tema, tese, ciclo */
+  --os3-cap-h3: clamp(26px, 2.7vw, 40px); /* título da legenda do filme */
+  --os3-cap-p: clamp(15px, 1.2vw, 17px); /* texto da legenda do filme */
+  --os3-h2-frases: clamp(28px, 3.4vw, 48px); /* H2 "Se você já disse…" */
+  --os3-tema-h3: clamp(19px, 1.8vw, 24px); /* título de cada tema de frases */
+  --os3-corpo: 16px; /* frase, franqueza, resposta da FAQ */
+  --os3-resposta: 14px; /* resposta da frase e links "o que pensamos de…" */
+  --os3-fatos: 13px; /* itens da tarja amarela */
+  --os3-tese-h2: clamp(34px, 4.4vw, 68px); /* H2 da tese */
+  --os3-tese-p: clamp(17px, 1.4vw, 20px); /* parágrafo da tese */
+  --os3-ciclo-h2: clamp(26px, 3vw, 40px); /* H2 do ciclo e do combinado */
+  --os3-passo-t: 19px; /* título do card do ciclo/combinado */
+  --os3-passo-d: 15px; /* texto do card do ciclo/combinado */
+  --os3-preco-h2: clamp(36px, 4.6vw, 64px); /* H2 do preço (200 + span 600) */
+  --os3-franq-h2: clamp(22px, 2.2vw, 30px); /* H2 da franqueza */
+  --os3-faq-h2: clamp(28px, 3.4vw, 44px); /* H2 da FAQ */
+  --os3-faq-q: clamp(17px, 1.5vw, 20px); /* pergunta da FAQ */
+  --os3-faq-mais: 26px; /* o "+" que gira */
+
+  --os3-ls-kicker: 0.14em;
+  --os3-ls-h1: 0.26em;
+  --os3-ls-mono: 0.08em;
+  --os3-ls-h3: -0.03em; /* legenda do filme, franqueza */
+  --os3-ls-h2: -0.035em; /* frases, ciclo, FAQ */
+  --os3-ls-tema: -0.02em;
+  --os3-ls-tese: -0.04em;
+  --os3-ls-fatos: 0.12em;
+  --os3-ls-card: -0.01em; /* card do ciclo, pergunta da FAQ */
+
+  /* O MOCK das 7 telas é DESENHO de interface a 680×420 (240×480 o celular),
+     escalado inteiro por `transform` — a tipografia dele é a da interface,
+     não a do site, e não vira degrau de página. Os degraus levam o valor no
+     nome porque é isso que eles são: a unidade do desenho. */
+  --os3-m-8: 8px;
+  --os3-m-85: 8.5px;
+  --os3-m-9: 9px;
+  --os3-m-95: 9.5px;
+  --os3-m-10: 10px;
+  --os3-m-105: 10.5px;
+  --os3-m-11: 11px;
+  --os3-m-115: 11.5px;
+  --os3-m-12: 12px;
+  --os3-m-13: 13px;
+  --os3-m-14: 14px;
+  --os3-m-15: 15px;
+  --os3-m-18: 18px;
+  --os3-m-20: 20px;
+  --os3-m-26: 26px;
+  --os3-m-ls-2n: -0.02em;
+  --os3-m-ls-4: 0.04em;
+  --os3-m-ls-6: 0.06em;
+  --os3-m-ls-8: 0.08em;
+  --os3-m-ls-10: 0.1em;
+}
+
+/* O `body` do site tem 17px/1.68 e tinta #3A3628; o do protótipo é o padrão do
+   navegador (entrelinha `normal`) com tinta #4B5560. Só o miolo desta página
+   volta ao do protótipo — topo e rodapé da `.dg` continuam como em todo o site. */
+.os3 .os3-main {
+  color: #4b5560;
+  line-height: normal;
+}
+.os3 .os3-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+.os3 .os3-losango {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: #ffd200;
+  transform: rotate(45deg);
+  flex: none;
+}
+
+/* ─────────────────────────────────────────────────────────── botões ──── */
+.os3 .os3-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  font-weight: 700;
+  font-size: var(--os3-btn);
+  letter-spacing: var(--ls-micro);
+  text-transform: uppercase;
+  padding: 16px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.os3 .os3-btn-ouro {
+  background: #ffd200;
+  color: #323c46;
+}
+.os3 .os3-btn-ouro:hover {
+  background: #f4efe6;
+  color: #323c46;
+}
+.os3 .os3-btn-ceu {
+  border: 1.5px solid #f4efe6;
+  color: #f4efe6;
+}
+.os3 .os3-btn-ceu:hover {
+  background: #0097a7;
+  border-color: #0097a7;
+  color: #f4efe6;
+}
+.os3 .os3-btn-chumbo {
+  background: #323c46;
+  color: #f4efe6;
+}
+.os3 .os3-btn-chumbo:hover {
+  background: #ffd200;
+  color: #323c46;
+}
+
+/* ═══════════════════════════════════════════════════════ 01 · herói ════ */
+.os3 .os3-ceu {
+  position: relative;
+  height: 100vh;
+  min-height: 680px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1035c2 0%, #0f172a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 132px var(--lado) 0;
+  gap: 22px;
+}
+.os3 .os3-ceu-kicker {
+  margin: 0;
+  font-size: var(--os3-kicker);
+  font-weight: 800;
+  letter-spacing: var(--os3-ls-kicker);
+  text-transform: uppercase;
+  color: #c9c3b6;
+}
+.os3 .os3-h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--os3-h1);
+  line-height: 1.2;
+  letter-spacing: var(--os3-ls-h1);
+  text-transform: uppercase;
+  color: #f4efe6;
+  text-wrap: balance;
+}
+.os3 .os3-lead {
+  margin: 0;
+  max-width: 600px;
+  font-size: var(--os3-lead);
+  line-height: 1.5;
+  color: #c9c3b6;
+  text-wrap: pretty;
+}
+.os3 .os3-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+/* O avião e o rastro — a espinha da página. O motor sobe o `[data-voo]` a
+   0,22× o scroll, limitado à folga acima dele (nunca invade os botões). */
+.os3 .os3-voo {
+  position: relative;
+  flex: 1;
+  width: 0;
+  margin-top: clamp(56px, 14vh, 140px);
+  will-change: transform;
+}
+.os3 .os3-aviao {
+  position: absolute;
+  left: -38px;
+  top: 0;
+  width: 76px;
+  height: 76px;
+  display: block;
+}
+.os3 .os3-rastro {
+  position: absolute;
+  left: -2px;
+  top: 74px;
+  width: 4px;
+  height: 320vh;
+  background: #f4efe6;
+}
+
+/* ════════════════════════════════════════════════════════ 02 · filme ════ */
+/* EMPILHADO (padrão): uma tela por vez, em coluna, cada mock escalado pra
+   caber (o motor escreve `--s`; sem JS vale a aproximação por largura). */
+.os3 .os3-filme {
+  position: relative;
+  background: #0f172a;
+}
+.os3 .os3-palco {
+  display: flex;
+  flex-direction: column;
+  gap: 88px;
+  padding: 96px var(--lado);
+}
+.os3 .os3-linha,
+.os3 .os3-contador {
+  display: none;
+}
+.os3 .os3-quadro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+.os3 .os3-tela {
+  --s: 1;
+  position: relative;
+  flex: none;
+  width: calc(var(--w) * var(--s) * 1px);
+  height: calc(var(--h) * var(--s) * 1px);
+}
+.os3 .os3-tela[data-fone] {
+  align-self: center;
+}
+@media (max-width: 791px) {
+  .os3 .os3-tela:not([data-fone]) {
+    --s: 0.86;
+  }
+}
+@media (max-width: 699px) {
+  .os3 .os3-tela:not([data-fone]) {
+    --s: 0.5;
+  }
+}
+.os3 .os3-tela-in {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--w) * 1px);
+  transform: scale(var(--s));
+  transform-origin: 0 0;
+}
+.os3 .os3-cap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 560px;
+}
+/* Empilhado com tela larga (≥900px e reduced-motion): mock e legenda LADO A
+   LADO, a legenda do lado oposto ao mock como no filme — o motor escala o mock
+   pra ~55% da linha. Abaixo de 900px é coluna, como o protótipo no celular. */
+@media (min-width: 900px) {
+  .os3 .os3-filme:not([data-cine-on]) .os3-quadro {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+  }
+  .os3 .os3-filme:not([data-cine-on]) .os3-quadro[data-lado="esq"] {
+    flex-direction: row-reverse;
+  }
+  .os3 .os3-filme:not([data-cine-on]) .os3-cap {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+.os3 .os3-cap-num {
+  font-size: var(--os3-mono);
+  letter-spacing: var(--os3-ls-mono);
+  color: #ffd200;
+}
+.os3 .os3-cap-t {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--os3-cap-h3);
+  line-height: 1;
+  letter-spacing: var(--os3-ls-h3);
+  color: #f4efe6;
+  text-wrap: balance;
+}
+.os3 .os3-cap-d {
+  margin: 0;
+  font-size: var(--os3-cap-p);
+  line-height: 1.55;
+  color: #c9c3b6;
+  text-wrap: pretty;
+}
+
+/* CENA (≥900px, sem reduced-motion, motor ligado): trilho de 100vh + 7×ritmo,
+   palco sticky, o rastro no centro; mock e legenda saem do fluxo e o motor os
+   posiciona quadro a quadro — o `.os3-quadro` vira `contents` pra que os dois
+   se posicionem contra o palco. */
+.os3 .os3-filme[data-cine-on] {
+  height: calc(100vh + 7 * var(--os3-ritmo));
+}
+.os3 .os3-filme[data-cine-on] .os3-palco {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: block;
+  padding: 0;
+}
+.os3 .os3-filme[data-cine-on] .os3-linha {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  margin-left: -2px;
+  background: #f4efe6;
+}
+.os3 .os3-filme[data-cine-on] .os3-quadro {
+  display: contents;
+}
+.os3 .os3-filme[data-cine-on] .os3-tela {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--w) * 1px);
+  height: auto;
+  opacity: 0;
+  transform-origin: 0 0;
+  will-change: transform, opacity;
+}
+.os3 .os3-filme[data-cine-on] .os3-tela-in {
+  position: relative;
+  transform: none;
+}
+.os3 .os3-filme[data-cine-on] .os3-cap {
+  position: absolute;
+  top: 50%;
+  width: min(36vw, 440px);
+  max-width: calc(100vw - 48px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 8;
+  transform: translateY(-50%);
+}
+/* legenda do lado oposto ao mock: mock à esquerda (27%) → texto em 56vw */
+.os3 .os3-filme[data-cine-on] .os3-cap[data-lado="dir"] {
+  left: 56vw;
+}
+.os3 .os3-filme[data-cine-on] .os3-cap[data-lado="esq"] {
+  left: 8vw;
+}
+.os3 .os3-filme[data-cine-on] .os3-contador {
+  display: block;
+  position: absolute;
+  left: var(--lado);
+  bottom: 28px;
+  font-size: var(--os3-mono);
+  letter-spacing: var(--os3-ls-mono);
+  color: #c9c3b6;
+  z-index: 8;
+}
+
+/* ─── o mock (desenho da interface) ─── */
+.os3 .os3-mock {
+  box-sizing: border-box;
+  background: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.42);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  font-size: var(--os3-m-12);
+  color: #f1f5f9;
+}
+.os3 .os3-mock * {
+  box-sizing: border-box;
+}
+.os3 .os3-mock p {
+  margin: 0;
+}
+/* a tipografia do desenho, por degrau (`--os3-m-*` acima) */
+.os3 .os3-mock .m8 { font-size: var(--os3-m-8); }
+.os3 .os3-mock .m85 { font-size: var(--os3-m-85); }
+.os3 .os3-mock .m9 { font-size: var(--os3-m-9); }
+.os3 .os3-mock .m95 { font-size: var(--os3-m-95); }
+.os3 .os3-mock .m10 { font-size: var(--os3-m-10); }
+.os3 .os3-mock .m105 { font-size: var(--os3-m-105); }
+.os3 .os3-mock .m11 { font-size: var(--os3-m-11); }
+.os3 .os3-mock .m115 { font-size: var(--os3-m-115); }
+.os3 .os3-mock .m12 { font-size: var(--os3-m-12); }
+.os3 .os3-mock .m13 { font-size: var(--os3-m-13); }
+.os3 .os3-mock .m14 { font-size: var(--os3-m-14); }
+.os3 .os3-mock .m15 { font-size: var(--os3-m-15); }
+.os3 .os3-mock .m18 { font-size: var(--os3-m-18); }
+.os3 .os3-mock .m20 { font-size: var(--os3-m-20); }
+.os3 .os3-mock .m26 { font-size: var(--os3-m-26); }
+.os3 .os3-mock .ls-2n { letter-spacing: var(--os3-m-ls-2n); }
+.os3 .os3-mock .ls4 { letter-spacing: var(--os3-m-ls-4); }
+.os3 .os3-mock .ls6 { letter-spacing: var(--os3-m-ls-6); }
+.os3 .os3-mock .ls8 { letter-spacing: var(--os3-m-ls-8); }
+.os3 .os3-mock .ls10 { letter-spacing: var(--os3-m-ls-10); }
+
+/* ═══════════════════════════════════════════════ 02b · fim do rastro ════ */
+.os3 .os3-fim {
+  position: relative;
+  height: 72vh;
+  background: #0f172a;
+  overflow: hidden;
+}
+/* a linha só continua quando existe rastro acima dela: é o do filme em cena */
+.os3 .os3-fim-linha {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 22vh;
+  margin-left: -2px;
+  background: #f4efe6;
+}
+.os3:has(.os3-filme[data-cine-on]) .os3-fim-linha {
+  display: block;
+}
+.os3 .os3-leque {
+  position: absolute;
+  left: 0;
+  top: 22vh;
+  width: 100%;
+  height: 50vh;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════════════ 03 · frases ════ */
+.os3 .os3-frases {
+  background: #f4efe6;
+  padding: 72px var(--lado) 104px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+.os3 .os3-frases-h2 {
+  margin: 0;
+  max-width: 20ch;
+  font-weight: 700;
+  font-size: var(--os3-h2-frases);
+  line-height: 1;
+  letter-spacing: var(--os3-ls-h2);
+  color: #323c46;
+  text-wrap: balance;
+}
+.os3 .os3-tema {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.os3 .os3-tema-cab {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.os3 .os3-tema-num {
+  font-size: var(--os3-mono);
+  letter-spacing: var(--os3-ls-mono);
+  color: #4b5560;
+}
+.os3 .os3-tema-t {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--os3-tema-h3);
+  line-height: 1.2;
+  letter-spacing: var(--os3-ls-tema);
+  color: #323c46;
+}
+.os3 .os3-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.os3 .os3-card {
+  background: #fbf9f3;
+  border: 1px solid #ded7c6;
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.os3 .os3-frase {
+  margin: 0;
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--os3-corpo);
+  line-height: 1.35;
+  color: #323c46;
+  text-wrap: balance;
+}
+.os3 .os3-resposta {
+  margin: 0;
+  font-size: var(--os3-resposta);
+  line-height: 1.55;
+  color: #4b5560;
+  text-wrap: pretty;
+}
+.os3 .os3-leia {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: var(--os3-resposta);
+}
+.os3 .os3-leia a {
+  color: #323c46;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #ffd200;
+  text-underline-offset: 4px;
+  transition: color 0.3s;
+}
+.os3 .os3-leia a:hover {
+  color: #0097a7;
+}
+
+/* ════════════════════════════════════════════════════════ 04 · fatos ════ */
+/* Lista TRIPLICADA e o passo é UMA cópia (−33,33%): o protótipo anda −50%
+   sobre três cópias, o que dá um salto de meia cópia a cada volta — aqui o
+   laço fecha sem costura. Uma cópia só não cobre tela larga (~1.750px). */
+.os3 .os3-fatos {
+  padding: 22px 0;
+  overflow: hidden;
+  background: #ffd200;
+  color: #323c46;
+}
+.os3 .os3-fatos-trilho {
+  display: flex;
+  width: max-content;
+  animation: os3-marquee 40s linear infinite;
+}
+.os3 .os3-fatos-trilho > span {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding-right: 28px;
+  white-space: nowrap;
+  font-size: var(--os3-fatos);
+  font-weight: 800;
+  letter-spacing: var(--os3-ls-fatos);
+  text-transform: uppercase;
+}
+.os3 .os3-fatos .os3-losango {
+  background: #323c46;
+}
+@keyframes os3-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+
+/* ═════════════════════════════════════════════════════════ 05 · tese ════ */
+.os3 .os3-tese {
+  position: relative;
+  overflow: hidden;
+  background: #f4efe6;
+  color: #323c46;
+}
+.os3 .os3-disco {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #e9e2d4;
+  will-change: transform;
+}
+.os3 .os3-disco-a {
+  left: 58%;
+  top: -12%;
+  width: min(46vw, 540px);
+}
+.os3 .os3-disco-b {
+  left: -6%;
+  bottom: -30%;
+  width: min(34vw, 400px);
+}
+.os3 .os3-tese-grade {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.os3 .os3-tese-c1 {
+  padding: 140px 32px 180px var(--lado);
+  min-width: 0;
+}
+.os3 .os3-tese-c1 > div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  will-change: transform;
+}
+.os3 .os3-tese-kicker {
+  font-size: var(--os3-mono);
+  letter-spacing: var(--os3-ls-mono);
+  color: #4b5560;
+}
+.os3 .os3-tese-h2 {
+  margin: 0;
+  max-width: 14ch;
+  font-weight: 700;
+  font-size: var(--os3-tese-h2);
+  line-height: 0.95;
+  letter-spacing: var(--os3-ls-tese);
+  color: #323c46;
+  text-wrap: balance;
+}
+.os3 .os3-tese-c2 {
+  display: none;
+}
+.os3 .os3-tese-c3 {
+  padding: 0 var(--lado) 120px 28px;
+  min-width: 0;
+}
+.os3 .os3-tese-c3 > div {
+  will-change: transform;
+}
+.os3 .os3-tese-p {
+  margin: 0;
+  max-width: 380px;
+  font-size: var(--os3-tese-p);
+  line-height: 1.5;
+  color: #323c46;
+  text-wrap: pretty;
+}
+/* ≥900px: as MESMAS colunas da cena do ciclo, e as linhas dela começam aqui */
+@media (min-width: 900px) {
+  .os3 .os3-tese-grade {
+    grid-template-columns: 1.15fr 1fr 0.85fr;
+  }
+  .os3 .os3-tese-c2 {
+    display: block;
+    border-left: 1px solid color-mix(in srgb, #323c46 40%, transparent);
+  }
+  .os3 .os3-tese-c3 {
+    border-left: 1px solid color-mix(in srgb, #323c46 40%, transparent);
+    padding-top: clamp(200px, 26vw, 360px);
+  }
+}
+
+/* ═══════════════════════════════════════════ 05 · ciclo e combinado ════ */
+/* EMPILHADO (padrão): fundo #323C46 fixo, uma coluna — o título do ciclo, os
+   5 passos, o título do combinado, os 4 cards. O DOM é o da cena (3 colunas,
+   como no protótipo); aqui as caixas intermediárias viram `contents` e a
+   ordem de leitura sai do `order` de cada item. */
+.os3 .os3-ciclo {
+  position: relative;
+  background: #323c46;
+}
+.os3 .os3-ciclo-palco {
+  position: relative;
+  overflow: hidden;
+  background: #323c46;
+  color: #f4efe6;
+  box-sizing: border-box;
+  padding: 96px var(--lado);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.os3 .os3-ciclo-titulos,
+.os3 .os3-ciclo-grade,
+.os3 .os3-col,
+.os3 .os3-mascara,
+.os3 .os3-col-lista {
+  display: contents;
+}
+.os3 .os3-ciclo-h2 {
+  margin: 0;
+  padding: 24px 0 8px;
+  font-weight: 700;
+  font-size: var(--os3-ciclo-h2);
+  line-height: 1;
+  letter-spacing: var(--os3-ls-h2);
+  color: inherit;
+  text-wrap: balance;
+  max-width: 720px;
+}
+.os3 .os3-ciclo-h2[data-h2="0"] {
+  order: 0;
+}
+.os3 .os3-ciclo-h2[data-h2="1"] {
+  order: 6;
+}
+.os3 .os3-passo {
+  order: var(--ordem);
+  max-width: 720px;
+  border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
+  padding: 26px 24px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: inherit;
+}
+.os3 .os3-passo-num {
+  font-size: var(--os3-mono);
+  color: #ffd200;
+}
+.os3 .os3-passo .os3-losango {
+  margin: 4px 0;
+}
+.os3 .os3-passo-t {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--os3-passo-t);
+  line-height: 1.25;
+  letter-spacing: var(--os3-ls-card);
+}
+.os3 .os3-passo-d {
+  margin: 0;
+  font-size: var(--os3-passo-d);
+  line-height: 1.5;
+  opacity: 0.8;
+  text-wrap: pretty;
+}
+
+/* CENA (≥900px, sem reduced-motion, motor ligado): trilho de 100vh + 260vh,
+   palco sticky, título fixo que troca, 3 colunas rolando em velocidade
+   própria e o fundo virando papel no meio do caminho. */
+.os3 .os3-ciclo[data-cena-on] {
+  height: calc(100vh + 260vh);
+}
+.os3 .os3-ciclo[data-cena-on] .os3-ciclo-palco {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: block;
+  padding: 0;
+}
+.os3 .os3-ciclo[data-cena-on] .os3-ciclo-titulos {
+  display: block;
+  position: absolute;
+  left: var(--lado);
+  top: 112px;
+  z-index: 3;
+  max-width: min(60vw, 640px);
+  pointer-events: none;
+}
+.os3 .os3-ciclo[data-cena-on] .os3-ciclo-h2 {
+  padding: 0;
+  max-width: none;
+}
+.os3 .os3-ciclo[data-cena-on] .os3-ciclo-h2[data-h2="1"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  white-space: nowrap;
+}
+.os3 .os3-ciclo[data-cena-on] .os3-ciclo-grade {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 0.85fr;
+  height: 100%;
+}
+.os3 .os3-ciclo[data-cena-on] .os3-col {
+  display: block;
+  position: relative;
+  min-width: 0;
+  padding: 0 28px;
+}
+.os3 .os3-ciclo[data-cena-on] .os3-col:first-child {
+  padding: 0 28px 0 var(--lado);
+}
+.os3 .os3-ciclo[data-cena-on] .os3-col:last-child {
+  padding: 0 var(--lado) 0 28px;
+}
+/* as bordas ficam FORA do wrapper mascarado, pra manter a altura toda */
+.os3 .os3-ciclo[data-cena-on] .os3-col + .os3-col {
+  border-left: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+}
+.os3 .os3-ciclo[data-cena-on] .os3-mascara {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  /* a faixa do título é reservada: os cards somem antes de chegar nele */
+  -webkit-mask-image: linear-gradient(180deg, transparent 150px, #000 230px);
+  mask-image: linear-gradient(180deg, transparent 150px, #000 230px);
+}
+.os3 .os3-ciclo[data-cena-on] .os3-col-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  will-change: transform;
+}
+.os3 .os3-ciclo[data-cena-on] .os3-passo {
+  max-width: none;
+}
+/* Regra 2 do site: amarelo NUNCA como texto sobre papel. Quando o fundo vira
+   papel (o motor escreve `data-papel`), o número do passo segue a tinta. */
+.os3 .os3-ciclo[data-papel] .os3-passo-num {
+  color: inherit;
+}
+
+/* ════════════════════════════════════════════════════════ 08 · preço ════ */
+.os3 .os3-preco {
+  background: #f4efe6;
+  padding: 96px var(--lado);
+}
+.os3 .os3-preco-caixa {
+  max-width: 640px;
+  background: #f4efe6;
+  padding: clamp(32px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: 0 0 0 1px #323c46;
+}
+.os3 .os3-preco-h2 {
+  margin: 0;
+  font-weight: 200;
+  font-size: var(--os3-preco-h2);
+  line-height: 1;
+  letter-spacing: var(--ls-slab-cta);
+  color: #323c46;
+  text-wrap: balance;
+}
+.os3 .os3-preco-h2 span {
+  font-weight: 600;
+}
+.os3 .os3-preco-p {
+  margin: 0;
+  max-width: 460px;
+  font-size: var(--corpo-cta);
+  line-height: 1.6;
+  color: #4b5560;
+  text-wrap: pretty;
+}
+
+/* ════════════════════════════════════════════════════ 09 · franqueza ════ */
+.os3 .os3-franq {
+  background: #fbf9f3;
+  padding: 96px var(--lado);
+}
+.os3 .os3-franq-caixa {
+  max-width: 720px;
+  border: 1px solid #323c46;
+  padding: clamp(28px, 3.4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.os3 .os3-franq-h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--os3-franq-h2);
+  line-height: 1;
+  letter-spacing: var(--os3-ls-h3);
+  color: #323c46;
+}
+.os3 .os3-franq-p {
+  margin: 0;
+  font-size: var(--os3-corpo);
+  line-height: 1.65;
+  color: #4b5560;
+  text-wrap: pretty;
+}
+
+/* ══════════════════════════════════════════════════════════ 10 · FAQ ════ */
+.os3 .os3-faq {
+  background: #f4efe6;
+  padding: 96px var(--lado) 120px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 40px 64px;
+  align-items: start;
+}
+.os3 .os3-faq-cab {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: sticky;
+  top: 112px;
+}
+.os3 .os3-faq-kicker {
+  margin: 0;
+  font-size: var(--os3-kicker);
+  font-weight: 800;
+  letter-spacing: var(--os3-ls-kicker);
+  text-transform: uppercase;
+  color: #323c46;
+}
+.os3 .os3-faq-h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--os3-faq-h2);
+  line-height: 1;
+  letter-spacing: var(--os3-ls-h2);
+  color: #323c46;
+  text-wrap: balance;
+}
+.os3 .os3-faq-lista {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #323c46;
+}
+/* Com UMA trilha só (container < 2×300 + 64), `span 2` criaria uma coluna
+   implícita e empurraria a lista pra fora da tela — aqui ela ocupa a única. */
+@media (max-width: 775px) {
+  .os3 .os3-faq-lista {
+    grid-column: 1 / -1;
+  }
+}
+/* O cabeçalho só gruda quando a lista está AO LADO dele (3 trilhas: container
+   ≥ 3×300 + 2×64). Com 1 ou 2 trilhas a lista cai pra linha de baixo, e o
+   sticky do protótipo passava o título por cima das perguntas (medido a 390px). */
+@media (max-width: 1139px) {
+  .os3 .os3-faq-cab {
+    position: static;
+  }
+}
+.os3 .os3-faq-item {
+  border-bottom: 1px solid #ded7c6;
+}
+.os3 .os3-faq-q {
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 0;
+  font-size: var(--os3-faq-q);
+  font-weight: 600;
+  letter-spacing: var(--os3-ls-card);
+  line-height: 1.3;
+  color: #323c46;
+  list-style: none;
+  transition: color 0.3s;
+}
+.os3 .os3-faq-q::-webkit-details-marker {
+  display: none;
+}
+.os3 .os3-faq-q:hover {
+  color: #0097a7;
+}
+.os3 .os3-mais {
+  flex: none;
+  font-weight: 300;
+  font-size: var(--os3-faq-mais);
+  line-height: 1;
+  transition: transform 0.3s;
+}
+.os3 .os3-faq-item[open] .os3-mais {
+  transform: rotate(45deg);
+}
+.os3 .os3-faq-a {
+  margin: 0;
+  padding: 0 48px 24px 0;
+  font-size: var(--os3-corpo);
+  line-height: 1.65;
+  color: #4b5560;
+  max-width: 720px;
+  text-wrap: pretty;
+}
+
+/* ══════════════════════════════════════════════ prefers-reduced-motion ══ */
+/* O motor já não liga cena, paralaxe nem voo; aqui param as duas animações
+   que são só CSS (a tarja e o giro do "+"). */
+@media (prefers-reduced-motion: reduce) {
+  .os3 .os3-fatos-trilho {
+    animation: none;
+  }
+  .os3 .os3-mais,
+  .os3 .os3-faq-q,
+  .os3 .os3-btn,
+  .os3 .os3-leia a {
+    transition: none;
+  }
+}
