@@ -21,10 +21,10 @@ import Link from "next/link";
 import { ROTA_PORTAO, CTA_WHATSAPP_FALAR } from "@/lib/nav";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import type { Tweaks } from "@/lib/tweaks.mjs";
-import { panoCidadeFaixa } from "@/lib/athos/panos";
 import type { Carta } from "@/content/cartas";
 import { HOSPITALAR } from "@/content/hospitalar";
 import { Malha } from "@/components/ar/cidade/Praca";
+import { MapaPraca } from "@/components/ar/cidade/MapaPraca";
 import type { GrupoHospital, NumerosHospital } from "@/lib/hospital";
 
 /* ─────────────────────────────────────────────────────────── a porta única ── */
@@ -75,18 +75,21 @@ export function HeroHospital({ c, t }: { c: Carta; t: Tweaks }) {
  * a tese que o registro da carta já publicava (`posicao[0]`, verbatim) e os
  * chips das linhas de serviço.
  *
- * Sem mapa: hospital não é praça, então o fundo é o campo de azulejos da
- * própria página (motor Athos, os tweaks D19) — `panoCidadeFaixa` é importada
- * do motor, nunca redesenhada aqui.
+ * O fundo é o MAPA do protótipo v3 (rizzo-os → SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA
+ * §10.0, nó 2): o `mapa-cidade.html?c=saopaulo-hospitais` fixo do `.dc.html` —
+ * o bairro dos hospitais de São Paulo — vira uma imagem por recorte, gerada uma
+ * vez pelo `scripts/gerar-mapas.mjs` e servida pelo `MapaPraca` do cidade-molde
+ * (importado, nunca redesenhado): zero tile de terceiro em tempo de visita
+ * (regra 8). O comentário do próprio protótipo ainda diz "sem mapa: hospital não
+ * é praça", mas o markup dele põe o mapa — LAYOUT = protótipo. O campo de
+ * azulejos que este bloco tinha até a fatia 4 saiu com ele.
  */
 export function HospitalPoster({
   c,
-  t,
   n,
   casa,
 }: {
   c: Carta;
-  t: Tweaks;
   n: NumerosHospital;
   casa: { cidades: number; estados: number };
 }) {
@@ -97,12 +100,7 @@ export function HospitalPoster({
   ];
   return (
     <section className="cid-poster" aria-labelledby="h-hosp" data-topo="escuro">
-      <div
-        className="cid-poster-campo"
-        aria-hidden
-        data-par="-0.06"
-        dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }}
-      />
+      <MapaPraca mapa={HOSPITALAR.poster.mapa} />
       <i className="cid-poster-traco" aria-hidden />
       <div className="cid-poster-grade">
         <div className="cid-poster-numeros">

@@ -103,12 +103,13 @@ export function HospitalMolde({ c }: { c: Carta }) {
       data-hosp-hospitais={n.hospitais}
       data-hosp-estados={n.estados}
       data-hosp-pecas={pecas.length}
+      data-hosp-mapa={HOSPITALAR.poster.mapa}
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(hospitalJsonLd(c)) }} />
       <Topo waText={c.waText} rota={rota} />
       <HeroHospital c={c} t={t} />
       <Autoridade />
-      <HospitalPoster c={c} t={t} n={n} casa={casa} />
+      <HospitalPoster c={c} n={n} casa={casa} />
       <MetodoHospital c={c} />
       <Frentes />
       <Perfis c={c} />

@@ -75,6 +75,13 @@ export const HOSPITALAR = {
       estados: "estados com instituição atendida",
     },
     rotulo: "Linha de serviço",
+    /**
+     * O fundo do pôster (fatia 4, §10.0 nó 2 do handoff): o mapa FIXO que o
+     * protótipo v3 põe atrás dos números — `mapa-cidade.html?c=saopaulo-hospitais`,
+     * o bairro dos hospitais de São Paulo. É o slug de `PRACAS` em
+     * `scripts/gerar-mapas.mjs`; as duas imagens moram em `public/mapas/`.
+     */
+    mapa: "saopaulo-hospitais",
     /** O H2 em três partes: os dois trechos em `<span>`, como o molde. */
     h2: ["Comunicação", "por linha de serviço", "e por", "público"],
     chips: [
