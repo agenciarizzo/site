@@ -12,7 +12,9 @@
 // conteúdo (§11.9) — mesma marca, outra peça.
 //
 // SSG puro: zero "use client" e zero estado. O fundo navy é legítimo aqui
-// porque É o bloco RizzoOS (A4 do CLAUDE.md do site).
+// porque É o bloco RizzoOS (A4 do CLAUDE.md do site). O bloco RizzoOS da home
+// virou, na fatia 4 do handoff, cabeça (aqui) → track de telas
+// (`TelasHospital.tsx`) → lista resumida (aqui).
 import { HOSPITALAR } from "@/content/hospitalar";
 import type { Carta } from "@/content/cartas";
 import { PortaWhats } from "./Hospital";
@@ -100,7 +102,13 @@ export function Perfis({ c }: { c: Carta }) {
 
 /* ───────────────────────────────────────────────────────────── 10 · RizzoOS ── */
 
-/** O painel, em leitura parada. Fundo navy — o único bloco do site que o usa (A4). */
+/**
+ * 10 · A cabeça do painel, em leitura parada. Fundo navy — o único bloco do
+ * site que o usa (A4). Na fatia 4 do handoff o bloco DIVIDIU em três (§10.1
+ * 10/10b/10c): esta cabeça → o track de telas (`TelasHospital.tsx`) → a lista
+ * resumida (`RizzoOsLista`, abaixo). `lede` e `itens` seguem de
+ * `HOSPITALAR.rizzoos`.
+ */
 export function RizzoOsHospital() {
   const r = HOSPITALAR.rizzoos;
   return (
@@ -112,14 +120,20 @@ export function RizzoOsHospital() {
         </h2>
         <p>{r.lede}</p>
       </div>
+    </section>
+  );
+}
+
+/** 10c · A lista inteira, pra quem lê parado: número + título de cada funcionalidade, depois do track. */
+export function RizzoOsLista() {
+  const r = HOSPITALAR.rizzoos;
+  return (
+    <section className="hosp-os-resumo" aria-label={r.resumo} data-topo="claro">
       <ol className="hosp-os-lista">
         {r.itens.map((item, i) => (
           <li key={item.titulo}>
             <span className="cifra">{String(i + 1).padStart(2, "0")}</span>
-            <div>
-              <h3>{item.titulo}</h3>
-              <p>{item.texto}</p>
-            </div>
+            <h3>{item.titulo}</h3>
           </li>
         ))}
       </ol>

@@ -21,7 +21,7 @@
 // (`stroke-dashoffset`, `cx`/`cy`, `data-on`/`data-passado`/`data-aceso`),
 // nunca `style`, pra o CSS do empilhado sempre ganhar quando a cena desliga.
 //
-// SSG puro: este arquivo não tem `"use client"`; a ilha é outra.
+// SSG puro: este arquivo é server component, sem diretiva de cliente; a ilha é outra.
 import type { Carta } from "@/content/cartas";
 import { HOSPITALAR } from "@/content/hospitalar";
 import { MET_N, metEcos, metGeo, metQuadro } from "@/lib/ar/hospital-cena.mjs";

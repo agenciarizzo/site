@@ -21,7 +21,7 @@
 // `prefers-reduced-motion`; a ilha escreve ATRIBUTOS (`transform`,
 // `data-dir`, `data-on`/`data-passado`/`data-aceso`), nunca `style`.
 //
-// SSG puro: sem `"use client"`; a ilha é outra.
+// SSG puro: server component, sem diretiva de cliente; a ilha é outra.
 import { HOSPITALAR } from "@/content/hospitalar";
 import { ESC_N, escGeo, escQuadro } from "@/lib/ar/hospital-cena.mjs";
 

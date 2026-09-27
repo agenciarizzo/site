@@ -254,6 +254,18 @@ export const HOSPITALAR = {
   rizzoos: {
     wordmark: ["Rizzo", "OS"],
     lede: "O painel onde o seu hospital acompanha, aprova e conversa com a agência. Nada vai ao ar sem aprovação.",
+    /* ── o track de telas (10b) e a lista resumida (10c) — fatia 4 do handoff, literais do protótipo v3 ── */
+    /** O `aria-label` do track. */
+    telasRotulo: "Funcionalidades do RizzoOS para hospitais",
+    /** O item do menu que cada tela acende, na ordem de `itens` (uma tela por funcionalidade). */
+    telasMenu: ["Calendário", "Aprovação", "Studio", "TV", "Financeiro", "Contrato"],
+    /** O menu da janela do painel, como o protótipo desenha a sidebar. */
+    menuJanela: ["Conversas", "Calendário", "Aprovação", "Studio", "TV", "Financeiro", "Contrato", "Relatórios"],
+    /** A barra da janela: o endereço do painel e o badge da unidade. */
+    janela: { url: "app.agenciarizzo.com.br", unidade: "Unidade: Centro" },
+    roleParaVer: "Role para ver",
+    /** O `aria-label` da lista resumida (10c). */
+    resumo: "Resumo do RizzoOS",
     itens: [
       {
         titulo: "O ano inteiro, escrito desde o primeiro dia",

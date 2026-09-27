@@ -48,7 +48,9 @@ import { historicoHospitalar, numerosHospitalares, pecasHospitalares } from "@/l
 import { HeroHospital, HospitalPoster, HistoricoHospital, FaqHospital, QuandoNaoHospital } from "./Hospital";
 import { ProsaPosicao, MetodoHospital } from "./Metodo";
 import { Escada } from "./Escada";
-import { Frentes, Transversal, Perfis, RizzoOsHospital, ChamadaHospital, CtaHospital } from "./Frentes";
+import { Frentes, Transversal, Perfis, RizzoOsHospital, RizzoOsLista, ChamadaHospital, CtaHospital } from "./Frentes";
+import { TelasRizzoOsHospital } from "./TelasHospital";
+import { MotorHospital } from "./MotorHospital";
 import { PortfolioHospital } from "./PortfolioHospital";
 
 /** Os tweaks do hero desta rota (D19) — a mesma chamada que a OG faz, pra as duas não divergirem. */
@@ -126,6 +128,8 @@ export function HospitalMolde({ c }: { c: Carta }) {
       <HistoricoHospital grupos={grupos} total={n.instituicoes} />
       <ChamadaHospital texto={HOSPITALAR.chamadas.aposHistorico} waText={c.waText} />
       <RizzoOsHospital />
+      <TelasRizzoOsHospital />
+      <RizzoOsLista />
       <ChamadaHospital texto={HOSPITALAR.chamadas.aposRizzoOs} waText={c.waText} />
       <PortfolioHospital pecas={pecas} cenas={cenas} usadas={usadas} />
       <FaqHospital c={c} />
@@ -133,6 +137,9 @@ export function HospitalMolde({ c }: { c: Carta }) {
       <CtaHospital waText={c.waText} />
       <Rodape waText={c.waText} rota={rota} />
       <Motor cenas={cenas.map((k) => k.pos)} focos={cenas.map((k) => k.foco)} modo={PORTFOLIO_MODO} />
+      {/* A segunda ilha (fatia 4): o Método, a Escada e a medida da janela das
+          telas — nunca o palco nem o track das telas, que são do Motor acima. */}
+      <MotorHospital />
     </div>
   );
 }

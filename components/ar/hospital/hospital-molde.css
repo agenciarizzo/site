@@ -151,7 +151,7 @@
 .dg.hosp .hosp-os {
   background: #0f172a;
   color: #e6e2da;
-  padding: 112px var(--lado);
+  padding: 112px var(--lado) 24px;
   display: flex;
   flex-direction: column;
   gap: 48px;
@@ -178,6 +178,13 @@
   color: #c9c3b6;
   text-wrap: pretty;
 }
+/* 10c · a lista resumida ("Resumo do RizzoOS"): só número + título por item,
+   depois do track de telas — fatia 4 do handoff */
+.dg.hosp .hosp-os-resumo {
+  background: #0f172a;
+  color: #e6e2da;
+  padding: 0 var(--lado) 112px;
+}
 .dg.hosp .hosp-os-lista {
   margin: 0;
   padding: 0;
@@ -191,44 +198,38 @@
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   gap: 16px;
-  padding: 24px 0;
+  padding: 20px 0;
   border-bottom: 1px solid rgba(230, 226, 218, 0.18);
 }
 .dg.hosp .hosp-os-lista .cifra {
   font-size: 13px;
   color: var(--amarelo);
-  padding-top: 4px;
-}
-.dg.hosp .hosp-os-lista li > div {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  padding-top: 2px;
 }
 .dg.hosp .hosp-os-lista h3 {
   margin: 0;
   font-weight: 600;
-  font-size: 19px;
-  line-height: 1.2;
+  font-size: 17px;
+  line-height: 1.25;
   letter-spacing: -0.02em;
   color: #ffffff;
   text-wrap: balance;
-}
-.dg.hosp .hosp-os-lista p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.55;
-  color: #c9c3b6;
-  text-wrap: pretty;
 }
 
 /* ───────────────────────────────────────────── celular (390×844) ─────────── */
 
 @media (max-width: 720px) {
   .dg.hosp .hosp-frentes,
-  .dg.hosp .hosp-perfis,
-  .dg.hosp .hosp-os {
+  .dg.hosp .hosp-perfis {
     padding: 72px 20px;
     gap: 32px;
+  }
+  .dg.hosp .hosp-os {
+    padding: 72px 20px 16px;
+    gap: 32px;
+  }
+  .dg.hosp .hosp-os-resumo {
+    padding: 0 20px 72px;
   }
   .dg.hosp .hosp-caso {
     padding: 20px;
@@ -601,6 +602,291 @@
     opacity: 0;
   }
   .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-num[data-aceso] {
+    opacity: 1;
+  }
+}
+
+/* ──────────────────────────── 10b · as telas do RizzoOS (o track de telas) ── */
+/* Navy exclusivo do bloco RizzoOS (A4). Seis PARES texto + janela: na cena,
+   um aceso por vez (`data-on` escrito pelo `Motor` da home); no empilhado,
+   os seis em sequência — os invólucros das duas colunas somem
+   (`display: contents`) e cada peça ocupa a linha que o `--fila` declara. */
+.dg.hosp .hosp-os-track {
+  background: #0f172a;
+  color: #e6e2da;
+}
+.dg.hosp .hosp-os-palco {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px 40px;
+  padding: 24px var(--lado) 64px;
+  box-sizing: border-box;
+}
+.dg.hosp .hosp-os-esq,
+.dg.hosp .hosp-os-itens,
+.dg.hosp .hosp-os-janela,
+.dg.hosp .hosp-os-telas {
+  display: contents;
+}
+.dg.hosp .hosp-os-meta {
+  display: none;
+}
+.dg.hosp .hosp-os-item,
+.dg.hosp .hosp-os-jan {
+  grid-row: var(--fila);
+}
+.dg.hosp .hosp-os-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+}
+.dg.hosp .hosp-os-item:first-child {
+  margin-top: 0;
+}
+.dg.hosp .hosp-os-menu {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+}
+.dg.hosp .hosp-os-item h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  text-wrap: balance;
+  max-width: 14ch;
+}
+.dg.hosp .hosp-os-item > p:last-child {
+  margin: 0;
+  max-width: 440px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #c9c3b6;
+  text-wrap: pretty;
+}
+/* a janela: desenhada a 640×420, escalada por `--jan-escala` (a ilha mede a
+   célula — decisão c do §10.3; sem JS, 1:1 e a caixa recorta) */
+.dg.hosp .hosp-os-jan {
+  position: relative;
+  width: calc(640px * var(--jan-escala, 1));
+  height: calc(420px * var(--jan-escala, 1));
+  max-width: 100%;
+  overflow: hidden;
+}
+.dg.hosp .hosp-os-jan-in {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 640px;
+  height: 420px;
+  transform: scale(var(--jan-escala, 1));
+  transform-origin: 0 0;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: #0b1222;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 32px 1fr;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+  font-size: var(--hj-12);
+  line-height: normal;
+  color: #f1f5f9;
+}
+.dg.hosp .hosp-os-jan-barra {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  background: #0f172a;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+.dg.hosp .hosp-os-jan-corpo {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  min-height: 0;
+}
+.dg.hosp .hosp-os-jan-menu {
+  background: #0f172a;
+  border-right: 1px solid rgba(148, 163, 184, 0.14);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+}
+.dg.hosp .hosp-os-jan-menu p {
+  margin: 0 6px 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dg.hosp .hosp-os-jan-tela {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  background: #0f172a;
+}
+/* a escala do DESENHO da janela (a unidade da interface, não a do site —
+   como o `--os3-m-*` do /rizzoos): tamanho e tracking saem daqui */
+.dg.hosp .hosp-os-jan-in {
+  --hj-9: 9px;
+  --hj-95: 9.5px;
+  --hj-10: 10px;
+  --hj-105: 10.5px;
+  --hj-11: 11px;
+  --hj-12: 12px;
+  --hj-13: 13px;
+  --hj-14: 14px;
+  --hj-20: 20px;
+  --hj-ls-4: 0.04em;
+  --hj-ls-6: 0.06em;
+}
+.dg.hosp .hj-m9 {
+  font-size: var(--hj-9);
+}
+.dg.hosp .hj-m95 {
+  font-size: var(--hj-95);
+}
+.dg.hosp .hj-m10 {
+  font-size: var(--hj-10);
+}
+.dg.hosp .hj-m105 {
+  font-size: var(--hj-105);
+}
+.dg.hosp .hj-m11 {
+  font-size: var(--hj-11);
+}
+.dg.hosp .hj-m13 {
+  font-size: var(--hj-13);
+}
+.dg.hosp .hj-m14 {
+  font-size: var(--hj-14);
+}
+.dg.hosp .hj-m20 {
+  font-size: var(--hj-20);
+}
+.dg.hosp .hj-ls4 {
+  letter-spacing: var(--hj-ls-4);
+}
+.dg.hosp .hj-ls6 {
+  letter-spacing: var(--hj-ls-6);
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* cena: (telas + 1) × 100svh de trilho, palco sticky de 100svh com a grade
+     de duas colunas (`auto-fit minmax(350px, 1fr)`) do protótipo */
+  .dg.hosp .hosp-os-track[data-cena-on] {
+    height: calc((var(--telas, 6) + 1) * 100svh);
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-palco {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    grid-auto-rows: minmax(0, auto);
+    align-items: center;
+    align-content: center;
+    padding: 24px var(--lado);
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-esq {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    min-height: 220px;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-cont {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--amarelo);
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-cont > span:last-child {
+    color: #94a3b8;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-barra {
+    flex: 1;
+    max-width: 200px;
+    height: 2px;
+    background: rgba(230, 226, 218, 0.18);
+    position: relative;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-barra > span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: var(--amarelo);
+    transition: width 0.5s ease;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-role {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #94a3b8;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-itens {
+    display: block;
+    position: relative;
+    min-height: 220px;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-item {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    grid-row: auto;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-item[data-on] {
+    opacity: 1;
+    transform: none;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-janela {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-telas {
+    display: block;
+    position: relative;
+    width: calc(640px * var(--jan-escala, 1));
+    height: calc(420px * var(--jan-escala, 1));
+    max-width: 100%;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-jan {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    grid-row: auto;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .dg.hosp .hosp-os-track[data-cena-on] .hosp-os-jan[data-on] {
     opacity: 1;
   }
 }
