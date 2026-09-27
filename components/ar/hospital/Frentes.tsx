@@ -20,9 +20,10 @@ import { PortaWhats } from "./Hospital";
 /* ──────────────────────────────────────────────────────── 06 · as frentes ── */
 
 /**
- * As oito frentes do departamento de comunicação. Cada uma leva a PROVA de
- * escopo ao lado — o que a casa fez, com nome público e ex-cliente no passado
- * sem ambiguidade (critério D3). A numeração sai do índice, não do registro.
+ * A cabeça das oito frentes e o caso do Daher. As oito em si — cada uma com a
+ * PROVA de escopo ao lado, o que a casa fez, com nome público e ex-cliente no
+ * passado sem ambiguidade (critério D3) — sobem a Escada (`Escada.tsx`, fatia 4
+ * do handoff, §10.1 06/06b): esta seção ENCOLHEU pra cabeça + caso.
  */
 export function Frentes() {
   const f = HOSPITALAR.frentes;
@@ -42,20 +43,6 @@ export function Frentes() {
         <p className="cid-mono">{f.caso.rotulo}</p>
         <p>{f.caso.texto}</p>
       </div>
-
-      <ol className="hosp-frentes-lista">
-        {f.itens.map((item, i) => (
-          <li key={item.titulo}>
-            <span className="cifra">{String(i + 1).padStart(2, "0")}</span>
-            <div>
-              <h3>{item.titulo}</h3>
-              <p>{item.texto}</p>
-              <p className="hosp-prova">{item.prova}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-
     </section>
   );
 }

@@ -47,6 +47,7 @@ import { HOSPITALAR } from "@/content/hospitalar";
 import { historicoHospitalar, numerosHospitalares, pecasHospitalares } from "@/lib/hospital";
 import { HeroHospital, HospitalPoster, HistoricoHospital, FaqHospital, QuandoNaoHospital } from "./Hospital";
 import { ProsaPosicao, MetodoHospital } from "./Metodo";
+import { Escada } from "./Escada";
 import { Frentes, Transversal, Perfis, RizzoOsHospital, ChamadaHospital, CtaHospital } from "./Frentes";
 import { PortfolioHospital } from "./PortfolioHospital";
 
@@ -119,6 +120,7 @@ export function HospitalMolde({ c }: { c: Carta }) {
       <ProsaPosicao c={c} />
       <MetodoHospital c={c} />
       <Frentes />
+      <Escada />
       <Transversal />
       <Perfis c={c} />
       <HistoricoHospital grupos={grupos} total={n.instituicoes} />

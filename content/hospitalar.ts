@@ -165,6 +165,15 @@ export const HOSPITALAR = {
     transversal: "Por baixo das oito, a mesma regra: a peça nasce dentro do CFM, com o responsável técnico e os protocolos da instituição — acreditação, convênios, o corpo clínico que entra e o que sai.",
   },
 
+  /* ──────────────────────────────────────── 06b · a Escada (fatia 4 do handoff) ── */
+  /** Os rótulos do track das oito frentes — literais do protótipo v3; os 8 itens são `frentes.itens`. */
+  escada: {
+    rotulo: "As oito frentes",
+    quemSobe: "Quem sobe: médico, paciente, acompanhante, gestor, equipe",
+    /** O pé do track: o rótulo à esquerda da barra "01 / 08". */
+    pe: "Departamento de comunicação → 8 frentes",
+  },
+
   /* ─────────────────────────────────────────────────────────── perfis (§11.5) ── */
   perfis: {
     rotulo: "Perfis",

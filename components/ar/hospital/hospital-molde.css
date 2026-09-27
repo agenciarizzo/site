@@ -96,48 +96,6 @@
   color: var(--chumbo);
   text-wrap: pretty;
 }
-.dg.hosp .hosp-frentes-lista {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
-  gap: 0 64px;
-  border-top: 1px solid var(--linha-bege);
-}
-.dg.hosp .hosp-frentes-lista li {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
-  gap: 16px;
-  padding: 26px 0;
-  border-bottom: 1px solid var(--linha-bege);
-}
-.dg.hosp .hosp-frentes-lista .cifra {
-  font-size: 13px;
-  color: var(--cinza-neutro);
-  padding-top: 4px;
-}
-.dg.hosp .hosp-frentes-lista li > div {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.dg.hosp .hosp-frentes-lista h3 {
-  margin: 0;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: var(--chumbo);
-  text-wrap: balance;
-}
-.dg.hosp .hosp-frentes-lista p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--cinza-texto);
-  text-wrap: pretty;
-}
 .dg.hosp .hosp-transversal {
   margin: 0;
   max-width: 860px;
@@ -275,7 +233,6 @@
   .dg.hosp .hosp-caso {
     padding: 20px;
   }
-  .dg.hosp .hosp-frentes-lista li,
   .dg.hosp .hosp-os-lista li {
     grid-template-columns: 36px minmax(0, 1fr);
     gap: 12px;
@@ -505,6 +462,145 @@
     opacity: 0;
   }
   .dg.hosp .hosp-met[data-cena-on] .hosp-met-num[data-aceso] {
+    opacity: 1;
+  }
+}
+
+/* ─────────────────────────────── 06b · a Escada (os personagens sobem) ──── */
+.dg.hosp .hosp-esc {
+  background: #1f262e;
+  color: var(--papel);
+}
+/* empilhado: cabeça → a escada parada (ilustração) → as 8 frentes em grade */
+.dg.hosp .hosp-esc-palco {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 80px var(--lado) 96px;
+  box-sizing: border-box;
+}
+.dg.hosp .hosp-esc-cabeca {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dg.hosp .hosp-esc-quem {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bege-escuro);
+}
+.dg.hosp .hosp-esc-desenho {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 56vw, 640px);
+  overflow: hidden;
+}
+.dg.hosp .hosp-esc-desenho svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.dg.hosp .hosp-esc-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  transition: opacity 0.4s;
+}
+.dg.hosp .hosp-esc-itens {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 32px 64px;
+}
+.dg.hosp .hosp-esc-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 440px;
+}
+.dg.hosp .hosp-esc-item h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(24px, 2.6vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.dg.hosp .hosp-esc-item p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--bege-escuro);
+  text-wrap: pretty;
+}
+.dg.hosp .hosp-esc-prova {
+  font-size: 14px;
+  color: var(--papel);
+  border-left: 2px solid var(--amarelo);
+  padding-left: 14px;
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* cena: 900svh de trilho; o SVG cobre o palco; a cabeça no alto à
+     esquerda (56/80), o texto da frente atual centrado à esquerda
+     (top calc(50% + 24px), 440px), o pé com a barra */
+  .dg.hosp .hosp-esc[data-cena-on] {
+    height: 900svh;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-palco {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+    display: block;
+    padding: 0;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-desenho {
+    position: absolute;
+    inset: 0;
+    height: auto;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-cabeca {
+    position: absolute;
+    left: var(--lado);
+    top: 80px;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-quem {
+    white-space: nowrap;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-itens {
+    display: block;
+    position: absolute;
+    left: var(--lado);
+    top: calc(50% + 24px);
+    transform: translateY(-50%);
+    width: min(440px, calc(100% - 2 * var(--lado)));
+    min-height: 260px;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-item {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-item[data-passado] {
+    transform: translateY(-24px);
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-item[data-on] {
+    opacity: 1;
+    transform: none;
+  }
+  /* os números acendem quando o líder chega ao patamar */
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-num {
+    opacity: 0;
+  }
+  .dg.hosp .hosp-esc[data-cena-on] .hosp-esc-num[data-aceso] {
     opacity: 1;
   }
 }
