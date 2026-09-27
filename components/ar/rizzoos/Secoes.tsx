@@ -7,8 +7,8 @@
 // legível sem JS nenhum (filme e ciclo nascem EMPILHADOS — ver o cabeçalho de
 // `rizzoos-v3.css`). O único JS é o `MotorVoo`, que lê os `data-*` daqui.
 //
-// Texto: TUDO sai de `content/rizzoos.ts` (as frases de `BLOCOS`, o resto da
-// copy literal do v3) e de `lib/site.ts` (a tarja `FATOS`). Aqui só mora o
+// Texto: TUDO sai de `content/rizzoos.ts` (copy literal do v3, as frases
+// inclusive — `TEMAS`) e de `lib/site.ts` (a tarja `FATOS`). Aqui só mora o
 // desenho — e os rótulos de acessibilidade.
 //
 // Portas (regra 4 do site): "Montar proposta" é `PROPOSTA_URL` com
@@ -20,7 +20,6 @@ import Link from "next/link";
 import { FATOS, PROPOSTA_URL } from "@/lib/site";
 import { CTA_PROPOSTA_CURTO, CTA_WHATSAPP, ROTA_PORTAO } from "@/lib/nav";
 import {
-  BLOCOS,
   CICLO,
   CICLO_TITULO,
   COMBINADO,
@@ -32,6 +31,7 @@ import {
   HERO_OS,
   PITCH,
   PRECO,
+  TEMAS,
   TESE,
 } from "@/content/rizzoos";
 import { QUADROS, TelaOs } from "./TelasOs";
@@ -138,14 +138,14 @@ export function Frases() {
       <h2 id="h-frases" className="os3-frases-h2" data-reveal>
         {FRASES_TITULO}
       </h2>
-      {BLOCOS.map((b, i) => (
+      {TEMAS.map((b, i) => (
         <div className="os3-tema" key={b.t}>
           <div className="os3-tema-cab">
             <span className="os3-tema-num os3-mono">{n2(i + 1)}</span>
             <h3 className="os3-tema-t">{b.t}</h3>
           </div>
           <ul className="os3-cards">
-            {b.sintomas.map((s) => (
+            {b.cards.map((s) => (
               <li className="os3-card" key={s.f}>
                 <p className="os3-frase">&ldquo;{s.f}&rdquo;</p>
                 <span className="os3-losango" aria-hidden />
@@ -153,11 +153,11 @@ export function Frases() {
               </li>
             ))}
           </ul>
-          {b.leia && b.leia.length > 0 && (
+          {b.cartas && b.cartas.length > 0 && (
             <div className="os3-leia">
-              {b.leia.map((l) => (
-                <Link key={l.slug} href={`/cartas/${l.slug}`}>
-                  {l.rotulo} →
+              {b.cartas.map((l) => (
+                <Link key={l.h} href={l.h}>
+                  {l.l} →
                 </Link>
               ))}
             </div>

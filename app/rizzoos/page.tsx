@@ -9,7 +9,7 @@
 // proibido é a página comentar a mecânica DESTE site — e, desde o §41, também a
 // própria mecânica do produto. Fora daqui: contagem de recurso, roadmap, versão,
 // teste automático, número de escala solto no corpo (a prova mora na tarja
-// `Fatos`). As frases do médico continuam sendo `BLOCOS` (SINTOMA → RESPOSTA).
+// `Fatos`). As frases do médico são os `TEMAS` do v3 (SINTOMA → RESPOSTA curta).
 //
 // Schema: Service (Organization já é global via app/layout.tsx). SEM FAQPage —
 // não há pergunta literal do Search Console para este tema, e FAQ inventada é
