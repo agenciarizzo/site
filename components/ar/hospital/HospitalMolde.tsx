@@ -41,7 +41,7 @@ import type { Carta } from "@/content/cartas";
 import { HOSPITALAR } from "@/content/hospitalar";
 import { historicoHospitalar, numerosHospitalares, pecasHospitalares } from "@/lib/hospital";
 import { HeroHospital, HospitalPoster, MetodoHospital, HistoricoHospital, FaqHospital, QuandoNaoHospital } from "./Hospital";
-import { Frentes, Perfis, RizzoOsHospital, ChamadaHospital, CtaHospital } from "./Frentes";
+import { Frentes, Transversal, Perfis, RizzoOsHospital, ChamadaHospital, CtaHospital } from "./Frentes";
 import { PortfolioHospital } from "./PortfolioHospital";
 
 /** Os tweaks do hero desta rota (D19) — a mesma chamada que a OG faz, pra as duas não divergirem. */
@@ -112,6 +112,7 @@ export function HospitalMolde({ c }: { c: Carta }) {
       <HospitalPoster c={c} n={n} casa={casa} />
       <MetodoHospital c={c} />
       <Frentes />
+      <Transversal />
       <Perfis c={c} />
       <HistoricoHospital grupos={grupos} total={n.instituicoes} />
       <ChamadaHospital texto={HOSPITALAR.chamadas.aposHistorico} waText={c.waText} />

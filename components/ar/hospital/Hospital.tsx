@@ -263,10 +263,14 @@ export function HistoricoHospital({ grupos, total }: { grupos: GrupoHospital[]; 
 
 /* ──────────────────────────────────────────────────── quando NÃO · FAQ ────── */
 
-/** A honestidade que a carta sempre teve, mais o parágrafo que o porte de hospital pede (§11.10). */
+/**
+ * A honestidade que a carta sempre teve, mais o parágrafo que o porte de
+ * hospital pede (§11.10). Fatia 4: a caixa é a `cid-qn` do molde na grade do
+ * protótipo v3 (`hosp-qn` — H2 à esquerda, os 3 parágrafos à direita).
+ */
 export function QuandoNaoHospital({ c }: { c: Carta }) {
   return (
-    <section className="cid-qn" aria-labelledby="h-qn" data-topo="escuro">
+    <section className="cid-qn hosp-qn" aria-labelledby="h-qn" data-topo="escuro">
       <h2 id="h-qn" data-reveal>
         {HOSPITALAR.quandoNao.titulo}
       </h2>
@@ -283,10 +287,12 @@ export function QuandoNaoHospital({ c }: { c: Carta }) {
 /**
  * As 11 perguntas do registro da carta, verbatim e na mesma ordem — é a MESMA
  * lista que o `FAQPage` publica, então a tela e o schema não têm como divergir.
+ * Fatia 4: a grade do protótipo v3 (`hosp-faq`) e o "+" teal em SVG, como ele
+ * desenha — o `<details>` continua nativo, zero JS.
  */
 export function FaqHospital({ c }: { c: Carta }) {
   return (
-    <section className="perguntas" aria-labelledby="h-faq" id="perguntas" data-topo="escuro">
+    <section className="perguntas hosp-faq" aria-labelledby="h-faq" id="perguntas" data-topo="escuro">
       <h2 id="h-faq" className="h2" data-reveal>
         {HOSPITALAR.faqH2}
       </h2>
@@ -295,7 +301,11 @@ export function FaqHospital({ c }: { c: Carta }) {
           <details key={f.q}>
             <summary>
               {f.q}
-              <i aria-hidden />
+              <span aria-hidden>
+                <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                  <path d="M11 3h2v8h8v2h-8v8h-2v-8H3v-2h8z" />
+                </svg>
+              </span>
             </summary>
             <p>{f.a}</p>
           </details>

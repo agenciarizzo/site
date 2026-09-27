@@ -56,7 +56,20 @@ export function Frentes() {
         ))}
       </ol>
 
-      <p className="hosp-transversal">{f.transversal}</p>
+    </section>
+  );
+}
+
+/**
+ * O parágrafo transversal — "por baixo das oito, a mesma regra" — era o pé das
+ * Frentes; no protótipo v3 é seção própria, DEPOIS da Escada (fatia 4, §10.1
+ * 06 do handoff): as oito frentes agora sobem a escada, e a regra comum vem
+ * quando o leitor já as viu todas.
+ */
+export function Transversal() {
+  return (
+    <section className="hosp-transversal-sec" data-topo="escuro">
+      <p className="hosp-transversal">{HOSPITALAR.frentes.transversal}</p>
     </section>
   );
 }

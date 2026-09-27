@@ -285,6 +285,74 @@
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   FATIA 4 — a página no protótipo v3 (rizzo-os →
+   docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md §10). Todo valor abaixo saiu do
+   `style=""` inline da `Pagina - Rede Hospitalar.dc.html`, seção por seção.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ───────────────────────────────── 06 · o transversal, seção própria ────── */
+/* O parágrafo que fechava as Frentes vira seção depois da Escada (§10.1 06):
+   papel, `padding: 56px 56px 112px`, texto max 860. */
+.dg.hosp .hosp-transversal-sec {
+  background: var(--papel);
+  padding: 56px var(--lado) 112px;
+}
+
+/* ─────────────────────────────── 13 · a faixa: "Ver o site no ar" ───────── */
+/* O card da faixa do protótipo leva o link quando a peça tem endereço no
+   cadastro (regra 9); o da home não tem. Com o link depois do texto, o `p`
+   deixa de ser `:last-child` do `.pf-faixa-corpo` — o texto ganha a regra
+   pela classe, não pela posição. */
+.dg.hosp .pf-faixa-corpo p:not(.rot) {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+.dg.hosp .hosp-pf-site {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--chumbo);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--amarelo);
+  padding-bottom: 2px;
+  width: max-content;
+  transition: border-color 0.3s;
+}
+.dg.hosp .hosp-pf-site:hover {
+  color: var(--chumbo);
+  border-bottom-color: var(--chumbo);
+}
+
+/* ────────────────────────────────── 14 · FAQ e 14b · quando NÃO em grade ── */
+/* O protótipo põe o H2 à esquerda e a lista à direita numa grade `auto-fit
+   minmax(320px, 1fr)` (gap 48) — não no `1fr 1.4fr` da home nem da praça. O
+   resto (border-top, `<details>`, 18px/600, resposta 15px/1.65 max 640,
+   padding 120/96 × 56) é o que `.perguntas` e `.cid-qn` já desenham. */
+.dg.hosp .perguntas.hosp-faq,
+.dg.hosp .cid-qn.hosp-qn {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 48px;
+}
+/* O "+" teal do protótipo é um SVG de 14px, não o `<i>` de traços da home. */
+.dg.hosp .hosp-faq summary > span {
+  color: var(--teal);
+  font-size: 14px;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+}
+.dg.hosp .hosp-faq summary svg {
+  width: 1em;
+  height: 1em;
+}
+
 /* ──────────────────────────────────── 01d · histórico (ajuste de porte) ──── */
 
 /* A cidade/UF de cada casa quebra como UMA unidade — sem isto, "Remanso/BA"
