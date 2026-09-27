@@ -637,6 +637,12 @@
   color: var(--papel);
   transition: opacity 0.4s;
 }
+/* O vértice 06 fica em x = 1000, na borda da caixa: o número dele vai pro lado
+   esquerdo. Na cena ele nunca acende (só os já passados, até o 05); no empilhado
+   ele estourava a borda a 390px. */
+.dg.hosp .hosp-met-num[data-met-num="5"] {
+  transform: translateX(calc(-100% - 24px));
+}
 .dg.hosp .hosp-met-passos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
