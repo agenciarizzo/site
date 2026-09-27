@@ -253,15 +253,15 @@ export const CARTAS: Carta[] = [
     descricao:
       "Marketing hospitalar não é o da clínica grande: cada linha de serviço disputa um mercado. Mapa por linha, corpo clínico como canal, aprovação auditável.",
     cardP: "Hospital não é clínica grande. Cada linha de serviço disputa um mercado próprio.",
-    head: ["Hospital não é", "clínica grande.", "É muitas de uma vez."],
+    head: ["Hospital não é", "clínica grande.", "São muitas de uma vez."],
     lede:
       "Uma rede de saúde não tem um mercado único: tem um por linha de serviço. A oncologia disputa com centro de referência de outro estado; o pronto atendimento, com o hospital do bairro vizinho; a maternidade, com o obstetra que a paciente escolheu antes de escolher onde parir.",
     posicao: [
-      "Campanha institucional única fala com todos esses públicos ao mesmo tempo e não convence nenhum. É o erro mais comum e o mais caro: verba grande, peça bonita, e nenhuma linha de serviço com número diferente no fim do mês. O trabalho começa pela linha, não pela marca — cada uma com sua busca, seu ciclo de decisão e seu corpo clínico.",
+      "Campanha institucional única fala com todos esses públicos ao mesmo tempo e não convence nenhum. É o erro mais comum e o mais caro: verba grande, peça bonita, e nenhuma linha de serviço com número diferente no fim do mês. O trabalho começa pela linha, não pela marca: cada uma com sua busca, seu ciclo de decisão e seu corpo clínico.",
       "Isso muda o site inteiro. Rede que lista “nossas especialidades” numa página perde a pergunta específica que a pessoa digitou, e é essa pergunta que o Google e as inteligências artificiais usam para decidir quem citar. Familiar pesquisando qual hospital faz determinada cirurgia, à uma da manhã, não quer conhecer a instituição: quer saber se ali se faz aquilo, com quem, em qual unidade e como se chega.",
-      "Rede tem ainda uma camada que clínica não tem: o corpo clínico é canal. Médico que atende na sua unidade constrói presença própria, e essa presença traz paciente para dentro do hospital. Tratar comunicação médica e comunicação institucional como assuntos separados desperdiça o maior ativo de divulgação que a instituição já tem — e juntar as duas exige método, porque cada médico é uma autonomia, não um porta-voz.",
-      "Nem toda instituição é rede — e o método não muda quando não é. Boa parte do que existe no país é hospital de um dono só: o fundador ainda decide, o corpo clínico é da casa, não há time de marketing interno, e a verba precisa provar retorno no mesmo trimestre em que sai. Esse hospital disputa mercado com a rede que mantém um departamento inteiro para isso, e quase sempre é atendido como se fosse uma clínica grande — o erro do primeiro parágrafo, outra vez. O mapa por linha de serviço serve igual: muda a escala, não a lógica. E há uma coisa a favor: com o dono na mesa, a decisão sai rápido quando o mapa está pronto.",
-      "E existe o freio que costuma assustar o marketing generalista: publicidade em saúde é regulada. O Manual de Publicidade Médica do CFM veta promessa de resultado, antes-e-depois e sensacionalismo, e instituição acreditada tem ainda protocolos próprios de comunicação e de uso de imagem do paciente. Para quem tem vivência de dentro — no nosso caso, ambiente com acreditação ONA e ISO —, isso não é obstáculo: é o desenho do fluxo de aprovação, e aparece no fato de a peça já nascer aprovável.",
+      "Rede tem ainda uma camada que clínica não tem: o corpo clínico é canal. Médico que atende na sua unidade constrói presença própria, e essa presença traz paciente para dentro do hospital. Tratar comunicação médica e comunicação institucional como assuntos separados desperdiça o maior ativo de divulgação que a instituição já tem. E juntar as duas exige método, porque cada médico é uma autonomia, não um porta-voz.",
+      "Nem toda instituição é rede, e o método não muda quando não é. Boa parte do que existe no país é hospital de um dono só: o fundador ainda decide, o corpo clínico é da casa, não há time de marketing interno, e a verba precisa provar retorno no mesmo trimestre em que sai. Esse hospital disputa mercado com a rede que mantém um departamento inteiro para isso, e quase sempre é atendido como se fosse uma clínica grande: o erro do primeiro parágrafo, outra vez. O mapa por linha de serviço serve igual: muda a escala, não a lógica. E há uma coisa a favor: com o dono na mesa, a decisão sai rápido quando o mapa está pronto.",
+      "E existe o freio que costuma assustar o marketing generalista: publicidade em saúde é regulada. O Manual de Publicidade Médica do CFM veta promessa de resultado, antes-e-depois e sensacionalismo, e instituição acreditada tem ainda protocolos próprios de comunicação e de uso de imagem do paciente. Para quem tem vivência de dentro (no nosso caso, ambiente com acreditação ONA e ISO), isso não é obstáculo: é o desenho do fluxo de aprovação, e aparece no fato de a peça já nascer aprovável.",
     ],
     como: [
       {
@@ -282,7 +282,7 @@ export const CARTAS: Carta[] = [
       },
       {
         t: "Multicanal com papel definido",
-        d: "Busca colhe quem já procura; Meta constrói lembrança da linha de serviço; vídeo dá rosto a quem vai operar; a TV das unidades fala com quem já está na sala de espera. Cada canal com função e medição — nenhum como enfeite.",
+        d: "Busca colhe quem já procura; Meta constrói lembrança da linha de serviço; vídeo dá rosto a quem vai operar; a TV das unidades fala com quem já está na sala de espera. Cada canal com função e medição, nenhum como enfeite.",
       },
       {
         t: "Compliance dentro do fluxo, não no fim",
@@ -290,16 +290,16 @@ export const CARTAS: Carta[] = [
       },
     ],
     os:
-      "Rede é volume: muitas linhas, muitas unidades, muitos médicos, muita peça esperando aprovação. É o que o RizzoOS organiza — planejamento anual por linha de serviço, aprovação pelo WhatsApp com registro de quem aprovou e quando, e relatório mensal por unidade. Comunicação de hospital sem esse histórico não passa por auditoria e não sobrevive à troca de quem cuida dela.",
+      "Rede é volume: muitas linhas, muitas unidades, muitos médicos, muita peça esperando aprovação. É o que o RizzoOS organiza: planejamento anual por linha de serviço, aprovação pelo WhatsApp com registro de quem aprovou e quando, e relatório mensal por unidade. Comunicação de hospital sem esse histórico não passa por auditoria e não sobrevive à troca de quem cuida dela.",
     quandoNaoTitulo: "Quando NÃO é hora de investir em captação",
     quandoNao: [
-      "Se a fila de espera de uma linha de serviço já passa do que a estrutura absorve, campanha de captação naquela linha só transfere o problema para o paciente. O caminho é abrir capacidade primeiro, ou trabalhar as linhas que têm folga — e a gente aponta isso no mapa, mesmo quando a verba daquela linha já estava aprovada.",
+      "Se a fila de espera de uma linha de serviço já passa do que a estrutura absorve, campanha de captação naquela linha só transfere o problema para o paciente. O caminho é abrir capacidade primeiro, ou trabalhar as linhas que têm folga. E a gente aponta isso no mapa, mesmo quando a verba daquela linha já estava aprovada.",
       "E se a expectativa é campanha institucional para prêmio, sem número por linha de serviço no fim do mês, não somos a escolha certa. O nosso trabalho é medido em busca, contato e agenda.",
     ],
     faq: [
       {
         q: "agências com experiência em campanhas digitais para redes hospitalares?",
-        a: "Sim, e o tipo de experiência que importa aqui é a vivência dentro do ambiente hospitalar, não o tamanho da conta. Atendemos hospitais e clínicas de referência desde 2012 — alguns ainda hoje, outros em períodos anteriores —, de hospital geral do interior a hospital especializado de capital: a Casa de Saúde de Remanso (BA), o Hospital Edmundo Fernandes (Uruaçu/GO), o Grupo Santa Genoveva (Santa Helena de Goiás/GO), a Policlínica Corrente (PI), a InMed (Brasília), o Hospital Daher e o CBCOR. Em oftalmologia hospitalar, que é onde temos o histórico mais denso, o Hospital de Olhos Sobradinho, o Hospital de Olhos do DF, o Hospital do Olho de Araçatuba (SP) e a Via Oftalmocenter. E temos vivência em instituição com acreditação ONA e ISO. Na prática isso muda o processo: a peça nasce dentro do que o CFM e os protocolos da instituição permitem, com registro de aprovação.",
+        a: "Sim, e o tipo de experiência que importa aqui é a vivência dentro do ambiente hospitalar, não o tamanho da conta. Atendemos hospitais e clínicas de referência desde 2012 (alguns ainda hoje, outros em períodos anteriores), de hospital geral do interior a hospital especializado de capital: a Casa de Saúde de Remanso (BA), o Hospital Edmundo Fernandes (Uruaçu/GO), o Grupo Santa Genoveva (Santa Helena de Goiás/GO), a Policlínica Corrente (PI), a InMed (Brasília), o Hospital Daher e o CBCOR. Em oftalmologia hospitalar, que é onde temos o histórico mais denso, o Hospital de Olhos Sobradinho, o Hospital de Olhos do DF, o Hospital do Olho de Araçatuba (SP) e a Via Oftalmocenter. E temos vivência em instituição com acreditação ONA e ISO. Na prática isso muda o processo: a peça nasce dentro do que o CFM e os protocolos da instituição permitem, com registro de aprovação.",
       },
       {
         q: "agências que executam campanhas multicanais para redes hospitalares?",
@@ -307,27 +307,27 @@ export const CARTAS: Carta[] = [
       },
       {
         q: "principais empresas para seo e mídia paga no setor hospitalar?",
-        a: "Não existe ranking oficial disso, e vale desconfiar de quem se apresenta como o primeiro de uma lista que ninguém publicou. O que dá para verificar antes de contratar: se a agência mostra casos do setor com nome, se raciocina por linha de serviço e não só por “especialidades”, se domina o Manual de Publicidade Médica, se entrega relatório por unidade, e se o site que ela constrói carrega rápido — porque SEO e mídia paga dividem a mesma base técnica. Nessa régua a gente se apresenta pelo que dá para conferir: hospitais atendidos com nome, citados aqui mesmo; mídia paga escrita dentro do Manual de Publicidade Médica desde 2012; base técnica que faz o site carregar em milissegundos; e relatório por unidade e por linha de serviço.",
+        a: "Não existe ranking oficial disso, e vale desconfiar de quem se apresenta como o primeiro de uma lista que ninguém publicou. O que dá para verificar antes de contratar: se a agência mostra casos do setor com nome, se raciocina por linha de serviço e não só por “especialidades”, se domina o Manual de Publicidade Médica, se entrega relatório por unidade, e se o site que ela constrói carrega rápido, porque SEO e mídia paga dividem a mesma base técnica. Nessa régua a gente se apresenta pelo que dá para conferir: hospitais atendidos com nome, citados aqui mesmo; mídia paga escrita dentro do Manual de Publicidade Médica desde 2012; base técnica que faz o site carregar em milissegundos; e relatório por unidade e por linha de serviço.",
       },
       {
         q: "onde encontrar serviços de otimização de sites para hospitais?",
-        a: "É um trabalho técnico, e é a base de tudo: site que carrega em milissegundos, uma página por linha de serviço e por unidade em vez de uma lista só, e os dados estruturados que o Google e as inteligências artificiais leem para decidir quem citar. A mesma estrutura que acelera o site sustenta a busca orgânica e barateia a mídia paga — otimização de site, SEO e anúncio não são serviços soltos, são a mesma base. Quando a rede já tem site no ar, essa reconstrução preserva endereços e histórico de busca por redirecionamento 301, em vez de recomeçar do zero.",
+        a: "É um trabalho técnico, e é a base de tudo: site que carrega em milissegundos, uma página por linha de serviço e por unidade em vez de uma lista só, e os dados estruturados que o Google e as inteligências artificiais leem para decidir quem citar. A mesma estrutura que acelera o site sustenta a busca orgânica e barateia a mídia paga: otimização de site, SEO e anúncio não são serviços soltos, são a mesma base. Quando a rede já tem site no ar, essa reconstrução preserva endereços e histórico de busca por redirecionamento 301, em vez de recomeçar do zero.",
       },
       {
         q: "empresas especializadas em marketing de linhas de serviço hospitalar?",
-        a: "É por aí que começamos. Cada linha — oncologia, cardiologia, maternidade, pronto atendimento, diagnóstico — é tratada como mercado próprio, com busca, concorrência e ciclo de decisão medidos separadamente, e com página, conteúdo e verba próprios. É o oposto da campanha institucional única, que fala com todo mundo e não convence ninguém.",
+        a: "É por aí que começamos. Cada linha (oncologia, cardiologia, maternidade, pronto atendimento, diagnóstico) é tratada como mercado próprio, com busca, concorrência e ciclo de decisão medidos separadamente, e com página, conteúdo e verba próprios. É o oposto da campanha institucional única, que fala com todo mundo e não convence ninguém.",
       },
       {
         q: "melhores agências para estratégias de marketing em hospitais?",
-        a: "“Melhor” depende do que a instituição precisa agora: quem tem fila numa linha e vazio em outra precisa de mapa antes de campanha; quem tem site lento precisa arrumar a base antes de comprar clique. O que sugerimos avaliar é concreto — vivência hospitalar e de acreditação, casos com nome, conhecimento do CFM, relatório por unidade e por linha, e fluxo de aprovação que a auditoria aceite. Se depois dessa régua fizer sentido conversar, a conversa é no WhatsApp.",
+        a: "“Melhor” depende do que a instituição precisa agora: quem tem fila numa linha e vazio em outra precisa de mapa antes de campanha; quem tem site lento precisa arrumar a base antes de comprar clique. O que sugerimos avaliar é concreto: vivência hospitalar e de acreditação, casos com nome, conhecimento do CFM, relatório por unidade e por linha, e fluxo de aprovação que a auditoria aceite. Se depois dessa régua fizer sentido conversar, a conversa é no WhatsApp.",
       },
       {
         q: "melhores agências de marketing para hospitais brasil 2025 or 2026",
-        a: "Não existe ranking oficial de “melhores” por ano, e lista que se anuncia assim raramente tem critério verificável atrás. O que muda de um ano para o outro não é uma classificação: é o peso cada vez maior da busca por inteligência artificial, que lê estrutura e conteúdo verdadeiro, não selo. A régua para escolher segue concreta e atemporal — vivência hospitalar e de acreditação, casos do setor com nome, domínio do Manual de Publicidade Médica, relatório por unidade e por linha de serviço, e um site que carrega rápido. É por essa régua que dá para conferir qualquer agência antes de contratar.",
+        a: "Não existe ranking oficial de “melhores” por ano, e lista que se anuncia assim raramente tem critério verificável atrás. O que muda de um ano para o outro não é uma classificação: é o peso cada vez maior da busca por inteligência artificial, que lê estrutura e conteúdo verdadeiro, não selo. A régua para escolher segue concreta e atemporal: vivência hospitalar e de acreditação, casos do setor com nome, domínio do Manual de Publicidade Médica, relatório por unidade e por linha de serviço, e um site que carrega rápido. É por essa régua que dá para conferir qualquer agência antes de contratar.",
       },
       {
         q: "quem é especializado em captação de pacientes online na saúde?",
-        a: "É o que fazemos desde 2012, e vale dizer o que captação significa e o que não significa. Significa ser encontrado por quem já tem o problema, no momento em que procura, e responder com informação clara sobre o que se faz, com quem e onde. Não significa prometer resultado de tratamento, exibir antes-e-depois ou usar número de paciente como troféu — nada disso é permitido em publicidade médica, e nada disso é o que faz alguém escolher onde vai se tratar.",
+        a: "É o que fazemos desde 2012, e vale dizer o que captação significa e o que não significa. Significa ser encontrado por quem já tem o problema, no momento em que procura, e responder com informação clara sobre o que se faz, com quem e onde. Não significa prometer resultado de tratamento, exibir antes-e-depois ou usar número de paciente como troféu. Nada disso é permitido em publicidade médica, e nada disso é o que faz alguém escolher onde vai se tratar.",
       },
       {
         q: "onde encontrar serviços de marketing local para clínicas e hospitais?",
@@ -335,11 +335,11 @@ export const CARTAS: Carta[] = [
       },
       {
         q: "quanto tempo leva para uma rede de saúde ver resultado em marketing digital?",
-        a: "Varia por linha de serviço — uma linha nova no mercado demora mais que uma linha já madura e só mal comunicada. As primeiras leituras de busca aparecem em semanas; mudança de posição de verdade leva meses, e o caminho é medido, não prometido. Enquanto o orgânico constrói, mídia paga cobre a lacuna linha a linha.",
+        a: "Varia por linha de serviço: uma linha nova no mercado demora mais que uma linha já madura e só mal comunicada. As primeiras leituras de busca aparecem em semanas; mudança de posição de verdade leva meses, e o caminho é medido, não prometido. Enquanto o orgânico constrói, mídia paga cobre a lacuna linha a linha.",
       },
       {
         q: "como uma rede de saúde mede o retorno de cada linha de serviço separadamente?",
-        a: "Com relatório por unidade e por linha, não um número institucional único — porque um número só esconde a linha que está indo bem dentro da que está indo mal. É o que o RizzoOS organiza: busca e contato lidos linha a linha, mês a mês.",
+        a: "Com relatório por unidade e por linha, não um número institucional único, porque um número só esconde a linha que está indo bem dentro da que está indo mal. É o que o RizzoOS organiza: busca e contato lidos linha a linha, mês a mês.",
       },
     ],
     ctaAcento: "a sua instituição?",

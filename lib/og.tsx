@@ -25,6 +25,7 @@
 import { ImageResponse } from "next/og";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { lerMetrica, linhas, type Metrica } from "./og-medida";
 
 export const TAMANHO_OG = { width: 1200, height: 630 };
 
@@ -83,6 +84,36 @@ function fonte(arquivo: string) {
   return readFileSync(join(process.cwd(), "public", "fonts", arquivo));
 }
 
+/* A caixa do H1: 980 de largura (o `maxWidth` do miolo) e altura pra TRÊS
+   linhas entre o logo e o pano: 630 − 56 − 97 − 28 − 28 − 148 = 273px, e as
+   três da home (84 + 97 + 97 = 278) são o máximo que o desenho já usa. A 4ª
+   linha invade o pano (foi o que o H1 corrigido de hospitais fez, 2026-09-27). */
+const H1_LARGURA = 980;
+const H1_LINHAS = 3;
+/** O kerning que `lib/og-medida.ts` não soma: a medida trabalha numa caixa 2% mais estreita. */
+const FOLGA = 0.98;
+const CORPO_TITULO = 84;
+const CORPO_DESTAQUE = 97;
+const TRACKING_EM = -0.03;
+
+/**
+ * A escala do H1: 1 (os 84/97px do handoff) sempre que ele cabe em três
+ * linhas, que é o caso da home e do /rizzoos. Quando não cabe, os DOIS corpos
+ * descem juntos, de 1 em 1%, até caber: a hierarquia do desenho fica, o texto
+ * nunca é cortado e nunca cai em cima do pano. Piso de 70%, pra H1 que nem
+ * assim caberia não virar letra miúda (aí o H1 é que está comprido demais).
+ */
+export function escalaH1(titulo: string, destaque: string, leve: Metrica, forte: Metrica): number {
+  const max = H1_LARGURA * FOLGA;
+  for (let e = 1; e >= 0.7; e = Math.round((e - 0.01) * 100) / 100) {
+    const n =
+      linhas(leve, `${titulo} `, Math.round(CORPO_TITULO * e), TRACKING_EM, max) +
+      linhas(forte, destaque, Math.round(CORPO_DESTAQUE * e), TRACKING_EM, max);
+    if (n <= H1_LINHAS) return e;
+  }
+  return 0.7;
+}
+
 /**
  * A capa "2b — pano em faixa" do handoff, medida a medida.
  * `titulo` + `destaque` são as duas metades do H1 da rota (a 2ª em 600/97px,
@@ -100,6 +131,9 @@ export async function imagemOg({
   const celulas = panoOg(semente, 28);
   const logo = readFileSync(join(process.cwd(), "public", "logo_horizontal.png"));
   const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+  const leve = fonte("Geist-Light.ttf");
+  const forte = fonte("Geist-SemiBold.ttf");
+  const e = escalaH1(titulo, destaque, lerMetrica(leve), lerMetrica(forte));
 
   return new ImageResponse(
     (
@@ -130,9 +164,17 @@ export async function imagemOg({
             marginTop: 28,
           }}
         >
-          <div style={{ display: "flex", flexWrap: "wrap", fontSize: 84, lineHeight: 1, letterSpacing: "-0.03em" }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              fontSize: Math.round(CORPO_TITULO * e),
+              lineHeight: 1,
+              letterSpacing: `${TRACKING_EM}em`,
+            }}
+          >
             <span style={{ fontWeight: 300 }}>{titulo}&nbsp;</span>
-            <span style={{ fontWeight: 600, fontSize: 97 }}>{destaque}</span>
+            <span style={{ fontWeight: 600, fontSize: Math.round(CORPO_DESTAQUE * e) }}>{destaque}</span>
           </div>
         </div>
 
@@ -168,8 +210,8 @@ export async function imagemOg({
     {
       ...TAMANHO_OG,
       fonts: [
-        { name: "Geist", data: fonte("Geist-Light.ttf"), weight: 300, style: "normal" },
-        { name: "Geist", data: fonte("Geist-SemiBold.ttf"), weight: 600, style: "normal" },
+        { name: "Geist", data: leve, weight: 300, style: "normal" },
+        { name: "Geist", data: forte, weight: 600, style: "normal" },
       ],
     },
   );
