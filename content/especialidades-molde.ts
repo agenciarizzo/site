@@ -471,6 +471,34 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "cirurgia-plastica",
+    sobrancelha: "Marketing médico para cirurgiões plásticos",
+    teseTitulo: "O cirurgião plástico é avaliado muito antes de o paciente falar em procedimento.",
+    metodoTitulo: "Como ocupamos o espaço que a regra permite",
+    metodo: [
+      {
+        t: "Cada cirurgia explicada tecnicamente",
+        d: "Indicação, contraindicação e cuidados do pós-operatório de cada procedimento, em página própria. É o conteúdo que responde à pesquisa longa do paciente e cabe inteiro no Manual de Publicidade Médica.",
+      },
+      {
+        t: "O reparador também tem vez",
+        d: "A comunicação não fala só da estética: a cirurgia reparadora ganha conteúdo próprio, porque também tem paciente pesquisando e costuma ficar de fora do marketing da especialidade.",
+      },
+      {
+        t: "Formação e sociedade à vista",
+        d: "Formação, sociedade de especialidade, onde opera e quem compõe a equipe ficam claros no site e no Instagram: são os pontos que o paciente de plástica compara entre um cirurgião e outro.",
+      },
+      {
+        t: "O mesmo acabamento em cada peça",
+        d: "Identidade visual, papelaria, portfólio e apresentação no mesmo padrão do site, porque quem escolhe um cirurgião plástico repara no cuidado de cada detalhe, do envelope à sala de espera.",
+      },
+      {
+        t: "Sem sorteio, preço ou antes-e-depois",
+        d: "Tudo o que a regra veta fica fora do site, das redes e do anúncio, inclusive o sorteio de procedimento. Quem mostra que conhece o limite protege o próprio registro e inspira confiança.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
