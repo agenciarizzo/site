@@ -468,7 +468,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     descricao:
       "Marketing para clínica de reprodução humana: como um casal pesquisa antes de escolher onde tratar infertilidade, com o cuidado ético que a especialidade exige, dentro do CFM.",
     lede:
-      "Reprodução humana é procurada por quem já está numa jornada difícil, e compara clínica com um cuidado que nenhuma outra especialidade pede.",
+      "Reprodução humana é procurada por quem já está numa jornada difícil e compara clínicas com um cuidado que nenhuma outra especialidade pede.",
     intro: [
       "Quem chega a uma clínica de reprodução humana já pesquisou por meses, às vezes por anos. A busca é comparativa e detalhada: taxa de sucesso do centro, técnicas disponíveis, se existe acompanhamento psicológico junto do tratamento. É pesquisa feita a duas cabeças (o casal decide junto), e ela recompensa quem explica o processo com clareza, sem prometer resultado.",
       "O cuidado ético aqui é o mais estrito de toda a saúde da mulher: nada de prometer gravidez, nada de estatística de sucesso sem fonte auditável, nada de linguagem que trate um tratamento doloroso como produto. O que constrói confiança é material educativo sério (o que é cada etapa, quanto tempo dura, o que esperar) assinado por quem responde pelo CRM.",

@@ -184,6 +184,147 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  // §6.2 do doc-mapa (lote 2), congelado em 2026-09-28.
+  {
+    slug: "oncologia",
+    sobrancelha: "Marketing médico para oncologistas e clínicas de oncologia",
+    teseTitulo: "Depois do diagnóstico, a família quer resposta prática, não propaganda.",
+    metodoTitulo: "O que a família precisa saber primeiro",
+    metodo: [
+      {
+        t: "Onde trata, quando começa, o que levar",
+        d: "As perguntas do dia do diagnóstico respondidas logo de início: unidades, exames a levar, convênios aceitos e como marcar, para o paciente, o filho e o cônjuge que pesquisam ao mesmo tempo.",
+      },
+      {
+        t: "Outubro Rosa com informação, não com medo",
+        d: "As campanhas de prevenção do câncer entram no planejamento anual com informação sobre rastreamento e sinais de alerta, nunca com o medo como argumento.",
+      },
+      {
+        t: "Quimioterapia oral no papel, para reler",
+        d: "O folder de orientação da quimioterapia oral e o e-book sobre a jornada no câncer do colo do útero: material que a família lê junto, no tempo de quem ainda está absorvendo o diagnóstico.",
+      },
+      {
+        t: "TV da recepção, sessão após sessão",
+        d: "Quem está em tratamento volta à clínica muitas vezes e passa tempo na recepção. A TV da sala de espera informa sobre cuidados, equipe e serviços, com a sobriedade que o momento pede.",
+      },
+      {
+        t: "Linhas de tratamento para quem encaminha",
+        d: "O médico que encaminha quer ver de relance quais linhas de tratamento a clínica cobre e em qual unidade. Site e material institucional organizados por linha respondem a ele sem rodeio.",
+      },
+    ],
+  },
+  {
+    slug: "cardiologia",
+    sobrancelha: "Marketing médico para cardiologistas e clínicas do coração",
+    teseTitulo: "Quem procura um cardiologista está conferindo, não descobrindo.",
+    metodoTitulo: "Um cardiologista presente por anos",
+    metodo: [
+      {
+        t: "Página por exame, do eco ao holter",
+        d: "Ecocardiograma, holter, teste ergométrico e cada procedimento ganham página própria, que responde a quem confere antes de marcar e fica legível para a inteligência artificial que recomenda médicos.",
+      },
+      {
+        t: "Quem chega só para conferir",
+        d: "Quem vem por check-up alterado, encaminhamento do clínico ou susto na família confere nome, formação e onde o cardiologista atende. Essas respostas ficam à vista, sem o paciente precisar ligar.",
+      },
+      {
+        t: "Exame próprio anunciado no topo",
+        d: "Fazer o exame no mesmo endereço da consulta é o que o paciente encaminhado procura. Se a clínica o faz, isso abre a página e se repete no perfil do Google e no anúncio.",
+      },
+      {
+        t: "Pressão, colesterol e ritmo o ano todo",
+        d: "Posts, vídeos e material educativo sobre hipertensão, colesterol e arritmia mantêm o cardiologista na rotina do paciente também nos meses em que não há consulta marcada.",
+      },
+      {
+        t: "A família que vem junto",
+        d: "Cardiologia costuma atender mais de uma pessoa da mesma casa. Folder, pasta institucional e cartão virtual que o paciente compartilha levam o nome da clínica a quem ele indica.",
+      },
+    ],
+  },
+  {
+    slug: "otorrinolaringologia",
+    sobrancelha: "Marketing médico para otorrinolaringologistas",
+    teseTitulo: "O paciente de otorrino digita o incômodo e marca com quem tem horário.",
+    metodoTitulo: "O volume de hoje, a cirurgia de amanhã",
+    metodo: [
+      {
+        t: "Sinusite e rouquidão na língua do paciente",
+        d: "O site responde ao incômodo do jeito que ele chega à busca, como o ouvido entupido ou a criança que ronca, com exame e tratamento explicados em linguagem simples.",
+      },
+      {
+        t: "Quem atende esta semana, perto de casa",
+        d: "Otorrino é decisão de proximidade e de agenda. Horário e disponibilidade atualizados no perfil do Google respondem a quem precisa de consulta nos próximos dias, no próprio bairro.",
+      },
+      {
+        t: "Para os pais que pesquisam à noite",
+        d: "Uma página sobre a consulta infantil (o que acontece nela, o exame feito ali mesmo, como a clínica recebe a criança) responde aos pais que comparam opções depois que os filhos dormem.",
+      },
+      {
+        t: "Exames e cirurgias listados no papel",
+        d: "O folder do exame de deglutição, o panfleto com exames e cirurgias e a sinalização da recepção mostram o que a clínica faz antes mesmo de o paciente entrar no consultório.",
+      },
+      {
+        t: "Amígdala e septo nascem da rotina",
+        d: "Quem faz cirurgia de amígdala ou de septo quase sempre chegou antes por uma consulta simples. Presença constante no site, no Google e nas redes mantém aberta a porta de entrada da agenda cirúrgica.",
+      },
+    ],
+  },
+  {
+    slug: "ginecologia",
+    sobrancelha: "Marketing médico para ginecologistas e obstetras",
+    teseTitulo: "Em ginecologia, a paciente escolhe quem a deixa à vontade.",
+    metodoTitulo: "Uma presença para cada fase da vida",
+    metodo: [
+      {
+        t: "Da endometriose à menopausa",
+        d: "Endometriose, menopausa e cada condição que a paciente atravessa são buscas diferentes, e cada uma ganha página própria, assinada pela médica, para que a resposta chegue antes da primeira consulta.",
+      },
+      {
+        t: "Pré-natal acompanhado de perto",
+        d: "A gestação muda de dúvida a cada etapa. Conteúdo de pré-natal e de ultrassom obstétrico mantém a médica presente do começo ao fim, e o vínculo que nasce ali costuma atravessar anos.",
+      },
+      {
+        t: "Conteúdo no tom da médica",
+        d: "Como a médica fala, o que ela escreve, se trata assunto delicado com naturalidade: o conteúdo no site e nas redes é o sinal que a paciente procura antes de marcar.",
+      },
+      {
+        t: "O folder que prolonga a consulta",
+        d: "A explicação da histeroscopia em folder e o e-book sobre fertilidade natural saem da consulta com a paciente e respondem, em casa, ao que ela só lembrou de perguntar depois.",
+      },
+      {
+        t: "O nome que a amiga vai pesquisar",
+        d: "Quando a paciente indica, a amiga pesquisa o nome da médica. Perfil no Google em ordem, redes constantes e um site claro sobre onde atende e como agendar confirmam a indicação.",
+      },
+    ],
+  },
+  {
+    slug: "reproducao-humana",
+    sobrancelha: "Marketing médico para centros de reprodução assistida",
+    teseTitulo: "Depois de meses de pesquisa, o casal escolhe quem deixa o caminho claro.",
+    metodoTitulo: "Cada etapa explicada para o casal",
+    metodo: [
+      {
+        t: "Cada técnica, da inseminação à FIV",
+        d: "Indicação, exames, medicação e cada fase da inseminação e da fertilização in vitro explicados em página e em e-book, para o casal saber o que vem antes de começar.",
+      },
+      {
+        t: "Conteúdo que fala com os dois",
+        d: "A pesquisa é feita a duas cabeças. Site e conteúdo se dirigem ao casal, explicam o processo com clareza e antecipam as perguntas que os dois vão levar à consulta.",
+      },
+      {
+        t: "Taxa de sucesso só com fonte",
+        d: "O casal compara centros e chega perguntando por números. O conteúdo explica o que uma taxa mede e o que ela não diz, e só traz dado com origem que possa ser conferida.",
+      },
+      {
+        t: "Acompanhamento psicológico à vista",
+        d: "Quem compara clínicas quer saber se existe apoio emocional junto do tratamento. Quando a clínica tem esse apoio, ele aparece na página com o mesmo destaque das técnicas, porque a jornada é difícil.",
+      },
+      {
+        t: "Junto do casal enquanto ele pesquisa",
+        d: "Entre a primeira suspeita de infertilidade e a escolha do centro passam meses, às vezes anos. Conteúdo constante acompanha o casal nesse tempo, sem pressão e sem urgência fabricada.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
