@@ -213,6 +213,34 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "cardiologia",
+    sobrancelha: "Marketing médico para cardiologistas e clínicas do coração",
+    teseTitulo: "Quem procura um cardiologista está conferindo, não descobrindo.",
+    metodoTitulo: "Um cardiologista presente por anos",
+    metodo: [
+      {
+        t: "Página por exame, do eco ao holter",
+        d: "Ecocardiograma, holter, teste ergométrico e cada procedimento ganham página própria, que responde a quem confere antes de marcar e fica legível para a inteligência artificial que recomenda médicos.",
+      },
+      {
+        t: "Quem chega só para conferir",
+        d: "Quem vem por check-up alterado, encaminhamento do clínico ou susto na família confere nome, formação e onde o cardiologista atende. Essas respostas ficam à vista, sem o paciente precisar ligar.",
+      },
+      {
+        t: "Exame próprio anunciado no topo",
+        d: "Fazer o exame no mesmo endereço da consulta é o que o paciente encaminhado procura. Se a clínica o faz, isso abre a página e se repete no perfil do Google e no anúncio.",
+      },
+      {
+        t: "Pressão, colesterol e ritmo o ano todo",
+        d: "Posts, vídeos e material educativo sobre hipertensão, colesterol e arritmia mantêm o cardiologista na rotina do paciente também nos meses em que não há consulta marcada.",
+      },
+      {
+        t: "A família que vem junto",
+        d: "Cardiologia costuma atender mais de uma pessoa da mesma casa. Folder, pasta institucional e cartão virtual que o paciente compartilha levam o nome da clínica a quem ele indica.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
