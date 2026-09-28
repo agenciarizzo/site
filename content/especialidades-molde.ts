@@ -184,6 +184,35 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  // §6.2 do doc-mapa (lote 2), congelado em 2026-09-28.
+  {
+    slug: "oncologia",
+    sobrancelha: "Marketing médico para oncologistas e clínicas de oncologia",
+    teseTitulo: "Depois do diagnóstico, a família quer resposta prática, não propaganda.",
+    metodoTitulo: "O que a família precisa saber primeiro",
+    metodo: [
+      {
+        t: "Onde trata, quando começa, o que levar",
+        d: "As perguntas do dia do diagnóstico respondidas logo de início: unidades, exames a levar, convênios aceitos e como marcar, para o paciente, o filho e o cônjuge que pesquisam ao mesmo tempo.",
+      },
+      {
+        t: "Outubro Rosa com informação, não com medo",
+        d: "As campanhas de prevenção do câncer entram no planejamento anual com informação sobre rastreamento e sinais de alerta, nunca com o medo como argumento.",
+      },
+      {
+        t: "Quimioterapia oral no papel, para reler",
+        d: "O folder de orientação da quimioterapia oral e o e-book sobre a jornada no câncer do colo do útero: material que a família lê junto, no tempo de quem ainda está absorvendo o diagnóstico.",
+      },
+      {
+        t: "TV da recepção, sessão após sessão",
+        d: "Quem está em tratamento volta à clínica muitas vezes e passa tempo na recepção. A TV da sala de espera informa sobre cuidados, equipe e serviços, com a sobriedade que o momento pede.",
+      },
+      {
+        t: "Linhas de tratamento para quem encaminha",
+        d: "O médico que encaminha quer ver de relance quais linhas de tratamento a clínica cobre e em qual unidade. Site e material institucional organizados por linha respondem a ele sem rodeio.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
