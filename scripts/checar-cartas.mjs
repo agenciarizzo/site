@@ -18,6 +18,12 @@
 //   5. Todo nome do histórico (`data-nome`) é um `cliente` real de
 //      `content/portfolio.ts` (ou dos vídeos publicados em `content/home.ts`)
 //      — zero nome inventado.
+//   6. O TEXTO da carta está de fato na tela (PR-B, §7.1 do doc-mapa: o
+//      defeito que motivou este item era o `teseTitulo`/`posicao[0]` sumindo
+//      quando a página cai no acervo da casa): `teseTitulo`, `metodoTitulo` e
+//      todo `t` de `metodo` (content/cartas-molde.ts), e todo parágrafo de
+//      `posicao`, de `quandoNao` e o `os` (content/cartas.ts) — decodificado
+//      e com espaço normalizado, porque o HTML pode entificar aspas/acentos.
 //
 // Roda DEPOIS do `next build`, encadeado logo após `checar-hospital.mjs`.
 import { readdirSync, readFileSync, statSync } from "fs";
@@ -39,6 +45,11 @@ const decodifica = (s) =>
     .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
     .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(+d))
     .replace(/&amp;/g, "&");
+
+/** Texto puro do HTML inteiro: tag vira espaço (nunca cola duas palavras), entidade decodificada, espaço normalizado — pra checar `.includes(trecho)` sem markup no meio. */
+const textoPlano = (html) => decodifica(html.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+/** O mesmo tratamento de espaço pro texto do REGISTRO, pra comparar igual-pra-igual. */
+const normTexto = (s) => decodifica(s).replace(/\s+/g, " ").trim();
 
 /**
  * O trecho BALANCEADO que começa em `src[inicio]` (que tem que ser `abre`),
@@ -92,7 +103,17 @@ const cartasSrc = semComentarios(ler("content/cartas.ts"));
 const cartasDecl = cartasSrc.indexOf("export const CARTAS");
 const cartasArrIni = cartasSrc.indexOf("[", cartasSrc.indexOf("=", cartasDecl));
 const cartasArr = balanceado(cartasSrc, cartasArrIni, "[", "]");
-const REGISTRO = new Map(); // slug → { titulo, faq: [{q,a}] }
+/** O array de STRINGS de 1º nível dentro de `chave: [ "...", "...", ]` — mesma disciplina de `itensDoArray`, mas pra literais, não objetos. */
+function arrayDeStrings(bloco, chave) {
+  const marca = bloco.indexOf(`${chave}:`);
+  if (marca === -1) return [];
+  const ini = bloco.indexOf("[", marca);
+  if (ini === -1) return [];
+  const arr = balanceado(bloco, ini, "[", "]");
+  return [...arr.matchAll(/"([^"]*)"/g)].map((m) => m[1]);
+}
+
+const REGISTRO = new Map(); // slug → { titulo, faq: [{q,a}], posicao: string[], quandoNao: string[], os: string }
 for (const bloco of itensDoArray(cartasArr)) {
   const slug = bloco.match(/slug:\s*"([^"]+)"/)?.[1];
   const titulo = bloco.match(/titulo:\s*"([^"]+)"/)?.[1];
@@ -103,9 +124,39 @@ for (const bloco of itensDoArray(cartasArr)) {
     q: f.match(/q:\s*"([^"]+)"/)?.[1] ?? "",
     a: f.match(/a:\s*"([^"]+)"/)?.[1] ?? "",
   }));
-  REGISTRO.set(slug, { titulo, faq });
+  // `posicao`/`quandoNao` são PALAVRAS SEM ACENTO como chave (identificador de
+  // JS): a prosa em português usa "posição"/"quando não", com acento e
+  // espaço, então o texto do registro nunca colide com a busca da chave.
+  const posicao = arrayDeStrings(bloco, "posicao");
+  const quandoNao = arrayDeStrings(bloco, "quandoNao");
+  // `os` é string solta (às vezes na mesma linha, às vezes quebrada — "os:\n
+  // "..."), nunca array: casa só com espaço em branco entre a chave e a aspa,
+  // pra não confundir com o miolo de outra palavra terminada em "os".
+  const os = bloco.match(/(?:^|[{,]|\n)\s*os:\s*"([^"]*)"/)?.[1] ?? "";
+  REGISTRO.set(slug, { titulo, faq, posicao, quandoNao, os });
 }
 if (REGISTRO.size === 0) erros.push("checar-cartas: zero carta lida de content/cartas.ts — a forma do registry mudou, ajuste este checador.");
+
+/* ── content/cartas-molde.ts: a copy nova por slug (B2) ─────────────────── */
+
+const moldeSrc = semComentarios(ler("content/cartas-molde.ts"));
+const moldeDecl = moldeSrc.indexOf("export const CARTAS_MOLDE");
+const moldeArrIni = moldeSrc.indexOf("[", moldeSrc.indexOf("=", moldeDecl));
+const moldeArr = balanceado(moldeSrc, moldeArrIni, "[", "]");
+const REGISTRO_MOLDE = new Map(); // slug → { teseTitulo, metodoTitulo, metodoTitulos: string[] }
+for (const bloco of itensDoArray(moldeArr)) {
+  const slug = bloco.match(/slug:\s*"([^"]+)"/)?.[1];
+  const teseTitulo = bloco.match(/teseTitulo:\s*"([^"]+)"/)?.[1] ?? "";
+  const metodoTitulo = bloco.match(/metodoTitulo:\s*"([^"]+)"/)?.[1] ?? "";
+  if (!slug) continue;
+  const metodoIni = bloco.indexOf("[", bloco.indexOf("metodo:"));
+  const metodoArr = metodoIni === -1 ? "[]" : balanceado(bloco, metodoIni, "[", "]");
+  const metodoTitulos = itensDoArray(metodoArr)
+    .map((item) => item.match(/t:\s*"([^"]+)"/)?.[1])
+    .filter((t) => Boolean(t));
+  REGISTRO_MOLDE.set(slug, { teseTitulo, metodoTitulo, metodoTitulos });
+}
+if (REGISTRO_MOLDE.size === 0) erros.push("checar-cartas: zero registro lido de content/cartas-molde.ts — a forma do registry mudou, ajuste este checador.");
 
 /* ── clientes reais: content/portfolio.ts + os vídeos de content/home.ts ── */
 
@@ -211,13 +262,43 @@ for (const arquivo of htmls) {
       erros.push(`${rota}: histórico cita "${nome}", que não é \`cliente\` de nenhuma peça em content/portfolio.ts/content/home.ts`);
     }
   }
+
+  // 6. o TEXTO da carta está na tela (PR-B): a tese (`teseTitulo`+`posicao[0]`)
+  // não pode depender de acervo próprio (§7.1), e nenhum parágrafo publicado
+  // pode desaparecer numa refatoração de layout — cada trecho tem que estar
+  // presente, decodificado e com espaço normalizado.
+  const regM = REGISTRO_MOLDE.get(slug);
+  if (!regM) {
+    erros.push(`${rota}: data-carta-molde="${slug}" não resolve em content/cartas-molde.ts (registro sumiu?)`);
+  } else {
+    const plano = textoPlano(html);
+    const trechos = [
+      ["teseTitulo", regM.teseTitulo],
+      ["metodoTitulo", regM.metodoTitulo],
+      ...regM.metodoTitulos.map((t, i) => [`metodo[${i}].t`, t]),
+      ...reg.posicao.map((p, i) => [`posicao[${i}]`, p]),
+      ...reg.quandoNao.map((p, i) => [`quandoNao[${i}]`, p]),
+      ["os", reg.os],
+    ];
+    for (const [label, texto] of trechos) {
+      if (!texto) {
+        erros.push(`${rota}: \`${label}\` vazio no registro — checador ou registry mudou de forma`);
+        continue;
+      }
+      if (!plano.includes(normTexto(texto))) {
+        erros.push(`${rota}: \`${label}\` não aparece na tela ("${texto.slice(0, 60)}…")`);
+      }
+    }
+  }
 }
 if (paginas === 0) erros.push('checar-cartas: nenhuma página com `data-carta-molde` no build — o carta-molde sumiu, ou o seletor mudou e este gate ficou cego.');
 
 if (erros.length > 0) {
-  console.error("✗ Cartas no molde rico (portas · FAQ = FAQPage · SERP do registro · histórico real):");
+  console.error("✗ Cartas no molde rico (portas · FAQ = FAQPage · SERP do registro · histórico real · texto na tela):");
   for (const e of erros) console.error(`  ${e}`);
   console.error(`\n${erros.length} falha(s) — build reprovado.`);
   process.exit(1);
 }
-console.log(`✓ Cartas no molde: ${paginas} página(s) — zero wa.me, as duas portas com data-wa, FAQ = FAQPage = content/cartas.ts, <title>/canonical do registro, histórico com nome real.`);
+console.log(
+  `✓ Cartas no molde: ${paginas} página(s) — zero wa.me, as duas portas com data-wa, FAQ = FAQPage = content/cartas.ts, <title>/canonical do registro, histórico com nome real, tese/método/posição/quandoNão/os na tela.`,
+);

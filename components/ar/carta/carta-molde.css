@@ -1,7 +1,10 @@
-/* O CARTA-MOLDE — a ÚNICA regra própria que faltava no cidade-molde: o
+/* O CARTA-MOLDE — as regras PRÓPRIAS que não estavam no cidade-molde: o
    parágrafo `os` da carta (B1 — "junto ao bloco RizzoOS"), uma faixa curta
-   entre a Chamada e o palco do RizzoOS. Tudo o mais é `.cid-*`
-   (cidade-molde.css) ou das seções da home — nada se duplica aqui. */
+   entre a Chamada e o palco do RizzoOS, e o pôster sem coluna de números
+   (página cujo filtro cai no acervo da casa, `data-carta-local="0"` —
+   rizzo-os → docs/SITE_CARTAS_MOLDE_RICO_MAPA.md §7.1, defeito curado no
+   PR-B). Tudo o mais é `.cid-*` (cidade-molde.css) ou das seções da home —
+   nada se duplica aqui. */
 .dg.cid.carta .carta-os {
   background: var(--papel);
   padding: 64px var(--lado);
@@ -11,4 +14,17 @@
 }
 .dg.cid.carta .carta-os p {
   max-width: 640px;
+}
+
+/* Sem números (acervo da casa): o bloco da tese ocupa a largura inteira da
+   grade no lugar dos dois, em vez de ficar sozinho encostado à direita com
+   metade da tela vazia. Só a partir de 900px — abaixo disso o cidade-molde.css
+   já derruba a grade pra 1 coluna (`grid-template-columns: 1fr`), e forçar um
+   span de 12 colunas ali criaria colunas implícitas e estouraria a largura
+   (o `overflow-x` que a régua de prova exige zerado). */
+@media (min-width: 900px) {
+  .dg.cid.carta[data-carta-local="0"] .cid-poster-bloco {
+    grid-column: 1 / 13;
+    max-width: 760px;
+  }
 }
