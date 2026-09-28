@@ -524,7 +524,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Nefrologia é acompanhamento de anos, e quase sempre começa com um encaminhamento, não com uma busca.",
     intro: [
       "O paciente renal chega pelo clínico, pelo cardiologista, pelo exame alterado que apareceu numa rotina. A pesquisa que ele faz depois é sobre o que vem pela frente: o que significa a creatinina alterada, se vai precisar de diálise, quanto tempo dura a consulta, se a clínica atende o plano. Responder isso por escrito, com calma, é o que transforma o encaminhamento em vínculo.",
-      "Do lado institucional, a clínica de nefrologia comunica com três públicos ao mesmo tempo: o paciente, a família que acompanha o tratamento e o médico que encaminha. Material institucional que descreve serviços, estrutura e equipe com clareza serve aos três. E é o tipo de peça que a clínica usa por anos, não por um mês de campanha.",
+      "Do lado institucional, a clínica de nefrologia se comunica com três públicos ao mesmo tempo: o paciente, a família que acompanha o tratamento e o médico que encaminha. Material institucional que descreve serviços, estrutura e equipe com clareza serve aos três. E é o tipo de peça que a clínica usa por anos, não por um mês de campanha.",
       "Aqui a régua ética pesa mais do que em qualquer campanha de captação: não se anuncia esperança, se organiza informação. É um trabalho de estrutura e constância, com pouco espaço para barulho.",
     ],
     pecas: [
@@ -546,7 +546,7 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Quem procura um gastroenterologista chega com um sintoma vago e uma suspeita própria. A consulta começa desfazendo o que ele leu.",
     intro: [
       "Azia, intestino irregular, dor que aparece depois de comer, refluxo que virou rotina: a busca em gastro é feita de sintoma, e vem contaminada por conteúdo ruim. Página que explica o que cada sintoma pode significar, e o que só o exame responde, chega antes desse ruído e coloca o consultório na conversa com autoridade.",
-      "Exame é parte do serviço, não um detalhe: endoscopia e colonoscopia são o motivo de muitas buscas, e o paciente quer saber do preparo, da sedação, de quanto tempo sai o laudo. Clínica que resolve consulta e exame no mesmo endereço tem uma vantagem clara, desde que isso esteja dito de forma simples, onde ele procura.",
+      "Exame é parte do serviço, não um detalhe: endoscopia e colonoscopia são o motivo de muitas buscas, e o paciente quer saber do preparo, da sedação e em quanto tempo sai o laudo. Clínica que resolve consulta e exame no mesmo endereço tem uma vantagem clara, desde que isso esteja dito de forma simples, onde ele procura.",
       "E há o encaminhamento entre colegas, que sustenta boa parte da agenda. Material institucional bem feito, com serviços e estrutura descritos sem exagero, é o que circula entre clínicas e é lido por quem decide para onde mandar o paciente.",
     ],
     // Rodada 14: Gastrus Clínica é a 2ª casa (arte do Drive — §16.8.14 do doc-mapa)

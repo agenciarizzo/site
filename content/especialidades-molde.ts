@@ -325,6 +325,127 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  // §6.3 do doc-mapa (lote 3), congelado em 2026-09-28.
+  {
+    slug: "angiologia-e-vascular",
+    sobrancelha: "Marketing médico para angiologistas e cirurgiões vasculares",
+    teseTitulo: "A primeira pergunta de quem tem varizes é se aquilo é doença.",
+    metodoTitulo: "Quando a perna pesada chega até você",
+    metodo: [
+      {
+        t: "A fronteira entre estética e doença",
+        d: "Varizes, perna pesada, inchaço e lipedema ganham página própria, que explica o que é doença, o que é queixa estética e quando é hora de procurar o angiologista.",
+      },
+      {
+        t: "O tratamento sem susto",
+        d: "O que dói, como é a recuperação e o que o plano cobre: cada tratamento vascular vira página, folder impresso e conteúdo educativo, porque é o medo do procedimento que adia a decisão.",
+      },
+      {
+        t: "Lipedema sem promessa",
+        d: "Quem chega com um diagnóstico de lipedema lido na internet encontra no site do angiologista uma explicação sóbria, que separa o que se sabe do que se vende, sem garantia de resultado nem antes-e-depois.",
+      },
+      {
+        t: "Verba no bairro, não na cidade",
+        d: "O anúncio no Google e no Meta fica no entorno do consultório, e o perfil no mapa mostra o que a paciente de varizes confere antes de sair de casa: distância, convênio e horário.",
+      },
+    ],
+  },
+  {
+    slug: "nefrologia",
+    sobrancelha: "Marketing médico para nefrologistas e clínicas de nefrologia",
+    teseTitulo: "A palavra diálise assusta antes mesmo da primeira consulta.",
+    metodoTitulo: "Como a clínica renal fala com três públicos",
+    metodo: [
+      {
+        t: "A creatinina explicada com calma",
+        d: "O que significa o exame alterado, quando se fala em diálise e como é o acompanhamento: cada dúvida do paciente renal vira uma página que informa sem assustar e sem prometer.",
+      },
+      {
+        t: "Quem acompanha o paciente renal",
+        d: "Filho, cônjuge ou cuidador também pesquisa: plano de saúde, duração da consulta, próximos passos. O conteúdo responde a essa família com a mesma clareza que dá ao paciente.",
+      },
+      {
+        t: "O clínico e o cardiologista informados",
+        d: "Material institucional que apresenta serviços, estrutura e equipe da clínica, pensado também para o clínico e o cardiologista que encaminham e querem saber para onde o paciente renal vai.",
+      },
+      {
+        t: "Nenhuma melhora prometida",
+        d: "Diálise e doença renal crônica não combinam com anúncio de esperança. O que se publica é informação organizada sobre o tratamento e o acompanhamento, no tom de quem cuida por anos.",
+      },
+    ],
+  },
+  {
+    slug: "gastroenterologia",
+    sobrancelha: "Marketing para gastroenterologistas e clínicas de endoscopia",
+    teseTitulo: "O primeiro concorrente do gastroenterologista é a informação ruim.",
+    metodoTitulo: "Como a clínica de gastro responde primeiro",
+    metodo: [
+      {
+        t: "Uma página para cada sintoma digestivo",
+        d: "Azia, intestino irregular e dor depois de comer ganham páginas que separam o que o sintoma sugere do que só o exame confirma, e chegam ao paciente antes do conteúdo ruim.",
+      },
+      {
+        t: "Endoscopia e colonoscopia sem mistério",
+        d: "Preparo, sedação e prazo do laudo explicados no site, em linguagem simples, porque é isso que o paciente quer saber antes de marcar a endoscopia ou a colonoscopia.",
+      },
+      {
+        t: "Consulta e exame sob o mesmo teto",
+        d: "Quando a clínica faz consulta, endoscopia e colonoscopia no mesmo endereço, isso aparece com todas as letras na página da clínica e no mapa, onde o paciente de gastro compara as opções.",
+      },
+      {
+        t: "Material que circula entre clínicas",
+        d: "Folder de exames e material institucional com a estrutura e os serviços da clínica apresentados com sobriedade, feitos para o colega que escolhe a quem encaminhar o paciente que precisa de endoscopia.",
+      },
+    ],
+  },
+  {
+    slug: "nutrologia",
+    sobrancelha: "Marketing médico para nutrólogos",
+    teseTitulo: "Nutrologia não é dieta, e o paciente precisa ler isso antes de marcar.",
+    metodoTitulo: "Seriedade num feed cheio de promessa",
+    metodo: [
+      {
+        t: "Consulta médica, não dieta da moda",
+        d: "O site explica o que se investiga na consulta de nutrologia, quais exames entram e por que acompanhamento médico é outra coisa, para quem chega de tentativas frustradas.",
+      },
+      {
+        t: "Zero promessa de emagrecimento",
+        d: "Nada de antes-e-depois, de meta de peso ou de fórmula vendida como solução, no site, nas redes e no anúncio. Numa área tão vigiada, a sobriedade aparece de longe.",
+      },
+      {
+        t: "Redes para quem quer se tratar",
+        d: "No Instagram, o conteúdo explica acompanhamento, exames e tratamento em vez de disputar o apelo do feed. Conversa com quem busca cuidado médico, não com quem procura atalho.",
+      },
+      {
+        t: "Páginas que não caducam com a moda",
+        d: "As perguntas que o paciente leva para a primeira consulta viram páginas que continuam valendo quando a dieta do momento muda de nome. É a parte que não precisa ser refeita a cada tendência.",
+      },
+    ],
+  },
+  {
+    slug: "medicina-do-sono",
+    sobrancelha: "Marketing médico para clínicas de medicina do sono",
+    teseTitulo: "O ronco só vira consulta quando alguém explica o que ele pode ser.",
+    metodoTitulo: "Educar sobre o sono antes de atender",
+    metodo: [
+      {
+        t: "Para quem ouve o ronco",
+        d: "Páginas e posts pensados para quem nota o problema de fora, no vocabulário da família (ronco alto, pausa na respiração, cansaço durante o dia), com o caminho até o diagnóstico.",
+      },
+      {
+        t: "Anúncio com as palavras de casa",
+        d: "No Google Ads, as palavras-chave seguem a queixa como ela é digitada (“ronco muito”, “paro de respirar dormindo”), e não só o nome técnico do exame.",
+      },
+      {
+        t: "A polissonografia passo a passo",
+        d: "Como funciona a noite do exame, se dá para fazer em casa, quando chega o laudo e qual é o passo seguinte, para o paciente não desistir entre a consulta e o diagnóstico.",
+      },
+      {
+        t: "Presença até a decisão chegar",
+        d: "Para muita gente, médico do sono ainda é novidade. Redes sociais e site mantêm o tema presente, sem promessa de cura, para a clínica ser lembrada quando a família resolver procurar ajuda.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
