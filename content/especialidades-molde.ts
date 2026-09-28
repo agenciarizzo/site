@@ -325,6 +325,31 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  // §6.3 do doc-mapa (lote 3), congelado em 2026-09-28.
+  {
+    slug: "angiologia-e-vascular",
+    sobrancelha: "Marketing médico para angiologistas e cirurgiões vasculares",
+    teseTitulo: "A primeira pergunta de quem tem varizes é se aquilo é doença.",
+    metodoTitulo: "Quando a perna pesada chega até você",
+    metodo: [
+      {
+        t: "A fronteira entre estética e doença",
+        d: "Varizes, perna pesada, inchaço e lipedema ganham página própria, que explica o que é doença, o que é queixa estética e quando é hora de procurar o angiologista.",
+      },
+      {
+        t: "O tratamento sem susto",
+        d: "O que dói, como é a recuperação e o que o plano cobre: cada tratamento vascular vira página, folder impresso e conteúdo educativo, porque é o medo do procedimento que adia a decisão.",
+      },
+      {
+        t: "Lipedema sem promessa",
+        d: "Quem chega com um diagnóstico de lipedema lido na internet encontra no site do angiologista uma explicação sóbria, que separa o que se sabe do que se vende, sem garantia de resultado nem antes-e-depois.",
+      },
+      {
+        t: "Verba no bairro, não na cidade",
+        d: "O anúncio no Google e no Meta fica no entorno do consultório, e o perfil no mapa mostra o que a paciente de varizes confere antes de sair de casa: distância, convênio e horário.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
