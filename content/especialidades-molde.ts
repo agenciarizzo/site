@@ -446,6 +446,31 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  // §6.4 do doc-mapa (lote 4), congelado em 2026-09-28.
+  {
+    slug: "neurocirurgia",
+    sobrancelha: "Marketing médico para neurocirurgiões",
+    teseTitulo: "Confiança em neurocirurgia também se constrói dizendo quando não operar.",
+    metodoTitulo: "Para quem lê tudo antes de operar",
+    metodo: [
+      {
+        t: "Os riscos de operar e de esperar",
+        d: "Hérnia de disco, estenose e dor que não cede ganham páginas sobre indicação, riscos e as consequências de adiar, no nível de detalhe que esse paciente procura.",
+      },
+      {
+        t: "Clareza para a terceira opinião",
+        d: "Quem chega da segunda opinião compara clareza, não currículo. O site põe a conduta em primeiro plano, explicada em linguagem simples, e a credencial vem depois, como apoio.",
+      },
+      {
+        t: "Nenhum caso de paciente exposto",
+        d: "Nada de imagem de exame de paciente, história de cirurgia ou número de procedimentos que ninguém consegue conferir. Com coluna e cérebro em jogo, a sobriedade do que se publica é o próprio argumento.",
+      },
+      {
+        t: "Conteúdo primeiro, anúncio depois",
+        d: "Páginas, artigos e vídeos que explicam coluna e cérebro com calma vêm antes do volume de anúncio. A campanha, quando entra, leva a esse conteúdo, não a uma promessa.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
