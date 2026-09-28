@@ -35,8 +35,11 @@
 // `content/cartas-molde.ts` (M3/B2). NENHUM NÚMERO escrito à mão: os 3 do
 // pôster são CONTADOS em `lib/carta-molde.ts` a partir do acervo que o
 // FILTRO da carta resolve (C1) — página cujo filtro não sustenta 6 peças
-// (`MIN_PECAS_LOCAIS`) usa o acervo da casa e PERDE pôster e histórico local
-// (bloco ausente, nunca inventado — M7/§⚖️).
+// (`MIN_PECAS_LOCAIS`) usa o acervo da casa e PERDE a coluna de números e o
+// histórico local (bloco ausente, nunca inventado — M7/§⚖️). A TESE
+// (`teseTitulo` + `posicao[0]`) é do pôster, não dos números: ela aparece
+// SEMPRE (curado no PR-B, §7.1 do doc-mapa — a tese não pode depender de
+// acervo próprio).
 //
 // DUAS PORTAS (D2): a única exceção de porta única é `rede-hospitalar`
 // (`ROTAS_SO_WHATSAPP`, intacta) — as 8 cartas deste tronco ficam com as duas,
@@ -118,8 +121,31 @@ function HeroCarta({ c, m, t }: { c: Carta; m: MoldeCarta; t: Tweaks }) {
  * Sem mapa (a carta não é praça — nada de imagem fixa inventada, §⚖️): o fundo
  * é o campo de azulejos do motor Athos pelos tweaks da própria rota, o MESMO
  * fallback que a praça usa quando não declara `mapa` (PracaPoster).
+ *
+ * A TESE (`teseTitulo` + `posicao[0]`) aparece SEMPRE — defeito da revisão do
+ * PR-A (rizzo-os → docs/SITE_CARTAS_MOLDE_RICO_MAPA.md §7.1): antes, o bloco
+ * inteiro só existia dentro de `local`, e página que cai no acervo da casa
+ * (M6: google-ads, meta-ads, video) perdia o parágrafo de posição (B1
+ * quebrado). Sem acervo próprio (`!local`), a COLUNA DE NÚMEROS some (nada de
+ * inventar número nem trocar pelo da casa — §⚖️); o bloco da tese ocupa a
+ * largura inteira (CSS escopado em `.dg.cid.carta`, carta-molde.css) e a
+ * tarja da casa continua.
  */
-function CartaPoster({ c, m, t, n, casa }: { c: Carta; m: MoldeCarta; t: Tweaks; n: { pecas: number; clientes: number; estados: number }; casa: { cidades: number; estados: number } }) {
+function CartaPoster({
+  c,
+  m,
+  t,
+  n,
+  casa,
+  local,
+}: {
+  c: Carta;
+  m: MoldeCarta;
+  t: Tweaks;
+  n: { pecas: number; clientes: number; estados: number };
+  casa: { cidades: number; estados: number };
+  local: boolean;
+}) {
   const numeros = [
     { chave: "clientes", valor: n.clientes, rotulo: "clientes atendidos com esta mídia" },
     { chave: "pecas", valor: n.pecas, rotulo: "peças do acervo feitas para eles" },
@@ -130,19 +156,21 @@ function CartaPoster({ c, m, t, n, casa }: { c: Carta; m: MoldeCarta; t: Tweaks;
       <div className="cid-poster-campo" aria-hidden data-par="-0.06" dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }} />
       <i className="cid-poster-traco" aria-hidden />
       <div className="cid-poster-grade">
-        <div className="cid-poster-numeros">
-          <p className="cid-mono">{c.midia}</p>
-          <ul>
-            {numeros.map((x) => (
-              <li key={x.chave}>
-                <span className="cid-poster-num" data-reveal data-carta-numero={x.chave}>
-                  {x.valor}
-                </span>
-                <span>{x.rotulo}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {local && (
+          <div className="cid-poster-numeros">
+            <p className="cid-mono">{c.midia}</p>
+            <ul>
+              {numeros.map((x) => (
+                <li key={x.chave}>
+                  <span className="cid-poster-num" data-reveal data-carta-numero={x.chave}>
+                    {x.valor}
+                  </span>
+                  <span>{x.rotulo}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className="cid-poster-bloco">
           <p className="rot">{c.midia}</p>
           <h2 id="h-carta" data-reveal>
@@ -316,7 +344,7 @@ export function CartaMolde({ c, m }: { c: Carta; m: MoldeCarta }) {
       <Topo waText={c.waText} rota={rota} />
       <HeroCarta c={c} m={m} t={t} />
       <Autoridade />
-      {local && <CartaPoster c={c} m={m} t={t} n={n} casa={casa} />}
+      <CartaPoster c={c} m={m} t={t} n={n} casa={casa} local={local} />
       <CartaMetodo c={c} m={m} />
       {local && grupos.length > 0 && <CartaHistorico c={c} grupos={grupos} total={totalHistorico} />}
       <Clientes />
