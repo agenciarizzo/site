@@ -216,30 +216,22 @@ verdade.
 - **Anápolis** segue em 301 pra home: zero cliente na carteira pública e zero
   peça no acervo com essa praça (regra 8).
 
-## [T-01] Travessão no resto do site: a dívida está medida, travada, e só desce
+## [T-01] ✅ RESOLVIDO em 2026-09-28 · travessão fora do site inteiro
 
-- **Estado:** a regra chegou em 2026-09-27, pedida na página de hospitais
-  (regra 12 do `CLAUDE.md`). Aquela página saiu sem travessão nenhum, junto
-  com tudo o que ela divide com o resto do site: as 168 legendas do acervo e
-  as 5 dos reels (" — " virou " · "), os rótulos do logo e as emendas
-  geradas em código (alt dos logos do letreiro, alt padrão da OG, alt e botão
-  "Ampliar" do `/portfolio`, rótulo dos pacotes). O que sobrou é **prosa**:
-  **767 travessões em 54 rotas**, medidos no HTML gerado e travados em
-  `scripts/divida-travessao.json`. O `scripts/checar-texto.mjs` reprova
-  qualquer travessão novo, e rota nova nasce com zero.
-- **Por que não decidi:** o pedido foi a página de hospitais. O resto é
-  reescrever frase por frase (cada travessão pede uma pontuação diferente, às
-  vezes a frase inteira), em cartas, especialidades e praças que carregam
-  histórico de busca. É entrega de copy própria, revisada uma a uma: a mesma
-  régua do [C-01].
-- **Minha recomendação:** limpar por FONTE, não por rota, porque o mesmo texto
-  se repete em muitas páginas. Pela ordem de alavanca: (1) o que se repete nos
-  moldes (`FooterMapa`: "O papel de cada frente — …" em 42 páginas;
-  `EspecialidadeLanding`: "O que a gente toca — …" em 40, mais três frases do
-  molde; `content/landing-v3.ts` e `content/vitrines.ts`); (2) as
-  `description` que levam travessão, que contam três vezes cada (description,
-  og e twitter); (3) as praças (`content/cidades.ts`); (4) cartas,
-  especialidades e pares, uma a uma. Cada lote no seu commit, com
-  `node scripts/checar-texto.mjs --atualizar` no fim.
-- **Custo de não decidir:** nenhum no SEO; é voz. O gate impede que cresça.
-- **Prazo sugerido:** quando o cliente quiser; o gate segura até lá.
+- **Era:** na primeira entrega (2026-09-27, site #104) só a página de hospitais
+  e o que ela divide com o site saíram limpos, e sobraram **767 travessões em
+  54 rotas**, parqueados aqui como "entrega de copy própria". O cliente
+  perguntou que regra impedia a correção: nenhuma. Foi excesso de cautela de
+  escopo, e a regra dele já estava escrita desde agosto (V1 do rizzo-os,
+  `docs/VOZ_CONTEUDO_V2_MAPA.md`).
+- **Ficou:** o site inteiro reescrito pela V1, frase a frase: pausa forte
+  virou ponto, pausa fraca virou vírgula, com dois-pontos e parênteses onde a
+  frase pedia; intervalo com "a"/"às" e cidade/UF com barra. Hífen no lugar do
+  travessão foi descartado pelo cliente ("a solução prévia documentada é mais
+  rica e sobressai"). O `scripts/checar-texto.mjs` passou a tolerância zero:
+  travessão, meia-risca fora de nome cadastrado e hífen solto reprovam o build
+  em qualquer página. A dívida declarada (`scripts/divida-travessao.json`) saiu
+  junto, porque não há mais dívida.
+- **Fica como está, de propósito:** a meia-risca dos nomes cadastrados de
+  cliente (regra 9), que é grafia do cadastro e chave de casamento entre os
+  registros. Mudá-la é decisão do cadastro (doc "AR - Clientes"), não do site.

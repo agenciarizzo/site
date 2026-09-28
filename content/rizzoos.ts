@@ -35,11 +35,11 @@ export interface Bloco {
 export const BLOCOS: Bloco[] = [
   {
     t: "Some, atrasa, e você fica sem saber",
-    d: "O que mais desgasta não é o resultado — é não saber em que pé está.",
+    d: "O que mais desgasta não é o resultado, é não saber em que pé está.",
     sintomas: [
       {
         f: "Minha agência atrasa.",
-        r: "O ano inteiro já está combinado no calendário, peça por peça, com data e horário. Na hora marcada, quem publica é o sistema. E se por algum motivo passar da hora, ele reagenda em vez de postar fora de hora — publicar é público e não tem volta.",
+        r: "O ano inteiro já está combinado no calendário, peça por peça, com data e horário. Na hora marcada, quem publica é o sistema. E se por algum motivo passar da hora, ele reagenda em vez de postar fora de hora: publicar é público e não tem volta.",
       },
       {
         f: "Minha agência some.",
@@ -60,7 +60,7 @@ export const BLOCOS: Bloco[] = [
     ],
   },
   {
-    t: "Aprovar virou trabalho — e trabalho seu",
+    t: "Aprovar virou trabalho, e trabalho seu",
     d: "Quem atende paciente o dia inteiro não tem meia hora pra caçar anexo em e-mail.",
     sintomas: [
       {
@@ -69,7 +69,7 @@ export const BLOCOS: Bloco[] = [
       },
       {
         f: "Minha agência me manda cronograma em Excel.",
-        r: "O calendário do ano é uma tela, não uma planilha — e é a mesma tela onde você aprova.",
+        r: "O calendário do ano é uma tela, não uma planilha. E é a mesma tela onde você aprova.",
       },
       {
         f: "Minha agência pede pra eu mandar tudo por e-mail. É uma burocracia.",
@@ -77,7 +77,7 @@ export const BLOCOS: Bloco[] = [
       },
       {
         f: "Não existe um diretório com o que já foi feito pra mim.",
-        r: "Tudo o que foi produzido fica em “Meus materiais”, organizado e pronto pra baixar quando você precisar — inclusive depois.",
+        r: "Tudo o que foi produzido fica em “Meus materiais”, organizado e pronto pra baixar quando você precisar, inclusive depois.",
       },
       {
         f: "Minha agência não tem teleprompter.",
@@ -90,12 +90,12 @@ export const BLOCOS: Bloco[] = [
     ],
   },
   {
-    t: "O dinheiro do anúncio é seu — e tem que estar à vista",
+    t: "O dinheiro do anúncio é seu, e tem que estar à vista",
     d: "Anúncio de clínica mexe com dinheiro e com dado de paciente. As duas coisas pedem cuidado de banco, não de planilha.",
     sintomas: [
       {
         f: "Minha agência não me mostra os gastos.",
-        r: "Saldo e gasto aparecem ao vivo na tela, campanha por campanha — não uma vez por mês, num slide.",
+        r: "Saldo e gasto aparecem ao vivo na tela, campanha por campanha. Não uma vez por mês, num slide.",
       },
       {
         f: "Não recebo nota fiscal do que foi investido no Google.",
@@ -115,7 +115,7 @@ export const BLOCOS: Bloco[] = [
       },
       {
         f: "Minha agência quer a senha das minhas contas.",
-        r: "A conexão é por autorização, e o segredo fica no servidor — não num navegador, não numa planilha, não no computador de ninguém. As contas continuam suas.",
+        r: "A conexão é por autorização, e o segredo fica no servidor, não num navegador, não numa planilha, não no computador de ninguém. As contas continuam suas.",
       },
     ],
     leia: [
@@ -129,7 +129,7 @@ export const BLOCOS: Bloco[] = [
     sintomas: [
       {
         f: "Minha agência troca as fotos do meu corpo clínico.",
-        r: "Cada profissional tem ficha própria — nome, especialidade, registro e as fotos dele. Quando o tema é da especialidade dele, é ele que entra na peça.",
+        r: "Cada profissional tem ficha própria: nome, especialidade, registro e as fotos dele. Quando o tema é da especialidade dele, é ele que entra na peça.",
       },
       {
         f: "Minha agência usa foto de IA, e eu já disse que não gosto de IA.",
@@ -137,7 +137,7 @@ export const BLOCOS: Bloco[] = [
       },
       {
         f: "Minha agência já trocou publicação de cliente.",
-        r: "A peça nasce presa ao cadastro da sua clínica. Antes de entrar na fila, o sistema confere a conta conectada e o texto — se o perfil não é o seu, ou se a legenda cita outra clínica, ele avisa antes de sair.",
+        r: "A peça nasce presa ao cadastro da sua clínica. Antes de entrar na fila, o sistema confere a conta conectada e o texto. Se o perfil não é o seu, ou se a legenda cita outra clínica, ele avisa antes de sair.",
       },
       {
         f: "Escrevem coisa que o CFM não permite.",
@@ -156,7 +156,7 @@ export const BLOCOS: Bloco[] = [
     sintomas: [
       {
         f: "Cuidam de Google Ads e de Meta, mas não mexem no meu site.",
-        r: "Todo mês tem manutenção de cada canal — inclusive o site, com Google Analytics, Search Console e Google Meu Negócio — e ela chega pra você aprovar como se fosse um post.",
+        r: "Todo mês tem manutenção de cada canal (inclusive o site, com Google Analytics, Search Console e Google Meu Negócio), e ela chega pra você aprovar como se fosse um post.",
       },
       {
         f: "Minha agência publica só no Instagram.",
@@ -164,7 +164,7 @@ export const BLOCOS: Bloco[] = [
       },
       {
         f: "A TV da recepção passa o mesmo vídeo há dois anos.",
-        r: "A tela da recepção vira canal por um link: peça das redes, vídeo, clima, câmbio, trânsito e notícia da região, na vertical e na horizontal — com prova do que ficou no ar, quando e por quanto tempo. Fila e chamada de senha na mesma tela.",
+        r: "A tela da recepção vira canal por um link: peça das redes, vídeo, clima, câmbio, trânsito e notícia da região, na vertical e na horizontal, com prova do que ficou no ar, quando e por quanto tempo. Fila e chamada de senha na mesma tela.",
       },
       {
         f: "Comentário e avaliação ficam sem resposta.",
@@ -200,7 +200,7 @@ export const BLOCOS: Bloco[] = [
  *  lê daqui, então o cartão do WhatsApp e a página não têm como divergir. */
 export const HERO_OS = {
   // 42 + " | Agência Rizzo" (16) = 58 renderizados — dentro do teto de 60.
-  title: "RizzoOS — seu marketing em voo de cruzeiro",
+  title: "RizzoOS: seu marketing em voo de cruzeiro",
   // ⚠️ O protótipo escreve 211 caracteres, e o `checar-navegacao` reprova acima
   // de 180. Recorte LITERAL: sai só a última frase ("Como a Agência Rizzo
   // trabalha, tela por tela."), que já é o kicker do herói — 164 caracteres.
@@ -286,7 +286,7 @@ export const TEMAS: { t: string; cartas?: { h: string; l: string }[]; cards: { f
     ],
   },
   {
-    t: "Aprovar virou trabalho — e trabalho seu",
+    t: "Aprovar virou trabalho, e trabalho seu",
     cards: [
       {
         f: "A peça chega por e-mail e aprovar é um sofrimento.",
@@ -294,7 +294,7 @@ export const TEMAS: { t: string; cartas?: { h: string; l: string }[]; cards: { f
       },
       {
         f: "Minha agência me manda cronograma em Excel.",
-        r: "O calendário do ano é uma tela, não uma planilha — a mesma onde você aprova.",
+        r: "O calendário do ano é uma tela, não uma planilha. A mesma onde você aprova.",
       },
       {
         f: "Não existe um diretório com o que já foi feito pra mim.",
@@ -307,12 +307,12 @@ export const TEMAS: { t: string; cartas?: { h: string; l: string }[]; cards: { f
     ],
   },
   {
-    t: "O dinheiro do anúncio é seu — e tem que estar à vista",
+    t: "O dinheiro do anúncio é seu, e tem que estar à vista",
     cartas: [{ h: "/cartas/google-ads", l: "o que pensamos de Google Ads" }, { h: "/cartas/meta-ads", l: "o que pensamos de Meta Ads" }],
     cards: [
       {
         f: "Minha agência não me mostra os gastos.",
-        r: "Saldo e gasto aparecem ao vivo, campanha por campanha — não uma vez por mês, num slide.",
+        r: "Saldo e gasto aparecem ao vivo, campanha por campanha. Não uma vez por mês, num slide.",
       },
       {
         f: "Não recebo nota fiscal do que foi investido no Google.",
@@ -356,7 +356,7 @@ export const TEMAS: { t: string; cartas?: { h: string; l: string }[]; cards: { f
     cards: [
       {
         f: "Cuidam dos anúncios, mas não mexem no meu site.",
-        r: "Todo mês tem manutenção de cada canal, inclusive o site — e ela chega pra você aprovar como um post.",
+        r: "Todo mês tem manutenção de cada canal, inclusive o site, e ela chega pra você aprovar como um post.",
       },
       {
         f: "Minha agência publica só no Instagram.",
@@ -420,8 +420,8 @@ export const PRECO = {
 export const FRANQUEZA = {
   titulo: "O RizzoOS não se contrata sozinho",
   paragrafos: [
-    "Ele não é um sistema que você assina e opera por conta. Existe dentro do trabalho da agência: quem toca o dia a dia é o time, e você entra pra decidir, aprovar e acompanhar — no seu tempo, do celular.",
-    "Se o que você procura é uma ferramenta pra sua equipe interna tocar o marketing sozinha, não é o nosso caso — e a gente prefere dizer isso agora, não depois de seis meses.",
+    "Ele não é um sistema que você assina e opera por conta. Existe dentro do trabalho da agência: quem toca o dia a dia é o time, e você entra pra decidir, aprovar e acompanhar, no seu tempo, do celular.",
+    "Se o que você procura é uma ferramenta pra sua equipe interna tocar o marketing sozinha, não é o nosso caso. E a gente prefere dizer isso agora, não depois de seis meses.",
     "E nenhuma tela substitui o trabalho: a plataforma organiza, publica e mede. Quem constrói autoridade é a constância do que você tem a dizer, mês após mês.",
   ],
 } as const;

@@ -62,7 +62,7 @@ export function ComboLanding({ c }: { c: Combo }) {
         <section className="hero">
           <div className="wrap">
             <div className="kicker">
-              Marketing médico · {c.cidade}–{c.uf} · desde 2012
+              Marketing médico · {c.cidade}/{c.uf} · desde 2012
             </div>
             <h1 className="display">
               {c.head[0]}

@@ -86,7 +86,7 @@ function MenuPaginas({ atual }: { atual?: string }) {
             </Link>
           ))}
           <Link href="/" aria-current={cur("/")}>
-            Anápolis–GO (sede)
+            Anápolis/GO (sede)
           </Link>
         </nav>
         <nav aria-label="Mídias de marketing médico">

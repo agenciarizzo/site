@@ -246,7 +246,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
               O trabalho, do jeito que o cliente recebeu
             </h2>
             <p className="parede-intro">
-              Composição pronta — site, impresso, material educativo e identidade de consultórios e clínicas de{" "}
+              Composição pronta: site, impresso, material educativo e identidade de consultórios e clínicas de{" "}
               {nome.toLowerCase()}. Clique pra ver a peça inteira.
             </p>
             <div className="parede vitrine-espec">
@@ -301,8 +301,8 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
             <p>
               {totalNoAcervo > pecas.length ? (
                 <>
-                  Estas são as peças que escolhemos mostrar aqui. O acervo inteiro — as {naParedeDaEspec} de{" "}
-                  {e.espec.toLowerCase()} e as das outras especialidades — está no{" "}
+                  Estas são as peças que escolhemos mostrar aqui. O acervo inteiro, as {naParedeDaEspec} de{" "}
+                  {e.espec.toLowerCase()} e as das outras especialidades, está no{" "}
                   <Link href={naParede}>portfólio</Link>.
                 </>
               ) : (
@@ -318,7 +318,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
                 <h2 className="sec">Quem já passou por aqui</h2>
                 <p>
                   A carteira da agência {grupos.length === 1 ? "na área de" : "nas áreas de"}{" "}
-                  {grupos.map((g) => g.area).join(" · ")}. Nem todo nome segue em contrato hoje — é o histórico do
+                  {grupos.map((g) => g.area).join(" · ")}. Nem todo nome segue em contrato hoje. É o histórico do
                   trabalho, não a lista do mês.
                 </p>
                 <div className="carteira">
@@ -351,7 +351,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
             )}
 
             <OsBlock>
-              O que a gente toca — o site, as peças, o anúncio e o relatório do mês — vive dentro do{" "}
+              O que a gente toca (o site, as peças, o anúncio e o relatório do mês) vive dentro do{" "}
               <b>RizzoOS</b>: você aprova pelo WhatsApp e enxerga, mídia por mídia, o que de fato trouxe paciente.
             </OsBlock>
 

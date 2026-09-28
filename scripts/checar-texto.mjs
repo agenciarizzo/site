@@ -8,28 +8,37 @@
 // versão da carta, e todo import posterior o trouxe de novo.
 //
 // O que ele prova, no HTML GERADO (é o que o leitor vê, e o que o Google lê):
+// corpo, atributo que se lê (alt, aria-label, title, placeholder, data-wa),
+// <title>, meta e JSON-LD.
 //
-//   1. TRAVESSÃO (—, U+2014) NÃO ENTRA no texto público: corpo, atributo que
-//      se lê (alt, aria-label, title, placeholder, data-wa), <title>, meta e
-//      JSON-LD. O que o site já tinha quando a regra chegou é DÍVIDA
-//      DECLARADA, rota a rota, em `scripts/divida-travessao.json`, e ela só
-//      desce: rota fora da lista tem que ter zero, rota da lista não passa do
-//      número dela. Limpou uma página? `node scripts/checar-texto.mjs
-//      --atualizar` baixa os números (nunca sobe, nunca acrescenta rota).
-//      Meia-risca (–) não é travessão: fica a de intervalo ("seg–sex") e a do
-//      nome registrado do cliente ("InMed – Instituto…", regra 9).
-//   2. ERRO JÁ APONTADO NÃO VOLTA: cada correção de português que o cliente
+// A régua é a V1 do rizzo-os (`docs/VOZ_CONTEUDO_V2_MAPA.md`): "sem travessão
+// nem meia-risca em texto autoral. Pausa forte é ponto final; pausa fraca é
+// vírgula; hífen segue normal em palavra composta. Exceção única: citação
+// literal de terceiro". Travessão é marca de texto de IA, e o cliente fechou
+// em 2026-09-28: nada de hífen no lugar dele.
+//
+//   1. ZERO TRAVESSÃO (—, U+2014), em página nenhuma.
+//   2. ZERO MEIA-RISCA (–, U+2013) fora do nome cadastrado de cliente. Nome é
+//      grafia, não pontuação (regra 9): "InMed – Instituto de Medicina e
+//      Diagnóstico" fica como o cadastro escreve, e também o prefixo que
+//      `nomeCurto` (lib/praca.ts) exibe ("CM – Dra. Cláudia Vasconcelos").
+//      Intervalo e cidade/UF escritos pela casa: "9h às 18h", "jan. a set.",
+//      "Anápolis/GO".
+//   3. ZERO HÍFEN SOLTO (" - ", hífen entre espaços) fazendo papel de
+//      travessão. Hífen dentro de palavra ("pós-operatório") e sinal de número
+//      ("-8%") seguem normais; citação literal de terceiro entra em `CITACOES`.
+//   4. ERRO JÁ APONTADO NÃO VOLTA: cada correção de português que o cliente
 //      pediu vira uma linha de `APONTADOS`, com a forma errada e a certa, no
 //      mesmo PR da correção. Nenhuma página pode trazer a forma errada.
 //
 // Roda DEPOIS do `next build`. Vermelho quando qualquer um cai.
-import { readdirSync, readFileSync, statSync, writeFileSync } from "fs";
+import { readdirSync, readFileSync, statSync } from "fs";
 import { join, relative, sep } from "path";
 
 const raiz = process.cwd();
 const app = join(raiz, ".next", "server", "app");
-const ARQ_DIVIDA = join(raiz, "scripts", "divida-travessao.json");
 const TRAVESSAO = "—";
+const MEIA_RISCA = "–";
 
 /**
  * Os erros que o cliente já apontou. Linha nova no mesmo PR da correção: a
@@ -43,6 +52,31 @@ const APONTADOS = [
     onde: "H1 de /cartas/rede-hospitalar, `head` em content/cartas.ts, apontado em 2026-09-27",
   },
 ];
+
+/**
+ * Citação literal de terceiro (a exceção da V1): o texto como ele está na peça
+ * ou na fonte, mesmo com hífen solto. Linha nova só com a origem dita.
+ */
+const CITACOES = [
+  // O título do anúncio de busca do Hospital Daher, lido da própria arte no alt da peça (content/portfolio.ts).
+  "Hospital Daher Lago Sul - Mais que um hospital",
+];
+
+/**
+ * Os nomes cadastrados que levam meia-risca, lidos de content/carteira.ts (o
+ * cadastro; os outros registros casam com ele pela grafia exata), mais cada
+ * prefixo até uma meia-risca: é o que `nomeCurto` exibe. Do maior pro menor,
+ * pra o nome inteiro sair antes do pedaço dele.
+ */
+const NOMES = (() => {
+  const inteiros = [...readFileSync(join(raiz, "content", "carteira.ts"), "utf8").matchAll(/\bnome:\s*"([^"]*–[^"]*)"/g)].map((m) => m[1]);
+  const formas = new Set();
+  for (const n of inteiros) {
+    const partes = n.split(" – ");
+    for (let k = 2; k <= partes.length; k++) formas.add(partes.slice(0, k).join(" – "));
+  }
+  return [...formas].sort((a, b) => b.length - a.length);
+})();
 
 /* ── ler o HTML gerado ──────────────────────────────────────────────────── */
 
@@ -107,31 +141,49 @@ function leitura(html) {
   return pedacos;
 }
 
-const contar = (s, c) => s.split(c).length - 1;
-
-/** O trecho em volta do primeiro travessão, pra quem vai corrigir achar a frase. */
-const trecho = (s) => {
-  const i = s.indexOf(TRAVESSAO);
+/** O trecho em volta do primeiro traço, pra quem vai corrigir achar a frase. */
+const trecho = (s, c) => {
+  const i = s.indexOf(c);
   return (i > 60 ? "…" : "") + s.slice(Math.max(0, i - 60), i + 60) + (i + 60 < s.length ? "…" : "");
 };
+
+/** O pedaço sem os nomes cadastrados: a meia-risca que sobrar é pontuação. */
+const semNomes = (t) => (t.includes(MEIA_RISCA) ? NOMES.reduce((s, n) => s.split(n).join(""), t) : t);
+
+/** Hífen entre espaços (ou na ponta do pedaço), fora das citações declaradas: é travessão disfarçado. */
+const HIFEN_SOLTO = /(^|\s)-(\s|$)/;
+const hifenSolto = (t) => HIFEN_SOLTO.test(CITACOES.reduce((s, c) => s.split(c).join(""), t));
 
 /* ── medir ──────────────────────────────────────────────────────────────── */
 
 const erros = [];
-const medida = new Map(); // rota → nº de travessões
-const exemplo = new Map(); // rota → o primeiro trecho com travessão
+let paginas = 0;
+let emNome = 0;
 for (const arquivo of htmls) {
   const rota = rotaDe(arquivo);
   const pedacos = leitura(readFileSync(arquivo, "utf8"));
-  let n = 0;
-  for (const p of pedacos) {
-    const k = contar(p.t, TRAVESSAO);
-    if (k && !exemplo.has(rota)) exemplo.set(rota, `${p.onde}: "${trecho(p.t)}"`);
-    n += k;
-  }
-  medida.set(rota, n);
+  paginas++;
 
-  // 2. erro já apontado — a página inteira, emendada, sem ligar pra caixa nem pra quebra
+  // 1, 2 e 3. um aviso por rota e por traço, com o primeiro trecho
+  const hifen = pedacos.filter((p) => hifenSolto(p.t));
+  if (hifen.length > 0) {
+    const t = hifen[0].t;
+    const i = t.search(HIFEN_SOLTO);
+    erros.push(`${rota}: ${hifen.length} trecho(s) com hífen solto no lugar de travessão. Primeiro: ${hifen[0].onde}: "${t.slice(Math.max(0, i - 60), i + 60)}"`);
+  }
+  const travessao = pedacos.filter((p) => p.t.includes(TRAVESSAO));
+  if (travessao.length > 0) {
+    const n = travessao.reduce((a, p) => a + p.t.split(TRAVESSAO).length - 1, 0);
+    erros.push(`${rota}: ${n} travessão(ões). Primeiro: ${travessao[0].onde}: "${trecho(travessao[0].t, TRAVESSAO)}"`);
+  }
+  const meia = pedacos.filter((p) => semNomes(p.t).includes(MEIA_RISCA));
+  emNome += pedacos.filter((p) => p.t.includes(MEIA_RISCA)).length - meia.length;
+  if (meia.length > 0) {
+    const t = semNomes(meia[0].t);
+    erros.push(`${rota}: ${meia.length} trecho(s) com meia-risca fora de nome cadastrado. Primeiro: ${meia[0].onde}: "${trecho(t, MEIA_RISCA)}"`);
+  }
+
+  // 3. erro já apontado: a página inteira, emendada, sem ligar pra caixa nem pra quebra
   const tudo = pedacos.map((p) => p.t).join(" ").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
   for (const a of APONTADOS) {
     if (tudo.includes(a.errado.toLocaleLowerCase("pt-BR"))) {
@@ -139,62 +191,19 @@ for (const arquivo of htmls) {
     }
   }
 }
-if (medida.size === 0) erros.push("nenhum HTML em .next/server/app: rode depois do `next build`, ou este gate ficou cego");
-
-/* ── 1. travessão × dívida declarada ────────────────────────────────────── */
-
-const divida = JSON.parse(readFileSync(ARQ_DIVIDA, "utf8"));
-const teto = divida.rotas;
-const baixou = [];
-const sumiu = Object.keys(teto).filter((r) => !medida.has(r));
-for (const [rota, n] of medida) {
-  const limite = teto[rota] ?? 0;
-  if (n > limite) {
-    // Na rota com dívida não dá pra saber QUAL é o novo (o gate não guarda texto,
-    // só a conta): o diff do PR aponta. Na rota limpa, todos são novos.
-    erros.push(
-      limite === 0
-        ? `${rota}: ${n} travessão(ões) numa página que não tem dívida. Primeiro: ${exemplo.get(rota)}`
-        : `${rota}: ${n} travessão(ões), acima da dívida declarada (${limite}): entrou travessão novo, e o diff do PR mostra onde.`,
-    );
-  } else if (n < limite) baixou.push(rota);
-}
-
-if (process.argv.includes("--atualizar")) {
-  if (erros.length > 0) {
-    console.error("✗ --atualizar só baixa a dívida, e há violação aberta: corrija antes.");
-    for (const e of erros) console.error(`  ${e}`);
-    process.exit(1);
-  }
-  const novas = {};
-  for (const [rota, limite] of Object.entries(teto)) {
-    const n = Math.min(limite, medida.get(rota) ?? 0);
-    if (n > 0) novas[rota] = n;
-  }
-  divida.rotas = novas;
-  writeFileSync(ARQ_DIVIDA, JSON.stringify(divida, null, 2) + "\n");
-  const soma = Object.values(novas).reduce((a, b) => a + b, 0);
-  console.log(`✓ Dívida de travessão atualizada: ${soma} em ${Object.keys(novas).length} rota(s).`);
-  process.exit(0);
-}
+if (paginas === 0) erros.push("nenhum HTML em .next/server/app: rode depois do `next build`, ou este gate ficou cego");
+if (NOMES.length === 0) erros.push("nenhum nome com meia-risca em content/carteira.ts: o formato do cadastro mudou e a isenção da regra 9 ficou cega");
 
 if (erros.length > 0) {
-  console.error("✗ Texto público (travessão proibido · erro já apontado não volta):");
+  console.error("✗ Texto público (V1: sem travessão, sem meia-risca, sem hífen no lugar deles · erro já apontado não volta):");
   for (const e of erros) console.error(`  ${e}`);
   console.error(
-    `\n${erros.length} falha(s): build reprovado. Troque o travessão pela pontuação que a frase pede ` +
-      "(vírgula, dois-pontos, ponto, parênteses), nunca por outro traço.",
+    `\n${erros.length} falha(s): build reprovado. Troque o traço pela pontuação que a frase pede: pausa forte é ponto, ` +
+      "pausa fraca é vírgula (dois-pontos e parênteses quando a frase pedir). Nunca por hífen. Nome cadastrado de cliente fica como o cadastro escreve.",
   );
   process.exit(1);
 }
-
-const soma = [...medida.entries()].reduce((a, [r, n]) => a + (teto[r] ? n : 0), 0);
-const limpas = [...medida.values()].filter((n) => n === 0).length;
-const aviso =
-  baixou.length || sumiu.length
-    ? `\n  ↓ a dívida caiu em ${baixou.length + sumiu.length} rota(s): rode \`node scripts/checar-texto.mjs --atualizar\` pra travar o ganho.`
-    : "";
 console.log(
-  `✓ Texto: ${medida.size} páginas, ${limpas} sem travessão; nas outras ${medida.size - limpas}, ${soma} de dívida antiga ` +
-    `e nenhum novo; ${APONTADOS.length} erro(s) já apontado(s), nenhum de volta.${aviso}`,
+  `✓ Texto: ${paginas} páginas, zero travessão, zero hífen solto e zero meia-risca fora de nome cadastrado ` +
+    `(${emNome} trecho(s) com nome de cliente, isentos pela regra 9); ${APONTADOS.length} erro(s) já apontado(s), nenhum de volta.`,
 );

@@ -112,13 +112,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     eixoSlug: "urologia-e-andrologia",
     titulo: "Marketing médico para urologia",
     descricao:
-      "Marketing para urologista: como um consultório de urologia é encontrado por quem adia a consulta — site, conteúdo sobre próstata, vasectomia e cirurgia, dentro do CFM.",
+      "Marketing para urologista: como um consultório de urologia é encontrado por quem adia a consulta. Site, conteúdo sobre próstata, vasectomia e cirurgia, dentro do CFM.",
     lede:
       "Urologia é a especialidade que o paciente mais adia. Quando ele finalmente procura, procura sozinho, no celular, e lê tudo antes de dizer o nome pra alguém.",
     intro: [
       "O caminho de um paciente de urologia quase nunca começa numa indicação em voz alta. Começa num sintoma que ele não comenta, numa alteração de PSA que veio no check-up da empresa, numa decisão de vasectomia conversada só dentro de casa. A pesquisa acontece de madrugada e é feita de dúvida crua: dói? demora quanto? volto a trabalhar quando? Quem responde essas perguntas por escrito, com nome e CRM na página, chega ao consultório com metade da consulta já resolvida.",
-      "Isso muda o que vale a pena construir. Um site que explica cada procedimento numa página própria — vasectomia, HPB, cálculo renal, cirurgia robótica, uropediatria — responde à busca no formato em que ela é feita, e é o mesmo material que uma inteligência artificial lê quando alguém pergunta a ela onde tratar. Conteúdo educativo em PDF, folder de consultório e cartão que a recepção entrega continuam valendo pelo mesmo motivo: o paciente de urologia relê antes de decidir.",
-      "E existe a linha que não se cruza: nada de promessa de resultado, nada de antes-e-depois, nada de preço de procedimento em anúncio. O que constrói autoridade em urologia é o oposto do apelo — informação sóbria, constante, que trata um assunto constrangedor com naturalidade. É o que faz o paciente sentir que já conhece o médico antes de sentar na cadeira.",
+      "Isso muda o que vale a pena construir. Um site que explica cada procedimento numa página própria (vasectomia, HPB, cálculo renal, cirurgia robótica, uropediatria) responde à busca no formato em que ela é feita, e é o mesmo material que uma inteligência artificial lê quando alguém pergunta a ela onde tratar. Conteúdo educativo em PDF, folder de consultório e cartão que a recepção entrega continuam valendo pelo mesmo motivo: o paciente de urologia relê antes de decidir.",
+      "E existe a linha que não se cruza: nada de promessa de resultado, nada de antes-e-depois, nada de preço de procedimento em anúncio. O que constrói autoridade em urologia é o oposto do apelo: informação sóbria, constante, que trata um assunto constrangedor com naturalidade. É o que faz o paciente sentir que já conhece o médico antes de sentar na cadeira.",
     ],
     // 7 de 10 (Urologia é o 1º caso real de curadoria — §16.8-3): um canal por linha,
     // do portfólio digital ao site. Ficaram fora o 2º cartão de visita, o 3º e-book e
@@ -147,13 +147,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Ortopedia e Traumatologia",
     titulo: "Marketing para ortopedia e traumatologia",
     descricao:
-      "Marketing para ortopedista: como um consultório de ortopedia é encontrado por quem já sente dor há meses — site por procedimento, segunda opinião e conteúdo dentro do CFM.",
+      "Marketing para ortopedista: como um consultório de ortopedia é encontrado por quem já sente dor há meses. Site por procedimento, segunda opinião e conteúdo dentro do CFM.",
     lede:
       "Ninguém procura um ortopedista por curiosidade. Procura depois de meses de dor, com um exame na mão e o nome de uma cirurgia que ainda não entendeu.",
     intro: [
-      "A busca em ortopedia vem com nome próprio: artrose de joelho, hérnia de disco, manguito rotador, prótese de quadril. O paciente já passou por fisioterapia, já ouviu um diagnóstico e agora quer saber quem opera aquilo, quanto tempo fica parado e se existe caminho sem cirurgia. Uma página por procedimento responde exatamente nesse recorte — e é a diferença entre aparecer para quem procura dor no ombro e aparecer para quem procura o seu nome.",
-      "Segunda opinião é rotina na especialidade, e ela decide muito. Quem chega para ouvir um segundo médico compara o que encontra: um explica o procedimento com clareza, mostra o que faz e onde atende; o outro tem só um telefone e uma foto. Material impresso ainda pesa aqui — pasta que o paciente leva do consultório, e-book que ele mostra em casa para a família decidir junto, banner que apresenta a subespecialidade dentro da clínica.",
-      "Ortopedia também é decisão de proximidade e de convênio. O paciente com dor não atravessa a cidade se existe bom profissional perto, e conferir se você atende o plano dele é uma das primeiras coisas que ele faz. Endereço, horário e informação de atendimento organizados valem mais do que qualquer campanha grande — e nada disso precisa de promessa de resultado para funcionar.",
+      "A busca em ortopedia vem com nome próprio: artrose de joelho, hérnia de disco, manguito rotador, prótese de quadril. O paciente já passou por fisioterapia, já ouviu um diagnóstico e agora quer saber quem opera aquilo, quanto tempo fica parado e se existe caminho sem cirurgia. Uma página por procedimento responde exatamente nesse recorte. E é a diferença entre aparecer para quem procura dor no ombro e aparecer para quem procura o seu nome.",
+      "Segunda opinião é rotina na especialidade, e ela decide muito. Quem chega para ouvir um segundo médico compara o que encontra: um explica o procedimento com clareza, mostra o que faz e onde atende; o outro tem só um telefone e uma foto. Material impresso ainda pesa aqui: pasta que o paciente leva do consultório, e-book que ele mostra em casa para a família decidir junto, banner que apresenta a subespecialidade dentro da clínica.",
+      "Ortopedia também é decisão de proximidade e de convênio. O paciente com dor não atravessa a cidade se existe bom profissional perto, e conferir se você atende o plano dele é uma das primeiras coisas que ele faz. Endereço, horário e informação de atendimento organizados valem mais do que qualquer campanha grande. E nada disso precisa de promessa de resultado para funcionar.",
     ],
     pecas: [
       "marketing-medico-ortopedia-goiania-pasta-institucional",
@@ -179,13 +179,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Oftalmologia",
     titulo: "Marketing médico para oftalmologia",
     descricao:
-      "Marketing para oftalmologista e clínica de olhos: como catarata, glaucoma e retina são procurados, e como campanha educativa e site organizado respondem — dentro do CFM.",
+      "Marketing para oftalmologista e clínica de olhos: como catarata, glaucoma e retina são procurados, e como campanha educativa e site organizado respondem, dentro do CFM.",
     lede:
       "Em oftalmologia a agenda tem duas naturezas: a consulta de rotina, que se repete a vida inteira, e o procedimento que a pessoa decide uma vez só.",
     intro: [
-      "Quem procura por catarata, glaucoma ou retina normalmente já foi encaminhado ou já ouviu o diagnóstico em outro lugar. A pesquisa que vem depois é sobre a decisão: qual técnica, qual lente, quem faz aquilo com frequência. E é uma busca em que a família participa — filho pesquisando pelo pai é caso comum, o que muda o tom do que a página precisa dizer e a clareza que ela precisa ter.",
-      "Do outro lado está o volume: consulta de rotina, receita de óculos, exame de campo visual. Essa parte se resolve em estrutura — perfil no mapa organizado por unidade, endereço e horário certos, informação de convênio fácil de achar. Campanha educativa por época do ano tem papel real aqui, e é onde o material da clínica trabalha: banner de prevenção do glaucoma, folder que explica um procedimento na sala de espera, conteúdo que a equipe manda para quem ligou perguntando.",
-      "A regra de sempre vale em dobro numa especialidade cheia de promessa fácil: sem antes-e-depois de cirurgia, sem garantia de resultado, sem número inventado de procedimentos. O que sustenta uma clínica de olhos é parecer — e ser — o lugar onde a informação é honesta e a estrutura é séria.",
+      "Quem procura por catarata, glaucoma ou retina normalmente já foi encaminhado ou já ouviu o diagnóstico em outro lugar. A pesquisa que vem depois é sobre a decisão: qual técnica, qual lente, quem faz aquilo com frequência. E é uma busca em que a família participa: filho pesquisando pelo pai é caso comum, o que muda o tom do que a página precisa dizer e a clareza que ela precisa ter.",
+      "Do outro lado está o volume: consulta de rotina, receita de óculos, exame de campo visual. Essa parte se resolve em estrutura: perfil no mapa organizado por unidade, endereço e horário certos, informação de convênio fácil de achar. Campanha educativa por época do ano tem papel real aqui, e é onde o material da clínica trabalha: banner de prevenção do glaucoma, folder que explica um procedimento na sala de espera, conteúdo que a equipe manda para quem ligou perguntando.",
+      "A regra de sempre vale em dobro numa especialidade cheia de promessa fácil: sem antes-e-depois de cirurgia, sem garantia de resultado, sem número inventado de procedimentos. O que sustenta uma clínica de olhos é parecer, e ser, o lugar onde a informação é honesta e a estrutura é séria.",
     ],
     pecas: [
       "marketing-medico-oftalmologia-parauapebas-portfolio-impresso",
@@ -212,13 +212,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     especsExtra: ["Hospital"],
     titulo: "Marketing para clínica médica",
     descricao:
-      "Marketing para clínica médica, policlínica e centro clínico: como uma casa com várias especialidades é encontrada, do mapa ao site — sem promessa de resultado.",
+      "Marketing para clínica médica, policlínica e centro clínico: como uma casa com várias especialidades é encontrada, do mapa ao site, sem promessa de resultado.",
     lede:
       "Uma clínica com várias especialidades não é procurada pelo nome. É procurada pelo problema de hoje, pelo convênio e pela distância.",
     intro: [
-      "Centro clínico, policlínica e clínica médica competem numa busca diferente da do consultório de um nome só: quem procura digita a especialidade e o bairro, o convênio, às vezes só \"clínica perto de mim\". A decisão acontece antes do site, no mapa — categoria certa, horário real, endereço que leva ao lugar certo, avaliações em ordem. Uma casa com dez especialidades e um perfil desorganizado perde consulta que já estava a um clique.",
-      "Depois vem o problema que só a clínica com muitas frentes tem: dizer o que faz sem virar lista. Uma página por especialidade atendida, cada uma respondendo a busca de quem procura aquilo, funciona melhor do que uma página institucional tentando falar de tudo — e é o que faz o mesmo endereço aparecer para o paciente de ortopedia e para o de ginecologia. Material impresso, sinalização e peça de rede social entram como a mesma marca em todos esses pontos, para que a clínica seja reconhecida por quem chega pela primeira vez.",
-      "E há a parte menos glamourosa que resolve muito: recepção que responde rápido, informação de convênio atualizada, retorno agendado. Marketing em clínica médica multiplica o que já existe — se a porta de entrada trava, campanha só aumenta a fila de quem desiste.",
+      "Centro clínico, policlínica e clínica médica competem numa busca diferente da do consultório de um nome só: quem procura digita a especialidade e o bairro, o convênio, às vezes só \"clínica perto de mim\". A decisão acontece antes do site, no mapa: categoria certa, horário real, endereço que leva ao lugar certo, avaliações em ordem. Uma casa com dez especialidades e um perfil desorganizado perde consulta que já estava a um clique.",
+      "Depois vem o problema que só a clínica com muitas frentes tem: dizer o que faz sem virar lista. Uma página por especialidade atendida, cada uma respondendo à busca de quem procura aquilo, funciona melhor do que uma página institucional tentando falar de tudo. E é o que faz o mesmo endereço aparecer para o paciente de ortopedia e para o de ginecologia. Material impresso, sinalização e peça de rede social entram como a mesma marca em todos esses pontos, para que a clínica seja reconhecida por quem chega pela primeira vez.",
+      "E há a parte menos glamourosa que resolve muito: recepção que responde rápido, informação de convênio atualizada, retorno agendado. Marketing em clínica médica multiplica o que já existe: se a porta de entrada trava, campanha só aumenta a fila de quem desiste.",
     ],
     pecas: [
       "marketing-medico-redes-sociais-brasilia-mockup",
@@ -248,13 +248,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     eixoSlug: "cirurgia-do-aparelho-digestivo-e-bariatrica",
     titulo: "Marketing médico para cirurgia digestiva",
     descricao:
-      "Marketing para cirurgião do aparelho digestivo: bariátrica, hérnia, refluxo e vesícula — como o paciente pesquisa antes de decidir operar, dentro das regras do CFM.",
+      "Marketing para cirurgião do aparelho digestivo: bariátrica, hérnia, refluxo e vesícula. Como o paciente pesquisa antes de decidir operar, dentro das regras do CFM.",
     lede:
       "Operar o aparelho digestivo é decisão longa. Entre o primeiro sintoma e a cirurgia existem meses de leitura, e é neles que o paciente escolhe o cirurgião.",
     intro: [
-      "Refluxo, hérnia, vesícula, bariátrica: o paciente chega ao cirurgião depois de já ter buscado muito. Ele sabe o nome do procedimento, ouviu falar de técnica por vídeo, tem medo do pós-operatório e quer saber quanto tempo fica sem trabalhar. Conteúdo que responde isso de forma direta — uma página por procedimento, um material que explica o preparo e a recuperação — encurta o caminho e faz a primeira consulta começar num ponto muito mais adiantado.",
-      "Bariátrica tem um cuidado a mais. É a área da especialidade onde a publicidade descuidada mais aparece, e onde o CFM é mais claro: nada de antes-e-depois, nada de promessa de quantos quilos, nada de tratar cirurgia como estética. Quem se comunica com sobriedade se destaca justamente por contraste — o paciente que está pesquisando há meses reconhece na hora quem está vendendo e quem está explicando.",
-      "O trabalho, na prática, é de estrutura: site que carrega rápido e responde a dúvida exata, material educativo que o paciente leva para casa e mostra à família, e uma presença constante que sustenta o encaminhamento de colegas — porque em cirurgia digestiva boa parte da agenda ainda chega por outro médico.",
+      "Refluxo, hérnia, vesícula, bariátrica: o paciente chega ao cirurgião depois de já ter buscado muito. Ele sabe o nome do procedimento, ouviu falar de técnica por vídeo, tem medo do pós-operatório e quer saber quanto tempo fica sem trabalhar. Conteúdo que responde isso de forma direta (uma página por procedimento, um material que explica o preparo e a recuperação) encurta o caminho e faz a primeira consulta começar num ponto muito mais adiantado.",
+      "Bariátrica tem um cuidado a mais. É a área da especialidade onde a publicidade descuidada mais aparece, e onde o CFM é mais claro: nada de antes-e-depois, nada de promessa de quantos quilos, nada de tratar cirurgia como estética. Quem se comunica com sobriedade se destaca justamente por contraste: o paciente que está pesquisando há meses reconhece na hora quem está vendendo e quem está explicando.",
+      "O trabalho, na prática, é de estrutura: site que carrega rápido e responde à dúvida exata, material educativo que o paciente leva para casa e mostra à família, e uma presença constante que sustenta o encaminhamento de colegas, porque em cirurgia digestiva boa parte da agenda ainda chega por outro médico.",
     ],
     pecas: [
       // Rodada 11 — 1ª vez que a régua de SUBSTITUIÇÃO do §16.8-3 é exercida: a
@@ -302,13 +302,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     eixoSlug: "cirurgia-oncologica",
     titulo: "Marketing médico para oncologia",
     descricao:
-      "Marketing para oncologista e clínica de oncologia: como a família pesquisa depois do diagnóstico e o que uma comunicação séria precisa responder — dentro do CFM.",
+      "Marketing para oncologista e clínica de oncologia: como a família pesquisa depois do diagnóstico e o que uma comunicação séria precisa responder, dentro do CFM.",
     lede:
       "Depois de um diagnóstico de câncer, quem pesquisa quase nunca é só o paciente. É a família inteira, no mesmo dia, com pressa.",
     intro: [
-      "A busca em oncologia tem urgência e medo dentro dela. As perguntas são práticas — onde trata, em quanto tempo consegue começar, quais exames precisa levar, o plano cobre — e chegam por gente diferente ao mesmo tempo: o paciente, o filho, o cônjuge. Uma presença que responde isso com clareza e sem rodeio poupa dias de uma jornada em que dia importa.",
+      "A busca em oncologia tem urgência e medo dentro dela. As perguntas são práticas (onde trata, em quanto tempo consegue começar, quais exames precisa levar, o plano cobre) e chegam por gente diferente ao mesmo tempo: o paciente, o filho, o cônjuge. Uma presença que responde isso com clareza e sem rodeio poupa dias de uma jornada em que dia importa.",
       "É também a especialidade que menos tolera tom publicitário. Nada de promessa de cura, nada de estatística sem fonte, nada de imagem que romantize o tratamento. O que constrói confiança aqui é sobriedade: explicar o que é cada etapa, quem é a equipe, como funciona a estrutura, o que o paciente encontra quando chega. Material educativo e institucional bem feito faz esse trabalho melhor do que qualquer anúncio.",
-      "E existe o encaminhamento, que em oncologia responde por muita coisa. Ser encontrado pelo colega que encaminha, com informação organizada sobre linhas de tratamento e localização das unidades, é parte do mesmo trabalho de estrutura — e é o que sustenta a agenda quando a campanha não está no ar.",
+      "E existe o encaminhamento, que em oncologia responde por muita coisa. Ser encontrado pelo colega que encaminha, com informação organizada sobre linhas de tratamento e localização das unidades, é parte do mesmo trabalho de estrutura, e é o que sustenta a agenda quando a campanha não está no ar.",
     ],
     pecas: [
       // Rodada 9: a CON passa a 3 de 6, então a ORDEM tem de segurar o eco de casa
@@ -338,12 +338,12 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Cardiologia",
     titulo: "Marketing médico para cardiologia",
     descricao:
-      "Marketing para cardiologista e clínica de cardiologia: check-up, exame e acompanhamento — como ser encontrado por quem foi encaminhado, dentro das regras do CFM.",
+      "Marketing para cardiologista e clínica de cardiologia: check-up, exame e acompanhamento. Como ser encontrado por quem foi encaminhado, dentro das regras do CFM.",
     lede:
-      "Cardiologia vive de retorno. O paciente que chega hoje por um exame volta por anos — e traz a família junto.",
+      "Cardiologia vive de retorno. O paciente que chega hoje por um exame volta por anos. E traz a família junto.",
     intro: [
-      "A maior parte da agenda de um cardiologista começa fora do consultório: um check-up que apontou alteração, um encaminhamento do clínico, um susto na família. Quem pesquisa está conferindo — nome, formação, onde atende, se faz o exame ali mesmo. Página organizada por exame e por procedimento responde a essa conferência, e responde também às inteligências artificiais que hoje montam recomendação lendo esse tipo de estrutura.",
-      "Depois da primeira consulta, o jogo é de permanência. Cardiologia acompanha pressão, colesterol e ritmo por anos, e o paciente que confia indica dentro de casa. Comunicação constante — material que explica o que ele tem, lembrete de retorno, presença que não some entre uma consulta e outra — vale mais nessa especialidade do que campanha de captação pura.",
+      "A maior parte da agenda de um cardiologista começa fora do consultório: um check-up que apontou alteração, um encaminhamento do clínico, um susto na família. Quem pesquisa está conferindo: nome, formação, onde atende, se faz o exame ali mesmo. Página organizada por exame e por procedimento responde a essa conferência, e responde também às inteligências artificiais que hoje montam recomendação lendo esse tipo de estrutura.",
+      "Depois da primeira consulta, o jogo é de permanência. Cardiologia acompanha pressão, colesterol e ritmo por anos, e o paciente que confia indica dentro de casa. Comunicação constante (material que explica o que ele tem, lembrete de retorno, presença que não some entre uma consulta e outra) vale mais nessa especialidade do que campanha de captação pura.",
       "Clínica com exame próprio tem uma vantagem que costuma ficar escondida: resolver consulta e exame no mesmo endereço é exatamente o que o paciente encaminhado procura. Deixar isso claro na primeira linha da página, sem promessa de resultado e sem número inventado, transforma uma busca genérica em consulta marcada.",
     ],
     pecas: [
@@ -370,13 +370,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Otorrinolaringologia",
     titulo: "Marketing médico para otorrinolaringologia",
     descricao:
-      "Marketing para otorrinolaringologista: sinusite, ronco, amígdala e ouvido — como uma agenda de alto volume é preenchida por busca local, dentro do CFM.",
+      "Marketing para otorrinolaringologista: sinusite, ronco, amígdala e ouvido. Como uma agenda de alto volume é preenchida por busca local, dentro do CFM.",
     lede:
-      "Otorrino é especialidade de agenda cheia e consulta curta. O paciente procura com o sintoma na boca — e escolhe quem consegue atendê-lo esta semana.",
+      "Otorrino é especialidade de agenda cheia e consulta curta. O paciente procura com o sintoma na boca. E escolhe quem consegue atendê-lo esta semana.",
     intro: [
-      "Sinusite que não passa, ouvido entupido, criança que ronca, rouquidão que durou demais: a busca chega descrita em sintoma, quase nunca em nome de especialidade. Aparecer nessa busca depende de o site falar a língua do paciente — e de o perfil no mapa estar com horário, endereço e disponibilidade certos, porque otorrino é decisão de proximidade e de agenda.",
+      "Sinusite que não passa, ouvido entupido, criança que ronca, rouquidão que durou demais: a busca chega descrita em sintoma, quase nunca em nome de especialidade. Aparecer nessa busca depende de o site falar a língua do paciente, e de o perfil no mapa estar com horário, endereço e disponibilidade certos, porque otorrino é decisão de proximidade e de agenda.",
       "Boa parte do volume é pediátrico, e aí quem pesquisa é a mãe ou o pai, à noite, comparando duas ou três opções. O que decide costuma ser simples: informação clara sobre o que a consulta inclui, exame feito no mesmo lugar, ambiente que dá segurança para levar criança. Sinalização da clínica, material de sala de espera e presença organizada nas redes sustentam essa primeira impressão antes de qualquer conversa.",
-      "É uma especialidade em que a constância vence a campanha pontual: procedimento eletivo — amígdala, septo, sinusite crônica — nasce da consulta de rotina, não de um anúncio. Estrutura que traz o volume de sempre é o que enche a agenda cirúrgica depois.",
+      "É uma especialidade em que a constância vence a campanha pontual: procedimento eletivo (amígdala, septo, sinusite crônica) nasce da consulta de rotina, não de um anúncio. Estrutura que traz o volume de sempre é o que enche a agenda cirúrgica depois.",
     ],
     pecas: [
       // Rodada 10: a 7ª peça é da Otoplus (casa sub-representada), e a página passa a
@@ -417,13 +417,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     nomeEixo: "Ginecologia",
     titulo: "Marketing médico para ginecologia",
     descricao:
-      "Marketing para ginecologista: como se constrói a confiança que faz uma paciente ficar por anos, atravessando fases da vida — dentro das regras do CFM.",
+      "Marketing para ginecologista: como se constrói a confiança que faz uma paciente ficar por anos, atravessando fases da vida, dentro das regras do CFM.",
     lede:
       "Ginecologia é a especialidade do vínculo longo: a paciente que escolhe bem fica anos, atravessa fases da vida e indica para as amigas.",
     intro: [
-      "A escolha de um ginecologista raramente é feita pelo preço ou pela distância. É feita por afinidade — e a pesquisa que antecede essa escolha procura sinais de como é ser atendida ali: como a médica fala, o que ela escreve, se trata assuntos delicados com naturalidade. É por isso que conteúdo tem tanto peso nesta área: a paciente lê antes de marcar, e decide pelo tom.",
-      "Menopausa, endometriose, histeroscopia, pré-natal — cada fase da vida da paciente traz uma busca diferente, e quem responde por escrito, com nome e CRM, chega à consulta com metade da conversa já resolvida. O que não muda é o cuidado ético: nada de estatística de sucesso sem lastro, nada de exposição de paciente, nada de promessa em cima de sintoma delicado.",
-      "O que sustenta a agenda é presença constante, informação verdadeira e a indicação que nasce de quem foi bem atendida — em ginecologia, a amiga que indica vale mais do que qualquer anúncio.",
+      "A escolha de um ginecologista raramente é feita pelo preço ou pela distância. É feita por afinidade. E a pesquisa que antecede essa escolha procura sinais de como é ser atendida ali: como a médica fala, o que ela escreve, se trata assuntos delicados com naturalidade. É por isso que conteúdo tem tanto peso nesta área: a paciente lê antes de marcar, e decide pelo tom.",
+      "Menopausa, endometriose, histeroscopia, pré-natal: cada fase da vida da paciente traz uma busca diferente, e quem responde por escrito, com nome e CRM, chega à consulta com metade da conversa já resolvida. O que não muda é o cuidado ético: nada de estatística de sucesso sem lastro, nada de exposição de paciente, nada de promessa em cima de sintoma delicado.",
+      "O que sustenta a agenda é presença constante, informação verdadeira e a indicação que nasce de quem foi bem atendida: em ginecologia, a amiga que indica vale mais do que qualquer anúncio.",
     ],
     // 6 de 6 — a mesma ordem/curadoria da página combinada (rodada 7/14/20), menos
     // as DUAS peças que saem pra reproducao-humana (o e-book de inseminação do
@@ -466,12 +466,12 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     nomeEixo: "Reprodução humana",
     titulo: "Marketing médico para reprodução humana",
     descricao:
-      "Marketing para clínica de reprodução humana: como um casal pesquisa antes de escolher onde tratar infertilidade, com o cuidado ético que a especialidade exige — dentro do CFM.",
+      "Marketing para clínica de reprodução humana: como um casal pesquisa antes de escolher onde tratar infertilidade, com o cuidado ético que a especialidade exige, dentro do CFM.",
     lede:
       "Reprodução humana é procurada por quem já está numa jornada difícil, e compara clínica com um cuidado que nenhuma outra especialidade pede.",
     intro: [
-      "Quem chega a uma clínica de reprodução humana já pesquisou por meses, às vezes por anos. A busca é comparativa e detalhada: taxa de sucesso do centro, técnicas disponíveis, se existe acompanhamento psicológico junto do tratamento. É pesquisa feita a duas cabeças — o casal decide junto — e ela recompensa quem explica o processo com clareza, sem prometer resultado.",
-      "O cuidado ético aqui é o mais estrito de toda a saúde da mulher: nada de prometer gravidez, nada de estatística de sucesso sem fonte auditável, nada de linguagem que trate um tratamento doloroso como produto. O que constrói confiança é material educativo sério — o que é cada etapa, quanto tempo dura, o que esperar — assinado por quem responde pelo CRM.",
+      "Quem chega a uma clínica de reprodução humana já pesquisou por meses, às vezes por anos. A busca é comparativa e detalhada: taxa de sucesso do centro, técnicas disponíveis, se existe acompanhamento psicológico junto do tratamento. É pesquisa feita a duas cabeças (o casal decide junto), e ela recompensa quem explica o processo com clareza, sem prometer resultado.",
+      "O cuidado ético aqui é o mais estrito de toda a saúde da mulher: nada de prometer gravidez, nada de estatística de sucesso sem fonte auditável, nada de linguagem que trate um tratamento doloroso como produto. O que constrói confiança é material educativo sério (o que é cada etapa, quanto tempo dura, o que esperar) assinado por quem responde pelo CRM.",
     ],
     // 4 de 4 (Portocarrero × 2 + Elielma + Fabyanne Mazutti) — bate o piso do
     // MIN_PECAS_INDEXAVEL, então a página NASCE indexável, mesmo sendo URL nova.
@@ -492,12 +492,12 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     eixoSlug: "cirurgia-vascular-e-angiologia",
     titulo: "Marketing médico para angiologia e vascular",
     descricao:
-      "Marketing para angiologista e cirurgião vascular: varizes, lipedema e circulação — como o paciente decide perto de casa, com informação e sem promessa de resultado.",
+      "Marketing para angiologista e cirurgião vascular: varizes, lipedema e circulação. Como o paciente decide perto de casa, com informação e sem promessa de resultado.",
     lede:
-      "Varizes e problemas de circulação são adiados por anos. Quando a pessoa decide procurar, ela procura perto — e compara quem explica melhor.",
+      "Varizes e problemas de circulação são adiados por anos. Quando a pessoa decide procurar, ela procura perto. E compara quem explica melhor.",
     intro: [
-      "A busca em vascular começa pelo incômodo: perna pesada, veia que apareceu, inchaço que não passa, diagnóstico de lipedema que ela leu na internet antes de ouvir de um médico. É uma pesquisa longa e cheia de dúvida sobre o que é estético e o que é doença — e quem responde essa diferença com clareza ganha a consulta, porque a paciente chega cansada de ouvir promessa.",
-      "Procedimento assusta, então informação vale mais do que apelo. Material que explica o tratamento, o que dói, quanto tempo de recuperação, o que o convênio cobre — em página, em folder impresso, em conteúdo educativo — faz o trabalho que nenhum anúncio faz sozinho. E vale lembrar: sem antes-e-depois, sem garantia de resultado, sem preço de procedimento em campanha.",
+      "A busca em vascular começa pelo incômodo: perna pesada, veia que apareceu, inchaço que não passa, diagnóstico de lipedema que ela leu na internet antes de ouvir de um médico. É uma pesquisa longa e cheia de dúvida sobre o que é estético e o que é doença. E quem responde essa diferença com clareza ganha a consulta, porque a paciente chega cansada de ouvir promessa.",
+      "Procedimento assusta, então informação vale mais do que apelo. Material que explica o tratamento, o que dói, quanto tempo de recuperação, o que o convênio cobre (em página, em folder impresso, em conteúdo educativo) faz o trabalho que nenhum anúncio faz sozinho. E vale lembrar: sem antes-e-depois, sem garantia de resultado, sem preço de procedimento em campanha.",
       "É também decisão local. Ninguém atravessa a cidade para tratar varizes se há bom profissional no próprio setor, então perfil no mapa organizado e anúncio por raio de deslocamento rendem mais do que alcance amplo. O nome que aparece perto, com informação boa, é o que ela escolhe.",
     ],
     pecas: [
@@ -519,12 +519,12 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Nefrologia",
     titulo: "Marketing médico para nefrologia",
     descricao:
-      "Marketing para nefrologista e clínica de nefrologia: hipertensão, doença renal crônica e diálise — comunicação com paciente, família e quem encaminha.",
+      "Marketing para nefrologista e clínica de nefrologia: hipertensão, doença renal crônica e diálise. Comunicação com paciente, família e quem encaminha.",
     lede:
-      "Nefrologia é acompanhamento de anos, e quase sempre começa com um encaminhamento — não com uma busca.",
+      "Nefrologia é acompanhamento de anos, e quase sempre começa com um encaminhamento, não com uma busca.",
     intro: [
       "O paciente renal chega pelo clínico, pelo cardiologista, pelo exame alterado que apareceu numa rotina. A pesquisa que ele faz depois é sobre o que vem pela frente: o que significa a creatinina alterada, se vai precisar de diálise, quanto tempo dura a consulta, se a clínica atende o plano. Responder isso por escrito, com calma, é o que transforma o encaminhamento em vínculo.",
-      "Do lado institucional, a clínica de nefrologia comunica com três públicos ao mesmo tempo: o paciente, a família que acompanha o tratamento e o médico que encaminha. Material institucional que descreve serviços, estrutura e equipe com clareza serve aos três — e é o tipo de peça que a clínica usa por anos, não por um mês de campanha.",
+      "Do lado institucional, a clínica de nefrologia comunica com três públicos ao mesmo tempo: o paciente, a família que acompanha o tratamento e o médico que encaminha. Material institucional que descreve serviços, estrutura e equipe com clareza serve aos três. E é o tipo de peça que a clínica usa por anos, não por um mês de campanha.",
       "Aqui a régua ética pesa mais do que em qualquer campanha de captação: não se anuncia esperança, se organiza informação. É um trabalho de estrutura e constância, com pouco espaço para barulho.",
     ],
     pecas: [
@@ -541,12 +541,12 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Gastroenterologia",
     titulo: "Marketing médico para gastroenterologia",
     descricao:
-      "Marketing para gastroenterologista e clínica de endoscopia: sintoma difuso, exame e diagnóstico — como ser encontrado por quem procura resposta, dentro do CFM.",
+      "Marketing para gastroenterologista e clínica de endoscopia: sintoma difuso, exame e diagnóstico. Como ser encontrado por quem procura resposta, dentro do CFM.",
     lede:
       "Quem procura um gastroenterologista chega com um sintoma vago e uma suspeita própria. A consulta começa desfazendo o que ele leu.",
     intro: [
-      "Azia, intestino irregular, dor que aparece depois de comer, refluxo que virou rotina: a busca em gastro é feita de sintoma, e vem contaminada por conteúdo ruim. Página que explica o que cada sintoma pode significar — e o que só o exame responde — chega antes desse ruído e coloca o consultório na conversa com autoridade.",
-      "Exame é parte do serviço, não um detalhe: endoscopia e colonoscopia são o motivo de muitas buscas, e o paciente quer saber do preparo, da sedação, de quanto tempo sai o laudo. Clínica que resolve consulta e exame no mesmo endereço tem uma vantagem clara — desde que isso esteja dito de forma simples, onde ele procura.",
+      "Azia, intestino irregular, dor que aparece depois de comer, refluxo que virou rotina: a busca em gastro é feita de sintoma, e vem contaminada por conteúdo ruim. Página que explica o que cada sintoma pode significar, e o que só o exame responde, chega antes desse ruído e coloca o consultório na conversa com autoridade.",
+      "Exame é parte do serviço, não um detalhe: endoscopia e colonoscopia são o motivo de muitas buscas, e o paciente quer saber do preparo, da sedação, de quanto tempo sai o laudo. Clínica que resolve consulta e exame no mesmo endereço tem uma vantagem clara, desde que isso esteja dito de forma simples, onde ele procura.",
       "E há o encaminhamento entre colegas, que sustenta boa parte da agenda. Material institucional bem feito, com serviços e estrutura descritos sem exagero, é o que circula entre clínicas e é lido por quem decide para onde mandar o paciente.",
     ],
     // Rodada 14: Gastrus Clínica é a 2ª casa (arte do Drive — §16.8.14 do doc-mapa)
@@ -576,10 +576,10 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     descricao:
       "Marketing para nutrólogo: como separar a especialidade médica do barulho da estética e ser encontrado por quem procura tratamento sério, dentro das regras do CFM.",
     lede:
-      "Nutrologia disputa atenção com o feed inteiro. É a especialidade onde a promessa fácil é mais barulhenta — e onde a sobriedade rende mais.",
+      "Nutrologia disputa atenção com o feed inteiro. É a especialidade onde a promessa fácil é mais barulhenta, e onde a sobriedade rende mais.",
     intro: [
       "Quem procura um nutrólogo costuma vir de tentativas frustradas e de muita informação errada. Ele quer entender a diferença entre acompanhamento médico e dieta da moda, o que é investigado em consulta, quais exames entram. Explicar isso por escrito é, ao mesmo tempo, o melhor conteúdo de busca e o melhor filtro de paciente: quem chega já sabendo o que é a especialidade chega para ficar.",
-      "É também uma das áreas mais vigiadas pela regulação, e com razão. Nada de antes-e-depois, nada de promessa de emagrecimento, nada de prescrição anunciada como produto. O consultório que se comunica dentro da regra ganha por contraste — num ambiente cheio de apelo, seriedade vira diferencial visível.",
+      "É também uma das áreas mais vigiadas pela regulação, e com razão. Nada de antes-e-depois, nada de promessa de emagrecimento, nada de prescrição anunciada como produto. O consultório que se comunica dentro da regra ganha por contraste: num ambiente cheio de apelo, seriedade vira diferencial visível.",
       "O que sustenta a agenda é presença constante e informação verdadeira, num site que responda às dúvidas reais da primeira consulta. Não é a frente mais rápida de resultado, mas é a que não desmonta quando a moda muda.",
     ],
     pecas: ["marketing-medico-nutrologia-brasilia-site"],
@@ -592,12 +592,12 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Medicina do Sono",
     titulo: "Marketing médico para medicina do sono",
     descricao:
-      "Marketing para clínica de medicina do sono: ronco, apneia e polissonografia — como alcançar quem convive com o problema há anos, dentro das regras do CFM.",
+      "Marketing para clínica de medicina do sono: ronco, apneia e polissonografia. Como alcançar quem convive com o problema há anos, dentro das regras do CFM.",
     lede:
       "Em medicina do sono, muitas vezes quem pesquisa não é o paciente: é quem dorme ao lado dele.",
     intro: [
-      "Ronco alto, apneia, sonolência que atrapalha o trabalho: o problema costuma ser percebido de fora antes de virar queixa médica. A busca aparece em linguagem doméstica — \"ronco muito\", \"paro de respirar dormindo\" — e quase nunca pelo nome do exame. Um conteúdo que faz a ponte entre o incômodo de casa e o diagnóstico é o que traz esse paciente para a consulta.",
-      "Depois vem a parte técnica que precisa ficar simples: como é a polissonografia, se pode ser feita em casa, quanto tempo demora o laudo, o que muda com o tratamento. Clínica que explica esse caminho passo a passo reduz a desistência entre a consulta e o exame — que é onde a agenda costuma vazar.",
+      "Ronco alto, apneia, sonolência que atrapalha o trabalho: o problema costuma ser percebido de fora antes de virar queixa médica. A busca aparece em linguagem doméstica (\"ronco muito\", \"paro de respirar dormindo\") e quase nunca pelo nome do exame. Um conteúdo que faz a ponte entre o incômodo de casa e o diagnóstico é o que traz esse paciente para a consulta.",
+      "Depois vem a parte técnica que precisa ficar simples: como é a polissonografia, se pode ser feita em casa, quanto tempo demora o laudo, o que muda com o tratamento. Clínica que explica esse caminho passo a passo reduz a desistência entre a consulta e o exame, que é onde a agenda costuma vazar.",
       "É uma especialidade jovem no imaginário do paciente, e por isso educar ainda é o trabalho principal. Presença constante nas redes e no site, sem promessa de cura e sem número inventado, é o que constrói a lembrança para quando o incômodo virar decisão.",
     ],
     // Rodada 14: CPAPS é a 2ª casa da página (arte do Drive — §16.8.14 do doc-mapa).
@@ -617,11 +617,11 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Neurocirurgia",
     titulo: "Marketing médico para neurocirurgia",
     descricao:
-      "Marketing para neurocirurgião: coluna, segunda opinião e cirurgia de alta complexidade — como o paciente compara antes de decidir, dentro das regras do CFM.",
+      "Marketing para neurocirurgião: coluna, segunda opinião e cirurgia de alta complexidade. Como o paciente compara antes de decidir, dentro das regras do CFM.",
     lede:
-      "Nenhuma decisão médica é comparada com tanto cuidado quanto a de operar a coluna ou o cérebro. O paciente procura duas, três opiniões — e lê tudo.",
+      "Nenhuma decisão médica é comparada com tanto cuidado quanto a de operar a coluna ou o cérebro. O paciente procura duas, três opiniões. E lê tudo.",
     intro: [
-      "Hérnia de disco, estenose, tumor, dor que não responde a mais nada: quem chega a um neurocirurgião já passou por outros médicos e chega com exame na mão e medo justificado. Ele procura entender o que a cirurgia resolve, o que não resolve, quais são os riscos e o que acontece se ele esperar. Escrever isso com honestidade — inclusive o que não é caso cirúrgico — é o que faz esse paciente confiar.",
+      "Hérnia de disco, estenose, tumor, dor que não responde a mais nada: quem chega a um neurocirurgião já passou por outros médicos e chega com exame na mão e medo justificado. Ele procura entender o que a cirurgia resolve, o que não resolve, quais são os riscos e o que acontece se ele esperar. Escrever isso com honestidade, inclusive o que não é caso cirúrgico, é o que faz esse paciente confiar.",
       "Segunda opinião é o padrão, e ela é uma comparação direta de clareza. Entre um profissional que explica a conduta e outro que só mostra credencial, o paciente escolhe quem o deixa entender a própria decisão. É por isso que conteúdo bem feito rende mais aqui do que volume de anúncio.",
       "E vale a régua de sempre, com peso extra numa área de alta complexidade: sem promessa de resultado, sem exposição de caso, sem número que não se possa sustentar. A autoridade se constrói pela consistência do que se publica ao longo do tempo.",
     ],
@@ -639,12 +639,12 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Cirurgia Plástica",
     titulo: "Marketing médico para cirurgia plástica",
     descricao:
-      "Marketing para cirurgião plástico dentro do CFM: sem antes-e-depois e sem promessa — como a reputação e a informação séria sustentam a agenda.",
+      "Marketing para cirurgião plástico dentro do CFM: sem antes-e-depois e sem promessa. Como a reputação e a informação séria sustentam a agenda.",
     lede:
-      "É a especialidade com a publicidade mais regulada do país — e a que mais vê colega arriscando o registro por uma peça mal feita.",
+      "É a especialidade com a publicidade mais regulada do país, e a que mais vê colega arriscando o registro por uma peça mal feita.",
     intro: [
-      "O paciente de cirurgia plástica pesquisa por meses e compara muito: formação, sociedade a que o médico pertence, onde opera, o que ele publica. O que a regra proíbe — antes-e-depois, promessa de resultado, preço em anúncio, sorteio de procedimento — é exatamente o que a maioria tenta fazer. Quem se comunica dentro da regra parece, e é, mais confiável: sobra clareza onde os outros colocam apelo.",
-      "Existe muito espaço legítimo: explicar tecnicamente cada procedimento, falar de indicação e de contraindicação, mostrar estrutura, equipe e cuidado no pós-operatório. É conteúdo que responde à busca real do paciente e que nenhuma regra impede — e que serve tanto ao paciente estético quanto ao reparador, que costuma ficar esquecido na comunicação da especialidade.",
+      "O paciente de cirurgia plástica pesquisa por meses e compara muito: formação, sociedade a que o médico pertence, onde opera, o que ele publica. O que a regra proíbe (antes-e-depois, promessa de resultado, preço em anúncio, sorteio de procedimento) é exatamente o que a maioria tenta fazer. Quem se comunica dentro da regra parece, e é, mais confiável: sobra clareza onde os outros colocam apelo.",
+      "Existe muito espaço legítimo: explicar tecnicamente cada procedimento, falar de indicação e de contraindicação, mostrar estrutura, equipe e cuidado no pós-operatório. É conteúdo que responde à busca real do paciente e que nenhuma regra impede, e que serve tanto ao paciente estético quanto ao reparador, que costuma ficar esquecido na comunicação da especialidade.",
       "Identidade visual e material impresso pesam mais aqui do que na média: consultório de plástica é julgado pelo acabamento de tudo o que carrega o nome dele. Papelaria, apresentação e ambiente contam a mesma história que o site conta.",
     ],
     pecas: [
@@ -669,13 +669,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Medicina da Dor",
     titulo: "Marketing médico para medicina da dor",
     descricao:
-      "Marketing para clínica de medicina da dor: dor crônica, bloqueios e tratamento intervencionista — como alcançar quem já passou por vários médicos.",
+      "Marketing para clínica de medicina da dor: dor crônica, bloqueios e tratamento intervencionista. Como alcançar quem já passou por vários médicos.",
     lede:
       "Quem procura medicina da dor já passou por muitos consultórios. Chega descrente, e a primeira coisa que precisa é entender que a especialidade existe.",
     intro: [
-      "Dor crônica na coluna, neuropatia, fibromialgia, dor após cirurgia: o paciente costuma buscar pelo sintoma e pelo nome de outras especialidades, porque não sabe que existe um médico dedicado a isso. Explicar o que a medicina da dor faz — e o que ela não promete — é, ao mesmo tempo, o conteúdo que atrai e o que qualifica quem chega.",
-      "É uma jornada de meses, às vezes de anos, e a decisão de tentar mais um tratamento é emocional. Nada de promessa de fim da dor, nada de depoimento montado: o que funciona é descrever com honestidade o que cada procedimento pode aliviar, como é feito e o que se espera de melhora — inclusive quando a resposta é parcial.",
-      "Encaminhamento de colegas — ortopedista, neurologista, reumatologista — sustenta boa parte da agenda. Comunicar-se com esses médicos, com material claro sobre o que a clínica faz, costuma render mais do que campanha ampla.",
+      "Dor crônica na coluna, neuropatia, fibromialgia, dor após cirurgia: o paciente costuma buscar pelo sintoma e pelo nome de outras especialidades, porque não sabe que existe um médico dedicado a isso. Explicar o que a medicina da dor faz (e o que ela não promete) é, ao mesmo tempo, o conteúdo que atrai e o que qualifica quem chega.",
+      "É uma jornada de meses, às vezes de anos, e a decisão de tentar mais um tratamento é emocional. Nada de promessa de fim da dor, nada de depoimento montado: o que funciona é descrever com honestidade o que cada procedimento pode aliviar, como é feito e o que se espera de melhora, inclusive quando a resposta é parcial.",
+      "Encaminhamento de colegas (ortopedista, neurologista, reumatologista) sustenta boa parte da agenda. Comunicar-se com esses médicos, com material claro sobre o que a clínica faz, costuma render mais do que campanha ampla.",
     ],
     pecas: [
       "marketing-medico-medicina-da-dor-araguaina-site",
@@ -691,13 +691,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Dermatologia",
     titulo: "Marketing médico para dermatologia",
     descricao:
-      "Marketing para dermatologista: dermatologia clínica, câncer de pele e estética — como equilibrar as duas agendas dentro das regras do CFM.",
+      "Marketing para dermatologista: dermatologia clínica, câncer de pele e estética. Como equilibrar as duas agendas dentro das regras do CFM.",
     lede:
       "A dermatologia tem duas agendas dentro da mesma sala: a clínica, que trata doença, e a estética, que é vendida o dia inteiro nas redes.",
     intro: [
-      "Quem procura por mancha que mudou, acne que não responde, queda de cabelo ou lesão suspeita está fazendo uma busca médica — e não quer cair num anúncio de procedimento estético. Separar as duas frentes na comunicação, com página e linguagem próprias para cada uma, evita que o consultório atraia sempre o mesmo tipo de paciente e deixe a agenda desequilibrada.",
-      "Prevenção do câncer de pele é o conteúdo mais nobre da especialidade e o mais procurado por quem tem medo: explicar sinais, o que é a dermatoscopia, com que frequência revisar. É informação que salva e que constrói autoridade — sem prometer nada, sem mostrar caso de paciente.",
-      "Na parte estética, a regra aperta: nada de antes-e-depois, nada de promessa, nada de preço em anúncio. Sobra o que de fato diferencia — explicar bem cada procedimento, mostrar estrutura e cuidado, e manter uma presença visual consistente, que numa especialidade tão visual é parte do argumento.",
+      "Quem procura por mancha que mudou, acne que não responde, queda de cabelo ou lesão suspeita está fazendo uma busca médica. E não quer cair num anúncio de procedimento estético. Separar as duas frentes na comunicação, com página e linguagem próprias para cada uma, evita que o consultório atraia sempre o mesmo tipo de paciente e deixe a agenda desequilibrada.",
+      "Prevenção do câncer de pele é o conteúdo mais nobre da especialidade e o mais procurado por quem tem medo: explicar sinais, o que é a dermatoscopia, com que frequência revisar. É informação que salva e que constrói autoridade, sem prometer nada, sem mostrar caso de paciente.",
+      "Na parte estética, a regra aperta: nada de antes-e-depois, nada de promessa, nada de preço em anúncio. Sobra o que de fato diferencia: explicar bem cada procedimento, mostrar estrutura e cuidado, e manter uma presença visual consistente, que numa especialidade tão visual é parte do argumento.",
     ],
     pecas: [
       "marketing-medico-dermatologia-brasilia-papelaria",
@@ -712,13 +712,13 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
     espec: "Diagnóstico por Imagem",
     titulo: "Marketing médico para diagnóstico por imagem",
     descricao:
-      "Marketing para clínica de imagem e laboratório: paciente com pedido na mão e médico que encaminha — os dois públicos que decidem onde o exame é feito.",
+      "Marketing para clínica de imagem e laboratório: paciente com pedido na mão e médico que encaminha, os dois públicos que decidem onde o exame é feito.",
     lede:
       "Clínica de imagem tem dois públicos que decidem: o paciente com o pedido na mão e o médico que escreveu o pedido.",
     intro: [
-      "O paciente que sai da consulta com uma requisição faz uma busca muito prática: quem faz esse exame perto, atende o meu convênio, tem vaga esta semana, e em quanto tempo sai o laudo. Quem responde essas quatro perguntas de forma visível — no site e no perfil do mapa, por tipo de exame — ganha a marcação. Quem obriga a ligar para descobrir perde para quem já respondeu.",
-      "O outro público é o médico que encaminha, e ele decide por outros critérios: qualidade do laudo, prazo, equipamento, facilidade de acesso à imagem. Material institucional dirigido a esse público — o que a clínica faz, com que estrutura, como o resultado chega — é um trabalho diferente do que se fala ao paciente, e costuma ser o mais esquecido.",
-      "Nada disso precisa de promessa: em diagnóstico, o que convence é organização. Lista de exames clara, unidades e horários corretos, preparo explicado antes de a pessoa perguntar — e uma marca reconhecível em todos os pontos, do site à recepção.",
+      "O paciente que sai da consulta com uma requisição faz uma busca muito prática: quem faz esse exame perto, atende o meu convênio, tem vaga esta semana, e em quanto tempo sai o laudo. Quem responde essas quatro perguntas de forma visível (no site e no perfil do mapa, por tipo de exame) ganha a marcação. Quem obriga a ligar para descobrir perde para quem já respondeu.",
+      "O outro público é o médico que encaminha, e ele decide por outros critérios: qualidade do laudo, prazo, equipamento, facilidade de acesso à imagem. Material institucional dirigido a esse público (o que a clínica faz, com que estrutura, como o resultado chega) é um trabalho diferente do que se fala ao paciente, e costuma ser o mais esquecido.",
+      "Nada disso precisa de promessa: em diagnóstico, o que convence é organização. Lista de exames clara, unidades e horários corretos, preparo explicado antes de a pessoa perguntar, e uma marca reconhecível em todos os pontos, do site à recepção.",
     ],
     // Rodada 14: Maximagem e Centrus destravam a página de uma vez (2 casas novas,
     // arte vinda do Drive — §16.8.13-5/§16.8.14 do doc-mapa) e a página indexa com

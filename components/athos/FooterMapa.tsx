@@ -30,7 +30,7 @@ const CARDS: Record<CardRef, { href: string; kicker: string; titulo: string; tex
     href: "/cartas/site-seo",
     kicker: "Carta 01",
     titulo: "Site & SEO para médicos",
-    texto: "O site voltou a ser o centro — agora ele responde ao Google e às IAs.",
+    texto: "O site voltou a ser o centro. Agora ele responde ao Google e às IAs.",
   },
   clientes: {
     href: "/clientes",
@@ -42,13 +42,13 @@ const CARDS: Record<CardRef, { href: string; kicker: string; titulo: string; tex
     href: "/portfolio",
     kicker: "Prova",
     titulo: "O trabalho, peça por peça",
-    texto: "Portfólio por especialidade — sites, campanhas e peças gráficas já entregues.",
+    texto: "Portfólio por especialidade: sites, campanhas e peças gráficas já entregues.",
   },
   panorama: {
     href: "/marketing-medico",
     kicker: "Panorama",
     titulo: "Marketing médico, mídia por mídia",
-    texto: "O papel de cada frente — e quando ela não é a prioridade.",
+    texto: "O papel de cada frente, e quando ela não é a prioridade.",
   },
   contato: {
     href: "/contato",
@@ -110,7 +110,7 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
           <div className="identidade">
             <Image src="/logo_fundo_escuro_horizontal.png" alt="Agência Rizzo" width={130} height={26} />
             <address>
-              {ENDERECO} · <a href="tel:+5562992586600">{WHATS_LABEL}</a> · seg a sex 9h–18h
+              {ENDERECO} · <a href="tel:+5562992586600">{WHATS_LABEL}</a> · seg a sex, 9h às 18h
             </address>
             {/* Passa pelo portão anti-robô, como todo caminho pro WhatsApp
                 (lib/nav.ts); o texto da conversa viaja no data-wa. */}
@@ -131,7 +131,7 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
                 São Paulo
               </Link>
               <Link href="/" aria-current={cur("/")}>
-                Anápolis–GO (sede)
+                Anápolis/GO (sede)
               </Link>
             </div>
           </nav>

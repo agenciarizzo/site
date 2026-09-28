@@ -147,7 +147,7 @@ export function Clientes() {
           <h2 id="h-clientes" className="h2" data-reveal>
             Clínicas, médicos e hospitais que <span className="ouro">confiam</span> na agência
           </h2>
-          <p>259 nomes reais desde 2012 — de consultório a hospital.</p>
+          <p>259 nomes reais desde 2012, de consultório a hospital.</p>
         </div>
         <div className="clientes-banda">
           <i className="clientes-filete" aria-hidden />
