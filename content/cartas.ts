@@ -198,7 +198,7 @@ export const CARTAS: Carta[] = [
       "Melhor começar por outra mídia e voltar ao vídeo quando a agenda (ou a vontade) permitir. Sem culpa.",
     ],
     faq: [
-      { q: "Tenho vergonha de câmera. Tem jeito?", a: "Tem: roteiro pronto e teleprompter resolvem 90% do medo, e os primeiros vídeos ninguém precisa ver. A soltura vem com o terceiro, a gente acompanha isso toda semana." },
+      { q: "Tenho vergonha de câmera. Tem jeito?", a: "Tem: roteiro pronto e teleprompter resolvem a maior parte do medo, e os primeiros vídeos ninguém precisa ver. A soltura vem com o terceiro, a gente acompanha isso toda semana." },
       { q: "Precisa de estúdio e equipamento?", a: "Não. Celular atual, luz de janela e um ambiente organizado entregam qualidade de sobra pra redes. E a edição eleva o resultado." },
       { q: "Vídeo de médico pode no CFM?", a: "Pode e é bem-vindo, no formato educativo: explicar doenças, tratamentos e prevenção. O que não pode é promessa de resultado e sensacionalismo. Nossos roteiros já nascem dentro da regra." },
       { q: "Quantos vídeos por mês?", a: "Uma gravação mensal de 20 a 30 minutos costuma render de 4 a 8 peças, dependendo da pauta. O ritmo certo se define no seu planejamento." },

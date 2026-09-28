@@ -171,6 +171,35 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
     ],
     filtro: { tipo: "grupo", grupo: "Redes" },
   },
+  {
+    slug: "video",
+    sobrancelha: "Vídeo educativo para médicos e clínicas",
+    teseTitulo: "O paciente confia em quem ele já ouviu explicar.",
+    metodoTitulo: "Como tiramos a fricção do vídeo",
+    metodo: [
+      {
+        t: "Roteiro do que pacientes perguntam",
+        d: "A pauta sai das dúvidas reais da sua especialidade: cada vídeo responde a uma pergunta que já está sendo feita, no formato educativo que o CFM permite.",
+      },
+      {
+        t: "Gravação sem fricção",
+        d: "Celular, orientação simples e teleprompter: você lê, a gente lapida. Vinte minutos de gravação rendem semanas de conteúdo, sem estúdio nem equipamento.",
+      },
+      {
+        t: "Os primeiros vídeos são ensaio",
+        d: "Ninguém precisa ver as primeiras gravações. Roteiro pronto e teleprompter tiram a maior parte do medo de câmera, e a soltura vem com a prática, acompanhada por nós.",
+      },
+      {
+        t: "Edição com a sua identidade",
+        d: "Corte, legenda e arte na sua linha visual, não no template da moda que todo mundo usa. A edição eleva o que o celular gravou.",
+      },
+      {
+        t: "Um vídeo, cinco lugares",
+        d: "Um bom vídeo vira reels, short, story, post no site e conteúdo para a TV da clínica. Você grava uma vez, e ele aparece em cinco lugares.",
+      },
+    ],
+    filtro: { tipo: "casa" },
+  },
 ];
 
 export const moldeDe = (slug: string): MoldeCarta | undefined => CARTAS_MOLDE.find((m) => m.slug === slug);
