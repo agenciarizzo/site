@@ -350,6 +350,30 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "nefrologia",
+    sobrancelha: "Marketing médico para nefrologistas e clínicas de nefrologia",
+    teseTitulo: "A palavra diálise assusta antes mesmo da primeira consulta.",
+    metodoTitulo: "Como a clínica renal fala com três públicos",
+    metodo: [
+      {
+        t: "A creatinina explicada com calma",
+        d: "O que significa o exame alterado, quando se fala em diálise e como é o acompanhamento: cada dúvida do paciente renal vira uma página que informa sem assustar e sem prometer.",
+      },
+      {
+        t: "Quem acompanha o paciente renal",
+        d: "Filho, cônjuge ou cuidador também pesquisa: plano de saúde, duração da consulta, próximos passos. O conteúdo responde a essa família com a mesma clareza que dá ao paciente.",
+      },
+      {
+        t: "O clínico e o cardiologista informados",
+        d: "Material institucional que apresenta serviços, estrutura e equipe da clínica, pensado também para o clínico e o cardiologista que encaminham e querem saber para onde o paciente renal vai.",
+      },
+      {
+        t: "Nenhuma melhora prometida",
+        d: "Diálise e doença renal crônica não combinam com anúncio de esperança. O que se publica é informação organizada sobre o tratamento e o acompanhamento, no tom de quem cuida por anos.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
