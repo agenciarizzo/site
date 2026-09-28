@@ -422,6 +422,30 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "medicina-do-sono",
+    sobrancelha: "Marketing médico para clínicas de medicina do sono",
+    teseTitulo: "O ronco só vira consulta quando alguém explica o que ele pode ser.",
+    metodoTitulo: "Educar sobre o sono antes de atender",
+    metodo: [
+      {
+        t: "Para quem ouve o ronco",
+        d: "Páginas e posts pensados para quem nota o problema de fora, no vocabulário da família (ronco alto, pausa na respiração, cansaço durante o dia), com o caminho até o diagnóstico.",
+      },
+      {
+        t: "Anúncio com as palavras de casa",
+        d: "No Google Ads, as palavras-chave seguem a queixa como ela é digitada (“ronco muito”, “paro de respirar dormindo”), e não só o nome técnico do exame.",
+      },
+      {
+        t: "A polissonografia passo a passo",
+        d: "Como funciona a noite do exame, se dá para fazer em casa, quando chega o laudo e qual é o passo seguinte, para o paciente não desistir entre a consulta e o diagnóstico.",
+      },
+      {
+        t: "Presença até a decisão chegar",
+        d: "Para muita gente, médico do sono ainda é novidade. Redes sociais e site mantêm o tema presente, sem promessa de cura, para a clínica ser lembrada quando a família resolver procurar ajuda.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
