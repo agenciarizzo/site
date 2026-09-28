@@ -43,9 +43,9 @@ import { logoDe } from "@/lib/logos";
 import { FATOS, PROPOSTA_URL, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Clientes — médicos, clínicas e hospitais",
+  title: "Clientes: médicos, clínicas e hospitais",
   description:
-    "Médicos, clínicas e hospitais que constroem presença digital com a Agência Rizzo — de oftalmologia a urologia, de Brasília a todo o Brasil, desde 2012.",
+    "Médicos, clínicas e hospitais que constroem presença digital com a Agência Rizzo, de oftalmologia a urologia, de Brasília a todo o Brasil, desde 2012.",
   alternates: { canonical: "/clientes" },
 };
 
@@ -141,7 +141,7 @@ export default function ClientesPage() {
       <main>
         <section className="cli-lede" data-topo="escuro">
           <p>
-            São 259 médicos, clínicas e hospitais atendidos desde 2012, em 53 cidades de 21 estados — do consultório de um nome só
+            São 259 médicos, clínicas e hospitais atendidos desde 2012, em 53 cidades de 21 estados, do consultório de um nome só
             à rede hospitalar. As marcas vêm primeiro; a lista inteira, com praça e área, está logo abaixo. O trabalho que
             fizemos com cada um está no <Link href="/portfolio">portfólio</Link>.
           </p>
@@ -190,7 +190,7 @@ export default function ClientesPage() {
             ))}
           </div>
           <p className="cli-nota">
-            Boa parte dessa lista é hospital e rede — instituições em que cada linha de serviço disputa um mercado
+            Boa parte dessa lista é hospital e rede, instituições em que cada linha de serviço disputa um mercado
             próprio. O que pensamos sobre isso está em{" "}
             <Link href="/cartas/rede-hospitalar">marketing de rede hospitalar</Link>.
           </p>

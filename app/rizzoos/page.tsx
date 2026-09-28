@@ -56,7 +56,7 @@ export default function RizzoOsPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "RizzoOS — plataforma de marketing médico",
+    name: "RizzoOS, plataforma de marketing médico",
     serviceType: "Plataforma de marketing médico",
     description: HERO_OS.description,
     url: `${SITE_URL}/rizzoos`,

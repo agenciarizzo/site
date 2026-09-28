@@ -279,7 +279,7 @@ export function Telas() {
             <div style={{ fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
               Search Console <i style={{ width: 6, height: 6, borderRadius: "50%", background: VERDE }} />
             </div>
-            <div style={{ color: MUDO }}>01/06 – 10/09</div>
+            <div style={{ color: MUDO }}>01/06 a 10/09</div>
           </div>
         </div>
         <div style={cartao}>

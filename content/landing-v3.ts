@@ -31,10 +31,10 @@ import { CARTAS_MIDIA } from "./cartas";
  * ficar de fora daqui por esquecimento.
  */
 export const SERVICOS = [
-  { slug: "site-seo", nome: "Site & SEO", frase: "O site voltou a ser o centro da decisão do paciente — e agora ele responde ao Google e aos motores de busca por IA.", recebe: "Site próprio, páginas por especialidade, conteúdo mensal e relatório do Google." },
+  { slug: "site-seo", nome: "Site & SEO", frase: "O site voltou a ser o centro da decisão do paciente. E agora ele responde ao Google e aos motores de busca por IA.", recebe: "Site próprio, páginas por especialidade, conteúdo mensal e relatório do Google." },
   { slug: "google-ads", nome: "Google Ads", frase: "Anúncio não conserta base ruim. Com estrutura boa, o clique fica barato.", recebe: "Campanhas por especialidade e procedimento, com custo por contato visível no RizzoOS." },
   { slug: "meta-ads", nome: "Meta Ads", frase: "O desejo se planta antes da busca. Aqui é onde ele germina.", recebe: "Instagram e Facebook com criativos da equipe, dentro das regras do CFM." },
-  { slug: "redes-sociais", nome: "Redes Sociais", frase: "Autoridade se constrói em série, com constância — não em post solto.", recebe: "Linha editorial, design e publicação, com aprovação sua em um toque." },
+  { slug: "redes-sociais", nome: "Redes Sociais", frase: "Autoridade se constrói em série, com constância, não em post solto.", recebe: "Linha editorial, design e publicação, com aprovação sua em um toque." },
   { slug: "video", nome: "Vídeo", frase: "Quem explica bem atende paciente que já chega confiando.", recebe: "Roteiro, gravação e edição; formatos que não dependem de você gravar toda semana." },
   { slug: "tv-corporativa", nome: "TV Corporativa", frase: "Sua sala de espera é mídia própria. A mais desperdiçada do consultório.", recebe: "Sala de espera com conteúdo seu, no ar, automático." },
 ].map((s, i) => ({
@@ -166,12 +166,12 @@ export const ADDONS: Addon[] = [
   { curto: "Apresentação Digital", nome: "Apresentação Digital", desc: "Portfólio, Cartão Virtual e Assinatura de E-mail para destacar o profissional." },
   { curto: "Material Educativo", nome: "Material Educativo / Captura de Lead", desc: "Ebook diagramado (15 páginas) + Folder virtual: você envia o conteúdo, nós transformamos em material rico para captar leads em campanhas de Meta/Google Ads." },
   { curto: "CHs Extras", nome: "CHs Extras", desc: "Horas flexíveis sob demanda para imprevistos, oportunidades ou escopo expandido." },
-  { curto: "Branding Completo", nome: "Branding Completo", desc: "Identidade Visual e Papelaria — essencial para quem precisa desenvolver sua marca." },
+  { curto: "Branding Completo", nome: "Branding Completo", desc: "Identidade Visual e Papelaria. Essencial para quem precisa desenvolver sua marca." },
   { curto: "Impulsionamento Meta Ads", nome: "Impulsionamento Meta Ads", desc: "Serviços de impulsionamento no Instagram e Facebook conectando médicos a pacientes qualificados." },
-  { curto: "Pacote Reels", nome: "Pacote Reels (Animações)", desc: "Pacote de animações gráficas para Reels — 1 vídeo a cada duas semanas." },
+  { curto: "Pacote Reels", nome: "Pacote Reels (Animações)", desc: "Pacote de animações gráficas para Reels: 1 vídeo a cada duas semanas." },
   { curto: "SEO Conteúdo", nome: "SEO Conteúdo", desc: "Potencia o tráfego orgânico do seu site: 2 matérias com SEO por mês + manutenção contínua. Ideal para subir no Google sem depender só de tráfego pago." },
   { curto: "TV Corporativa", nome: "TV Corporativa Recepção", desc: "Mantenha sua sala de espera com conteúdo profissional: 1 animação gráfica nova por mês + manutenção remota da programação da TV." },
-  { curto: "Vídeos Quinzenais", nome: "Vídeos Quinzenais (Insumos do Cliente)", desc: "Edição profissional dos insumos enviados pelo cliente — 1 vídeo a cada duas semanas." },
+  { curto: "Vídeos Quinzenais", nome: "Vídeos Quinzenais (Insumos do Cliente)", desc: "Edição profissional dos insumos enviados pelo cliente: 1 vídeo a cada duas semanas." },
 ];
 
 /** A nota única do §44.15 D1 — uma linha, embaixo dos 4 cards. */
@@ -189,11 +189,11 @@ export const PACOTES_NOTA = "Valores de referência. O valor final sai na calcul
 export const CASES = [
   {
     meta: "Gastroenterologia · Belo Horizonte/MG*",
-    graficoTitulo: "Usuários ativos · jan–set 2026",
+    graficoTitulo: "Usuários ativos · jan. a set. de 2026",
     frase: "Dois de cada três pacientes chegam pelo Google, sem pagar clique.",
     heroi: "191 mil",
-    rotulo: "usuários ativos de janeiro a setembro de 2026 — 128 mil vindos da busca orgânica",
-    periodo: "jan–set 2026 · conta do cliente",
+    rotulo: "usuários ativos de janeiro a setembro de 2026 (128 mil vindos da busca orgânica)",
+    periodo: "jan. a set. de 2026 · conta do cliente",
     barras: [
       { rotulo: "Google Ads", valor: "46 mil", alt: 36 },
       { rotulo: "Direto", valor: "13 mil", alt: 10 },
@@ -209,9 +209,9 @@ export const CASES = [
     graficoTitulo: "Posição média no Google · site antigo × site novo",
     frase: "Da página 3 pra página 1, em palavras disputadas com hospitais e redes nacionais.",
     heroi: "38ª → 3ª",
-    rotulo: "posição média em “dermatologista batel” nos últimos 90 dias — sem pagar por clique",
+    rotulo: "posição média em “dermatologista batel” nos últimos 90 dias, sem pagar por clique",
     periodo: "últimos 90 dias · Search Console do cliente",
-    nota: "Site refeito em novembro de 2025. “Antes” = mai–ago/2025. Dados do Google Search Console.",
+    nota: "Site refeito em novembro de 2025. “Antes” = mai. a ago. de 2025. Dados do Google Search Console.",
     barras: [
       { rotulo: "“dermatologista curitiba” · antes", valor: "27ª", alt: 71 },
       { rotulo: "“dermatologista curitiba” · agora", valor: "7,6ª", alt: 20, destaque: true },
@@ -240,21 +240,21 @@ export const CASES = [
   },
   {
     meta: "Ortopedia · Rondonópolis/MT*",
-    graficoTitulo: "Perfil no Google · jul–set vs. período anterior",
+    graficoTitulo: "Perfil no Google · jul. a set. vs. período anterior",
     frase: "Quando a busca vira rota até a porta.",
     heroi: "439",
     rotulo: "rotas traçadas até a clínica em dois meses (+118%)",
-    periodo: "jul–set 2026 · conta do cliente",
+    periodo: "jul. a set. de 2026 · conta do cliente",
     nota: "Perfil da Empresa no Google, 01/07 a 05/09/2026, contra o período anterior de mesma duração.",
     barras: [
       { rotulo: "Rotas · antes", valor: "201", alt: 46 },
-      { rotulo: "Rotas · jul–set", valor: "439", alt: 100, destaque: true },
+      { rotulo: "Rotas · jul. a set.", valor: "439", alt: 100, destaque: true },
       { rotulo: "Avaliações novas · antes", valor: "12", alt: 19 },
-      { rotulo: "Avaliações novas · jul–set", valor: "62", alt: 100, destaque: true },
+      { rotulo: "Avaliações novas · jul. a set.", valor: "62", alt: 100, destaque: true },
     ],
     apoio: [
       "6.580 visualizações do perfil (+95%) e 200 ligações direto do Google.",
-      "62 avaliações novas no período, contra 12 antes — nota 4,8 em 254 avaliações.",
+      "62 avaliações novas no período, contra 12 antes. Nota 4,8 em 254 avaliações.",
     ],
   },
   {
@@ -264,7 +264,7 @@ export const CASES = [
     heroi: "+91%",
     rotulo: "contatos em 2026 com 4% menos sessões, contra o mesmo período do ano anterior",
     periodo: "2026 · conta do cliente",
-    nota: "Eventos principais no GA4: 9,1 mil contra 14 mil sessões. “Antes” = abr/2025–jan/2026.",
+    nota: "Eventos principais no GA4: 9,1 mil contra 14 mil sessões. “Antes” = abr. de 2025 a jan. de 2026.",
     barras: [
       { rotulo: "Busca paga · antes", valor: "33,0%", alt: 74 },
       { rotulo: "Busca paga · 2026", valor: "44,5%", alt: 100, destaque: true },
@@ -304,7 +304,7 @@ export const CASES = [
 ];
 
 export const CASES_DISCLAIMER =
-  "Números apurados nas contas dos próprios clientes — GA4, Search Console, Perfil da Empresa no Google e Google Ads — nos períodos indicados em cada caso, comparados ao período anterior de mesma duração. Contato é ação medida na plataforma (mensagem, formulário ou ligação) — não representa consulta realizada. Resultado depende de verba, praça e concorrência, e não se repete igual em duas contas. * Especialidade e cidade foram trocadas para preservar os clientes. Os números são reais.";
+  "Números apurados nas contas dos próprios clientes (GA4, Search Console, Perfil da Empresa no Google e Google Ads) nos períodos indicados em cada caso, comparados ao período anterior de mesma duração. Contato é ação medida na plataforma (mensagem, formulário ou ligação). Não representa consulta realizada. Resultado depende de verba, praça e concorrência, e não se repete igual em duas contas. * Especialidade e cidade foram trocadas para preservar os clientes. Os números são reais.";
 
 /* ──────────────────────────────────────────────────────────── resultado ──── */
 
@@ -325,7 +325,7 @@ export const METRICAS = [
     num: "+300%",
     rotulo: "mais contatos de pacientes, em média",
     metodo:
-      "Média das contas acompanhadas pela agência. Contato é mensagem, formulário ou ligação medidos na plataforma — não consulta realizada.",
+      "Média das contas acompanhadas pela agência. Contato é mensagem, formulário ou ligação medidos na plataforma, não consulta realizada.",
   },
   {
     num: "85%",
@@ -391,9 +391,9 @@ export const DEPOIMENTOS_FONTE =
  */
 export const SOBRE = {
   kicker: "Sobre",
-  titulo: "A metodologia não nasceu em sala de reunião — nasceu na rotina de um hospital",
+  titulo: "A metodologia não nasceu em sala de reunião, nasceu na rotina de um hospital",
   texto:
-    "Raphael Rizzo foi gerente de comunicação de hospital por cinco anos (2007–2012), na época das certificações ONA e ISO — e desde então só trabalha com saúde. É daí que vem o rigor da casa: marketing seguro, ético e medido.",
+    "Raphael Rizzo foi gerente de comunicação de hospital por cinco anos (de 2007 a 2012), na época das certificações ONA e ISO, e desde então só trabalha com saúde. É daí que vem o rigor da casa: marketing seguro, ético e medido.",
   pilares: [
     { num: "01", t: "Especialização exclusiva", d: "100% em marketing médico, com equipe de vivência hospitalar real e conhecimento do CFM." },
     { num: "02", t: "Processos certificados", d: "Metodologia baseada em padrões ONA/ISO, com aprovação de conteúdo em um toque no RizzoOS." },
@@ -472,7 +472,7 @@ export const CLIENTES_BLOCO = {
   antes: "Clínicas, médicos e hospitais que",
   acento: "confiam",
   depois: "na agência",
-  lede: "259 nomes reais desde 2012 — de consultório a hospital.",
+  lede: "259 nomes reais desde 2012, de consultório a hospital.",
   link: "Ver a lista completa de clientes",
 };
 
@@ -496,7 +496,7 @@ export const EXCLUSIVIDADE = {
   kicker: "Exclusividade",
   titulo: "Um cliente por especialidade em cada cidade",
   texto:
-    "Não atendemos dois concorrentes diretos na mesma praça. Quando um ortopedista de joelho na Asa Sul fecha com a gente, a vaga de ortopedia de joelho na Asa Sul fecha junto. A estratégia continua sendo sua — e é por isso que a primeira conversa começa conferindo se a sua vaga está aberta.",
+    "Não atendemos dois concorrentes diretos na mesma praça. Quando um ortopedista de joelho na Asa Sul fecha com a gente, a vaga de ortopedia de joelho na Asa Sul fecha junto. A estratégia continua sendo sua, e é por isso que a primeira conversa começa conferindo se a sua vaga está aberta.",
   cta: "Conferir se a minha vaga está aberta",
   sem: { t: "Sem agência", d: "Verba espalhada em público disperso. Ninguém encaixa." },
   com: { t: "Com agência", d: "O médico certo na busca exata do paciente. Encaixe de alta afinidade." },
@@ -543,17 +543,17 @@ export const ATRIBUTOS: Atributo[] = [
  */
 export const FAQ = [
   { p: "Como fica a conformidade com o CFM?", r: "Toda peça é revisada contra a Resolução CFM nº 2.336/2023 antes de ir pra aprovação: sem promessa de resultado, sem sensacionalismo, sem “antes e depois” fora das condições da resolução. E nada é publicado sem a sua aprovação no RizzoOS." },
-  { p: "Vocês atendem hospitais e redes de saúde?", r: "Sim. Hospital Daher, Hospital de Olhos Sobradinho, Hospital de Olhos do DF e CBCOR estão na carteira — e o fundador foi gerente de comunicação de um hospital certificado ONA/ISO. Campanha por linha de serviço, multicanal e por unidade é rotina." },
+  { p: "Vocês atendem hospitais e redes de saúde?", r: "Sim. Hospital Daher, Hospital de Olhos Sobradinho, Hospital de Olhos do DF e CBCOR estão na carteira, e o fundador foi gerente de comunicação de um hospital certificado ONA/ISO. Campanha por linha de serviço, multicanal e por unidade é rotina." },
   { p: "Vocês atendem o meu concorrente?", r: "Não. Um cliente por especialidade em cada cidade. Se a sua vaga estiver ocupada, a gente avisa na primeira conversa." },
   { p: "Quanto tempo até os primeiros contatos?", r: "Com Google Ads, os primeiros contatos costumam chegar nos primeiros 30 dias. Site, SEO e conteúdo são de médio prazo: 3 a 6 meses pra ganhar consistência." },
   { p: "Qual é o investimento?", r: "Depende do escopo. Monte o seu pacote na calculadora e veja o valor na hora, sem reunião." },
   { p: "Oferecem garantia de resultados?", r: "Não. Resultado depende de verba, praça, concorrência e da agenda do médico. O que existe é processo: toda peça revisada pelas normas do CFM, nada publicado sem a aprovação do médico, contatos e investimento visíveis no RizzoOS, e três meses de ativação pra sair sem ônus se não fizer sentido." },
   { p: "Como funciona a aprovação de conteúdo?", r: "O aviso chega no seu celular e abre já na peça certa; você aprova no RizzoOS em um toque, com legenda revisada. Só o que você liberou vai ao ar." },
-  { p: "Preciso aparecer em vídeo?", r: "Não. Ajuda — paciente que já conhece o médico chega confiando —, mas a equipe produz formatos que não dependem de você gravar toda semana." },
+  { p: "Preciso aparecer em vídeo?", r: "Não. Ajuda (paciente que já conhece o médico chega confiando), mas a equipe produz formatos que não dependem de você gravar toda semana." },
   { p: "O site e as contas ficam no meu nome?", r: "Sim. Site, artes, textos, perfil nas redes e conta de anúncios são seus. Se encerrar, a migração é combinada." },
   { p: "Tem fidelidade?", r: "Contrato de 12 meses. Os 3 primeiros são de ativação: se não fizer sentido, qualquer um dos lados sai sem ônus." },
   { p: "Já tenho agência. Como funciona a troca?", r: "A gente faz o inventário do que existe (site, domínio, contas de anúncio, redes), pede os acessos no seu nome e assume sem derrubar o que está funcionando. O site atual migra por etapas, com endereços preservados e histórico do Google mantido." },
-  { p: "Atendem a minha especialidade?", r: "São 55 áreas na carteira, de ortopedia a medicina do sono. Veja a lista na seção de especialidades — e se a sua não estiver lá, fale com a gente." },
+  { p: "Atendem a minha especialidade?", r: "São 55 áreas na carteira, de ortopedia a medicina do sono. Veja a lista na seção de especialidades. E se a sua não estiver lá, fale com a gente." },
 ];
 
 /* ────────────────────────────────────────────────────────────── vinheta ──── */
@@ -579,7 +579,7 @@ export const CTA_FINAL = {
   titulo: "Chega de surpresas.",
   acento: "Sua proposta, transparente e na hora.",
   proposta: "Selecione os serviços na calculadora e veja o investimento em tempo real.",
-  whats: "Uma conversa de 15 minutos sobre a sua clínica — e a gente já confere se a sua vaga está aberta.",
+  whats: "Uma conversa de 15 minutos sobre a sua clínica. E a gente já confere se a sua vaga está aberta.",
 };
 
 /* ─────────────────────────────────────────── RizzoOS e portfólio da praça ── */
@@ -593,7 +593,7 @@ export const CTA_FINAL = {
 export const RIZZOOS_BLOCO = {
   num: "04",
   texto:
-    "Todo cliente da agência vive dentro do RizzoOS, o sistema que a agência construiu: planejamento anual, produção, relatórios — e o cruzamento de tendências e dados que decide o próximo conteúdo. O aviso chega no seu celular e abre já na peça certa; a aprovação acontece no RizzoOS, em um toque. Seu marketing deixa de ser um monte de peça solta e vira um sistema trabalhando pela sua autoridade, todos os dias.",
+    "Todo cliente da agência vive dentro do RizzoOS, o sistema que a agência construiu: planejamento anual, produção, relatórios, e o cruzamento de tendências e dados que decide o próximo conteúdo. O aviso chega no seu celular e abre já na peça certa; a aprovação acontece no RizzoOS, em um toque. Seu marketing deixa de ser um monte de peça solta e vira um sistema trabalhando pela sua autoridade, todos os dias.",
   link: { rotulo: "conhecer o RizzoOS", href: "/rizzoos" },
 };
 
@@ -602,7 +602,7 @@ export const PORTFOLIO_HOME = {
   titulo: "O trabalho, do jeito que o cliente ",
   acento: "recebeu",
   lede:
-    "Composição pronta — site, impresso, material educativo e identidade de consultórios, clínicas e hospitais.",
+    "Composição pronta: site, impresso, material educativo e identidade de consultórios, clínicas e hospitais.",
   verMais: { rotulo: "Ver outras peças", href: "/clientes" },
   /** 7 chaves, na ordem da régua do §44.19. */
   ordem: [

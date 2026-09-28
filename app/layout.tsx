@@ -28,11 +28,11 @@ const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variab
 
 export const metadata: Metadata = {
   title: {
-    default: "Marketing Médico — Agência Rizzo | Agenda cheia não é sorte, é estrutura",
+    default: "Marketing Médico · Agência Rizzo | Agenda cheia não é sorte, é estrutura",
     template: "%s | Agência Rizzo",
   },
   description:
-    "Marketing de médicos e clínicas desde 2012. Como a estrutura — site rápido, conteúdo com dados, constância — enche a agenda de paciente orgânico.",
+    "Marketing de médicos e clínicas desde 2012. Como a estrutura (site rápido, conteúdo com dados, constância) enche a agenda de paciente orgânico.",
   metadataBase: new URL(SITE_URL),
   // og:image default de todo o site. Sem ela, link colado no WhatsApp saía sem cartão
   // — e o WhatsApp é o CTA único da casa. A capa é estática (public/og/), gerada pelo

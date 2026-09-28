@@ -46,7 +46,7 @@ export default function PrivacidadePage() {
             </h1>
             <p className="lede">
               Este site não tem formulário, cadastro nem login: não pedimos seu nome, seu e-mail nem seu telefone. O que
-              existe é medição de audiência e de anúncio — e é isso que esta página descreve, item por item, sem
+              existe é medição de audiência e de anúncio. E é isso que esta página descreve, item por item, sem
               generalidade.
             </p>
           </div>
@@ -63,7 +63,7 @@ export default function PrivacidadePage() {
               13.709/2018).
             </p>
             <p>
-              Canal para qualquer pedido sobre dados — acesso, correção, exclusão ou dúvida:{" "}
+              Canal para qualquer pedido sobre dados (acesso, correção, exclusão ou dúvida):{" "}
               <Link href={ROTA_PORTAO} data-wa={WA}>WhatsApp {WHATS_LABEL}</Link>, ou por correspondência ao endereço acima. Respondemos no
               prazo da lei.
             </p>
@@ -77,8 +77,8 @@ export default function PrivacidadePage() {
             <h3 className="legal-h3">1 · Google Analytics 4 ({GA4_ID})</h3>
             <p>
               Mede audiência: páginas visitadas, tempo na página, de onde você veio (busca, anúncio, rede social ou
-              link direto), tipo de dispositivo e navegador, e localização aproximada derivada do endereço IP — cidade,
-              não endereço. O Google usa cookies próprios para isso e é operador desse tratamento.
+              link direto), tipo de dispositivo e navegador, e localização aproximada derivada do endereço IP (cidade,
+              não endereço). O Google usa cookies próprios para isso e é operador desse tratamento.
             </p>
 
             <h3 className="legal-h3">2 · Meta Pixel ({META_PIXEL_ID})</h3>
@@ -97,7 +97,7 @@ export default function PrivacidadePage() {
             <h3 className="legal-h3">4 · Os eventos de clique nos botões de conversa</h3>
             <p>
               Quando você clica em um botão de WhatsApp, registramos o clique, a página em que ele aconteceu e o
-              destino — não o conteúdo da conversa, que acontece fora do site. O caminho tem dois passos e cada um
+              destino, não o conteúdo da conversa, que acontece fora do site. O caminho tem dois passos e cada um
               gera o seu evento: o botão leva a uma tela de confirmação (<Link href="/whatsapp">a tela de conversa</Link>
               ), e é no botão de dentro dela que a conversa abre de fato. O mesmo vale para o botão de montar proposta,
               que leva para o nosso aplicativo.
@@ -110,13 +110,13 @@ export default function PrivacidadePage() {
               <code>ar_gclid</code>, <code>ar_gbraid</code>, <code>ar_wbraid</code> (Google Ads),{" "}
               <code>ar_fbclid</code> (Meta) e <code>ar_msclkid</code> (Microsoft Advertising), mais os respectivos{" "}
               <code>_ts</code>. Serve para uma coisa só: saber qual anúncio trouxe a conversa quando você clica no
-              WhatsApp — inclusive se isso acontecer numa visita posterior. Não é cookie, fica no seu aparelho e você
+              WhatsApp, inclusive se isso acontecer numa visita posterior. Não é cookie, fica no seu aparelho e você
               pode apagar a qualquer momento limpando os dados do site no navegador.
             </p>
 
             <h3 className="legal-h3">6 · O texto que abre a conversa</h3>
             <p>
-              Cada página tem uma frase própria para abrir o WhatsApp — é o que nos diz de onde você veio. Quando você
+              Cada página tem uma frase própria para abrir o WhatsApp. É o que nos diz de onde você veio. Quando você
               clica no botão, ficam guardados no <i>sessionStorage</i> do seu navegador a frase (<code>ar_wa_texto</code>
               ) e o endereço da página em que você clicou (<code>ar_wa_pagina</code>), para que a tela de confirmação
               abra a conversa certa e para sabermos qual página gerou o contato. É armazenamento de sessão: some quando
@@ -132,7 +132,7 @@ export default function PrivacidadePage() {
             <h3 className="legal-h3">8 · O estado de onde você acessa</h3>
             <p>
               Nas páginas de clientes e de portfólio, o site pergunta à própria hospedagem em que <b>estado</b> do
-              Brasil você está — a Vercel deduz isso do endereço IP da conexão e devolve só a sigla (por exemplo,{" "}
+              Brasil você está. A Vercel deduz isso do endereço IP da conexão e devolve só a sigla (por exemplo,{" "}
               <code>GO</code>). Serve para mostrar primeiro as marcas e as peças perto de você. A sigla fica no{" "}
               <i>sessionStorage</i> do seu navegador (<code>ar_uf</code>) enquanto a aba está aberta e some quando
               você a fecha. Não é cidade, não é endereço, não é enviada a nenhum outro serviço e não é guardada por
@@ -142,14 +142,14 @@ export default function PrivacidadePage() {
             <p>
               A medição descrita nos itens 1 a 5 <b>só roda no site publicado</b>. Ambientes de desenvolvimento e de
               pré-visualização não medem nada. O item 6 não é medição: existe para a conversa abrir com o assunto
-              certo, e vale em qualquer ambiente. O item 8 também não é medição — só ordena o que você já ia ver.
+              certo, e vale em qualquer ambiente. O item 8 também não é medição: só ordena o que você já ia ver.
             </p>
 
             <h2 className="sec">O que este site NÃO coleta</h2>
             <ul className="crencas">
               <li>
                 <b>Nenhum dado de saúde.</b> Não há formulário de sintoma, questionário, anamnese, agendamento nem
-                upload de exame. Se você quiser falar da sua saúde, isso acontece na consulta com o seu médico — não
+                upload de exame. Se você quiser falar da sua saúde, isso acontece na consulta com o seu médico, não
                 aqui.
               </li>
               <li>
@@ -165,7 +165,7 @@ export default function PrivacidadePage() {
             <h2 className="sec">Quando você clica no WhatsApp</h2>
             <p>
               Antes de abrir a conversa aparece uma tela pedindo que você confirme que é uma pessoa. Ela existe para
-              proteger o atendimento de mensagens automáticas — não há desafio, não há captcha e nenhum outro serviço
+              proteger o atendimento de mensagens automáticas. Não há desafio, não há captcha e nenhum outro serviço
               recebe dado seu nesse passo: é um clique de confirmação, e nada além dele é registrado.
             </p>
             <p>
@@ -188,16 +188,16 @@ export default function PrivacidadePage() {
             <p>Só com os operadores necessários para o site funcionar e medir:</p>
             <ul className="crencas">
               <li>
-                <b>Google</b> (Analytics e Ads) — medição de audiência e de campanha.
+                <b>Google</b> (Analytics e Ads): medição de audiência e de campanha.
               </li>
               <li>
-                <b>Meta</b> (Pixel, Instagram, Facebook e WhatsApp) — medição de campanha e o canal da conversa.
+                <b>Meta</b> (Pixel, Instagram, Facebook e WhatsApp): medição de campanha e o canal da conversa.
               </li>
               <li>
-                <b>Microsoft</b> (Advertising e Bing) — medição de campanha na busca da Microsoft.
+                <b>Microsoft</b> (Advertising e Bing): medição de campanha na busca da Microsoft.
               </li>
               <li>
-                <b>Vercel</b> — hospedagem do site, registros técnicos de acesso e a sigla do estado (item 8).
+                <b>Vercel</b>: hospedagem do site, registros técnicos de acesso e a sigla do estado (item 8).
               </li>
             </ul>
             <p>
@@ -229,25 +229,25 @@ export default function PrivacidadePage() {
             </p>
             <ul className="crencas">
               <li>
-                <b>No navegador</b> — bloqueando cookies de terceiros, usando janela privada ou limpando os dados deste
+                <b>No navegador</b>: bloqueando cookies de terceiros, usando janela privada ou limpando os dados deste
                 site (o que também apaga os identificadores <code>ar_</code>).
               </li>
               <li>
-                <b>No Google</b> — pelo complemento oficial de desativação do Google Analytics e pelas configurações de
+                <b>No Google</b>: pelo complemento oficial de desativação do Google Analytics e pelas configurações de
                 anúncios da sua conta Google.
               </li>
               <li>
-                <b>Na Meta</b> — pelas preferências de anúncios da sua conta no Instagram ou Facebook.
+                <b>Na Meta</b>: pelas preferências de anúncios da sua conta no Instagram ou Facebook.
               </li>
               <li>
-                <b>Na Microsoft</b> — pelo painel de privacidade e pelas configurações de anúncios da sua conta
+                <b>Na Microsoft</b>: pelo painel de privacidade e pelas configurações de anúncios da sua conta
                 Microsoft.
               </li>
             </ul>
 
             <h2 className="sec">Crianças e adolescentes</h2>
             <p>
-              O site é dirigido a médicos, clínicas e hospitais — não a crianças e adolescentes, e não coletamos dados
+              O site é dirigido a médicos, clínicas e hospitais, não a crianças e adolescentes, e não coletamos dados
               deles de forma intencional.
             </p>
 
@@ -256,7 +256,7 @@ export default function PrivacidadePage() {
             </h2>
             <p>
               <b>Conteúdo informativo.</b> Os textos deste site explicam como trabalhamos comunicação para a área da
-              saúde. Não são consulta, diagnóstico, orientação de tratamento nem promessa de resultado — para questões
+              saúde. Não são consulta, diagnóstico, orientação de tratamento nem promessa de resultado. Para questões
               de saúde, procure o seu médico.
             </p>
             <p>
@@ -280,7 +280,7 @@ export default function PrivacidadePage() {
             </p>
             <p>
               <b>Lei aplicável.</b> Estes termos seguem a legislação brasileira. Fica eleito o foro da comarca de
-              Anápolis–GO para o que não se resolver em conversa.
+              Anápolis/GO para o que não se resolver em conversa.
             </p>
 
             <h2 className="sec">Mudanças nesta página</h2>

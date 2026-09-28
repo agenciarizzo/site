@@ -51,7 +51,7 @@ export const HERO = {
   kicker: "Marketing para clínicas e marketing para hospitais",
   titulo: "Agência de",
   destaque: "marketing médico digital",
-  lede: "Site, Google, Meta, vídeo e a TV da sala de espera cuidados por uma única equipe — dentro das normas do CFM, com o médico e a clínica no centro da estratégia.",
+  lede: "Site, Google, Meta, vídeo e a TV da sala de espera cuidados por uma única equipe, dentro das normas do CFM, com o médico e a clínica no centro da estratégia.",
   tweaks: { elemento: "triangulo", pano: "diagonal", cores: "cinza · ouro", seed: 5 },
 };
 
@@ -87,7 +87,7 @@ export const SERVICOS_HOME = [
   {
     num: "04",
     nome: "Redes Sociais",
-    frase: "Autoridade se constrói em série, com constância — não em post solto.",
+    frase: "Autoridade se constrói em série, com constância, não em post solto.",
     recebe: "Linha editorial, design e publicação, com aprovação sua em um toque.",
     href: "/cartas/redes-sociais",
   },
@@ -110,7 +110,7 @@ export const SERVICOS_HOME = [
 export const SERVICOS_TITULO = {
   kicker: "Serviços",
   h2: "Marketing médico feito por quem viveu a rotina de um hospital",
-  lede: "Seis frentes, uma equipe. Cada uma tem página própria — clique pra ver o que entra, o que não entra e o que a gente mede.",
+  lede: "Seis frentes, uma equipe. Cada uma tem página própria. Clique pra ver o que entra, o que não entra e o que a gente mede.",
   /** O protótipo mandava pra `/servicos/`, que não existe; o hub das frentes é este. */
   todos: { rotulo: "Todos os serviços", href: "/marketing-medico" },
 };
@@ -131,7 +131,7 @@ export const OS_ITENS = [
     nome: "Aprovação em um clique",
     dores: ["A peça chega por e-mail e aprovar é um sofrimento.", "Ninguém sabe dizer quem aprovou aquilo."],
     solucao:
-      "Desliza pra aprovar no celular e desenha o ajuste em cima da própria arte. Quem aprovou o quê, e quando, fica registrado. A legenda já chega passada pela trava do CFM — o que fere a norma nem chega até você.",
+      "Desliza pra aprovar no celular e desenha o ajuste em cima da própria arte. Quem aprovou o quê, e quando, fica registrado. A legenda já chega passada pela trava do CFM: o que fere a norma nem chega até você.",
   },
   {
     num: "02",
@@ -166,7 +166,7 @@ export const OS_ITENS = [
   {
     num: "06",
     curto: "Calendário",
-    nome: "O ano inteiro na tela — e cada peça com o link do que foi ao ar",
+    nome: "O ano inteiro na tela, e cada peça com o link do que foi ao ar",
     dores: ["Minha agência me manda cronograma em Excel.", "Não sei o que a agência faz o mês todo."],
     solucao:
       "O planejamento dos 12 meses está no app desde o primeiro dia, peça por peça. Cada peça publicada carrega o link do post no ar. E tudo o que já saiu fica em Meus materiais, pronto pra baixar.",
@@ -189,7 +189,7 @@ export const SOBRE_HOME = {
   chamada: { kicker: "Sobre //", linhas: ["Sobre a", "agência"], acento: "Rizzo", href: "/sobre" },
   manifesto: { antes: "Nossa metodologia não nasceu ", marca: "em sala de reunião", depois: ", mas na rotina de um hospital" },
   fundador: {
-    antes: "Raphael Rizzo foi gerente de comunicação de hospital por cinco anos (2007–2012), na época das certificações ONA e ISO — e desde então só trabalha com saúde. Esse é o rigor da casa: marketing ",
+    antes: "Raphael Rizzo foi gerente de comunicação de hospital por cinco anos (de 2007 a 2012), na época das certificações ONA e ISO, e desde então só trabalha com saúde. Esse é o rigor da casa: marketing ",
     marca: "seguro, ético e medido",
     depois: ".",
   },
@@ -207,7 +207,7 @@ export const CIDADES_BLOCO = {
   numero: "53",
   antes: "cidades em 21 estados. Atendimento presencial em Anápolis (sede), ",
   meio: " e ",
-  depois: " — e remoto em 53 cidades de 21 estados.",
+  depois: ", e remoto em 53 cidades de 21 estados.",
   goiania: { rotulo: "Goiânia", href: "/marketing-medico-goiania" },
   brasilia: { rotulo: "Brasília", href: "/marketing-medico-brasilia" },
   h2: "Marketing médico na sua cidade e na sua especialidade",
@@ -483,7 +483,7 @@ export const RODAPE = {
   razao: ["Agência Rizzo Marketing Médico Digital Ltda", "CNPJ 15.728.480/0001-89", "Rua Barão do Rio Branco, 531, sala 101", "Anápolis/GO · CEP 75020-020"],
   atendimento: "Atendimento presencial em Anápolis, Goiânia e Brasília",
   telefone: "WhatsApp (62) 99258-6600",
-  horario: "seg–sex, 9h às 18h",
+  horario: "seg a sex, 9h às 18h",
   sociais: [
     { rotulo: "Instagram", href: "https://www.instagram.com/agencia.rizzo" },
     { rotulo: "Facebook", href: "https://www.facebook.com/agenciarizzo" },

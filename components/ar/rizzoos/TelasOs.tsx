@@ -289,7 +289,7 @@ function T5() {
         <div style={{ background: "linear-gradient(120deg,rgba(255,210,0,.06),transparent)", border: "1px solid rgba(255,210,0,.25)", borderRadius: 12, padding: "10px 12px", flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
           <span className="m85 ls8" style={{ fontWeight: 800, color: OURO }}>O QUE ISSO SIGNIFICA</span>
           <span className="m105" style={{ lineHeight: 1.5, color: "#E2E8F0" }}>
-            O resumo do mês, escrito em cima dos números lidos direto da fonte — chega sozinho, sem você pedir.
+            O resumo do mês, escrito em cima dos números lidos direto da fonte, chega sozinho, sem você pedir.
           </span>
         </div>
       </div>

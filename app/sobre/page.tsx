@@ -15,7 +15,7 @@ const DESCRICAO =
   "A Agência Rizzo é especialista em marketing médico desde 2012, com vivência hospitalar real (ONA/ISO) e atuação nacional. Conheça o método, a estrutura e quem assina o trabalho.";
 
 export const metadata: Metadata = {
-  title: "Sobre — marketing médico desde 2012",
+  title: "Sobre: marketing médico desde 2012",
   description: DESCRICAO,
   alternates: { canonical: "/sobre" },
 };
@@ -37,7 +37,7 @@ const FAQ = [
   },
   {
     q: "Desde quando a Agência Rizzo existe?",
-    a: "Desde 2012, como especialista em marketing médico — não como mais um segmento dentro de uma agência generalista.",
+    a: "Desde 2012, como especialista em marketing médico, não como mais um segmento dentro de uma agência generalista.",
   },
   {
     q: "Quem fundou a Agência Rizzo?",
@@ -97,16 +97,16 @@ export default function SobrePage() {
         <div className="wrap">
           <h2 className="sec">Para quem trabalhamos</h2>
           <p>
-            A Agência Rizzo cuida do marketing de quem atua em saúde — médico individual, clínica ou rede hospitalar.
+            A Agência Rizzo cuida do marketing de quem atua em saúde: médico individual, clínica ou rede hospitalar.
             Já são 259 médicos, clínicas e hospitais atendidos, por site e SEO, Google Ads, Meta Ads, redes sociais,
-            vídeo e TV corporativa: mídias diferentes, o mesmo objetivo — estrutura que traz paciente todo mês, não
+            vídeo e TV corporativa. Mídias diferentes, o mesmo objetivo: estrutura que traz paciente todo mês, não
             campanha avulsa que depende de sorte.
           </p>
 
           <h2 className="sec">No que acreditamos</h2>
           <ul className="crencas">
             <li>
-              <b>Paciente orgânico é o melhor paciente.</b> Ele chega procurando você — e a estrutura é o que o traz,
+              <b>Paciente orgânico é o melhor paciente.</b> Ele chega procurando você. E a estrutura é o que o traz,
               todo mês, sem custo por clique.
             </li>
             <li>
@@ -115,7 +115,7 @@ export default function SobrePage() {
             </li>
             <li>
               <b>Conteúdo nasce de dado, não de achismo.</b> Tendência, busca e dados dizem o que o paciente quer
-              saber — a gente escuta antes de produzir.
+              saber. A gente escuta antes de produzir.
             </li>
             <li>
               <b>A ética do CFM não é limite. É vantagem</b> de quem sabe trabalhar dentro dela desde 2012.
@@ -124,7 +124,7 @@ export default function SobrePage() {
 
           <h2 className="sec">Por que só saúde</h2>
           <p>
-            Não atendemos qualquer segmento — só saúde. A vivência da agência é hospitalar de verdade, com processos
+            Não atendemos qualquer segmento, só saúde. A vivência da agência é hospitalar de verdade, com processos
             certificados (ONA/ISO), não teoria de marketing adaptada de fora pra dentro. É esse conhecimento de
             dentro do hospital que orienta cada peça, sempre dentro do que o CFM permite: sem promessa de resultado,
             sem antes-e-depois, sem preço de procedimento em anúncio.
@@ -137,7 +137,7 @@ export default function SobrePage() {
           </p>
 
           <OsBlock>
-            Esse planejamento, aprovação e relatório vivem dentro do <b>RizzoOS</b> — no seu celular, sem depender de
+            Esse planejamento, aprovação e relatório vivem dentro do <b>RizzoOS</b>, no seu celular, sem depender de
             reunião marcada.
           </OsBlock>
 
@@ -147,7 +147,7 @@ export default function SobrePage() {
           <p>
             A sede fica em {ENDERECO}. O trabalho não fica preso a esse mapa: atendemos clínicas de{" "}
             <Link href="/marketing-medico-goiania">Goiânia</Link> e{" "}
-            <Link href="/marketing-medico-brasilia">Brasília</Link> — praças que já conhecemos bem — e médicos de
+            <Link href="/marketing-medico-brasilia">Brasília</Link>, praças que já conhecemos bem, e médicos de
             outros estados, sempre pelo mesmo método, começando pela conversa no WhatsApp.
           </p>
 

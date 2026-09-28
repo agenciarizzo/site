@@ -230,7 +230,7 @@ const COLUNAS: Passo[][] = [
 
 export function CicloCombinado() {
   return (
-    <section className="os3-ciclo" data-ciclo aria-label={`${CICLO_TITULO} — e ${COMBINADO_TITULO.toLowerCase()}`} data-topo="claro">
+    <section className="os3-ciclo" data-ciclo aria-label={`${CICLO_TITULO}, e ${COMBINADO_TITULO.toLowerCase()}`} data-topo="claro">
       <div className="os3-ciclo-palco" data-ciclo-stage>
         <div className="os3-ciclo-titulos">
           <h2 className="os3-ciclo-h2" data-h2="0">
