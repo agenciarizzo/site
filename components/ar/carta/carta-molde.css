@@ -1,0 +1,14 @@
+/* O CARTA-MOLDE — a ÚNICA regra própria que faltava no cidade-molde: o
+   parágrafo `os` da carta (B1 — "junto ao bloco RizzoOS"), uma faixa curta
+   entre a Chamada e o palco do RizzoOS. Tudo o mais é `.cid-*`
+   (cidade-molde.css) ou das seções da home — nada se duplica aqui. */
+.dg.cid.carta .carta-os {
+  background: var(--papel);
+  padding: 64px var(--lado);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.dg.cid.carta .carta-os p {
+  max-width: 640px;
+}
