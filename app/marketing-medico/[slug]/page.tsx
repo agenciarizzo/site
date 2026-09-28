@@ -4,7 +4,7 @@
 // /clientes quando estas páginas nasceram (hoje é a parede de peças, e aponta
 // de volta pra cá com "Ver a página →").
 //
-// SSG puro (generateStaticParams), mesmo padrão de app/cartas/[slug]. Conteúdo e
+// SSG puro (generateStaticParams), mesmo padrão de app/marketing-medico/[slug]/[praca]. Conteúdo e
 // curadoria em content/especialidades.ts; a montagem, em components/EspecialidadeLanding.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";

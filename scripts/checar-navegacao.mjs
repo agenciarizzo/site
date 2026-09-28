@@ -52,8 +52,8 @@ console.log(`✓ Navegação completa: ${paginas.length} páginas × ${rotas.len
 //
 // O `item` de cada degrau é URL que o rastreador segue: degrau inventado manda o
 // Google pra 404 e gasta rastreio das páginas que interessam. O caso concreto deste
-// site é `/cartas`, que NÃO é página (só `app/cartas/[slug]`) — quem lista as cartas
-// é o hub `/marketing-medico`. O `lib/breadcrumb.ts` já torna isso difícil de
+// site é `/cartas`, que NÃO é página (cada carta tem a própria rota estática) —
+// quem lista as cartas é o hub `/marketing-medico`. O `lib/breadcrumb.ts` já torna isso difícil de
 // escrever; aqui a conferência é no HTML gerado, que é o que vai pro ar.
 const conjuntoRotas = new Set(rotas);
 let trilhasRuins = 0;

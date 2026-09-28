@@ -50,8 +50,8 @@ export function cartaJsonLd(c: Carta) {
         acceptedAnswer: { "@type": "Answer", text: f.a },
       })),
     },
-    // ⚠️ O degrau do meio é o HUB, não "/cartas": `/cartas` não é página (só
-    // `app/cartas/[slug]`), e quem lista as cartas é o `/marketing-medico`.
+    // ⚠️ O degrau do meio é o HUB, não "/cartas": `/cartas` não é página (cada
+    // carta tem a própria rota estática), e quem lista as cartas é o `/marketing-medico`.
     breadcrumbJsonLd(HUB_MARKETING, { nome: c.midia, rota: `/cartas/${c.slug}` }),
   ];
 }

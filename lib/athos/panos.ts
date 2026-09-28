@@ -210,7 +210,6 @@ export function homeJanelas(): string[] {
   const p = panoDe("/");
   return panoContinuo(p.pattern, p.cores, "longe", p.seed, 2, { cols: COLS, rows: ROWS });
 }
-export const panoCarta = (slug: string) => panoFaixa(`/cartas/${slug}`);
 export const panoCidade = (slug: string) => panoFaixa(`/${slug}`);
 export const panoCombo = (rota: string) => panoFaixa(rota);
 export const panoEspecialidade = (slug: string) => panoFaixa(rotaEspecialidade(slug));
