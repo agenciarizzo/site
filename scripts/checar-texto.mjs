@@ -51,6 +51,18 @@ const APONTADOS = [
     porque: "concordância do verbo ser com o predicativo no plural: são muitas [clínicas]",
     onde: "H1 de /cartas/rede-hospitalar, `head` em content/cartas.ts, apontado em 2026-09-27",
   },
+  {
+    errado: "aprovação pelo WhatsApp",
+    certo: "aprovação no celular",
+    porque: "a aprovação é no RizzoOS, com aviso no celular que abre já na peça certa; WhatsApp é o canal do paciente, não o da aprovação",
+    onde: "auditoria do cliente de 2026-08-29 (rizzo-os → docs/DIFERENCIAIS_PITCH_MAPA.md §9.2, 🔴); curado em /sobre, nas 3 praças, nas cartas e nas especialidades em 2026-09-28",
+  },
+  {
+    errado: "aprova pelo WhatsApp",
+    certo: "aprova no celular",
+    porque: "mesma afirmação, na voz do leitor (\"você aprova pelo WhatsApp\")",
+    onde: "/marketing-medico-goiania/vascular e o corpo antigo das especialidades, curados em 2026-09-28",
+  },
 ];
 
 /**

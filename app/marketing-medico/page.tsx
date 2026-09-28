@@ -161,8 +161,8 @@ export default function MarketingMedicoPage() {
 
       <div className="wrap">
         <OsBlock>
-          Todo esse trabalho vive dentro do <b>RizzoOS</b>: planejamento anual, peças esperando aprovação pelo
-          WhatsApp e relatório do mês, mídia por mídia, no seu celular.
+          Todo esse trabalho vive dentro do <b>RizzoOS</b>: planejamento anual, peças esperando a sua aprovação e
+          relatório do mês, mídia por mídia, no seu celular.
         </OsBlock>
         <Fatos />
       </div>
