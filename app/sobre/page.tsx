@@ -133,7 +133,7 @@ export default function SobrePage() {
           <h2 className="sec">Como trabalhamos</h2>
           <p>
             Tratamos marketing médico como estrutura, não como campanha avulsa: planejamento do ano inteiro, peças
-            que só vão ao ar depois da sua aprovação pelo WhatsApp e relatório sempre que o mês fecha.
+            que só vão ao ar depois da sua aprovação no celular, e relatório sempre que o mês fecha.
           </p>
 
           <OsBlock>

@@ -99,7 +99,7 @@ export const COMBOS: Combo[] = [
       { nome: "IVL – Instituto de Vascular e Laser" },
     ],
     os:
-      "O marketing de vascular que a gente toca (o site, as peças de redes, o anúncio e o relatório do mês) vive dentro do RizzoOS: você aprova pelo WhatsApp e enxerga, por procedimento e por região de Goiânia, o que de fato trouxe paciente.",
+      "O marketing de vascular que a gente toca (o site, as peças de redes, o anúncio e o relatório do mês) vive dentro do RizzoOS: você aprova no celular e enxerga, por procedimento e por região de Goiânia, o que de fato trouxe paciente.",
     quandoNaoTitulo: "Quando não é a hora",
     quandoNao: [
       "Se a sua agenda de procedimento já vive cheia, com semanas de espera, captar mais só aumenta a fila de quem já espera. A verba rende mais em estrutura e retenção. A gente aponta isso antes de vender campanha.",

@@ -195,7 +195,7 @@ export const CIDADES: Cidade[] = [
       },
     ],
     os:
-      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês (busca, mapa e anúncio no mesmo lugar). Na prática, você vê quais buscas trouxeram paciente e de qual região da cidade eles vieram.",
+      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando a sua aprovação no celular e o relatório do mês (busca, mapa e anúncio no mesmo lugar). Na prática, você vê quais buscas trouxeram paciente e de qual região da cidade eles vieram.",
     quandoNaoTitulo: "Quando NÃO é com a gente",
     quandoNao: [
       "Se a sua agenda em Goiânia já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio. E a gente te diz isso antes de você assinar.",
@@ -382,7 +382,7 @@ export const CIDADES: Cidade[] = [
       },
     ],
     os:
-      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês (busca, mapa e anúncio no mesmo lugar). Em Brasília isso quer dizer enxergar de qual região do DF e de qual cidade do entorno vieram as consultas, e qual unidade recebeu cada uma.",
+      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando a sua aprovação no celular e o relatório do mês (busca, mapa e anúncio no mesmo lugar). Em Brasília isso quer dizer enxergar de qual região do DF e de qual cidade do entorno vieram as consultas, e qual unidade recebeu cada uma.",
     quandoNaoTitulo: "Quando NÃO é com a gente",
     quandoNao: [
       "Se a sua agenda em Brasília já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio. E a gente te diz isso antes de você assinar.",
@@ -581,7 +581,7 @@ export const CIDADES: Cidade[] = [
       },
     ],
     os:
-      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês (busca, mapa e anúncio no mesmo lugar). Em São Paulo isso quer dizer enxergar de qual bairro vieram as consultas e, no interior, de qual cidade da região.",
+      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando a sua aprovação no celular e o relatório do mês (busca, mapa e anúncio no mesmo lugar). Em São Paulo isso quer dizer enxergar de qual bairro vieram as consultas e, no interior, de qual cidade da região.",
     quandoNaoTitulo: "Quando NÃO é com a gente",
     quandoNao: [
       "Se a sua agenda no bairro já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio. E a gente te diz isso antes de você assinar.",

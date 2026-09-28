@@ -288,7 +288,7 @@ export const CARTAS: Carta[] = [
       },
     ],
     os:
-      "Rede é volume: muitas linhas, muitas unidades, muitos médicos, muita peça esperando aprovação. É o que o RizzoOS organiza: planejamento anual por linha de serviço, aprovação pelo WhatsApp com registro de quem aprovou e quando, e relatório mensal por unidade. Comunicação de hospital sem esse histórico não passa por auditoria e não sobrevive à troca de quem cuida dela.",
+      "Rede é volume: muitas linhas, muitas unidades, muitos médicos, muita peça esperando aprovação. É o que o RizzoOS organiza: planejamento anual por linha de serviço, aprovação no celular com registro de quem aprovou e quando, e relatório mensal por unidade. Comunicação de hospital sem esse histórico não passa por auditoria e não sobrevive à troca de quem cuida dela.",
     quandoNaoTitulo: "Quando NÃO é hora de investir em captação",
     quandoNao: [
       "Se a fila de espera de uma linha de serviço já passa do que a estrutura absorve, campanha de captação naquela linha só transfere o problema para o paciente. O caminho é abrir capacidade primeiro, ou trabalhar as linhas que têm folga. E a gente aponta isso no mapa, mesmo quando a verba daquela linha já estava aprovada.",

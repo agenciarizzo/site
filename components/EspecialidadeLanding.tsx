@@ -352,7 +352,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
 
             <OsBlock>
               O que a gente toca (o site, as peças, o anúncio e o relatório do mês) vive dentro do{" "}
-              <b>RizzoOS</b>: você aprova pelo WhatsApp e enxerga, mídia por mídia, o que de fato trouxe paciente.
+              <b>RizzoOS</b>: você aprova no celular e enxerga, mídia por mídia, o que de fato trouxe paciente.
             </OsBlock>
 
             <h2 className="sec">O que pensamos de cada mídia</h2>
