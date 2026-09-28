@@ -120,7 +120,7 @@ export const CARTAS: Carta[] = [
     como: [
       { t: "Criativo educativo, não panfleto", d: "Peças que respondem dúvida real da especialidade: o formato que constrói autoridade enquanto anuncia." },
       { t: "Público com critério", d: "Geografia, interesse e perfis semelhantes aos seus pacientes: verba concentrada em quem pode de fato virar consulta." },
-      { t: "Funil com remarketing", d: "Quem assistiu, viu de novo; quem visitou o site, é lembrado. A jornada inteira acompanhada, da descoberta à conversa." },
+      { t: "Funil com remarketing", d: "Quem assistiu vê de novo; quem visitou o site é lembrado. A jornada inteira acompanhada, da descoberta à conversa." },
       { t: "Medição por conversa iniciada", d: "O norte não é curtida: é WhatsApp chamando e agenda mexendo." },
     ],
     os: "Cada criativo passa por você antes de ir ao ar: aprovação num toque, pelo RizzoOS. E o resultado do mês chega junto com o das outras mídias, num relatório só.",

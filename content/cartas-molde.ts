@@ -113,6 +113,35 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
     ],
     filtro: { tipo: "casa" },
   },
+  {
+    slug: "meta-ads",
+    sobrancelha: "Anúncios no Instagram e no Facebook para médicos",
+    teseTitulo: "O Meta fala com quem ainda não começou a procurar.",
+    metodoTitulo: "Da descoberta à conversa no WhatsApp",
+    metodo: [
+      {
+        t: "Criativo que educa, não panfleto",
+        d: "Peças que explicam o sintoma, mostram que existe tratamento e apresentam quem trata. É o formato que constrói autoridade enquanto anuncia, com informação no lugar de desconto.",
+      },
+      {
+        t: "Público com critério",
+        d: "Geografia, interesse e perfis parecidos com os dos seus pacientes: a verba se concentra em quem pode, de fato, virar consulta.",
+      },
+      {
+        t: "Remarketing na jornada inteira",
+        d: "Quem assistiu vê de novo; quem visitou o site é lembrado. A jornada é acompanhada da descoberta até a conversa, que às vezes acontece semanas depois.",
+      },
+      {
+        t: "Medição por conversa iniciada",
+        d: "O norte não é curtida: é o WhatsApp chamando e a agenda mexendo. Conversas iniciadas e agendamentos são os números que contam no fim do mês.",
+      },
+      {
+        t: "Dentro do Manual, também no Instagram",
+        d: "Publicidade médica é publicidade médica em qualquer mídia: todo criativo sai dentro do Manual de Publicidade Médica e passa pela sua aprovação antes de ir ao ar.",
+      },
+    ],
+    filtro: { tipo: "casa" },
+  },
 ];
 
 export const moldeDe = (slug: string): MoldeCarta | undefined => CARTAS_MOLDE.find((m) => m.slug === slug);
