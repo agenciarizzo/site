@@ -269,6 +269,34 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "ginecologia",
+    sobrancelha: "Marketing médico para ginecologistas e obstetras",
+    teseTitulo: "Em ginecologia, a paciente escolhe quem a deixa à vontade.",
+    metodoTitulo: "Uma presença para cada fase da vida",
+    metodo: [
+      {
+        t: "Da endometriose à menopausa",
+        d: "Endometriose, menopausa e cada condição que a paciente atravessa são buscas diferentes, e cada uma ganha página própria, assinada pela médica, para que a resposta chegue antes da primeira consulta.",
+      },
+      {
+        t: "Pré-natal acompanhado de perto",
+        d: "A gestação muda de dúvida a cada etapa. Conteúdo de pré-natal e de ultrassom obstétrico mantém a médica presente do começo ao fim, e o vínculo que nasce ali costuma atravessar anos.",
+      },
+      {
+        t: "Conteúdo no tom da médica",
+        d: "Como a médica fala, o que ela escreve, se trata assunto delicado com naturalidade: o conteúdo no site e nas redes é o sinal que a paciente procura antes de marcar.",
+      },
+      {
+        t: "O folder que prolonga a consulta",
+        d: "A explicação da histeroscopia em folder e o e-book sobre fertilidade natural saem da consulta com a paciente e respondem, em casa, ao que ela só lembrou de perguntar depois.",
+      },
+      {
+        t: "O nome que a amiga vai pesquisar",
+        d: "Quando a paciente indica, a amiga pesquisa o nome da médica. Perfil no Google em ordem, redes constantes e um site claro sobre onde atende e como agendar confirmam a indicação.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
