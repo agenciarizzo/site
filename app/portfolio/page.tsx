@@ -119,7 +119,7 @@ export default function PortfolioPage() {
     {
       "@context": "https://schema.org",
       "@type": "ImageGallery",
-      name: "Portfólio Agência Rizzo — referências de marketing médico",
+      name: "Portfólio Agência Rizzo: referências de marketing médico",
       description: "Exemplos reais de sites, vídeos, redes sociais, impressos e identidade visual para médicos e clínicas, por especialidade.",
       url: `${SITE_URL}/portfolio`,
       publisher: { "@type": "Organization", name: "Agência Rizzo", url: SITE_URL },

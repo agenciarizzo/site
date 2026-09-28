@@ -80,7 +80,7 @@ export const ORIGEM_ENDPOINT = process.env.NEXT_PUBLIC_ORIGEM_ENDPOINT ?? "";
  */
 export const ORIGEM_MODO = process.env.NEXT_PUBLIC_ORIGEM_MODO ?? "";
 
-export const ENDERECO = "Rua Barão do Rio Branco, 531, sala 101 · Anápolis–GO";
+export const ENDERECO = "Rua Barão do Rio Branco, 531, sala 101 · Anápolis/GO";
 export const CNPJ = "15.728.480/0001-89";
 
 export const SOCIAIS = [
@@ -90,7 +90,7 @@ export const SOCIAIS = [
 ];
 
 export const FATOS =
-  "DESDE 2012 · 259 MÉDICOS, CLÍNICAS E HOSPITAIS · 21 ESTADOS · GOOGLE PARTNER · VIVÊNCIA HOSPITALAR REAL (ONA/ISO) · ANÁPOLIS–GO · ATUAÇÃO NACIONAL";
+  "DESDE 2012 · 259 MÉDICOS, CLÍNICAS E HOSPITAIS · 21 ESTADOS · GOOGLE PARTNER · VIVÊNCIA HOSPITALAR REAL (ONA/ISO) · ANÁPOLIS/GO · ATUAÇÃO NACIONAL";
 
 /**
  * Organization schema — SEM aggregateRating fabricado (§12.3 do mapa: o

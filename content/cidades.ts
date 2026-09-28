@@ -156,7 +156,7 @@ export const CIDADES: Cidade[] = [
     // O `%s | Agência Rizzo` do layout completa o título — não repetir a marca aqui.
     titulo: "Marketing médico em Goiânia",
     descricao:
-      "Marketing médico em Goiânia: como fazemos médicos e clínicas serem encontrados por bairro, por procedimento e pelas IAs — com site rápido, busca local e anúncio dentro do CFM.",
+      "Marketing médico em Goiânia: como fazemos médicos e clínicas serem encontrados por bairro, por procedimento e pelas IAs, com site rápido, busca local e anúncio dentro do CFM.",
     head: ["Marketing médico", "em Goiânia.", "De perto faz diferença."],
     sobrancelha: "Marketing para clínicas e hospitais em Goiânia e no interior de Goiás",
     unidade: "no seu setor",
@@ -168,14 +168,14 @@ export const CIDADES: Cidade[] = [
     lede:
       "Goiânia tem especialista bom em quase toda esquina do Setor Oeste, do Marista e do Jardim Goiás. Numa cidade assim, ser encontrado deixa de ser detalhe: é o que separa a agenda que se enche sozinha da agenda que depende de indicação.",
     posicao: [
-      "Quem atende em Goiânia disputa atenção com dezenas de colegas da mesma especialidade a poucos quilômetros de distância. E o paciente daqui pesquisa antes de marcar: digita a especialidade junto com o nome do bairro, abre o mapa, lê avaliação, entra no site pra ver convênio e endereço — e só então decide de quem vai ser a consulta. Se nesse caminho o seu nome não aparece, ou aparece num site lento e sem informação, a decisão acontece sem você.",
-      "Existe ainda uma segunda porta, e ela é nova: as inteligências artificiais. Todos os dias mais gente pergunta ao ChatGPT ou ao Gemini quem procurar em Goiânia pra um problema específico. A resposta é montada com o que essas máquinas conseguem ler — e elas leem estrutura: site rápido, dados organizados por especialidade e endereço, conteúdo verdadeiro publicado com constância. Perfil bonito no Instagram não entra nessa conta.",
+      "Quem atende em Goiânia disputa atenção com dezenas de colegas da mesma especialidade a poucos quilômetros de distância. E o paciente daqui pesquisa antes de marcar: digita a especialidade junto com o nome do bairro, abre o mapa, lê avaliação, entra no site pra ver convênio e endereço, e só então decide de quem vai ser a consulta. Se nesse caminho o seu nome não aparece, ou aparece num site lento e sem informação, a decisão acontece sem você.",
+      "Existe ainda uma segunda porta, e ela é nova: as inteligências artificiais. Todos os dias mais gente pergunta ao ChatGPT ou ao Gemini quem procurar em Goiânia pra um problema específico. A resposta é montada com o que essas máquinas conseguem ler. E elas leem estrutura: site rápido, dados organizados por especialidade e endereço, conteúdo verdadeiro publicado com constância. Perfil bonito no Instagram não entra nessa conta.",
       "Trabalhamos com médicos de Goiânia desde 2012, de Anápolis, a menos de uma hora de carro. Isso não é logística, é contexto: qual região da cidade concentra qual especialidade, como o paciente do interior de Goiás se desloca até a capital pra uma cirurgia, e por que a busca de um ortopedista em Goiânia se comporta diferente da mesma busca em outra capital.",
     ],
     como: [
       {
         t: "Ser achado por bairro e por procedimento",
-        d: "A busca do paciente vem com recorte de lugar e de problema — Setor Oeste, Bueno, Marista, e o nome do procedimento que ele leu no exame. O site e o perfil no mapa respondem nesse recorte, não em 'saúde' genérico.",
+        d: "A busca do paciente vem com recorte de lugar e de problema: Setor Oeste, Bueno, Marista, e o nome do procedimento que ele leu no exame. O site e o perfil no mapa respondem nesse recorte, não em 'saúde' genérico.",
       },
       {
         t: "O perfil no Google tratado como ativo",
@@ -187,7 +187,7 @@ export const CIDADES: Cidade[] = [
       },
       {
         t: "Anúncio com raio de verdade",
-        d: "Campanha desenhada pro deslocamento real do paciente em Goiânia e região metropolitana — não pro estado inteiro. Verba concentrada em quem consegue chegar até a sua sala.",
+        d: "Campanha desenhada pro deslocamento real do paciente em Goiânia e região metropolitana, não pro estado inteiro. Verba concentrada em quem consegue chegar até a sua sala.",
       },
       {
         t: "Constância no lugar de campanha avulsa",
@@ -195,10 +195,10 @@ export const CIDADES: Cidade[] = [
       },
     ],
     os:
-      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês — busca, mapa e anúncio no mesmo lugar. Na prática, você vê quais buscas trouxeram paciente e de qual região da cidade eles vieram.",
+      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês (busca, mapa e anúncio no mesmo lugar). Na prática, você vê quais buscas trouxeram paciente e de qual região da cidade eles vieram.",
     quandoNaoTitulo: "Quando NÃO é com a gente",
     quandoNao: [
-      "Se a sua agenda em Goiânia já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio — e a gente te diz isso antes de você assinar.",
+      "Se a sua agenda em Goiânia já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio. E a gente te diz isso antes de você assinar.",
       "E se a expectativa é primeira posição no Google em trinta dias, também não somos a escolha certa: em capital, com concorrência de especialista, isso não existe. O que existe é construção medida mês a mês, com o tráfego pago cobrindo o caminho enquanto o orgânico sobe.",
     ],
     provaTitulo: "Médicos e clínicas de Goiânia que construíram presença com a gente",
@@ -262,7 +262,7 @@ export const CIDADES: Cidade[] = [
         clientes: [{ nome: "Dra. Maysa Melo", carteira: "Dra. Maysa Araujo Melo" }],
       },
       { especialidade: "Geriatria", areasCarteira: ["Geriatria"], clientes: [{ nome: "Dra. Flávia Loyola" }] },
-      { especialidade: "Oftalmologia", areasCarteira: ["Oftalmologia"], clientes: [{ nome: "IOP — Instituto de Olhos" }] },
+      { especialidade: "Oftalmologia", areasCarteira: ["Oftalmologia"], clientes: [{ nome: "IOP (Instituto de Olhos)" }] },
       { especialidade: "Odontologia", areasCarteira: ["Odontologia"], clientes: [{ nome: "Oral Prime" }] },
       { especialidade: "Urologia", areasCarteira: ["Urologia"], clientes: [] },
       { especialidade: "Hospitais, clínicas e laboratórios", areasCarteira: ["Saúde Geral", "Laboratório"], clientes: [] },
@@ -290,15 +290,15 @@ export const CIDADES: Cidade[] = [
     faq: [
       {
         p: "Vocês já atendem outro médico da minha especialidade em Goiânia?",
-        r: "Pode ser — e a resposta vem na primeira conversa. A régua é um cliente por especialidade em cada cidade: se a sua vaga estiver ocupada, a gente diz antes de qualquer proposta, em vez de você descobrir isso depois.",
+        r: "Pode ser, e a resposta vem na primeira conversa. A régua é um cliente por especialidade em cada cidade: se a sua vaga estiver ocupada, a gente diz antes de qualquer proposta, em vez de você descobrir isso depois.",
       },
       {
         p: "Minha clínica fica no interior de Goiás, no Tocantins ou no sul do Pará. Faz sentido?",
-        r: "Faz. Rio Verde, Uruaçu, Ceres, Mineiros, Araguaína, Parauapebas e Marabá já estão na carteira. A rotina é remota, com aprovação das peças no RizzoOS, e a campanha é desenhada pro raio real de cada cidade — não pro estado inteiro.",
+        r: "Faz. Rio Verde, Uruaçu, Ceres, Mineiros, Araguaína, Parauapebas e Marabá já estão na carteira. A rotina é remota, com aprovação das peças no RizzoOS, e a campanha é desenhada pro raio real de cada cidade, não pro estado inteiro.",
       },
       {
         p: "Vocês vêm até a clínica?",
-        r: "Quando faz diferença, sim: a sede fica em Anápolis, a menos de uma hora de Goiânia, e gravação e foto acontecem na sua clínica sem custo de deslocamento. O dia a dia — planejamento, peças, relatório — roda remoto.",
+        r: "Quando faz diferença, sim: a sede fica em Anápolis, a menos de uma hora de Goiânia, e gravação e foto acontecem na sua clínica sem custo de deslocamento. O dia a dia (planejamento, peças, relatório) roda remoto.",
       },
       {
         p: "Como fica a publicidade médica dentro das normas do CFM?",
@@ -306,7 +306,7 @@ export const CIDADES: Cidade[] = [
       },
       {
         p: "Em quanto tempo os primeiros pacientes começam a chegar?",
-        r: "Depende da mídia. Com Google Ads bem estruturado, os primeiros contatos costumam aparecer nas primeiras semanas; site, busca local e conteúdo são construção de meses — em capital, com especialista bom em toda esquina, ninguém compra a primeira posição em trinta dias. O relatório mensal mostra o que está trazendo consulta.",
+        r: "Depende da mídia. Com Google Ads bem estruturado, os primeiros contatos costumam aparecer nas primeiras semanas; site, busca local e conteúdo são construção de meses. Em capital, com especialista bom em toda esquina, ninguém compra a primeira posição em trinta dias. O relatório mensal mostra o que está trazendo consulta.",
       },
     ],
     // Os tweaks FIXOS do protótipo desta praça (`Pagina Cidade - Goiania.dc.html`,
@@ -327,7 +327,7 @@ export const CIDADES: Cidade[] = [
     uf: "DF",
     titulo: "Marketing médico em Brasília",
     descricao:
-      "Marketing médico em Brasília: médicos, clínicas e hospitais encontrados por região do DF, pelo entorno goiano e pelas IAs — busca local dentro do CFM.",
+      "Marketing médico em Brasília: médicos, clínicas e hospitais encontrados por região do DF, pelo entorno goiano e pelas IAs. Busca local dentro do CFM.",
     head: ["Marketing médico", "em Brasília.", "Aqui, região é tudo."],
     sobrancelha: "Marketing para clínicas e hospitais no Distrito Federal e no entorno",
     unidade: "na sua região administrativa",
@@ -349,11 +349,11 @@ export const CIDADES: Cidade[] = [
       rotulo: "no Distrito Federal e no entorno",
     },
     lede:
-      "Asa Sul, Águas Claras, Taguatinga, Sobradinho — e o entorno goiano atravessando a divisa todo dia. Em Brasília o paciente não procura “no DF”: procura onde ele consegue chegar. Quem entende isso aparece na hora da decisão.",
+      "Asa Sul, Águas Claras, Taguatinga, Sobradinho. E o entorno goiano atravessando a divisa todo dia. Em Brasília o paciente não procura “no DF”: procura onde ele consegue chegar. Quem entende isso aparece na hora da decisão.",
     posicao: [
-      "Brasília não é uma cidade só. O paciente que procura um especialista pode estar na Asa Sul, em Águas Claras, em Taguatinga ou em Sobradinho — e ele pesquisa com o nome da região onde consegue ser atendido, não com o nome do Distrito Federal. Quem escreve e anuncia como se o DF fosse um ponto único no mapa perde consulta para quem entendeu que a decisão do paciente é, antes de tudo, uma decisão de deslocamento.",
-      "Some a isso o entorno goiano: Valparaíso, Novo Gama, Luziânia, Águas Lindas. É gente que atravessa a divisa para operar ou fazer exame em Brasília, e que busca de um jeito próprio — cidade de origem junto do procedimento. Ignorar essa demanda é deixar agenda na mesa; perseguir sem estrutura é gastar verba com quem não vai conseguir vir. As duas coisas se resolvem com informação clara sobre onde você atende e como se chega até lá.",
-      "E existe uma segunda porta, nova: as inteligências artificiais. Cada vez mais paciente pergunta ao ChatGPT ou ao Gemini quem procurar em Brasília para um problema específico. A resposta é montada com o que essas máquinas conseguem ler — site rápido, dados organizados por especialidade, unidade e procedimento, conteúdo verdadeiro publicado com constância. Numa praça cheia de clínica com estrutura física excelente e site fraco, é exatamente aí que a diferença aparece.",
+      "Brasília não é uma cidade só. O paciente que procura um especialista pode estar na Asa Sul, em Águas Claras, em Taguatinga ou em Sobradinho. E ele pesquisa com o nome da região onde consegue ser atendido, não com o nome do Distrito Federal. Quem escreve e anuncia como se o DF fosse um ponto único no mapa perde consulta para quem entendeu que a decisão do paciente é, antes de tudo, uma decisão de deslocamento.",
+      "Some a isso o entorno goiano: Valparaíso, Novo Gama, Luziânia, Águas Lindas. É gente que atravessa a divisa para operar ou fazer exame em Brasília, e que busca de um jeito próprio: cidade de origem junto do procedimento. Ignorar essa demanda é deixar agenda na mesa; perseguir sem estrutura é gastar verba com quem não vai conseguir vir. As duas coisas se resolvem com informação clara sobre onde você atende e como se chega até lá.",
+      "E existe uma segunda porta, nova: as inteligências artificiais. Cada vez mais paciente pergunta ao ChatGPT ou ao Gemini quem procurar em Brasília para um problema específico. A resposta é montada com o que essas máquinas conseguem ler: site rápido, dados organizados por especialidade, unidade e procedimento, conteúdo verdadeiro publicado com constância. Numa praça cheia de clínica com estrutura física excelente e site fraco, é exatamente aí que a diferença aparece.",
     ],
     como: [
       {
@@ -382,10 +382,10 @@ export const CIDADES: Cidade[] = [
       },
     ],
     os:
-      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês — busca, mapa e anúncio no mesmo lugar. Em Brasília isso quer dizer enxergar de qual região do DF e de qual cidade do entorno vieram as consultas, e qual unidade recebeu cada uma.",
+      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês (busca, mapa e anúncio no mesmo lugar). Em Brasília isso quer dizer enxergar de qual região do DF e de qual cidade do entorno vieram as consultas, e qual unidade recebeu cada uma.",
     quandoNaoTitulo: "Quando NÃO é com a gente",
     quandoNao: [
-      "Se a sua agenda em Brasília já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio — e a gente te diz isso antes de você assinar.",
+      "Se a sua agenda em Brasília já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio. E a gente te diz isso antes de você assinar.",
       "E se a ideia é comprar a primeira posição orgânica em “urologista Brasília” com verba de anúncio, não é assim que funciona: anúncio compra clique, não compra posição na busca. São duas contas diferentes, e a gente separa as duas na primeira conversa para você não pagar por uma esperando a outra.",
     ],
     provaTitulo: "Médicos, clínicas e hospitais de Brasília que construíram presença com a gente",
@@ -476,7 +476,7 @@ export const CIDADES: Cidade[] = [
     faq: [
       {
         p: "Vocês atendem o meu concorrente em Brasília?",
-        r: "A régua é um cliente por especialidade em cada praça. Se a sua vaga estiver ocupada, a gente avisa na primeira conversa, antes de qualquer proposta — é assim que a exclusividade continua valendo pra quem já está com a gente.",
+        r: "A régua é um cliente por especialidade em cada praça. Se a sua vaga estiver ocupada, a gente avisa na primeira conversa, antes de qualquer proposta. É assim que a exclusividade continua valendo pra quem já está com a gente.",
       },
       {
         p: "Vocês atendem hospitais e redes com mais de uma unidade?",
@@ -488,11 +488,11 @@ export const CIDADES: Cidade[] = [
       },
       {
         p: "Precisam vir à clínica?",
-        r: "Não para o trabalho rodar: planejamento, peças e relatório são remotos, com aprovação no RizzoOS. A captação presencial em Brasília — sessão de foto ou vídeo na sua clínica — é um adicional mensal, quando fizer sentido pro seu pacote.",
+        r: "Não para o trabalho rodar: planejamento, peças e relatório são remotos, com aprovação no RizzoOS. A captação presencial em Brasília (sessão de foto ou vídeo na sua clínica) é um adicional mensal, quando fizer sentido pro seu pacote.",
       },
       {
         p: "Como fica a conformidade com o CFM numa praça tão vigiada?",
-        r: "Toda peça é revisada contra a Resolução CFM nº 2.336/2023 antes de ir pra aprovação: sem promessa de resultado, sem antes-e-depois fora da norma, sem sensacionalismo. É o que mantém a campanha no ar enquanto a do concorrente é reprovada — e nada é publicado sem a sua aprovação.",
+        r: "Toda peça é revisada contra a Resolução CFM nº 2.336/2023 antes de ir pra aprovação: sem promessa de resultado, sem antes-e-depois fora da norma, sem sensacionalismo. É o que mantém a campanha no ar enquanto a do concorrente é reprovada. E nada é publicado sem a sua aprovação.",
       },
     ],
     // As 12 regiões do protótipo: 8 do DF + 4 do entorno goiano — a mesma lista
@@ -539,7 +539,7 @@ export const CIDADES: Cidade[] = [
     uf: "SP",
     titulo: "Marketing médico em São Paulo",
     descricao:
-      "Marketing médico em São Paulo: médicos e clínicas encontrados por bairro — Paulista, Itaim, Moema — e no interior, com site rápido, busca local e anúncio dentro do CFM.",
+      "Marketing médico em São Paulo: médicos e clínicas encontrados por bairro (Paulista, Itaim, Moema) e no interior, com site rápido, busca local e anúncio dentro do CFM.",
     head: ["Marketing médico", "em São Paulo.", "Bairro é a nova cidade."],
     sobrancelha: "Marketing para clínicas e hospitais em São Paulo e no interior",
     unidade: "no seu bairro",
@@ -551,8 +551,8 @@ export const CIDADES: Cidade[] = [
       "Paulista, Itaim, Moema, Perdizes e o ABC, mas também Campinas, Sorocaba, Piracicaba, Bauru, Araçatuba e o Vale do Paraíba: a maior praça médica do país pede recorte por bairro e por especialidade. Site, Google, Meta e vídeo por uma única equipe, dentro do CFM.",
     posicao: [
       "Em São Paulo ninguém atravessa a cidade para uma consulta. Quem busca um especialista pesquisa pelo bairro onde consegue chegar em 20 minutos, e a exclusividade aqui é por bairro. No interior, a lógica volta a ser a da cidade: Campinas, Sorocaba, Piracicaba, Bauru, Araçatuba e o Vale do Paraíba recebem paciente da região inteira.",
-      "É a praça com mais especialista por quilômetro quadrado do país, e isso muda a conta: aparecer “em São Paulo” não diz nada para quem mora em Perdizes e trabalha na Paulista. O paciente digita a especialidade com o nome do bairro, abre o mapa, confere avaliação, convênio e endereço — e a decisão acontece nesse caminho, antes de qualquer contato. Site, perfil no Google e campanha precisam falar o bairro que ele digita, não a cidade inteira.",
-      "E existe a segunda porta, que cresce todo mês: as inteligências artificiais. Cada vez mais gente pergunta ao ChatGPT ou ao Gemini quem procurar no Itaim ou em Campinas para um problema específico. A resposta é montada com o que essas máquinas conseguem ler — site rápido, dados organizados por especialidade e endereço, conteúdo verdadeiro publicado com constância. Numa praça deste tamanho, é aí que a diferença aparece.",
+      "É a praça com mais especialista por quilômetro quadrado do país, e isso muda a conta: aparecer “em São Paulo” não diz nada para quem mora em Perdizes e trabalha na Paulista. O paciente digita a especialidade com o nome do bairro, abre o mapa, confere avaliação, convênio e endereço. E a decisão acontece nesse caminho, antes de qualquer contato. Site, perfil no Google e campanha precisam falar o bairro que ele digita, não a cidade inteira.",
+      "E existe a segunda porta, que cresce todo mês: as inteligências artificiais. Cada vez mais gente pergunta ao ChatGPT ou ao Gemini quem procurar no Itaim ou em Campinas para um problema específico. A resposta é montada com o que essas máquinas conseguem ler: site rápido, dados organizados por especialidade e endereço, conteúdo verdadeiro publicado com constância. Numa praça deste tamanho, é aí que a diferença aparece.",
     ],
     como: [
       {
@@ -581,11 +581,11 @@ export const CIDADES: Cidade[] = [
       },
     ],
     os:
-      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês — busca, mapa e anúncio no mesmo lugar. Em São Paulo isso quer dizer enxergar de qual bairro vieram as consultas e, no interior, de qual cidade da região.",
+      "Todo cliente da agência acompanha o próprio marketing dentro do RizzoOS: o planejamento do ano, as peças esperando aprovação pelo WhatsApp e o relatório do mês (busca, mapa e anúncio no mesmo lugar). Em São Paulo isso quer dizer enxergar de qual bairro vieram as consultas e, no interior, de qual cidade da região.",
     quandoNaoTitulo: "Quando NÃO é com a gente",
     quandoNao: [
-      "Se a sua agenda no bairro já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio — e a gente te diz isso antes de você assinar.",
-      "E se a ideia é aparecer “para São Paulo inteira” com uma campanha só, também não é assim que funciona: verba espalhada pela cidade paga clique de quem nunca vai conseguir chegar até a sua sala. A campanha aqui é desenhada por bairro e por deslocamento real — e é isso que a gente combina na primeira conversa.",
+      "Se a sua agenda no bairro já vive lotada, com semanas de espera, gerar mais demanda só piora a experiência de quem já não consegue horário. Nesse cenário o investimento rende mais em estrutura, equipe e retenção do que em anúncio. E a gente te diz isso antes de você assinar.",
+      "E se a ideia é aparecer “para São Paulo inteira” com uma campanha só, também não é assim que funciona: verba espalhada pela cidade paga clique de quem nunca vai conseguir chegar até a sua sala. A campanha aqui é desenhada por bairro e por deslocamento real. E é isso que a gente combina na primeira conversa.",
     ],
     provaTitulo: "Médicos e clínicas de São Paulo e do interior que construíram presença com a gente",
     provaLede:

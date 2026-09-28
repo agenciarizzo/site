@@ -53,7 +53,7 @@ export function PortfolioPraca({
         <p>
           {local
             ? `Site, campanha, vídeo, conteúdo e identidade entregues a médicos, clínicas e hospitais ${rotulo}. Continue rolando.`
-            : `O acervo de ${cidade} ainda não tem peças publicadas — abaixo, uma seleção do trabalho feito em todo o Brasil. Continue rolando.`}
+            : `O acervo de ${cidade} ainda não tem peças publicadas. Abaixo, uma seleção do trabalho feito em todo o Brasil. Continue rolando.`}
         </p>
       </section>
 

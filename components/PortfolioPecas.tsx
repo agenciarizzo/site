@@ -79,7 +79,7 @@ export function PortfolioPecas({
         O trabalho, na parede
       </h2>
       <p className="parede-intro">
-        Composição pronta, do jeito que o cliente recebeu — por especialidade. Clique pra ver a peça inteira.
+        Composição pronta, do jeito que o cliente recebeu, por especialidade. Clique pra ver a peça inteira.
       </p>
       <div className="parede">
         {grupos.map((g) => (

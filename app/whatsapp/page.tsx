@@ -172,7 +172,7 @@ export default function PortaoPage() {
             </h1>
             <p className="portao-lede">
               A caixa que responde aqui é a mesma que atende quem já é paciente e quem já é cliente. Este passo
-              existe para que ela receba pessoas — e só.
+              existe para que ela receba pessoas, e só.
             </p>
 
             {/* Reveal só com CSS (`:checked ~`): sem JS, sem estado de React, e
@@ -182,7 +182,7 @@ export default function PortaoPage() {
               <span className="zap">
                 <IconeWhats />
               </span>
-              Sou uma pessoa — abrir a conversa <span aria-hidden>→</span>
+              Sou uma pessoa: abrir a conversa <span aria-hidden>→</span>
             </label>
             <div className="portao-porta">
               {/* ⚠️ SEM `href` no HTML — o destino é montado pelo JS a partir
@@ -205,15 +205,15 @@ export default function PortaoPage() {
             </div>
 
             <p className="portao-nota">
-              Ou salve o número: <b>{WHATS_LABEL}</b> · segunda a sexta, 9h–18h.
+              Ou salve o número: <b>{WHATS_LABEL}</b> · segunda a sexta, das 9h às 18h.
             </p>
             <noscript>
               <p className="portao-nota">
-                Sem JavaScript o botão não abre a conversa — use o número acima.
+                Sem JavaScript o botão não abre a conversa. Use o número acima.
               </p>
             </noscript>
             <p className="portao-alt">
-              Prefere tudo por escrito, com o preço aberto? É um cadastro rápido, o código chega no seu e-mail —{" "}
+              Prefere tudo por escrito, com o preço aberto? É um cadastro rápido, o código chega no seu e-mail:{" "}
               <a data-cta="proposta" href={PROPOSTA_URL}>
                 {CTA_PROPOSTA.toLowerCase()}
               </a>

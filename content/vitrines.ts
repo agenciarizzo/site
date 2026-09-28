@@ -55,7 +55,7 @@ export const VITRINES: Vitrine[] = [
     chave: "home",
     titulo: "O trabalho, do jeito que o cliente recebeu",
     linha:
-      "Composição pronta — site, impresso, material educativo e identidade de consultórios, clínicas e hospitais.",
+      "Composição pronta: site, impresso, material educativo e identidade de consultórios, clínicas e hospitais.",
     fonte: "*",
     giros: 3,
   },
@@ -70,7 +70,7 @@ export const VITRINES: Vitrine[] = [
   {
     chave: "sobre",
     titulo: "Quinze anos de material entregue",
-    linha: "Consultório pequeno e rede com várias unidades — o mesmo cuidado de marca em escalas diferentes.",
+    linha: "Consultório pequeno e rede com várias unidades: o mesmo cuidado de marca em escalas diferentes.",
     fonte: "*",
     giros: 2,
     inicio: 42,
@@ -93,7 +93,7 @@ export const VITRINES: Vitrine[] = [
   {
     chave: "carta-rede-hospitalar",
     titulo: "Material de rede, na escala dela",
-    linha: "Várias unidades sob a mesma marca — sem que cada uma invente a própria.",
+    linha: "Várias unidades sob a mesma marca, sem que cada uma invente a própria.",
     fonte: { carta: "rede-hospitalar" },
     giros: 1,
   },
@@ -107,14 +107,14 @@ export const VITRINES: Vitrine[] = [
   {
     chave: "cidade-brasilia",
     titulo: "Trabalho entregue em Brasília",
-    linha: "Consultório na Asa Sul, clínica em Águas Claras, hospital em Sobradinho — material que saiu daqui.",
+    linha: "Consultório na Asa Sul, clínica em Águas Claras, hospital em Sobradinho: material que saiu daqui.",
     fonte: { praca: "Brasília/DF" },
     giros: 3,
   },
   {
     chave: "cidade-goiania",
     titulo: "Trabalho entregue em Goiânia",
-    linha: "Ortopedia, vascular, dermatologia — o que a clínica goiana entrega na mão do paciente.",
+    linha: "Ortopedia, vascular, dermatologia: o que a clínica goiana entrega na mão do paciente.",
     fonte: { praca: "Goiânia/GO" },
     giros: 2,
   },

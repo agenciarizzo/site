@@ -51,7 +51,7 @@ export const HERO = {
   kicker: "Marketing para clínicas e marketing para hospitais",
   titulo: "Agência de",
   destaque: "marketing médico digital",
-  lede: "Site, Google, Meta, vídeo e a TV da sala de espera cuidados por uma única equipe — dentro das normas do CFM, com o médico e a clínica no centro da estratégia.",
+  lede: "Site, Google, Meta, vídeo e a TV da sala de espera cuidados por uma única equipe, dentro das normas do CFM, com o médico e a clínica no centro da estratégia.",
   tweaks: { elemento: "triangulo", pano: "diagonal", cores: "cinza · ouro", seed: 5 },
 };
 
@@ -110,7 +110,7 @@ export const SERVICOS_HOME = [
 export const SERVICOS_TITULO = {
   kicker: "Serviços",
   h2: "Marketing médico feito por quem viveu a rotina de um hospital",
-  lede: "Seis frentes, uma equipe. Cada uma tem página própria: clique pra ver o que entra, o que não entra e o que a gente mede.",
+  lede: "Seis frentes, uma equipe. Cada uma tem página própria. Clique pra ver o que entra, o que não entra e o que a gente mede.",
   /** O protótipo mandava pra `/servicos/`, que não existe; o hub das frentes é este. */
   todos: { rotulo: "Todos os serviços", href: "/marketing-medico" },
 };
@@ -189,7 +189,7 @@ export const SOBRE_HOME = {
   chamada: { kicker: "Sobre //", linhas: ["Sobre a", "agência"], acento: "Rizzo", href: "/sobre" },
   manifesto: { antes: "Nossa metodologia não nasceu ", marca: "em sala de reunião", depois: ", mas na rotina de um hospital" },
   fundador: {
-    antes: "Raphael Rizzo foi gerente de comunicação de hospital por cinco anos (2007–2012), na época das certificações ONA e ISO, e desde então só trabalha com saúde. Esse é o rigor da casa: marketing ",
+    antes: "Raphael Rizzo foi gerente de comunicação de hospital por cinco anos (de 2007 a 2012), na época das certificações ONA e ISO, e desde então só trabalha com saúde. Esse é o rigor da casa: marketing ",
     marca: "seguro, ético e medido",
     depois: ".",
   },
@@ -483,7 +483,7 @@ export const RODAPE = {
   razao: ["Agência Rizzo Marketing Médico Digital Ltda", "CNPJ 15.728.480/0001-89", "Rua Barão do Rio Branco, 531, sala 101", "Anápolis/GO · CEP 75020-020"],
   atendimento: "Atendimento presencial em Anápolis, Goiânia e Brasília",
   telefone: "WhatsApp (62) 99258-6600",
-  horario: "seg–sex, 9h às 18h",
+  horario: "seg a sex, 9h às 18h",
   sociais: [
     { rotulo: "Instagram", href: "https://www.instagram.com/agencia.rizzo" },
     { rotulo: "Facebook", href: "https://www.facebook.com/agenciarizzo" },

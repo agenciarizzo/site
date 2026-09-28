@@ -75,17 +75,17 @@ export const COMBOS: Combo[] = [
     titulo: "Marketing para cirurgia vascular em Goiânia",
     descricao:
       "Marketing para cirurgião vascular em Goiânia: site rápido, busca local por procedimento e conteúdo que explica varizes, trombose e circulação.",
-    head: ["Em Goiânia, o paciente", "de vascular decide perto —", "e decide antes de te ligar."],
+    head: ["Em Goiânia, o paciente", "de vascular decide perto.", "E decide antes de te ligar."],
     lede:
-      "Varizes e problemas de circulação raramente chegam pela emergência — chegam pela busca. Em Goiânia, quem trata bem disso é escolhido no momento em que o paciente decide procurar, e esse momento acontece no Google e no mapa.",
+      "Varizes e problemas de circulação raramente chegam pela emergência. Chegam pela busca. Em Goiânia, quem trata bem disso é escolhido no momento em que o paciente decide procurar, e esse momento acontece no Google e no mapa.",
     posicao: [
-      "Varizes, trombose, aneurisma, pé diabético — quase tudo o que leva alguém a um cirurgião vascular começa como um incômodo que a pessoa adia. Quando ela finalmente decide procurar em Goiânia, o caminho é quase sempre o mesmo: digita o sintoma junto com a cidade ou o bairro, abre o mapa, compara quem aparece, entra no site pra entender o que se trata e como. Se o seu nome não está nesse caminho, a decisão acontece com outro.",
-      "Vascular tem uma particularidade que muda o marketing: é especialidade de procedimento, e procedimento assusta. O paciente não quer promessa — quer entender. O que constrói confiança aqui é conteúdo que explica a doença e o tratamento com clareza, sem sensacionalismo e sem antes-e-depois (que o CFM não permite), somado a um site que carrega rápido e responde à dúvida exata que a pessoa digitou. É assim que você aparece tanto na busca do Google quanto na resposta que uma inteligência artificial monta quando perguntam por um vascular em Goiânia.",
-      "E existe o mapa. Vascular é decisão local: ninguém atravessa a cidade pra tratar varizes se há bom profissional no próprio setor. Um perfil no Google organizado por procedimento e por região, com avaliação real em ordem, resolve boa parte da busca antes mesmo do site. Anúncio, quando entra, é por raio de deslocamento — Setor Oeste, Jardim Goiás, Marista — não pelo estado inteiro.",
+      "Varizes, trombose, aneurisma, pé diabético: quase tudo o que leva alguém a um cirurgião vascular começa como um incômodo que a pessoa adia. Quando ela finalmente decide procurar em Goiânia, o caminho é quase sempre o mesmo: digita o sintoma junto com a cidade ou o bairro, abre o mapa, compara quem aparece, entra no site pra entender o que se trata e como. Se o seu nome não está nesse caminho, a decisão acontece com outro.",
+      "Vascular tem uma particularidade que muda o marketing: é especialidade de procedimento, e procedimento assusta. O paciente não quer promessa, quer entender. O que constrói confiança aqui é conteúdo que explica a doença e o tratamento com clareza, sem sensacionalismo e sem antes-e-depois (que o CFM não permite), somado a um site que carrega rápido e responde à dúvida exata que a pessoa digitou. É assim que você aparece tanto na busca do Google quanto na resposta que uma inteligência artificial monta quando perguntam por um vascular em Goiânia.",
+      "E existe o mapa. Vascular é decisão local: ninguém atravessa a cidade pra tratar varizes se há bom profissional no próprio setor. Um perfil no Google organizado por procedimento e por região, com avaliação real em ordem, resolve boa parte da busca antes mesmo do site. Anúncio, quando entra, é por raio de deslocamento (Setor Oeste, Jardim Goiás, Marista), não pelo estado inteiro.",
     ],
     vitrineTitulo: "Um trabalho de vascular em Goiânia, do começo ao fim",
     vitrineLede:
-      "Um exemplo do que montamos para cirurgia vascular na cidade — site, redes sociais, anúncio no Google e identidade, na mesma linha visual, para o Dr. Felipe Mendonça.",
+      "Um exemplo do que montamos para cirurgia vascular na cidade: site, redes sociais, anúncio no Google e identidade, na mesma linha visual, para o Dr. Felipe Mendonça.",
     pecas: [
       { arquivo: "site.jpg", alt: "Site de cirurgião vascular e endovascular em Goiânia" },
       { arquivo: "redes-sociais.jpg", alt: "Redes sociais de cirurgião vascular em Goiânia" },
@@ -95,15 +95,15 @@ export const COMBOS: Combo[] = [
     clientes: [
       { nome: "Dr. Felipe Mendonça", site: "https://drfelipevascular.com.br" },
       { nome: "Dra. Júlia Medeiros" },
-      { nome: "AngioPlace — Excelência Vascular e Laser" },
-      { nome: "IVL — Instituto de Vascular e Laser" },
+      { nome: "AngioPlace – Excelência Vascular e Laser" },
+      { nome: "IVL – Instituto de Vascular e Laser" },
     ],
     os:
-      "O marketing de vascular que a gente toca — o site, as peças de redes, o anúncio e o relatório do mês — vive dentro do RizzoOS: você aprova pelo WhatsApp e enxerga, por procedimento e por região de Goiânia, o que de fato trouxe paciente.",
+      "O marketing de vascular que a gente toca (o site, as peças de redes, o anúncio e o relatório do mês) vive dentro do RizzoOS: você aprova pelo WhatsApp e enxerga, por procedimento e por região de Goiânia, o que de fato trouxe paciente.",
     quandoNaoTitulo: "Quando não é a hora",
     quandoNao: [
-      "Se a sua agenda de procedimento já vive cheia, com semanas de espera, captar mais só aumenta a fila de quem já espera — a verba rende mais em estrutura e retenção. A gente aponta isso antes de vender campanha.",
-      "E se a intenção é aparecer com promessa de resultado ou antes-e-depois de procedimento, não é com a gente: o CFM não permite, e a confiança que faz o paciente de vascular escolher você se constrói exatamente pelo contrário — informação séria, sem sensacionalismo.",
+      "Se a sua agenda de procedimento já vive cheia, com semanas de espera, captar mais só aumenta a fila de quem já espera. A verba rende mais em estrutura e retenção. A gente aponta isso antes de vender campanha.",
+      "E se a intenção é aparecer com promessa de resultado ou antes-e-depois de procedimento, não é com a gente: o CFM não permite, e a confiança que faz o paciente de vascular escolher você se constrói exatamente pelo contrário. Informação séria, sem sensacionalismo.",
     ],
     waText:
       "Olá! Vi a página de marketing para cirurgia vascular em Goiânia e quero conversar sobre o meu consultório.",

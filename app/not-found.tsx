@@ -46,32 +46,32 @@ export default function NotFound() {
               <li>
                 <b>
                   <Link href="/">Início</Link>
-                </b>{" "}
-                — o que pensamos sobre marketing médico, e por onde começar.
+                </b>:{" "}
+                o que pensamos sobre marketing médico, e por onde começar.
               </li>
               <li>
                 <b>
                   <Link href="/marketing-medico">Marketing médico por mídia</Link>
-                </b>{" "}
-                — site e SEO, Google Ads, Meta Ads, redes sociais, vídeo e TV corporativa.
+                </b>:{" "}
+                site e SEO, Google Ads, Meta Ads, redes sociais, vídeo e TV corporativa.
               </li>
               <li>
                 <b>
                   <Link href="/rizzoos">RizzoOS</Link>
-                </b>{" "}
-                — a plataforma onde o seu marketing é planejado, aprovado, publicado e medido.
+                </b>:{" "}
+                a plataforma onde o seu marketing é planejado, aprovado, publicado e medido.
               </li>
               <li>
                 <b>
                   <Link href="/clientes">Clientes</Link>
-                </b>{" "}
-                — quem já confia o marketing da clínica à agência.
+                </b>:{" "}
+                quem já confia o marketing da clínica à agência.
               </li>
               <li>
                 <b>
                   <Link href="/sobre">Sobre</Link>
-                </b>{" "}
-                — quem é a agência, desde quando e com que método.
+                </b>:{" "}
+                quem é a agência, desde quando e com que método.
               </li>
             </ul>
 

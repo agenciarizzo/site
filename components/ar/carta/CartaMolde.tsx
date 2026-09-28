@@ -342,7 +342,7 @@ export function CartaMolde({ c, m }: { c: Carta; m: MoldeCarta }) {
       <PortfolioPraca pecas={pecas} cenas={cenas} usadas={usadas} local={local} rotulo={`em ${c.midia}`} cidade={c.midia} />
       <FaqCarta c={c} />
       <QuandoNaoCarta c={c} />
-      <CtaConversa waText={c.waText} whats="Uma conversa de 15 minutos sobre a sua clínica, e a gente já confere se a sua vaga está aberta." />
+      <CtaConversa waText={c.waText} />
       <Rodape waText={c.waText} rota={rota} />
       <Motor cenas={cenas.map((k) => k.pos)} focos={cenas.map((k) => k.foco)} modo={PORTFOLIO_MODO} />
     </div>
