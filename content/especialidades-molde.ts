@@ -297,6 +297,34 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "reproducao-humana",
+    sobrancelha: "Marketing médico para centros de reprodução assistida",
+    teseTitulo: "Depois de meses de pesquisa, o casal escolhe quem deixa o caminho claro.",
+    metodoTitulo: "Cada etapa explicada para o casal",
+    metodo: [
+      {
+        t: "Cada técnica, da inseminação à FIV",
+        d: "Indicação, exames, medicação e cada fase da inseminação e da fertilização in vitro explicados em página e em e-book, para o casal saber o que vem antes de começar.",
+      },
+      {
+        t: "Conteúdo que fala com os dois",
+        d: "A pesquisa é feita a duas cabeças. Site e conteúdo se dirigem ao casal, explicam o processo com clareza e antecipam as perguntas que os dois vão levar à consulta.",
+      },
+      {
+        t: "Taxa de sucesso só com fonte",
+        d: "O casal compara centros e chega perguntando por números. O conteúdo explica o que uma taxa mede e o que ela não diz, e só traz dado com origem que possa ser conferida.",
+      },
+      {
+        t: "Acompanhamento psicológico à vista",
+        d: "Quem compara clínicas quer saber se existe apoio emocional junto do tratamento. Quando a clínica tem esse apoio, ele aparece na página com o mesmo destaque das técnicas, porque a jornada é difícil.",
+      },
+      {
+        t: "Junto do casal enquanto ele pesquisa",
+        d: "Entre a primeira suspeita de infertilidade e a escolha do centro passam meses, às vezes anos. Conteúdo constante acompanha o casal nesse tempo, sem pressão e sem urgência fabricada.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
