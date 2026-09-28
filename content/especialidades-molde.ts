@@ -523,6 +523,30 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "dermatologia",
+    sobrancelha: "Marketing médico para dermatologia clínica e estética",
+    teseTitulo: "A mancha que mudou e o procedimento estético pedem conversas diferentes.",
+    metodoTitulo: "Como separamos a consulta clínica da estética",
+    metodo: [
+      {
+        t: "Clínica e estética em frentes separadas",
+        d: "Mancha, acne, queda de cabelo e lesão suspeita têm páginas com linguagem de consulta médica; os procedimentos estéticos têm as suas. Cada paciente entra pela porta que procurava.",
+      },
+      {
+        t: "Câncer de pele no centro",
+        d: "Sinais de alerta, o que é a dermatoscopia e com que frequência revisar a pele, explicados sem alarme, sem promessa e sem foto de lesão de paciente.",
+      },
+      {
+        t: "Estética sem vitrine",
+        d: "Cada procedimento estético descrito pelo que é, como é feito e que cuidados pede, sem antes-e-depois e sem preço em anúncio, num tom diferente do das redes cheias de oferta.",
+      },
+      {
+        t: "Um perfil para as duas agendas",
+        d: "Capa, perfil e posts no mesmo padrão visual da papelaria e do site, alternando conteúdo clínico e estético sem que o consultório pareça duas marcas diferentes.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
