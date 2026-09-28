@@ -41,6 +41,37 @@ export type FiltroAcervo =
   | { tipo: "etiqueta"; etiqueta: string }
   | { tipo: "casa" };
 
+/**
+ * Rótulos do pôster (3 números) e do histórico (H2 + texto) — achado na
+ * preparação do PR-C (§6.2 do doc-mapa): o PR-A escreveu os três + o H2 + o
+ * texto FIXOS, em voz de mídia ("clientes atendidos com esta mídia", "{n}
+ * clientes atendidos com {midia}"). Servem pras 6 mídias, mas mentiriam em
+ * `clinicas-e-consultorios` (recorte de público, não mídia). Todo campo é
+ * OPCIONAL: ausente = o texto de mídia do PR-A (`ROTULOS_PADRAO`), pra que as
+ * 7 cartas já migradas saiam IDÊNTICAS.
+ */
+export interface RotulosCarta {
+  /** Número 1 do pôster (clientes). */
+  clientes?: string;
+  /** Número 2 do pôster (peças). */
+  pecas?: string;
+  /** Número 3 do pôster (estados). */
+  estados?: string;
+  /** H2 do histórico. Tokens literais `{n}` (a contagem — B4, nunca escrito à mão) e `{midia}` (opcional, `c.midia`). */
+  historicoTitulo?: string;
+  /** O parágrafo abaixo do H2 do histórico. */
+  historicoTexto?: string;
+}
+
+/** O texto de mídia do PR-A, agora o PADRÃO de todo campo de `RotulosCarta` ausente. */
+export const ROTULOS_PADRAO: Required<RotulosCarta> = {
+  clientes: "clientes atendidos com esta mídia",
+  pecas: "peças do acervo feitas para eles",
+  estados: "estados com cliente atendido nesta mídia",
+  historicoTitulo: "{n} clientes atendidos com {midia}",
+  historicoTexto: "Médicos, clínicas e hospitais que já contrataram esta mídia com a agência, por especialidade.",
+};
+
 export interface MoldeCarta {
   slug: string;
   /** O kicker do hero, acima do H1 (`c.head`). */
@@ -52,6 +83,8 @@ export interface MoldeCarta {
   /** 4–6 passos {título, descrição} — NÃO é `c.como` (que fica só no corpo legado). */
   metodo: MetodoItem[];
   filtro: FiltroAcervo;
+  /** Rótulos do pôster/histórico (§6.2) — ausente = `ROTULOS_PADRAO` (a voz de mídia). */
+  rotulos?: RotulosCarta;
 }
 
 export const CARTAS_MOLDE: MoldeCarta[] = [

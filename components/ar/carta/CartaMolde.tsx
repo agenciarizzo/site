@@ -77,8 +77,30 @@ import { resolverCenas } from "@/lib/portfolio-moldura";
 import { cartaJsonLd } from "@/lib/carta-jsonld";
 import { alcanceDaCasa } from "@/lib/praca";
 import type { Carta } from "@/content/cartas";
-import type { MoldeCarta } from "@/content/cartas-molde";
+import { ROTULOS_PADRAO, type MoldeCarta, type RotulosCarta } from "@/content/cartas-molde";
 import { pecasDaCarta, historicoDaCarta, nomesDoHistoricoCarta, numerosDaCarta, type GrupoHistoricoCarta } from "@/lib/carta-molde";
+
+/** `m.rotulos` mesclado com `ROTULOS_PADRAO` (§6.2) — ausente = a voz de mídia do PR-A. */
+const rotulosDe = (m: MoldeCarta): Required<RotulosCarta> => ({ ...ROTULOS_PADRAO, ...m.rotulos });
+
+/**
+ * Divide um template com tokens `{chave}` (ex. `"{n} clientes atendidos com
+ * {midia}"`) na MESMA lista de filhos que o JSX antigo produzia escrevendo os
+ * valores soltos entre o texto (`{total} clientes atendidos com {c.midia}`):
+ * o React insere um marcador `<!-- -->` de hidratação entre nós de texto
+ * ADJACENTES, e só byte a byte igual preserva isso — uma string já concatenada
+ * (`${total} clientes...`) NÃO gera o mesmo HTML (prova do passo 1: as 7
+ * cartas já migradas saem idênticas à base).
+ */
+function interpolar(template: string, valores: Record<string, string | number>): (string | number)[] {
+  return template
+    .split(/(\{\w+\})/g)
+    .filter((p) => p !== "")
+    .map((p) => {
+      const m = /^\{(\w+)\}$/.exec(p);
+      return m && m[1] in valores ? valores[m[1]] : p;
+    });
+}
 
 /* ─────────────────────────────────────────────────────────────── 01 · hero ── */
 
@@ -146,10 +168,11 @@ function CartaPoster({
   casa: { cidades: number; estados: number };
   local: boolean;
 }) {
+  const rot = rotulosDe(m);
   const numeros = [
-    { chave: "clientes", valor: n.clientes, rotulo: "clientes atendidos com esta mídia" },
-    { chave: "pecas", valor: n.pecas, rotulo: "peças do acervo feitas para eles" },
-    { chave: "estados", valor: n.estados, rotulo: "estados com cliente atendido nesta mídia" },
+    { chave: "clientes", valor: n.clientes, rotulo: rot.clientes },
+    { chave: "pecas", valor: n.pecas, rotulo: rot.pecas },
+    { chave: "estados", valor: n.estados, rotulo: rot.estados },
   ];
   return (
     <section className="cid-poster" aria-labelledby="h-carta" data-topo="escuro">
@@ -227,17 +250,22 @@ function CartaMetodo({ c, m }: { c: Carta; m: MoldeCarta }) {
 const MAX_FAIXAS_EM_LINHA = 10;
 
 /** Quem já contratou esta mídia com a agência, por especialidade — derivado do acervo (C2), nunca declarado. */
-function CartaHistorico({ c, grupos, total }: { c: Carta; grupos: GrupoHistoricoCarta[]; total: number }) {
+function CartaHistorico({ c, m, grupos, total }: { c: Carta; m: MoldeCarta; grupos: GrupoHistoricoCarta[]; total: number }) {
+  const rot = rotulosDe(m);
+  // `interpolar`, não template string: `{n}` é a CONTAGEM (B4), preenchida
+  // depois de renderizar — e a lista de filhos preserva o marcador de
+  // hidratação do React entre nós de texto adjacentes (prova do passo 1).
+  const titulo = interpolar(rot.historicoTitulo, { n: total, midia: c.midia });
   return (
     <section className="cid-hist" aria-labelledby="h-hist" data-topo="escuro">
       <div className="cid-hist-cabeca">
         <div>
           <p className="rot">Histórico · desde 2012</p>
           <h2 id="h-hist" data-reveal>
-            {total} clientes atendidos com {c.midia}
+            {titulo}
           </h2>
         </div>
-        <p>Médicos, clínicas e hospitais que já contrataram esta mídia com a agência, por especialidade.</p>
+        <p>{rot.historicoTexto}</p>
       </div>
       <div className={`cid-hist-faixas${grupos.length > MAX_FAIXAS_EM_LINHA ? " cid-hist-linhas" : ""}`}>
         {grupos.map((g, i) => (
@@ -346,7 +374,7 @@ export function CartaMolde({ c, m }: { c: Carta; m: MoldeCarta }) {
       <Autoridade />
       <CartaPoster c={c} m={m} t={t} n={n} casa={casa} local={local} />
       <CartaMetodo c={c} m={m} />
-      {local && grupos.length > 0 && <CartaHistorico c={c} grupos={grupos} total={totalHistorico} />}
+      {local && grupos.length > 0 && <CartaHistorico c={c} m={m} grupos={grupos} total={totalHistorico} />}
       <Clientes />
       {/* A chamada vem DEPOIS de uma lista de nomes (o mural de clientes), como
           no hospital-molde: no cidade-molde ela seguia os Cases, que não
