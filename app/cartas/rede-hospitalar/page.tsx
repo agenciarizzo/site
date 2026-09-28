@@ -4,7 +4,8 @@
 // ROTA ESTÁTICA, mesma URL, zero 301 (D20): o registro `rede-hospitalar`
 // continua em `content/cartas.ts` — alimentando menu, rodapé, hub
 // `/marketing-medico`, sitemap e `ROTAS_COM_PANO` —, e o que muda é só quem
-// RENDERIZA a rota. `app/cartas/[slug]/page.tsx` a descarta do
+// RENDERIZA a rota. Quando existia `app/cartas/[slug]/page.tsx` (o corpo
+// legado, removido em PR-C), ele já descartava este slug do
 // `generateStaticParams` porque, medido no Next 16.2.2 (§12.3 do doc-mapa),
 // segmento estático e parâmetro dinâmico de mesmo valor geram o caminho DUAS
 // vezes, e quem vence é detalhe interno do build — não contrato da doc.

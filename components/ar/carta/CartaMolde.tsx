@@ -50,9 +50,11 @@
 // scroll da linha (Motor.tsx). O acordeão do histórico é `<details name>`
 // nativo — um aberto por vez, sem ilha.
 import Link from "next/link";
-// `home-diagonal.css` mora AQUI, não em `app/cartas/[slug]/page.tsx` (que é
-// COMPARTILHADO pelas 8 cartas): importar lá vazaria o `<link>` pro HTML das
-// que continuam no corpo legado, mesmo sem elas renderizarem este componente.
+// `home-diagonal.css` mora AQUI (não num dispatcher compartilhado): CSS é
+// coletado por SEGMENTO DE ROTA a partir do grafo estático de imports do
+// `page.tsx`, então cada uma das 8 rotas que chama `paginaCarta` (e importa
+// este componente) leva o `<link>` sozinha; `rede-hospitalar`, que não
+// renderiza este componente, importa a própria cópia direto no seu `page.tsx`.
 import "../../../app/home-diagonal.css";
 import "@/components/ar/cidade/cidade-molde.css";
 import "./carta-molde.css";

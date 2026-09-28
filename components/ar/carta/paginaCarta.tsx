@@ -7,11 +7,13 @@
 // ROTA ESTÁTICA POR CARTA, não despacho no `[slug]` (M2 revisado, §7.1 do
 // doc-mapa): medido no Next 16.2.2/Turbopack, CSS é coletado por SEGMENTO DE
 // ROTA a partir do grafo ESTÁTICO de imports do `page.tsx`, não por galho de
-// renderização condicional — importar `CartaMolde` dentro do `[slug]`
-// compartilhado vazaria `<link rel="stylesheet">` pras cartas que continuam
-// no corpo legado (E3 quebrado). Mesmo padrão de `rede-hospitalar`; o
-// `generateStaticParams` do `[slug]` (`app/cartas/[slug]/page.tsx`) já exclui
-// todo slug com registro em `content/cartas-molde.ts`.
+// renderização condicional — importar `CartaMolde` dentro de um `[slug]`
+// compartilhado vazaria `<link rel="stylesheet">` pras cartas que ainda
+// estivessem no corpo legado (E3 quebrado). Mesmo padrão de `rede-hospitalar`.
+// O corpo legado (`app/cartas/[slug]/page.tsx`, que tinha esse
+// `generateStaticParams` excluindo todo slug com registro em
+// `content/cartas-molde.ts`) saiu do repo em PR-C: hoje toda carta tem rota
+// própria, sem exceção.
 //
 // Falta de qualquer registro (Carta ou MoldeCarta) é erro de BUILD, nunca 404
 // em produção (§⚖️) — os dois `throw` seguem, só que num lugar só.

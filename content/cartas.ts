@@ -28,8 +28,6 @@ export interface Carta {
   quandoNaoTitulo: string;
   quandoNao: string[]; // parágrafos honestos
   faq: { q: string; a: string }[];
-  /** Acento do CTA. Sem isso o default é `<midia> na sua clínica?`, que não serve pra rede. */
-  ctaAcento?: string;
   waText: string;
 }
 
@@ -342,7 +340,6 @@ export const CARTAS: Carta[] = [
         a: "Com relatório por unidade e por linha, não um número institucional único, porque um número só esconde a linha que está indo bem dentro da que está indo mal. É o que o RizzoOS organiza: busca e contato lidos linha a linha, mês a mês.",
       },
     ],
-    ctaAcento: "a sua instituição?",
     waText: "Olá! Li o que vocês pensam sobre marketing de rede hospitalar e quero conversar sobre a nossa instituição.",
   },
   // Outro recorte de PÚBLICO, não de mídia (eixo "segmento"): a clínica com mais de um
@@ -425,7 +422,6 @@ export const CARTAS: Carta[] = [
         a: "Sim, desde 2012. Hoje isso inclui, entre outras, a Clínica de Veias, a Mulier, a Pelvi e o CDUS, cada uma organizada do jeito que a própria especialidade pede.",
       },
     ],
-    ctaAcento: "a sua clínica ou consultório?",
     waText: "Olá! Li o que vocês pensam sobre marketing para clínicas e consultórios e quero conversar sobre a nossa clínica.",
   },
   // ── Conteúdo de ORIENTAÇÃO, não de mídia nem de recorte de público (eixo "guia") ──
@@ -492,7 +488,6 @@ export const CARTAS: Carta[] = [
         a: "Os outros três critérios são gerais, mas o do CFM é específico de saúde: publicidade médica tem regra própria, e agência sem vivência nisso aprende à sua custa, com o seu registro em jogo.",
       },
     ],
-    ctaAcento: "a sua clínica?",
     waText: "Olá! Li sobre como escolher uma agência de marketing médico no site e quero conversar sobre a minha clínica.",
   },
 ];

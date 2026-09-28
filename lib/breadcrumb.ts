@@ -3,9 +3,10 @@
 // Por que helper, e não JSON escrito à mão em cada página: o `item` de cada degrau é
 // uma URL que o rastreador segue. Trilha com degrau inventado manda o Google pra 404 e
 // gasta rastreio das páginas que interessam. O caso concreto deste site: **`/cartas`
-// NÃO EXISTE como página** — só `app/cartas/[slug]` —, então a trilha "óbvia"
-// (`Início → Cartas → <carta>`) apontaria pro vazio. Quem lista as cartas é o hub
-// `/marketing-medico`, e é ele que entra na trilha.
+// NÃO EXISTE como página** — cada carta tem a própria rota estática
+// (`app/cartas/<slug>/page.tsx`, pela fábrica `paginaCarta`) —, então a trilha
+// "óbvia" (`Início → Cartas → <carta>`) apontaria pro vazio. Quem lista as
+// cartas é o hub `/marketing-medico`, e é ele que entra na trilha.
 //
 // A garantia é estrutural: os degraus intermediários saem do registro FECHADO abaixo
 // (`RAIZ`, `HUB_MARKETING`, `hubCidade`) — não existe degrau `/cartas` pra escrever por

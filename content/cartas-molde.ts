@@ -13,12 +13,15 @@
 // NÚMERO NÃO MORA AQUI (M7/B4): os 3 do pôster (peças · clientes · estados) são
 // CONTADOS em `lib/carta-molde.ts` a partir do acervo que o filtro resolve.
 //
-// Slug SEM registro aqui continua no corpo legado de `app/cartas/[slug]/page.tsx`
-// (M2) — carta nova entra ADICIONANDO um registro, nunca reescrevendo os que já
-// existem (§🌿-2).
+// Slug SEM registro aqui E sem rota estática própria (o único caso hoje é
+// `rede-hospitalar`, que tem a sua via `HospitalMolde` — não este molde) fica
+// sem HTML no build (o corpo legado de `app/cartas/[slug]/page.tsx` que
+// cobria esse caso saiu do repo em F1); `scripts/checar-cartas.mjs` reprova
+// o build no slug órfão. Carta nova entra ADICIONANDO um registro, nunca
+// reescrevendo os que já existem (§🌿-2).
 //
-// Server-only: quem consome é o molde (SSG) e o despacho do `[slug]`. Nada
-// daqui vai pro bundle.
+// Server-only: quem consome é o molde (SSG), via a fábrica `paginaCarta`.
+// Nada daqui vai pro bundle.
 import type { Grupo } from "@/content/portfolio";
 
 export interface MetodoItem {
@@ -80,7 +83,7 @@ export interface MoldeCarta {
   teseTitulo: string;
   /** O H2 do método (01c2) — a lista ao lado é `metodo`; `c.posicao.slice(1)` continua como prosa à esquerda. */
   metodoTitulo: string;
-  /** 4–6 passos {título, descrição} — NÃO é `c.como` (que fica só no corpo legado). */
+  /** 4–6 passos {título, descrição} — NÃO é `c.como` (que só a rota de `rede-hospitalar`, via `HospitalMolde`, lê). */
   metodo: MetodoItem[];
   filtro: FiltroAcervo;
   /** Rótulos do pôster/histórico (§6.2) — ausente = `ROTULOS_PADRAO` (a voz de mídia). */
