@@ -84,6 +84,35 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
     ],
     filtro: { tipo: "grupo", grupo: "Site" },
   },
+  {
+    slug: "google-ads",
+    sobrancelha: "Anúncios no Google para médicos e clínicas",
+    teseTitulo: "O clique mais caro é o que cai em página ruim.",
+    metodoTitulo: "Como cuidamos da campanha, semana a semana",
+    metodo: [
+      {
+        t: "Palavra-chave por intenção real",
+        d: "Especialidade, procedimento e cidade combinados: a campanha persegue a busca de quem está procurando atendimento, não a curiosidade genérica de quem só está lendo sobre o assunto.",
+      },
+      {
+        t: "A conta antes do primeiro real",
+        d: "Calculamos o investimento mínimo realista para a sua especialidade na sua cidade. Se o orçamento fica abaixo dele, dizemos que é melhor esperar e entrar direito.",
+      },
+      {
+        t: "Landing coerente e rápida",
+        d: "O clique cai numa página que cumpre a promessa do anúncio e carrega em milissegundos. É o que o Índice de Qualidade premia: experiência boa paga menos pelo mesmo lugar.",
+      },
+      {
+        t: "Gestão semanal de olho na agenda",
+        d: "Não otimizamos para clique, otimizamos para o que vira conversa e agenda. O que não performa é pausado; o que performa ganha escala.",
+      },
+      {
+        t: "CFM em cada texto",
+        d: "Todo anúncio é escrito dentro do Manual de Publicidade Médica: sem promessa de resultado, sem preço de procedimento, sem antes-e-depois. É assim desde 2012.",
+      },
+    ],
+    filtro: { tipo: "casa" },
+  },
 ];
 
 export const moldeDe = (slug: string): MoldeCarta | undefined => CARTAS_MOLDE.find((m) => m.slug === slug);
