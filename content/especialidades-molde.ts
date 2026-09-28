@@ -547,6 +547,30 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "diagnostico-por-imagem",
+    sobrancelha: "Marketing médico para clínicas de diagnóstico por imagem",
+    teseTitulo: "A marcação do exame vai para quem responde antes do telefone.",
+    metodoTitulo: "Dois públicos, dois trabalhos diferentes",
+    metodo: [
+      {
+        t: "Convênio, vaga e laudo por exame",
+        d: "Endereço, convênios aceitos, próxima vaga e prazo do laudo, por tipo de exame, visíveis no site e no perfil no Google, sem depender de telefonema.",
+      },
+      {
+        t: "Preparo explicado antes da pergunta",
+        d: "Jejum, bexiga cheia, horário de chegada: o preparo de cada exame fica escrito e fácil de achar, para o paciente chegar pronto e a recepção não repetir a mesma explicação o dia inteiro.",
+      },
+      {
+        t: "Material para o médico solicitante",
+        d: "Equipamento, qualidade e prazo do laudo, acesso às imagens: tudo apresentado a quem pede o exame, em material institucional próprio, separado da comunicação com o paciente.",
+      },
+      {
+        t: "Uma marca do site à porta",
+        d: "Unidades e horários corretos, panfleto de convênios, sinalização e adesivo de porta no padrão do site, para a clínica ser reconhecida em cada lugar por onde o paciente passa.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
