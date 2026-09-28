@@ -9,7 +9,7 @@
 // cidade-molde"):
 //
 //   topo · hero · autoridade · pôster · método · histórico local · clientes ·
-//   exclusividade · serviços · pacotes · chamada · RizzoOS · chamada ·
+//   chamada · exclusividade · serviços · pacotes · RizzoOS · chamada ·
 //   depoimentos · sobre · cidades+especialidades · vinheta · portfólio ·
 //   FAQ · quando NÃO · CTA · rodapé · motor
 //
@@ -320,10 +320,13 @@ export function CartaMolde({ c, m }: { c: Carta; m: MoldeCarta }) {
       <CartaMetodo c={c} m={m} />
       {local && grupos.length > 0 && <CartaHistorico c={c} grupos={grupos} total={totalHistorico} />}
       <Clientes />
+      {/* A chamada vem DEPOIS de uma lista de nomes (o mural de clientes), como
+          no hospital-molde: no cidade-molde ela seguia os Cases, que não
+          entram aqui, e depois dos Pacotes o "desta lista" ficava sem lista. */}
+      <Chamada texto="O seu caso pode ser o próximo desta lista." waText={c.waText} />
       <Exclusividade waText={c.waText} />
       <Servicos />
       <Pacotes />
-      <Chamada texto="O seu caso pode ser o próximo desta lista." waText={c.waText} />
       {/* `c.os` (B1): o parágrafo que a carta já publicava sobre o RizzoOS,
           lido do registro, nunca reescrito — a faixa entre a Chamada e o
           palco genérico (`<RizzoOS />`, sem props, igual em toda página). */}

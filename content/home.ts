@@ -87,7 +87,7 @@ export const SERVICOS_HOME = [
   {
     num: "04",
     nome: "Redes Sociais",
-    frase: "Autoridade se constrói em série, com constância: não em post solto.",
+    frase: "Autoridade se constrói em série, com constância, não em post solto.",
     recebe: "Linha editorial, design e publicação, com aprovação sua em um toque.",
     href: "/cartas/redes-sociais",
   },
