@@ -16,7 +16,16 @@
 //      espaço normalizado, porque o HTML pode entificar aspas/acentos.
 //   4. `robots` bate com `noindex` do registro (`index, follow` quando
 //      ausente; `noindex, follow` quando `true`) — a SERP não muda com a
-//      migração pro molde (generateMetadata não muda).
+//      migração pro molde (generateMetadata não muda). SÓ roda quando o
+//      BUILD é indexável (produção): em preview/dev o site inteiro nasce
+//      `noindex, nofollow` de propósito (INDEXABLE em lib/site.ts) e todo
+//      registro "contradiria" — mesmo passo que `checar-navegacao.mjs` já
+//      usa pro cruzamento do sitemap (lê `robots.txt.body`, acha
+//      `Disallow: /`). Achado na revisão: a 1ª versão deste item comparava
+//      sempre e reprovou o build de PREVIEW da Vercel (5 falsos-positivos,
+//      urologia…cirurgia-do-aparelho-digestivo, "noindex, nofollow" ≠
+//      "index, follow") — o `build:prod` local não pega isso porque já
+//      roda com `VERCEL_ENV=production`.
 //   5. Todo nome do histórico (`data-nome`) é um `nome` real de
 //      `content/carteira.ts` — zero nome inventado.
 //
@@ -148,6 +157,14 @@ const htmls = [];
 })(app);
 const rotaDe = (p) => "/" + relative(app, p).split(sep).join("/").replace(/\.html$/, "");
 
+// O mesmo passo de checar-navegacao.mjs: em preview/dev o site INTEIRO nasce
+// `noindex, nofollow` (INDEXABLE em lib/site.ts) — aí comparar por página
+// contra o registro sempre "reprovaria" (produção é a única onde o robots do
+// registro tem que bater; ali é onde a contradição custaria rastreio). Pra
+// exercitar localmente: NEXT_PUBLIC_SITE_INDEXABLE=true npm run build.
+const robotsTxt = readFileSync(join(app, "robots.txt.body"), "utf8");
+const buildIndexavel = !/^\s*Disallow:\s*\/\s*$/m.test(robotsTxt);
+
 let paginas = 0;
 for (const arquivo of htmls) {
   const html = readFileSync(arquivo, "utf8");
@@ -201,10 +218,11 @@ for (const arquivo of htmls) {
     }
   }
 
-  // 4. robots bate com o `noindex` do registro (SERP não muda — generateMetadata intacto)
+  // 4. robots bate com o `noindex` do registro (SERP não muda — generateMetadata
+  // intacto) — só em build indexável (produção); ver comentário de `buildIndexavel`.
   const robotsHtml = html.match(/<meta name="robots" content="([^"]*)"/)?.[1] ?? "";
   const esperado = reg.noindex ? "noindex, follow" : "index, follow";
-  if (robotsHtml !== esperado) {
+  if (buildIndexavel && robotsHtml !== esperado) {
     erros.push(`${rota}: robots "${robotsHtml}" ≠ esperado "${esperado}" (registro noindex=${reg.noindex})`);
   }
 
@@ -226,6 +244,6 @@ if (paginas === 0) {
   console.log("○ Especialidades no molde: nenhuma página migrada ainda nesta build — checador fica quieto (registries lidos e íntegros).");
 } else {
   console.log(
-    `✓ Especialidades no molde: ${paginas} página(s) — zero wa.me, as duas portas com data-wa, lede/intro/teseTitulo/metodoTitulo/metodo na tela, robots do registro, histórico com nome real da carteira.`,
+    `✓ Especialidades no molde: ${paginas} página(s) — zero wa.me, as duas portas com data-wa, lede/intro/teseTitulo/metodoTitulo/metodo na tela, robots do registro${buildIndexavel ? "" : " (pulado — build noindex, preview/dev)"}, histórico com nome real da carteira.`,
   );
 }
