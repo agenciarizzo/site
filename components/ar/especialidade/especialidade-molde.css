@@ -1,0 +1,12 @@
+/* O ESPECIALIDADE-MOLDE — a única regra PRÓPRIA que não está no
+   cidade-molde.css/carta-molde.css: o pôster sem coluna de números (página
+   cujas `areasCarteira` não batem com NENHUM cliente da carteira — hoje não
+   acontece em nenhuma das 20, régua §⚖️/M7). Tudo o mais é `.cid-*`
+   (cidade-molde.css) ou das seções da home — nada se duplica aqui.
+   Espelho de `components/ar/carta/carta-molde.css` §"sem números". */
+@media (min-width: 900px) {
+  .dg.cid.esp[data-especialidade-numeros="0"] .cid-poster-bloco {
+    grid-column: 1 / 13;
+    max-width: 760px;
+  }
+}

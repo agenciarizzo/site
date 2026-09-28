@@ -74,7 +74,7 @@ import { cartaJsonLd } from "@/lib/carta-jsonld";
 import { alcanceDaCasa } from "@/lib/praca";
 import type { Carta } from "@/content/cartas";
 import { ROTULOS_PADRAO, type MoldeCarta, type RotulosCarta } from "@/content/cartas-molde";
-import { pecasDaCarta, historicoDaCarta, nomesDoHistoricoCarta, numerosDaCarta, type GrupoHistoricoCarta } from "@/lib/carta-molde";
+import { pecasDaCarta, historicoDaCarta, nomesDoHistoricoCarta, numerosDaCarta } from "@/lib/carta-molde";
 import { interpolar, HeroMolde, PosterMolde, MetodoMolde, HistoricoMolde } from "@/components/ar/carta/secoes";
 
 /** `m.rotulos` mesclado com `ROTULOS_PADRAO` (§6.2) — ausente = a voz de mídia do PR-A. */
