@@ -398,6 +398,30 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "nutrologia",
+    sobrancelha: "Marketing médico para nutrólogos",
+    teseTitulo: "Nutrologia não é dieta, e o paciente precisa ler isso antes de marcar.",
+    metodoTitulo: "Seriedade num feed cheio de promessa",
+    metodo: [
+      {
+        t: "Consulta médica, não dieta da moda",
+        d: "O site explica o que se investiga na consulta de nutrologia, quais exames entram e por que acompanhamento médico é outra coisa, para quem chega de tentativas frustradas.",
+      },
+      {
+        t: "Zero promessa de emagrecimento",
+        d: "Nada de antes-e-depois, de meta de peso ou de fórmula vendida como solução, no site, nas redes e no anúncio. Numa área tão vigiada, a sobriedade aparece de longe.",
+      },
+      {
+        t: "Redes para quem quer se tratar",
+        d: "No Instagram, o conteúdo explica acompanhamento, exames e tratamento em vez de disputar o apelo do feed. Conversa com quem busca cuidado médico, não com quem procura atalho.",
+      },
+      {
+        t: "Páginas que não caducam com a moda",
+        d: "As perguntas que o paciente leva para a primeira consulta viram páginas que continuam valendo quando a dieta do momento muda de nome. É a parte que não precisa ser refeita a cada tendência.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
