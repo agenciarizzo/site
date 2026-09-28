@@ -1,6 +1,20 @@
 // Página de carta — 1 por mídia. Esqueleto canônico do §2 do mapa (rizzo-os):
 // posição → como fazemos → RizzoOS → "quando NÃO contratar" → FAQ → conversa.
 // SSG puro (generateStaticParams). Schema: Article + FAQPage.
+//
+// DESPACHO (M2 revisado — rizzo-os → docs/SITE_CARTAS_MOLDE_RICO_MAPA.md §4 e
+// §7): o desenho original mandava o `[slug]` decidir em runtime entre o corpo
+// legado e o `CartaMolde`. MEDIDO no build (Next 16.2.2, Turbopack): CSS é
+// coletado por SEGMENTO DE ROTA a partir do grafo ESTÁTICO de imports do
+// `page.tsx`, não por galho de renderização condicional — `import {
+// CartaMolde }` no topo deste módulo, mesmo usado só quando `moldeDe(slug)`
+// resolve, faz as 7 cartas que continuam no corpo legado ganharem os
+// `<link rel="stylesheet">` do molde (E3 quebrado: elas deixam de sair
+// idênticas à `main`). Carta migrada ganha ROTA ESTÁTICA PRÓPRIA
+// (`app/cartas/<slug>/page.tsx`), o MESMO padrão de `rede-hospitalar` — e
+// `generateStaticParams` aqui exclui todo slug com registro em
+// `content/cartas-molde.ts`, não só o hospital. `generateMetadata` não muda
+// (A2): a SERP é a mesma nos dois corpos.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,13 +24,14 @@ import { CARTAS, bySlug } from "@/content/cartas";
 import { VitrineGiro } from "@/components/VitrineGiro";
 import { vitrinePorChave } from "@/content/vitrines";
 import { cartaJsonLd } from "@/lib/carta-jsonld";
+import { moldeDe } from "@/content/cartas-molde";
 
 export function generateStaticParams() {
-  // `rede-hospitalar` tem rota ESTÁTICA própria (`app/cartas/rede-hospitalar/`)
-  // desde o capítulo hospitalar. Sem este filtro o Next 16.2.2 gera o caminho
+  // `rede-hospitalar` e toda carta com registro em `content/cartas-molde.ts`
+  // têm rota ESTÁTICA própria. Sem este filtro o Next 16.2.2 gera o caminho
   // duas vezes e quem escreve o `.html` é detalhe interno do build — medido em
   // rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md §12.3 (D20).
-  return CARTAS.filter((c) => c.slug !== "rede-hospitalar").map((c) => ({ slug: c.slug }));
+  return CARTAS.filter((c) => c.slug !== "rede-hospitalar" && !moldeDe(c.slug)).map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

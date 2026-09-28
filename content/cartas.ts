@@ -52,7 +52,7 @@ export const CARTAS: Carta[] = [
     como: [
       { t: "Base técnica de verdade", d: "Next.js, Vercel e Cloudflare — carregamento em milissegundos em qualquer cidade, segurança de nível bancário, zero plugin quebrando." },
       { t: "Estrutura que máquina lê", d: "Dados organizados por especialidade, procedimento e unidade (schema.org), sitemap limpo, cada página com sua função — o formato que Google e IAs entendem." },
-      { t: "Conteúdo que responde paciente", d: "As páginas nascem das perguntas reais da sua especialidade — o que as pessoas buscam é o que o site responde, com a sua voz e dentro do CFM." },
+      { t: "Conteúdo que responde ao paciente", d: "As páginas nascem das perguntas reais da sua especialidade — o que as pessoas buscam é o que o site responde, com a sua voz e dentro do CFM." },
       { t: "Medição e evolução contínua", d: "Search Console e Analytics dizem o que sobe e o que falta; o site nunca fica parado — vira rotina mensal, não projeto de gaveta." },
     ],
     os: "O conteúdo do seu site não sai de achismo: o RizzoOS cruza tendências e dados de busca da sua especialidade pra dizer o que o site precisa responder — e os relatórios mensais de site chegam pra você dentro dele, sem planilha.",
