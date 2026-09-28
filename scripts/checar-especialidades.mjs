@@ -28,6 +28,13 @@
 //      roda com `VERCEL_ENV=production`.
 //   5. Todo nome do histórico (`data-nome`) é um `nome` real de
 //      `content/carteira.ts` — zero nome inventado.
+//   6. FIM DO LEGADO (lote 4, critério F do doc-mapa): as 20 páginas de
+//      `content/especialidades.ts` saem no molde — zero uma no corpo antigo.
+//      `app/marketing-medico/[slug]/page.tsx` já derruba o BUILD (erro no
+//      render, antes deste script rodar) se faltar registro em
+//      `content/especialidades-molde.ts`; este item é o cinto e suspensório:
+//      conta o HTML gerado e reprova se o número de páginas com
+//      `data-especialidade-molde` não bater com as 20 do registry.
 //
 // Roda DEPOIS do `next build`, encadeado logo após `checar-cartas.mjs`.
 import { readdirSync, readFileSync, statSync } from "fs";
@@ -234,16 +241,23 @@ for (const arquivo of htmls) {
     }
   }
 }
+
+// 6. FIM DO LEGADO: as 20 (content/especialidades.ts) saem TODAS no molde —
+// zero uma sobrando no corpo antigo. `app/marketing-medico/[slug]/page.tsx`
+// já reprova o BUILD antes disto (erro no render), então este número só
+// diverge se aquele guarda for enfraquecido — daí o cinto e suspensório.
+if (paginas !== REGISTRO.size) {
+  erros.push(
+    `fim do legado: ${paginas} página(s) com \`data-especialidade-molde\` no HTML gerado, esperava as ${REGISTRO.size} de content/especialidades.ts — alguma especialidade não saiu no molde.`,
+  );
+}
+
 if (erros.length > 0) {
-  console.error("✗ Especialidades no molde rico (portas · texto do registro na tela · robots do registro · histórico real):");
+  console.error("✗ Especialidades no molde rico (portas · texto do registro na tela · robots do registro · histórico real · fim do legado):");
   for (const e of erros) console.error(`  ${e}`);
   console.error(`\n${erros.length} falha(s) — build reprovado.`);
   process.exit(1);
 }
-if (paginas === 0) {
-  console.log("○ Especialidades no molde: nenhuma página migrada ainda nesta build — checador fica quieto (registries lidos e íntegros).");
-} else {
-  console.log(
-    `✓ Especialidades no molde: ${paginas} página(s) — zero wa.me, as duas portas com data-wa, lede/intro/teseTitulo/metodoTitulo/metodo na tela, robots do registro${buildIndexavel ? "" : " (pulado — build noindex, preview/dev)"}, histórico com nome real da carteira.`,
-  );
-}
+console.log(
+  `✓ Especialidades no molde: ${paginas}/${REGISTRO.size} página(s), as 20 — zero wa.me, as duas portas com data-wa, lede/intro/teseTitulo/metodoTitulo/metodo na tela, robots do registro${buildIndexavel ? "" : " (pulado — build noindex, preview/dev)"}, histórico com nome real da carteira, zero página no corpo antigo.`,
+);

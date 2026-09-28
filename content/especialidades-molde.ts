@@ -446,6 +446,131 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  // §6.4 do doc-mapa (lote 4), congelado em 2026-09-28.
+  {
+    slug: "neurocirurgia",
+    sobrancelha: "Marketing médico para neurocirurgiões",
+    teseTitulo: "Confiança em neurocirurgia também se constrói dizendo quando não operar.",
+    metodoTitulo: "Para quem lê tudo antes de operar",
+    metodo: [
+      {
+        t: "Os riscos de operar e de esperar",
+        d: "Hérnia de disco, estenose e dor que não cede ganham páginas sobre indicação, riscos e as consequências de adiar, no nível de detalhe que esse paciente procura.",
+      },
+      {
+        t: "Clareza para a terceira opinião",
+        d: "Quem chega da segunda opinião compara clareza, não currículo. O site põe a conduta em primeiro plano, explicada em linguagem simples, e a credencial vem depois, como apoio.",
+      },
+      {
+        t: "Nenhum caso de paciente exposto",
+        d: "Nada de imagem de exame de paciente, história de cirurgia ou número de procedimentos que ninguém consegue conferir. Com coluna e cérebro em jogo, a sobriedade do que se publica é o próprio argumento.",
+      },
+      {
+        t: "Conteúdo primeiro, anúncio depois",
+        d: "Páginas, artigos e vídeos que explicam coluna e cérebro com calma vêm antes do volume de anúncio. A campanha, quando entra, leva a esse conteúdo, não a uma promessa.",
+      },
+    ],
+  },
+  {
+    slug: "cirurgia-plastica",
+    sobrancelha: "Marketing médico para cirurgiões plásticos",
+    teseTitulo: "O cirurgião plástico é avaliado muito antes de o paciente falar em procedimento.",
+    metodoTitulo: "Como ocupamos o espaço que a regra permite",
+    metodo: [
+      {
+        t: "Cada cirurgia explicada tecnicamente",
+        d: "Indicação, contraindicação e cuidados do pós-operatório de cada procedimento, em página própria. É o conteúdo que responde à pesquisa longa do paciente e cabe inteiro no Manual de Publicidade Médica.",
+      },
+      {
+        t: "O reparador também tem vez",
+        d: "A comunicação não fala só da estética: a cirurgia reparadora ganha conteúdo próprio, porque também tem paciente pesquisando e costuma ficar de fora do marketing da especialidade.",
+      },
+      {
+        t: "Formação e sociedade à vista",
+        d: "Formação, sociedade de especialidade, onde opera e quem compõe a equipe ficam claros no site e no Instagram: são os pontos que o paciente de plástica compara entre um cirurgião e outro.",
+      },
+      {
+        t: "O mesmo acabamento em cada peça",
+        d: "Identidade visual, papelaria, portfólio e apresentação no mesmo padrão do site, porque quem escolhe um cirurgião plástico repara no cuidado de cada detalhe, do envelope à sala de espera.",
+      },
+      {
+        t: "Sem sorteio, preço ou antes-e-depois",
+        d: "Tudo o que a regra veta fica fora do site, das redes e do anúncio, inclusive o sorteio de procedimento. Quem mostra que conhece o limite protege o próprio registro e inspira confiança.",
+      },
+    ],
+  },
+  {
+    slug: "medicina-da-dor",
+    sobrancelha: "Marketing médico para clínicas de medicina da dor",
+    teseTitulo: "Quem convive com dor há anos só acredita em quem não promete o fim dela.",
+    metodoTitulo: "Como a dor crônica encontra a especialidade",
+    metodo: [
+      {
+        t: "Dor na coluna, neuropatia e fibromialgia",
+        d: "Cada dor crônica, inclusive a que ficou depois de uma cirurgia, ganha página própria, escrita com as palavras que o paciente digita, que muitas vezes incluem o nome de outra especialidade.",
+      },
+      {
+        t: "O que o procedimento pode aliviar",
+        d: "Bloqueios e tratamento intervencionista descritos com honestidade: como são feitos, quanto alívio é razoável esperar e a possibilidade de a resposta ser parcial, sem prometer o fim da dor.",
+      },
+      {
+        t: "Explicação no lugar de depoimento",
+        d: "Nenhum relato de paciente montado, nenhuma frase de alívio garantido. Numa decisão tão emocional quanto tentar mais um tratamento, a confiança vem da explicação clara, não de testemunho.",
+      },
+      {
+        t: "O ortopedista sabendo para onde mandar",
+        d: "Material que mostra o que a clínica trata e como, dirigido a ortopedistas, neurologistas e reumatologistas que atendem o paciente com dor crônica e precisam saber para onde encaminhá-lo.",
+      },
+    ],
+  },
+  {
+    slug: "dermatologia",
+    sobrancelha: "Marketing médico para dermatologia clínica e estética",
+    teseTitulo: "A mancha que mudou e o procedimento estético pedem conversas diferentes.",
+    metodoTitulo: "Como separamos a consulta clínica da estética",
+    metodo: [
+      {
+        t: "Clínica e estética em frentes separadas",
+        d: "Mancha, acne, queda de cabelo e lesão suspeita têm páginas com linguagem de consulta médica; os procedimentos estéticos têm as suas. Cada paciente entra pela porta que procurava.",
+      },
+      {
+        t: "Câncer de pele no centro",
+        d: "Sinais de alerta, o que é a dermatoscopia e com que frequência revisar a pele, explicados sem alarme, sem promessa e sem foto de lesão de paciente.",
+      },
+      {
+        t: "Estética sem vitrine",
+        d: "Cada procedimento estético descrito pelo que é, como é feito e que cuidados pede, sem antes-e-depois e sem preço em anúncio, num tom diferente do das redes cheias de oferta.",
+      },
+      {
+        t: "Um perfil para as duas agendas",
+        d: "Capa, perfil e posts no mesmo padrão visual da papelaria e do site, alternando conteúdo clínico e estético sem que o consultório pareça duas marcas diferentes.",
+      },
+    ],
+  },
+  {
+    slug: "diagnostico-por-imagem",
+    sobrancelha: "Marketing médico para clínicas de diagnóstico por imagem",
+    teseTitulo: "A marcação do exame vai para quem responde antes do telefone.",
+    metodoTitulo: "Dois públicos, dois trabalhos diferentes",
+    metodo: [
+      {
+        t: "Convênio, vaga e laudo por exame",
+        d: "Endereço, convênios aceitos, próxima vaga e prazo do laudo, por tipo de exame, visíveis no site e no perfil no Google, sem depender de telefonema.",
+      },
+      {
+        t: "Preparo explicado antes da pergunta",
+        d: "Jejum, bexiga cheia, horário de chegada: o preparo de cada exame fica escrito e fácil de achar, para o paciente chegar pronto e a recepção não repetir a mesma explicação o dia inteiro.",
+      },
+      {
+        t: "Material para o médico solicitante",
+        d: "Equipamento, qualidade e prazo do laudo, acesso às imagens: tudo apresentado a quem pede o exame, em material institucional próprio, separado da comunicação com o paciente.",
+      },
+      {
+        t: "Uma marca do site à porta",
+        d: "Unidades e horários corretos, panfleto de convênios, sinalização e adesivo de porta no padrão do site, para a clínica ser reconhecida em cada lugar por onde o paciente passa.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
