@@ -101,7 +101,7 @@ export function historicoDaCarta(pecas: PecaGaleria[]): GrupoHistoricoCarta[] {
  * Todos os nomes do histórico, achatados e SEM REPETIR — pra contar clientes
  * sem montar os grupos de novo. Achado na preparação do PR-C: cliente com
  * peça em mais de uma especialidade (raro nas 6 mídias, real em
- * `clinicas-e-consultorios` — 153 peças, 30 especialidades) entrava uma vez
+ * `clinicas-e-consultorios` — 153 peças, 29 especialidades) entrava uma vez
  * por PAINEL (correto — é onde o visitante o encontra), mas o `.length`
  * batia diferente do `clientes` do pôster (`numerosDaCarta`, que conta
  * cliente distinto uma vez só): a MESMA página afirmando dois números pro
