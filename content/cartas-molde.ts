@@ -303,6 +303,39 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
       historicoTexto: "As clínicas e os consultórios que têm peça no acervo da agência, por especialidade.",
     },
   },
+  {
+    slug: "como-escolher-agencia-de-marketing-medico",
+    sobrancelha: "Para o médico que está escolhendo uma agência",
+    teseTitulo: "Indicação, preço e portfólio não medem o que importa.",
+    metodoTitulo: "O que conferir antes de assinar",
+    metodo: [
+      {
+        t: "Prova com nome real",
+        d: "Peça casos de verdade, com o nome do cliente e a especialidade. Prova anônima, como “uma clínica de oftalmologia” sem dizer qual, é propaganda: nome real dá para conferir.",
+      },
+      {
+        t: "CFM sem você precisar pedir",
+        d: "Promessa de resultado e antes-e-depois derrubam anúncio e põem o seu registro em risco. Quem entende de marketing médico já escreve dentro do Manual de Publicidade Médica, sem precisar ser avisado.",
+      },
+      {
+        t: "Método explicado, não só a peça",
+        d: "Quem sabe o que está fazendo explica o porquê de cada decisão, em vez de só entregar o resultado visual e esperar a aprovação.",
+      },
+      {
+        t: "Aprovação com processo claro",
+        d: "Pergunte como a peça chega até você e quem aprova o quê antes de publicar. A resposta diz mais sobre o dia a dia do contrato que qualquer portfólio.",
+      },
+      {
+        t: "Relatório todo mês, sem pedir",
+        d: "Número que você só vê quando pergunta é número que a agência preferia que você não visse. O relatório tem que chegar sozinho, todo mês.",
+      },
+    ],
+    // "Casa": o guia não é mídia nem recorte de público, não tem peça própria
+    // (M6) — cai no acervo inteiro, sem pôster de números nem histórico (a
+    // TESE aparece do mesmo jeito, ver comentário de `CartaPoster`), então não
+    // precisa de `rotulos`.
+    filtro: { tipo: "casa" },
+  },
 ];
 
 export const moldeDe = (slug: string): MoldeCarta | undefined => CARTAS_MOLDE.find((m) => m.slug === slug);
