@@ -1,0 +1,207 @@
+/* O HUB /marketing-medico no layout do redesenho (fatia do handoff
+   `Pagina - Marketing Medico.dc.html`, seções "01 Posição"/"02 Cartas"/
+   "05 RizzoOS"). Tokens do `.dg` (home-diagonal.css), que é a linha em que a
+   página vive: `.dg` na frente de toda regra própria, como cidade-molde.css
+   e clientes-v3.css já fazem.
+
+   FICHAS ESTÁTICAS, não o acordeão por clique de `Cases.tsx` (Motor.tsx): o
+   hub não carrega o motor de scroll da home, então a leitura de cada carta
+   fica sempre visível — zero JS pra abrir o que o protótipo abre por clique
+   (regra 5 do CLAUDE.md do site). */
+
+.dg.hub .hub-posicao {
+  background: var(--papel);
+  padding: 64px var(--lado) 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.dg.hub .hub-lede {
+  margin: 0;
+  max-width: 640px;
+  font-size: clamp(19px, 1.8vw, 24px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--chumbo);
+  text-wrap: pretty;
+}
+.dg.hub .hub-posicao-prosa {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 680px;
+}
+.dg.hub .hub-posicao-prosa p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--chumbo);
+  text-wrap: pretty;
+}
+
+/* ---- 02 · cartas (fichas por eixo, fundo escuro) ------------------------- */
+.dg.hub .hub-cartas {
+  background: var(--chumbo);
+  color: var(--papel);
+  padding: 96px var(--lado);
+}
+.dg.hub .hub-cartas-cabeca {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 24px 40px;
+  align-items: end;
+  margin-bottom: 56px;
+}
+.dg.hub .hub-cartas-cabeca p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--bege-escuro);
+}
+.dg.hub .hub-eixo + .hub-eixo {
+  margin-top: 56px;
+}
+.dg.hub .hub-eixo-cabeca {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.dg.hub .hub-eixo-cabeca h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--papel);
+}
+.dg.hub .hub-eixo-cabeca span {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--bege-escuro);
+}
+.dg.hub .hub-fichas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+}
+.dg.hub .hub-ficha {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--papel);
+  color: var(--chumbo);
+  padding: 24px;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.dg.hub .hub-ficha:hover,
+.dg.hub .hub-ficha:focus-visible {
+  background: var(--amarelo);
+  transform: translateY(-4px);
+}
+.dg.hub .hub-ficha-pano {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--linha-bege);
+}
+.dg.hub .hub-ficha-cabeca {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.dg.hub .hub-ficha-num {
+  font-weight: 200;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  flex: none;
+}
+.dg.hub .hub-ficha-num span {
+  color: var(--teal);
+}
+.dg.hub .hub-ficha h4 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.dg.hub .hub-ficha p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+.dg.hub .hub-ficha-ler {
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--chumbo);
+}
+
+/* ---- vitrine (reaproveita .vitrine/.sec das globals, só a moldura) ------- */
+.dg.hub .hub-vitrine {
+  background: var(--papel);
+  padding: 96px var(--lado) 32px;
+}
+
+/* ---- bloco RizzoOS: navy é exclusivo dele (regra 2 do CLAUDE.md) --------- */
+.dg.hub .hub-os {
+  background: var(--navy, #0f172a);
+  color: var(--papel);
+  padding: 64px var(--lado);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.dg.hub .hub-os-corpo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 640px;
+}
+.dg.hub .hub-os-wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.dg.hub .hub-os-beta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--amarelo);
+  align-self: flex-start;
+  margin-top: 6px;
+}
+.dg.hub .hub-os-corpo p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.dg.hub .hub-os-corpo a {
+  color: var(--amarelo);
+  font-weight: 700;
+  border-bottom: 2px solid var(--amarelo);
+  padding-bottom: 2px;
+}
+.dg.hub .hub-os-corpo a:hover {
+  color: var(--papel);
+  border-bottom-color: var(--papel);
+}
+
+@media (max-width: 699px) {
+  .dg.hub .hub-cartas,
+  .dg.hub .hub-vitrine {
+    padding-left: var(--lado);
+    padding-right: var(--lado);
+  }
+}

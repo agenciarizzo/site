@@ -2,14 +2,32 @@
 // recorte de público num só lugar. 301 de /cartas aponta pra cá (next.config.ts).
 // Regra de tom (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §2): a página fala do
 // mundo do médico, não de si.
+//
+// Layout do redesenho (rizzo-os → docs/SITE_HUB_CONTATO_MOLDE_MAPA.md):
+// `PanoHeader` no topo, no lugar da antiga `Band` + hero — mesma faixa de
+// hoje (assinatura `leque·longe·s63935`, preservada passando o pattern/seed
+// que `panoDe("/marketing-medico")` já dava, como o `checar-panos.mjs` mede).
+// `Topo`/`Rodape`/`TopoDg` (redesenho) no lugar de `MenuTopo`/`FooterMapa`
+// (Athos legado) — mesmo padrão de `/clientes` e `/portfolio`. `CtaConversa`
+// do redesenho (as duas portas) no lugar da antiga (uma porta só). Todo texto
+// é o de hoje, lido da mesma fonte (`content/cartas.ts`, `content/vitrines.ts`,
+// o `FAQ` inline abaixo) — sem copy nova, só a fichas por eixo (mídia · recorte
+// · guia) em vez de uma grade só, e os rótulos de eixo (derivados do próprio
+// tipo `Carta["eixo"]`, já documentado em content/cartas.ts).
 import type { Metadata } from "next";
+import Link from "next/link";
+import "../home-diagonal.css";
+import "@/components/ar/hub/hub.css";
+import { Topo } from "@/components/ar/home/Topo";
+import { Rodape } from "@/components/ar/home/Fecho";
+import { TopoDg } from "@/components/ar/TopoDg";
+import { PanoHeader } from "@/components/secoes/PanoHeader";
+import { CtaConversa } from "@/components/CtaConversa";
 import { VitrineGiro } from "@/components/VitrineGiro";
 import { vitrinePorChave } from "@/content/vitrines";
-import Link from "next/link";
-import { panoHub, panoCard } from "@/lib/athos/panos";
-import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
-import { CARTAS } from "@/content/cartas";
-import { SITE_URL } from "@/lib/site";
+import { panoCard } from "@/lib/athos/panos";
+import { CARTAS, type Carta } from "@/content/cartas";
+import { SITE_URL, FATOS } from "@/lib/site";
 
 const DESCRICAO =
   "Marketing médico explicado por mídia: site e SEO, Google Ads, Meta Ads, redes sociais, vídeo e TV corporativa. O que fazemos e como, sem promessa.";
@@ -57,7 +75,27 @@ const FAQ = [
   },
 ];
 
+/** Rótulo de layout por eixo (derivado do tipo `Carta["eixo"]` — content/cartas.ts). */
+const NOME_EIXO: Record<"midia" | "segmento" | "guia", string> = {
+  midia: "Mídia",
+  segmento: "Recorte de público",
+  guia: "Guia",
+};
+const ORDEM_EIXO = ["midia", "segmento", "guia"] as const;
+
+function agruparPorEixo(cartas: Carta[]) {
+  return ORDEM_EIXO.map((eixo) => ({
+    eixo,
+    nome: NOME_EIXO[eixo],
+    itens: cartas.filter((c) => (c.eixo ?? "midia") === eixo),
+  })).filter((g) => g.itens.length > 0);
+}
+
 export default function MarketingMedicoPage() {
+  const eixos = agruparPorEixo(CARTAS);
+  const vitrine = vitrinePorChave("hub");
+  const fatos = FATOS.split(" · ");
+
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -85,91 +123,150 @@ export default function MarketingMedicoPage() {
   ];
 
   return (
-    <>
+    <div className="dg hub">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <MenuTopo atual="/marketing-medico" waText={WA} />
-
+      <Topo waText={WA} rota="/marketing-medico" />
+      <TopoDg />
+      {/* pattern/seed = os mesmos que panoDe("/marketing-medico") já dava pela
+          Band antiga (leque·longe·s63935) — o checar-panos.mjs mede a MESMA
+          assinatura de faixa de antes; `cores="ouro"` é a paleta do protótipo. */}
+      <PanoHeader
+        kicker="Marketing médico · Agência Rizzo"
+        tituloA="Marketing médico: o que fazemos,"
+        tituloB="mídia por mídia."
+        motivo="leque"
+        cores="ouro"
+        semente={63935}
+        linhas={4}
+        densidade={0.8}
+        rejunte={3}
+      />
       <main>
-      <section className="hero">
-        <div className="wrap">
-          <div className="kicker">Marketing médico · Agência Rizzo</div>
-          <h1 className="display">
-            Marketing médico:
-            <br />
-            o que fazemos,
-            <br />
-            <span className="acento">mídia por mídia.</span>
-          </h1>
-          <p className="lede">
+        <section className="hub-posicao" data-topo="escuro">
+          <p className="hub-lede">
             Cada mídia tem papel, hora e medida. Nenhuma faz milagre sozinha. Aqui reunimos o que pensamos sobre
             cada uma, e sobre os recortes de público que pedem tratamento à parte.
           </p>
-        </div>
-      </section>
+          <div>
+            <h2 className="h2 h2-g" style={{ marginBottom: 24 }}>
+              Um médico, dois jeitos <span className="leve">de ser encontrado</span>
+            </h2>
+            <div className="hub-posicao-prosa">
+              <p>
+                Quem procura um especialista hoje passa por duas portas. A primeira é a de sempre: digitar no
+                Google e escolher entre os primeiros resultados. A segunda é nova e cresce todo mês: perguntar a
+                uma inteligência artificial &ldquo;qual o melhor especialista em…?&rdquo; e confiar na resposta que
+                ela montar. As duas portas leem a mesma coisa: site rápido, dados organizados por especialidade e
+                cidade, conteúdo verdadeiro publicado com constância. E é por isso que tratamos marketing médico
+                como estrutura, não como campanha avulsa.
+              </p>
+              <p>
+                Nenhuma mídia sozinha entrega isso. Site e SEO fazem você ser encontrado; Google Ads acelera quem
+                já decidiu procurar; Meta Ads planta a ideia em quem ainda nem sabia que precisava; redes sociais e
+                vídeo constroem a confiança que faz o paciente escolher você antes mesmo da primeira consulta; TV
+                corporativa aproveita quem já está na sua sala de espera. O que vem abaixo é a nossa posição sobre
+                cada uma dessas frentes: o que funciona, o que não funciona, e quando ela não é a prioridade.
+              </p>
+            </div>
+          </div>
+        </section>
 
-      <Band html={panoHub()} carta />
-
-      <article className="corpo prosa">
-        <div className="wrap">
-          <h2 className="sec">Um médico, dois jeitos de ser encontrado</h2>
-          <p>
-            Quem procura um especialista hoje passa por duas portas. A primeira é a de sempre: digitar no Google e
-            escolher entre os primeiros resultados. A segunda é nova e cresce todo mês: perguntar a uma inteligência
-            artificial &ldquo;qual o melhor especialista em…?&rdquo; e confiar na resposta que ela montar. As duas
-            portas leem a mesma coisa: site rápido, dados organizados por especialidade e cidade, conteúdo
-            verdadeiro publicado com constância. E é por isso que tratamos marketing médico como estrutura, não
-            como campanha avulsa.
-          </p>
-          <p>
-            Nenhuma mídia sozinha entrega isso. Site e SEO fazem você ser encontrado; Google Ads acelera quem já
-            decidiu procurar; Meta Ads planta a ideia em quem ainda nem sabia que precisava; redes sociais e vídeo
-            constroem a confiança que faz o paciente escolher você antes mesmo da primeira consulta; TV corporativa
-            aproveita quem já está na sua sala de espera. O que vem abaixo é a nossa posição sobre cada uma dessas
-            frentes: o que funciona, o que não funciona, e quando ela não é a prioridade.
-          </p>
-
-          <h2 className="sec">Por mídia e por recorte</h2>
-          <p>Escolha uma frente para ler a posição inteira (o que fazemos, como fazemos e quando não é a hora):</p>
-
-          <div className="cartas-grid">
-            {CARTAS.map((c) => (
-              <Link key={c.slug} href={`/cartas/${c.slug}`} className="carta-card">
-                <div className="card-pano" aria-hidden dangerouslySetInnerHTML={{ __html: panoCard(c.slug) }} />
-                <div className="card-body">
-                  <div className="carta-num">{c.num}</div>
-                  <h3>{c.midia}</h3>
-                  <p>{c.cardP}</p>
-                  <span className="ler">ler a nossa visão →</span>
-                </div>
-              </Link>
-            ))}
+        <section className="hub-cartas" aria-labelledby="h-cartas" data-topo="claro">
+          <div className="hub-cartas-cabeca">
+            <div>
+              <h2 id="h-cartas" className="h2">
+                Por mídia e <span className="ouro">por recorte</span>
+              </h2>
+              <p style={{ marginTop: 8 }}>
+                Escolha uma frente para ler a posição inteira (o que fazemos, como fazemos e quando não é a hora):
+              </p>
+            </div>
+            <p>Nove cartas · seis mídias, dois recortes de público, um guia</p>
           </div>
 
-          {(() => { const v = vitrinePorChave("hub"); return v ? <VitrineGiro v={v} /> : null; })()}
+          {eixos.map((g) => (
+            <div className="hub-eixo" key={g.eixo}>
+              <div className="hub-eixo-cabeca">
+                <h3>{g.nome}</h3>
+                <span>{String(g.itens.length).padStart(2, "0")}</span>
+              </div>
+              <div className="hub-fichas">
+                {g.itens.map((c) => (
+                  <Link key={c.slug} href={`/cartas/${c.slug}`} className="hub-ficha">
+                    <div className="hub-ficha-pano" aria-hidden dangerouslySetInnerHTML={{ __html: panoCard(c.slug) }} />
+                    <div className="hub-ficha-cabeca">
+                      <span className="hub-ficha-num">
+                        {c.num}
+                        <span>.</span>
+                      </span>
+                      <h4>{c.midia}</h4>
+                    </div>
+                    <p>{c.cardP}</p>
+                    <span className="hub-ficha-ler">ler a nossa visão →</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
 
-          <h2 className="sec">Perguntas frequentes sobre marketing médico</h2>
-          <div className="faq">
+        {vitrine && (
+          <section className="hub-vitrine" data-topo="escuro">
+            <VitrineGiro v={vitrine} />
+          </section>
+        )}
+
+        <section className="perguntas" aria-labelledby="h-faq" data-topo="escuro">
+          <h2 id="h-faq" className="h2">
+            Perguntas frequentes sobre marketing médico
+          </h2>
+          <div className="faq-lista">
             {FAQ.map((f) => (
               <details key={f.q}>
-                <summary>{f.q}</summary>
+                <summary>
+                  {f.q}
+                  <i aria-hidden />
+                </summary>
                 <p>{f.a}</p>
               </details>
             ))}
           </div>
-        </div>
-      </article>
+        </section>
 
-      <div className="wrap">
-        <OsBlock>
-          Todo esse trabalho vive dentro do <b>RizzoOS</b>: planejamento anual, peças esperando a sua aprovação e
-          relatório do mês, mídia por mídia, no seu celular.
-        </OsBlock>
-        <Fatos />
-      </div>
+        <section className="hub-os" data-topo="claro">
+          <div className="hub-os-corpo">
+            <p className="hub-os-wordmark">
+              <span className="leve">Rizzo</span>
+              <span>OS</span> <span className="hub-os-beta">BETA</span>
+            </p>
+            <p>
+              Todo esse trabalho vive dentro do <b>RizzoOS</b>: planejamento anual, peças esperando a sua aprovação
+              e relatório do mês, mídia por mídia, no seu celular.
+            </p>
+            <Link href="/rizzoos">conhecer o RizzoOS →</Link>
+          </div>
+        </section>
 
-      <CtaConversa chave={"/marketing-medico"} titulo="Quanto custa" acento="para a sua clínica?" />
+        {/* O mesmo letreiro de /clientes e /portfolio (`.dg .autoridade`/`.marquee`,
+            home-diagonal.css) — a MESMA linha de fatos da casa (lib/site.ts). */}
+        <section className="autoridade" aria-label="Fatos da agência" data-topo="claro">
+          <div className="marquee">
+            {[...fatos, ...fatos].map((f, i) => (
+              <span key={i}>
+                {f}
+                <i className="losango" aria-hidden />
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <CtaConversa
+          titulo="Quanto custa para a sua clínica?"
+          waText={WA}
+          proposta="Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote da sua clínica na hora, com o preço aberto."
+        />
       </main>
-      <FooterMapa atual="/marketing-medico" proxima={["seo", "clientes"]} />
-    </>
+      <Rodape waText={WA} rota="/marketing-medico" />
+    </div>
   );
 }
