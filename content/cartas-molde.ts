@@ -142,6 +142,35 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
     ],
     filtro: { tipo: "casa" },
   },
+  {
+    slug: "redes-sociais",
+    sobrancelha: "Gestão de redes sociais para médicos e clínicas",
+    teseTitulo: "Rede social premia a constância, não o post bonito.",
+    metodoTitulo: "O sistema que mantém o perfil vivo",
+    metodo: [
+      {
+        t: "Planejamento anual por temas",
+        d: "O ano inteiro mapeado pelos assuntos que a sua especialidade precisa dominar: sazonalidade, campanhas de saúde e as dúvidas que voltam o ano todo.",
+      },
+      {
+        t: "Em série, com a sua voz",
+        d: "Design na identidade da sua marca e texto que soa como você, não template genérico de banco de imagem. É a série que sustenta a constância, não a inspiração do dia.",
+      },
+      {
+        t: "Aprovação num toque",
+        d: "O aviso chega no seu celular e abre já na peça certa: você aprova ou pede ajuste entre uma consulta e outra. O sistema inteiro pede 15 minutos seus por semana.",
+      },
+      {
+        t: "Comentários com resposta aprovada",
+        d: "Comentários públicos entram na rotina com respostas aprovadas por você. Atendimento clínico e agendamento seguem com a sua secretaria, e a fronteira entre os dois fica organizada.",
+      },
+      {
+        t: "Ciclo mensal guiado por dados",
+        d: "O que o público respondeu pauta o mês seguinte. O plano é vivo: melhora a cada ciclo, sem perder o fio do planejamento anual.",
+      },
+    ],
+    filtro: { tipo: "grupo", grupo: "Redes" },
+  },
 ];
 
 export const moldeDe = (slug: string): MoldeCarta | undefined => CARTAS_MOLDE.find((m) => m.slug === slug);

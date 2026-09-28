@@ -154,13 +154,13 @@ export const CARTAS: Carta[] = [
     como: [
       { t: "Planejamento anual por temas", d: "O ano inteiro mapeado pelos assuntos que a sua especialidade precisa dominar: sazonalidade, campanhas de saúde, dúvidas perenes." },
       { t: "Produção em série, com a sua voz", d: "Design na identidade da sua marca e texto que soa como você, não template genérico de banco de imagem." },
-      { t: "Aprovação num toque", d: "As peças chegam no seu WhatsApp; você aprova ou pede ajuste em segundos, entre uma consulta e outra." },
+      { t: "Aprovação num toque", d: "O aviso chega no seu celular e abre já na peça certa; você aprova ou pede ajuste em segundos, entre uma consulta e outra." },
       { t: "Ciclo mensal guiado por dados", d: "O que o público respondeu pauta o mês seguinte. O plano é vivo: melhora todo ciclo." },
     ],
     os: "O planejamento anual, a produção, a aprovação e o relatório vivem no RizzoOS. Se um dia você quiser auditar o que foi feito em março de dois anos atrás, está lá, organizado, com data e aprovação registrada.",
     quandoNaoTitulo: "Quando NÃO contratar gestão de redes",
     quandoNao: [
-      "Se a expectativa é agenda cheia em 30 dias VINDA DO ORGÂNICO, não assine: rede social constrói marca e sustenta decisão. Quem enche agenda rápido é o tráfego pago. As duas coisas juntas, aí sim, é outro jogo.",
+      "Se a expectativa é agenda cheia em 30 dias VINDA DO ORGÂNICO, não assine: rede social constrói marca e sustenta decisão. Quem enche agenda rápido é o tráfego pago. As duas coisas juntas, aí sim, são outro jogo.",
       "E o sistema precisa de 15 minutos seus por semana pra aprovar conteúdo. Se nem isso couber na rotina, o fluxo trava. Melhor resolver a agenda antes do marketing.",
     ],
     faq: [
