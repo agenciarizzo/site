@@ -229,7 +229,7 @@ export const CARTAS: Carta[] = [
     quandoNaoTitulo: "Quando NÃO investir em TV corporativa",
     quandoNao: [
       "Se o seu atendimento é de hora marcada seca, sem fluxo de espera, a tela não tem audiência. Invista noutra ponta.",
-      "E se a intenção é deixar TV aberta com jornal ou YouTube, melhor tela desligada: ruído, ansiedade e propaganda dos outros dentro do seu consultório é pior que parede.",
+      "E se a intenção é deixar TV aberta com jornal ou YouTube, melhor tela desligada: ruído, ansiedade e propaganda dos outros dentro do seu consultório são piores que parede.",
     ],
     faq: [
       { q: "Preciso comprar equipamento especial?", a: "Em geral a TV que você já tem resolve, acrescida de um dispositivo simples de mídia. A gente avalia o seu cenário na conversa." },

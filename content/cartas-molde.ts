@@ -200,6 +200,35 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
     ],
     filtro: { tipo: "casa" },
   },
+  {
+    slug: "tv-corporativa",
+    sobrancelha: "TV corporativa para a sala de espera da clínica",
+    teseTitulo: "Quem está na sua recepção já escolheu você.",
+    metodoTitulo: "Como a sua recepção vira canal",
+    metodo: [
+      {
+        t: "Programação da sua clínica",
+        d: "Conteúdo de prevenção, serviços e exames que a própria clínica faz e orientações sobre o atendimento, em loop profissional e na sua identidade visual.",
+      },
+      {
+        t: "Atualização no ciclo mensal",
+        d: "A programação se renova junto com o restante do seu marketing, e as campanhas de saúde do mês entram sozinhas na tela.",
+      },
+      {
+        t: "Zero operação na recepção",
+        d: "Ninguém precisa apertar botão: ligou, está no ar. A programação roda localmente e se sincroniza quando a internet volta, sem pendrive e sem YouTube aberto.",
+      },
+      {
+        t: "Integrada às outras mídias",
+        d: "O vídeo que foi bem no Instagram vira conteúdo de TV, e a campanha do mês aparece na tela. A sala de espera conversa com todo o seu marketing.",
+      },
+      {
+        t: "Programação dentro do CFM",
+        d: "Publicidade médica segue o CFM também dentro da clínica: serviços e orientações entram, promoção sensacionalista não. A programação já é montada dentro da regra.",
+      },
+    ],
+    filtro: { tipo: "servico", servico: "TV interna" },
+  },
 ];
 
 export const moldeDe = (slug: string): MoldeCarta | undefined => CARTAS_MOLDE.find((m) => m.slug === slug);
