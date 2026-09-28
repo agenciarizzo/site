@@ -1,0 +1,33 @@
+/* /contato no layout do redesenho (fatia do handoff `Pagina - Contato.dc.html`,
+   seção "01 Contato"). Tokens do `.dg` (home-diagonal.css) — `.dg` na frente
+   de toda regra própria, como cidade-molde.css e clientes-v3.css já fazem. */
+
+.dg.contato .contato-corpo {
+  background: var(--papel);
+  padding: 64px var(--lado) 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.dg.contato .contato-lede {
+  margin: 0;
+  max-width: 640px;
+  font-size: clamp(19px, 1.8vw, 24px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--chumbo);
+  text-wrap: pretty;
+}
+.dg.contato .contato-onde {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 640px;
+}
+.dg.contato .contato-onde p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--chumbo);
+  text-wrap: pretty;
+}
