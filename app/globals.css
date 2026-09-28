@@ -1400,6 +1400,8 @@ article.portao-corpo { padding-top: 0.4rem; }
   left: 0;
   right: 0;
   bottom: 0;
+  /* acima de toda barra fixa de CTA (`.barra-cta` 50, topo + polegar do
+     `home-diagonal.css` 59): aviso esperando decisão não fica debaixo de botão */
   z-index: 60;
   display: flex;
   align-items: center;

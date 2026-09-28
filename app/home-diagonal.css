@@ -120,12 +120,17 @@
 /* ═══════════════════════════════════════════════════════════ 0 · topo ════ */
 /* Dois estados: colado no alto da página (transparente, largura cheia) e, depois
    de 40px de rolagem, uma PÍLULA de papel centrada — é a marca do desenho. */
+/* z-index 59, um degrau ABAIXO do aviso de consentimento (60, `globals.css`).
+   A barra do polegar mora dentro do topo e herda a camada dele: no mesmo 60, o
+   topo vem depois do aviso no DOM e ganhava o empate, então no celular o
+   "Montar proposta" pintava por cima do "Aceitar" e o visitante não tinha como
+   decidir. O aviso cobre a barra só até a escolha; o lightbox (61) segue acima. */
 .dg .topo {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 60;
+  z-index: 59;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -251,6 +256,11 @@
     right: 12px;
     bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     z-index: 55;
+    /* O topo é `pointer-events: none` (a faixa transparente não pode engolir
+       clique da página) e devolve o toque só a quem precisa: logo, ações e,
+       aqui, a barra. Sem esta linha ela herdava o `none` e o toque atravessava
+       pro conteúdo de baixo: as duas portas do celular não abriam. */
+    pointer-events: auto;
   }
   .dg .polegar .btn {
     flex: 1;
