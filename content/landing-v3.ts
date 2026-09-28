@@ -472,7 +472,7 @@ export const CLIENTES_BLOCO = {
   antes: "Clínicas, médicos e hospitais que",
   acento: "confiam",
   depois: "na agência",
-  lede: "259 nomes reais desde 2012 — de consultório a hospital.",
+  lede: "259 nomes reais desde 2012, de consultório a hospital.",
   link: "Ver a lista completa de clientes",
 };
 
@@ -496,7 +496,7 @@ export const EXCLUSIVIDADE = {
   kicker: "Exclusividade",
   titulo: "Um cliente por especialidade em cada cidade",
   texto:
-    "Não atendemos dois concorrentes diretos na mesma praça. Quando um ortopedista de joelho na Asa Sul fecha com a gente, a vaga de ortopedia de joelho na Asa Sul fecha junto. A estratégia continua sendo sua — e é por isso que a primeira conversa começa conferindo se a sua vaga está aberta.",
+    "Não atendemos dois concorrentes diretos na mesma praça. Quando um ortopedista de joelho na Asa Sul fecha com a gente, a vaga de ortopedia de joelho na Asa Sul fecha junto. A estratégia continua sendo sua, e é por isso que a primeira conversa começa conferindo se a sua vaga está aberta.",
   cta: "Conferir se a minha vaga está aberta",
   sem: { t: "Sem agência", d: "Verba espalhada em público disperso. Ninguém encaixa." },
   com: { t: "Com agência", d: "O médico certo na busca exata do paciente. Encaixe de alta afinidade." },
