@@ -37,10 +37,9 @@ import { Autoridade } from "@/components/ar/home/Prova";
 import { Rodape } from "@/components/ar/home/Fecho";
 import { Motor } from "@/components/ar/home/Motor";
 import { tweaksDe } from "@/lib/tweaks.mjs";
-import { SITE_URL } from "@/lib/site";
 import { PORTFOLIO_MODO } from "@/content/home";
 import { resolverCenas } from "@/lib/portfolio-moldura";
-import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
+import { cartaJsonLd } from "@/lib/carta-jsonld";
 import { alcanceDaCasa } from "@/lib/praca";
 import type { Carta } from "@/content/cartas";
 import { HOSPITALAR } from "@/content/hospitalar";
@@ -56,45 +55,6 @@ import { PortfolioHospital } from "./PortfolioHospital";
 
 /** Os tweaks do hero desta rota (D19) — a mesma chamada que a OG faz, pra as duas não divergirem. */
 export const TWEAKS_HOSPITAL = tweaksDe(`cartas/${HOSPITALAR.slug}`, { abertura: "sequencia" });
-
-/**
- * O JSON-LD da carta: `Article` + `FAQPage` + `BreadcrumbList` — os MESMOS três
- * que a rota publica hoje (D21), montados a partir do MESMO registro. Sem
- * `ItemList` (a lista já está na FAQ 1 e no HTML) e sem `aggregateRating`
- * (§12.3: foi isso que derrubou as páginas antigas).
- *
- * ⚠️ A forma é a de `app/cartas/[slug]/page.tsx`, repetida aqui porque a página
- * estática não passa mais por lá e a posse da F2 é de UMA linha naquele arquivo
- * (§12.1 do doc-mapa). O CONTEÚDO não é segunda cópia: sai todo do registro.
- */
-export function hospitalJsonLd(c: Carta) {
-  return [
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: c.titulo,
-      description: c.descricao,
-      inLanguage: "pt-BR",
-      author: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital" },
-      publisher: {
-        "@type": "Organization",
-        name: "Agência Rizzo Marketing Médico Digital",
-        logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_horizontal.png` },
-      },
-      mainEntityOfPage: `${SITE_URL}/cartas/${c.slug}`,
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: c.faq.map((f) => ({
-        "@type": "Question",
-        name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
-    },
-    breadcrumbJsonLd(HUB_MARKETING, { nome: c.midia, rota: `/cartas/${c.slug}` }),
-  ];
-}
 
 export function HospitalMolde({ c }: { c: Carta }) {
   const t = TWEAKS_HOSPITAL;
@@ -115,7 +75,7 @@ export function HospitalMolde({ c }: { c: Carta }) {
       data-hosp-pecas={pecas.length}
       data-hosp-mapa={HOSPITALAR.poster.mapa}
     >
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(hospitalJsonLd(c)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cartaJsonLd(c)) }} />
       <Topo waText={c.waText} rota={rota} />
       <HeroHospital c={c} t={t} />
       <Autoridade />

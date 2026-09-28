@@ -9,8 +9,7 @@ import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/compo
 import { CARTAS, bySlug } from "@/content/cartas";
 import { VitrineGiro } from "@/components/VitrineGiro";
 import { vitrinePorChave } from "@/content/vitrines";
-import { SITE_URL } from "@/lib/site";
-import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
+import { cartaJsonLd } from "@/lib/carta-jsonld";
 
 export function generateStaticParams() {
   // `rede-hospitalar` tem rota ESTÁTICA própria (`app/cartas/rede-hospitalar/`)
@@ -36,30 +35,7 @@ export default async function CartaPage({ params }: { params: Promise<{ slug: st
   const c = bySlug(slug);
   if (!c) notFound();
 
-  const jsonLd = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: c.titulo,
-      description: c.descricao,
-      inLanguage: "pt-BR",
-      author: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital" },
-      publisher: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_horizontal.png` } },
-      mainEntityOfPage: `${SITE_URL}/cartas/${c.slug}`,
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: c.faq.map((f) => ({
-        "@type": "Question",
-        name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
-    },
-    // ⚠️ O degrau do meio é o HUB, não "/cartas": `/cartas` não é página (só
-    // `app/cartas/[slug]`), e quem lista as cartas é o `/marketing-medico`.
-    breadcrumbJsonLd(HUB_MARKETING, { nome: c.midia, rota: `/cartas/${c.slug}` }),
-  ];
+  const jsonLd = cartaJsonLd(c);
 
   return (
     <>
