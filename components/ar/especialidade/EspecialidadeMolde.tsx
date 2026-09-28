@@ -85,6 +85,12 @@ const ROTULO_CLIENTES = "clientes atendidos nesta especialidade";
 const ROTULO_CIDADES = "cidades atendidas nesta especialidade";
 const ROTULO_ESTADOS = "estados com cliente atendido nesta especialidade";
 const HISTORICO_TITULO = "{n} clientes atendidos em {nome}";
+// Singular quando a contagem é 1 (revisão do lote 2: reprodução humana saía
+// "1 cidades atendidas", "1 estados"). Número contado pede concordância contada.
+const ROTULO_CLIENTES_1 = "cliente atendido nesta especialidade";
+const ROTULO_CIDADES_1 = "cidade atendida nesta especialidade";
+const ROTULO_ESTADOS_1 = "estado com cliente atendido nesta especialidade";
+const HISTORICO_TITULO_1 = "{n} cliente atendido em {nome}";
 const HISTORICO_TEXTO = "Médicos, clínicas e hospitais que já atendemos nesta especialidade, agrupados por estado.";
 
 export function EspecialidadeMolde({ e, m }: { e: PaginaEspecialidade; m: MoldeEspecialidade }) {
@@ -98,11 +104,11 @@ export function EspecialidadeMolde({ e, m }: { e: PaginaEspecialidade; m: MoldeE
   const grupos = historicoDaEspecialidade(clientes);
   const temNumeros = numeros.clientes > 0;
   const numerosPoster = [
-    { chave: "clientes", valor: numeros.clientes, rotulo: ROTULO_CLIENTES },
-    { chave: "cidades", valor: numeros.cidades, rotulo: ROTULO_CIDADES },
-    { chave: "estados", valor: numeros.estados, rotulo: ROTULO_ESTADOS },
+    { chave: "clientes", valor: numeros.clientes, rotulo: numeros.clientes === 1 ? ROTULO_CLIENTES_1 : ROTULO_CLIENTES },
+    { chave: "cidades", valor: numeros.cidades, rotulo: numeros.cidades === 1 ? ROTULO_CIDADES_1 : ROTULO_CIDADES },
+    { chave: "estados", valor: numeros.estados, rotulo: numeros.estados === 1 ? ROTULO_ESTADOS_1 : ROTULO_ESTADOS },
   ];
-  const tituloHistorico = interpolar(HISTORICO_TITULO, { n: numeros.clientes, nome });
+  const tituloHistorico = interpolar(numeros.clientes === 1 ? HISTORICO_TITULO_1 : HISTORICO_TITULO, { n: numeros.clientes, nome });
 
   const { pecas, local } = pecasDaEspecialidade(e);
   const cenas = resolverCenas(pecas, 16, 9);
