@@ -262,6 +262,47 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
     ],
     filtro: { tipo: "servico", servico: "TV interna" },
   },
+  {
+    slug: "clinicas-e-consultorios",
+    sobrancelha: "Marketing para clínicas com mais de um profissional",
+    teseTitulo: "O paciente escolhe a clínica antes de escolher o médico.",
+    metodoTitulo: "Como trabalhamos com uma clínica inteira",
+    metodo: [
+      {
+        t: "Página por especialidade ou profissional",
+        d: "Várias especialidades pedem uma página por especialidade; uma especialidade com equipe pede uma página por profissional. Nunca as duas misturadas numa lista genérica de “nossa equipe”.",
+      },
+      {
+        t: "Verba pela agenda de cada um",
+        d: "Profissional novo ou com agenda vazia recebe mais verba de captação; quem já tem fila recebe menos ou nenhuma. A clínica não é tratada como um bloco só.",
+      },
+      {
+        t: "Cada endereço com o seu perfil",
+        d: "Clínica com mais de uma unidade tem um perfil no Google para cada endereço, com categoria, horário e avaliação em ordem. É ali que boa parte da busca se resolve.",
+      },
+      {
+        t: "Convênio e recepção visíveis",
+        d: "Convênio aceito, forma de agendamento e telefone da recepção aparecem sem o paciente precisar procurar. São as perguntas mais comuns antes de marcar.",
+      },
+      {
+        t: "Cada profissional com a própria voz",
+        d: "Currículo, especialidade e conteúdo próprio de cada médico, dentro da mesma identidade visual. Nenhum nome citado leva promessa de resultado ou antes-e-depois: a regra do CFM vale para cada um.",
+      },
+      {
+        t: "Um responsável pela aprovação",
+        d: "Em geral quem administra a clínica responde pela aprovação, e cada profissional revisa só o que é dele, no próprio celular. Ninguém precisa aprovar o conteúdo dos colegas.",
+      },
+    ],
+    filtro: { tipo: "etiqueta", etiqueta: "clinicas-e-consultorios" },
+    // §6.2 do doc-mapa: a voz de mídia do padrão mentiria aqui (recorte de
+    // público, não mídia) — só `pecas` fica com o texto padrão.
+    rotulos: {
+      clientes: "clínicas e consultórios atendidos",
+      estados: "estados com clínica ou consultório atendido",
+      historicoTitulo: "{n} clínicas e consultórios atendidos",
+      historicoTexto: "As clínicas e os consultórios que têm peça no acervo da agência, por especialidade.",
+    },
+  },
 ];
 
 export const moldeDe = (slug: string): MoldeCarta | undefined => CARTAS_MOLDE.find((m) => m.slug === slug);
