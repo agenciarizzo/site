@@ -499,6 +499,30 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "medicina-da-dor",
+    sobrancelha: "Marketing médico para clínicas de medicina da dor",
+    teseTitulo: "Quem convive com dor há anos só acredita em quem não promete o fim dela.",
+    metodoTitulo: "Como a dor crônica encontra a especialidade",
+    metodo: [
+      {
+        t: "Dor na coluna, neuropatia e fibromialgia",
+        d: "Cada dor crônica, inclusive a que ficou depois de uma cirurgia, ganha página própria, escrita com as palavras que o paciente digita, que muitas vezes incluem o nome de outra especialidade.",
+      },
+      {
+        t: "O que o procedimento pode aliviar",
+        d: "Bloqueios e tratamento intervencionista descritos com honestidade: como são feitos, quanto alívio é razoável esperar e a possibilidade de a resposta ser parcial, sem prometer o fim da dor.",
+      },
+      {
+        t: "Explicação no lugar de depoimento",
+        d: "Nenhum relato de paciente montado, nenhuma frase de alívio garantido. Numa decisão tão emocional quanto tentar mais um tratamento, a confiança vem da explicação clara, não de testemunho.",
+      },
+      {
+        t: "O ortopedista sabendo para onde mandar",
+        d: "Material que mostra o que a clínica trata e como, dirigido a ortopedistas, neurologistas e reumatologistas que atendem o paciente com dor crônica e precisam saber para onde encaminhá-lo.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
