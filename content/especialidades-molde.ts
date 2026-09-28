@@ -374,6 +374,30 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "gastroenterologia",
+    sobrancelha: "Marketing para gastroenterologistas e clínicas de endoscopia",
+    teseTitulo: "O primeiro concorrente do gastroenterologista é a informação ruim.",
+    metodoTitulo: "Como a clínica de gastro responde primeiro",
+    metodo: [
+      {
+        t: "Uma página para cada sintoma digestivo",
+        d: "Azia, intestino irregular e dor depois de comer ganham páginas que separam o que o sintoma sugere do que só o exame confirma, e chegam ao paciente antes do conteúdo ruim.",
+      },
+      {
+        t: "Endoscopia e colonoscopia sem mistério",
+        d: "Preparo, sedação e prazo do laudo explicados no site, em linguagem simples, porque é isso que o paciente quer saber antes de marcar a endoscopia ou a colonoscopia.",
+      },
+      {
+        t: "Consulta e exame sob o mesmo teto",
+        d: "Quando a clínica faz consulta, endoscopia e colonoscopia no mesmo endereço, isso aparece com todas as letras na página da clínica e no mapa, onde o paciente de gastro compara as opções.",
+      },
+      {
+        t: "Material que circula entre clínicas",
+        d: "Folder de exames e material institucional com a estrutura e os serviços da clínica apresentados com sobriedade, feitos para o colega que escolhe a quem encaminhar o paciente que precisa de endoscopia.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
