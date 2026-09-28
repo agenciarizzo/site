@@ -241,6 +241,34 @@ export const ESPECIALIDADES_MOLDE: MoldeEspecialidade[] = [
       },
     ],
   },
+  {
+    slug: "otorrinolaringologia",
+    sobrancelha: "Marketing médico para otorrinolaringologistas",
+    teseTitulo: "O paciente de otorrino digita o incômodo e marca com quem tem horário.",
+    metodoTitulo: "O volume de hoje, a cirurgia de amanhã",
+    metodo: [
+      {
+        t: "Sinusite e rouquidão na língua do paciente",
+        d: "O site responde ao incômodo do jeito que ele chega à busca, como o ouvido entupido ou a criança que ronca, com exame e tratamento explicados em linguagem simples.",
+      },
+      {
+        t: "Quem atende esta semana, perto de casa",
+        d: "Otorrino é decisão de proximidade e de agenda. Horário e disponibilidade atualizados no perfil do Google respondem a quem precisa de consulta nos próximos dias, no próprio bairro.",
+      },
+      {
+        t: "Para os pais que pesquisam à noite",
+        d: "Uma página sobre a consulta infantil (o que acontece nela, o exame feito ali mesmo, como a clínica recebe a criança) responde aos pais que comparam opções depois que os filhos dormem.",
+      },
+      {
+        t: "Exames e cirurgias listados no papel",
+        d: "O folder do exame de deglutição, o panfleto com exames e cirurgias e a sinalização da recepção mostram o que a clínica faz antes mesmo de o paciente entrar no consultório.",
+      },
+      {
+        t: "Amígdala e septo nascem da rotina",
+        d: "Quem faz cirurgia de amígdala ou de septo quase sempre chegou antes por uma consulta simples. Presença constante no site, no Google e nas redes mantém aberta a porta de entrada da agenda cirúrgica.",
+      },
+    ],
+  },
 ];
 
 export const moldeEspecialidadeDe = (slug: string): MoldeEspecialidade | undefined => ESPECIALIDADES_MOLDE.find((m) => m.slug === slug);
