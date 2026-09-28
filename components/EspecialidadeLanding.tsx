@@ -22,8 +22,7 @@ import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
 import { CIDADES } from "@/content/cidades";
 import { CARTAS_MIDIA } from "@/content/cartas";
 import { rotaEspecialidade, type PaginaEspecialidade } from "@/content/especialidades";
-import { SITE_URL } from "@/lib/site";
-import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
+import { especialidadeJsonLd } from "@/lib/especialidade-jsonld";
 
 /** Basename do arquivo — é assim que o registry da página referencia a peça. */
 const basename = (imagem: string) => (imagem.split("/").pop() ?? "").replace(/\.[a-z0-9]+$/i, "");
@@ -70,58 +69,6 @@ function nomesDa(e: PaginaEspecialidade): GrupoCarteira[] {
       ),
     }))
     .filter((g) => g.itens.length > 0);
-}
-
-export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio[]) {
-  const url = `${SITE_URL}${rotaEspecialidade(e.slug)}`;
-  // O nome que a PÁGINA tem — `nomeEixo` quando o eixo canônico é mais estreito
-  // que a `espec` do portfólio (F3, 2026-09-19). Sem ele, as duas metades de um
-  // split declaravam o MESMO `name` de Service e a MESMA trilha: medido no HTML
-  // gerado, /ginecologia e /reproducao-humana diziam as duas "Saúde da Mulher".
-  // ⚠️ `e.espec` continua sendo a chave do PORTFÓLIO (âncora da parede e contagem
-  // do acervo, abaixo) — são vocabulários diferentes de propósito (§9.4.2).
-  const nome = e.nomeEixo ?? e.espec;
-  return [
-    // `Service`, não `Article` (§3.2 do mapa): a página não é texto assinado com data
-    // — é a oferta da agência para uma especialidade, com as peças entregues como
-    // prova. Mesmo tipo e mesmos campos das landings de cidade e de combo
-    // (CidadeLanding/ComboLanding), que já nasceram assim.
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: `Marketing para ${nome}`,
-      serviceType: "Marketing médico digital",
-      description: e.descricao,
-      url,
-      provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
-      // Página de especialidade não é de praça: o recorte é a especialidade, e o
-      // atendimento é nacional (a tarja `Fatos` diz o mesmo). Quem declara cidade é
-      // a landing de cidade e o combo.
-      areaServed: { "@type": "Country", name: "Brasil" },
-      audience: { "@type": "Audience", audienceType: `Médicos e clínicas de ${nome.toLowerCase()}` },
-    },
-    // As peças desta página como ImageObject (§16.5-4). Sem aggregateRating, sem
-    // FAQPage: FAQ de enchimento é thin content e entra quando houver pergunta real.
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: `Peças de ${nome} produzidas pela Agência Rizzo`,
-      itemListOrder: "https://schema.org/ItemListUnordered",
-      numberOfItems: pecas.length,
-      itemListElement: pecas.map((p, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        item: {
-          "@type": "ImageObject",
-          name: p.cliente,
-          description: p.contexto,
-          contentUrl: `${SITE_URL}${p.imagem}`,
-        },
-      })),
-    },
-    // A página é filha do hub pela própria URL; a trilha declara isso pro Google.
-    breadcrumbJsonLd(HUB_MARKETING, { nome, rota: rotaEspecialidade(e.slug) }),
-  ];
 }
 
 /**

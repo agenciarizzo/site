@@ -33,9 +33,10 @@
 // pôster e o histórico são CONTADOS em `lib/especialidade-molde.ts` a partir
 // da carteira; o palco, a partir do acervo (`lib/portfolio-galeria.ts`).
 //
-// O JSON-LD é o `especialidadeJsonLd` de hoje (`components/EspecialidadeLanding.tsx`),
-// REAPROVEITADO e IDÊNTICO — as peças que ele recebe são as CURADAS de
-// `e.pecas` (`pecasCuradasDaEspecialidade`), não as do palco (que é outro
+// O JSON-LD é o `especialidadeJsonLd` (`lib/especialidade-jsonld.ts`, fonte
+// única desde o lote 4 — antes vivia em `components/EspecialidadeLanding.tsx`,
+// que voltou a importar de lá), IDÊNTICO ao de sempre — as peças que ele
+// recebe são as CURADAS de `e.pecas` (`pecasCuradasDaEspecialidade`), não as do palco (que é outro
 // pool, outra régua — item 3 do prompt).
 //
 // DUAS PORTAS, zero `wa.me`: como as cartas e as praças, `Topo`/`Rodape` já
@@ -63,7 +64,7 @@ import { tweaksDe } from "@/lib/tweaks.mjs";
 import { alcanceDaCasa } from "@/lib/praca";
 import { resolverCenas } from "@/lib/portfolio-moldura";
 import { PORTFOLIO_MODO } from "@/content/home";
-import { especialidadeJsonLd } from "@/components/EspecialidadeLanding";
+import { especialidadeJsonLd } from "@/lib/especialidade-jsonld";
 import { rotaEspecialidade, type PaginaEspecialidade } from "@/content/especialidades";
 import type { MoldeEspecialidade } from "@/content/especialidades-molde";
 import {
