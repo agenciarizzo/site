@@ -24,9 +24,16 @@
 //      todo `t` de `metodo` (content/cartas-molde.ts), e todo parágrafo de
 //      `posicao`, de `quandoNao` e o `os` (content/cartas.ts) — decodificado
 //      e com espaço normalizado, porque o HTML pode entificar aspas/acentos.
+//   7. TODA carta de `content/cartas.ts` tem `cartas/<slug>.html` no build,
+//      renderizado pelo MOLDE (`data-carta-molde="<slug>"`) ou pelo HOSPITAL
+//      (`class="dg cid hosp"`) — PR-C, F1 (§3-F1 do doc-mapa): com o corpo
+//      legado de `app/cartas/[slug]/page.tsx` fora, carta nova sem rota
+//      própria não vira 404 silencioso em produção — vira build vermelho
+//      aqui. Sem isto, o item 1-6 acima só prova o que JÁ renderiza; este
+//      item prova que NADA deixou de renderizar.
 //
 // Roda DEPOIS do `next build`, encadeado logo após `checar-hospital.mjs`.
-import { readdirSync, readFileSync, statSync } from "fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "fs";
 import { join, relative, sep } from "path";
 import { semComentarios } from "./lib/sem-comentarios.mjs";
 
@@ -293,6 +300,23 @@ for (const arquivo of htmls) {
 }
 if (paginas === 0) erros.push('checar-cartas: nenhuma página com `data-carta-molde` no build — o carta-molde sumiu, ou o seletor mudou e este gate ficou cego.');
 
+/* ── 7. toda CARTA de content/cartas.ts renderiza (molde OU hospital) ──── */
+// Sem o corpo legado de `app/cartas/[slug]/page.tsx` (F1), o `generateStaticParams`
+// que cobria todo slug SEM registro deixou de existir: um slug novo em `CARTAS`
+// sem `cartas-molde.ts`/rota própria simplesmente não gera HTML nenhum — e
+// entraria no sitemap como URL que dá 404. Este é o gate que pega isso.
+for (const slug of REGISTRO.keys()) {
+  const arquivo = join(app, "cartas", `${slug}.html`);
+  if (!existsSync(arquivo)) {
+    erros.push(`cartas/${slug}: sem HTML no build (nem molde, nem hospital) — carta em content/cartas.ts sem rota própria vira 404 no sitemap`);
+    continue;
+  }
+  const html = readFileSync(arquivo, "utf8");
+  if (!html.includes(`data-carta-molde="${slug}"`) && !html.includes('class="dg cid hosp"')) {
+    erros.push(`cartas/${slug}: HTML existe mas não tem \`data-carta-molde="${slug}"\` nem \`dg cid hosp\` — o registro ficou órfão de corpo legado`);
+  }
+}
+
 if (erros.length > 0) {
   console.error("✗ Cartas no molde rico (portas · FAQ = FAQPage · SERP do registro · histórico real · texto na tela):");
   for (const e of erros) console.error(`  ${e}`);
@@ -300,5 +324,5 @@ if (erros.length > 0) {
   process.exit(1);
 }
 console.log(
-  `✓ Cartas no molde: ${paginas} página(s) — zero wa.me, as duas portas com data-wa, FAQ = FAQPage = content/cartas.ts, <title>/canonical do registro, histórico com nome real, tese/método/posição/quandoNão/os na tela.`,
+  `✓ Cartas no molde: ${paginas} página(s) — zero wa.me, as duas portas com data-wa, FAQ = FAQPage = content/cartas.ts, <title>/canonical do registro, histórico com nome real, tese/método/posição/quandoNão/os na tela; ${REGISTRO.size} carta(s) de content/cartas.ts, todas com HTML (molde ou hospital).`,
 );

@@ -41,6 +41,37 @@ export type FiltroAcervo =
   | { tipo: "etiqueta"; etiqueta: string }
   | { tipo: "casa" };
 
+/**
+ * Rótulos do pôster (3 números) e do histórico (H2 + texto) — achado na
+ * preparação do PR-C (§6.2 do doc-mapa): o PR-A escreveu os três + o H2 + o
+ * texto FIXOS, em voz de mídia ("clientes atendidos com esta mídia", "{n}
+ * clientes atendidos com {midia}"). Servem pras 6 mídias, mas mentiriam em
+ * `clinicas-e-consultorios` (recorte de público, não mídia). Todo campo é
+ * OPCIONAL: ausente = o texto de mídia do PR-A (`ROTULOS_PADRAO`), pra que as
+ * 7 cartas já migradas saiam IDÊNTICAS.
+ */
+export interface RotulosCarta {
+  /** Número 1 do pôster (clientes). */
+  clientes?: string;
+  /** Número 2 do pôster (peças). */
+  pecas?: string;
+  /** Número 3 do pôster (estados). */
+  estados?: string;
+  /** H2 do histórico. Tokens literais `{n}` (a contagem — B4, nunca escrito à mão) e `{midia}` (opcional, `c.midia`). */
+  historicoTitulo?: string;
+  /** O parágrafo abaixo do H2 do histórico. */
+  historicoTexto?: string;
+}
+
+/** O texto de mídia do PR-A, agora o PADRÃO de todo campo de `RotulosCarta` ausente. */
+export const ROTULOS_PADRAO: Required<RotulosCarta> = {
+  clientes: "clientes atendidos com esta mídia",
+  pecas: "peças do acervo feitas para eles",
+  estados: "estados com cliente atendido nesta mídia",
+  historicoTitulo: "{n} clientes atendidos com {midia}",
+  historicoTexto: "Médicos, clínicas e hospitais que já contrataram esta mídia com a agência, por especialidade.",
+};
+
 export interface MoldeCarta {
   slug: string;
   /** O kicker do hero, acima do H1 (`c.head`). */
@@ -52,6 +83,8 @@ export interface MoldeCarta {
   /** 4–6 passos {título, descrição} — NÃO é `c.como` (que fica só no corpo legado). */
   metodo: MetodoItem[];
   filtro: FiltroAcervo;
+  /** Rótulos do pôster/histórico (§6.2) — ausente = `ROTULOS_PADRAO` (a voz de mídia). */
+  rotulos?: RotulosCarta;
 }
 
 export const CARTAS_MOLDE: MoldeCarta[] = [
@@ -228,6 +261,80 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
       },
     ],
     filtro: { tipo: "servico", servico: "TV interna" },
+  },
+  {
+    slug: "clinicas-e-consultorios",
+    sobrancelha: "Marketing para clínicas com mais de um profissional",
+    teseTitulo: "O paciente escolhe a clínica antes de escolher o médico.",
+    metodoTitulo: "Como trabalhamos com uma clínica inteira",
+    metodo: [
+      {
+        t: "Página por especialidade ou profissional",
+        d: "Várias especialidades pedem uma página por especialidade; uma especialidade com equipe pede uma página por profissional. Nunca as duas misturadas numa lista genérica de “nossa equipe”.",
+      },
+      {
+        t: "Verba pela agenda de cada um",
+        d: "Profissional novo ou com agenda vazia recebe mais verba de captação; quem já tem fila recebe menos ou nenhuma. A clínica não é tratada como um bloco só.",
+      },
+      {
+        t: "Cada endereço com o seu perfil",
+        d: "Clínica com mais de uma unidade tem um perfil no Google para cada endereço, com categoria, horário e avaliação em ordem. É ali que boa parte da busca se resolve.",
+      },
+      {
+        t: "Convênio e recepção visíveis",
+        d: "Convênio aceito, forma de agendamento e telefone da recepção aparecem sem o paciente precisar procurar. São as perguntas mais comuns antes de marcar.",
+      },
+      {
+        t: "Cada profissional com a própria voz",
+        d: "Currículo, especialidade e conteúdo próprio de cada médico, dentro da mesma identidade visual. Nenhum nome citado leva promessa de resultado ou antes-e-depois: a regra do CFM vale para cada um.",
+      },
+      {
+        t: "Um responsável pela aprovação",
+        d: "Em geral quem administra a clínica responde pela aprovação, e cada profissional revisa só o que é dele, no próprio celular. Ninguém precisa aprovar o conteúdo dos colegas.",
+      },
+    ],
+    filtro: { tipo: "etiqueta", etiqueta: "clinicas-e-consultorios" },
+    // §6.2 do doc-mapa: a voz de mídia do padrão mentiria aqui (recorte de
+    // público, não mídia) — só `pecas` fica com o texto padrão.
+    rotulos: {
+      clientes: "clínicas e consultórios atendidos",
+      estados: "estados com clínica ou consultório atendido",
+      historicoTitulo: "{n} clínicas e consultórios atendidos",
+      historicoTexto: "As clínicas e os consultórios que têm peça no acervo da agência, por especialidade.",
+    },
+  },
+  {
+    slug: "como-escolher-agencia-de-marketing-medico",
+    sobrancelha: "Para o médico que está escolhendo uma agência",
+    teseTitulo: "Indicação, preço e portfólio não medem o que importa.",
+    metodoTitulo: "O que conferir antes de assinar",
+    metodo: [
+      {
+        t: "Prova com nome real",
+        d: "Peça casos de verdade, com o nome do cliente e a especialidade. Prova anônima, como “uma clínica de oftalmologia” sem dizer qual, é propaganda: nome real dá para conferir.",
+      },
+      {
+        t: "CFM sem você precisar pedir",
+        d: "Promessa de resultado e antes-e-depois derrubam anúncio e põem o seu registro em risco. Quem entende de marketing médico já escreve dentro do Manual de Publicidade Médica, sem precisar ser avisado.",
+      },
+      {
+        t: "Método explicado, não só a peça",
+        d: "Quem sabe o que está fazendo explica o porquê de cada decisão, em vez de só entregar o resultado visual e esperar a aprovação.",
+      },
+      {
+        t: "Aprovação com processo claro",
+        d: "Pergunte como a peça chega até você e quem aprova o quê antes de publicar. A resposta diz mais sobre o dia a dia do contrato que qualquer portfólio.",
+      },
+      {
+        t: "Relatório todo mês, sem pedir",
+        d: "Número que você só vê quando pergunta é número que a agência preferia que você não visse. O relatório tem que chegar sozinho, todo mês.",
+      },
+    ],
+    // "Casa": o guia não é mídia nem recorte de público, não tem peça própria
+    // (M6) — cai no acervo inteiro, sem pôster de números nem histórico (a
+    // TESE aparece do mesmo jeito, ver comentário de `CartaPoster`), então não
+    // precisa de `rotulos`.
+    filtro: { tipo: "casa" },
   },
 ];
 

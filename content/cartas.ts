@@ -393,7 +393,7 @@ export const CARTAS: Carta[] = [
       },
     ],
     os:
-      "A clínica com vários profissionais e vários calendários organiza tudo dentro do RizzoOS: planejamento por especialidade, aprovação pelo WhatsApp e relatório mensal separado por profissional e por unidade, sem depender de planilha paralela pra saber quem está com agenda vazia.",
+      "A clínica com vários profissionais e vários calendários organiza tudo dentro do RizzoOS: planejamento por especialidade, aprovação no celular, com registro de quem aprovou, e relatório mensal separado por profissional e por unidade, sem depender de planilha paralela pra saber quem está com agenda vazia.",
     quandoNaoTitulo: "Quando NÃO é a hora de investir em captação",
     quandoNao: [
       "Se a maioria dos profissionais da clínica já está com a agenda cheia, o problema não é falta de marketing: é falta de mais gente atendendo. Apontamos isso antes de vender campanha pra quem não tem quem receba o paciente novo.",
@@ -414,7 +414,7 @@ export const CARTAS: Carta[] = [
       },
       {
         q: "Como fica a aprovação quando são vários profissionais decidindo?",
-        a: "Definimos um responsável pela aprovação, em geral quem administra a clínica, e cada profissional recebe só o que é dele pra revisar, pelo WhatsApp. Ninguém precisa aprovar o conteúdo dos colegas.",
+        a: "Definimos um responsável pela aprovação, em geral quem administra a clínica, e cada profissional recebe só o que é dele pra revisar, no próprio celular. Ninguém precisa aprovar o conteúdo dos colegas.",
       },
       {
         q: "A clínica pode citar os profissionais por nome no site e no anúncio?",
@@ -468,7 +468,7 @@ export const CARTAS: Carta[] = [
         d: "Número que você só vê quando pergunta é número que a agência preferia que você não visse. O relatório tem que chegar sozinho, todo mês.",
       },
     ],
-    os: "É por essa régua que o RizzoOS existe: o planejamento, a aprovação pelo WhatsApp e o relatório do mês ficam abertos no seu celular, sem precisar pedir. O método e o número, os dois visíveis o tempo todo.",
+    os: "É por essa régua que o RizzoOS existe: o planejamento, a aprovação e o relatório do mês ficam abertos no seu celular, sem precisar pedir. O método e o número, os dois visíveis o tempo todo.",
     quandoNaoTitulo: "Quando NÃO contratar (nem esta)",
     quandoNao: [
       "Se a agência que você está avaliando, esta incluída, não te disser quando NÃO é a hora certa de investir, desconfie: agência que só sabe dizer sim não está do seu lado, está do lado do próprio contrato.",
@@ -489,7 +489,7 @@ export const CARTAS: Carta[] = [
       },
       {
         q: "Essa régua vale só pra marketing médico, ou pra qualquer agência?",
-        a: "Os três primeiros critérios são gerais, mas o do CFM é específico de saúde: publicidade médica tem regra própria, e agência sem vivência nisso aprende à sua custa, com o seu registro em jogo.",
+        a: "Os outros três critérios são gerais, mas o do CFM é específico de saúde: publicidade médica tem regra própria, e agência sem vivência nisso aprende à sua custa, com o seu registro em jogo.",
       },
     ],
     ctaAcento: "a sua clínica?",

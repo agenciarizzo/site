@@ -83,7 +83,12 @@ da fase 2 — SEO programático por tags). Em divergência, o mapa vence.
    devolve 200 (hoje `www`). `CUTOVER_CHECKLIST.md` está **defasado** (foi escrito com
    18 regras e sem medição) — em divergência, o mapa vence.
 7. **Conteúdo das cartas** vive em `content/cartas.ts` (esqueleto: posição → como
-   fazemos → RizzoOS → "quando NÃO contratar" → FAQ → conversa). Carta nova segue o
+   fazemos → RizzoOS → "quando NÃO contratar" → FAQ → conversa); a PÁGINA é o molde
+   (`components/ar/carta/CartaMolde.tsx`), e a copy que só o molde usa (sobrancelha,
+   tese, método, filtro do acervo) mora em `content/cartas-molde.ts`. Carta nova =
+   registro nos DOIS arquivos + uma rota de poucas linhas pela fábrica `paginaCarta`
+   (`app/cartas/<slug>/page.tsx`); `scripts/checar-cartas.mjs` reprova o build se
+   alguma carta de `content/cartas.ts` ficar sem essa rota. Carta nova segue o
    esqueleto e o tom; mudanças de copy = commit próprio, fácil de revisar. Carta de
    **mídia** entra na grade da home; recorte de **público** (`eixo: "segmento"`, hoje
    rede hospitalar) fica fora dela e é linkado por parágrafo próprio.

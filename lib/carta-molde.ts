@@ -97,8 +97,28 @@ export function historicoDaCarta(pecas: PecaGaleria[]): GrupoHistoricoCarta[] {
     .sort((a, b) => b.nomes.length - a.nomes.length || (chave(a.titulo) < chave(b.titulo) ? -1 : 1));
 }
 
-/** Todos os nomes do histórico, achatados — pra contar clientes sem montar os grupos de novo. */
-export const nomesDoHistoricoCarta = (grupos: GrupoHistoricoCarta[]) => grupos.flatMap((g) => g.nomes);
+/**
+ * Todos os nomes do histórico, achatados e SEM REPETIR — pra contar clientes
+ * sem montar os grupos de novo. Achado na preparação do PR-C: cliente com
+ * peça em mais de uma especialidade (raro nas 6 mídias, real em
+ * `clinicas-e-consultorios` — 153 peças, 29 especialidades) entrava uma vez
+ * por PAINEL (correto — é onde o visitante o encontra), mas o `.length`
+ * batia diferente do `clientes` do pôster (`numerosDaCarta`, que conta
+ * cliente distinto uma vez só): a MESMA página afirmando dois números pro
+ * mesmo "quantos clientes" é dado errado em produção (Padrão Toyota, curado
+ * aqui). Dedup por nome, mantendo a primeira ocorrência (a especialidade do
+ * maior grupo, por como `historicoDaCarta` ordena).
+ */
+export function nomesDoHistoricoCarta(grupos: GrupoHistoricoCarta[]): ClienteHistoricoCarta[] {
+  const vistos = new Set<string>();
+  const unicos: ClienteHistoricoCarta[] = [];
+  for (const n of grupos.flatMap((g) => g.nomes)) {
+    if (vistos.has(n.nome)) continue;
+    vistos.add(n.nome);
+    unicos.push(n);
+  }
+  return unicos;
+}
 
 export interface NumerosCarta {
   /** Peças do acervo desta carta. */
