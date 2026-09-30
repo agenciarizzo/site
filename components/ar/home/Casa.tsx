@@ -71,8 +71,15 @@ export function Depoimentos() {
  * (P&B + `multiply` sobre chapado): a do Google Partner Weekend é um
  * CERTIFICADO DE TREINAMENTO de evento — ela NÃO reabre o selo "Google Partner"
  * da barra de atributos, que segue fora (§44.21-4) até a URL do selo chegar.
+ *
+ * `quemAssina` (opcional, só a página /sobre): a chamada "Sobre a agência
+ * Rizzo" é um link pra /sobre, e na própria /sobre ela apontaria pra si mesma.
+ * Com a prop, vira o texto do protótipo da página, sem link e sem seta ("Sobre
+ * // Quem assina o trabalho"), mantendo o `id="h-sobre"` do `aria-labelledby`.
+ * Sem a prop, o bloco sai byte a byte igual em todas as outras páginas: os dois
+ * ramos devolvem o PRÓPRIO elemento (nada de Fragment, que mudaria o payload).
  */
-export function Sobre() {
+export function Sobre({ quemAssina = false }: { quemAssina?: boolean } = {}) {
   const s = SOBRE_HOME;
   return (
     <section className="sobre" aria-labelledby="h-sobre" data-topo="escuro">
@@ -97,21 +104,36 @@ export function Sobre() {
           <Image src={SOBRE_FOTOS.equipe.src} alt={SOBRE_FOTOS.equipe.alt} width={SOBRE_FOTOS.equipe.w} height={SOBRE_FOTOS.equipe.h} />
         </figure>
         <div className="sobre-bloco" aria-hidden />
-        <div className="sobre-chamada">
-          <p className="rot" style={{ color: "var(--cinza-texto)" }}>
-            {s.chamada.kicker}
-          </p>
-          <Link href={s.chamada.href} id="h-sobre">
-            {s.chamada.linhas[0]}
-            <br />
-            {s.chamada.linhas[1]}
-            <br />
-            <span className="leve">{s.chamada.acento}</span>
-          </Link>
-          <span className="sobre-seta" aria-hidden>
-            →
-          </span>
-        </div>
+        {quemAssina ? (
+          <div className="sobre-chamada">
+            <p className="rot" style={{ color: "var(--cinza-texto)" }}>
+              {s.chamada.kicker}
+            </p>
+            <p className="sobre-chamada-titulo" id="h-sobre">
+              Quem
+              <br />
+              assina
+              <br />
+              <span className="leve">o trabalho</span>
+            </p>
+          </div>
+        ) : (
+          <div className="sobre-chamada">
+            <p className="rot" style={{ color: "var(--cinza-texto)" }}>
+              {s.chamada.kicker}
+            </p>
+            <Link href={s.chamada.href} id="h-sobre">
+              {s.chamada.linhas[0]}
+              <br />
+              {s.chamada.linhas[1]}
+              <br />
+              <span className="leve">{s.chamada.acento}</span>
+            </Link>
+            <span className="sobre-seta" aria-hidden>
+              →
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="faixa12 sobre-manifesto" data-reveal>
