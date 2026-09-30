@@ -1,0 +1,47 @@
+/* O PAR-MOLDE: as regras PRÓPRIAS que não estão no cidade-molde.css nem na
+   folha da home. Tudo o mais é `.cid-*` (cidade-molde.css) ou das seções da
+   home, e nada se duplica aqui. Escopo `.dg.cid.par` em toda regra: a folha é
+   carregada também nos pares que ainda estão no corpo antigo (o despacho fica
+   no `[praca]/page.tsx`), e nenhum seletor pode alcançar elemento fora do
+   molde (o comparador prova isso pelo HTML dessas páginas).
+
+   Sem token novo e sem degrau tipográfico novo: o link pra página-mãe repete
+   as medidas do `.pf-completo` (15px, peso 700), e o texto de "O que muda"
+   reusa o `.cid-prosa` do cidade-molde. */
+
+/* "O que muda": a coluna do texto, à direita do rótulo e do H2 fixos. */
+.dg.cid.par .par-muda-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* O caminho pra página-mãe, abaixo do H2. */
+/* Em linha (e não flex): quando o texto quebra no celular, a seta fica colada à
+   última palavra em vez de ir pra borda direita. */
+.dg.cid.par .par-mae {
+  display: inline;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--chumbo);
+}
+.dg.cid.par .par-mae span {
+  margin-left: 6px;
+}
+.dg.cid.par .par-mae:hover {
+  color: var(--teal);
+}
+
+/* Sem números (par sem nenhum cliente contado): o bloco da tese ocupa a
+   largura inteira da grade no lugar dos dois, em vez de ficar encostado à
+   direita com metade da tela vazia. Só a partir de 900px, porque abaixo disso o
+   cidade-molde.css já derruba a grade pra 1 coluna, e forçar um span de 12
+   colunas ali criaria colunas implícitas e estouraria a largura. Espelho de
+   `.dg.cid.esp[data-especialidade-numeros="0"]`. */
+@media (min-width: 900px) {
+  .dg.cid.par[data-par-clientes="0"] .cid-poster-bloco {
+    grid-column: 1 / 13;
+    max-width: 760px;
+  }
+}

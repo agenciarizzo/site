@@ -120,6 +120,12 @@ export interface NumeroPoster {
  * Sem mapa (não é praça — nada de imagem fixa inventada, §⚖️): o fundo é o
  * campo de azulejos do motor Athos pelos tweaks da própria rota.
  *
+ * `fundo` (opcional, pares especialidade × praça): quando a praça TEM mapa
+ * declarado (`content/cidades.ts` → `mapa`), quem chama passa o `MapaPraca` e
+ * ele ocupa o lugar do campo de azulejos. Sem a prop a saída é BYTE A BYTE a de
+ * antes (`undefined ?? <div/>` resolve pro mesmo elemento). É o que as 8
+ * cartas e as 20 especialidades provam no comparador.
+ *
  * A TESE (`teseTitulo` + `corpo`) aparece SEMPRE, independente de `temNumeros`
  * (defeito da revisão do PR-A das cartas, curado no PR-B — a tese não pode
  * depender de acervo/carteira próprios). Sem número (`!temNumeros`), a COLUNA
@@ -135,6 +141,7 @@ export function PosterMolde({
   corpo,
   casa,
   t,
+  fundo,
 }: {
   /** O rótulo acima do H2 e (quando há números) acima da lista deles — `c.midia` nas cartas, o nome da especialidade lá. */
   rotuloTopo: string;
@@ -144,10 +151,12 @@ export function PosterMolde({
   corpo: string;
   casa: { cidades: number; estados: number };
   t: Tweaks;
+  /** O fundo no lugar do campo de azulejos (o mapa da praça, nos pares). Ausente = o campo de sempre. */
+  fundo?: ReactNode;
 }) {
   return (
     <section className="cid-poster" aria-labelledby="h-carta" data-topo="escuro">
-      <div className="cid-poster-campo" aria-hidden data-par="-0.06" dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }} />
+      {fundo ?? <div className="cid-poster-campo" aria-hidden data-par="-0.06" dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }} />}
       <i className="cid-poster-traco" aria-hidden />
       <div className="cid-poster-grade">
         {temNumeros && (
@@ -236,8 +245,12 @@ export interface GrupoHistoricoMolde {
   nomes: NomeHistoricoMolde[];
 }
 
-/** O H2 do histórico é `ReactNode` (não string): quem chama monta com `interpolar()` pra preservar o marcador de hidratação do React entre nós de texto adjacentes. */
-export function HistoricoMolde({ titulo, texto, grupos }: { titulo: ReactNode; texto: string; grupos: GrupoHistoricoMolde[] }) {
+/**
+ * O H2 do histórico é `ReactNode` (não string): quem chama monta com `interpolar()` pra preservar o marcador de hidratação do React entre nós de texto adjacentes.
+ *
+ * `linhas` (opcional, pares especialidade × praça): força o desenho em linhas, o mesmo que a tela estreita já usa. Com um grupo só, a faixa vertical deixa um painel alto e vazio. Ausente = a regra de sempre (linhas só acima de `MAX_FAIXAS_EM_LINHA` grupos), com a mesma classe de antes.
+ */
+export function HistoricoMolde({ titulo, texto, grupos, linhas }: { titulo: ReactNode; texto: string; grupos: GrupoHistoricoMolde[]; linhas?: boolean }) {
   return (
     <section className="cid-hist" aria-labelledby="h-hist" data-topo="escuro">
       <div className="cid-hist-cabeca">
@@ -249,7 +262,7 @@ export function HistoricoMolde({ titulo, texto, grupos }: { titulo: ReactNode; t
         </div>
         <p>{texto}</p>
       </div>
-      <div className={`cid-hist-faixas${grupos.length > MAX_FAIXAS_EM_LINHA ? " cid-hist-linhas" : ""}`}>
+      <div className={`cid-hist-faixas${linhas || grupos.length > MAX_FAIXAS_EM_LINHA ? " cid-hist-linhas" : ""}`}>
         {grupos.map((g, i) => (
           <details name="cid-hist" open={i === 0 ? true : undefined} data-k={i % 6} key={g.titulo}>
             <summary>
