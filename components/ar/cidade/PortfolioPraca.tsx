@@ -27,6 +27,7 @@ export function PortfolioPraca({
   local,
   rotulo,
   cidade,
+  cabeca,
 }: {
   /** O pool inteiro (o índice de cada peça aqui é o `data-pf-peca`). */
   pecas: PecaGaleria[];
@@ -38,6 +39,13 @@ export function PortfolioPraca({
   /** "no Distrito Federal e no entorno" — o rótulo do alcance. */
   rotulo: string;
   cidade: string;
+  /**
+   * O cabeçalho ESCRITO por quem chama (pares especialidade × praça): no recuo,
+   * o texto padrão diz que "o acervo de X ainda não tem peças publicadas", e
+   * isso é falso num par que tem peças (só menos que o palco pede). Ausente =
+   * o texto de sempre, byte a byte.
+   */
+  cabeca?: { titulo: string; texto: string };
 }) {
   const cena0 = cenas[0];
   const foco = pecas[cena0?.foco ?? 0];
@@ -47,13 +55,15 @@ export function PortfolioPraca({
         <div>
           <p className="rot">{PORTFOLIO_CABECA.kicker}</p>
           <h2 id="h-pf" className="h2" data-reveal>
-            {local ? `O trabalho feito para clientes ${rotulo}` : PORTFOLIO_CABECA.h2}
+            {cabeca ? cabeca.titulo : local ? `O trabalho feito para clientes ${rotulo}` : PORTFOLIO_CABECA.h2}
           </h2>
         </div>
         <p>
-          {local
-            ? `Site, campanha, vídeo, conteúdo e identidade entregues a médicos, clínicas e hospitais ${rotulo}. Continue rolando.`
-            : `O acervo de ${cidade} ainda não tem peças publicadas. Abaixo, uma seleção do trabalho feito em todo o Brasil. Continue rolando.`}
+          {cabeca
+            ? cabeca.texto
+            : local
+              ? `Site, campanha, vídeo, conteúdo e identidade entregues a médicos, clínicas e hospitais ${rotulo}. Continue rolando.`
+              : `O acervo de ${cidade} ainda não tem peças publicadas. Abaixo, uma seleção do trabalho feito em todo o Brasil. Continue rolando.`}
         </p>
       </section>
 

@@ -120,6 +120,12 @@ export interface NumeroPoster {
  * Sem mapa (não é praça — nada de imagem fixa inventada, §⚖️): o fundo é o
  * campo de azulejos do motor Athos pelos tweaks da própria rota.
  *
+ * `fundo` (opcional, pares especialidade × praça): quando a praça TEM mapa
+ * declarado (`content/cidades.ts` → `mapa`), quem chama passa o `MapaPraca` e
+ * ele ocupa o lugar do campo de azulejos. Sem a prop a saída é BYTE A BYTE a de
+ * antes (`undefined ?? <div/>` resolve pro mesmo elemento) — é o que as 8
+ * cartas e as 20 especialidades provam no comparador.
+ *
  * A TESE (`teseTitulo` + `corpo`) aparece SEMPRE, independente de `temNumeros`
  * (defeito da revisão do PR-A das cartas, curado no PR-B — a tese não pode
  * depender de acervo/carteira próprios). Sem número (`!temNumeros`), a COLUNA
@@ -135,6 +141,7 @@ export function PosterMolde({
   corpo,
   casa,
   t,
+  fundo,
 }: {
   /** O rótulo acima do H2 e (quando há números) acima da lista deles — `c.midia` nas cartas, o nome da especialidade lá. */
   rotuloTopo: string;
@@ -144,10 +151,12 @@ export function PosterMolde({
   corpo: string;
   casa: { cidades: number; estados: number };
   t: Tweaks;
+  /** O fundo no lugar do campo de azulejos (o mapa da praça, nos pares). Ausente = o campo de sempre. */
+  fundo?: ReactNode;
 }) {
   return (
     <section className="cid-poster" aria-labelledby="h-carta" data-topo="escuro">
-      <div className="cid-poster-campo" aria-hidden data-par="-0.06" dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }} />
+      {fundo ?? <div className="cid-poster-campo" aria-hidden data-par="-0.06" dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }} />}
       <i className="cid-poster-traco" aria-hidden />
       <div className="cid-poster-grade">
         {temNumeros && (
