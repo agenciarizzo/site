@@ -6,11 +6,24 @@
 //
 // A régua que trava página nova continua a mesma (§3.3/§⚖️): par sem ≥4 peças
 // de ≥2 casas + texto local escrito não entra no registry — não é gerado "fino".
+//
+// DESPACHO pro molde rico (rizzo-os → docs/SITE_PARES_MOLDE_RICO_MAPA.md, P12):
+// o par que TEM registro em content/especialidade-praca-molde.ts renderiza
+// `ParMolde`; o que ainda não tem segue no corpo antigo abaixo, intacto. É o
+// mesmo despacho de `app/marketing-medico/[slug]/page.tsx` e cabe aqui dentro
+// pelo mesmo motivo: a rota `[slug]/[praca]` é dinâmica e o Next casa o segmento
+// estático primeiro sem voltar ao dinâmico, então uma pasta por par não serve.
+// Os pares migram em LOTES (P1): cada lote soma registros ao molde e, no lote
+// final, o corpo antigo sai do despacho (par sem registro passa a quebrar o
+// build). `generateMetadata` NÃO muda: título, description, canonical e `robots`
+// saem do MESMO registro de sempre, então a SERP do par não muda com o layout.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { especialidadePorSlug } from "@/content/especialidades";
 import { pracaBySlug, pracasDaProvaLarga } from "@/content/pracas";
 import { PARES_ESPECIALIDADE_PRACA } from "@/content/especialidade-praca";
+import { moldeParDe } from "@/content/especialidade-praca-molde";
+import { ParMolde } from "@/components/ar/especialidade-praca/ParMolde";
 import { Band, MenuTopo, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import { panoFaixa } from "@/lib/athos/panos";
 import { HeroPraca } from "@/components/secoes/HeroPraca";
@@ -58,6 +71,8 @@ export default async function EspecialidadePracaPage({
   const d = dados(slug, pracaSlug);
   if (!d) notFound();
   const { e, praca, par } = d;
+  const molde = moldeParDe(e.slug, praca.slug);
+  if (molde) return <ParMolde e={e} par={par} praca={praca} molde={molde} />;
   const rota = `/marketing-medico/${e.slug}/${praca.slug}`;
   const pracaLarga = pracasDaProvaLarga(praca.slug);
   const nomesPracaLarga = pracaLarga.map((p) => p.nome);
