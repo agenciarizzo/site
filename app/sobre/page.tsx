@@ -124,10 +124,10 @@ export default function SobrePage() {
 
           <h2 className="sec">Por que só saúde</h2>
           <p>
-            Não atendemos qualquer segmento, só saúde. A vivência da agência é hospitalar de verdade, com processos
-            certificados (ONA/ISO), não teoria de marketing adaptada de fora pra dentro. É esse conhecimento de
-            dentro do hospital que orienta cada peça, sempre dentro do que o CFM permite: sem promessa de resultado,
-            sem antes-e-depois, sem preço de procedimento em anúncio.
+            Não atendemos qualquer segmento, só saúde. A vivência hospitalar é de verdade: o fundador foi gerente de
+            comunicação de um hospital certificado ONA/ISO, e isso não é teoria de marketing adaptada de fora pra
+            dentro. É esse conhecimento de dentro do hospital que orienta cada peça, sempre dentro do que o CFM
+            permite: sem promessa de resultado, sem antes-e-depois, sem preço de procedimento em anúncio.
           </p>
 
           <h2 className="sec">Como trabalhamos</h2>
