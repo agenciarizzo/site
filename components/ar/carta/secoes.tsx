@@ -148,7 +148,8 @@ export function PosterMolde({
   numeros: NumeroPoster[];
   temNumeros: boolean;
   teseTitulo: string;
-  corpo: string;
+  /** Texto corrido do bloco. Aceita nó (não só string) pra página que precisa de link no parágrafo; string sai igual a antes. */
+  corpo: ReactNode;
   casa: { cidades: number; estados: number };
   t: Tweaks;
   /** O fundo no lugar do campo de azulejos (o mapa da praça, nos pares). Ausente = o campo de sempre. */

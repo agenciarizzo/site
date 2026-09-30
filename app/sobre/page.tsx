@@ -1,18 +1,21 @@
-// /sobre — a página institucional (§18 do mapa): quem é a agência, para quem
+// /sobre: a página institucional (§18 do mapa): quem é a agência, para quem
 // trabalha, desde quando, com que método, onde fica e quem assina. Não é uma
-// carta (não segue content/cartas.ts) e não é venda — o CTA é o WhatsApp de sempre.
+// carta (não segue content/cartas.ts) e não é venda: o CTA é o WhatsApp de sempre.
 // Schema: AboutPage + FAQPage (Organization já é global via app/layout.tsx).
+//
+// Layout do redesenho (rizzo-os -> docs/SITE_PARES_MOLDE_RICO_MAPA.md §10): a
+// página é o `SobreMolde` (components/ar/sobre/SobreMolde.tsx). Aqui ficam só a
+// SERP (metadata + JSON-LD), o texto que abre a conversa no WhatsApp e as 5 perguntas. A SERP não
+// muda com o layout: `title`, canonical e `FAQPage` são os de antes, e a
+// descrição (e o `AboutPage`, que a repete) mudou só pela troca S2, que tira
+// "vivência hospitalar real (ONA/ISO)" e põe a fórmula verdadeira: o fundador foi
+// gerente de comunicação de um hospital certificado ONA/ISO.
 import type { Metadata } from "next";
-import { VitrineGiro } from "@/components/VitrineGiro";
-import { vitrinePorChave } from "@/content/vitrines";
-import Image from "next/image";
-import Link from "next/link";
-import { panoSobre } from "@/lib/athos/panos";
-import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
+import { SobreMolde } from "@/components/ar/sobre/SobreMolde";
 import { ENDERECO, CNPJ, WHATS_LABEL, SITE_URL } from "@/lib/site";
 
 const DESCRICAO =
-  "A Agência Rizzo é especialista em marketing médico desde 2012, com vivência hospitalar real (ONA/ISO) e atuação nacional. Conheça o método, a estrutura e quem assina o trabalho.";
+  "A Agência Rizzo é especialista em marketing médico desde 2012, com atuação nacional e um fundador que foi gerente de comunicação de hospital certificado ONA/ISO. Conheça o método.";
 
 export const metadata: Metadata = {
   title: "Sobre: marketing médico desde 2012",
@@ -70,114 +73,7 @@ export default function SobrePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <MenuTopo atual="/sobre" waText={WA} />
-
-      <main>
-      <section className="hero">
-        <div className="wrap">
-          <div className="kicker">Sobre · Agência Rizzo</div>
-          <h1 className="display">
-            Uma agência
-            <br />
-            que só atende
-            <br />
-            <span className="acento">quem cuida de gente.</span>
-          </h1>
-          <p className="lede">
-            A Agência Rizzo é especialista em marketing médico: desde 2012 ao lado de médicos, clínicas e hospitais,
-            com vivência hospitalar real (ONA/ISO) e atuação em todo o Brasil. Aqui, quem somos, como trabalhamos e
-            quem assina.
-          </p>
-        </div>
-      </section>
-
-      <Band html={panoSobre()} carta />
-
-      <article className="corpo prosa">
-        <div className="wrap">
-          <h2 className="sec">Para quem trabalhamos</h2>
-          <p>
-            A Agência Rizzo cuida do marketing de quem atua em saúde: médico individual, clínica ou rede hospitalar.
-            Já são 259 médicos, clínicas e hospitais atendidos, por site e SEO, Google Ads, Meta Ads, redes sociais,
-            vídeo e TV corporativa. Mídias diferentes, o mesmo objetivo: estrutura que traz paciente todo mês, não
-            campanha avulsa que depende de sorte.
-          </p>
-
-          <h2 className="sec">No que acreditamos</h2>
-          <ul className="crencas">
-            <li>
-              <b>Paciente orgânico é o melhor paciente.</b> Ele chega procurando você. E a estrutura é o que o traz,
-              todo mês, sem custo por clique.
-            </li>
-            <li>
-              <b>Anúncio bom fica barato quando a base é boa.</b> Índice de Qualidade não se compra; se constrói com
-              site rápido e conteúdo honesto.
-            </li>
-            <li>
-              <b>Conteúdo nasce de dado, não de achismo.</b> Tendência, busca e dados dizem o que o paciente quer
-              saber. A gente escuta antes de produzir.
-            </li>
-            <li>
-              <b>A ética do CFM não é limite. É vantagem</b> de quem sabe trabalhar dentro dela desde 2012.
-            </li>
-          </ul>
-
-          <h2 className="sec">Por que só saúde</h2>
-          <p>
-            Não atendemos qualquer segmento, só saúde. A vivência hospitalar é de verdade: o fundador foi gerente de
-            comunicação de um hospital certificado ONA/ISO, e isso não é teoria de marketing adaptada de fora pra
-            dentro. É esse conhecimento de dentro do hospital que orienta cada peça, sempre dentro do que o CFM
-            permite: sem promessa de resultado, sem antes-e-depois, sem preço de procedimento em anúncio.
-          </p>
-
-          <h2 className="sec">Como trabalhamos</h2>
-          <p>
-            Tratamos marketing médico como estrutura, não como campanha avulsa: planejamento do ano inteiro, peças
-            que só vão ao ar depois da sua aprovação no celular, e relatório sempre que o mês fecha.
-          </p>
-
-          <OsBlock>
-            Esse planejamento, aprovação e relatório vivem dentro do <b>RizzoOS</b>, no seu celular, sem depender de
-            reunião marcada.
-          </OsBlock>
-
-          {(() => { const v = vitrinePorChave("sobre"); return v ? <VitrineGiro v={v} /> : null; })()}
-
-          <h2 className="sec">Onde ficamos</h2>
-          <p>
-            A sede fica em {ENDERECO}. O trabalho não fica preso a esse mapa: atendemos clínicas de{" "}
-            <Link href="/marketing-medico-goiania">Goiânia</Link> e{" "}
-            <Link href="/marketing-medico-brasilia">Brasília</Link>, praças que já conhecemos bem, e médicos de
-            outros estados, sempre pelo mesmo método, começando pela conversa no WhatsApp.
-          </p>
-
-          <h2 className="sec">Quem assina</h2>
-          <p>Quem assina o trabalho, desde 2012:</p>
-          <div className="assin">
-            <Image src="/email/raphael-rizzo.jpg" alt="Raphael Rizzo" width={60} height={60} />
-            <div>
-              <div className="nome">Raphael Rizzo</div>
-              <div className="cargo">FUNDADOR · AGÊNCIA RIZZO</div>
-            </div>
-          </div>
-
-          <h2 className="sec">Perguntas frequentes sobre a Agência Rizzo</h2>
-          <div className="faq">
-            {FAQ.map((f) => (
-              <details key={f.q}>
-                <summary>{f.q}</summary>
-                <p>{f.a}</p>
-              </details>
-            ))}
-          </div>
-
-          <Fatos />
-        </div>
-      </article>
-
-      <CtaConversa chave={"/sobre"} titulo="Quanto custa" acento="para a sua clínica?" />
-      </main>
-      <FooterMapa atual="/sobre" proxima={["panorama", "clientes"]} />
+      <SobreMolde faq={FAQ} wa={WA} />
     </>
   );
 }
