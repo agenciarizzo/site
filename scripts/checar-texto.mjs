@@ -75,6 +75,18 @@ const APONTADOS = [
     porque: "a agência não é acreditada; quem tem a vivência é o fundador, e o selo é do hospital",
     onde: "bloco Sobre da casa (content/home.ts, content/landing-v3.ts) e /sobre, curado em 2026-09-30 (rizzo-os → ROADMAP §Pós-entrega, item ONA/ISO; SITE_PARES_MOLDE_RICO_MAPA.md §8, T4)",
   },
+  {
+    errado: "Vivência hospitalar (ONA/ISO)",
+    certo: "Fundador vindo de hospital certificado ONA/ISO",
+    porque: "na tarja de atributos, logo depois do selo Google Partner, lia como mais um selo da agência; o selo é do hospital",
+    onde: "tarja de atributos (content/landing-v3.ts, ATRIBUTOS), curada em 2026-09-30 (rizzo-os → SITE_PARES_MOLDE_RICO_MAPA.md §8, T4)",
+  },
+  {
+    errado: "vivência hospitalar real (ONA/ISO)",
+    certo: "fundador vindo de hospital certificado ONA/ISO",
+    porque: "mesma leitura de selo da agência, na linha de fatos (lib/site.ts, FATOS) e no lede e na descrição de /sobre",
+    onde: "FATOS e /sobre, curados em 2026-09-30 (rizzo-os → SITE_PARES_MOLDE_RICO_MAPA.md §8, T4 e §10, S2)",
+  },
 ];
 
 /**

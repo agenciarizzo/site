@@ -528,7 +528,7 @@ export const ATRIBUTOS: Atributo[] = [
   { texto: "21 estados · 53 cidades" },
   { texto: "55 áreas na carteira" },
   ...SELOS.map((s) => ({ texto: s.rotulo, href: s.href })),
-  { texto: "Vivência hospitalar (ONA/ISO)" },
+  { texto: "Fundador vindo de hospital certificado ONA/ISO" },
 ];
 
 /* ─────────────────────────────────────────────────────────────────── FAQ ─── */
