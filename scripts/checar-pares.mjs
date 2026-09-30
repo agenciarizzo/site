@@ -362,7 +362,7 @@ for (const [id, reg] of MOLDE) {
   if (plano.includes("ainda não tem peças publicadas")) erros.push(`${rota}: o cabeçalho do palco diz que o acervo não tem peças publicadas, e o par tem ${par.pecas.length}`);
   const modo = raizM[1].match(/data-par-palco="([^"]*)"/)?.[1];
   if (!["local", "mae", "casa"].includes(modo ?? "")) erros.push(`${rota}: data-par-palco="${modo}" fora de local | mae | casa`);
-  if (modo !== "local" && !plano.includes("vêm primeiro")) erros.push(`${rota}: palco em recuo (${modo}) sem o cabeçalho que diz de onde vêm as peças`);
+  if (modo !== "local" && !plano.includes("Abaixo, as peças")) erros.push(`${rota}: palco em recuo (${modo}) sem o cabeçalho que diz de onde vêm as peças`);
   if (modo === "local" && par.pecas.length < 6) erros.push(`${rota}: palco local com ${par.pecas.length} peça(s), o mínimo é 6`);
   if (modo !== "local" && par.pecas.length >= 6) erros.push(`${rota}: palco em recuo (${modo}) com ${par.pecas.length} peça(s) curadas, deveria ser local`);
 

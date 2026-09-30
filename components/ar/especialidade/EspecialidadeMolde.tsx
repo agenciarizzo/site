@@ -129,7 +129,7 @@ export function EspecialidadeMolde({ e, m }: { e: PaginaEspecialidade; m: MoldeE
   const cabeca = recuoComProprias
     ? {
         titulo: PORTFOLIO_CABECA.h2,
-        texto: `As peças de ${nome.toLowerCase()} vêm primeiro; depois, uma seleção do trabalho feito em todo o Brasil. Continue rolando.`,
+        texto: `Abaixo, as peças de ${nome.toLowerCase()}, junto de uma seleção do trabalho feito em todo o Brasil. Continue rolando.`,
       }
     : undefined;
   const usadas = [...new Set(cenas.flatMap((k) => Object.keys(k.pos).map(Number)))].sort((x, y) => x - y);

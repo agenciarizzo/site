@@ -111,16 +111,18 @@ export function ParMolde({
 
   // O cabeçalho do palco (P8): no palco local vale o texto padrão do `PortfolioPraca`;
   // nos recuos ele diz de onde vêm as peças, em vez de afirmar que o acervo não as tem.
+  // Sem prometer ORDEM: o palco escolhe peça por balde e orientação, e a primeira
+  // cena pode não ter peça do par (medido em gastroenterologia, curas de 2026-09-30).
   const cabeca =
     palco.modo === "mae"
       ? {
           titulo: `O trabalho feito para clientes de ${nomeLower}`,
-          texto: `As peças feitas ${texto.alcance} vêm primeiro; depois, o trabalho de ${nomeLower} no resto do país. Continue rolando.`,
+          texto: `Abaixo, as peças feitas ${texto.alcance}, junto do trabalho de ${nomeLower} no resto do país. Continue rolando.`,
         }
       : palco.modo === "casa"
         ? {
             titulo: PORTFOLIO_CABECA.h2,
-            texto: `As peças de ${nomeLower} feitas ${texto.alcance} vêm primeiro; depois, uma seleção do trabalho feito em todo o Brasil. Continue rolando.`,
+            texto: `Abaixo, as peças de ${nomeLower} feitas ${texto.alcance}, junto de uma seleção do trabalho feito em todo o Brasil. Continue rolando.`,
           }
         : undefined;
 
