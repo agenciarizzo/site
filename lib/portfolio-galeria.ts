@@ -96,12 +96,21 @@ export function poolGaleria(): PecaGaleria[] {
 }
 
 /**
+ * A preposição de cada cidade, DECLARADA (nunca inferida do nome): quase toda
+ * cidade vai com "em"; a que leva artigo entra aqui. "em Rio de Janeiro" está
+ * no `APONTADOS` do `scripts/checar-texto.mjs` (rizzo-os →
+ * SITE_PARES_MOLDE_RICO_MAPA.md §8, T2).
+ */
+const PREPOSICAO_CIDADE: Record<string, string> = { "Rio de Janeiro": "no" };
+export const emCidade = (cidade: string) => `${PREPOSICAO_CIDADE[cidade] ?? "em"} ${cidade}`;
+
+/**
  * O `alt` com a palavra-chave de quem busca referência ("exemplo de site para
  * ginecologia em Goiânia") — regra do protótipo: se o alt do registry já fala em
  * exemplo/referência/inspiração, fica como está; senão a chave vem na frente.
  */
 export function altSeo(p: PecaGaleria): string {
-  const base = `Exemplo de ${p.servico.toLowerCase()} para ${p.espec ? p.espec.toLowerCase() : "médicos"}${p.cidade ? ` em ${p.cidade}` : ""}`;
+  const base = `Exemplo de ${p.servico.toLowerCase()} para ${p.espec ? p.espec.toLowerCase() : "médicos"}${p.cidade ? ` ${emCidade(p.cidade)}` : ""}`;
   return /exemplo|refer[eê]ncia|inspira/i.test(p.alt) ? p.alt : `${base}. ${p.alt}`;
 }
 

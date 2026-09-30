@@ -22,6 +22,7 @@ import { COMBOS } from "@/content/combos";
 import { ESPECIALIDADES, especialidadePorSlug, rotaEspecialidade } from "@/content/especialidades";
 import { pracaBySlug } from "@/content/pracas";
 import { PARES_ESPECIALIDADE_PRACA, rotaEspecialidadePraca } from "@/content/especialidade-praca";
+import { textoDaPraca } from "@/lib/especialidade-praca-molde";
 
 export type CardRef = "seo" | "clientes" | "portfolio" | "panorama" | "contato" | "goiania" | "brasilia" | "saopaulo" | "home";
 
@@ -214,7 +215,7 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
                 const rota = rotaEspecialidadePraca(par.slug, par.praca);
                 return (
                   <Link key={rota} href={rota} aria-current={cur(rota)}>
-                    {(e.nomeEixo ?? e.espec)} em {p.nome}
+                    {(e.nomeEixo ?? e.espec)} {textoDaPraca(p.slug).em}
                   </Link>
                 );
               })}

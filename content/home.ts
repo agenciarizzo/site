@@ -195,7 +195,7 @@ export const SOBRE_HOME = {
   },
   pilares: [
     { num: "01", t: "Especialização exclusiva", d: "100% focados em marketing médico, com equipe de vivência hospitalar real e conhecimento profundo do CFM." },
-    { num: "02", t: "Processos certificados", d: "Metodologia baseada em padrões ONA/ISO, com aprovação de conteúdo em um toque no RizzoOS." },
+    { num: "02", t: "Rigor de hospital certificado", d: "O método vem de um hospital certificado ONA/ISO, onde o fundador foi gerente de comunicação, e a aprovação de conteúdo é em um toque no RizzoOS." },
     { num: "03", t: "Resultados medidos", d: "259 médicos, clínicas e hospitais em 21 estados, com cases documentados conta a conta." },
   ],
   legenda: { nome: "Raphael Rizzo", cargo: "// fundador" },

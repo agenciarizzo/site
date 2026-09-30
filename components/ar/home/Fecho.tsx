@@ -21,6 +21,7 @@ import { COMBOS } from "@/content/combos";
 import { especialidadePorSlug } from "@/content/especialidades";
 import { pracaBySlug } from "@/content/pracas";
 import { PARES_ESPECIALIDADE_PRACA, rotaEspecialidadePraca } from "@/content/especialidade-praca";
+import { textoDaPraca } from "@/lib/especialidade-praca-molde";
 
 export function Faq() {
   return (
@@ -242,7 +243,7 @@ export function Rodape({ waText, rota }: { waText?: string; rota?: string }) {
               return (
                 <li key={rota}>
                   <Link href={rota}>
-                    {(e.nomeEixo ?? e.espec)} em {p.nome}
+                    {(e.nomeEixo ?? e.espec)} {textoDaPraca(p.slug).em}
                   </Link>
                 </li>
               );
