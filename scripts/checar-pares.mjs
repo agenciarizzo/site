@@ -122,7 +122,7 @@ function arrayDeStrings(bloco, chave) {
 
 function arrayDoExport(src, nome) {
   const decl = src.indexOf(`export const ${nome}`);
-  if (decl === -1) throw new Error(`checar-pares: \`export const ${nome}\` não achado — a forma do arquivo mudou, ajuste este checador.`);
+  if (decl === -1) throw new Error(`checar-pares: \`export const ${nome}\` não achado; a forma do arquivo mudou, ajuste este checador.`);
   const ini = src.indexOf("[", src.indexOf("=", decl));
   return balanceado(src, ini, "[", "]");
 }
@@ -144,7 +144,7 @@ for (const bloco of itensDoArray(arrayDoExport(semComentarios(ler("content/espec
     noindex: /(?:^|[{,]|\n)\s*noindex:\s*true/.test(bloco),
   });
 }
-if (PARES.size === 0) erros.push("checar-pares: zero par lido de content/especialidade-praca.ts — a forma do registry mudou, ajuste este checador.");
+if (PARES.size === 0) erros.push("checar-pares: zero par lido de content/especialidade-praca.ts; a forma do registry mudou, ajuste este checador.");
 
 // content/especialidade-praca-molde.ts: quais pares estão no molde e o título da tese
 const MOLDE = new Map(); // "slug/praca" → { teseTitulo }
@@ -154,7 +154,7 @@ for (const bloco of itensDoArray(arrayDoExport(semComentarios(ler("content/espec
   if (!slug || !praca) continue;
   MOLDE.set(`${slug}/${praca}`, { slug, praca, teseTitulo: campoString(bloco, "teseTitulo") });
 }
-if (MOLDE.size === 0) erros.push("checar-pares: zero registro lido de content/especialidade-praca-molde.ts — a forma do registry mudou, ajuste este checador.");
+if (MOLDE.size === 0) erros.push("checar-pares: zero registro lido de content/especialidade-praca-molde.ts; a forma do registry mudou, ajuste este checador.");
 
 // content/especialidades.ts: o intro e o waText da MÃE
 const MAE = new Map(); // slug → { intro[], waText }
@@ -188,7 +188,7 @@ const TEXTO_PRACA = new Map(); // praca → { h1, em, alcance }
     TEXTO_PRACA.set(m[1] ?? m[2], { h1: m[3], em: m[4], alcance: m[5] });
   }
 }
-if (TEXTO_PRACA.size === 0) erros.push("checar-pares: zero praça lida de TEXTO_PRACA em lib/especialidade-praca-molde.ts — a forma mudou, ajuste este checador.");
+if (TEXTO_PRACA.size === 0) erros.push("checar-pares: zero praça lida de TEXTO_PRACA em lib/especialidade-praca-molde.ts; a forma mudou, ajuste este checador.");
 
 // content/cidades.ts: qual cidade declara `mapa`
 const MAPA_DA_CIDADE = new Map(); // nome da cidade → mapa
@@ -204,7 +204,7 @@ const MAPA_DA_CIDADE = new Map(); // nome da cidade → mapa
 // nomes reais: a carteira e o snapshot dos clientes ativos (prova = registro real, regra 9)
 const NOMES_REAIS = new Set([...ler("content/carteira.ts").matchAll(/nome:\s*"([^"]+)"/g)].map((m) => m[1]));
 for (const l of JSON.parse(ler("content/clientes-snapshot.json")).linhas ?? []) NOMES_REAIS.add(l.nome);
-if (NOMES_REAIS.size === 0) erros.push("checar-pares: zero nome lido da carteira e do snapshot — o formato mudou, ajuste este checador.");
+if (NOMES_REAIS.size === 0) erros.push("checar-pares: zero nome lido da carteira e do snapshot; o formato mudou, ajuste este checador.");
 
 /* ── o HTML gerado ────────────────────────────────────────────────────────── */
 
@@ -373,9 +373,9 @@ if (comMolde.length !== MOLDE.size) {
 if (erros.length > 0) {
   console.error("✗ Pares no molde rico (molde no ar · texto do registro na tela e o da mãe fora · portas do par · SERP · números contados · palco · mapa):");
   for (const e of erros) console.error(`  ${e}`);
-  console.error(`\n${erros.length} falha(s) — build reprovado.`);
+  console.error(`\n${erros.length} falha(s), build reprovado.`);
   process.exit(1);
 }
 console.log(
-  `✓ Pares no molde: ${paginas}/${MOLDE.size} página(s) do registro — lede/intro/teseTitulo na tela e nada da mãe, zero wa.me, todo data-wa é o do par, SERP do registro${buildIndexavel ? "" : " (robots pulado, build noindex)"}, ${nomesTotal} nome(s) de histórico reais e sem repetição, números do pôster contados, toda peça do par no palco, mapa só onde a cidade declara.`,
+  `✓ Pares no molde: ${paginas}/${MOLDE.size} página(s) do registro: lede/intro/teseTitulo na tela e nada da mãe, zero wa.me, todo data-wa é o do par, SERP do registro${buildIndexavel ? "" : " (robots pulado, build noindex)"}, ${nomesTotal} nome(s) de histórico reais e sem repetição, números do pôster contados, toda peça do par no palco, mapa só onde a cidade declara.`,
 );

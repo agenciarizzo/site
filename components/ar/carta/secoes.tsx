@@ -123,7 +123,7 @@ export interface NumeroPoster {
  * `fundo` (opcional, pares especialidade × praça): quando a praça TEM mapa
  * declarado (`content/cidades.ts` → `mapa`), quem chama passa o `MapaPraca` e
  * ele ocupa o lugar do campo de azulejos. Sem a prop a saída é BYTE A BYTE a de
- * antes (`undefined ?? <div/>` resolve pro mesmo elemento) — é o que as 8
+ * antes (`undefined ?? <div/>` resolve pro mesmo elemento). É o que as 8
  * cartas e as 20 especialidades provam no comparador.
  *
  * A TESE (`teseTitulo` + `corpo`) aparece SEMPRE, independente de `temNumeros`

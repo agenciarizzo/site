@@ -1,4 +1,4 @@
-// O MOTOR DE DERIVAÇÃO dos pares especialidade x praça no molde rico — espelho
+// O MOTOR DE DERIVAÇÃO dos pares especialidade x praça no molde rico, espelho
 // de `lib/especialidade-molde.ts` (a página-mãe) e de `lib/praca.ts` (a
 // landing da praça) para `/marketing-medico/<slug>/<praca>` (rizzo-os ->
 // docs/SITE_PARES_MOLDE_RICO_MAPA.md §2, P4 a P11).

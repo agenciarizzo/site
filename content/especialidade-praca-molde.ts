@@ -1,4 +1,4 @@
-// O REGISTRO-MOLDE dos PARES especialidade x praça — o que o layout novo
+// O REGISTRO-MOLDE dos PARES especialidade x praça: o que o layout novo
 // (`components/ar/especialidade-praca/ParMolde.tsx`) pede e o par ainda NÃO
 // tem em `content/especialidade-praca.ts` (rizzo-os ->
 // docs/SITE_PARES_MOLDE_RICO_MAPA.md §2 e §6).
