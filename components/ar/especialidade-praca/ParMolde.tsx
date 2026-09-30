@@ -175,7 +175,9 @@ export function ParMolde({
         t={t}
         fundo={mapa ? <MapaPraca mapa={mapa} /> : undefined}
       />
-      {grupos.length > 0 && <HistoricoMolde titulo={tituloHistorico} texto={preencher(HISTORICO_TEXTO, texto.alcance)} grupos={grupos} />}
+      {/* Um grupo só (a praça): em linhas, como na tela estreita, e não a faixa
+          vertical, que com um grupo deixa um painel alto e vazio (revisão do lote 1). */}
+      {grupos.length > 0 && <HistoricoMolde titulo={tituloHistorico} texto={preencher(HISTORICO_TEXTO, texto.alcance)} grupos={grupos} linhas />}
       <Clientes />
       {/* A chamada vem DEPOIS de uma lista de nomes (o mural de clientes),
           mesma régua do carta-molde e do especialidade-molde. */}

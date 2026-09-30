@@ -245,8 +245,12 @@ export interface GrupoHistoricoMolde {
   nomes: NomeHistoricoMolde[];
 }
 
-/** O H2 do histórico é `ReactNode` (não string): quem chama monta com `interpolar()` pra preservar o marcador de hidratação do React entre nós de texto adjacentes. */
-export function HistoricoMolde({ titulo, texto, grupos }: { titulo: ReactNode; texto: string; grupos: GrupoHistoricoMolde[] }) {
+/**
+ * O H2 do histórico é `ReactNode` (não string): quem chama monta com `interpolar()` pra preservar o marcador de hidratação do React entre nós de texto adjacentes.
+ *
+ * `linhas` (opcional, pares especialidade × praça): força o desenho em linhas, o mesmo que a tela estreita já usa. Com um grupo só, a faixa vertical deixa um painel alto e vazio. Ausente = a regra de sempre (linhas só acima de `MAX_FAIXAS_EM_LINHA` grupos), com a mesma classe de antes.
+ */
+export function HistoricoMolde({ titulo, texto, grupos, linhas }: { titulo: ReactNode; texto: string; grupos: GrupoHistoricoMolde[]; linhas?: boolean }) {
   return (
     <section className="cid-hist" aria-labelledby="h-hist" data-topo="escuro">
       <div className="cid-hist-cabeca">
@@ -258,7 +262,7 @@ export function HistoricoMolde({ titulo, texto, grupos }: { titulo: ReactNode; t
         </div>
         <p>{texto}</p>
       </div>
-      <div className={`cid-hist-faixas${grupos.length > MAX_FAIXAS_EM_LINHA ? " cid-hist-linhas" : ""}`}>
+      <div className={`cid-hist-faixas${linhas || grupos.length > MAX_FAIXAS_EM_LINHA ? " cid-hist-linhas" : ""}`}>
         {grupos.map((g, i) => (
           <details name="cid-hist" open={i === 0 ? true : undefined} data-k={i % 6} key={g.titulo}>
             <summary>

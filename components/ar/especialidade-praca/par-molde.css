@@ -17,16 +17,17 @@
 }
 
 /* O caminho pra página-mãe, abaixo do H2. */
+/* Em linha (e não flex): quando o texto quebra no celular, a seta fica colada à
+   última palavra em vez de ir pra borda direita. */
 .dg.cid.par .par-mae {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  width: max-content;
-  max-width: 100%;
+  display: inline;
   font-size: 15px;
   font-weight: 700;
   line-height: 1.4;
   color: var(--chumbo);
+}
+.dg.cid.par .par-mae span {
+  margin-left: 6px;
 }
 .dg.cid.par .par-mae:hover {
   color: var(--teal);
