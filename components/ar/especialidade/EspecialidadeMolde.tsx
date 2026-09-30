@@ -63,7 +63,8 @@ import { HeroMolde, PosterMolde, MetodoMolde, HistoricoMolde, interpolar } from 
 import { tweaksDe } from "@/lib/tweaks.mjs";
 import { alcanceDaCasa } from "@/lib/praca";
 import { resolverCenas } from "@/lib/portfolio-moldura";
-import { PORTFOLIO_MODO } from "@/content/home";
+import { cenasDoPar } from "@/lib/especialidade-praca-molde";
+import { PORTFOLIO_MODO, PORTFOLIO_CABECA } from "@/content/home";
 import { especialidadeJsonLd } from "@/lib/especialidade-jsonld";
 import { rotaEspecialidade, type PaginaEspecialidade } from "@/content/especialidades";
 import type { MoldeEspecialidade } from "@/content/especialidades-molde";
@@ -112,7 +113,25 @@ export function EspecialidadeMolde({ e, m }: { e: PaginaEspecialidade; m: MoldeE
   const tituloHistorico = interpolar(numeros.clientes === 1 ? HISTORICO_TITULO_1 : HISTORICO_TITULO, { n: numeros.clientes, nome });
 
   const { pecas, local } = pecasDaEspecialidade(e);
-  const cenas = resolverCenas(pecas, 16, 9);
+  // O recuo com peças próprias (achado T1, curado em 2026-09-30): abaixo de
+  // `MIN_PECAS_LOCAIS` o palco cai no acervo da casa, e o texto padrão do
+  // `PortfolioPraca` afirma que "o acervo de X ainda não tem peças publicadas".
+  // Isso é falso quando a especialidade TEM peças (só menos que o palco pede;
+  // 9 das 20 páginas, todas com 1 ou mais). Aí o cabeçalho diz de onde vêm as
+  // peças (o mesmo P8 dos pares) e as cenas passam por `cenasDoPar`, que garante
+  // que toda peça própria aparece no palco (o resolver sozinho deixava 1 ou 2 de
+  // fora). Com zero peça própria o texto padrão é verdadeiro e nada muda; com o
+  // palco local também nada muda (`proprias` fica vazio).
+  const especs = new Set([e.espec, ...(e.especsExtra ?? [])]);
+  const proprias = local ? [] : pecas.filter((p) => especs.has(p.espec));
+  const recuoComProprias = proprias.length > 0;
+  const cenas = recuoComProprias ? cenasDoPar(pecas, proprias) : resolverCenas(pecas, 16, 9);
+  const cabeca = recuoComProprias
+    ? {
+        titulo: PORTFOLIO_CABECA.h2,
+        texto: `As peças de ${nome.toLowerCase()} vêm primeiro; depois, uma seleção do trabalho feito em todo o Brasil. Continue rolando.`,
+      }
+    : undefined;
   const usadas = [...new Set(cenas.flatMap((k) => Object.keys(k.pos).map(Number)))].sort((x, y) => x - y);
 
   const pecasCuradas = pecasCuradasDaEspecialidade(e);
@@ -170,7 +189,7 @@ export function EspecialidadeMolde({ e, m }: { e: PaginaEspecialidade; m: MoldeE
       <Sobre />
       <Cidades waText={e.waText} />
       <Vinheta waText={e.waText} />
-      <PortfolioPraca pecas={pecas} cenas={cenas} usadas={usadas} local={local} rotulo={`de ${nome}`} cidade={nome} />
+      <PortfolioPraca pecas={pecas} cenas={cenas} usadas={usadas} local={local} rotulo={`de ${nome}`} cidade={nome} cabeca={cabeca} />
       <CtaConversa waText={e.waText} />
       <Rodape waText={e.waText} rota={rota} />
       <Motor cenas={cenas.map((k) => k.pos)} focos={cenas.map((k) => k.foco)} modo={PORTFOLIO_MODO} />
