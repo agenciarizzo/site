@@ -175,7 +175,11 @@ export function EspecialidadeMolde({ e, m }: { e: PaginaEspecialidade; m: MoldeE
         t={t}
       />
       <MetodoMolde metodoTitulo={m.metodoTitulo} prosa={e.intro.slice(1)} metodo={m.metodo} />
-      {grupos.length > 0 && <HistoricoMolde titulo={tituloHistorico} texto={HISTORICO_TEXTO} grupos={grupos} />}
+      {/* Um grupo só (nefrologia e reprodução humana): em linhas, como nos pares.
+          Com um grupo, a faixa vertical deixa um painel amarelo alto e vazio
+          (achado T3, curado em 2026-09-30). Com mais de um, `linhas` é false e a
+          saída é a de sempre (a prop só liga a classe quando true). */}
+      {grupos.length > 0 && <HistoricoMolde titulo={tituloHistorico} texto={HISTORICO_TEXTO} grupos={grupos} linhas={grupos.length === 1} />}
       <Clientes />
       {/* A chamada vem DEPOIS de uma lista de nomes (o mural de clientes),
           mesma régua do carta-molde. */}
