@@ -64,6 +64,12 @@ const APONTADOS = [
     onde: "/marketing-medico-goiania/vascular e o corpo antigo das especialidades, curados em 2026-09-28",
   },
   {
+    errado: "em Rio de Janeiro",
+    certo: "no Rio de Janeiro",
+    porque: "o nome da cidade leva artigo: no Rio, do Rio",
+    onde: "rótulo do par oncologia × Rio de Janeiro no menu e no rodapé de todas as páginas, curado em 2026-09-30 (rizzo-os → SITE_PARES_MOLDE_RICO_MAPA.md §8, T2)",
+  },
+  {
     errado: "processos certificados",
     certo: "rigor de hospital certificado (o fundador foi gerente de comunicação de um hospital certificado ONA/ISO)",
     porque: "a agência não é acreditada; quem tem a vivência é o fundador, e o selo é do hospital",

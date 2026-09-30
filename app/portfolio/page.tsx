@@ -51,7 +51,7 @@ import { PecaLightbox } from "@/components/PecaLightbox";
 import { PortfolioFiltro } from "@/components/ar/portfolio/PortfolioFiltro";
 import { Motor } from "@/components/ar/home/Motor";
 import { GRUPOS } from "@/content/portfolio";
-import { poolGaleria, altSeo, tituloDe, paginaDe, UF_NOME, type PecaGaleria } from "@/lib/portfolio-galeria";
+import { poolGaleria, altSeo, emCidade, tituloDe, paginaDe, UF_NOME, type PecaGaleria } from "@/lib/portfolio-galeria";
 import { PF_CENAS_MOLDURA, resolverCenas } from "@/lib/portfolio-moldura";
 import { PORTFOLIO_MODO } from "@/content/home";
 import { SITE_URL } from "@/lib/site";
@@ -128,7 +128,7 @@ export default function PortfolioPage() {
         .map((p) => ({
           "@type": "ImageObject",
           contentUrl: `${SITE_URL}${p.src}`,
-          name: `Exemplo de ${p.servico.toLowerCase()} para ${p.espec ? p.espec.toLowerCase() : "médicos"}${p.cidade ? ` em ${p.cidade}` : ""}`,
+          name: `Exemplo de ${p.servico.toLowerCase()} para ${p.espec ? p.espec.toLowerCase() : "médicos"}${p.cidade ? ` ${emCidade(p.cidade)}` : ""}`,
           caption: p.alt,
           description: p.contexto,
           creator: { "@type": "Organization", name: "Agência Rizzo" },
