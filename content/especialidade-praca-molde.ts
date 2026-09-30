@@ -14,10 +14,11 @@
 // palco são CONTADOS em `lib/especialidade-praca-molde.ts` a partir da
 // carteira, do snapshot dos clientes ativos e do acervo.
 //
-// Par sem registro aqui continua no corpo antigo (o despacho é em
-// `app/marketing-medico/[slug]/[praca]/page.tsx`): nunca 404, nunca rota
-// quebrada. Par novo entra ADICIONANDO um registro (§🌿-2), nunca reescrevendo
-// os que já existem.
+// Par de `content/especialidade-praca.ts` sem registro aqui é ERRO DE BUILD
+// (o despacho em `app/marketing-medico/[slug]/[praca]/page.tsx` lança, e o
+// `scripts/checar-pares.mjs` cobra os dois registries): nunca 404, nunca
+// fallback pro corpo antigo. Par novo entra pelos DOIS registries no mesmo PR,
+// ADICIONANDO um registro (§🌿-2), nunca reescrevendo os que já existem.
 //
 // Server-only: quem consome é o molde (SSG), via o despacho do `[praca]`.
 // Nada daqui vai pro bundle.
@@ -33,6 +34,10 @@ export interface MoldeParEspecialidadePraca {
 // praças (Brasília, Goiânia, Rio de Janeiro), mapa e campo de azulejos, palco
 // local e os dois recuos, e o par de reprodução humana, que tem só dois
 // parágrafos de `intro`.
+// LOTE 2 (P2 e H do doc-mapa): os seis pares restantes, todos em Brasília, e o
+// fim do legado. Com eles os 12 pares de `content/especialidade-praca.ts` têm
+// registro aqui, e o `[praca]/page.tsx` renderiza SEMPRE o molde (par sem
+// registro é erro de build).
 export const PARES_MOLDE: MoldeParEspecialidadePraca[] = [
   {
     slug: "urologia",
@@ -63,6 +68,36 @@ export const PARES_MOLDE: MoldeParEspecialidadePraca[] = [
     slug: "reproducao-humana",
     praca: "brasilia",
     teseTitulo: "Em reprodução humana, a regra mais estrita é também o melhor argumento.",
+  },
+  {
+    slug: "otorrinolaringologia",
+    praca: "brasilia",
+    teseTitulo: "Em otorrino, a agenda cirúrgica se constrói entre uma campanha e outra.",
+  },
+  {
+    slug: "oftalmologia",
+    praca: "brasilia",
+    teseTitulo: "Para quem atravessa a divisa, a estrutura da clínica pesa na decisão.",
+  },
+  {
+    slug: "cardiologia",
+    praca: "brasilia",
+    teseTitulo: "Consulta e exame no mesmo endereço poupam o paciente de cruzar o DF.",
+  },
+  {
+    slug: "angiologia-e-vascular",
+    praca: "brasilia",
+    teseTitulo: "Entre dois angiologistas parecidos, pesa o que está mais perto.",
+  },
+  {
+    slug: "gastroenterologia",
+    praca: "brasilia",
+    teseTitulo: "Em gastro, o colega que encaminha também está lendo.",
+  },
+  {
+    slug: "ginecologia",
+    praca: "brasilia",
+    teseTitulo: "No DF, a indicação de ginecologista circula dentro do próprio setor.",
   },
 ];
 

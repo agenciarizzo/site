@@ -11,9 +11,11 @@
 // presença passar mesmo sem o texto na tela).
 //
 //   1. O molde está no ar: `data-par-molde="<slug>/<praca>"`. E a contagem
-//      fecha: páginas com o molde no HTML = registros do molde (FIM DO LEGADO
-//      do lote em que o par entra: registro sem página, ou página sem
-//      registro, reprova).
+//      fecha nos dois sentidos (FIM DO LEGADO, critério H do lote 2): TODO par
+//      de `content/especialidade-praca.ts` tem registro no molde, todo registro
+//      do molde tem par, e TODA página `marketing-medico/<slug>/<praca>.html`
+//      gerada tem o molde no HTML (nenhuma no corpo antigo). Par sem registro,
+//      registro sem par ou página sem molde reprova.
 //   2. TEXTO (critério B): `lede`, CADA parágrafo do `intro` (uma vez só cada)
 //      e o `teseTitulo` na tela. Nada da MÃE na página: o `teseTitulo`, o
 //      `metodoTitulo`, os títulos do `metodo` e os parágrafos do `intro` da
@@ -36,7 +38,7 @@
 //
 // Roda DEPOIS do `next build`, encadeado logo antes de `checar-texto.mjs`.
 import { readdirSync, readFileSync, statSync, existsSync } from "fs";
-import { join } from "path";
+import { join, relative } from "path";
 import { semComentarios } from "./lib/sem-comentarios.mjs";
 
 const raiz = process.cwd();
@@ -211,15 +213,25 @@ if (NOMES_REAIS.size === 0) erros.push("checar-pares: zero nome lido da carteira
 const robotsTxt = readFileSync(join(app, "robots.txt.body"), "utf8");
 const buildIndexavel = !/^\s*Disallow:\s*\/\s*$/m.test(robotsTxt);
 
-// A página do par migrada pra cá tem esta marca na raiz; conta as que estão no HTML.
+// A página do par migrada pra cá tem esta marca na raiz; conta as que estão no HTML
+// e separa as páginas `<slug>/<praca>.html` que NÃO a têm (o corpo antigo, que não existe mais).
 const comMolde = [];
+const semMolde = [];
 (function anda(dir) {
   for (const f of readdirSync(dir)) {
     const p = join(dir, f);
     if (statSync(p).isDirectory()) anda(p);
-    else if (f.endsWith(".html") && /<div class="dg cid par"[^>]*data-par-molde=/.test(readFileSync(p, "utf8"))) comMolde.push(p);
+    else if (f.endsWith(".html")) {
+      if (/<div class="dg cid par"[^>]*data-par-molde=/.test(readFileSync(p, "utf8"))) comMolde.push(p);
+      else if (/^[^/\\]+[/\\][^/\\]+\.html$/.test(relative(join(app, "marketing-medico"), p))) semMolde.push(p);
+    }
   }
 })(join(app, "marketing-medico"));
+
+// FIM DO LEGADO: todo par do registro tem registro no molde (o sentido inverso é o `!par` do laço).
+for (const id of PARES.keys()) {
+  if (!MOLDE.has(id)) erros.push(`/marketing-medico/${id}: par de content/especialidade-praca.ts sem registro em content/especialidade-praca-molde.ts (o corpo antigo saiu do ar)`);
+}
 
 let paginas = 0;
 let nomesTotal = 0;
@@ -365,9 +377,12 @@ for (const [id, reg] of MOLDE) {
   }
 }
 
-// contagem: o que está no ar no molde = o que o registro declara (fim do legado do lote)
-if (comMolde.length !== MOLDE.size) {
-  erros.push(`${comMolde.length} página(s) com \`data-par-molde\` no HTML gerado, esperava as ${MOLDE.size} do registro do molde.`);
+// contagem: o que está no ar no molde = os pares do registro, e nenhuma página de par fora dele (fim do legado)
+if (comMolde.length !== PARES.size) {
+  erros.push(`${comMolde.length} página(s) com \`data-par-molde\` no HTML gerado, esperava os ${PARES.size} pares de content/especialidade-praca.ts.`);
+}
+for (const p of semMolde) {
+  erros.push(`${relative(app, p)}: página de par sem \`data-par-molde\`, ainda no corpo antigo (fim do legado: todo par sai no molde)`);
 }
 
 if (erros.length > 0) {
@@ -377,5 +392,5 @@ if (erros.length > 0) {
   process.exit(1);
 }
 console.log(
-  `✓ Pares no molde: ${paginas}/${MOLDE.size} página(s) do registro: lede/intro/teseTitulo na tela e nada da mãe, zero wa.me, todo data-wa é o do par, SERP do registro${buildIndexavel ? "" : " (robots pulado, build noindex)"}, ${nomesTotal} nome(s) de histórico reais e sem repetição, números do pôster contados, toda peça do par no palco, mapa só onde a cidade declara.`,
+  `✓ Pares no molde: ${paginas}/${PARES.size} página(s) do registro, nenhuma no corpo antigo: lede/intro/teseTitulo na tela e nada da mãe, zero wa.me, todo data-wa é o do par, SERP do registro${buildIndexavel ? "" : " (robots pulado, build noindex)"}, ${nomesTotal} nome(s) de histórico reais e sem repetição, números do pôster contados, toda peça do par no palco, mapa só onde a cidade declara.`,
 );
