@@ -1,0 +1,84 @@
+/* O SOBRE-MOLDE: as regras PRÓPRIAS que não estão no cidade-molde.css nem na
+   folha da home. Tudo o mais é `.cid-*` (cidade-molde.css) ou das seções da
+   home, e nada se duplica aqui. Escopo `.dg.cid.sob` em toda regra: nenhum
+   seletor pode alcançar elemento fora da página /sobre (o comparador prova
+   isso pelo HTML das outras 55 páginas).
+
+   Sem degrau tipográfico novo: cada medida repete uma que a linha `.dg` já
+   usa (o título "Quem assina o trabalho" é o `.sobre-chamada a` da home; as
+   duas colunas de "Por que só saúde" e "Como trabalhamos" são o `.esp-lede`
+   e o `.cid-met p`). */
+
+/* "Onde ficamos": o pôster do protótipo não tem coluna de números nesta
+   página, então o bloco da tese ocupa a largura inteira da grade em vez de
+   ficar encostado à direita com metade da tela vazia. Só a partir de 900px:
+   abaixo disso o cidade-molde.css já derruba a grade pra 1 coluna, e um span
+   de 12 colunas ali criaria colunas implícitas e estouraria a largura.
+   Espelho de `.dg.cid.esp[data-especialidade-numeros="0"]`. */
+@media (min-width: 900px) {
+  .dg.cid.sob .cid-poster-bloco {
+    grid-column: 1 / 13;
+    max-width: 760px;
+  }
+}
+
+/* Os dois links pras praças moram DENTRO do parágrafo do bloco amarelo, e o
+   `.dg a` da home é teal (que sobre amarelo não tem contraste). Aqui o link é
+   grafite, sublinhado, pra ler como link sem sair da paleta. */
+.dg.cid.sob .cid-poster-bloco > p a {
+  color: var(--chumbo);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.dg.cid.sob .cid-poster-bloco > p a:hover {
+  opacity: 0.65;
+}
+
+/* "Por que só saúde" e "Como trabalhamos": o mesmo papel do "No que
+   acreditamos", em continuação (sem o respiro de cima, que a seção anterior já
+   deu). Duas colunas pelo grid do `.cid-met` (auto-fit, 320px). */
+.dg.cid.sob .sob-duas {
+  padding-top: 0;
+}
+.dg.cid.sob .sob-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dg.cid.sob .sob-barra {
+  display: block;
+  width: 56px;
+  height: 6px;
+  background: var(--chumbo);
+}
+.dg.cid.sob .sob-barra-ouro {
+  background: var(--amarelo);
+}
+.dg.cid.sob .sob-duas h2 {
+  max-width: none;
+  font-size: clamp(24px, 2.6vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+.dg.cid.sob .sob-col p {
+  margin: 0;
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+
+/* Bloco Sobre da casa, na própria /sobre: a chamada não é link (apontaria pra
+   si mesma), então o título é um parágrafo com a MESMA medida do link da home
+   (`.dg .sobre-chamada a`). */
+.dg.cid.sob .sobre-chamada-titulo {
+  margin: 0;
+  color: var(--chumbo);
+  font-weight: 700;
+  font-size: clamp(40px, 5.2vw, 88px);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
