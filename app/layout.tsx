@@ -4,6 +4,7 @@ import "./globals.css";
 import { INDEXABLE, SITE_URL, ORG_JSONLD } from "@/lib/site";
 import { Medicao } from "@/components/Medicao";
 import { GuardaOrigem } from "@/components/GuardaOrigem";
+import { PortaoGesto } from "@/components/PortaoGesto";
 import { Analytics } from "@vercel/analytics/next";
 
 // Tipografia oficial da Linha Athos (self-hosted via next/font — zero request externo):
@@ -60,6 +61,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* Fora da Medicao: a atribuição do texto do WhatsApp vale também em
             preview e dev, onde a medição não roda. */}
         <GuardaOrigem />
+        {/* O gesto do portão mora aqui, e não na página: o ouvinte é do
+            documento, então vale em TODA entrada no /whatsapp (ver o porquê
+            no próprio componente). */}
+        <PortaoGesto />
         {children}
         <Analytics />
       </body>
