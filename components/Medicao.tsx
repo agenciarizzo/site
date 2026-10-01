@@ -19,6 +19,14 @@ import { ROTA_PRIVACIDADE } from "@/lib/nav";
 // quando o navegador restringe cookie (iOS); `fbclid` é o equivalente do Meta e
 // `msclkid` o do Microsoft Advertising (Bing) — sem ele, a campanha do Bing lê como
 // tráfego direto a conversa que ela mesma pagou numa visita anterior.
+//
+// 2026-10-01 — a UTM entra junto (pedido do cliente): o Ads tem o gclid, mas Meta,
+// e-mail, QR e parceiro só têm a UTM, e sem ela o lead do app nasce sem origem. Ela é
+// guardada como UM CONJUNTO (`ar_utm`, JSON com o carimbo): chegou campanha nova, o
+// conjunto inteiro é trocado, porque misturar o `utm_source` de uma campanha com o
+// `utm_campaign` de outra inventa uma origem que não existiu. Como os identificadores,
+// é first-party e fica no navegador da pessoa: nada sai daqui até o clique na porta
+// fria (CONVERSAO_CTA) e não depende do aceite, porque não é cookie nem vai a terceiro.
 const CAPTURA_CLIQUE_PAGO = `
 (function(){
   try{
@@ -27,6 +35,12 @@ const CAPTURA_CLIQUE_PAGO = `
       var v = q.get(k);
       if (v) { localStorage.setItem('ar_'+k, v); localStorage.setItem('ar_'+k+'_ts', String(Date.now())); }
     });
+    var utm = {}, tem = false;
+    ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){
+      var v = q.get(k);
+      if (v) { utm[k] = v.slice(0, 255); tem = true; }
+    });
+    if (tem) { utm.ts = Date.now(); localStorage.setItem('ar_utm', JSON.stringify(utm)); }
   }catch(e){}
 })();
 `;
@@ -75,11 +89,22 @@ const CONVERSAO_CTA = `
     // único jeito de o Ads aprender com quem virou cliente, e não com quem só
     // clicou. O site só ENTREGA o identificador; guardar, e devolver ao Ads quando
     // o acesso for liberado, é do RizzoOS.
+    // A UTM viaja na mesma query (2026-10-01), só se for da janela de 90 dias, a mesma
+    // do clique (o app descarta o que for mais velho que isso). Parâmetro que o link já
+    // traz não é sobrescrito.
+    var utm = null;
+    try{
+      var ru = JSON.parse(localStorage.getItem('ar_utm') || 'null');
+      if (ru && typeof ru.ts === 'number' && Date.now() - ru.ts < 90 * 864e5) utm = ru;
+    }catch(err){}
     if (proposta) {
       try{
         var u = new URL(link.getAttribute('href'), window.location.href);
         Object.keys(ids).forEach(function(k){
           if (!u.searchParams.has(k)) u.searchParams.set(k, ids[k]);
+        });
+        if (utm) ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){
+          if (utm[k] && !u.searchParams.has(k)) u.searchParams.set(k, utm[k]);
         });
         link.href = u.toString();
       }catch(err){}
