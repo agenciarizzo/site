@@ -96,8 +96,9 @@ export default function PrivacidadePage() {
 
             <h3 className="legal-h3">4 · Os eventos de clique nos botões de conversa</h3>
             <p>
-              Quando você clica em um botão de WhatsApp, registramos o clique, a página em que ele aconteceu e o
-              destino, não o conteúdo da conversa, que acontece fora do site. O caminho tem dois passos e cada um
+              Quando você clica em um botão de WhatsApp, registramos o clique, a página em que ele aconteceu, em que
+              parte dela fica o botão (topo, barra fixa do celular, menu, primeira tela, corpo ou rodapé) e o destino,
+              não o conteúdo da conversa, que acontece fora do site. O caminho tem dois passos e cada um
               gera o seu evento: o botão leva a uma tela de confirmação (<Link href="/whatsapp">a tela de conversa</Link>
               ), e é no botão de dentro dela que a conversa abre de fato. O mesmo vale para o botão de montar proposta,
               que leva para o nosso aplicativo.

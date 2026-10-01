@@ -110,6 +110,21 @@ const CONVERSAO_CTA = `
       }catch(err){}
     }
     var p = { pagina: window.location.pathname, destino: link.getAttribute('href') };
+    // 2026-10-01 — QUAL botão (pedido do cliente): no celular só 35% de quem tocava o
+    // WhatsApp abria a conversa, e o suspeito é o toque acidental na barra fixa do
+    // polegar. Sai do lugar do link na página, sem atributo novo em componente nenhum:
+    // polegar · menu · topo · rodape · hero (1ª seção do conteúdo) · corpo.
+    var botao = 'corpo';
+    if (link.closest('.polegar')) botao = 'polegar';
+    else if (link.closest('.menu-painel')) botao = 'menu';
+    else if (link.closest('header')) botao = 'topo';
+    else if (link.closest('footer')) botao = 'rodape';
+    else {
+      var secao = link.closest('section');
+      var primeira = document.querySelector('main section') || document.querySelector('section');
+      if (secao && secao === primeira) botao = 'hero';
+    }
+    if (portao || proposta) p.botao = botao;
     // no portão, a página que gerou a conversa é a de ORIGEM, não a porta
     var origem = link.getAttribute('data-origem');
     if (origem) p.origem = origem;
