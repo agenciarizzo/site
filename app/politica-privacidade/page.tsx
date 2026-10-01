@@ -109,9 +109,12 @@ export default function PrivacidadePage() {
               <i>localStorage</i> do seu próprio navegador, com o prefixo <code>ar_</code>, junto do horário:{" "}
               <code>ar_gclid</code>, <code>ar_gbraid</code>, <code>ar_wbraid</code> (Google Ads),{" "}
               <code>ar_fbclid</code> (Meta) e <code>ar_msclkid</code> (Microsoft Advertising), mais os respectivos{" "}
-              <code>_ts</code>. Serve para uma coisa só: saber qual anúncio trouxe a conversa quando você clica no
-              WhatsApp, inclusive se isso acontecer numa visita posterior. Não é cookie, fica no seu aparelho e você
-              pode apagar a qualquer momento limpando os dados do site no navegador.
+              <code>_ts</code>. Se o endereço trouxer a identificação da campanha (os parâmetros <code>utm_</code>),
+              ela fica junto, em <code>ar_utm</code>. Serve para uma coisa só: saber qual anúncio ou campanha trouxe a
+              conversa quando você clica no WhatsApp ou em montar proposta, inclusive se isso acontecer numa visita
+              posterior. No clique em montar proposta, esses valores seguem no endereço do nosso aplicativo, para que
+              a proposta saiba de onde você veio. Não é cookie, fica no seu aparelho e você pode apagar a qualquer
+              momento limpando os dados do site no navegador.
             </p>
 
             <h3 className="legal-h3">6 · O texto que abre a conversa</h3>
