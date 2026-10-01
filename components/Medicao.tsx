@@ -144,6 +144,18 @@ const CONVERSAO_CTA = `
 //
 // Roda como `<script>` cru no topo do <body>, ANTES do gtag.js e do bat.js — default
 // que chega depois da tag não vale nada.
+//
+// 2026-10-01 — A DECISÃO É UMA SÓ PRO SITE E PRO APP. Antes ela morava no
+// `localStorage` deste domínio, que o app (`app.agenciarizzo.com.br`) não enxerga: quem
+// aceitava aqui via a faixa de novo no /proposta, e a medição do funil só começava no
+// 2º aceite. Agora a decisão é o cookie `ar_consent` em `.agenciarizzo.com.br`, lido
+// e escrito pelos dois lados (rizzo-os → `src/lib/medicao/consent.ts`, a mesma
+// constante). O valor é versionado (`v3:granted` | `v3:denied`): v3 é a 1ª versão
+// cujo texto vale nos dois lados (as duas faixas nomeiam Google, Meta e Microsoft e
+// dizem que a escolha vale no site e na proposta). A decisão antiga deste site
+// (`localStorage.ar_consent` = granted|denied, dada sob o texto anterior) continua
+// valendo AQUI, e só aqui: não vira cookie, porque não foi dada sob o texto que
+// fala do app.
 const CONSENTIMENTO = `
 (function(){
   window.dataLayer = window.dataLayer || [];
@@ -155,7 +167,18 @@ const CONSENTIMENTO = `
   window.uetq = window.uetq || [];
   window.uetq.push('consent', 'default', { ad_storage: 'denied' });
   var escolha = null;
-  try { escolha = localStorage.getItem('ar_consent'); } catch(e){}
+  try {
+    var m = document.cookie.match(/(?:^|;\\s*)ar_consent=([^;]*)/);
+    var v = m ? decodeURIComponent(m[1]) : '';
+    if (v === 'v3:granted') escolha = 'granted';
+    else if (v === 'v3:denied') escolha = 'denied';
+  } catch(e){}
+  if (!escolha) {
+    try {
+      var l = localStorage.getItem('ar_consent');
+      if (l === 'granted' || l === 'denied') escolha = l;
+    } catch(e){}
+  }
   if (escolha === 'granted') {
     gtag('consent','update', LIBERADO);
     window.uetq.push('consent', 'update', { ad_storage: 'granted' });
@@ -174,8 +197,18 @@ const AVISO_CONSENTIMENTO = `
   var estado = window.__arConsent || {};
   if (estado.escolha) return;
   barra.hidden = false;
+  // O cookie vale no domínio inteiro (site + app) só no domínio de verdade; em
+  // preview e dev ele fica no host, senão o navegador recusa gravar.
+  function gravar(valor){
+    var dominio = /(^|\\.)agenciarizzo\\.com\\.br$/.test(location.hostname) ? '; Domain=.agenciarizzo.com.br' : '';
+    var seguro = location.protocol === 'https:' ? '; Secure' : '';
+    try {
+      document.cookie = 'ar_consent=' + encodeURIComponent('v3:' + valor) + dominio + '; Path=/; Max-Age=31536000; SameSite=Lax' + seguro;
+    } catch(e){}
+  }
   function decidir(valor){
-    try { localStorage.setItem('ar_consent', valor); } catch(e){}
+    gravar(valor);
+    estado.escolha = valor;
     if (valor === 'granted') {
       if (typeof window.gtag === 'function') window.gtag('consent','update', estado.LIBERADO);
       if (typeof window.fbq === 'function') window.fbq('consent','grant');
@@ -201,7 +234,7 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
-try { if (localStorage.getItem('ar_consent') !== 'granted') fbq('consent', 'revoke'); } catch(e) { fbq('consent', 'revoke'); }
+try { if (!window.__arConsent || window.__arConsent.escolha !== 'granted') fbq('consent', 'revoke'); } catch(e) { fbq('consent', 'revoke'); }
 fbq('init', '${META_PIXEL_ID}');
 fbq('track', 'PageView');
 `;
@@ -251,8 +284,9 @@ export function Medicao() {
 
       <aside className="consent" id="ar-consent" hidden>
         <p>
-          Usamos cookies pra medir o que traz paciente até aqui. Sem a sua permissão, a
-          medição roda de forma agregada e sem cookie de anúncio.{" "}
+          Usamos cookies do Google, da Meta e da Microsoft para medir de onde você veio e
+          personalizar anúncios. Sem a sua permissão, a medição é agregada e sem cookie de
+          anúncio. A escolha vale aqui e na montagem da proposta.{" "}
           <a href={ROTA_PRIVACIDADE}>Como tratamos seus dados</a>.
         </p>
         <div className="consent-acoes">

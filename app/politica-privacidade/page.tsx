@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 const WA = "Olá! Tenho uma dúvida sobre privacidade e dados no site da agência.";
-const ATUALIZADO = "20 de setembro de 2026";
+const ATUALIZADO = "1 de outubro de 2026";
 
 export default function PrivacidadePage() {
   const faixa = panoPrivacidade();
@@ -139,9 +139,18 @@ export default function PrivacidadePage() {
               nós. Fora do Brasil, ou quando a hospedagem não sabe, nada muda na página.
             </p>
 
+            <h3 className="legal-h3">9 · A sua escolha sobre cookies</h3>
             <p>
-              A medição descrita nos itens 1 a 5 <b>só roda no site publicado</b>. Ambientes de desenvolvimento e de
-              pré-visualização não medem nada. O item 6 não é medição: existe para a conversa abrir com o assunto
+              Na primeira visita, uma faixa no pé da tela pergunta se você aceita os cookies de medição e de anúncio.
+              A resposta fica num cookie nosso, <code>ar_consent</code>, que guarda só a escolha (aceitou ou recusou)
+              por até 12 meses. Ele vale em todo o domínio <code>agenciarizzo.com.br</code>: a mesma escolha serve
+              para este site e para o nosso aplicativo de proposta (<code>app.agenciarizzo.com.br</code>), e você não
+              precisa responder duas vezes.
+            </p>
+
+            <p>
+              A medição descrita nos itens 1 a 5 <b>só roda no site publicado</b>, e o mesmo vale para a faixa do
+              item 9. Ambientes de desenvolvimento e de pré-visualização não medem nada. O item 6 não é medição: existe para a conversa abrir com o assunto
               certo, e vale em qualquer ambiente. O item 8 também não é medição: só ordena o que você já ia ver.
             </p>
 
@@ -224,9 +233,12 @@ export default function PrivacidadePage() {
 
             <h2 className="sec">Como recusar a medição</h2>
             <p>
-              Hoje este site não exibe banner de consentimento: a medição descrita acima começa quando a página abre.
-              Você continua no controle e pode desligá-la por fora, a qualquer momento:
+              Pela faixa do item 9. Sem o seu aceite, o Google e a Microsoft recebem só medição agregada, sem cookie
+              de anúncio, e a Meta não recebe evento nenhum; com o aceite, os cookies dos três passam a valer. Para mudar de
+              ideia, apague os cookies deste site no navegador, ou use o botão de rever a decisão na política do nosso
+              aplicativo: a faixa volta na próxima visita, aqui e lá.
             </p>
+            <p>Você também pode desligar a medição por fora, a qualquer momento:</p>
             <ul className="crencas">
               <li>
                 <b>No navegador</b>: bloqueando cookies de terceiros, usando janela privada ou limpando os dados deste
