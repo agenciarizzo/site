@@ -181,8 +181,10 @@ export default function PrivacidadePage() {
               recebe dado seu nesse passo: é um clique de confirmação, e nada além dele é registrado.
             </p>
             <p>
-              O clique abre uma conversa no WhatsApp com um texto já escrito, que indica de qual página você veio. A
-              partir daí a conversa acontece dentro do WhatsApp, sob a política de privacidade da Meta, e o que você
+              O clique abre uma conversa no WhatsApp com um texto já escrito, que indica de qual página você veio. Se
+              você chegou por um anúncio do Google, o texto leva também, sozinho na última linha, o identificador desse
+              clique (o mesmo do item 5), para sabermos qual anúncio trouxe a conversa. Você vê esse texto antes de
+              enviar e pode apagar a linha, se preferir. A partir daí a conversa acontece dentro do WhatsApp, sob a política de privacidade da Meta, e o que você
               escrever ali fica no nosso histórico de atendimento pelo tempo em que a relação comercial exigir. Você
               pode pedir a exclusão desse histórico pelo mesmo canal.
             </p>
