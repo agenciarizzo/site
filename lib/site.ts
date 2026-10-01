@@ -78,7 +78,14 @@ export const ORIGEM_ENDPOINT = process.env.NEXT_PUBLIC_ORIGEM_ENDPOINT ?? "";
  * que o médico ainda pode apagar antes de enviar. O que ele NÃO tem é erro de
  * transcrição, porque a secretária copia, não digita.
  */
-export const ORIGEM_MODO = process.env.NEXT_PUBLIC_ORIGEM_MODO ?? "";
+//
+// LIGADO em "gclid" desde 2026-10-01 (pedido do cliente: "para a conversa do WhatsApp
+// chegar com gclid"). Medido antes de ligar: o modo "codigo" não tem onde resolver o
+// par AR-XXXXX (nenhuma edge do RizzoOS registra `{código → gclid}`), então ligar
+// "codigo" seria mandar código que ninguém consegue traduzir, que é o pior dos três.
+// O "gclid" é auto-contido. Visitante sem clique de anúncio continua sem linha extra.
+// A env var segue mandando: `NEXT_PUBLIC_ORIGEM_MODO=""` na Vercel desliga sem deploy.
+export const ORIGEM_MODO = process.env.NEXT_PUBLIC_ORIGEM_MODO ?? "gclid";
 
 export const ENDERECO = "Rua Barão do Rio Branco, 531, sala 101 · Anápolis/GO";
 export const CNPJ = "15.728.480/0001-89";
