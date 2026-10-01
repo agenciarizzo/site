@@ -45,15 +45,21 @@
 // vocabulário do hero e da OG (`panoOg`), montado inline: não consome motivo da
 // biblioteca do `checar-panos.mjs`, que é o que o comentário antigo protegia ao
 // não ter faixa nenhuma.
+//
+// 2026-10-01 — A MONTAGEM DO DESTINO SAIU DESTA PÁGINA. Ela morava aqui num
+// `<Script id="ar-portao">`, que o Next roda uma vez por aba: na 2ª entrada no
+// portão sem recarregar, o botão nascia sem `href` e sem ouvinte, e não abria
+// nada (medido em produção). Agora quem monta é `components/PortaoGesto.tsx`,
+// delegado no documento e ligado no `app/layout.tsx`. Esta página só desenha o
+// selo, a porta e os `data-*` que o gesto lê.
 import type { Metadata } from "next";
-import Script from "next/script";
 import "../home-diagonal.css";
 import { Topo } from "@/components/ar/home/Topo";
 import { Rodape } from "@/components/ar/home/Fecho";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import { panoOg } from "@/lib/og";
-import { CHAVE_ORIGEM, CHAVE_ORIGEM_PAGINA, CTA_PROPOSTA, ROTA_PORTAO, WA_PADRAO } from "@/lib/nav";
-import { ORIGEM_ENDPOINT, ORIGEM_MODO, PROPOSTA_URL, WHATS_LABEL, WHATS_NUMBER } from "@/lib/site";
+import { CTA_PROPOSTA, WA_PADRAO } from "@/lib/nav";
+import { PROPOSTA_URL, WHATS_LABEL, WHATS_NUMBER } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Falar no WhatsApp",
@@ -63,99 +69,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-// Resgata o texto da página de onde a pessoa veio (guardado pelo GuardaOrigem) e
-// reescreve o destino; sem sessão guardada vale o href estático do servidor.
-// A rota de origem vai no `data-origem`: sem ela o `whatsapp_click` diria
-// "/whatsapp" em toda conversão e o relatório perderia qual página vende.
-//
-// A 2ª metade é o gesto único: assim que o selo é marcado, segue o link no
-// mesmo clique. `requestAnimationFrame` pra sair depois de o CSS revelar o
-// botão — sem isso, o clique sintético sai antes de o alvo existir.
-const PORTAO_JS = `
-(function(){
-  var a = document.getElementById('ar-zap');
-  var t = document.getElementById('sou-pessoa');
-  if (!a) return;
-  var texto = ${JSON.stringify(WA_PADRAO)};
-  var origem = '';
-  try{
-    var s = sessionStorage.getItem('${CHAVE_ORIGEM}');
-    if (s) texto = s;
-    var de = sessionStorage.getItem('${CHAVE_ORIGEM_PAGINA}');
-    if (de) { a.setAttribute('data-origem', de); origem = de; }
-  }catch(e){}
-
-  // ── O código que costura a conversa ao clique no anúncio ─────────────────
-  // Base32 de Crockford: 32 símbolos EXATOS, então 256 divide redondo e não há
-  // viés de módulo. Sem I, L, O e U — justamente os que a secretária erraria ao
-  // transcrever; quem resolve do outro lado normaliza I e L para 1 e O para 0
-  // antes de buscar, que é a regra do Crockford. 5 símbolos = 33,5 milhões de
-  // combinações, e a busca só varre os últimos 90 dias (a janela do gclid), então
-  // colisão não é problema real.
-  //
-  // Por que um CÓDIGO e não o gclid inteiro: gclid tem ~90 caracteres aleatórios.
-  // Na mensagem ele vira uma parede de lixo que o médico apaga antes de enviar, e
-  // na mão da secretária vira erro de transcrição que o Google rejeita calado.
-  var ENDPOINT = ${JSON.stringify(ORIGEM_ENDPOINT)};
-  var MODO = ${JSON.stringify(ORIGEM_MODO)};
-  var ids = {};
-  try{
-    ['gclid','gbraid','wbraid','fbclid'].forEach(function(k){
-      var v = localStorage.getItem('ar_'+k);
-      if (v) ids[k] = v;
-    });
-  }catch(e){}
-
-  var codigo = '';
-  if (MODO === 'codigo' && ENDPOINT) {
-    try{
-      var ALFA = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
-      var b = new Uint8Array(5);
-      crypto.getRandomValues(b);
-      for (var i = 0; i < 5; i++) codigo += ALFA[b[i] % 32];
-      codigo = 'AR-' + codigo;
-      texto = texto + '\\n\\n' + codigo;
-    }catch(e){ codigo = ''; }
-  } else if (MODO === 'gclid') {
-    // Auto-contido: vai o identificador CRU, sozinho na última linha. Sem
-    // rótulo de propósito — assim um duplo-clique seleciona o valor inteiro e a
-    // secretária copia em vez de digitar, que é o que tira o erro de
-    // transcrição da jogada. Visitante orgânico não tem identificador nenhum:
-    // nesse caso não entra nada, porque linha em branco só confundiria.
-    var cru = ids.gclid || ids.gbraid || ids.wbraid || '';
-    if (cru) texto = texto + '\\n\\n' + cru;
-  }
-
-  // O destino é MONTADO aqui, nunca servido: o host não existe na fonte.
-  a.href = ['https://', a.dataset.h, '.', a.dataset.t, '/', a.dataset.n, '?text='].join('') + encodeURIComponent(texto);
-
-  // O par viaja no CLIQUE, não no load: registrar antes seria gravar conversa que
-  // nunca aconteceu, e o portão existe justamente pra separar quem clica de quem
-  // só passa. keepalive porque a aba navega pro WhatsApp no mesmo gesto — sem ele
-  // o navegador cancela o POST no meio do caminho.
-  var enviado = false;
-  if (codigo) a.addEventListener('click', function(){
-    if (enviado) return;
-    enviado = true;
-    var corpo = { codigo: codigo, origem: origem || '${ROTA_PORTAO}' };
-    Object.keys(ids).forEach(function(k){ corpo[k] = ids[k]; });
-    try{
-      fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(corpo),
-        keepalive: true,
-        mode: 'cors',
-      }).catch(function(){});
-    }catch(e){}
-  });
-
-  if (t) t.addEventListener('change', function(){
-    if (!t.checked) return;
-    requestAnimationFrame(function(){ a.click(); });
-  });
-})();
-`;
+// O texto da página de origem (guardado pelo GuardaOrigem), a rota de origem
+// (`data-origem`, que mantém o `whatsapp_click` dizendo QUAL página vende) e o
+// gesto único (marcou o selo, segue o link no mesmo clique) moram em
+// `components/PortaoGesto.tsx`, que lê os `data-*` do `#ar-zap` no instante do
+// toque.
 
 export default function PortaoPage() {
   const pano = panoOg(31, 24);
@@ -186,7 +104,7 @@ export default function PortaoPage() {
             </label>
             <div className="portao-porta">
               {/* ⚠️ SEM `href` no HTML — o destino é montado pelo JS a partir
-                  de `data-h` + `data-t` + `data-n` (ver PORTAO_JS) — o host vai
+                  de `data-h` + `data-t` + `data-n` (ver PortaoGesto) — o host vai
                   PARTIDO, pra a string "wa.me" não existir na fonte nem pra
                   uma varredura por padrão. A versão anterior desta
                   tela servia o `wa.me` completo no `href` e só ESCONDIA o
@@ -231,9 +149,6 @@ export default function PortaoPage() {
         </section>
       </main>
       <Rodape waText={WA_PADRAO} />
-      <Script id="ar-portao" strategy="afterInteractive">
-        {PORTAO_JS}
-      </Script>
     </div>
   );
 }

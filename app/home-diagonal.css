@@ -3682,6 +3682,25 @@
   width: 100%;
   height: 100%;
 }
+/* 2026-10-01 — no portão, nada fixo na tela compete com o botão.
+   (1) A faixa de consentimento (`.consent`, globals.css) é fixa, z-index 60, e no
+       celular pequeno TAPAVA o selo: medido no iPhone SE emulado, a faixa começava
+       em y=333 e o botão estava em 442–532, coberto por inteiro na primeira tela; no
+       iPhone 13, os 30px de baixo. Aqui ela some só enquanto o portão está na tela.
+       Esconder não concede nada: sem decisão, o consentimento segue no default
+       NEGADO da Medicao, e a faixa volta na próxima página.
+   (2) O WhatsApp do topo e da barra do polegar apontam pro próprio portão: tocar
+       nele aqui disparava `portao_whatsapp` de novo e regravava "/whatsapp" como
+       página de origem (GuardaOrigem). A porta é o botão do meio.
+   `:has()` e não prop no Topo: o Topo é compartilhado por todas as páginas v3, e
+   a regra só vale quando o portão está montado (inclusive em navegação sem
+   recarregar, porque o seletor reavalia sozinho). */
+body:has(.portao-v3) .consent {
+  display: none;
+}
+.dg:has(.portao-v3) .topo-zap {
+  display: none;
+}
 @media (max-width: 900px) {
   .dg .portao-v3 {
     padding: 120px var(--lado) 240px;
