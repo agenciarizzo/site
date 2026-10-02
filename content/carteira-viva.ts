@@ -150,4 +150,17 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "Dra. Ana Cristina Medanha (Medicina da Dor em Araguaína - TO) (AR - Clientes, item 227) — mesma casa; content/carteira.ts: \"Dra. Ana Cristina Medanha\". Cadastro do RizzoOS (tabela clients): fantasy_name \"Clínica de Medicina da Dor\", razão CLINICA DE ANESTESIA E DOR DO TOCANTINS LTDA, Araguaína/TO, status active. A arte (site www.medicinador.com.br, projeto Vercel md-medicina-da-dor) assina \"Clínica Medicina da Dor\" no <title>/<h1> e o logo MD",
   },
+  // Rodada 26 (2026-10-02) — os últimos sites, pedidos pelo cliente. Duas casas cuja
+  // grafia da ARTE não está em nenhuma das 4 listas; ambas ativas no cadastro do RizzoOS
+  // (tabela clients). Casas novas: sobem numerador E denominador.
+  {
+    nome: "Dr. Rogério Furtado",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): name e fantasy_name \"Dr. Rogério Furtado\", Oftalmologia, status active (cadastro de 2026-07-08, ainda sem sigla nem cidade no registro). Fora das 4 listas do repo. A arte (site www.drrogeriofurtado.com.br, projeto Vercel rf) assina Dr. Rogério Furtado · Oftalmologista · Asa Sul no logo e no <title>, CRM-DF 10851, SEPS 710/910, Asa Sul, Brasília/DF",
+  },
+  {
+    nome: "Centro Médico de Curionópolis",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla CN, razão Centro Médico de Curionópolis LTDA, fantasy_name \"Centro Médico de Curionópolis\", Centro Médico, Curionópolis/PA, status active (contrato desde 2025-06-18). Fora das 4 listas do repo. A arte (site www.centromedicocurionopolis.com.br, projeto Vercel cn) assina CMC · Centro Médico de Curionópolis no logo e no <title>",
+  },
 ];
