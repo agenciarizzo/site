@@ -2509,6 +2509,88 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "Drive: sprint_10_HD_peca_grafica_certificacao_UTI_u0 (export zip do Google Doc; cartões image13/image7/image15, 1080×1080 cada, compostos lado a lado). Reserva §4.1 no lugar das placas do centro cirúrgico, cujo doc só traz miniaturas de 426×284. A ARTE atribui (§34): cada cartão assina daher hospital lago sul",
   },
+  // ── Rodada 26 (2026-10-02) — os últimos sites entregues, do deploy Vercel ─────────
+  // Pedido do cliente: "quero atualizar o site da agência com os últimos sites". Os 5
+  // escolhidos por ele, todos clientes ATIVOS no cadastro do RizzoOS e no ar em domínio
+  // próprio. Mesmo instrumento das rodadas 25/25b: repo de cada cliente clonado no
+  // commit que a Vercel serve em produção, buildado e servido local (os domínios não
+  // passam pela rede da sessão), captura e composição vertical 1200×1500 de
+  // scripts/compor-peca-site.mjs, fundo na cor de marca lida do CSS do próprio site.
+  // Duas correções do instrumento entram nesta rodada (ver o commit do script): o
+  // celular agora preenche a moldura (antes o terço de baixo saía branco) e o fecho de
+  // aviso de cookies não clica mais em pergunta de FAQ. Atribuição pela ARTE (§34):
+  // logo e <title> do site. Centro Médico de Curionópolis estava fora da rodada 25 por
+  // não ter domínio; desde 27/09 responde em www.centromedicocurionopolis.com.br.
+  {
+    cliente: "Dr. Rogério Furtado",
+    contexto: "Site para oftalmologia, catarata e cirurgia refrativa · Asa Sul, Brasília",
+    espec: "Oftalmologia",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-oftalmologia-asa-sul-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Rogério Furtado, oftalmologista de córnea, catarata e cirurgia refrativa na Asa Sul, em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto rf (www.drrogeriofurtado.com.br), deploy de produção dpl_8oV4xqoK49SnQQYqphaVpMRdzhWh = githubCommitSha 60df738; repo agenciarizzo/RF (buildado do clone, vite + prerender). A arte assina Dr. Rogério Furtado · Oftalmologista · Asa Sul no logo e no <title>; casa nova, ver content/carteira-viva.ts",
+  },
+  {
+    cliente: "Cardio Clinic",
+    contexto: "Site para clínica de cardiologia com consultas e exames · Parauapebas",
+    espec: "Cardiologia",
+    servico: "Site",
+    praca: "Parauapebas/PA",
+    imagem: "/portfolio/marketing-clinica-cardiologia-parauapebas-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Cardio Clinic, clínica de cardiologia com consultas e exames em Parauapebas, no Pará",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto cd-2 (cardioclinicparauapebas.com.br), deploy de produção dpl_A4VnLuZTLWYVaDRiXqmt3Ryw1ASq = githubCommitSha dfd3c87; repo agenciarizzo/CD2 (buildado do clone, vite + prerender). O logo do site assina CARDIO CLINIC em duas palavras, a mesma grafia de content/carteira.ts (Cardio Clinic, Cardiologia, Parauapebas/PA) e da peça de papelaria desta casa; o <title> escreve CardioClinic. Cadastro do RizzoOS: sigla CD, razão Rr Clinica Cirurgica LTDA, fantasy_name CardioClinic Parauapebas, status active",
+  },
+  {
+    cliente: "Centro Médico de Curionópolis",
+    contexto: "Site para centro médico com especialistas, exames e ultrassom · Curionópolis",
+    espec: "Clínica Médica",
+    servico: "Site",
+    praca: "Curionópolis/PA",
+    imagem: "/portfolio/marketing-clinica-medica-curionopolis-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Centro Médico de Curionópolis, com especialistas e exames em Curionópolis, no Pará",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto cn (www.centromedicocurionopolis.com.br), deploy de produção dpl_4XrafSgSBWxvhocmwFvcYURfLeWC = githubCommitSha 53e8220; repo agenciarizzo/CN (buildado do clone, astro). O logo assina CMC · Centro Médico de Curionópolis; casa nova, ver content/carteira-viva.ts",
+  },
+  {
+    cliente: "Via Oftalmocenter",
+    contexto: "Site para clínica de oftalmologia, catarata e glaucoma · Asa Sul, Brasília",
+    espec: "Oftalmologia",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-oftalmologia-asa-sul-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Via Oftalmocenter, clínica de oftalmologia na Asa Sul, em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto vo (www.viaoftalmocenter.com.br), deploy de produção dpl_43MvZGeRXXioHpdQeUheMYDgJ6Ee = githubCommitSha cd6bb44; repo agenciarizzo/VO (buildado do clone, vite + prerender). O logo assina VIA Oftalmocenter, a mesma grafia de content/carteira.ts e das outras peças desta casa",
+  },
+  {
+    cliente: "Dra. Maria Eduarda Amaral",
+    contexto: "Site para reprodução humana e ginecologia · Asa Sul, Brasília",
+    espec: "Saúde da Mulher",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-reproducao-humana-asa-sul-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Dra. Maria Eduarda Amaral, reprodução humana e ginecologia na Asa Sul, em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto me (dramariaeduardaamaral.com.br), deploy de produção dpl_859zRnFqbNuCwFSRJZrPppbXFaTG = githubCommitSha 7235dc1; repo agenciarizzo/ME (buildado do clone, vite + prerender). O logo assina Dra. Maria Eduarda Amaral, a mesma grafia de content/carteira.ts e content/cidades.ts",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */

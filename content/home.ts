@@ -288,12 +288,17 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
   //    (1×2, 2×4) e tocam só na cena ativa (Motor.tsx, achado #13);
   //  · as vagas largas (2×1, 4×2, 6×3) voltam pra peças em paisagem do acervo.
   //  9 sites (todos Vercel) + 7 vídeos + 14 outros formatos = 30 vagas, 30 peças.
+  // 2026-10-02 (cliente, rodada 26): "quero atualizar o site da agência com os últimos
+  // sites". Os 5 sites novos entram nas vagas dos 5 sites MAIS ANTIGOS do palco, os da
+  // rodada 17 (2026-08-20): Angiomedi, Hospital de Olhos Sobradinho, InMed, Dr. Eduardo
+  // Medeiros e Dra. Elielma Almeida. As peças deles seguem no /portfolio; só saem do
+  // palco. Mesma vaga, mesma orientação, mesmo total: 9 sites, 30 vagas, 30 peças.
   {
     nome: "Sites",
     vagas: [[0, 0, 4, 4], [4, 0, 2, 3], [4, 3, 1, 1], [5, 3, 1, 1]],
     pecas: [
-      "/portfolio/marketing-clinica-angiologia-brasilia-site.webp", // Angiomedi — o melhor site, na maior vaga (quadrada)
-      "/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp", // HOS — vaga 2×3, vertical como a peça
+      "/portfolio/marketing-clinica-cardiologia-parauapebas-site.webp", // Cardio Clinic (Vercel, rodada 26) — na maior vaga (quadrada)
+      "/portfolio/marketing-medico-reproducao-humana-asa-sul-brasilia-site.webp", // Dra. Maria Eduarda Amaral (Vercel, rodada 26) — vaga 2×3, vertical como a peça
       "/portfolio/marketing-medico-oftalmologia-belo-horizonte-site.webp", // Dra. Larissa Fouad (Vercel)
       "/portfolio/marketing-medico-urologia-porto-alegre-site.webp", // Dra. Marina Gressler (Vercel)
     ],
@@ -304,7 +309,7 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     pecas: [
       "video:hr-dose-maxima", // Dr. Homero Ribeiro — reel publicado (HR-DE-121)
       "/portfolio/marketing-medico-urologia-brasilia-ebook-vasectomia.webp", // e-book do mesmo cliente, na vaga larga 4×2
-      "/portfolio/marketing-clinica-medica-recanto-das-emas-site.webp", // InMed (Vercel) — vaga quadrada
+      "/portfolio/marketing-clinica-medica-curionopolis-site.webp", // Centro Médico de Curionópolis (Vercel, rodada 26) — vaga quadrada
       "video:hr-vmi-convenio", // HR-VMI-020
       "video:hr-vmi-recuperacao", // HR-VMI-022
     ],
@@ -314,7 +319,7 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 1, 2], [3, 2, 1, 2], [4, 2, 2, 2]],
     pecas: [
       "/portfolio/marketing-medico-cirurgia-digestiva-goiania-portfolio-digital.webp",
-      "/portfolio/marketing-medico-ortopedia-mossoro-site.webp", // Dr. Eduardo Medeiros (Vercel) — vaga quadrada
+      "/portfolio/marketing-medico-oftalmologia-asa-sul-brasilia-site.webp", // Dr. Rogério Furtado (Vercel, rodada 26) — vaga quadrada
       "/portfolio/marketing-clinica-otorrinolaringologia-brasilia-site.webp", // ECOA (Vercel, rodada 25) — idem
       "/portfolio/marketing-medico-oncologia-rio-de-janeiro-cartao-virtual.webp",
       "video:hr-preench-treino", // HR-PREENCH-088 — arquivo enviado pelo cliente (18/09), publicado
@@ -347,7 +352,7 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
     vagas: [[0, 0, 2, 2], [2, 0, 2, 2], [4, 0, 2, 2], [0, 2, 2, 2], [2, 2, 2, 2], [4, 2, 2, 2]],
     pecas: [
       "/portfolio/marketing-clinica-ortopedia-brasilia-folder-institucional.webp",
-      "/portfolio/marketing-medico-reproducao-humana-brasilia-site.webp", // Dra. Elielma Almeida (Vercel) — vaga quadrada
+      "/portfolio/marketing-clinica-oftalmologia-asa-sul-brasilia-site.webp", // Via Oftalmocenter (Vercel, rodada 26) — vaga quadrada
       "/portfolio/marketing-medico-oftalmologia-brasilia-ebook-uveites.webp",
       "/portfolio/marketing-laboratorio-mineiros-goias-cartaz-exames.webp",
       "/portfolio/marketing-medico-cirurgia-vascular-sao-lourenco-site.webp", // Dr. Luciano Morais (Vercel, rodada 25) — idem
