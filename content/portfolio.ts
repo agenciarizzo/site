@@ -2591,6 +2591,27 @@ export const PORTFOLIO: PecaPortfolio[] = [
     origem:
       "Vercel: projeto me (dramariaeduardaamaral.com.br), deploy de produção dpl_859zRnFqbNuCwFSRJZrPppbXFaTG = githubCommitSha 7235dc1; repo agenciarizzo/ME (buildado do clone, vite + prerender). O logo assina Dra. Maria Eduarda Amaral, a mesma grafia de content/carteira.ts e content/cidades.ts",
   },
+  // ── Rodada 27 (2026-10-03) — o site do Dr. Homero Ribeiro, no ar desde hoje ──────
+  // Mesmo instrumento da rodada 26 (clone no commit de produção, build local, composição
+  // vertical de scripts/compor-peca-site.mjs). Estava fora da rodada 25 por não ter
+  // domínio do cliente; desde 03/10 responde em drhomeroribeiro.com.br. A captura foi
+  // feita com a medição (GA/Ads/Meta/Clarity) bloqueada, pra não mandar hit ao Analytics
+  // do cliente. Atribuição pela ARTE (§34): o logo assina HOMERO RIBEIRO · Urologia e
+  // Andrologia, a mesma casa das peças de e-book e folder acima.
+  {
+    cliente: "Dr. Homero Ribeiro",
+    contexto: "Site para urologia e saúde sexual masculina · Asa Norte, Brasília",
+    espec: "Urologia",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-urologia-asa-norte-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Homero Ribeiro, urologista e andrologista na Asa Norte, em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto homero-ribeiro (drhomeroribeiro.com.br), deploy de produção dpl_CDmhzKsugWagsjsVmP7uRrohnFXF = githubCommitSha a0175aa; repo agenciarizzo/dominancia-urologia-dr-homero (buildado do clone, vite + prerender). O logo e o <title> assinam Homero Ribeiro, urologia e andrologia, CRM-DF 15092; mesma grafia de content/carteira.ts",
+  },
 ];
 
 /** Peças de uma carta, na ordem do registry. */

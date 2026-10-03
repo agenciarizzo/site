@@ -293,6 +293,12 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
   // rodada 17 (2026-08-20): Angiomedi, Hospital de Olhos Sobradinho, InMed, Dr. Eduardo
   // Medeiros e Dra. Elielma Almeida. As peças deles seguem no /portfolio; só saem do
   // palco. Mesma vaga, mesma orientação, mesmo total: 9 sites, 30 vagas, 30 peças.
+  // 2026-10-03 (rodada 27): o site do Dr. Homero Ribeiro (no ar desde 03/10) entra na
+  // vaga do site mais antigo que ainda estava no palco. Os dois mais antigos eram da
+  // rodada 18 (2026-08-20), empatados no acervo: Dra. Larissa Fouad e Dra. Marina
+  // Gressler. Desempate pela idade do SITE: o projeto Vercel da Marina (mg) é de março
+  // de 2026 e o da Larissa (li-dra-larissa) é de junho. Sai a Marina; a peça dela segue
+  // no /portfolio. Mesma vaga (1×1), mesmo total.
   {
     nome: "Sites",
     vagas: [[0, 0, 4, 4], [4, 0, 2, 3], [4, 3, 1, 1], [5, 3, 1, 1]],
@@ -300,7 +306,7 @@ export const PF_CENAS: { nome: string; vagas: [number, number, number, number][]
       "/portfolio/marketing-clinica-cardiologia-parauapebas-site.webp", // Cardio Clinic (Vercel, rodada 26) — na maior vaga (quadrada)
       "/portfolio/marketing-medico-reproducao-humana-asa-sul-brasilia-site.webp", // Dra. Maria Eduarda Amaral (Vercel, rodada 26) — vaga 2×3, vertical como a peça
       "/portfolio/marketing-medico-oftalmologia-belo-horizonte-site.webp", // Dra. Larissa Fouad (Vercel)
-      "/portfolio/marketing-medico-urologia-porto-alegre-site.webp", // Dra. Marina Gressler (Vercel)
+      "/portfolio/marketing-medico-urologia-asa-norte-brasilia-site.webp", // Dr. Homero Ribeiro (Vercel, rodada 27)
     ],
   },
   {
