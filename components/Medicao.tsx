@@ -149,7 +149,11 @@ const CONVERSAO_CTA = `
     } else if (proposta) {
       window.dataLayer.push({ event: 'proposta_click', proposta: p });
       if (typeof window.gtag === 'function') window.gtag('event', 'proposta_click', p);
-      if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+      // 2026-10-04 — evento PERSONALIZADO, não o padrão Lead: o pixel é o mesmo
+      // do app (570897230132103), e lá o Lead sai no código confirmado, que é o
+      // cadastro de verdade. Com o clique também chamado de Lead, a Meta somava
+      // ~10 cliques pra 1 cadastro (rizzo-os, docs/AQUISICAO_AR_MAPA.md §1.7).
+      if (typeof window.fbq === 'function') window.fbq('trackCustom', 'proposta_click');
       uet('proposta_click', 'conversao');
     } else {
       window.dataLayer.push({ event: 'whatsapp_click', whatsapp: p });
