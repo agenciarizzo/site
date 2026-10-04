@@ -70,3 +70,12 @@ export const WA_PADRAO = "Olá! Vim pelo site da Agência Rizzo e quero falar so
  *  `whatsapp_click` dizendo QUAL página gerou a conversa, e não sempre "/whatsapp"). */
 export const CHAVE_ORIGEM = "ar_wa_texto";
 export const CHAVE_ORIGEM_PAGINA = "ar_wa_pagina";
+
+/** Portfólio: fora do `MENU_TOPO` (curto de propósito), mas é o 1º destino de
+ *  conteúdo da página de entrada do Instagram (`app/links/page.tsx`). */
+export const ITEM_PORTFOLIO: ItemMenu = { href: "/portfolio", rotulo: "Portfólio" };
+
+/** A página de entrada do link do perfil do Instagram (@agencia.rizzo): noindex,
+ *  fora do sitemap. Entra no rodapé-mapa porque o `checar-navegacao.mjs` exige
+ *  toda rota alcançável de toda página; o rótulo público é este. */
+export const ITEM_ATALHOS: ItemMenu = { href: "/links", rotulo: "Atalhos" };

@@ -11,7 +11,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PROPOSTA_URL } from "@/lib/site";
-import { ROTA_PORTAO, ROTAS_SO_WHATSAPP } from "@/lib/nav";
+import { ITEM_ATALHOS, ROTA_PORTAO, ROTAS_SO_WHATSAPP } from "@/lib/nav";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import { FAQ, CTA_FINAL } from "@/content/landing-v3";
 import { RODAPE, ESPECIALIDADES_HOME } from "@/content/home";
@@ -168,6 +168,9 @@ export function Rodape({ waText, rota }: { waText?: string; rota?: string }) {
             </li>
             <li>
               <Link href="/contato">Contato</Link>
+            </li>
+            <li>
+              <Link href={ITEM_ATALHOS.href}>{ITEM_ATALHOS.rotulo}</Link>
             </li>
             {!soWhats && (
               <li>
