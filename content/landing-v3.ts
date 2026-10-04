@@ -48,36 +48,20 @@ export const SERVICOS = [
 /* ─────────────────────────────────────────────────────────────── pacotes ─── */
 
 /**
- * Os 4 pacotes públicos, com o PREÇO DE REFERÊNCIA da rodada 3 (§44.15 D1:
- * 921 · 1.240 · 1.509 ★ · 1.098, sem centavos, sem "a partir de", nota única)
- * e o escopo completo do catálogo.
+ * Os 4 pacotes públicos: nome, frase e escopo. SEM preço (cliente, 04/10/2026:
+ * "o correto era não expor o preço na home e insistir na CH regional"). O
+ * preço mora no app, depois do cadastro, pela régua regional por DDD
+ * (rizzo-os → FUNIL_ENTRADA_MAPA.md §11.3); a página não guarda número nenhum
+ * pra não divergir dele. Porquê e medição: rizzo-os → SITE_MANIFESTO_MAPA.md §47.
  *
  * O escopo já traz as duas correções de catálogo de 13/09:
  *  · "Site em Next.js (computador e celular)" no lugar de WordPress (§44.18);
- *  · a cadência dobrada — "um post em todo dia útil" no P1 e "2 posts por
- *    semana" nos demais (§44.19). O preço NÃO muda: a campanha de 20 posts tem
- *    o mesmo CH da de 12.
+ *  · a cadência dobrada: "um post em todo dia útil" no P1 e "2 posts por
+ *    semana" nos demais (§44.19).
  *
- * ⚠️ O método (CH, coeficiente, cidade, fórmula, contrato) fica FORA da página
- * — é a régua anti-oversharing do §44.10. O que aparece é o valor e o escopo.
+ * ⚠️ O método (coeficiente, cidade, fórmula, contrato) fica FORA da página:
+ * é a régua anti-oversharing do §44.10.
  */
-/**
- * A régua de preço é UMA: o pacote custa `chs × CH_MES`. A CH (a hora-chave do
- * painel) vale R$ 78 por ano — R$ 6,50 por mês — e é o mesmo número que o
- * RizzoOS usa por dentro; a tabela por CEP/tier fica pausada (cliente,
- * 18/09: "focar em CH única por enquanto; quando escalar, volto subindo
- * tier 1, 2…"). Mudar a CH aqui muda os quatro cards de uma vez. Quando a
- * régua por tier voltar, ela mora no rizzo-os e este número vira leitura.
- */
-export const CH_ANO = 78;
-export const CH_MES = CH_ANO / 12;
-
-/** 708.5 → "708,50" · 1384.5 → "1.384,50" (sem depender do ICU do Node). */
-function reais(n: number) {
-  const [int, dec] = n.toFixed(2).split(".");
-  return `${int.replace(/\B(?=(\d{3})+(?!\d))/g, ".")},${dec}`;
-}
-
 function pacote(p: {
   num: string;
   slug: string;
@@ -89,13 +73,10 @@ function pacote(p: {
   escopo: string[];
   alto?: boolean;
 }) {
-  const aPartir = reais(p.chs * CH_MES);
   return {
     ...p,
     tipo: "Standard",
-    aPartir,
     recomendado: !!p.alto,
-    preco: `R$ ${aPartir}/mês`,
     desc: p.para,
   };
 }
@@ -173,9 +154,6 @@ export const ADDONS: Addon[] = [
   { curto: "TV Corporativa", nome: "TV Corporativa Recepção", desc: "Mantenha sua sala de espera com conteúdo profissional: 1 animação gráfica nova por mês + manutenção remota da programação da TV." },
   { curto: "Vídeos Quinzenais", nome: "Vídeos Quinzenais (Insumos do Cliente)", desc: "Edição profissional dos insumos enviados pelo cliente: 1 vídeo a cada duas semanas." },
 ];
-
-/** A nota única do §44.15 D1 — uma linha, embaixo dos 4 cards. */
-export const PACOTES_NOTA = "Valores de referência. O valor final sai na calculadora, em 1 minuto.";
 
 /* ───────────────────────────────────────────────────────────────── cases ─── */
 

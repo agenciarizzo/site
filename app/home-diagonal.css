@@ -1297,6 +1297,8 @@
 }
 .dg .pac-fecho {
   position: relative;
+  /* sem a janela do preço (04/10/2026), é o fecho que desce pro pé do card */
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;

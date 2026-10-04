@@ -5,14 +5,15 @@
 // acesas — é onde a animação de entrada (no motor de scroll) estaciona, e é o
 // estado que o HTML entrega sem JS nenhum.
 //
-// Pacotes (porte do artifact de 18/09, §45.3): 4 cards sobre fundo escuro, o
-// preço escondido numa JANELA circular que abre no hover/foco — e aberta de
-// vez onde não existe hover (celular). Embaixo, os add-ons em dois letreiros
-// contrários sobre panos geométricos. Nenhum card além dos 4 do handoff.
+// Pacotes (porte do artifact de 18/09, §45.3): 4 cards sobre fundo escuro, sem
+// preço (cliente, 04/10/2026: o preço mora no app, pela régua regional; a janela
+// circular que o guardava saiu, rizzo-os → SITE_MANIFESTO_MAPA.md §47). Embaixo,
+// os add-ons em dois letreiros contrários sobre panos geométricos. Nenhum card
+// além dos 4 do handoff.
 import Link from "next/link";
 import { PROPOSTA_URL } from "@/lib/site";
 import { SERVICOS_HOME, SERVICOS_TITULO } from "@/content/home";
-import { PACOTES, PACOTES_NOTA, ADDONS } from "@/content/landing-v3";
+import { PACOTES, ADDONS } from "@/content/landing-v3";
 
 export function Servicos() {
   return (
@@ -113,7 +114,7 @@ export function Pacotes({ addonExtra }: { addonExtra?: string } = {}) {
             Pacotes de marketing médico para cada fase da clínica
           </h2>
         </div>
-        <p>Quatro pacotes. Valores a partir de; a proposta completa abre em nova aba.</p>
+        <p>Quatro pacotes. O valor sai na proposta, que abre em nova aba.</p>
       </div>
 
       <ol className="pac-lista">
@@ -130,7 +131,7 @@ export function Pacotes({ addonExtra }: { addonExtra?: string } = {}) {
               href={PROPOSTA_URL}
               target="_blank"
               rel="noopener"
-              aria-label={`${p.nome}. ${p.frase} A partir de R$ ${p.aPartir} por mês. Abre a proposta em nova aba.`}
+              aria-label={`${p.nome}. ${p.frase} Abre a proposta em nova aba.`}
             >
               <span className="pac-chip cifra">
                 <span>{p.tipo}</span>
@@ -138,17 +139,6 @@ export function Pacotes({ addonExtra }: { addonExtra?: string } = {}) {
               </span>
               <h3>{p.nome}</h3>
               <p className="pac-frase">{p.frase}</p>
-              <span className="pac-janela" aria-hidden>
-                <i className="pac-brilho" />
-                <span className="pac-preco">
-                  <span className="pac-partir">A partir de</span>
-                  <span className="pac-valor">
-                    <small>R$</small>
-                    {p.aPartir}
-                  </span>
-                  <span className="pac-mes">por mês</span>
-                </span>
-              </span>
               <span className="pac-fecho">
                 <i aria-hidden />
                 <span>Ver proposta ↗</span>
@@ -158,7 +148,6 @@ export function Pacotes({ addonExtra }: { addonExtra?: string } = {}) {
         ))}
       </ol>
 
-      <p className="pac-nota">{PACOTES_NOTA}</p>
 
       <Adicionais extra={addonExtra} />
 
