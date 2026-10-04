@@ -842,7 +842,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     // dos que estão na Vercel". A arte assina "Clínica Medicina da Dor" (logo MD); a
     // Dra. Ana Cristina Medanha é a responsável (carteira-viva.ts).
     origem:
-      "Vercel: projeto md-medicina-da-dor (www.medicinador.com.br), último deploy de produção dpl_8BuC84T5EavNaBRprt6WH4nCwdJY; repo agenciarizzo/md-medicina_da_dor, commit f1b67b0 (buildado do clone, vite). Peça anterior: /Clientes/2024/NA/sprint_3_NA_site_finalizacao/insumos/site_landing_mockup.jpg",
+      "Vercel: projeto md-medicina-da-dor (www.medicinador.com.br), último deploy de produção dpl_8BuC84T5EavNaBRprt6WH4nCwdJY; repo agenciarizzo/md-medicina_da_dor, commit f1b67b0 (buildado do clone, vite). Peça anterior: /Clientes/2024/NA/sprint_3_NA_site_finalizacao/insumos/site_landing_mockup.jpg. Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "Dra. Daniela Machado",
@@ -883,7 +883,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["site-seo", "clinicas-e-consultorios"],
     // Rodada 25 (2026-09-18): peça refeita do site VIVO na Vercel (o de 2024 era mockup do Drive).
     origem:
-      "Vercel: projeto examine-agora (www.examineagora.com.br), último deploy READY dpl_5nQrWG2BaCJdrGtHMTosCkXuBE3n; repo agenciarizzo/examine_agora (público), commit ae4ee09 (buildado do clone, next). Peça anterior: /Clientes/2024/EA/sprint_6_EA_site_landing/insumos/site_landing_mockup.jpg",
+      "Vercel: projeto examine-agora (www.examineagora.com.br), deploy de produção dpl_EWyvLpzJUkvpGq3zaGrnFqvqg5W9; repo agenciarizzo/examine_agora (público), commit cfe9b2f (buildado do clone, next). Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura. Peça anterior: /Clientes/2024/EA/sprint_6_EA_site_landing/insumos/site_landing_mockup.jpg",
   },
   {
     cliente: "Dr. Fernando Ferro",
@@ -1586,7 +1586,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site do Dr. Eduardo Medeiros, ortopedista especialista em quadril em Mossoró",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto em-dr-eduardo-medeiros (www.dreduardoclrm.com.br), deploy de produção dpl_6XXdgAUkwnXNDyZsToKaB3YFDqGa = githubCommitSha f4a4ac4; repo agenciarizzo/EM---Dr.-Eduardo-Medeiros",
+      "Vercel: projeto em-dr-eduardo-medeiros (www.dreduardoclrm.com.br), deploy de produção dpl_6XXdgAUkwnXNDyZsToKaB3YFDqGa = githubCommitSha f4a4ac4; repo agenciarizzo/EM---Dr.-Eduardo-Medeiros. Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "Dr. Francisco José de Carvalho",
@@ -1600,7 +1600,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site do Dr. Francisco José de Carvalho, ortopedista e cirurgião de joelho em Vitória",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto fc-dr-francisco-carvalho (www.drfranciscocarvalho.com), deploy de produção dpl_GsDpb8NNZMCXxSnsG3c6LAW7aW6Z; repo agenciarizzo/FC---Dr.-Francisco-Carvalho, commit b3ff7fd",
+      "Vercel: projeto fc-dr-francisco-carvalho (www.drfranciscocarvalho.com), deploy de produção dpl_GsDpb8NNZMCXxSnsG3c6LAW7aW6Z; repo agenciarizzo/FC---Dr.-Francisco-Carvalho, commit b3ff7fd. Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "Hospital de Olhos Sobradinho",
@@ -1614,7 +1614,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site do Hospital de Olhos Sobradinho, oftalmologia no DF",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto hos-sobradinho (www.hosobradinho.com.br), deploy de produção dpl_J4iPqTdLHUytJsJ1Eo8Kxh77HKWP; repo agenciarizzo/HOS-Sobradinho, commit 3fd49e0. O <title> do site assina \"Hospital de Olhos Salute Sobradinho (HOS)\" — confirma o rebrand do §15.1 que o clientes.ts já declara no `oraculo`",
+      "Vercel: projeto hos-sobradinho (www.hosobradinho.com.br), deploy de produção dpl_J4iPqTdLHUytJsJ1Eo8Kxh77HKWP; repo agenciarizzo/HOS-Sobradinho, commit 3fd49e0. O <title> do site assina \"Hospital de Olhos Salute Sobradinho (HOS)\" — confirma o rebrand do §15.1 que o clientes.ts já declara no `oraculo`. Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "Angiomedi – Centro Integrado de Angiologia",
@@ -1628,7 +1628,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site da Angiomedi, angiologia e tratamento de varizes na Asa Sul em Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto angiomedi (www.angiomedi.com.br), deploy de produção dpl_DqocLVThiirMNdfFvyWZbBE6Y3eP; repo agenciarizzo/Angiomedi, commit f9e7b35",
+      "Vercel: projeto angiomedi (www.angiomedi.com.br), deploy de produção dpl_45QE4NSDuzYt7cgKECo46aQJjZHG; repo agenciarizzo/Angiomedi, commit 9ddc8d0. Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "Dra. Elielma Almeida",
@@ -1642,7 +1642,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site da Dra. Elielma Almeida, saúde da mulher e reprodução humana em Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto el-elielma-almeida-ferreira-de-morais, deploy de produção dpl_4pYdi2kevaqY19jNUjuL7zHY8fZi; repo agenciarizzo/EL---Elielma-Almeida-Ferreira-de-Morais, commit 2637a58 (hashes index-Kdgmv1vj.js e index-D39-iT_r.css batem com o HTML de produção)",
+      "Vercel: projeto el-elielma-almeida-ferreira-de-morais, deploy de produção dpl_1eDue52svVap1CTBVNccGxev6Ehe; repo agenciarizzo/EL---Elielma-Almeida-Ferreira-de-Morais, commit 884e387. Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "InMed – Instituto de Medicina e Diagnóstico",
@@ -1656,7 +1656,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site do inmed, clínica médica no Recanto das Emas em Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto inmed (www.inmedonline.com.br), deploy de produção dpl_3DSVxCxfGw4iu5z4FDppRhSTbQKK; repo agenciarizzo/inmed, commit 34aaa65",
+      "Vercel: projeto inmed (www.inmedonline.com.br), deploy de produção dpl_DQZDnP7Zshfny5HbAExYJ7GZoAeY; repo agenciarizzo/inmed, commit ab60a7b. Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura. Capturada com o relógio em 02/11/2026 (build e navegador): a camada do Outubro Rosa liga e desliga pela data, e a peça mostra a home de todo dia",
   },
   // Rodada 18 — fecha o instrumento Vercel (§16.8.17-10): os 3 projetos que faltavam
   // dos 15, no mesmo template medido da rodada 17 (clone no commit do deploy de
@@ -1674,7 +1674,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site da Dra. Larissa Fouad, oftalmologista e especialista em retina em Belo Horizonte",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto li-dra-larissa (www.dralarissafouad.com.br), deploy de produção dpl_59W7hZGtT8PDinwh5oNUYCffFtKw = githubCommitSha 3e48a51; repo agenciarizzo/LI---Dra.-larissa (o HTML de produção referencia site.css?v=a4ea3a7f e site.js?v=dd0dd19d — os mesmos hashes do clone)",
+      "Vercel: projeto li-dra-larissa (www.dralarissafouad.com.br), deploy de produção dpl_DJZnEim8cc9ux9nnAqWC1xQzqbeh = githubCommitSha db8e0ce; repo agenciarizzo/LI---Dra.-larissa (o HTML de produção referencia site.css?v=f0127456 e site.js?v=28d1c7d3, os mesmos hashes do clone). Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "Dra. Marina Gressler",
@@ -1688,7 +1688,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site da Dra. Marina Gressler, urologista especialista em cirurgia robótica em Porto Alegre",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto mg, deploy de produção dpl_5dU9u1RvKX34yQJcnMtaCGniJfJP = githubCommitSha 7edef69; repo agenciarizzo/MG. O domínio dramarinagressleruro.com hoje é servido por host Google (build antigo, do AI Studio) — a peça sai do deploy Vercel, o trabalho mais novo da agência; aprovada pelo cliente ciente do achado (rodada 18)",
+      "Vercel: projeto mg, deploy de produção dpl_D3DZqUWKhUxJFfCv2fuB1Ji6DnJ1 = githubCommitSha cab83e7; repo agenciarizzo/MG. O domínio dramarinagressleruro.com, que na rodada 18 era servido por host Google, hoje é servido pela Vercel com este build (index-HSo0GAv7.js e index-k7EGVVyl.css batem, conferido em 2026-10-04). Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "UroClínica Rio",
@@ -1702,7 +1702,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site da UroClínica Rio, urologia e cirurgia robótica na Barra da Tijuca e em Bonsucesso",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto uroclinicario (uroclinicario.com.br), deploy de produção dpl_DavJutnkoWDg9WyefJcJXEQr4q8L = githubCommitSha 9ba077b; repo agenciarizzo/uroclinicario (público)",
+      "Vercel: projeto uroclinicario (uroclinicario.com.br), deploy de produção dpl_DavJutnkoWDg9WyefJcJXEQr4q8L = githubCommitSha 9ba077b; repo agenciarizzo/uroclinicario (público). Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "Centro Digestivo de Brasília",
@@ -2291,7 +2291,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site da ECOA Otorrinolaringologia, clínica de otorrino e doenças do ouvido na Asa Norte, Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto ecoa (www.ecoaotorrinolaringologia.com.br), último deploy de produção dpl_F9EmxLrZKbVotgGP1AnUUMSADhCA; repo agenciarizzo/ecoa, commit d4adab2 (buildado do clone, vite). Cliente no cadastro do RizzoOS como \"Ecoa Otorrino\" (carteira-viva.ts)",
+      "Vercel: projeto ecoa (www.ecoaotorrinolaringologia.com.br), deploy de produção dpl_EuKQrbXNCxZGBiZPuwRHcSSiDKZ4; repo agenciarizzo/ecoa, commit 21fadf9 (buildado do clone, vite). Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura. Cliente no cadastro do RizzoOS como \"Ecoa Otorrino\" (carteira-viva.ts)",
   },
   {
     cliente: "Casa de Saúde de Remanso",
@@ -2305,7 +2305,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site da Casa de Saúde de Remanso, hospital com consultas, exames e laboratório em Remanso, Bahia",
     cartas: ["site-seo", "rede-hospitalar"],
     origem:
-      "Vercel: projeto sr (www.csremanso.med.br), último deploy READY dpl_26QfgCUpmDFHaMoNhsj5815L4fPk; repo agenciarizzo/SR, commit ed8ff46 (buildado do clone, vite)",
+      "Vercel: projeto sr (www.csremanso.med.br), deploy de produção dpl_J1HD8fWLkwSNB2t15AWByjFHuvEt; repo agenciarizzo/SR, commit ed8ff46 (buildado do clone, vite). Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "Dr. Carlos Portocarrero",
@@ -2319,7 +2319,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site do Dr. Carlos Portocarrero, reprodução assistida e endometriose em Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto cp-carlos-portocarrero (www.carlosportocarrero.com.br), último deploy de produção dpl_8DZkUsE87xxCb5QSCXZZuzYTmX11; repo agenciarizzo/CP---Carlos-Portocarrero., commit c3c4e30 (buildado do clone, vite)",
+      "Vercel: projeto cp-carlos-portocarrero (www.carlosportocarrero.com.br), deploy de produção dpl_DZqyNCQkg9XpQeNZxgdKxLUotboG; repo agenciarizzo/CP---Carlos-Portocarrero., commit fdecca3 (buildado do clone, vite). Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura.",
   },
   {
     cliente: "Dr. Luciano Morais",
@@ -2333,7 +2333,7 @@ export const PORTFOLIO: PecaPortfolio[] = [
     alt: "Janela de navegador e celular com a home do site do Dr. Luciano Morais, cirurgião vascular e endovascular em São Lourenço, Minas Gerais",
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
-      "Vercel: projeto lm-dr-luciano-morais (www.drlucianomorais.com.br), último deploy de produção dpl_9cWxy9UBtS6cqJG9J7C2WzQDZpcT; repo agenciarizzo/lm-dr-luciano-morais, commit 7fdda31 (buildado do clone, next). Praça pelo cadastro do RizzoOS (São Lourenço/MG) — carteira.ts registra São Paulo/SP",
+      "Vercel: projeto lm-dr-luciano-morais (www.drlucianomorais.com.br), deploy de produção dpl_Hy3NCHpfJKQG5vE79vbFKsjaHZhc; repo agenciarizzo/lm-dr-luciano-morais, commit 8fb6a1f (buildado do clone, next). Rodada 28 (2026-10-03): peça refeita do SHA de produção, com o celular preenchendo a moldura. Praça pelo cadastro do RizzoOS (São Lourenço/MG) — carteira.ts registra São Paulo/SP",
   },
   // ── Hospital Daher, 12 peças (2026-09-27) — rizzo-os →
   // docs/SITE_HANDOFF_HOSPITAIS_RIZZOOS_MAPA.md §4. Ex-cliente (2011→2023) entra pelo

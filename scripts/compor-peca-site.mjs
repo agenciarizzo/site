@@ -16,6 +16,14 @@ import { createRequire } from "module";
 //     proxy tem de estar no NSS do navegador (~/.pki/nssdb); o localhost não passa por ele.
 //   · rodada 26 (2026-10-02): o celular passou a preencher a moldura (viewport 390×876,
 //     ver abaixo) e o fecho do aviso de cookies deixou de clicar em pergunta de FAQ.
+//   · rodada 28 (2026-10-03): a captura não dispara mais a medição do cliente (MEDICAO,
+//     abaixo). O build local carrega a tag de produção, e as rodadas anteriores deixaram
+//     visitas com hostname 127.0.0.1 no GA dos sites capturados (rizzo-os →
+//     MALA_DIRETA_SITES_MAPA.md §7.6).
+//   · RELOGIO=<data ISO> no ambiente: o navegador vê essa data (Date.now e new Date). Serve
+//     pra capturar o estado PERMANENTE de um site com camada sazonal que liga pela data
+//     (InMed, Outubro Rosa, rodada 28): a peça fica meses no portfólio, a campanha não. O
+//     servidor do site precisa ver a mesma data quando decide no servidor.
 const sharp = createRequire(import.meta.url)("sharp");
 const [S, ...pares] = process.argv.slice(2);
 if (!S || pares.length === 0) { console.error("uso: compor-peca-site.mjs <pasta-saida> chave=url …"); process.exit(1); }
@@ -30,10 +38,19 @@ const b = await chromium.launch({
 // acordeão e rolava a página, e a captura saía do meio da home. Espera o aviso que chega
 // atrasado (Cardio Clinic, Dra. Maria Eduarda Amaral) e volta pro topo depois.
 const fecharCookies = async (p) => { await p.waitForTimeout(2500); for (const rx of [/^\s*(aceitar|aceito|entendi|concordo|ok)\b[^?]{0,30}$/i]) { const btn = p.getByRole("button", { name: rx }).first(); if (await btn.count() && await btn.isVisible().catch(() => false)) { await btn.click().catch(() => {}); await p.waitForTimeout(400); break; } } await p.evaluate(() => window.scrollTo(0, 0)); await p.waitForTimeout(1200); };
+// Toda requisição de medição morre antes de sair (GA4/GTM/Ads, Pixel da Meta, Clarity,
+// Hotjar, TikTok, Vercel Analytics). Nada disso desenha a home: o que aparece na captura
+// é o mesmo, e a visita do robô não entra na conta do cliente.
+const MEDICAO = /(google-analytics\.com|googletagmanager\.com|analytics\.google\.com|doubleclick\.net|googleadservices\.com|connect\.facebook\.net|facebook\.com\/tr|clarity\.ms|hotjar\.com|analytics\.tiktok\.com|\/_vercel\/(insights|speed-insights))/i;
+const prepararCaptura = async (alvo) => {
+  await alvo.route(MEDICAO, (r) => r.abort());
+  if (process.env.RELOGIO) await alvo.clock.setFixedTime(new Date(process.env.RELOGIO));
+};
 const meta = {};
 for (const [k, url] of Object.entries(SITES)) {
   // desktop, antes da dobra
   const d = await b.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+  await prepararCaptura(d);
   await d.goto(url, { waitUntil: "networkidle", timeout: 60000 }); await d.waitForTimeout(1500); await fecharCookies(d);
   const info = await d.evaluate(() => {
     const peso = new Map(); const sat = (r, g, bl) => { const mx = Math.max(r, g, bl), mn = Math.min(r, g, bl); return mx === 0 ? 0 : (mx - mn) / mx; };
@@ -50,7 +67,7 @@ for (const [k, url] of Object.entries(SITES)) {
   // (a tela de 844 menos a barra do Safari), e a tela da moldura abaixo é 308×692 (330×714
   // menos 11px de borda): com 664 o terço de baixo do celular saía BRANCO nas 15 peças da
   // rodada 25b. 390×876 preenche a moldura (876 × 308/390 = 692).
-  const ctx = await b.newContext({ ...devices["iPhone 13"], viewport: { width: 390, height: 876 } }); const m = await ctx.newPage();
+  const ctx = await b.newContext({ ...devices["iPhone 13"], viewport: { width: 390, height: 876 } }); await prepararCaptura(ctx); const m = await ctx.newPage();
   await m.goto(url, { waitUntil: "networkidle", timeout: 60000 }); await m.waitForTimeout(1500); await fecharCookies(m);
   await m.screenshot({ path: `${S}/${k}-mob.png` }); await ctx.close();
   meta[k] = info; console.log(k, JSON.stringify(info));
