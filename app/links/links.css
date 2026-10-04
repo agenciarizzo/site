@@ -1,0 +1,142 @@
+/* /links — a página de entrada do Instagram (app/links/page.tsx).
+   Mora AO LADO da página, fora de `components/ar/`, de propósito: assim o
+   `checar-tipografia.mjs` cobra esta folha (tamanho e tracking só pela escala
+   do :root do globals.css). Cores pelos tokens do `.dg` (home-diagonal.css).
+   `.dg.lk` na frente de toda regra, como as outras folhas do redesenho. */
+
+/* ---- cabeça: o logo pousa na fileira quieta do pano ----
+   A fileira 0 do PanoHeader é quieta (é onde a pílula do menu pousaria). Aqui
+   não há pílula: o logo ocupa essa fileira. A altura dela é a PEÇA do pano
+   (100cqw ÷ colunas), então a cabeça é container e repete a mesma conta, nos
+   mesmos pontos (8 colunas · 18 a partir de 900px; recuo 24 → 56 em 700px). */
+.dg.lk .lk-cabeca {
+  position: relative;
+  container-type: inline-size;
+}
+.dg.lk .lk-logo {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 24px;
+  height: calc(100cqw / 8);
+  display: flex;
+  align-items: center;
+}
+.dg.lk .lk-logo img {
+  display: block;
+  height: 28px;
+  width: auto;
+}
+@container (min-width: 700px) {
+  .dg.lk .lk-logo { left: 56px; }
+}
+@container (min-width: 900px) {
+  .dg.lk .lk-logo { height: calc(100cqw / 18); }
+  .dg.lk .lk-logo img { height: 35px; }
+}
+
+/* ---- corpo: uma coluna de botões ---- */
+.dg.lk .lk-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: calc(560px + 2 * var(--lado));
+  /* em cima, pouco: o pano já termina com meia peça de folga sob a placa */
+  padding: 12px var(--lado) 72px;
+}
+.dg.lk .lk-portas,
+.dg.lk .lk-destinos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dg.lk .lk-destinos {
+  gap: 10px;
+  padding-top: 28px;
+  border-top: 1px solid var(--linha-bege);
+}
+
+/* o botão: pílula da largura da coluna, alvo de toque ≥ 52px */
+.dg.lk .lk-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: var(--font-geist), "Helvetica Neue", Arial, sans-serif;
+  font-size: var(--corpo-1);
+  line-height: var(--lh-titulo);
+  text-decoration: none;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.dg.lk .lk-btn:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+.dg.lk .lk-seta {
+  margin-left: auto;
+  flex: none;
+}
+
+/* 1 · a porta quente: a mais pesada da página */
+.dg.lk .lk-zap {
+  min-height: 64px;
+  padding: 14px 26px 14px 22px;
+  background: var(--chumbo);
+  color: var(--papel);
+  font-size: var(--corpo-lede);
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(50, 60, 70, 0.22);
+}
+.dg.lk .lk-zap:hover,
+.dg.lk .lk-zap:focus-visible {
+  background: var(--teal);
+  color: var(--papel);
+}
+.dg.lk .lk-icone {
+  display: inline-grid;
+  place-items: center;
+  width: 1.4em;
+  height: 1.4em;
+  flex: none;
+}
+.dg.lk .lk-icone svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 2 · a porta fria: contorno, logo abaixo */
+.dg.lk .lk-proposta {
+  min-height: 56px;
+  border: 1.5px solid var(--chumbo);
+  color: var(--chumbo);
+  font-weight: 600;
+}
+.dg.lk .lk-proposta:hover,
+.dg.lk .lk-proposta:focus-visible {
+  background: var(--chumbo);
+  color: var(--papel);
+}
+
+/* 3 · os destinos de conteúdo: o degrau mais quieto */
+.dg.lk .lk-item {
+  background: var(--papel-claro);
+  border: 1px solid var(--linha-bege);
+  color: var(--chumbo);
+  font-weight: 500;
+}
+.dg.lk .lk-item:hover,
+.dg.lk .lk-item:focus-visible {
+  border-color: var(--chumbo);
+}
+
+/* Sem barra do polegar nesta página (os botões SÃO a página), então o rodapé
+   não precisa da folga que o home-diagonal.css abre pra ela no celular. */
+.dg.lk .rodape {
+  padding-bottom: 40px;
+}

@@ -17,7 +17,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, PROPOSTA_URL } from "@/lib/site";
-import { ROTA_PORTAO } from "@/lib/nav";
+import { ITEM_ATALHOS, ROTA_PORTAO } from "@/lib/nav";
 import { COMBOS } from "@/content/combos";
 import { ESPECIALIDADES, especialidadePorSlug, rotaEspecialidade } from "@/content/especialidades";
 import { pracaBySlug } from "@/content/pracas";
@@ -238,6 +238,7 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
             <Link href="/contato" aria-current={cur("/contato")}>
               Contato
             </Link>
+            <Link href={ITEM_ATALHOS.href}>{ITEM_ATALHOS.rotulo}</Link>
             <Link
               href="/cartas/como-escolher-agencia-de-marketing-medico"
               aria-current={cur("/cartas/como-escolher-agencia-de-marketing-medico")}
