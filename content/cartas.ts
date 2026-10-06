@@ -44,11 +44,11 @@ export const CARTAS: Carta[] = [
     lede: "Durante anos, o site do médico foi tratado como cartão de visita: fazia, esquecia. Esse tempo acabou. Hoje ele é o órgão central do seu marketing.",
     posicao: [
       "Quando um paciente pergunta ao Google ou a uma inteligência artificial “qual o melhor especialista em…?”, a resposta sai do que essas máquinas conseguem ler. Elas leem estrutura: velocidade, organização, conteúdo verdadeiro e consistente. Site lento, montado em plataforma genérica e sem manutenção técnica, simplesmente não entra na conversa.",
-      "Por isso deixamos de desenvolver sites em WordPress e passamos a construir na mesma base tecnológica usada por empresas como o Nubank: páginas que saem do servidor prontas, carregam em milissegundos e entregam ao Google e às IAs exatamente o que elas precisam pra entender quem você é (especialidades, procedimentos, endereços, dúvidas respondidas).",
+      "Por isso deixamos de desenvolver sites em WordPress e passamos a construir em Next.js ou React pré-renderizado, hospedados na Vercel: páginas que saem do servidor prontas, carregam em milissegundos e entregam ao Google e às IAs exatamente o que elas precisam pra entender quem você é (especialidades, procedimentos, endereços, dúvidas respondidas).",
       "E tem um efeito colateral que pouca gente conta: site rápido e bem estruturado barateia o seu anúncio. O Índice de Qualidade do Google premia quem entrega boa experiência: o mesmo orçamento passa a render mais.",
     ],
     como: [
-      { t: "Base técnica de verdade", d: "Next.js, Vercel e Cloudflare: carregamento em milissegundos em qualquer cidade, segurança de nível bancário, zero plugin quebrando." },
+      { t: "Base técnica de verdade", d: "Next.js ou React pré-renderizado, na Vercel: carregamento em milissegundos em qualquer cidade, segurança de nível bancário, zero plugin quebrando." },
       { t: "Estrutura que máquina lê", d: "Dados organizados por especialidade, procedimento e unidade (schema.org), sitemap limpo, cada página com sua função: o formato que Google e IAs entendem." },
       { t: "Conteúdo que responde ao paciente", d: "As páginas nascem das perguntas reais da sua especialidade: o que as pessoas buscam é o que o site responde, com a sua voz e dentro do CFM." },
       { t: "Medição e evolução contínua", d: "Search Console e Analytics dizem o que sobe e o que falta; o site nunca fica parado: vira rotina mensal, não projeto de gaveta." },
