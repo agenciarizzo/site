@@ -2277,6 +2277,60 @@
   line-height: 1.55;
   color: var(--cinza-texto);
 }
+/* O depoimento em vídeo (Dr. Rogério, 2026-10-11): o player 9:16 à esquerda e
+   a fala literal à direita, com o mesmo fio amarelo dos 3 escritos. No celular
+   empilha, com o vídeo numa largura que ainda cabe inteiro na tela. */
+.dg .depo-video {
+  margin: 0 0 72px;
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+}
+.dg .depo-video-player {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  border-radius: 14px;
+  background: var(--chumbo);
+  box-shadow: 0 18px 40px rgba(50, 60, 70, 0.16);
+}
+.dg .depo-video figcaption {
+  padding: 0 0 0 24px;
+  border-left: 2px solid var(--amarelo);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 640px;
+}
+.dg .depo-video .depo-texto {
+  font-size: clamp(20px, 1.9vw, 26px);
+}
+.dg .depo-video-quem {
+  font-size: 13px;
+  color: var(--cinza-texto);
+}
+.dg .depo-video-quem strong {
+  color: var(--chumbo);
+  font-weight: 600;
+}
+.dg .depo-video-fonte {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cinza-texto);
+}
+@media (max-width: 759px) {
+  .dg .depo-video {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    margin-bottom: 56px;
+  }
+  .dg .depo-video-player {
+    width: min(100%, 300px);
+    justify-self: center;
+  }
+}
 
 /* ═══════════════════════════════════════════════════════ 11 · sobre ═════ */
 .dg .sobre {

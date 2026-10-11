@@ -28,3 +28,50 @@
     max-width: 760px;
   }
 }
+
+/* 01c3 · EM VÍDEO (VideoCarta, 2026-10-11) — logo depois do método, no mesmo
+   papel; o fio de cima separa as duas seções. O H2 é o do método
+   (`.cid-met h2`, cidade-molde.css), repetido aqui porque a seção é outra. */
+.dg.cid.carta .carta-vid {
+  background: var(--papel);
+  padding: 96px var(--lado) 112px;
+  border-top: 1px solid var(--linha-bege);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px 64px;
+  align-items: center;
+}
+.dg.cid.carta .carta-vid-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dg.cid.carta .carta-vid h2 {
+  margin: 0;
+  max-width: 560px;
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--chumbo);
+  text-wrap: balance;
+}
+.dg.cid.carta .carta-vid-player {
+  display: block;
+  justify-self: center;
+  width: min(100%, 340px);
+  height: auto;
+  aspect-ratio: 9 / 16;
+  border-radius: 14px;
+  background: var(--chumbo);
+  box-shadow: 0 18px 40px rgba(50, 60, 70, 0.16);
+}
+@media (max-width: 759px) {
+  .dg.cid.carta .carta-vid {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 72px var(--lado) 80px;
+  }
+  .dg.cid.carta .carta-vid-player {
+    width: min(100%, 300px);
+  }
+}

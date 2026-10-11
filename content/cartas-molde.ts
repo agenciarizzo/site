@@ -23,6 +23,7 @@
 // Server-only: quem consome é o molde (SSG), via a fábrica `paginaCarta`.
 // Nada daqui vai pro bundle.
 import type { Grupo } from "@/content/portfolio";
+import type { IdVideoCasa } from "@/content/videos-casa";
 
 export interface MetodoItem {
   t: string;
@@ -88,6 +89,12 @@ export interface MoldeCarta {
   filtro: FiltroAcervo;
   /** Rótulos do pôster/histórico (§6.2) — ausente = `ROTULOS_PADRAO` (a voz de mídia). */
   rotulos?: RotulosCarta;
+  /**
+   * Um vídeo da casa logo depois do método (`VideoCarta`): o arquivo em
+   * content/videos-casa.ts, o H2 e um parágrafo. Ausente = a seção não existe.
+   * Pedido do cliente de 2026-10-11 (rizzo-os → docs/AR_DUAS_MARCHAS_3D_MAPA.md §14.8).
+   */
+  video?: { id: IdVideoCasa; titulo: string; texto: string };
 }
 
 export const CARTAS_MOLDE: MoldeCarta[] = [
@@ -119,6 +126,12 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
       },
     ],
     filtro: { tipo: "grupo", grupo: "Site" },
+    video: {
+      id: "sete-sites",
+      titulo: "Sete sites no ar, e o que cada um faz por trás da tela",
+      texto:
+        "Em 30 segundos, os sites de médicos e clínicas que colocamos no ar nos últimos meses: o endereço antigo que continua abrindo, o bairro que o paciente digita no título, uma página para cada procedimento, cada médico e cada cidade, e a ficha do médico que o Google lê.",
+    },
   },
   {
     slug: "google-ads",
@@ -206,6 +219,12 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
       },
     ],
     filtro: { tipo: "grupo", grupo: "Redes" },
+    video: {
+      id: "duas-marchas",
+      titulo: "Duas Marchas: você escolhe a marcha de cada semana",
+      texto:
+        "Na Constante, 6 peças por semana: 2 Reels, 2 carrosséis e 2 stories. Na Acelerada, 20: 8 Reels, 4 carrosséis e 8 stories. O corte, a legenda, o roteiro e a arte ficam com a gente, e, se faltar vídeo, completamos com Reels animado. Você aprova cada peça no RizzoOS.",
+    },
   },
   {
     slug: "video",
