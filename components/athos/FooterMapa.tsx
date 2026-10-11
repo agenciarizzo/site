@@ -17,7 +17,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, PROPOSTA_URL } from "@/lib/site";
-import { ITEM_ATALHOS, ROTA_PORTAO } from "@/lib/nav";
+import { ITEM_ATALHOS, ITEM_BLOG, ROTA_PORTAO } from "@/lib/nav";
 import { COMBOS } from "@/content/combos";
 import { ESPECIALIDADES, especialidadePorSlug, rotaEspecialidade } from "@/content/especialidades";
 import { pracaBySlug } from "@/content/pracas";
@@ -234,6 +234,9 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
             </Link>
             <Link href="/rizzoos" aria-current={cur("/rizzoos")}>
               RizzoOS
+            </Link>
+            <Link href={ITEM_BLOG.href} aria-current={cur(ITEM_BLOG.href)}>
+              {ITEM_BLOG.rotulo}
             </Link>
             <Link href="/contato" aria-current={cur("/contato")}>
               Contato

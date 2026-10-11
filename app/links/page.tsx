@@ -16,7 +16,8 @@
 //   · a porta FRIA: "Montar proposta agora" → `PROPOSTA_URL`, com o mesmo
 //     `data-cta="proposta"` do resto do site (é ele que a medição lê);
 //   · os destinos de conteúdo, DERIVADOS do registro (`lib/nav.ts`): Portfólio
-//     e depois o `MENU_TOPO`, na ordem e com o rótulo de lá;
+//     o Blog (as notícias do dia, desde 2026-10-11) e depois o `MENU_TOPO`, na ordem
+//     e com o rótulo de lá;
 //   · o rodapé do redesenho, que é quem cumpre o `checar-navegacao.mjs`.
 //
 // Indexação: navegação fina e duplicada, então `noindex, follow`, canonical
@@ -43,7 +44,7 @@ import { Rodape } from "@/components/ar/home/Fecho";
 import { PanoHeader } from "@/components/secoes/PanoHeader";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import { HERO } from "@/content/home";
-import { CTA_PROPOSTA, CTA_WHATSAPP_FALAR, ITEM_PORTFOLIO, MENU_TOPO, ROTA_PORTAO } from "@/lib/nav";
+import { CTA_PROPOSTA, CTA_WHATSAPP_FALAR, ITEM_BLOG, ITEM_PORTFOLIO, MENU_TOPO, ROTA_PORTAO } from "@/lib/nav";
 import { PROPOSTA_URL, SITE_URL } from "@/lib/site";
 
 /** O H1 da página: o MESMO da home, lido da fonte (a OG desta rota lê daqui também). */
@@ -84,7 +85,7 @@ export default function LinksPage() {
     isPartOf: { "@type": "WebSite", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
     publisher: { "@id": `${SITE_URL}/#organizacao` },
   };
-  const destinos = [ITEM_PORTFOLIO, ...MENU_TOPO];
+  const destinos = [ITEM_PORTFOLIO, ITEM_BLOG, ...MENU_TOPO];
 
   return (
     <div className="dg lk">
