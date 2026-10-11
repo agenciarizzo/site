@@ -76,6 +76,7 @@ import type { Carta } from "@/content/cartas";
 import { ROTULOS_PADRAO, type MoldeCarta, type RotulosCarta } from "@/content/cartas-molde";
 import { pecasDaCarta, historicoDaCarta, nomesDoHistoricoCarta, numerosDaCarta } from "@/lib/carta-molde";
 import { interpolar, HeroMolde, PosterMolde, MetodoMolde, HistoricoMolde } from "@/components/ar/carta/secoes";
+import { VideoCarta } from "@/components/ar/carta/VideoCarta";
 
 /** `m.rotulos` mesclado com `ROTULOS_PADRAO` (§6.2) — ausente = a voz de mídia do PR-A. */
 const rotulosDe = (m: MoldeCarta): Required<RotulosCarta> => ({ ...ROTULOS_PADRAO, ...m.rotulos });
@@ -161,6 +162,7 @@ export function CartaMolde({ c, m }: { c: Carta; m: MoldeCarta }) {
       <Autoridade />
       <PosterMolde rotuloTopo={c.midia} numeros={numerosPoster} temNumeros={local} teseTitulo={m.teseTitulo} corpo={c.posicao[0]} casa={casa} t={t} />
       <MetodoMolde metodoTitulo={m.metodoTitulo} prosa={c.posicao.slice(1)} metodo={m.metodo} />
+      {m.video && <VideoCarta video={m.video} />}
       {local && grupos.length > 0 && <HistoricoMolde titulo={tituloHistorico} texto={rot.historicoTexto} grupos={grupos} />}
       <Clientes />
       {/* A chamada vem DEPOIS de uma lista de nomes (o mural de clientes), como

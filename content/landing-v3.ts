@@ -360,6 +360,25 @@ export const DEPOIMENTOS = [
 export const DEPOIMENTOS_FONTE =
   "Depoimentos publicados pelos próprios médicos nas avaliações da Agência Rizzo no Google e no Facebook.";
 
+/**
+ * O depoimento em VÍDEO, em destaque acima dos 3 escritos (cliente,
+ * 2026-10-11: "o depoimento do dr rogério que tinha ficado faltando"). A peça
+ * é a aprovada e publicada no @agencia.rizzo em 07/10 (rizzo-os →
+ * docs/AR_DEPOIMENTO_RF_MAPA.md §17); o arquivo mora em content/videos-casa.ts.
+ * `citacao` é a fala dele, LITERAL (o bloco A da peça, §2 do mesmo mapa):
+ * citação de terceiro não se reescreve. Especialidade e praça vêm do cadastro
+ * da agência (content/portfolio.ts, linha "Site" do Dr.: Oftalmologia,
+ * Brasília/DF), como nos 3 de baixo. Sem estrelas: não é avaliação publicada.
+ */
+export const DEPOIMENTO_VIDEO = {
+  video: "depoimento-rogerio-furtado",
+  citacao:
+    "Olha, a Agência Rizzo me ajuda desde a criação do meu site, as estratégias de tráfego pago, a gestão do Google, a criação de uma campanha específica, a proteção da marca, a nossa identidade visual. Tudo isso é gerenciado por eles com muita praticidade. Gosto muito!",
+  nome: "Dr. Rogério Furtado",
+  meta: "Oftalmologista · Brasília/DF",
+  fonte: "Vídeo gravado pelo próprio médico, no consultório dele, em outubro de 2026.",
+} as const;
+
 /* ───────────────────────────────────────────────────────────────── sobre ─── */
 
 /**

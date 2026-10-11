@@ -5,7 +5,8 @@ import Link from "next/link";
 import { PROPOSTA_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
 import { IconeWhats } from "@/components/athos/IconeWhats";
-import { DEPOIMENTOS, DEPOIMENTOS_FONTE, SOBRE_FOTOS, TIMELINE, CIDADES_HOME, VINHETA } from "@/content/landing-v3";
+import { DEPOIMENTOS, DEPOIMENTOS_FONTE, DEPOIMENTO_VIDEO, SOBRE_FOTOS, TIMELINE, CIDADES_HOME, VINHETA } from "@/content/landing-v3";
+import { VideoCasa } from "@/components/ar/VideoCasa";
 import { SOBRE_HOME, CIDADES_BLOCO, ESPECIALIDADES_BLOCO, ESPECIALIDADES_HOME } from "@/content/home";
 
 function Estrelas() {
@@ -31,6 +32,21 @@ export function Depoimentos() {
       <h2 id="h-depo" className="h2" data-reveal>
         O que os médicos <span className="leve">dizem</span> da agência
       </h2>
+      {/* O depoimento em vídeo, em destaque (content/landing-v3.ts →
+          DEPOIMENTO_VIDEO). Fica no mesmo componente que as 3 avaliações, então
+          entra em toda página que já mostra a seção, sem cópia. */}
+      <figure className="depo-video">
+        <VideoCasa id={DEPOIMENTO_VIDEO.video} className="depo-video-player" />
+        <figcaption>
+          <blockquote className="depo-texto">“{DEPOIMENTO_VIDEO.citacao}”</blockquote>
+          <span className="depo-video-quem">
+            <strong>{DEPOIMENTO_VIDEO.nome}</strong>
+            <br />
+            {DEPOIMENTO_VIDEO.meta}
+          </span>
+          <span className="depo-video-fonte">{DEPOIMENTO_VIDEO.fonte}</span>
+        </figcaption>
+      </figure>
       <div className="depo-grade">
         {DEPOIMENTOS.map((d) => (
           <blockquote className="depo" key={d.nome}>
