@@ -1,0 +1,141 @@
+/* /blog no formato Blue Bus: uma coluna só, densa, de notas curtas, separadas por fio
+   fino; o dia é o cabeçalho de cada edição. Tokens do `.dg` (home-diagonal.css), `.dg`
+   na frente de toda regra própria, como contato.css. Sem imagem: a nota é texto. */
+
+.dg.blog .blog-corpo {
+  background: var(--papel);
+  padding: 64px var(--lado) 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dg.blog .blog-corpo > * {
+  width: 100%;
+  max-width: 760px;
+}
+.dg.blog .blog-lede {
+  margin: 0;
+  font-size: clamp(19px, 1.8vw, 23px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--chumbo);
+  text-wrap: pretty;
+}
+.dg.blog .blog-conta {
+  margin: 14px 0 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cinza-texto);
+}
+
+/* A edição do dia: data por extenso em mono, fio grosso em cima (a "dobra" do jornal). */
+.dg.blog .blog-dia {
+  margin-top: 56px;
+  border-top: 2px solid var(--chumbo);
+}
+.dg.blog .blog-dia-topo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0 4px;
+}
+.dg.blog .blog-dia-topo h2 {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--chumbo);
+}
+.dg.blog .blog-ig {
+  flex: none;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cinza-texto);
+  text-decoration: none;
+}
+.dg.blog .blog-ig:hover,
+.dg.blog .blog-ig:focus-visible {
+  color: var(--teal);
+}
+
+/* A nota: veículo · data em mono, a manchete que leva à fonte, a frase do que muda. */
+.dg.blog .blog-notas {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dg.blog .blog-nota {
+  padding: 22px 0 24px;
+  border-bottom: 1px solid var(--linha-bege);
+  scroll-margin-top: 96px;
+}
+.dg.blog .blog-nota:last-child {
+  border-bottom: 0;
+}
+.dg.blog .blog-fonte {
+  margin: 0 0 8px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cinza-texto);
+}
+.dg.blog .blog-nota h3 {
+  margin: 0;
+  font-size: clamp(19px, 1.7vw, 22px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  text-wrap: pretty;
+}
+.dg.blog .blog-nota h3 a {
+  color: var(--chumbo);
+  text-decoration: none;
+  background-image: linear-gradient(var(--teal), var(--teal));
+  background-size: 0 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.2s ease;
+}
+.dg.blog .blog-nota h3 a:hover,
+.dg.blog .blog-nota h3 a:focus-visible {
+  background-size: 100% 2px;
+}
+.dg.blog .blog-muda {
+  margin: 10px 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--cinza-texto);
+  text-wrap: pretty;
+}
+.dg.blog .blog-nota-rodape {
+  margin: 48px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cinza-texto);
+}
+
+@media (max-width: 699px) {
+  .dg.blog .blog-corpo {
+    padding: 40px var(--lado) 64px;
+  }
+  .dg.blog .blog-dia {
+    margin-top: 40px;
+  }
+  .dg.blog .blog-dia-topo {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dg.blog .blog-nota h3 a {
+    transition: none;
+  }
+}

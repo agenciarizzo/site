@@ -79,3 +79,8 @@ export const ITEM_PORTFOLIO: ItemMenu = { href: "/portfolio", rotulo: "Portfóli
  *  fora do sitemap. Entra no rodapé-mapa porque o `checar-navegacao.mjs` exige
  *  toda rota alcançável de toda página; o rótulo público é este. */
 export const ITEM_ATALHOS: ItemMenu = { href: "/links", rotulo: "Atalhos" };
+
+/** O blog (rizzo-os → docs/AR_BLOG_NOTICIAS_MAPA.md): as notícias do dia que mexem na
+ *  clínica, no rodapé-mapa de toda página e na página de entrada do Instagram, logo
+ *  depois do Portfólio. Fora do `MENU_TOPO`, que é curto de propósito. */
+export const ITEM_BLOG: ItemMenu = { href: "/blog", rotulo: "Blog" };

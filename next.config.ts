@@ -73,7 +73,10 @@ const LEGADO: Array<{ de: string; para: string }> = [
   // ── Conteúdo do blog antigo ──────────────────────────────────────────────────
   { de: "/protocolo-google-ads-medicos-estrategias-eficazes", para: "/cartas/google-ads" },
   { de: "/por-que-medicos-precisam-de-agencia-digital-riscos-de-ficar-sem-suporte-profissional", para: "/" },
-  { de: "/blog", para: "/" },
+  // `mesmaRota`: /blog voltou a ser PÁGINA DE VERDADE em 2026-10-11 (as notícias do dia,
+  // rizzo-os → docs/AR_BLOG_NOTICIAS_MAPA.md). Ia pra "/" desde a troca de site; agora só
+  // a variante `.html` do site antigo redireciona, e a URL limpa serve o blog.
+  { de: "/blog", para: "/blog" },
   { de: "/sitemap", para: "/" },
   // Landing de conteúdo de um cliente (Imunocentro) hospedada no domínio da agência.
   { de: "/IC/vacinas-brasilia", para: "/" },
