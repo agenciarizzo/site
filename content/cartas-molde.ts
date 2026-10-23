@@ -106,7 +106,7 @@ export const CARTAS_MOLDE: MoldeCarta[] = [
     metodo: [
       {
         t: "Base técnica de verdade",
-        d: "Next.js ou React pré-renderizado, na Vercel: páginas que saem do servidor prontas e carregam em milissegundos em qualquer cidade, com segurança de nível bancário e nenhum plugin para quebrar.",
+        d: "Next.js ou React pré-renderizado, na Vercel: páginas que saem do servidor prontas, carregam em milissegundos em qualquer cidade e não têm plugin para quebrar.",
       },
       {
         t: "Estrutura que máquina lê",

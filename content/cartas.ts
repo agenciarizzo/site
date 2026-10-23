@@ -48,7 +48,7 @@ export const CARTAS: Carta[] = [
       "E tem um efeito colateral que pouca gente conta: site rápido e bem estruturado barateia o seu anúncio. O Índice de Qualidade do Google premia quem entrega boa experiência: o mesmo orçamento passa a render mais.",
     ],
     como: [
-      { t: "Base técnica de verdade", d: "Next.js ou React pré-renderizado, na Vercel: carregamento em milissegundos em qualquer cidade, segurança de nível bancário, zero plugin quebrando." },
+      { t: "Base técnica de verdade", d: "Next.js ou React pré-renderizado, na Vercel: carregamento em milissegundos em qualquer cidade e zero plugin quebrando." },
       { t: "Estrutura que máquina lê", d: "Dados organizados por especialidade, procedimento e unidade (schema.org), sitemap limpo, cada página com sua função: o formato que Google e IAs entendem." },
       { t: "Conteúdo que responde ao paciente", d: "As páginas nascem das perguntas reais da sua especialidade: o que as pessoas buscam é o que o site responde, com a sua voz e dentro do CFM." },
       { t: "Medição e evolução contínua", d: "Search Console e Analytics dizem o que sobe e o que falta; o site nunca fica parado: vira rotina mensal, não projeto de gaveta." },
