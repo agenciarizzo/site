@@ -28,6 +28,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PROPOSTA_URL } from "@/lib/site";
+import { IconesSociais } from "@/components/athos/IconesSociais";
 import { MENU_TOPO, ROTA_PORTAO, CTA_PROPOSTA, CTA_WHATSAPP } from "@/lib/nav";
 import { IconeWhats } from "./IconeWhats";
 import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
@@ -167,11 +168,18 @@ export function MenuTopo({
           ))}
           <MenuPaginas atual={atual} />
         </nav>
-        {acoesNoTopo && (
-          <div className="acoes">
-            <Acoes waText={waText} />
-          </div>
-        )}
+        {/* Redes da agência (seo-manutencao §K-1) no MESMO bloco das ações: quando a
+            barra não comporta tudo numa linha (abaixo de ~1200px, e agora também com
+            os ícones), o bloco desce inteiro. No celular as ações saem do topo e os
+            ícones sobem pra linha do logo. */}
+        <div className="topo-direita">
+          <IconesSociais className="menu-topo-redes" />
+          {acoesNoTopo && (
+            <div className="acoes">
+              <Acoes waText={waText} />
+            </div>
+          )}
+        </div>
       </header>
       {/* Barra fixa — só existe no celular (CSS); no desktop os botões ficam no topo. */}
       <div className="barra-cta">

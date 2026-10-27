@@ -222,6 +222,36 @@
   border-color: var(--teal);
   color: var(--papel);
 }
+/* Redes da agência na barra (rizzo-os → seo-manutencao §K-1), na mesma tinta do
+   WhatsApp e do Menu: sobre seção escura ficam claras, como eles. No telefone
+   não cabem: medido, sobram 32px entre o logo e o WhatsApp a 360px (e a 390px
+   depois de rolar), e 3 ícones pedem ~100px. Abaixo de 600px moram só no painel
+   do Menu (`.menu-redes`). */
+.dg .topo-redes {
+  display: flex;
+  align-items: center;
+}
+.dg .topo-redes a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 42px;
+  color: var(--tinta);
+  transition: color 0.3s;
+}
+.dg .topo-redes a:hover {
+  color: var(--teal);
+}
+.dg .topo-redes svg {
+  width: 18px;
+  height: 18px;
+}
+@media (max-width: 599px) {
+  .dg .topo-redes {
+    display: none;
+  }
+}
 @media (max-width: 1099px) {
   .dg .topo:not([data-rolou]) .topo-cta {
     display: none;
@@ -391,6 +421,32 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+/* As redes no painel do Menu: é o caminho do telefone até elas (§K-1). */
+.dg .menu-redes {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+.dg .menu-redes a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--papel);
+  border-radius: 50%;
+  color: var(--papel);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.dg .menu-redes a:hover {
+  background: var(--amarelo);
+  border-color: var(--amarelo);
+  color: var(--chumbo);
+}
+.dg .menu-redes svg {
+  width: 18px;
+  height: 18px;
 }
 .dg .menu-pill {
   width: max-content;
@@ -3329,6 +3385,18 @@
 .dg .rodape-sociais a {
   font-size: 13px;
   font-weight: 600;
+}
+/* Ícones no lugar do nome em texto (§K-1): a cor e o hover vêm de `.rodape-marca a`. */
+.dg .rodape-sociais a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+.dg .rodape-sociais svg {
+  width: 20px;
+  height: 20px;
 }
 .dg .rodape-col h3 {
   margin: 0 0 16px;

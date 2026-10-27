@@ -25,6 +25,7 @@ import Link from "next/link";
 import { PROPOSTA_URL } from "@/lib/site";
 import { ROTA_PORTAO, ROTAS_SO_WHATSAPP } from "@/lib/nav";
 import { IconeWhats } from "@/components/athos/IconeWhats";
+import { IconesSociais } from "@/components/athos/IconesSociais";
 import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
 import { COMBOS } from "@/content/combos";
@@ -51,6 +52,9 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
       </Link>
 
       <div className="topo-acoes">
+        {/* Redes da agência (seo-manutencao §K-1): na barra a partir de 600px; no
+            telefone não cabem ao lado do WhatsApp e do Menu e moram no painel. */}
+        <IconesSociais className="topo-redes" />
         {!soWhats && (
           <a className="topo-cta" data-cta="proposta" href={PROPOSTA_URL}>
             Montar proposta <span aria-hidden>→</span>
@@ -106,6 +110,7 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
                     Montar proposta →
                   </a>
                 )}
+                <IconesSociais className="menu-redes" />
               </div>
               {/* Achado #1 (§44.24): os 40 links da parede única estouravam o
                   painel — em cascata, estilo UOL: coluna 1 lista as SEÇÕES,

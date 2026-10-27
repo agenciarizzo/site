@@ -633,6 +633,16 @@ header.topo.menu nav a[aria-current="page"] { color: var(--ink); font-weight: 70
    segunda linha, ele continua alinhado à direita — e não muda nada quando cabe tudo
    numa linha só. */
 header.topo.menu .acoes { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem; margin-left: auto; }
+/* Redes da agência no menu do topo (rizzo-os → seo-manutencao §K-1), no mesmo
+   bloco das ações (`.topo-direita`): logo + menu + ícones + 2 botões não cabem
+   numa linha só nem a 1280px (medido: faltam ~94px), então o bloco desce inteiro,
+   como as ações já desciam abaixo de ~1200px. No celular as ações vão pra barra
+   fixa e a 1ª linha fica só com o logo: os ícones sobem pra ela (@media de 760px). */
+header.topo.menu .topo-direita { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem; margin-left: auto; }
+header.topo.menu .menu-topo-redes { display: flex; align-items: center; }
+header.topo.menu .menu-topo-redes a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; color: var(--ink); }
+header.topo.menu .menu-topo-redes a:hover { color: var(--teal-texto); }
+header.topo.menu .menu-topo-redes svg { width: 18px; height: 18px; }
 
 /* "Páginas" — `<details>` nativo, mesma técnica do `.detalhe` da /rizzoos (zero
    JS). O painel é `position: absolute` ancorado no PRÓPRIO header.topo.menu (não
@@ -784,6 +794,9 @@ footer.mapa .legal {
 footer.mapa .legal .links { display: flex; flex-wrap: wrap; gap: 1.2rem; }
 footer.mapa .legal a { color: #c6ccd2; }
 footer.mapa .legal a:hover { color: var(--amarelo); }
+footer.mapa .legal .legal-redes { display: flex; align-items: center; gap: 0.6rem; }
+footer.mapa .legal .legal-redes a { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; }
+footer.mapa .legal .legal-redes svg { width: 18px; height: 18px; }
 
 /* ============================================================
    Filme embutido + inventário dobrado (/rizzoos)
@@ -1360,6 +1373,8 @@ p.resumo {
   body { padding-bottom: 4.6rem; }
   /* no celular quem carrega a ação é a barra; o topo fica só com marca e menu */
   header.topo.menu .acoes { display: none; }
+  header.topo.menu .topo-direita { order: 1; }
+  header.topo.menu nav { order: 2; }
   /* ...e a barra fixa está sempre à mão, então o par do hero seria o 2º na tela */
   .hero-cta { display: none; }
   .hero .fatos { margin-top: 1.8rem; }

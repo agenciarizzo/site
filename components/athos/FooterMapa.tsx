@@ -16,7 +16,8 @@
 // porque nunca aparece sobre papel. O navy segue exclusivo do bloco RizzoOS (Athos.tsx).
 import Image from "next/image";
 import Link from "next/link";
-import { WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, PROPOSTA_URL } from "@/lib/site";
+import { WHATS_LABEL, ENDERECO, CNPJ, PROPOSTA_URL } from "@/lib/site";
+import { IconesSociais } from "@/components/athos/IconesSociais";
 import { ITEM_ATALHOS, ITEM_BLOG, ROTA_PORTAO } from "@/lib/nav";
 import { COMBOS } from "@/content/combos";
 import { ESPECIALIDADES, especialidadePorSlug, rotaEspecialidade } from "@/content/especialidades";
@@ -258,11 +259,7 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
               © {new Date().getFullYear()} Agência Rizzo · CNPJ {CNPJ}
             </div>
             <div className="links">
-              {SOCIAIS.map((s) => (
-                <a key={s.nome} href={s.url} target="_blank" rel="noopener noreferrer">
-                  {s.nome}
-                </a>
-              ))}
+              <IconesSociais className="legal-redes" />
               <Link href="/politica-privacidade">Política de privacidade</Link>
               <Link href="/politica-privacidade#termos">Termos de uso</Link>
             </div>

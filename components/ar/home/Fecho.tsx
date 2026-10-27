@@ -13,6 +13,7 @@ import Image from "next/image";
 import { PROPOSTA_URL } from "@/lib/site";
 import { ITEM_ATALHOS, ITEM_BLOG, ROTA_PORTAO, ROTAS_SO_WHATSAPP } from "@/lib/nav";
 import { IconeWhats } from "@/components/athos/IconeWhats";
+import { IconesSociais } from "@/components/athos/IconesSociais";
 import { FAQ, CTA_FINAL } from "@/content/landing-v3";
 import { RODAPE, ESPECIALIDADES_HOME } from "@/content/home";
 import { CARTAS_SEGMENTO } from "@/content/cartas";
@@ -105,13 +106,7 @@ export function Rodape({ waText, rota }: { waText?: string; rota?: string }) {
             <br />
             {RODAPE.horario}
           </p>
-          <div className="rodape-sociais">
-            {RODAPE.sociais.map((s) => (
-              <a key={s.rotulo} href={s.href} rel="noopener" target="_blank">
-                {s.rotulo}
-              </a>
-            ))}
-          </div>
+          <IconesSociais className="rodape-sociais" />
         </div>
 
         <div className="rodape-col">

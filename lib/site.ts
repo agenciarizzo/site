@@ -90,11 +90,15 @@ export const ORIGEM_MODO = process.env.NEXT_PUBLIC_ORIGEM_MODO ?? "gclid";
 export const ENDERECO = "Rua Barão do Rio Branco, 531, sala 101 · Anápolis/GO";
 export const CNPJ = "15.728.480/0001-89";
 
+// Redes da agência: FONTE ÚNICA dos ícones do topo, do menu e dos dois rodapés
+// (`components/athos/IconesSociais.tsx`) e do `sameAs` do JSON-LD abaixo, então
+// tela e schema não divergem (rizzo-os → seo-manutencao §K-1). `rotulo` é o
+// `aria-label` do ícone: sem texto visível, é ele que nomeia o link.
 export const SOCIAIS = [
-  { nome: "Instagram", url: "https://www.instagram.com/agencia.rizzo/" },
-  { nome: "Facebook", url: "https://www.facebook.com/agenciarizzo" },
-  { nome: "LinkedIn", url: "https://www.linkedin.com/company/agenciarizzo" },
-];
+  { nome: "Instagram", url: "https://www.instagram.com/agencia.rizzo/", rotulo: "Instagram da Agência Rizzo" },
+  { nome: "Facebook", url: "https://www.facebook.com/agenciarizzo", rotulo: "Facebook da Agência Rizzo" },
+  { nome: "LinkedIn", url: "https://www.linkedin.com/company/agenciarizzo", rotulo: "LinkedIn da Agência Rizzo" },
+] as const;
 
 export const FATOS =
   "DESDE 2012 · 259 MÉDICOS, CLÍNICAS E HOSPITAIS · 21 ESTADOS · GOOGLE PARTNER · FUNDADOR VINDO DE HOSPITAL CERTIFICADO ONA/ISO · ANÁPOLIS/GO · ATUAÇÃO NACIONAL";
