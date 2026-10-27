@@ -495,11 +495,6 @@ export const RODAPE = {
   atendimento: "Atendimento presencial em Anápolis, Goiânia e Brasília",
   telefone: "WhatsApp (62) 99258-6600",
   horario: "seg a sex, 9h às 18h",
-  sociais: [
-    { rotulo: "Instagram", href: "https://www.instagram.com/agencia.rizzo" },
-    { rotulo: "Facebook", href: "https://www.facebook.com/agenciarizzo" },
-    { rotulo: "LinkedIn", href: "https://www.linkedin.com/company/agenciarizzo" },
-  ],
   /**
    * As 6 frentes do rodapé são as MESMAS cartas do menu — fonte única. O
    * rótulo é o nome curto (`midia`), não o `titulo`, que é a headline de
