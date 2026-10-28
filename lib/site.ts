@@ -94,10 +94,10 @@ export const CNPJ = "15.728.480/0001-89";
 // (`components/athos/IconesSociais.tsx`) e do `sameAs` do JSON-LD abaixo, então
 // tela e schema não divergem (rizzo-os → seo-manutencao §K-1). `rotulo` é o
 // `aria-label` do ícone: sem texto visível, é ele que nomeia o link.
+// Só o Instagram, por decisão do cliente (2026-10-28): Facebook e LinkedIn saíram
+// da tela e, com eles, do `sameAs` (o schema só cita perfil que a tela linka).
 export const SOCIAIS = [
   { nome: "Instagram", url: "https://www.instagram.com/agencia.rizzo/", rotulo: "Instagram da Agência Rizzo" },
-  { nome: "Facebook", url: "https://www.facebook.com/agenciarizzo", rotulo: "Facebook da Agência Rizzo" },
-  { nome: "LinkedIn", url: "https://www.linkedin.com/company/agenciarizzo", rotulo: "LinkedIn da Agência Rizzo" },
 ] as const;
 
 export const FATOS =

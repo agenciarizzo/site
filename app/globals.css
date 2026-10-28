@@ -634,10 +634,9 @@ header.topo.menu nav a[aria-current="page"] { color: var(--ink); font-weight: 70
    numa linha só. */
 header.topo.menu .acoes { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem; margin-left: auto; }
 /* Redes da agência no menu do topo (rizzo-os → seo-manutencao §K-1), no mesmo
-   bloco das ações (`.topo-direita`): logo + menu + ícones + 2 botões não cabem
-   numa linha só nem a 1280px (medido: faltam ~94px), então o bloco desce inteiro,
-   como as ações já desciam abaixo de ~1200px. No celular as ações vão pra barra
-   fixa e a 1ª linha fica só com o logo: os ícones sobem pra ela (@media de 760px). */
+   bloco das ações (`.topo-direita`): quando a barra não comporta tudo numa linha
+   (abaixo de ~1200px), o bloco desce inteiro. No celular as ações vão pra barra
+   fixa e a 1ª linha fica só com o logo: o ícone sobe pra ela (@media de 760px). */
 header.topo.menu .topo-direita { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem; margin-left: auto; }
 header.topo.menu .menu-topo-redes { display: flex; align-items: center; }
 header.topo.menu .menu-topo-redes a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; color: var(--ink); }
