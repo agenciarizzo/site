@@ -225,8 +225,8 @@
 /* Redes da agência na barra (rizzo-os → seo-manutencao §K-1), na mesma tinta do
    WhatsApp e do Menu: sobre seção escura ficam claras, como eles. No telefone
    não cabem: medido, sobram 32px entre o logo e o WhatsApp a 360px (e a 390px
-   depois de rolar), e 3 ícones pedem ~100px. Abaixo de 600px moram só no painel
-   do Menu (`.menu-redes`). */
+   depois de rolar), e o ícone pede 42px com o vão. Abaixo de 600px mora só no
+   painel do Menu (`.menu-redes`). */
 .dg .topo-redes {
   display: flex;
   align-items: center;
