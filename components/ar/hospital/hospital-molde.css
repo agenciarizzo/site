@@ -537,6 +537,25 @@
 .dg.hosp .hosp-prosa .cid-prosa {
   max-width: 640px;
 }
+/* Refino de 2026-11-04 (print do cliente a 1319px): a coluna de 640px sozinha deixava
+   a metade direita da tela vazia. Na praça a mesma prosa divide a largura com a lista
+   do método; aqui ela está só. Os três parágrafos são três ideias (a busca, o corpo
+   clínico, a regra), então a partir de 1024px viram três colunas com o fio bege em
+   cima, a mesma linha que separa os blocos do molde. Abaixo de 1024px segue a coluna
+   única de sempre. Nenhuma palavra muda. */
+@media (min-width: 1024px) {
+  .dg.hosp .hosp-prosa {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 48px;
+    align-items: start;
+  }
+  .dg.hosp .hosp-prosa .cid-prosa {
+    max-width: none;
+    padding-top: 20px;
+    border-top: 1px solid var(--linha-bege);
+  }
+}
 
 /* ═══════════════════════════════ os tracks — o palco e os DOIS MODOS ══════
    Método, Escada e telas do RizzoOS são tracks guiados pela rolagem no
