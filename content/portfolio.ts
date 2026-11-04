@@ -514,16 +514,19 @@ export const PORTFOLIO: PecaPortfolio[] = [
   },
   {
     cliente: "Dra. Fabyanne Mazutti",
-    contexto: "Site para ginecologia e reprodução humana · Brasília",
+    contexto: "Site para reprodução humana e cirurgia laparoscópica · Brasília",
     espec: "Saúde da Mulher",
     servico: "Site",
     praca: "Brasília/DF",
     imagem: "/portfolio/marketing-medico-ginecologia-brasilia-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Mockup de monitor com o site da Dra. Fabyanne Mazutti, ginecologista em Brasília",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Dra. Fabyanne Mazutti, reprodução humana em Brasília",
     cartas: ["site-seo", "clinicas-e-consultorios"],
-    origem: "/Clientes/2024/FZ/sprint_17_FZ_site_prototipo_u0/apres/mockup/site_mockup_FZ.jpg",
+    // Rodada 29 (2026-11-04): o mockup de 2024 dá lugar ao site VIVO, mesmo arquivo
+    // (as páginas de especialidade e de praça citam este basename).
+    origem:
+      "Vercel: projeto fz (drafabyannemazutti.com.br), deploy de produção dpl_8Csut88y5J4hkjKcuWgPx55YLUS7 = githubCommitSha 061753f; repo agenciarizzo/FZ. Capturado do domínio no ar, com o relógio do navegador em 20/01/2027 10h (fora da faixa do Novembro Azul, que o site liga de 01 a 30/11). O <title> assina Reprodução Humana em Brasília | Dra. Fabyanne Mazutti. Peça anterior: /Clientes/2024/FZ/sprint_17_FZ_site_prototipo_u0/apres/mockup/site_mockup_FZ.jpg",
   },
   {
     cliente: "Dr. Celso Melo – Nutrólogo",
@@ -1124,10 +1127,12 @@ export const PORTFOLIO: PecaPortfolio[] = [
     praca: "Corrente/PI",
     imagem: "/portfolio/marketing-clinica-medica-corrente-piaui-site.webp",
     largura: 1200,
-    altura: 500,
-    alt: "Site da Policlínica de Corrente, clínica multidisciplinar em Corrente, no Piauí",
-    cartas: ["clinicas-e-consultorios"],
-    origem: "/Clientes/2024/PO/sprint_7_PO_site_atualizacao/insumos/site_landing_mockup.jpg",
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Policlínica de Corrente, com busca por exame, especialidade ou médico, em Corrente, no Piauí",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    // Rodada 29 (2026-11-04): o mockup de 2024 dá lugar ao site VIVO, mesmo arquivo.
+    origem:
+      "Vercel: projeto po (policlinicadecorrente.com.br), deploy de produção dpl_H965ke5Hv7UW8jeLrwV6X4pgDdhn = githubCommitSha c895fe7; repo agenciarizzo/PO. Capturado do domínio no ar, com o relógio do navegador em 20/01/2027 10h (fora da faixa do Novembro Azul e com a clínica aberta). O logo e o <title> assinam Policlínica de Corrente. Peça anterior: /Clientes/2024/PO/sprint_7_PO_site_atualizacao/insumos/site_landing_mockup.jpg",
   },
   {
     cliente: "Via Oftalmocenter",
@@ -2611,6 +2616,187 @@ export const PORTFOLIO: PecaPortfolio[] = [
     cartas: ["site-seo", "clinicas-e-consultorios"],
     origem:
       "Vercel: projeto homero-ribeiro (drhomeroribeiro.com.br), deploy de produção dpl_CDmhzKsugWagsjsVmP7uRrohnFXF = githubCommitSha a0175aa; repo agenciarizzo/dominancia-urologia-dr-homero (buildado do clone, vite + prerender). O logo e o <title> assinam Homero Ribeiro, urologia e andrologia, CRM-DF 15092; mesma grafia de content/carteira.ts",
+  },
+  // ── Rodada 29 (2026-11-04) — os sites entregues desde a rodada 27 ──────────────
+  // Pedido do cliente: "atualizar portfólio de sites da agência rizzo". Os 12 projetos
+  // da Vercel com domínio próprio servido pela Vercel que ainda não estavam aqui, mais
+  // as 2 trocas de mockup acima (FZ, PO). Medido em 04/11: São Bernardo e CRH Nefro
+  // ainda respondem pelo servidor antigo (LiteSpeed) e ficam fora; vb e pa não têm
+  // domínio. Instrumento: o mesmo scripts/compor-peca-site.mjs, agora contra o
+  // DOMÍNIO no ar (a rede da sessão passou a alcançá-los; nas rodadas 25 a 28 o site
+  // era buildado do clone), com a medição bloqueada e o relógio do navegador em
+  // 20/01/2027 10h: 7 desses sites ligam a faixa do Novembro Azul de 01 a 30/11 e a
+  // Policlínica mostra "fechado agora" à noite; a peça fica meses na parede e mostra
+  // a home de todo dia. Todos são clientes ativos no cadastro do RizzoOS (siglas BB,
+  // AS, TM, AN, FD, DM, ON, OL, CV, JB, MH), exceto a Dra. Valéria Campos, que não tem
+  // linha própria: ver content/carteira-viva.ts.
+  {
+    cliente: "Sousa Brunelli",
+    contexto: "Site para clínica de psiquiatria e saúde mental · Brasília",
+    espec: "Psiquiatria",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-psiquiatria-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Clínica Sousa Brunelli, psiquiatria e saúde mental em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto bb (clinicasousabrunelli.com.br), deploy de produção dpl_8uuG1g1iQfxzSmQxDNncFjDL8sRp = githubCommitSha 5c544cc; repo agenciarizzo/BB. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O logo e o <title> assinam Clínica Sousa Brunelli; no cadastro do RizzoOS, sigla BB, ativo",
+  },
+  {
+    cliente: "Dr. Alfonso Soria",
+    contexto: "Site para cirurgia da mão e ortopedia · Porto Alegre e Canoas",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Site",
+    praca: "Porto Alegre/RS",
+    imagem: "/portfolio/marketing-medico-cirurgia-da-mao-porto-alegre-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Alfonso Soria Galvarro, cirurgião de mão e ortopedista em Porto Alegre e Canoas",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto as (drgalvarro.com.br), deploy de produção dpl_6hYDhwAEgrj1VrjwTq65NEj5mjey = githubCommitSha 9ae9072; repo agenciarizzo/AS. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O <title> assina Dr. Alfonso S. Galvarro; no cadastro do RizzoOS, sigla AS, Alfonso Soria Galvarro Vargas, fantasy_name Dr. Alfonso Soria, ativo (a grafia de content/carteira.ts)",
+  },
+  {
+    cliente: "Dra. Tânia Mara",
+    contexto: "Site para ginecologia e cirurgia minimamente invasiva · Imperatriz",
+    espec: "Saúde da Mulher",
+    servico: "Site",
+    praca: "Imperatriz/MA",
+    imagem: "/portfolio/marketing-medico-ginecologia-imperatriz-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Dra. Tânia Mara, ginecologista em Imperatriz, no Maranhão",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto tm (drataniamaragineco.com.br), deploy de produção dpl_6q5BaYCb2GVH3HqfYKwJdRbo997m = githubCommitSha 63f699d; repo agenciarizzo/TM. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h, fundo na cor de marca do site (COR_tm=194,158,135, o bronze da faixa do topo; a leitura automática pegava o verde do botão do WhatsApp). O <title> assina Dra. Tânia Mara",
+  },
+  {
+    cliente: "Dr. Antonio Carlos de Souza",
+    contexto: "Site para angiologia e cirurgia vascular · Brasília",
+    espec: "Angiologia e Vascular",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-angiologia-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Antonio Carlos de Souza, angiologista e cirurgião vascular em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto an (drantoniocarlos.com.br), deploy de produção dpl_FYAuZbZY2rQ99Thhf1Nwq8RG9WtK = githubCommitSha ecf3207; repo agenciarizzo/AN---Antonio-Carlos-Souza. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O <title> assina Dr. Antonio Carlos de Souza | Angiologista em Brasília",
+  },
+  {
+    cliente: "Dr. Francisco Carneiro",
+    contexto: "Site para cirurgia do pé e tornozelo · Linhares",
+    espec: "Ortopedia e Traumatologia",
+    servico: "Site",
+    praca: "Linhares/ES",
+    imagem: "/portfolio/marketing-medico-ortopedia-pe-tornozelo-linhares-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Francisco Carneiro, cirurgia do pé e tornozelo em Linhares, no Espírito Santo",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto fd (drfranciscocarneiro.com.br), deploy de produção dpl_Btz56wfRaZvVqMhabPrbq1vXdudW = githubCommitSha 18e5907; repo agenciarizzo/FD. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O logo e o <title> assinam Dr. Francisco Carneiro",
+  },
+  {
+    cliente: "Dra. Valéria Campos",
+    contexto: "Site para cardiologia do esporte · Parauapebas",
+    espec: "Cardiologia",
+    servico: "Site",
+    praca: "Parauapebas/PA",
+    imagem: "/portfolio/marketing-medico-cardiologia-do-esporte-parauapebas-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Dra. Valéria Campos, cardiologista do esporte em Parauapebas, no Pará",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto vl (dravaleriacampos.com.br), deploy de produção dpl_86ycsBBe3Jb685tmkiMAj7ftBfmt = githubCommitSha 92424bc; repo agenciarizzo/VL. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O h1 assina Dra. Valéria Campos, Cardiologista",
+  },
+  {
+    cliente: "Dra. Daniela Machado",
+    contexto: "Site para dermatologia clínica, estética e capilar · Asa Sul, Brasília",
+    espec: "Dermatologia",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-dermatologia-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Dra. Daniela Machado, dermatologia clínica, estética e saúde capilar na Asa Sul, em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto dm (dradanielamachado.com.br), deploy de produção dpl_6qHEMu3eukHnvoji3SghGQHEpeEw = githubCommitSha 40df89a; repo agenciarizzo/DM. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O logo e o <title> assinam Dra. Daniela Machado",
+  },
+  {
+    cliente: "Clínica de Otorrino da Asa Norte",
+    contexto: "Site para clínica de otorrino, fono e psicologia · Asa Norte, Brasília",
+    espec: "Otorrinolaringologia",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-otorrino-asa-norte-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Clínica de Otorrino da Asa Norte, com otorrino, fonoaudiologia e psicologia em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto on (clinicadeotorrino.med.br), deploy de produção dpl_FQpHDbPc6iPFWSPtBqUiHnch2sUm = githubCommitSha 70d33ac; repo agenciarizzo/ON. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O <title> assina Clínica de Otorrino Asa Norte; grafia de content/carteira.ts",
+  },
+  {
+    cliente: "Meta Vita",
+    contexto: "Site para cirurgia bariátrica e robótica · Pelotas",
+    espec: "Cirurgia do Aparelho Digestivo",
+    servico: "Site",
+    praca: "Pelotas/RS",
+    imagem: "/portfolio/marketing-clinica-cirurgia-bariatrica-pelotas-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Instituto Meta Vita, cirurgia bariátrica e robótica em Pelotas, no Rio Grande do Sul",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto ol (institutometavita.com.br; omarloyola.com.br redireciona pra ele), deploy de produção dpl_CyBuE1J5h4ezYmqF3sfm3w8Xqvbm = githubCommitSha 923aaab; repo agenciarizzo/OL. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O logo assina META VITA e o <title> Instituto Meta Vita; a mesma casa do cartão de visita acima",
+  },
+  {
+    cliente: "Clínica de Veias",
+    contexto: "Site para angiologia e cirurgia vascular · Asa Sul, Brasília",
+    espec: "Angiologia e Vascular",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-clinica-angiologia-asa-sul-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Clínica de Veias, angiologia e cirurgia vascular na Asa Sul, em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto cv (clinicadeveias.com.br), deploy de produção dpl_BJbwP3aezesDg6V7ih5hMGcsyaeR = githubCommitSha fea2250; repo agenciarizzo/CV. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O logo e o <title> assinam Clínica de Veias",
+  },
+  {
+    cliente: "Dr. Juliano Borges",
+    contexto: "Site para oftalmologia · Imperatriz",
+    espec: "Oftalmologia",
+    servico: "Site",
+    praca: "Imperatriz/MA",
+    imagem: "/portfolio/marketing-medico-oftalmologia-imperatriz-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site do Dr. Juliano Borges, oftalmologista em Imperatriz, no Maranhão",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto jb (www.drjulianoborgesoft.com.br), deploy de produção dpl_7RPuQ3kbm87HFvWbu1NCZcnoe1uG = githubCommitSha e7d323b; repo agenciarizzo/jb. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. O h1 e o <title> assinam Dr. Juliano Borges, Oftalmologista em Imperatriz",
+  },
+  {
+    cliente: "Dra. Mirian Helena Hoeschl Abreu",
+    contexto: "Site para histeroscopia e colposcopia · Asa Norte, Brasília",
+    espec: "Saúde da Mulher",
+    servico: "Site",
+    praca: "Brasília/DF",
+    imagem: "/portfolio/marketing-medico-histeroscopia-brasilia-site.webp",
+    largura: 1200,
+    altura: 1500,
+    alt: "Janela de navegador e celular com a home do site da Dra. Mirian Hoeschl, histeroscopia e colposcopia em Brasília",
+    cartas: ["site-seo", "clinicas-e-consultorios"],
+    origem:
+      "Vercel: projeto mh (mhoeschl.com.br), deploy de produção dpl_9jwn5XHhx2t6niA8kzq4msSeWEoQ = githubCommitSha c87b41b; repo agenciarizzo/MH. Capturado do domínio no ar (scripts/compor-peca-site.mjs), com o relógio do navegador em 20/01/2027 10h. Entrou nesta rodada por decisão do Raphael (04/11), com o site já servido pela Vercel no domínio. O <title> assina Dra. Mirian Hoeschl; grafia de content/carteira.ts",
   },
 ];
 
