@@ -58,6 +58,7 @@ import { rotaEspecialidade, type PaginaEspecialidade } from "@/content/especiali
 import { rotaEspecialidadePraca, type ParEspecialidadePraca } from "@/content/especialidade-praca";
 import type { MoldeParEspecialidadePraca } from "@/content/especialidade-praca-molde";
 import type { Praca } from "@/content/pracas";
+import { parJsonLd } from "@/lib/par-jsonld";
 import { cenasDoPar, historicoDoPar, mapaDaPraca, palcoDoPar, textoDaPraca, waDoPar } from "@/lib/especialidade-praca-molde";
 
 /**
@@ -134,6 +135,8 @@ export function ParMolde({
       data-par-pecas={nPecas}
       data-par-palco={palco.modo}
     >
+      {/* O schema do par (lib/par-jsonld.ts): Service + as peças do pôster + a trilha. */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(parJsonLd(e, par, praca, palco.doPar)) }} />
       <Topo waText={wa} rota={rota} />
       <HeroMolde kicker={`Marketing médico · ${nome} · ${local}`} leve1={`Marketing para ${nomeLower}`} forte={`${texto.h1}.`} lede={par.lede} waText={wa} t={t} />
       {/* A faixa Athos da rota, como as especialidades: `checar-panos.mjs` conta

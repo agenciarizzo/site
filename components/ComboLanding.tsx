@@ -9,7 +9,7 @@ import Link from "next/link";
 import { panoCombo } from "@/lib/athos/panos";
 import { Band, MenuTopo, OsBlock, Fatos, CtaConversa, FooterMapa } from "@/components/athos/Athos";
 import type { Combo } from "@/content/combos";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, ORG_REF } from "@/lib/site";
 import { breadcrumbJsonLd, hubCidade } from "@/lib/breadcrumb";
 
 export function comboJsonLd(c: Combo) {
@@ -22,7 +22,7 @@ export function comboJsonLd(c: Combo) {
       serviceType: "Marketing médico digital",
       description: c.descricao,
       url,
-      provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
+      provider: ORG_REF,
       areaServed: {
         "@type": "City",
         name: c.cidade,

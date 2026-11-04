@@ -35,7 +35,7 @@ import { Chamada } from "@/components/ar/home/Chamada";
 import { Motor } from "@/components/ar/home/Motor";
 import { CtaConversa } from "@/components/CtaConversa";
 import { tweaksDe } from "@/lib/tweaks.mjs";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, ORG_REF } from "@/lib/site";
 import { VINHETA } from "@/content/landing-v3";
 import type { Cidade } from "@/content/cidades";
 import { resolverCenas } from "@/lib/portfolio-moldura";
@@ -60,7 +60,7 @@ export function cidadeJsonLd(c: Cidade, nomes: NomeHistorico[]) {
       serviceType: "Marketing médico digital",
       description: c.descricao,
       url,
-      provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
+      provider: ORG_REF,
       areaServed: {
         "@type": "City",
         name: c.cidade,

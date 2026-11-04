@@ -25,8 +25,14 @@
 //      é o texto do par, recalculado aqui a partir do `waText` da mãe e da
 //      preposição declarada da praça (P9).
 //   4. SERP (critério A): `<title>`, description e canonical do registro, e
-//      `robots` (só em build indexável, como os outros checadores), e nenhum
-//      JSON-LD próprio (P3: só o da organização, que vem do layout).
+//      `robots` (só em build indexável, como os outros checadores). JSON-LD: o
+//      do PAR (lib/par-jsonld.ts), nunca o da mãe. ⚠️ 2026-11-04: a P3 ("nenhum
+//      JSON-LD próprio") era a trava da migração pro molde rico (SERP igual
+//      enquanto o layout trocava, pra medir sem ruído) e sobreviveu ao motivo; a
+//      migração fechou em 30/09 e o Padrão Rizzo §D exige a trilha em toda rota
+//      aninhada (rizzo-os → docs/SITE_MANIFESTO_MAPA.md §50, SITE_PARES_MOLDE_RICO_MAPA.md P3).
+//      O portão troca o veto pela régua: `Service` com o nome do par, a trilha
+//      terminando na rota do par e nenhum `FAQPage`/`aggregateRating`.
 //   5. NÚMEROS CONTADOS (critério C): o número de clientes do pôster = a
 //      quantidade de nomes do histórico = `data-par-clientes`; o de peças =
 //      `par.pecas.length`; nenhum nome repetido; todo nome é registro real da
@@ -326,9 +332,22 @@ for (const [id, reg] of MOLDE) {
   const robotsHtml = html.match(/<meta name="robots" content="([^"]*)"/)?.[1] ?? "";
   const esperadoRobots = par.noindex ? "noindex, follow" : "index, follow";
   if (buildIndexavel && robotsHtml !== esperadoRobots) erros.push(`${rota}: robots "${robotsHtml}" ≠ esperado "${esperadoRobots}" (registro noindex=${par.noindex})`);
-  for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
-    const tipo = m[1].match(/"@type":"([^"]+)"/)?.[1];
-    if (tipo !== "Organization") erros.push(`${rota}: JSON-LD "${tipo}" na página; o par não tem JSON-LD próprio (P3), só o da organização`);
+  {
+    const blocos = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+    const nos = blocos.flatMap((b) => {
+      const j = JSON.parse(b);
+      return Array.isArray(j) ? j : [j];
+    });
+    const servico = nos.find((n) => n["@type"] === "Service");
+    if (!servico) erros.push(`${rota}: sem o JSON-LD Service do par (lib/par-jsonld.ts)`);
+    else if (norm(servico.name) !== norm(par.titulo)) erros.push(`${rota}: Service "${servico.name}" ≠ título do par "${par.titulo}" (é o schema da mãe?)`);
+    const trilha = nos.find((n) => n["@type"] === "BreadcrumbList");
+    const ultimo = trilha?.itemListElement?.at(-1)?.item ?? "";
+    if (!trilha) erros.push(`${rota}: sem BreadcrumbList (rota aninhada, Padrão Rizzo §D)`);
+    else if (!ultimo.endsWith(rota)) erros.push(`${rota}: a trilha termina em "${ultimo}", não na rota do par`);
+    for (const b of blocos) {
+      if (/"@type":"FAQPage"|aggregateRating/.test(b)) erros.push(`${rota}: JSON-LD com FAQPage ou aggregateRating (o par não tem FAQ; §12.3)`);
+    }
   }
 
   // 5. números contados e histórico
