@@ -13,6 +13,7 @@
 import type { Metadata } from "next";
 import { SobreMolde } from "@/components/ar/sobre/SobreMolde";
 import { ENDERECO, CNPJ, WHATS_LABEL, SITE_URL } from "@/lib/site";
+import { ogDaRota } from "@/lib/og-rota";
 
 const DESCRICAO =
   "A Agência Rizzo é especialista em marketing médico desde 2012, com atuação nacional e um fundador que foi gerente de comunicação de hospital certificado ONA/ISO. Conheça o método.";
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
   title: "Sobre: marketing médico desde 2012",
   description: DESCRICAO,
   alternates: { canonical: "/sobre" },
+  openGraph: ogDaRota("/sobre"),
 };
 
 const WA = "Olá! Vi a página Sobre no site da agência e quero conversar sobre a minha clínica.";

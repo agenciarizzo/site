@@ -41,12 +41,14 @@ import { chave } from "@/content/portfolio";
 import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
 import { logoDe } from "@/lib/logos";
 import { FATOS, PROPOSTA_URL, SITE_URL } from "@/lib/site";
+import { ogDaRota } from "@/lib/og-rota";
 
 export const metadata: Metadata = {
   title: "Clientes: médicos, clínicas e hospitais",
   description:
     "Médicos, clínicas e hospitais que constroem presença digital com a Agência Rizzo, de oftalmologia a urologia, de Brasília a todo o Brasil, desde 2012.",
   alternates: { canonical: "/clientes" },
+  openGraph: ogDaRota("/clientes"),
 };
 
 const WA = "Olá! Vi a página de clientes no site da agência e quero conversar sobre a minha clínica.";

@@ -31,6 +31,7 @@ import { pracaBySlug } from "@/content/pracas";
 import { PARES_ESPECIALIDADE_PRACA } from "@/content/especialidade-praca";
 import { moldeParDe } from "@/content/especialidade-praca-molde";
 import { ParMolde } from "@/components/ar/especialidade-praca/ParMolde";
+import { ogDaRota } from "@/lib/og-rota";
 
 export function generateStaticParams() {
   return PARES_ESPECIALIDADE_PRACA.map((par) => ({ slug: par.slug, praca: par.praca }));
@@ -57,6 +58,7 @@ export async function generateMetadata({
     title: par.titulo,
     description: par.descricao,
     alternates: { canonical: `/marketing-medico/${e.slug}/${praca.slug}` },
+    openGraph: ogDaRota(`/marketing-medico/${e.slug}/${praca.slug}`),
     // Fatia B (§27, decisão E/D7 do mapa): par com texto próprio e ≥4 peças de
     // ≥2 casas indexa — `noindex` só quando a curadoria declarar (régua §3.3).
     ...(par.noindex ? { robots: { index: false, follow: true } } : {}),

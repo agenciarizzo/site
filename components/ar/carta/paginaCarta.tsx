@@ -24,6 +24,7 @@ import type { Metadata } from "next";
 import { bySlug, type Carta } from "@/content/cartas";
 import { moldeDe, type MoldeCarta } from "@/content/cartas-molde";
 import { CartaMolde } from "@/components/ar/carta/CartaMolde";
+import { ogDaRota } from "@/lib/og-rota";
 
 export function paginaCarta(slug: string) {
   const achada = bySlug(slug);
@@ -40,6 +41,7 @@ export function paginaCarta(slug: string) {
     title: CARTA.titulo,
     description: CARTA.descricao,
     alternates: { canonical: `/cartas/${CARTA.slug}` },
+    openGraph: ogDaRota(`/cartas/${CARTA.slug}`),
   };
 
   function Pagina() {

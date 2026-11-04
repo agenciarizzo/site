@@ -6,6 +6,7 @@ import { Medicao } from "@/components/Medicao";
 import { GuardaOrigem } from "@/components/GuardaOrigem";
 import { PortaoGesto } from "@/components/PortaoGesto";
 import { Analytics } from "@vercel/analytics/next";
+import { OG_BASE } from "@/lib/og-rota";
 
 // Tipografia oficial da Linha Athos (self-hosted via next/font — zero request externo):
 // Geist (display e corpo) · JetBrains Mono (kickers). Rockwell só no logo real.
@@ -39,12 +40,9 @@ export const metadata: Metadata = {
   // — e o WhatsApp é o CTA único da casa. A capa é estática (public/og/), gerada pelo
   // motor da Linha Athos; página que quiser a sua sobrescreve `openGraph` inteiro
   // (o merge do Next é por objeto, não por campo — repetir type/locale/siteName lá).
-  openGraph: {
-    type: "website",
-    locale: "pt_BR",
-    siteName: "Agência Rizzo",
-    images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "Agência Rizzo, marketing médico" }],
-  },
+  // A base mora em lib/og-rota.ts (2026-11-04): a página usa `ogDaRota(rota)`, que
+  // repete esta mesma base e soma o `og:url` da rota.
+  openGraph: OG_BASE,
   twitter: { card: "summary_large_image" },
   // Produção indexa; preview e dev nascem noindex (ver INDEXABLE em lib/site.ts).
   robots: { index: INDEXABLE, follow: INDEXABLE },

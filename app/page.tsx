@@ -40,11 +40,13 @@ import { Portfolio, cenasDoPortfolio, pecasDoPortfolio } from "@/components/ar/h
 import { Faq, CtaFinal, Rodape } from "@/components/ar/home/Fecho";
 import { Chamada } from "@/components/ar/home/Chamada";
 import { Motor } from "@/components/ar/home/Motor";
+import { ogDaRota } from "@/lib/og-rota";
 
 export const metadata: Metadata = {
   title: HOME_META.title,
   description: HOME_META.descricao,
   alternates: { canonical: "/" },
+  openGraph: ogDaRota("/"),
 };
 
 export default function Home() {

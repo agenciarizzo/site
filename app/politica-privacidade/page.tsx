@@ -18,12 +18,14 @@ import { MenuTopo, FooterMapa, Band } from "@/components/athos/Athos";
 import { panoPrivacidade } from "@/lib/athos/panos";
 import { ENDERECO, CNPJ, WHATS_LABEL, GA4_ID, META_PIXEL_ID, BING_UET_ID, SITE_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
+import { ogDaRota } from "@/lib/og-rota";
 
 export const metadata: Metadata = {
   title: "Política de privacidade e termos de uso",
   description:
     "O que o site da Agência Rizzo coleta, para quê, com quem compartilha e como você pede acesso ou exclusão. Inclui os termos de uso do site.",
   alternates: { canonical: "/politica-privacidade" },
+  openGraph: ogDaRota("/politica-privacidade"),
 };
 
 const WA = "Olá! Tenho uma dúvida sobre privacidade e dados no site da agência.";

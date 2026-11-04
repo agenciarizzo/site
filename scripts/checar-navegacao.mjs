@@ -268,3 +268,41 @@ if (hosts.size !== 1) {
   process.exit(1);
 }
 console.log(`✓ Host canônico: ${[...hosts][0]} — canonical e sitemap no mesmo host.`);
+
+// ————————————————————————————————————————————————————————————————————————
+// Passo 7 — og:url e trilha (manutenção de SEO, 2026-11-04 · rizzo-os →
+// docs/SITE_MANIFESTO_MAPA.md §50; Padrão Rizzo §A-5 e §D).
+//
+// (a) Toda URL do sitemap declara `og:url`, e ele é IGUAL ao canonical: é o 5º
+//     sinal de host. Medido em produção antes desta entrega: 46 de 48 sem ele.
+// (b) Toda URL do sitemap com rota ANINHADA (2+ segmentos) publica um
+//     `BreadcrumbList`. Medido antes: os 12 pares especialidade × praça sem
+//     schema nenhum, enquanto a página-mãe já tinha a trilha.
+// Controle negativo (rodado na entrega): tirar o `openGraph: ogDaRota(...)` de
+// app/sobre/page.tsx reprova (a); tirar o <script> do ParMolde reprova (b) 12×.
+{
+  let falhas = 0;
+  for (const pag of paginas) {
+    if (!noSitemap.has(pag.rota)) continue;
+    const html = readFileSync(pag.arquivo, "utf8");
+    const canon = (html.match(/<link rel="canonical" href="([^"]+)"/) ?? [])[1];
+    const ogUrl = (html.match(/<meta property="og:url" content="([^"]+)"/) ?? [])[1];
+    if (!ogUrl) {
+      console.error(`✗ ${pag.rota}: sem og:url.`);
+      falhas++;
+    } else if (ogUrl !== canon) {
+      console.error(`✗ ${pag.rota}: og:url (${ogUrl}) ≠ canonical (${canon}).`);
+      falhas++;
+    }
+    const aninhada = pag.rota.split("/").filter(Boolean).length >= 2;
+    if (aninhada && !/"@type":"BreadcrumbList"/.test(html)) {
+      console.error(`✗ ${pag.rota}: rota aninhada sem BreadcrumbList.`);
+      falhas++;
+    }
+  }
+  if (falhas > 0) {
+    console.error(`\nog:url ou trilha faltando: ${falhas} — build reprovado.`);
+    process.exit(1);
+  }
+  console.log(`✓ og:url = canonical nas ${noSitemap.size} URL(s) do sitemap, e trilha em toda rota aninhada.`);
+}

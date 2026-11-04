@@ -14,6 +14,7 @@ import { notFound } from "next/navigation";
 import "../home-diagonal.css";
 import { CidadeMolde } from "@/components/ar/cidade/CidadeMolde";
 import { cidadeBySlug } from "@/content/cidades";
+import { ogDaRota } from "@/lib/og-rota";
 
 const SLUG = "marketing-medico-sao-paulo";
 
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
   title: cidadeBySlug(SLUG)!.titulo,
   description: cidadeBySlug(SLUG)!.descricao,
   alternates: { canonical: `/${SLUG}` },
+  openGraph: ogDaRota(`/${SLUG}`),
 };
 
 export default function SaoPauloPage() {

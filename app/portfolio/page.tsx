@@ -55,6 +55,7 @@ import { poolGaleria, altSeo, emCidade, tituloDe, paginaDe, UF_NOME, type PecaGa
 import { PF_CENAS_MOLDURA, resolverCenas } from "@/lib/portfolio-moldura";
 import { PORTFOLIO_MODO } from "@/content/home";
 import { SITE_URL } from "@/lib/site";
+import { ogDaRota } from "@/lib/og-rota";
 
 export const metadata: Metadata = {
   // O <title> e a description do protótipo passam do teto que o
@@ -64,6 +65,7 @@ export const metadata: Metadata = {
   description:
     "Referências e inspiração de marketing médico: exemplos reais de site, vídeo, redes sociais, impressos e identidade visual para clínicas, por especialidade e estado. Desde 2012.",
   alternates: { canonical: "/portfolio" },
+  openGraph: ogDaRota("/portfolio"),
 };
 
 const WA = "Olá! Vi o portfólio no site da agência e quero conversar sobre a minha clínica.";
