@@ -699,12 +699,20 @@ export const ESPECIALIDADES: PaginaEspecialidade[] = [
       "Prevenção do câncer de pele é o conteúdo mais nobre da especialidade e o mais procurado por quem tem medo: explicar sinais, o que é a dermatoscopia, com que frequência revisar. É informação que salva e que constrói autoridade, sem prometer nada, sem mostrar caso de paciente.",
       "Na parte estética, a regra aperta: nada de antes-e-depois, nada de promessa, nada de preço em anúncio. Sobra o que de fato diferencia: explicar bem cada procedimento, mostrar estrutura e cuidado, e manter uma presença visual consistente, que numa especialidade tão visual é parte do argumento.",
     ],
+    // Manutenção de SEO (2026-11-04, rizzo-os → docs/SITE_MANIFESTO_MAPA.md §50): a
+    // página nasceu com as 2 peças da Dra. Daniela Machado e ficou noindex (2 < 4).
+    // As 2 da Clínica Appia e a da CAPELLI entraram no acervo depois (rodada 22) sem
+    // voltar aqui, e a rodada 29 trouxe o site da Dra. Daniela: 6 peças de 3 casas,
+    // a régua §3.3 (≥4 peças de ≥2 casas) passa e o noindex sai.
     pecas: [
+      "marketing-medico-dermatologia-brasilia-site",
+      "marketing-medico-dermatologia-rio-de-janeiro-portfolio-digital",
+      "marketing-medico-dermatologia-bauru-portfolio-impresso",
       "marketing-medico-dermatologia-brasilia-papelaria",
+      "marketing-medico-dermatologia-rio-de-janeiro-folder-institucional",
       "marketing-medico-dermatologia-brasilia-capa-redes-sociais",
     ],
     areasCarteira: ["Dermatologia e Estética"],
-    noindex: true,
     waText: "Olá! Vi a página de marketing para dermatologia no site da agência e quero conversar sobre o consultório.",
   },
   {
