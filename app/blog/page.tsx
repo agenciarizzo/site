@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   title: "Blog: o que mudou hoje para a sua clínica",
   description: DESCRICAO,
   alternates: { canonical: "/blog" },
-  openGraph: ogDaRota("/blog"),
+  openGraph: ogDaRota("/blog", { ogPropria: true }),
 };
 
 const WA = "Olá! Vi o blog no site da agência e quero conversar sobre a minha clínica.";

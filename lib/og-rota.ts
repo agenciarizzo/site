@@ -9,9 +9,14 @@
 // metadata › Merging): `openGraph` na página SUBSTITUI o do layout inteiro. Por isso
 // a base mora AQUI, numa fonte só, e o layout usa a mesma constante: página que
 // declara `openGraph: ogDaRota(rota)` continua com tipo, idioma, nome do site e a
-// capa padrão. A capa de `opengraph-image.tsx` da rota, quando existe, vence a de
-// `images` (metadata de arquivo tem prioridade, mesma doc), então a OG por rota
-// segue intacta. `og:title`/`og:description` o Next deriva do title/description.
+// capa padrão. `og:title`/`og:description` o Next deriva do title/description.
+//
+// ⚠️ Medido no build (Next 16.2.2), CONTRA o que a doc diz: um `images` declarado na
+// página VENCE o `opengraph-image.tsx` da própria rota (a home e a carta hospitalar
+// saíram com a capa padrão no 1º build desta entrega). Por isso a rota que tem OG
+// própria chama `ogDaRota(rota, { ogPropria: true })`, sem `images`, e o passo 7 do
+// `scripts/checar-navegacao.mjs` reprova rota com `opengraph-image.tsx` cujo
+// `og:image` não seja o dela.
 //
 // O `url` é RELATIVO de propósito: o `metadataBase` do layout (SITE_URL) o resolve,
 // e o host sai da mesma fonte do canonical (Padrão Rizzo §A, os cinco sinais).
@@ -26,5 +31,14 @@ export const OG_BASE = {
   images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "Agência Rizzo, marketing médico" }],
 } satisfies OpenGraph;
 
-/** O `openGraph` da rota: a base do site e o `og:url` igual ao canonical. */
-export const ogDaRota = (rota: string): OpenGraph => ({ ...OG_BASE, url: rota });
+/**
+ * O `openGraph` da rota: a base do site e o `og:url` igual ao canonical. Rota com
+ * `opengraph-image.tsx` passa `{ ogPropria: true }`: sai sem `images`, e a imagem do
+ * arquivo assume.
+ */
+export const ogDaRota = (rota: string, opcoes: { ogPropria?: true } = {}): OpenGraph => {
+  if (!opcoes.ogPropria) return { ...OG_BASE, url: rota };
+  const { images: _capaPadrao, ...semCapa } = OG_BASE;
+  void _capaPadrao;
+  return { ...semCapa, url: rota };
+};

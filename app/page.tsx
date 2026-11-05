@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   title: HOME_META.title,
   description: HOME_META.descricao,
   alternates: { canonical: "/" },
-  openGraph: ogDaRota("/"),
+  openGraph: ogDaRota("/", { ogPropria: true }),
 };
 
 export default function Home() {

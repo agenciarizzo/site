@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   title: CARTA.titulo,
   description: CARTA.descricao,
   alternates: { canonical: `/cartas/${CARTA.slug}` },
-  openGraph: ogDaRota(`/cartas/${CARTA.slug}`),
+  openGraph: ogDaRota(`/cartas/${CARTA.slug}`, { ogPropria: true }),
 };
 
 export default function RedeHospitalarPage() {
