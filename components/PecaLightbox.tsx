@@ -20,6 +20,7 @@ export function PecaLightbox({
   anterior,
   proxima,
   voltar = "#pecas",
+  site,
 }: {
   p: PecaPortfolio;
   /** Âncora da peça — vem do `slugPeca()` de quem chama, pra não haver 2 derivações. */
@@ -30,6 +31,9 @@ export function PecaLightbox({
   proxima?: string;
   /** Pra onde o fechar volta — a seção da vitrine, sem salto de rolagem. */
   voltar?: string;
+  /** Endereço do site no ar (só peça de site com endereço no cadastro, regra 9):
+   *  vira o "Ver o site no ar ↗" da legenda, em nova aba. Sem ele, nada muda. */
+  site?: string;
 }) {
   return (
     <figure className="peca-lightbox" id={id}>
@@ -53,6 +57,11 @@ export function PecaLightbox({
       <figcaption>
         <span className="peca-nome">{p.cliente}</span>
         <span className="peca-meta">{p.contexto}</span>
+        {site && (
+          <a className="peca-site" href={site} target="_blank" rel="noopener">
+            Ver o site no ar <span aria-hidden="true">↗</span>
+          </a>
+        )}
       </figcaption>
     </figure>
   );

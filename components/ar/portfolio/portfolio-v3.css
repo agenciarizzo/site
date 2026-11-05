@@ -242,47 +242,59 @@
   background: var(--papel-claro);
   padding: 0 0 120px;
 }
-/* a régua de tipo de peça — o variante FAIXAS, que é o default do `filtro` no
-   data-props do protótipo: chips numa grade com rejunte chumbo (contagem em
-   mono em cima, nome embaixo; a ativa pinta de amarelo), e embaixo os selects
-   e o "só sites no ar" em caixa. Fixa sob o topo; com a pílula no ar, abre
-   espaço pra ela. */
+/* a régua de tipo de peça — era o variante FAIXAS do protótipo em DUAS linhas
+   (chips de 65 px com a contagem em cima + selects embaixo) e translúcida: a
+   208 px de altura no computador e 470 no celular, cobria um terço e metade da
+   tela, com a galeria aparecendo por trás da pílula (cliente, 05/11: "esse
+   header está confuso e cobrindo grande parte da página" · rizzo-os →
+   SITE_MANIFESTO_MAPA.md §51). Agora é UMA linha opaca: as faixas viram chips
+   de uma linha (nome + contagem, mesmo rejunte chumbo, a ativa em amarelo),
+   com o "só sites no ar" e o limpar à direita; especialidade e estado descem
+   pra `.gal-refino`, que rola com a página. Fixa sob o topo; com a pílula no
+   ar (16 + 66 px), abre 92 px pra ela, sem encostar. */
 .gal-regua {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(251, 249, 243, 0.96);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 14px var(--lado) 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  background: var(--papel-claro);
+  border-bottom: 1px solid rgba(50, 60, 70, 0.14);
+  padding: 10px var(--lado);
   transition: padding 0.4s;
 }
-.dg[data-rolou] .gal-regua { padding-top: 78px; }
+.dg[data-rolou] .gal-regua { padding-top: 92px; }
+.gal-regua-linha {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .gal-abas {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  display: flex;
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
   gap: 1px;
   background: var(--chumbo);
   border: 1px solid var(--chumbo);
 }
+.gal-abas::-webkit-scrollbar { display: none; }
 .gal-abas button {
+  flex: 0 0 auto;
   border: 0;
   background: var(--papel);
   color: var(--chumbo);
   font: inherit;
-  padding: 12px 14px;
+  padding: 9px 14px;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
   text-align: left;
   transition: background 0.25s;
 }
-.gal-abas button .cifra { font-size: 11px; }
+.gal-abas button .cifra { font-size: 11px; order: 2; opacity: 0.7; }
 .gal-abas button > span:last-child {
   font-size: 13px;
   font-weight: 700;
@@ -290,6 +302,40 @@
 }
 .gal-abas button:hover { background: var(--bege); }
 .gal-abas button[aria-selected="true"] { background: var(--amarelo); }
+.gal-abas button[aria-selected="true"] .cifra { opacity: 1; }
+.gal-atalhos {
+  flex: none;
+  margin-left: auto;
+  flex-wrap: nowrap;
+}
+.gal-refino {
+  padding: 16px var(--lado) 0;
+}
+/* abaixo de ~1130 px a linha inteira (812 px de chips + 191 de atalhos) não
+   cabe: a contagem sai dos chips (o resumo "N peças de 193" segue dizendo o
+   número) e o chip aperta, pra nada ficar escondido atrás da borda */
+@media (max-width: 1130px) {
+  .gal-abas button { padding: 9px 11px; }
+  .gal-abas button .cifra { display: none; }
+}
+/* abaixo de 906 px nem apertado cabe (medido: 587 + 191 + folga): a régua vira
+   uma tira que rola de lado (tipos, depois o "só sites no ar" e o limpar), com
+   a borda direita esmaecida pra dizer que tem mais */
+@media (max-width: 905px) {
+  .gal-regua-linha {
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 8px;
+    margin-right: calc(-1 * var(--lado));
+    padding-right: 40px; /* o último item rola pra fora do esmaecido */
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+  }
+  .gal-regua-linha::-webkit-scrollbar { display: none; }
+  .gal-abas { overflow: visible; flex: none; }
+  .gal-atalhos { margin-left: 0; }
+  .gal-atalhos button { white-space: nowrap; }
+}
 .gal-controles {
   display: flex;
   flex-wrap: wrap;
@@ -564,6 +610,26 @@
   color: var(--chumbo);
   line-height: 1.3;
 }
+/* o site no ar, em nova aba: o domínio sublinhado em amarelo (o mesmo traço
+   do "Limpar"), a linha inteira da legenda, logo abaixo do nome */
+.dg.pf-v3 .gal-site {
+  grid-column: 1 / -1;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--chumbo);
+  text-decoration: underline;
+  text-decoration-color: var(--amarelo);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.dg.pf-v3 .gal-site:hover,
+.dg.pf-v3 .gal-site:focus-visible { text-decoration-color: var(--chumbo); }
 .gal-mais {
   border: 0;
   background: transparent;
@@ -675,6 +741,20 @@
 .dg.pf-v3 .cta-conversa-linha:hover,
 .dg.pf-v3 .cta-conversa-linha:focus-visible { color: var(--papel); }
 .dg.pf-v3 .peca-lightbox a { color: var(--papel); }
+/* o "Ver o site no ar" da peça ampliada (só o /portfolio passa o `site`) */
+.dg.pf-v3 .peca-lightbox .peca-site {
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin-top: 10px;
+  padding: 9px 16px;
+  background: var(--amarelo);
+  color: var(--chumbo);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.dg.pf-v3 .peca-lightbox .peca-site:hover,
+.dg.pf-v3 .peca-lightbox .peca-site:focus-visible { background: var(--papel); }
 .pfm-cont {
   font-size: 13px;
   display: flex;
@@ -685,6 +765,9 @@
 
 @media (max-width: 719px) {
   .pf-v3 { --lado: 24px; }
+  /* no celular os selects da .gal-refino ocupam a largura toda, um por linha
+     (em duas colunas o "Todas as especialidades" saía cortado) */
+  .gal-refino select { flex: 1 1 100%; max-width: none; }
   .pfm-legenda { max-width: calc(100% - 24px); grid-template-columns: 1fr auto; }
   .pfm-legenda .pfm-link { display: none; }
 }
