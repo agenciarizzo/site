@@ -253,7 +253,14 @@ verdade.
   cliente (regra 9), que é grafia do cadastro e chave de casamento entre os
   registros. Mudá-la é decisão do cadastro (doc "AR - Clientes"), não do site.
 
-## [D-02] Carta como `Article` (regra 5 do `CLAUDE.md`) × serviço como `Service` (Padrão Rizzo §D)
+## [D-02] ✅ DECIDIDO E FEITO em 2026-11-04 · Carta como `Article` (regra 5 do `CLAUDE.md`) × serviço como `Service` (Padrão Rizzo §D)
+
+- **Decisão do cliente (`AskUserQuestion` de 04/11): "Somar Service".** As 8 cartas de mídia e de segmento publicam
+  `Article` + `Service` (nome = `titulo` do registro, `provider: ORG_REF`); a carta-guia fica só `Article`.
+  `lib/carta-jsonld.ts` (`servicoDaCarta`) e o `scripts/checar-cartas.mjs` cobram as 9 (controle negativo: tirar o
+  `Service` reprova 8×). Validado no validator.schema.org: 0 erro, 0 aviso.
+
+### Como era (registro)
 
 - **Estado:** as 9 cartas (`/cartas/google-ads`, `/cartas/site-seo`…) e o hub
   `/marketing-medico` publicam `Article` + `FAQPage`, como manda a regra 5 do

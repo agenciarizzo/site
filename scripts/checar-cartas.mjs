@@ -140,7 +140,9 @@ for (const bloco of itensDoArray(cartasArr)) {
   // "..."), nunca array: casa só com espaço em branco entre a chave e a aspa,
   // pra não confundir com o miolo de outra palavra terminada em "os".
   const os = bloco.match(/(?:^|[{,]|\n)\s*os:\s*"([^"]*)"/)?.[1] ?? "";
-  REGISTRO.set(slug, { titulo, faq, posicao, quandoNao, os });
+  // `eixo` (2026-11-04, PARKING D-02): ausente = "midia", como em content/cartas.ts.
+  const eixo = bloco.match(/eixo:\s*"([^"]+)"/)?.[1] ?? "midia";
+  REGISTRO.set(slug, { titulo, faq, posicao, quandoNao, os, eixo });
 }
 if (REGISTRO.size === 0) erros.push("checar-cartas: zero carta lida de content/cartas.ts — a forma do registry mudou, ajuste este checador.");
 
@@ -317,6 +319,35 @@ for (const slug of REGISTRO.keys()) {
   }
 }
 
+/* ── PARKING D-02 (decisão do cliente, 2026-11-04): o `Service` das cartas ──
+   Toda carta de MÍDIA ou de SEGMENTO publica, além do `Article`, um `Service`
+   com o `titulo` do registro como nome (lib/carta-jsonld.ts); a carta-GUIA não.
+   Lido nas 9 rotas de content/cartas.ts, inclusive a hospitalar (HospitalMolde),
+   que este laço de cima não cobre. Controle negativo rodado na entrega: tirar o
+   `...servicoDaCarta(c)` reprova 8×. */
+let cartasComServico = 0;
+for (const [slug, reg] of REGISTRO) {
+  const arquivo = join(app, "cartas", `${slug}.html`);
+  if (!existsSync(arquivo)) continue; // a falta de HTML já é cobrada acima
+  const html = readFileSync(arquivo, "utf8");
+  const servicos = [];
+  for (const m of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
+    try {
+      const parsed = JSON.parse(m[1]);
+      for (const x of Array.isArray(parsed) ? parsed : [parsed]) if (x["@type"] === "Service") servicos.push(x);
+    } catch {
+      /* outro script, ignora */
+    }
+  }
+  if (reg.eixo === "guia") {
+    if (servicos.length) erros.push(`/cartas/${slug}: carta-guia com \`Service\` no JSON-LD (ela não vende serviço, D-02)`);
+    continue;
+  }
+  if (servicos.length !== 1) erros.push(`/cartas/${slug}: ${servicos.length} \`Service\` no JSON-LD; carta de ${reg.eixo} tem exatamente 1 (D-02)`);
+  else if (decodifica(servicos[0].name ?? "") !== reg.titulo) erros.push(`/cartas/${slug}: o \`Service\` se chama "${servicos[0].name}", e o titulo do registro é "${reg.titulo}"`);
+  else cartasComServico++;
+}
+
 if (erros.length > 0) {
   console.error("✗ Cartas no molde rico (portas · FAQ = FAQPage · SERP do registro · histórico real · texto na tela):");
   for (const e of erros) console.error(`  ${e}`);
@@ -324,5 +355,5 @@ if (erros.length > 0) {
   process.exit(1);
 }
 console.log(
-  `✓ Cartas no molde: ${paginas} página(s) — zero wa.me, as duas portas com data-wa, FAQ = FAQPage = content/cartas.ts, <title>/canonical do registro, histórico com nome real, tese/método/posição/quandoNão/os na tela; ${REGISTRO.size} carta(s) de content/cartas.ts, todas com HTML (molde ou hospital).`,
+  `✓ Cartas no molde: ${paginas} página(s) — zero wa.me, as duas portas com data-wa, FAQ = FAQPage = content/cartas.ts, <title>/canonical do registro, histórico com nome real, tese/método/posição/quandoNão/os na tela; ${REGISTRO.size} carta(s) de content/cartas.ts, todas com HTML (molde ou hospital); ${cartasComServico} com o Service do registro (a guia, sem).`,
 );
