@@ -16,7 +16,7 @@
 // todo do registro (`Carta`), nunca escrito aqui.
 //
 // Server-only: quem consome é a página (SSG) e o molde. Nada daqui vai pro bundle.
-import { SITE_URL } from "@/lib/site";
+import { ORG_REF, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
 import type { Carta } from "@/content/cartas";
 
@@ -27,6 +27,7 @@ import type { Carta } from "@/content/cartas";
  */
 export function cartaJsonLd(c: Carta) {
   return [
+    ...servicoDaCarta(c),
     {
       "@context": "https://schema.org",
       "@type": "Article",
@@ -53,5 +54,29 @@ export function cartaJsonLd(c: Carta) {
     // ⚠️ O degrau do meio é o HUB, não "/cartas": `/cartas` não é página (cada
     // carta tem a própria rota estática), e quem lista as cartas é o `/marketing-medico`.
     breadcrumbJsonLd(HUB_MARKETING, { nome: c.midia, rota: `/cartas/${c.slug}` }),
+  ];
+}
+
+/**
+ * O `Service` da carta (PARKING [D-02], decidido pelo cliente em 2026-11-04: "Somar
+ * Service"). A carta segue `Article` (é texto assinado, regra 5 do CLAUDE.md), e a de
+ * MÍDIA ou de SEGMENTO é também a página do serviço: a que o anúncio e o sitelink
+ * abrem. O Padrão Rizzo §D pede `Service` em página de serviço; somar não tira nada do
+ * que já está indexado. A carta-guia (`eixo: "guia"`) não vende serviço e fica só
+ * `Article`. Tudo sai do registro (`content/cartas.ts`), nada escrito aqui.
+ */
+function servicoDaCarta(c: Carta) {
+  if (c.eixo === "guia") return [];
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: c.titulo,
+      serviceType: c.midia,
+      description: c.descricao,
+      url: `${SITE_URL}/cartas/${c.slug}`,
+      provider: ORG_REF,
+      areaServed: { "@type": "Country", name: "Brasil" },
+    },
   ];
 }
