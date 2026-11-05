@@ -17,6 +17,7 @@ import { bySlug } from "@/content/cartas";
 import { HospitalMolde } from "@/components/ar/hospital/HospitalMolde";
 import { HOSPITALAR } from "@/content/hospitalar";
 import "../../home-diagonal.css";
+import { ogDaRota } from "@/lib/og-rota";
 
 /** O registro da carta. Falta dele é erro de build, não 404 em produção. */
 export const CARTA = (() => {
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
   title: CARTA.titulo,
   description: CARTA.descricao,
   alternates: { canonical: `/cartas/${CARTA.slug}` },
+  openGraph: ogDaRota(`/cartas/${CARTA.slug}`, { ogPropria: true }),
 };
 
 export default function RedeHospitalarPage() {

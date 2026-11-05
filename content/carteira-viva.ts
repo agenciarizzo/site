@@ -163,4 +163,25 @@ export const CARTEIRA_VIVA: ClienteVivo[] = [
     origem:
       "Cadastro do RizzoOS (tabela clients): sigla CN, razão Centro Médico de Curionópolis LTDA, fantasy_name \"Centro Médico de Curionópolis\", Centro Médico, Curionópolis/PA, status active (contrato desde 2025-06-18). Fora das 4 listas do repo. A arte (site www.centromedicocurionopolis.com.br, projeto Vercel cn) assina CMC · Centro Médico de Curionópolis no logo e no <title>",
   },
+  // Rodada 29 do portfólio (2026-11-04): 4 casas de site novo, conferidas no cadastro.
+  {
+    nome: "Dra. Tânia Mara",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla TM, name e fantasy_name Tania Mara Vieira Santos, Endoscopia Ginecológica e Medicina Fetal, Imperatriz/MA, status active (cadastro de 2026-03-13). Fora das 4 listas do repo. A arte (site drataniamaragineco.com.br, projeto Vercel tm) assina \"Dra. Tânia Mara\" no <title> e DRA. TANIA MARA no logo",
+  },
+  {
+    nome: "Dr. Francisco Carneiro",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla FD, name Francisco Jorge Daher Carneiro Neto, fantasy_name \"Dr. Francisco Carneiro\", Ortopedia e cirurgia do pé e tornozelo, Linhares/ES, status active (cadastro de 2025-12-16). Fora das 4 listas do repo. A arte (site drfranciscocarneiro.com.br, projeto Vercel fd) assina Dr. Francisco Carneiro no logo e no <title>",
+  },
+  {
+    nome: "Dra. Valéria Campos",
+    origem:
+      "Sem linha própria na tabela clients: no RizzoOS ela é admin e aprovadora da organização do Centro Médico de Curionópolis (sigla CN, cliente ativo), e o site dela foi entregue pela agência (repo agenciarizzo/VL, projeto Vercel vl, dravaleriacampos.com.br; CHANGELOG do rizzo-os, entradas VL › Site Dra. Valéria Campos de 2026-11-03). A arte assina Dra. Valéria Campos, Cardiologista · Cardiologia do Esporte no h1",
+  },
+  {
+    nome: "Dr. Juliano Borges",
+    origem:
+      "Cadastro do RizzoOS (tabela clients): sigla JB, name e fantasy_name \"Dr. Juliano Borges\", Oftalmologia, Imperatriz/MA, status active (cadastro de 2026-10-28). Fora das 4 listas do repo. A arte (site www.drjulianoborgesoft.com.br, projeto Vercel jb) assina Dr. Juliano Borges, Oftalmologista em Imperatriz no h1 e no <title>",
+  },
 ];

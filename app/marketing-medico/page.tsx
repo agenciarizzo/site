@@ -28,6 +28,7 @@ import { vitrinePorChave } from "@/content/vitrines";
 import { panoCard } from "@/lib/athos/panos";
 import { CARTAS, type Carta } from "@/content/cartas";
 import { SITE_URL, FATOS } from "@/lib/site";
+import { ogDaRota } from "@/lib/og-rota";
 
 const DESCRICAO =
   "Marketing médico explicado por mídia: site e SEO, Google Ads, Meta Ads, redes sociais, vídeo e TV corporativa. O que fazemos e como, sem promessa.";
@@ -36,6 +37,7 @@ export const metadata: Metadata = {
   title: "Marketing Médico por Mídia",
   description: DESCRICAO,
   alternates: { canonical: "/marketing-medico" },
+  openGraph: ogDaRota("/marketing-medico"),
 };
 
 const WA = "Olá! Vi a página de marketing médico no site da agência e quero conversar sobre a minha clínica.";

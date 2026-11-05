@@ -29,6 +29,7 @@ import { PanoHeader } from "@/components/secoes/PanoHeader";
 import { CtaConversa } from "@/components/CtaConversa";
 import { lerNotas, porDia, veiculoDe, diaPorExtenso, dataCurta, ancoraDe } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site";
+import { ogDaRota } from "@/lib/og-rota";
 
 /** Uma hora (literal: o Next lê a config do segmento sem executar import). */
 export const revalidate = 3600;
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
   title: "Blog: o que mudou hoje para a sua clínica",
   description: DESCRICAO,
   alternates: { canonical: "/blog" },
+  openGraph: ogDaRota("/blog", { ogPropria: true }),
 };
 
 const WA = "Olá! Vi o blog no site da agência e quero conversar sobre a minha clínica.";

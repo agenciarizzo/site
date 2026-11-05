@@ -32,6 +32,7 @@ import { notFound } from "next/navigation";
 import { ESPECIALIDADES, especialidadePorSlug, rotaEspecialidade } from "@/content/especialidades";
 import { moldeEspecialidadeDe } from "@/content/especialidades-molde";
 import { EspecialidadeMolde } from "@/components/ar/especialidade/EspecialidadeMolde";
+import { ogDaRota } from "@/lib/og-rota";
 
 export function generateStaticParams() {
   return ESPECIALIDADES.map((e) => ({ slug: e.slug }));
@@ -45,6 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: e.titulo,
     description: e.descricao,
     alternates: { canonical: rotaEspecialidade(e.slug) },
+    openGraph: ogDaRota(rotaEspecialidade(e.slug)),
     // Página com menos de 4 peças nasce FORA do índice e entra quando a prova
     // fechar (régua anti-doorway §3.3): `follow` continua ligado — os links dela
     // valem, o que não vale é a página magra disputar busca.

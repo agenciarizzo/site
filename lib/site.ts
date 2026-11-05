@@ -141,3 +141,11 @@ export const ORG_JSONLD = {
   },
   sameAs: SOCIAIS.map((s) => s.url),
 };
+
+/**
+ * A organização por REFERÊNCIA, pro `provider` dos blocos `Service` (PARKING [D-01],
+ * fechado em 2026-11-04): uma entidade só, apontada pelo `@id`, em vez de uma cópia
+ * parcial por página. Validado no validator.schema.org (0 erro, 0 aviso) antes de
+ * entrar; o F-01 que travava isto deixou de valer (o validador responde da sessão).
+ */
+export const ORG_REF = { "@id": ORG_JSONLD["@id"] };

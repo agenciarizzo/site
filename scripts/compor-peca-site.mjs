@@ -75,7 +75,10 @@ for (const [k, url] of Object.entries(SITES)) {
 writeFileSync(`${S}/meta.json`, JSON.stringify(meta, null, 2));
 const dataUrl = (f) => `data:image/png;base64,${readFileSync(f).toString("base64")}`;
 for (const k of Object.keys(SITES)) {
-  const [r, g, bl] = (meta[k].cores[0] || "40,48,60").split(",").map(Number);
+  // COR_<chave>="r,g,b" no ambiente fixa o fundo à mão (rodada 29, 2026-11-04): a cor
+  // lida do CSS é a da maior área saturada, e num site de tinta neutra (Dra. Tânia Mara,
+  // carvão + bronze) quem vence é o botão verde do WhatsApp, não a marca.
+  const [r, g, bl] = (process.env[`COR_${k}`] || meta[k].cores[0] || "40,48,60").split(",").map(Number);
   const esc = (f) => `rgb(${Math.round(r * f)}, ${Math.round(g * f)}, ${Math.round(bl * f)})`;
   const desk = dataUrl(`${S}/${k}-desk.png`), mob = dataUrl(`${S}/${k}-mob.png`);
   // janela do navegador: 1040px de largura (escala 1440→1040 = 0,722), barra de 34px; celular 330×714, tela 308×692 (390×876 × 0,79)

@@ -29,7 +29,7 @@ import { Rodape } from "@/components/ar/home/Fecho";
 import { Ceu, CicloCombinado, Faq, FatosTarja, Filme, FimDoRastro, Franqueza, Frases, Preco, Tese } from "@/components/ar/rizzoos/Secoes";
 import { MotorVoo } from "@/components/ar/rizzoos/MotorVoo";
 import { HERO_OS, PITCH } from "@/content/rizzoos";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, ORG_REF } from "@/lib/site";
 
 // Título do v3 (42 + " | Agência Rizzo" = 58 renderizados, teto 60) e o recorte
 // literal da description (164, teto 180) — o porquê de cada um em `HERO_OS`.
@@ -60,11 +60,7 @@ export default function RizzoOsPage() {
     serviceType: "Plataforma de marketing médico",
     description: HERO_OS.description,
     url: `${SITE_URL}/rizzoos`,
-    provider: {
-      "@type": "Organization",
-      name: "Agência Rizzo Marketing Médico Digital",
-      url: SITE_URL,
-    },
+    provider: ORG_REF,
     areaServed: { "@type": "Country", name: "Brasil" },
     audience: { "@type": "Audience", audienceType: "Médicos, clínicas e hospitais" },
   };

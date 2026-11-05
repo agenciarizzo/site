@@ -5,7 +5,7 @@
 //
 // Fonte da verdade = o próprio build: as rotas são os .html gerados em
 // .next/server/app (nada de lista paralela pra esquecer de atualizar).
-import { readdirSync, readFileSync, statSync } from "fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "fs";
 import { join, relative, sep } from "path";
 
 const raiz = join(process.cwd(), ".next", "server", "app");
@@ -268,3 +268,54 @@ if (hosts.size !== 1) {
   process.exit(1);
 }
 console.log(`✓ Host canônico: ${[...hosts][0]} — canonical e sitemap no mesmo host.`);
+
+// ————————————————————————————————————————————————————————————————————————
+// Passo 7 — og:url e trilha (manutenção de SEO, 2026-11-04 · rizzo-os →
+// docs/SITE_MANIFESTO_MAPA.md §50; Padrão Rizzo §A-5 e §D).
+//
+// (a) Toda URL do sitemap declara `og:url`, e ele é IGUAL ao canonical: é o 5º
+//     sinal de host. Medido em produção antes desta entrega: 46 de 48 sem ele.
+// (b) Toda URL do sitemap com rota ANINHADA (2+ segmentos) publica um
+//     `BreadcrumbList`. Medido antes: os 12 pares especialidade × praça sem
+//     schema nenhum, enquanto a página-mãe já tinha a trilha.
+// (c) veio da revisão da própria entrega (ver o item no laço).
+// Controle negativo (rodado na entrega): tirar o `openGraph: ogDaRota(...)` de
+// app/sobre/page.tsx reprova (a); tirar o <script> do ParMolde reprova (b) 12×;
+// o 1º build desta entrega (capa padrão na home) reprova (c) 3×.
+{
+  let falhas = 0;
+  for (const pag of paginas) {
+    if (!noSitemap.has(pag.rota)) continue;
+    const html = readFileSync(pag.arquivo, "utf8");
+    const canon = (html.match(/<link rel="canonical" href="([^"]+)"/) ?? [])[1];
+    const ogUrl = (html.match(/<meta property="og:url" content="([^"]+)"/) ?? [])[1];
+    if (!ogUrl) {
+      console.error(`✗ ${pag.rota}: sem og:url.`);
+      falhas++;
+    } else if (ogUrl !== canon) {
+      console.error(`✗ ${pag.rota}: og:url (${ogUrl}) ≠ canonical (${canon}).`);
+      falhas++;
+    }
+    // (c) Rota com `opengraph-image.tsx` própria: o og:image é o dela, nunca a capa
+    //     padrão (no 1º build desta entrega o `images` da página venceu o arquivo).
+    const ogArquivo = join(process.cwd(), "app", ...pag.rota.split("/").filter(Boolean), "opengraph-image.tsx");
+    if (existsSync(ogArquivo)) {
+      const ogImg = (html.match(/<meta property="og:image" content="([^"]+)"/) ?? [])[1] ?? "";
+      const esperado = `${pag.rota === "/" ? "" : pag.rota}/opengraph-image`;
+      if (!ogImg.includes(esperado)) {
+        console.error(`✗ ${pag.rota}: tem opengraph-image.tsx, mas o og:image é "${ogImg}".`);
+        falhas++;
+      }
+    }
+    const aninhada = pag.rota.split("/").filter(Boolean).length >= 2;
+    if (aninhada && !/"@type":"BreadcrumbList"/.test(html)) {
+      console.error(`✗ ${pag.rota}: rota aninhada sem BreadcrumbList.`);
+      falhas++;
+    }
+  }
+  if (falhas > 0) {
+    console.error(`\nog:url ou trilha faltando: ${falhas} — build reprovado.`);
+    process.exit(1);
+  }
+  console.log(`✓ og:url = canonical nas ${noSitemap.size} URL(s) do sitemap, e trilha em toda rota aninhada.`);
+}

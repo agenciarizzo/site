@@ -16,7 +16,7 @@
 // (`PaginaEspecialidade`) e das peças recebidas, nunca escrito aqui.
 //
 // Server-only: quem consome é a página (SSG) e o molde. Nada daqui vai pro bundle.
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, ORG_REF } from "@/lib/site";
 import { breadcrumbJsonLd, HUB_MARKETING } from "@/lib/breadcrumb";
 import type { PecaPortfolio } from "@/content/portfolio";
 import { rotaEspecialidade, type PaginaEspecialidade } from "@/content/especialidades";
@@ -42,7 +42,7 @@ export function especialidadeJsonLd(e: PaginaEspecialidade, pecas: PecaPortfolio
       serviceType: "Marketing médico digital",
       description: e.descricao,
       url,
-      provider: { "@type": "Organization", name: "Agência Rizzo Marketing Médico Digital", url: SITE_URL },
+      provider: ORG_REF,
       // Página de especialidade não é de praça: o recorte é a especialidade, e o
       // atendimento é nacional (a tarja `Fatos` diz o mesmo). Quem declara cidade é
       // a landing de cidade e o combo.

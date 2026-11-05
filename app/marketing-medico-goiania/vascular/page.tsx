@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ComboLanding } from "@/components/ComboLanding";
 import { byRota } from "@/content/combos";
+import { ogDaRota } from "@/lib/og-rota";
 
 const ROTA = "/marketing-medico-goiania/vascular";
 
@@ -16,6 +17,7 @@ export function generateMetadata(): Metadata {
     title: c.titulo,
     description: c.descricao,
     alternates: { canonical: c.rota },
+    openGraph: ogDaRota(c.rota),
   };
 }
 

@@ -18,12 +18,14 @@ import { TopoDg } from "@/components/ar/TopoDg";
 import { PanoHeader } from "@/components/secoes/PanoHeader";
 import { CtaConversa } from "@/components/CtaConversa";
 import { ENDERECO, WHATS_LABEL, FATOS } from "@/lib/site";
+import { ogDaRota } from "@/lib/og-rota";
 
 export const metadata: Metadata = {
   title: "Contato: converse sobre a sua clínica",
   description:
     "Fale com a Agência Rizzo pelo WhatsApp: uma conversa sobre o momento da sua clínica. E, fazendo sentido, a proposta vem por escrito, transparente.",
   alternates: { canonical: "/contato" },
+  openGraph: ogDaRota("/contato"),
 };
 
 const WA = "Olá! Quero conversar sobre o marketing da minha clínica.";

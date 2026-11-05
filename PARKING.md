@@ -51,7 +51,17 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
   Goiânia`) precisa saber qual das duas regras seguir antes de nascer.
 - **Prazo sugerido:** antes do próximo combo.
 
-## [A-01] `og:url` não é emitido em nenhuma página
+## [A-01] ✅ RESOLVIDO em 2026-11-04 · `og:url` em toda página
+
+- **Ficou:** a condição ("o tronco da OG por rota") estava cumprida desde a regra 11
+  do `CLAUDE.md` e o item seguia aqui. Medido em produção: 46 das 48 URLs do sitemap
+  sem `og:url`. A base do `openGraph` passou a morar em `lib/og-rota.ts` (`OG_BASE`,
+  que o layout usa) e cada página declara `openGraph: ogDaRota(<a rota do canonical>)`.
+  O passo 7 do `scripts/checar-navegacao.mjs` reprova o build se uma URL do sitemap
+  sair sem `og:url` ou com ele diferente do canonical (controle negativo rodado:
+  tirar o da `/sobre` reprova). Rizzo-os → `docs/SITE_MANIFESTO_MAPA.md` §50.
+
+### Como era (registro)
 
 - **Estado:** dos cinco sinais de host do §A, quatro estão alinhados no `www`
   (redirect do servidor, `canonical`, `Host`/`Sitemap` do robots, URLs do sitemap e o
@@ -106,7 +116,14 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
 - **Prazo sugerido:** próxima conversa com o cliente.
 
 
-## [D-01] O `provider` dos blocos `Service` não referencia o `@id` da organização
+## [D-01] ✅ RESOLVIDO em 2026-11-04 · `provider` por `@id`
+
+- **Ficou:** a condição era o F-01 destravar, e destravou (o validator.schema.org
+  responde da sessão). Validado antes de entrar: o JSON-LD de um par com
+  `provider: { "@id": ".../#organizacao" }` dá 0 erro e 0 aviso. Os 5 `provider`
+  (especialidade, par, combo, cidade, `/rizzoos`) usam `ORG_REF` de `lib/site.ts`.
+
+### Como era (registro)
 
 - **Estado:** o `ORG_JSONLD` ganhou `@id` (`.../#organizacao`) na F1, mas os 23 blocos
   `Service` seguem repetindo `provider: { "@type": "Organization", name, url }` em vez
@@ -129,7 +146,7 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
 - **Prazo sugerido:** assim que o F-01 resolver — não precisa de nova manutenção de
   SEO só pra isto, é um commit de ~10 linhas.
 
-## [F-01] Os validadores HOSPEDADOS (Schema.org Validator, Rich Results Test) seguem inalcançáveis deste ambiente — mesmo com `schema.org` liberado
+## [F-01] ✅ DESTRAVADO em 2026-11-04 (validator.schema.org e o teste de resultado avançado respondem 200 da sessão; o JSON-LD novo dos pares foi validado lá, 0 erro) · Os validadores HOSPEDADOS (Schema.org Validator, Rich Results Test) seguem inalcançáveis deste ambiente — mesmo com `schema.org` liberado
 
 - **Estado:** a F2 partiu da premissa "agora o schema.org está liberado" — e o domínio
   **nu** `schema.org` de fato está (usado aqui pra conferir a lista fechada de
@@ -235,3 +252,24 @@ verdade.
 - **Fica como está, de propósito:** a meia-risca dos nomes cadastrados de
   cliente (regra 9), que é grafia do cadastro e chave de casamento entre os
   registros. Mudá-la é decisão do cadastro (doc "AR - Clientes"), não do site.
+
+## [D-02] Carta como `Article` (regra 5 do `CLAUDE.md`) × serviço como `Service` (Padrão Rizzo §D)
+
+- **Estado:** as 9 cartas (`/cartas/google-ads`, `/cartas/site-seo`…) e o hub
+  `/marketing-medico` publicam `Article` + `FAQPage`, como manda a regra 5 do
+  `CLAUDE.md` do site. O Padrão Rizzo (skill `seo-manutencao` §D) diz o contrário
+  pro site da agência: "página de serviço usa `Service`, nunca `Article`;
+  `Article` só em conteúdo editorial de verdade". As especialidades, as cidades, os
+  pares e a `/rizzoos` já são `Service`.
+- **Por que não decidi:** as duas regras são do cliente e se contradizem nas cartas.
+  A carta nasceu como texto assinado ("tempo de leitura = autoridade", §1 do mapa),
+  e isso é editorial; mas a `/cartas/google-ads` é também a página do serviço
+  Google Ads, a que o anúncio e o sitelink abrem.
+- **Minha recomendação:** manter o `Article` (é o que a carta é) e SOMAR um
+  `Service` por carta de mídia, com `provider: ORG_REF` e o nome da mídia; o
+  `checar-cartas.mjs` passa a exigir os dois. Não tira nada do que já está
+  indexado e dá ao Google e às IAs a leitura de oferta que hoje só as
+  especialidades têm.
+- **Custo de não decidir:** baixo; é sinal a mais, não erro.
+- **Prazo sugerido:** próxima manutenção de SEO do site.
+
