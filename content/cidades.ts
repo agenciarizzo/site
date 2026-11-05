@@ -250,7 +250,10 @@ export const CIDADES: Cidade[] = [
         clientes: [
           {
             nome: "Dr. Renan Marangoni",
-            site: "https://drrenanmarangoni.com.br",
+            // sem `site` desde 2026-11-05: drrenanmarangoni.com.br deixou de
+            // resolver no DNS (ex-cliente, RM inativo) e o nome passou a apontar
+            // pra lugar nenhum; regra 9, nome sem endereço vivo fica sem link
+            // (rizzo-os → SITE_MANIFESTO_MAPA.md §51)
             carteira: "Dr. Renan R. Marangoni – Cirurgia do Aparelho Digestivo, Cirurgia Geral",
           },
         ],
