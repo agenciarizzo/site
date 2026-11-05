@@ -6,8 +6,8 @@
 // cidade (content/cidades.ts), dos combos (content/combos.ts) e do histórico da
 // página de hospitais (content/hospitalar.ts) — cada uma escrita à mão, com o
 // domínio confirmado — e, desde 2026-11-05, o registro das peças de site
-// (content/enderecos-sites.ts), conferido no cadastro e no domínio no ar. Esta função só JUNTA as três numa
-// busca por NOME EXATO (§24.9: zero heurística — "Bonvena" no cadastro não
+// (content/enderecos-sites.ts), conferido no cadastro e no domínio no ar.
+// Esta função só JUNTA as quatro numa busca por NOME EXATO (§24.9: zero heurística — "Bonvena" no cadastro não
 // casa "Bonvena – Medicina Reprodutiva…" na peça, e é assim que deve ser: quem
 // quiser o link declara a grafia da peça no cadastro, não o contrário).
 //
