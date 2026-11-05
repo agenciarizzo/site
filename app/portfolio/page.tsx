@@ -36,8 +36,9 @@
 // PecaLightbox da casa (`:target`, zero JS, URL própria por peça) — as setas
 // andam pela ordem da PÁGINA, não do recorte filtrado.
 //
-// "Site no ar" só onde o cadastro tem endereço (lib/enderecos.ts, regra 9):
-// 13 peças de 9 casas hoje. Nome sem endereço fica sem link — zero domínio
+// "Site no ar" só na peça de SITE cujo cadastro tem endereço (lib/enderecos.ts,
+// regra 9): 37 das 45 em 2026-11-05, com o domínio na legenda e na peça
+// ampliada, em nova aba. Nome sem endereço fica sem link — zero domínio
 // adivinhado.
 import type { Metadata } from "next";
 import "../home-diagonal.css";
@@ -71,6 +72,8 @@ export const metadata: Metadata = {
 const WA = "Olá! Vi o portfólio no site da agência e quero conversar sobre a minha clínica.";
 /** A dobra por especialidade, como no protótipo: 6 peças, o resto atrás do "Ver as N". */
 const LIM = 6;
+/** O domínio como se lê: sem protocolo, sem `www.`, sem barra. */
+const dominio = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
 /** Ordem ASCII, nunca `localeCompare` (muda com o ICU da máquina de build). */
 const ascii = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -140,8 +143,14 @@ export default function PortfolioPage() {
     },
   ];
 
-  const Peca = ({ p, oculta }: { p: PecaGaleria; oculta: boolean }) => (
-    <figure className="gal-item" data-grupo={p.grupo} data-espec={p.espec} data-uf={p.uf} data-url={p.url ? "1" : ""} hidden={oculta}>
+  // "No ar" é da peça de SITE: o endereço é da casa (todas as peças do cliente o
+  // carregam em `p.url`), mas folder e vídeo não estão "no ar". Antes o selo
+  // saía no folder do Dr. Homero e o "Só sites no ar" listava 17 peças que não
+  // eram site (rizzo-os → SITE_MANIFESTO_MAPA.md §51).
+  const Peca = ({ p, oculta }: { p: PecaGaleria; oculta: boolean }) => {
+    const noAr = p.grupo === "Site" ? p.url : undefined;
+    return (
+    <figure className="gal-item" data-grupo={p.grupo} data-espec={p.espec} data-uf={p.uf} data-url={noAr ? "1" : ""} hidden={oculta}>
       {p.video ? (
         <video muted loop autoPlay playsInline preload="metadata" poster={p.poster} aria-label={p.alt}>
           {p.webm && <source src={p.webm} type="video/webm" />}
@@ -153,13 +162,22 @@ export default function PortfolioPage() {
               o site é SSG ~zero JS — next/image não paga aqui. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={p.src} alt={altSeo(p)} loading="lazy" width={p.largura} height={p.altura} />
-          {p.url && <span className="gal-noar">No ar</span>}
+          {noAr && <span className="gal-noar">No ar</span>}
         </a>
       )}
       <figcaption>
         <span className="gal-tipo">{p.servico}</span>
         <span className="gal-praca cifra">{p.praca}</span>
         <span className="gal-nome">{p.cliente}</span>
+        {noAr && (
+          // O link pro site no ar, em nova aba, com o domínio à vista: quem
+          // clica sabe pra onde vai, e o site do cliente recebe o link da
+          // agência (sem `nofollow`, sem `noreferrer`: a visita chega ao GA dele
+          // com a origem).
+          <a className="gal-site" href={noAr} target="_blank" rel="noopener" title={`Abrir ${dominio(noAr)} em nova aba`}>
+            {dominio(noAr)} <span aria-hidden>↗</span>
+          </a>
+        )}
       </figcaption>
       {p.peca && p.ancora && (
         <PecaLightbox
@@ -168,10 +186,12 @@ export default function PortfolioPage() {
           anterior={ordemLb[(posLb.get(p.ancora) ?? 0) - 1]}
           proxima={ordemLb[(posLb.get(p.ancora) ?? 0) + 1]}
           voltar="#resultado"
+          site={noAr}
         />
       )}
     </figure>
-  );
+    );
+  };
 
   return (
     <div className="dg pf-v3" data-portfolio>
@@ -256,6 +276,11 @@ export default function PortfolioPage() {
 
         {/* 03 · RESULTADO — o acervo inteiro, indexável, agrupado por especialidade */}
         <section id="resultado" className="gal" aria-labelledby="h-gal" data-topo="escuro">
+          {/* A régua fixa é UMA linha (cliente, 05/11: "esse header está confuso
+              e cobrindo grande parte da página" — eram 208 de 626 px no
+              computador e 470 de 844 no celular): o tipo de peça, o "só sites
+              no ar" e o limpar. Especialidade e estado ficam logo abaixo, na
+              linha que rola com a página (rizzo-os → SITE_MANIFESTO_MAPA.md §51). */}
           <div className="gal-regua">
             <div className="gal-regua-linha">
               <div role="tablist" aria-label="Tipo de peça" className="gal-abas">
@@ -268,23 +293,7 @@ export default function PortfolioPage() {
                   </button>
                 ))}
               </div>
-              <div className="gal-controles">
-                <select aria-label="Especialidade" data-f-espec-sel defaultValue="">
-                  <option value="">Todas as especialidades</option>
-                  {especs.map((e) => (
-                    <option value={e} key={e}>
-                      {e}
-                    </option>
-                  ))}
-                </select>
-                <select aria-label="Estado" data-f-uf-sel defaultValue="">
-                  <option value="">Todos os estados</option>
-                  {ufs.map((u) => (
-                    <option value={u} key={u}>
-                      {UF_NOME[u] ?? u} · {pool.filter((p) => p.uf === u).length}
-                    </option>
-                  ))}
-                </select>
+              <div className="gal-controles gal-atalhos">
                 <button type="button" aria-pressed="false" data-f-soar>
                   <i aria-hidden>
                     <b />
@@ -296,6 +305,24 @@ export default function PortfolioPage() {
                 </button>
               </div>
             </div>
+          </div>
+          <div className="gal-controles gal-refino">
+            <select aria-label="Especialidade" data-f-espec-sel defaultValue="">
+              <option value="">Todas as especialidades</option>
+              {especs.map((e) => (
+                <option value={e} key={e}>
+                  {e}
+                </option>
+              ))}
+            </select>
+            <select aria-label="Estado" data-f-uf-sel defaultValue="">
+              <option value="">Todos os estados</option>
+              {ufs.map((u) => (
+                <option value={u} key={u}>
+                  {UF_NOME[u] ?? u} · {pool.filter((p) => p.uf === u).length}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="gal-cabeca">
