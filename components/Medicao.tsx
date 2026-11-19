@@ -330,7 +330,7 @@ export function Medicao() {
         <p>
           Usamos cookies do Google, da Meta e da Microsoft para medir de onde você veio e
           personalizar anúncios. Sem a sua permissão, a medição é agregada e sem cookie de
-          anúncio. A escolha vale aqui e na montagem da proposta.{" "}
+          anúncio. A escolha vale aqui e no nosso aplicativo.{" "}
           <a href={ROTA_PRIVACIDADE}>Como tratamos seus dados</a>.
         </p>
         <div className="consent-acoes">
