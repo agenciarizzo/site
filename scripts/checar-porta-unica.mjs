@@ -40,7 +40,7 @@ const PROIBIDOS = [
   [/id="pacotes"/, "a seção de Pacotes"],
   [/href=["'][^"']*wa\.me|https?:\/\/wa\.me/, "link direto pro wa.me (regra 4)"],
 ];
-const TEXTOS = [/montar (a minha )?proposta/i, /preço aberto/i, /calculadora/i, /\b\d+\s?CHs\b/];
+const TEXTOS = [/montar (a minha )?proposta/i, /montagem da proposta/i, /preço aberto/i, /calculadora/i, /\b\d+\s?CHs\b/];
 
 const erros = [];
 for (const f of htmls) {
