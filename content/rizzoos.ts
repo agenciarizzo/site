@@ -408,12 +408,12 @@ export const COMBINADO: { t: string; d: string }[] = [
   },
 ];
 
-/** O preço aberto (seção 08) — peso 200 + span 600, como o `#h-cta` do v3. */
+/** A conversa (seção 08, ex-"preço aberto") — peso 200 + span 600, como o `#h-cta`
+ *  do v3. Porta única desde 2026-11-19 (rizzo-os → SITE_MANIFESTO_MAPA §52). */
 export const PRECO = {
-  titulo: "Quanto custa",
-  acento: "o que a sua clínica precisa?",
-  texto:
-    "Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote na hora, com o preço aberto.",
+  titulo: "Quer ver o RizzoOS",
+  acento: "rodando na sua clínica?",
+  texto: "Uma conversa de 15 minutos com o Mateus no WhatsApp: ele mostra o app e monta o escopo com você.",
 } as const;
 
 /** A franqueza (seção 09) — o mesmo texto que a página já tinha, palavra por palavra. */

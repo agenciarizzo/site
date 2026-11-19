@@ -17,9 +17,7 @@
 // das 8 cartas já em produção sem ganho nenhum.
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { IconeWhats } from "@/components/athos/IconeWhats";
 import { Malha } from "@/components/ar/cidade/Praca";
-import { PROPOSTA_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
 import { panoCidadeFaixa } from "@/lib/athos/panos";
 import type { Tweaks } from "@/lib/tweaks.mjs";
@@ -90,15 +88,9 @@ export function HeroMolde({
         </h1>
         <p className="hero-lede">{lede}</p>
         <div className="hero-acoes">
-          <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
-            Montar proposta <span aria-hidden>→</span>
-          </a>
-          {/* Pelo portão, sempre: `data-wa` = o texto que abre a conversa (regra 4, D1). */}
-          <Link className="hero-zap" href={ROTA_PORTAO} data-wa={waText}>
-            <span className="zap">
-              <IconeWhats />
-            </span>
-            Falar no WhatsApp
+          {/* Porta única: o WhatsApp do Mateus, pelo portão (rizzo-os → SITE_MANIFESTO_MAPA §52). */}
+          <Link className="btn" href={ROTA_PORTAO} data-wa={waText}>
+            Falar no WhatsApp <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

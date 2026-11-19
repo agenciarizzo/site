@@ -58,8 +58,8 @@ import { Topo } from "@/components/ar/home/Topo";
 import { Rodape } from "@/components/ar/home/Fecho";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import { panoOg } from "@/lib/og";
-import { CTA_PROPOSTA, WA_PADRAO } from "@/lib/nav";
-import { PROPOSTA_URL, WHATS_LABEL, WHATS_NUMBER } from "@/lib/site";
+import { WA_PADRAO } from "@/lib/nav";
+import { WHATS_LABEL, WHATS_NUMBER } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Falar no WhatsApp",
@@ -130,13 +130,6 @@ export default function PortaoPage() {
                 Sem JavaScript o botão não abre a conversa. Use o número acima.
               </p>
             </noscript>
-            <p className="portao-alt">
-              Prefere tudo por escrito, com o preço aberto? É um cadastro rápido, o código chega no seu e-mail:{" "}
-              <a data-cta="proposta" href={PROPOSTA_URL}>
-                {CTA_PROPOSTA.toLowerCase()}
-              </a>
-              .
-            </p>
           </div>
 
           {/* O pano — mesmo vocabulário do hero e da OG, em faixa no rodapé da

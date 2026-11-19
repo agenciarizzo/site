@@ -1,19 +1,16 @@
-// 5 · SERVIÇOS · 6 · PACOTES — "AR Home Diagonal".
+// 5 · SERVIÇOS — "AR Home Diagonal".
 //
 // Serviços é a grade-AZULEJO: rejunte de 1px em chumbo, célula-título amarela
 // ocupando duas linhas e as 6 frentes em papel claro. As células 1 e 5 nascem
 // acesas — é onde a animação de entrada (no motor de scroll) estaciona, e é o
 // estado que o HTML entrega sem JS nenhum.
 //
-// Pacotes (porte do artifact de 18/09, §45.3): 4 cards sobre fundo escuro, sem
-// preço (cliente, 04/10/2026: o preço mora no app, pela régua regional; a janela
-// circular que o guardava saiu, rizzo-os → SITE_MANIFESTO_MAPA.md §47). Embaixo,
-// os add-ons em dois letreiros contrários sobre panos geométricos. Nenhum card
-// além dos 4 do handoff.
+// Pacotes (porte do artifact de 18/09, §45.3) SAIU do site em 2026-11-19
+// (rizzo-os → SITE_MANIFESTO_MAPA §52): os 4 cards com CHs e os add-ons eram a
+// tabela de preço, e a única conversão do site passou a ser o WhatsApp do
+// Mateus. O CSS (`.pacotes`, `.addons`) ficou órfão em app/home-diagonal.css.
 import Link from "next/link";
-import { PROPOSTA_URL } from "@/lib/site";
 import { SERVICOS_HOME, SERVICOS_TITULO } from "@/content/home";
-import { PACOTES, ADDONS } from "@/content/landing-v3";
 
 export function Servicos() {
   return (
@@ -54,108 +51,6 @@ export function Servicos() {
             </span>
           </Link>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/** Uma faixa do letreiro; a lista é duplicada pro loop do `dg-marquee`. */
-function Faixa({ nomes, reverso }: { nomes: string[]; reverso?: boolean }) {
-  const itens = [...nomes, ...nomes];
-  return (
-    <div className="addons-faixa">
-      <ul data-reverso={reverso ? "" : undefined}>
-        {itens.map((n, i) => (
-          <li key={i} aria-hidden={i >= nomes.length ? true : undefined}>
-            <span>{n}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-/** 6b · ADICIONAIS — extras sob demanda, sem preço: só o nome, passando.
- *  Tweak escolhido pelo cliente no canvas (18/09): pano "areia" (papel),
- *  relevo "baixo", forma "liso" — sem peça geométrica, só o texto.
- *
- *  `extra` é o add-on que só a página tem — a "Captação Brasília"/"Captação
- *  Goiânia" das praças com equipe (content/cidades.ts → `captacao`). Entra na
- *  6ª posição, abrindo o segundo letreiro, como no protótipo do cidade-molde
- *  (`nomesAddons`: os 5 primeiros, a captação da praça, os 4 últimos). A home
- *  não passa nada e fica sem captação (cliente, 2026-09-20). */
-export function Adicionais({ extra }: { extra?: string } = {}) {
-  const nomes = ADDONS.map((a) => a.curto);
-  if (extra) nomes.splice(5, 0, extra);
-  return (
-    <div className="addons" aria-labelledby="h-addons">
-      <div className="addons-cabeca">
-        <div>
-          <p className="pac-kicker">Adicionais</p>
-          <h3 id="h-addons">Potencialize com Add-ons</h3>
-        </div>
-        <p>Adicione serviços extras sob demanda para acelerar seus resultados.</p>
-      </div>
-      <div className="addons-faixas" aria-label="Add-ons disponíveis">
-        <Faixa nomes={nomes.slice(0, 5)} />
-        <Faixa nomes={nomes.slice(5)} reverso />
-      </div>
-    </div>
-  );
-}
-
-export function Pacotes({ addonExtra }: { addonExtra?: string } = {}) {
-  return (
-    <section id="pacotes" className="pacotes" aria-labelledby="h-pacotes" data-topo="claro">
-      <div className="pac-cabeca">
-        <div>
-          <p className="pac-kicker">Pacotes</p>
-          <h2 id="h-pacotes" className="h2" data-reveal>
-            Pacotes de marketing médico para cada fase da clínica
-          </h2>
-        </div>
-        <p>Quatro pacotes. O valor sai na proposta, que abre em nova aba.</p>
-      </div>
-
-      <ol className="pac-lista">
-        {PACOTES.map((p) => (
-          <li key={p.slug}>
-            {/* A proposta detalhada mora no app (cliente, 18/09: "não quero
-                detalhar demais as propostas externamente") — o card leva pra
-                lá, em nova aba, como no canvas. `data-cta` segue sendo a
-                conversão `proposta_click` da regra 4. */}
-            <a
-              className="pac"
-              data-alto={p.alto ? "" : undefined}
-              data-cta="proposta"
-              href={PROPOSTA_URL}
-              target="_blank"
-              rel="noopener"
-              aria-label={`${p.nome}. ${p.frase} Abre a proposta em nova aba.`}
-            >
-              <span className="pac-chip cifra">
-                <span>{p.tipo}</span>
-                <span>{p.chs} CHs</span>
-              </span>
-              <h3>{p.nome}</h3>
-              <p className="pac-frase">{p.frase}</p>
-              <span className="pac-fecho">
-                <i aria-hidden />
-                <span>Ver proposta ↗</span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ol>
-
-
-      <Adicionais extra={addonExtra} />
-
-      <div className="pac-faixa">
-        <p>O valor do seu pacote sai na calculadora, na hora, sem reunião.</p>
-        <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
-          Montar proposta <span aria-hidden>→</span>
-        </a>
       </div>
     </section>
   );

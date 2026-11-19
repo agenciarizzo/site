@@ -129,7 +129,6 @@ export default async function BlogPage() {
         <CtaConversa
           titulo="Alguma dessas mexe com a sua clínica?"
           waText={WA}
-          proposta="Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote da sua clínica na hora, com o preço aberto."
         />
       </main>
       <Rodape waText={WA} rota="/blog" />

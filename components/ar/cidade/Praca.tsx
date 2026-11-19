@@ -15,9 +15,7 @@
 // é `<details name>` nativo — um aberto por vez, sem ilha.
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { PROPOSTA_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
-import { IconeWhats } from "@/components/athos/IconeWhats";
 import { heroPecas } from "@/lib/ar/heroGeo.mjs";
 import type { Tweaks } from "@/lib/tweaks.mjs";
 import { panoCidadeFaixa } from "@/lib/athos/panos";
@@ -75,15 +73,9 @@ export function HeroCidade({ c, t }: { c: Cidade; t: Tweaks }) {
         </h1>
         <p className="hero-lede">{c.lede}</p>
         <div className="hero-acoes">
-          <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
-            Montar proposta <span aria-hidden>→</span>
-          </a>
-          {/* Pelo portão, sempre: `data-wa` = o texto que abre a conversa (regra 4). */}
-          <Link className="hero-zap" href={ROTA_PORTAO} data-wa={c.waText}>
-            <span className="zap">
-              <IconeWhats />
-            </span>
-            Falar no WhatsApp
+          {/* Porta única: o WhatsApp do Mateus, pelo portão (rizzo-os → SITE_MANIFESTO_MAPA §52). */}
+          <Link className="btn" href={ROTA_PORTAO} data-wa={c.waText}>
+            Falar no WhatsApp <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

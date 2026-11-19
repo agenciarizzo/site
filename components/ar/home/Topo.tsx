@@ -9,11 +9,12 @@
 // partir do `data-topo` de cada `<section>`): sobre fundo escuro o logo e os
 // contornos ficam claros.
 //
-// AS DUAS PORTAS, com a medição intacta (§44.21-1):
-//  · pílula amarela → `PROPOSTA_URL` com `data-cta="proposta"`;
-//  · botão redondo → `ROTA_PORTAO` (`/whatsapp`) com o texto da página no
-//    `data-wa`. O protótipo linka `wa.me` direto em 3 lugares; aqui não existe
-//    nenhum — o portão anti-robô é regra da casa, não do Design.
+// PORTA ÚNICA (2026-11-19, rizzo-os → SITE_MANIFESTO_MAPA §52): a pílula
+// amarela, o item amarelo do menu e o botão da barra do polegar levam TODOS ao
+// WhatsApp do Mateus, por `ROTA_PORTAO` (`/whatsapp`) com o texto da página no
+// `data-wa`. A porta de proposta (calculadora com preço) saiu do site. O
+// protótipo linka `wa.me` direto em 3 lugares; aqui não existe nenhum — o
+// portão anti-robô é regra da casa, não do Design.
 //
 // O MENU é `<details>` nativo (zero JS) com o painel desenhado como o overlay do
 // protótipo. O protótipo abre 5 links; a casa exige que TODA rota seja alcançável
@@ -22,9 +23,7 @@
 // inventário certo — silêncio aqui seria página órfã no ar.
 import Image from "next/image";
 import Link from "next/link";
-import { PROPOSTA_URL } from "@/lib/site";
-import { ROTA_PORTAO, ROTAS_SO_WHATSAPP } from "@/lib/nav";
-import { IconeWhats } from "@/components/athos/IconeWhats";
+import { ROTA_PORTAO } from "@/lib/nav";
 import { IconesSociais } from "@/components/athos/IconesSociais";
 import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
 import { CIDADES } from "@/content/cidades";
@@ -39,11 +38,6 @@ import { ESPECIALIDADES_HOME } from "@/content/home";
  */
 export function Topo({ waText, rota }: { waText: string; rota?: string }) {
   const atual = (r: string) => (rota === r ? "page" : undefined);
-  // PORTA ÚNICA (rizzo-os → CAPITULO_HOSPITALAR_MAPA.md, D12): nas rotas de
-  // `ROTAS_SO_WHATSAPP` as três portas de proposta deste componente — a pílula,
-  // o item amarelo do menu e o botão da barra do polegar — não são renderizadas.
-  // Aditivo: sem `rota`, ou com rota fora da lista, o HTML é o mesmo de sempre.
-  const soWhats = rota !== undefined && ROTAS_SO_WHATSAPP.includes(rota);
   return (
     <header className="topo" data-tinta="escuro">
       <Link className="topo-logo" href="/" aria-label="Agência Rizzo, página inicial">
@@ -55,15 +49,10 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
         {/* Redes da agência (seo-manutencao §K-1): na barra a partir de 600px; no
             telefone não cabem ao lado do WhatsApp e do Menu e moram no painel. */}
         <IconesSociais className="topo-redes" />
-        {!soWhats && (
-          <a className="topo-cta" data-cta="proposta" href={PROPOSTA_URL}>
-            Montar proposta <span aria-hidden>→</span>
-          </a>
-        )}
-        <Link className="topo-zap" href={ROTA_PORTAO} data-wa={waText} aria-label="Falar no WhatsApp">
-          <span className="zap">
-            <IconeWhats />
-          </span>
+        {/* Porta única: a pílula É o WhatsApp do Mateus, pelo portão
+            (rizzo-os → SITE_MANIFESTO_MAPA §52). */}
+        <Link className="topo-cta" href={ROTA_PORTAO} data-wa={waText}>
+          WhatsApp <span aria-hidden>→</span>
         </Link>
 
         {/* HOTFIX (produção travada): era um `<details>` cujo painel tapava o
@@ -105,11 +94,9 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
                 <Link href="/contato" aria-current={atual("/contato")}>
                   Contato
                 </Link>
-                {!soWhats && (
-                  <a className="amarelo" data-cta="proposta" href={PROPOSTA_URL}>
-                    Montar proposta →
-                  </a>
-                )}
+                <Link className="amarelo" href={ROTA_PORTAO} data-wa={waText}>
+                  Falar no WhatsApp →
+                </Link>
                 <IconesSociais className="menu-redes" />
               </div>
               {/* Achado #1 (§44.24): os 40 links da parede única estouravam o
@@ -195,16 +182,9 @@ export function Topo({ waText, rota }: { waText: string; rota?: string }) {
       {/* A barra do polegar — só no celular (ver `app/home-diagonal.css`).
           A classe é `polegar`: `barra` é a barra do gráfico dos cases. */}
       <div className="polegar">
-        <Link className="topo-zap" href={ROTA_PORTAO} data-wa={waText} aria-label="Falar no WhatsApp">
-          <span className="zap">
-            <IconeWhats />
-          </span>
+        <Link className="btn" href={ROTA_PORTAO} data-wa={waText}>
+          Falar no WhatsApp <span aria-hidden>→</span>
         </Link>
-        {!soWhats && (
-          <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
-            Montar proposta <span aria-hidden>→</span>
-          </a>
-        )}
       </div>
     </header>
   );

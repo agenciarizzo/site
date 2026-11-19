@@ -543,7 +543,7 @@ export const FAQ = [
   { p: "Vocês atendem hospitais e redes de saúde?", r: "Sim. Hospital Daher, Hospital de Olhos Sobradinho, Hospital de Olhos do DF e CBCOR estão na carteira, e o fundador foi gerente de comunicação de um hospital certificado ONA/ISO. Campanha por linha de serviço, multicanal e por unidade é rotina." },
   { p: "Vocês atendem o meu concorrente?", r: "Não. Um cliente por especialidade em cada cidade. Se a sua vaga estiver ocupada, a gente avisa na primeira conversa." },
   { p: "Quanto tempo até os primeiros contatos?", r: "Com Google Ads, os primeiros contatos costumam chegar nos primeiros 30 dias. Site, SEO e conteúdo são de médio prazo: 3 a 6 meses pra ganhar consistência." },
-  { p: "Qual é o investimento?", r: "Depende do escopo. Monte o seu pacote na calculadora e veja o valor na hora, sem reunião." },
+  { p: "Qual é o investimento?", r: "Depende do escopo: as frentes, a cidade e a verba de anúncio. Numa conversa de 15 minutos no WhatsApp, o Mateus entende o momento da clínica e monta o escopo com você." },
   { p: "Oferecem garantia de resultados?", r: "Não. Resultado depende de verba, praça, concorrência e da agenda do médico. O que existe é processo: toda peça revisada pelas normas do CFM, nada publicado sem a aprovação do médico, contatos e investimento visíveis no RizzoOS, e três meses de ativação pra sair sem ônus se não fizer sentido." },
   { p: "Como funciona a aprovação de conteúdo?", r: "O aviso chega no seu celular e abre já na peça certa; você aprova no RizzoOS em um toque, com legenda revisada. Só o que você liberou vai ao ar." },
   { p: "Preciso aparecer em vídeo?", r: "Não. Ajuda (paciente que já conhece o médico chega confiando), mas a equipe produz formatos que não dependem de você gravar toda semana." },
@@ -573,9 +573,10 @@ export const VINHETA = {
 /* ──────────────────────────────────────────────────────────── CTA final ──── */
 
 export const CTA_FINAL = {
-  titulo: "Chega de surpresas.",
-  acento: "Sua proposta, transparente e na hora.",
-  proposta: "Selecione os serviços na calculadora e veja o investimento em tempo real.",
+  // Porta única desde 2026-11-19 (rizzo-os → SITE_MANIFESTO_MAPA §52): o fecho
+  // não fala mais de proposta nem de calculadora; a conversa é com o Mateus.
+  titulo: "Vamos falar da sua clínica?",
+  acento: "O Mateus responde no WhatsApp.",
   whats: "Uma conversa de 15 minutos sobre a sua clínica. E a gente já confere se a sua vaga está aberta.",
 };
 

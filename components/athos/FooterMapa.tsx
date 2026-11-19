@@ -16,7 +16,7 @@
 // porque nunca aparece sobre papel. O navy segue exclusivo do bloco RizzoOS (Athos.tsx).
 import Image from "next/image";
 import Link from "next/link";
-import { WHATS_LABEL, ENDERECO, CNPJ, PROPOSTA_URL } from "@/lib/site";
+import { WHATS_LABEL, ENDERECO, CNPJ } from "@/lib/site";
 import { IconesSociais } from "@/components/athos/IconesSociais";
 import { ITEM_ATALHOS, ITEM_BLOG, ROTA_PORTAO } from "@/lib/nav";
 import { COMBOS } from "@/content/combos";
@@ -249,10 +249,6 @@ export function FooterMapa({ atual, proxima }: { atual?: string; proxima: [CardR
             >
               Como escolher uma agência
             </Link>
-            {/* 2ª porta do funil — mora no app (FUNIL_ENTRADA_MAPA §5); data-cta = medição. */}
-            <a data-cta="proposta" href={PROPOSTA_URL}>
-              Montar proposta
-            </a>
           </nav>
           <div className="legal">
             <div>

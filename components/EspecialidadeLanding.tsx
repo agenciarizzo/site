@@ -322,7 +322,7 @@ export function EspecialidadeLanding({ e }: { e: PaginaEspecialidade }) {
           </div>
         </article>
 
-        <CtaConversa chave={rota} titulo="Quanto custa" acento="para a sua clínica?" />
+        <CtaConversa chave={rota} titulo="Vamos falar" acento="da sua clínica?" waText={e.waText} />
       </main>
       <FooterMapa atual={rota} proxima={["clientes", "panorama"]} />
     </>

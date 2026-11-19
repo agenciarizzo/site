@@ -41,8 +41,8 @@ export default function ContatoPage() {
           antes; `cores="ouro"` é a paleta do protótipo. */}
       <PanoHeader
         kicker="Contato · Agência Rizzo"
-        tituloA="Vamos montar"
-        tituloB="a sua proposta."
+        tituloA="Vamos falar"
+        tituloB="da sua clínica."
         motivo="faixa-quadrado"
         cores="ouro"
         semente={30524}
@@ -53,8 +53,8 @@ export default function ContatoPage() {
       <main>
         <section className="contato-corpo" data-topo="escuro">
           <p className="contato-lede">
-            Um cadastro rápido: nome, e-mail e WhatsApp. O código de acesso chega no seu e-mail e você monta o
-            pacote da sua clínica na hora, com o preço aberto e sem compromisso.
+            Uma conversa pelo WhatsApp com o Mateus: ele entende o momento da sua clínica, confere se a vaga
+            da sua especialidade na sua cidade está aberta e monta o escopo com você, sem compromisso.
           </p>
           <div className="contato-onde">
             <h2 className="h2">Onde estamos</h2>
@@ -84,9 +84,8 @@ export default function ContatoPage() {
         </section>
 
         <CtaConversa
-          titulo="Vamos montar a sua proposta?"
+          titulo="Vamos falar da sua clínica?"
           waText={WA}
-          proposta="Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote da sua clínica na hora, com o preço aberto."
         />
       </main>
       <Rodape waText={WA} rota="/contato" />

@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { panoTiraOs, panoCta } from "@/lib/athos/panos";
-import { WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS, PROPOSTA_URL } from "@/lib/site";
-import { ROTA_PORTAO } from "@/lib/nav";
+import { WHATS_LABEL, ENDERECO, CNPJ, SOCIAIS, FATOS } from "@/lib/site";
+import { ROTA_PORTAO, WA_PADRAO, SUB_WHATS } from "@/lib/nav";
 
 /**
  * Faixa de pano — HTML estático do servidor, zero JS. O número de colunas é do
@@ -62,16 +62,16 @@ export function Fatos() {
 }
 
 /**
- * Fecho de página: UM destino — montar a proposta. Sem assinatura, sem foto e
- * sem WhatsApp (decisão do dono, 2026-07-31): o CTA é a porta do funil, não um
- * cartão de visita. `waText` continua na assinatura por compatibilidade das
- * páginas que o passam; a porta quente vive no menu e no rodapé.
+ * Fecho de página: UM destino — o WhatsApp do Mateus, pelo portão, com o texto
+ * da página no `data-wa` (porta única desde 2026-11-19, rizzo-os →
+ * SITE_MANIFESTO_MAPA §52; antes era "montar a proposta", com preço no app).
  */
 export function CtaConversa({
   titulo,
   acento,
   chave = "/",
-  sub = "Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote da sua clínica na hora, com o preço aberto.",
+  waText,
+  sub = SUB_WHATS,
 }: {
   titulo: string;
   acento: string;
@@ -90,9 +90,9 @@ export function CtaConversa({
           <br />
           <span className="acento">{acento}</span>
         </h2>
-        <a className="btn-wa" data-cta="proposta" href={PROPOSTA_URL}>
-          MONTAR A MINHA PROPOSTA&nbsp;&nbsp;→
-        </a>
+        <Link className="btn-wa" href={ROTA_PORTAO} data-wa={waText ?? WA_PADRAO}>
+          FALAR NO WHATSAPP&nbsp;&nbsp;→
+        </Link>
         <p className="sub">{sub}</p>
       </div>
     </section>

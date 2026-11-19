@@ -212,10 +212,14 @@ for (const arquivo of htmls) {
     if (!/data-wa="[^"]+"/.test(a)) erros.push(`${rota}: porta /whatsapp sem \`data-wa\`: ${a.slice(0, 80)}`);
   }
 
-  // 2. as DUAS portas (D2 — exceção de porta única é só rede-hospitalar, que
-  // nem carrega esta classe): a página tem que oferecer proposta também.
-  if (!/data-cta="proposta"/.test(html)) {
-    erros.push(`${rota}: nenhuma âncora de proposta — a carta tem as duas portas (D2), não é rota de porta única`);
+  // 2. PORTA ÚNICA (era "as DUAS portas (D2)" até 2026-11-19, com a rede
+  // hospitalar de exceção; rizzo-os → SITE_MANIFESTO_MAPA §52): agora toda
+  // carta é de porta única, WhatsApp sim, proposta nunca.
+  if (/data-cta="proposta"/.test(html)) {
+    erros.push(`${rota}: âncora de proposta na página, o site tem porta única (§52)`);
+  }
+  if (!/href="\/whatsapp"/.test(html)) {
+    erros.push(`${rota}: nenhuma porta pro portão /whatsapp, a única conversão do site (§52)`);
   }
 
   // 3. FAQ visível === FAQPage do JSON-LD

@@ -77,7 +77,7 @@ export default function RizzoOsPage() {
         <FatosTarja />
         <Tese />
         <CicloCombinado />
-        <Preco />
+        <Preco waText={WA} />
         <Franqueza />
         <Faq />
       </main>

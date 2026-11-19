@@ -27,16 +27,16 @@
 // igual já acontece no rodapé. Política de privacidade/termos ficam de fora.
 import Image from "next/image";
 import Link from "next/link";
-import { PROPOSTA_URL } from "@/lib/site";
 import { IconesSociais } from "@/components/athos/IconesSociais";
-import { MENU_TOPO, ROTA_PORTAO, CTA_PROPOSTA, CTA_WHATSAPP } from "@/lib/nav";
+import { MENU_TOPO, ROTA_PORTAO, CTA_WHATSAPP } from "@/lib/nav";
 import { IconeWhats } from "./IconeWhats";
 import { ESPECIALIDADES, rotaEspecialidade } from "@/content/especialidades";
 import { CIDADES } from "@/content/cidades";
 import { CARTAS_MIDIA, CARTAS_SEGMENTO } from "@/content/cartas";
 import { COMBOS } from "@/content/combos";
 
-/** Os dois botões, iguais no topo, na barra fixa do celular e no hero da home
+/** Porta única desde 2026-11-19 (rizzo-os → SITE_MANIFESTO_MAPA §52): só o
+ *  WhatsApp do Mateus. Antes eram os dois botões, iguais no topo, na barra fixa do celular e no hero da home
  *  (§43 do mapa) — um lugar só, os MESMOS registries (`lib/nav.ts`/`lib/site.ts`). */
 export function Acoes({ waText }: { waText: string }) {
   return (
@@ -47,10 +47,6 @@ export function Acoes({ waText }: { waText: string }) {
         <IconeWhats />
         {CTA_WHATSAPP}
       </Link>
-      {/* `data-cta="proposta"` = medição (Medicao.tsx) — o nome do evento não muda. */}
-      <a className="btn-proposta" data-cta="proposta" href={PROPOSTA_URL}>
-        {CTA_PROPOSTA}&nbsp;→
-      </a>
     </>
   );
 }

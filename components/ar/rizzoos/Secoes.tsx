@@ -11,14 +11,14 @@
 // inclusive — `TEMAS`) e de `lib/site.ts` (a tarja `FATOS`). Aqui só mora o
 // desenho — e os rótulos de acessibilidade.
 //
-// Portas (regra 4 do site): "Montar proposta" é `PROPOSTA_URL` com
-// `data-cta="proposta"`; "WhatsApp" é o portão `/whatsapp` com o texto da
+// Porta única (regra 4 do site, §52 do SITE_MANIFESTO_MAPA): "Falar no
+// WhatsApp" é o portão `/whatsapp` com o texto da
 // página no `data-wa`. Zero `wa.me` — o protótipo já não tinha nenhum.
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FATOS, PROPOSTA_URL } from "@/lib/site";
-import { CTA_PROPOSTA_CURTO, CTA_WHATSAPP, ROTA_PORTAO } from "@/lib/nav";
+import { FATOS } from "@/lib/site";
+import { CTA_WHATSAPP_FALAR, ROTA_PORTAO } from "@/lib/nav";
 import {
   CICLO,
   CICLO_TITULO,
@@ -55,11 +55,9 @@ export function Ceu({ waText }: { waText: string }) {
       </h1>
       <p className="os3-lead">{HERO_OS.lead}</p>
       <div className="os3-acoes">
-        <a className="os3-btn os3-btn-ouro" data-cta="proposta" href={PROPOSTA_URL}>
-          {CTA_PROPOSTA_CURTO} <span aria-hidden>→</span>
-        </a>
-        <Link className="os3-btn os3-btn-ceu" href={ROTA_PORTAO} data-wa={waText}>
-          {CTA_WHATSAPP}
+        {/* Porta única (rizzo-os → SITE_MANIFESTO_MAPA §52): o WhatsApp do Mateus. */}
+        <Link className="os3-btn os3-btn-ouro" href={ROTA_PORTAO} data-wa={waText}>
+          {CTA_WHATSAPP_FALAR} <span aria-hidden>→</span>
         </Link>
       </div>
       {/* o avião em voo de cruzeiro + o rastro, que vira a espinha da página */}
@@ -262,8 +260,10 @@ export function CicloCombinado() {
   );
 }
 
-/* ════════════════════════════════════════════════════════ 08 · preço ════ */
-export function Preco() {
+/* ═══════════════════════════════════════════════════════ 08 · conversa ════ */
+// Era "08 · preço" (o preço aberto no app); desde a porta única (§52) a seção
+// fecha no WhatsApp do Mateus.
+export function Preco({ waText }: { waText: string }) {
   return (
     <section className="os3-preco" aria-labelledby="h-cta" data-topo="escuro">
       <div className="os3-preco-caixa">
@@ -272,9 +272,9 @@ export function Preco() {
           <br />
           <span>{PRECO.acento}</span>
         </h2>
-        <a className="os3-btn os3-btn-chumbo" data-cta="proposta" href={PROPOSTA_URL}>
-          {CTA_PROPOSTA_CURTO} <span aria-hidden>→</span>
-        </a>
+        <Link className="os3-btn os3-btn-chumbo" href={ROTA_PORTAO} data-wa={waText}>
+          {CTA_WHATSAPP_FALAR} <span aria-hidden>→</span>
+        </Link>
         <p className="os3-preco-p">{PRECO.texto}</p>
       </div>
     </section>

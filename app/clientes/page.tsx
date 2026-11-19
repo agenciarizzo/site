@@ -40,8 +40,9 @@ import { FiltroArea } from "@/components/ar/clientes/FiltroArea";
 import { chave } from "@/content/portfolio";
 import { CARTEIRA, OCULTOS, type ClienteCarteira } from "@/content/carteira";
 import { logoDe } from "@/lib/logos";
-import { FATOS, PROPOSTA_URL, SITE_URL } from "@/lib/site";
+import { FATOS, SITE_URL } from "@/lib/site";
 import { ogDaRota } from "@/lib/og-rota";
+import { ROTA_PORTAO } from "@/lib/nav";
 
 export const metadata: Metadata = {
   title: "Clientes: médicos, clínicas e hospitais",
@@ -217,10 +218,11 @@ export default function ClientesPage() {
               <br />
               <span>na próxima lista?</span>
             </h2>
-            <a className="cli-cta-btn" data-cta="proposta" href={PROPOSTA_URL}>
-              Montar a minha proposta <span aria-hidden>→</span>
-            </a>
-            <p>Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote da sua clínica na hora, com o preço aberto.</p>
+            {/* Porta única (rizzo-os → SITE_MANIFESTO_MAPA §52): o WhatsApp do Mateus. */}
+            <Link className="cli-cta-btn" href={ROTA_PORTAO} data-wa={WA}>
+              Falar no WhatsApp <span aria-hidden>→</span>
+            </Link>
+            <p>Uma conversa de 15 minutos sobre a sua clínica. E a gente já confere se a sua vaga está aberta.</p>
           </div>
         </section>
       </main>

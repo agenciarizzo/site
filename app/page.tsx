@@ -32,7 +32,7 @@ import { HOME_META, WA_HOME, PORTFOLIO_MODO } from "@/content/home";
 import { Topo } from "@/components/ar/home/Topo";
 import { Hero } from "@/components/ar/home/Hero";
 import { Autoridade, Clientes, Exclusividade } from "@/components/ar/home/Prova";
-import { Servicos, Pacotes } from "@/components/ar/home/Oferta";
+import { Servicos } from "@/components/ar/home/Oferta";
 import { Cases, Resultado } from "@/components/ar/home/Cases";
 import { RizzoOS } from "@/components/ar/home/RizzoOS";
 import { Depoimentos, Sobre, Cidades, Vinheta } from "@/components/ar/home/Casa";
@@ -58,7 +58,6 @@ export default function Home() {
       <Clientes />
       <Exclusividade waText={WA_HOME} />
       <Servicos />
-      <Pacotes />
       <Cases />
       <Resultado />
       {/* As 3 chamadas: uma por VAZIO medido, sempre logo depois de um bloco de

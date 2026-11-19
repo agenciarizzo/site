@@ -17,9 +17,7 @@
 // Visual: campo papel, uma linha de texto e as MESMAS duas portas do hero
 // (proposta fria + WhatsApp), pra não inventar um terceiro caminho.
 import Link from "next/link";
-import { PROPOSTA_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
-import { IconeWhats } from "@/components/athos/IconeWhats";
 
 export function Chamada({ texto, waText }: { texto: string; waText: string }) {
   return (
@@ -29,14 +27,9 @@ export function Chamada({ texto, waText }: { texto: string; waText: string }) {
           {texto}
         </p>
         <div className="chamada-portas">
-          <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
-            Montar proposta <span aria-hidden>→</span>
-          </a>
-          <Link className="chamada-zap" href={ROTA_PORTAO} data-wa={waText}>
-            <span className="zap">
-              <IconeWhats />
-            </span>
-            Falar no WhatsApp
+          {/* Porta única: o WhatsApp do Mateus, pelo portão (rizzo-os → SITE_MANIFESTO_MAPA §52). */}
+          <Link className="btn" href={ROTA_PORTAO} data-wa={waText}>
+            Falar no WhatsApp <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

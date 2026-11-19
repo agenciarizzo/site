@@ -10,9 +10,7 @@
 // o menu — por isso as colunas carregam o inventário, não os 4 links do desenho.
 import Link from "next/link";
 import Image from "next/image";
-import { PROPOSTA_URL } from "@/lib/site";
-import { ITEM_ATALHOS, ITEM_BLOG, ROTA_PORTAO, ROTAS_SO_WHATSAPP } from "@/lib/nav";
-import { IconeWhats } from "@/components/athos/IconeWhats";
+import { ITEM_ATALHOS, ITEM_BLOG, ROTA_PORTAO } from "@/lib/nav";
 import { IconesSociais } from "@/components/athos/IconesSociais";
 import { FAQ, CTA_FINAL } from "@/content/landing-v3";
 import { RODAPE, ESPECIALIDADES_HOME } from "@/content/home";
@@ -52,19 +50,11 @@ export function CtaFinal({ waText }: { waText: string }) {
       <h2 id="h-cta" className="h2" data-reveal>
         {CTA_FINAL.titulo} {CTA_FINAL.acento}
       </h2>
+      {/* Porta única: o WhatsApp do Mateus (rizzo-os → SITE_MANIFESTO_MAPA §52). */}
       <div className="cta-grade">
         <div>
-          <a className="btn cta-escuro" data-cta="proposta" href={PROPOSTA_URL}>
-            Montar proposta <span aria-hidden>→</span>
-          </a>
-          <p>{CTA_FINAL.proposta}</p>
-        </div>
-        <div>
-          <Link className="btn-linha" href={ROTA_PORTAO} data-wa={waText}>
-            <span className="zap">
-              <IconeWhats />
-            </span>
-            Falar no WhatsApp
+          <Link className="btn cta-escuro" href={ROTA_PORTAO} data-wa={waText}>
+            Falar no WhatsApp <span aria-hidden>→</span>
           </Link>
           <p>{CTA_FINAL.whats}</p>
         </div>
@@ -78,10 +68,7 @@ export function CtaFinal({ waText }: { waText: string }) {
  * a atribuição é por página). Sem ele o portão cai no `WA_PADRAO` e o rodapé
  * some do relatório, que era o caso em todas as 5 páginas que o usam.
  */
-export function Rodape({ waText, rota }: { waText?: string; rota?: string }) {
-  // PORTA ÚNICA (D12, como no `Topo`): nas rotas de `ROTAS_SO_WHATSAPP` o link
-  // "Montar proposta" da coluna Agência sai. Sem `rota`, nada muda.
-  const soWhats = rota !== undefined && ROTAS_SO_WHATSAPP.includes(rota);
+export function Rodape({ waText }: { waText?: string; /** sem uso desde a porta única (§52); mantido pros chamadores */ rota?: string }) {
   return (
     <footer className="rodape" data-topo="claro">
       <div className="rodape-grade">
@@ -170,13 +157,6 @@ export function Rodape({ waText, rota }: { waText?: string; rota?: string }) {
             <li>
               <Link href={ITEM_ATALHOS.href}>{ITEM_ATALHOS.rotulo}</Link>
             </li>
-            {!soWhats && (
-              <li>
-                <a data-cta="proposta" href={PROPOSTA_URL}>
-                  Montar proposta
-                </a>
-              </li>
-            )}
             <li>
               <Link href="/politica-privacidade">Política de privacidade</Link>
             </li>

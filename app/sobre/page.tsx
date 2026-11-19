@@ -38,7 +38,7 @@ const FAQ = [
   },
   {
     q: "Qual é o número de contato da Agência Rizzo?",
-    a: `O WhatsApp é ${WHATS_LABEL}. Quem prefere já sair com número na mão faz um cadastro rápido, recebe o código de acesso por e-mail e monta o pacote da própria clínica online.`,
+    a: `O WhatsApp é ${WHATS_LABEL}, atendido pelo Mateus, de segunda a sexta, das 9h às 18h.`,
   },
   {
     q: "Desde quando a Agência Rizzo existe?",

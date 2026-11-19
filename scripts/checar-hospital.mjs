@@ -90,7 +90,7 @@ for (const arquivo of htmls) {
     if (!/data-wa="[^"]+"/.test(a)) erros.push(`${rota}: porta /whatsapp sem \`data-wa\` (o texto da página é a atribuição): ${a.slice(0, 80)}`);
   }
   if (/<a\b[^>]*data-cta="proposta"/.test(html) || /<a\b[^>]*href="[^"]*agenciarizzo\.com\.br\/proposta/.test(html)) {
-    erros.push(`${rota}: âncora de proposta na página — a rota é de porta única (D12, ROTAS_SO_WHATSAPP)`);
+    erros.push(`${rota}: âncora de proposta na página — o site tem porta única (D12, §52)`);
   }
 
   // 2. o mapa do pôster
