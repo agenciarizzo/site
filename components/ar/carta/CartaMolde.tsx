@@ -59,7 +59,7 @@ import "@/components/ar/cidade/cidade-molde.css";
 import "./carta-molde.css";
 import { Topo } from "@/components/ar/home/Topo";
 import { Autoridade, Clientes, Exclusividade } from "@/components/ar/home/Prova";
-import { Servicos, Pacotes } from "@/components/ar/home/Oferta";
+import { Servicos } from "@/components/ar/home/Oferta";
 import { RizzoOS } from "@/components/ar/home/RizzoOS";
 import { Depoimentos, Sobre, Cidades, Vinheta } from "@/components/ar/home/Casa";
 import { Rodape } from "@/components/ar/home/Fecho";
@@ -171,7 +171,6 @@ export function CartaMolde({ c, m }: { c: Carta; m: MoldeCarta }) {
       <Chamada texto="O seu caso pode ser o próximo desta lista." waText={c.waText} />
       <Exclusividade waText={c.waText} />
       <Servicos />
-      <Pacotes />
       {/* `c.os` (B1): o parágrafo que a carta já publicava sobre o RizzoOS,
           lido do registro, nunca reescrito — a faixa entre a Chamada e o
           palco genérico (`<RizzoOS />`, sem props, igual em toda página). */}

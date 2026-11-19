@@ -102,8 +102,7 @@ export default function PrivacidadePage() {
               parte dela fica o botão (topo, barra fixa do celular, menu, primeira tela, corpo ou rodapé) e o destino,
               não o conteúdo da conversa, que acontece fora do site. O caminho tem dois passos e cada um
               gera o seu evento: o botão leva a uma tela de confirmação (<Link href="/whatsapp">a tela de conversa</Link>
-              ), e é no botão de dentro dela que a conversa abre de fato. O mesmo vale para o botão de montar proposta,
-              que leva para o nosso aplicativo.
+              ), e é no botão de dentro dela que a conversa abre de fato.
             </p>
 
             <h3 className="legal-h3">5 · Identificadores de clique de anúncio no seu navegador</h3>
@@ -114,9 +113,7 @@ export default function PrivacidadePage() {
               <code>ar_fbclid</code> (Meta) e <code>ar_msclkid</code> (Microsoft Advertising), mais os respectivos{" "}
               <code>_ts</code>. Se o endereço trouxer a identificação da campanha (os parâmetros <code>utm_</code>),
               ela fica junto, em <code>ar_utm</code>. Serve para uma coisa só: saber qual anúncio ou campanha trouxe a
-              conversa quando você clica no WhatsApp ou em montar proposta, inclusive se isso acontecer numa visita
-              posterior. No clique em montar proposta, esses valores seguem no endereço do nosso aplicativo, para que
-              a proposta saiba de onde você veio. Não é cookie, fica no seu aparelho e você pode apagar a qualquer
+              conversa quando você clica no WhatsApp, inclusive se isso acontecer numa visita posterior. Não é cookie, fica no seu aparelho e você pode apagar a qualquer
               momento limpando os dados do site no navegador.
             </p>
 
@@ -150,7 +147,7 @@ export default function PrivacidadePage() {
               Na primeira visita, uma faixa no pé da tela pergunta se você aceita os cookies de medição e de anúncio.
               A resposta fica num cookie nosso, <code>ar_consent</code>, que guarda só a escolha (aceitou ou recusou)
               por até 12 meses. Ele vale em todo o domínio <code>agenciarizzo.com.br</code>: a mesma escolha serve
-              para este site e para o nosso aplicativo de proposta (<code>app.agenciarizzo.com.br</code>), e você não
+              para este site e para o nosso aplicativo (<code>app.agenciarizzo.com.br</code>), e você não
               precisa responder duas vezes.
             </p>
 

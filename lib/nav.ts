@@ -5,9 +5,11 @@
 // entra ADICIONANDO uma linha em `MENU_TOPO` (ou nenhuma, se ela vive só no
 // rodapé-mapa) — ninguém mexe no componente pra publicar página.
 //
-// Duas portas, sempre nesta ordem de destaque (FUNIL_ENTRADA_MAPA §5):
-//   1. porta FRIA 24/7 — "montar proposta", que mora no app;
-//   2. porta QUENTE — WhatsApp, que agora passa OBRIGATORIAMENTE pelo portão.
+// PORTA ÚNICA desde 2026-11-19 (pedido do dono · rizzo-os → SITE_MANIFESTO_MAPA
+// §52): a única conversão do site é o WhatsApp do Mateus, (62) 99258-6600, e ele
+// passa OBRIGATORIAMENTE pelo portão. A porta fria "montar proposta" (a
+// calculadora com preço, no app) e a tabela de Pacotes saíram do site inteiro;
+// `scripts/checar-porta-unica.mjs` reprova o build se alguma voltar.
 //
 // O portão (`/whatsapp`) é a tela anti-robô: NENHUM link do site aponta direto
 // pro `wa.me`. O motivo é campanha paga (PMax/Demand Gen), onde clique de robô
@@ -17,18 +19,6 @@
 
 /** A tela anti-robô. Todo caminho pro WhatsApp passa por aqui. */
 export const ROTA_PORTAO = "/whatsapp";
-
-/**
- * Rotas de PORTA ÚNICA: só WhatsApp, zero porta de proposta — topo, barra do
- * polegar, menu e rodapé inclusive. Aqui porque o registro das portas é um só
- * (a mesma razão de `MENU_TOPO` morar neste arquivo e não no componente).
- *
- * O caso que a abriu (rizzo-os → docs/CAPITULO_HOSPITALAR_MAPA.md, D1 → D12): a
- * pílula "Montar proposta" leva à calculadora de PACOTE DE CLÍNICA, e o gestor
- * de um hospital não tem o que fazer com ela — oferecer é prometer um preço de
- * tabela que não existe para esse porte. Rota fora desta lista não muda em nada.
- */
-export const ROTAS_SO_WHATSAPP: readonly string[] = ["/cartas/rede-hospitalar"];
 
 /** Política de privacidade — linkada do rodapé e do aviso de consentimento. */
 export const ROTA_PRIVACIDADE = "/politica-privacidade";
@@ -50,13 +40,12 @@ export const MENU_TOPO: readonly ItemMenu[] = [
 ];
 
 /** Rótulos dos CTAs — um lugar só, pra não divergirem entre topo, barra e fecho. */
-export const CTA_PROPOSTA = "Montar proposta agora";
 export const CTA_WHATSAPP = "WhatsApp";
-/** Os rótulos do fecho do handoff do Claude Design (seção "15 CTA" dos
- *  protótipos de página) — mais curtos que os do topo, e iguais nos 5
- *  protótipos medidos. Consumidos por `components/CtaConversa.tsx`. */
-export const CTA_PROPOSTA_CURTO = "Montar proposta";
+/** O rótulo do fecho do handoff do Claude Design (seção "15 CTA" dos
+ *  protótipos de página). Consumido por `components/CtaConversa.tsx`. */
 export const CTA_WHATSAPP_FALAR = "Falar no WhatsApp";
+/** A linha de apoio sob o botão do fecho de página (`CtaConversa` do Athos). */
+export const SUB_WHATS = "Uma conversa de 15 minutos com o Mateus sobre a sua clínica. E a gente já confere se a sua vaga está aberta.";
 
 /**
  * Texto que abre a conversa quando a pessoa chega no portão sem origem

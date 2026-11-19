@@ -196,9 +196,13 @@ for (const arquivo of htmls) {
     if (!/data-wa="[^"]+"/.test(a)) erros.push(`${rota}: porta /whatsapp sem \`data-wa\`: ${a.slice(0, 80)}`);
   }
 
-  // 2. as DUAS portas (D2)
-  if (!/data-cta="proposta"/.test(html)) {
-    erros.push(`${rota}: nenhuma âncora de proposta — a especialidade tem as duas portas (D2)`);
+  // 2. PORTA ÚNICA (era "as DUAS portas (D2)" até 2026-11-19; rizzo-os →
+  // SITE_MANIFESTO_MAPA §52): WhatsApp sim, proposta nunca.
+  if (/data-cta="proposta"/.test(html)) {
+    erros.push(`${rota}: âncora de proposta na página, o site tem porta única (§52)`);
+  }
+  if (!/href="\/whatsapp"/.test(html)) {
+    erros.push(`${rota}: nenhuma porta pro portão /whatsapp, a única conversão do site (§52)`);
   }
 
   // 3. o TEXTO do registro está na tela

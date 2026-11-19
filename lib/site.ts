@@ -37,12 +37,9 @@ export function wa(text: string): string {
   return `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
-/**
- * 2ª porta do funil (rizzo-os → docs/FUNIL_ENTRADA_MAPA.md §5): o qualificador
- * 24/7 que mora no APP, não no site — o site continua SSG puro e só aponta.
- * Porta quente (WhatsApp) continua sendo o CTA primário de toda página.
- */
-export const PROPOSTA_URL = "https://app.agenciarizzo.com.br/proposta";
+// A 2ª porta do funil (`PROPOSTA_URL`, o qualificador com preço no app) saiu do
+// site em 2026-11-19: porta única, o WhatsApp do Mateus (rizzo-os →
+// SITE_MANIFESTO_MAPA §52). Não recriar a constante sem decisão do dono.
 
 /**
  * Onde o portão registra o par `{código → gclid}` (CRM_PLUGADO_MAPA §3, Trilho A.4).

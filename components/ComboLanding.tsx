@@ -144,7 +144,7 @@ export function ComboLanding({ c }: { c: Combo }) {
           </div>
         </article>
 
-        <CtaConversa chave={c.rota} titulo="Quanto custa" acento={`no seu consultório em ${c.cidade}?`} />
+        <CtaConversa chave={c.rota} titulo="Vamos falar" acento={`do seu consultório em ${c.cidade}?`} waText={c.waText} />
       </main>
       <FooterMapa atual={c.rota} proxima={["goiania", "clientes"]} />
     </>

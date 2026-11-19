@@ -26,7 +26,7 @@
 import "./cidade-molde.css";
 import { Topo } from "@/components/ar/home/Topo";
 import { Autoridade, Clientes, Exclusividade } from "@/components/ar/home/Prova";
-import { Servicos, Pacotes } from "@/components/ar/home/Oferta";
+import { Servicos } from "@/components/ar/home/Oferta";
 import { Cases, Resultado } from "@/components/ar/home/Cases";
 import { RizzoOS } from "@/components/ar/home/RizzoOS";
 import { Depoimentos, Sobre, Cidades, Vinheta } from "@/components/ar/home/Casa";
@@ -135,7 +135,6 @@ export function CidadeMolde({ c }: { c: Cidade }) {
           e o add-on de captação só onde a praça tem equipe — content/cidades.ts. */}
       <Exclusividade waText={waVaga} pano={c.exclusividade} />
       <Servicos />
-      <Pacotes addonExtra={c.captacao?.curto} />
       <Cases />
       <Resultado />
       <Chamada texto="O seu caso pode ser o próximo desta lista." waText={c.waText} />

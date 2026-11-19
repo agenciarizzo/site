@@ -199,9 +199,8 @@ export function SobreMolde({ faq, wa }: { faq: PerguntaSobre[]; wa: string }) {
           sua clínica?"), o mesmo que o hub e o contato fizeram: texto da página
           não some com o molde. */}
       <CtaConversa
-        titulo="Quanto custa para a sua clínica?"
+        titulo="Vamos falar da sua clínica?"
         waText={wa}
-        proposta="Um cadastro rápido, o código de acesso chega no seu e-mail e você monta o pacote da sua clínica na hora, com o preço aberto."
       />
       <Rodape waText={wa} rota={rota} />
       <Motor cenas={[]} />

@@ -10,9 +10,7 @@
 // reflow — é OUTRO desenho. Renderizar as duas e trocar por media query é o que
 // mantém isso SSG, sem medir a tela no cliente.
 import Link from "next/link";
-import { PROPOSTA_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
-import { IconeWhats } from "@/components/athos/IconeWhats";
 import { heroPecas } from "@/lib/ar/heroGeo.mjs";
 import { HERO } from "@/content/home";
 
@@ -52,14 +50,9 @@ export function Hero({ waText }: { waText: string }) {
         </h1>
         <p className="hero-lede">{HERO.lede}</p>
         <div className="hero-acoes">
-          <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
-            Montar proposta <span aria-hidden>→</span>
-          </a>
-          <Link className="hero-zap" href={ROTA_PORTAO} data-wa={waText}>
-            <span className="zap">
-              <IconeWhats />
-            </span>
-            Falar no WhatsApp
+          {/* Porta única: o WhatsApp do Mateus, pelo portão (rizzo-os → SITE_MANIFESTO_MAPA §52). */}
+          <Link className="btn" href={ROTA_PORTAO} data-wa={waText}>
+            Falar no WhatsApp <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

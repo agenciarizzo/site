@@ -40,7 +40,7 @@ import { Band } from "@/components/athos/Athos";
 import { panoFaixa } from "@/lib/athos/panos";
 import { Topo } from "@/components/ar/home/Topo";
 import { Autoridade, Clientes, Exclusividade } from "@/components/ar/home/Prova";
-import { Servicos, Pacotes } from "@/components/ar/home/Oferta";
+import { Servicos } from "@/components/ar/home/Oferta";
 import { RizzoOS } from "@/components/ar/home/RizzoOS";
 import { Depoimentos, Sobre, Cidades, Vinheta } from "@/components/ar/home/Casa";
 import { Rodape } from "@/components/ar/home/Fecho";
@@ -189,7 +189,6 @@ export function ParMolde({
       <Chamada texto="O seu caso pode ser o próximo desta lista." waText={wa} />
       <Exclusividade waText={wa} />
       <Servicos />
-      <Pacotes />
       <RizzoOS />
       <Chamada texto="É isso rodando na sua clínica, com a sua marca." waText={wa} />
       <Depoimentos />

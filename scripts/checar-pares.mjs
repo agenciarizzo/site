@@ -320,7 +320,10 @@ for (const [id, reg] of MOLDE) {
     }
   }
   if (/href=["'][^"']*wa\.me|https?:\/\/wa\.me/.test(html)) erros.push(`${rota}: link direto pro \`wa.me\`, todo WhatsApp passa pelo portão /whatsapp (regra 4)`);
-  if (!/data-cta="proposta"/.test(html)) erros.push(`${rota}: nenhuma âncora de proposta, o par tem as duas portas (D2)`);
+  // Porta única desde 2026-11-19 (rizzo-os → SITE_MANIFESTO_MAPA §52): era "as duas
+  // portas (D2)"; agora a página tem que ter o WhatsApp e NENHUMA âncora de proposta.
+  if (/data-cta="proposta"/.test(html)) erros.push(`${rota}: âncora de proposta na página, o site tem porta única (§52)`);
+  if (!/href="\/whatsapp"/.test(html)) erros.push(`${rota}: nenhuma porta pro portão /whatsapp, a única conversão do site (§52)`);
 
   // 4. SERP: título, description, canonical e robots do registro; nenhum JSON-LD próprio
   const titulo = norm(html.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? "");

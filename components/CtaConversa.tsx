@@ -17,8 +17,9 @@
 //    regra anterior"): a regra 2 do CLAUDE.md foi reescrita no mesmo PR. O
 //    amarelo continua proibido como TEXTO sobre papel; aqui ele é o FUNDO e
 //    o texto é o cinza #323C46, como nos 5 protótipos.
-//  · As DUAS portas, as duas em destaque (regra 4): a fria (`PROPOSTA_URL`,
-//    `data-cta="proposta"`) e a quente — SEMPRE pelo portão `/whatsapp`, com
+//  · PORTA ÚNICA desde 2026-11-19 (rizzo-os → SITE_MANIFESTO_MAPA §52; antes
+//    eram as duas, a fria de proposta e a quente): o WhatsApp do Mateus,
+//    SEMPRE pelo portão `/whatsapp`, com
 //    o texto da página no `data-wa`. O .dc.html linka `wa.me` direto; aqui
 //    não, nunca (o `GuardaOrigem` da página resgata o `data-wa`).
 //  · Rótulos dos botões vêm de lib/nav.ts (regra 4: rótulo de CTA mora lá);
@@ -31,8 +32,7 @@
 // decoração, sem ilha. O `data-reveal` do H2 não veio: precisa da ilha
 // `Reveals`, e o estado neutro (visível) é o correto sem ela.
 import Link from "next/link";
-import { PROPOSTA_URL } from "@/lib/site";
-import { ROTA_PORTAO, CTA_PROPOSTA_CURTO, CTA_WHATSAPP_FALAR } from "@/lib/nav";
+import { ROTA_PORTAO, CTA_WHATSAPP_FALAR } from "@/lib/nav";
 import { CTA_FINAL } from "@/content/landing-v3";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import "./CtaConversa.css";
@@ -42,7 +42,7 @@ export type CtaConversaProps = {
   titulo?: string;
   /** Texto que abre a conversa no WhatsApp — POR PÁGINA (regra 4). Viaja no `data-wa`. */
   waText: string;
-  /** Linha de apoio sob "Montar proposta". */
+  /** Sem uso desde a porta única (§52) — mantido pros chamadores. */
   proposta?: string;
   /** Linha de apoio sob "Falar no WhatsApp". */
   whats?: string;
@@ -53,7 +53,6 @@ export type CtaConversaProps = {
 export function CtaConversa({
   titulo = `${CTA_FINAL.titulo} ${CTA_FINAL.acento}`,
   waText,
-  proposta = CTA_FINAL.proposta,
   whats = CTA_FINAL.whats,
   id = "h-cta",
 }: CtaConversaProps) {
@@ -65,14 +64,9 @@ export function CtaConversa({
       </h2>
       <div className="cta-conversa-grade">
         <div>
-          <a className="cta-conversa-btn cta-conversa-cheio" data-cta="proposta" href={PROPOSTA_URL}>
-            {CTA_PROPOSTA_CURTO} <span aria-hidden>→</span>
-          </a>
-          <p>{proposta}</p>
-        </div>
-        <div>
-          {/* Pelo portão, sempre: `data-wa` = o texto que a conversa abre. */}
-          <Link className="cta-conversa-btn cta-conversa-linha" href={ROTA_PORTAO} data-wa={waText}>
+          {/* Porta única (rizzo-os → SITE_MANIFESTO_MAPA §52): o WhatsApp do
+              Mateus, pelo portão; `data-wa` = o texto que a conversa abre. */}
+          <Link className="cta-conversa-btn cta-conversa-cheio" href={ROTA_PORTAO} data-wa={waText}>
             <span className="cta-conversa-zap">
               <IconeWhats />
             </span>

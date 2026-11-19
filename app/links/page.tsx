@@ -13,8 +13,8 @@
 //   · a porta QUENTE primeiro e em destaque (regra 4): WhatsApp, SEMPRE pelo
 //     portão `/whatsapp`, com o texto desta página no `data-wa` (é a atribuição
 //     que diz à equipe que a conversa veio do Instagram);
-//   · a porta FRIA: "Montar proposta agora" → `PROPOSTA_URL`, com o mesmo
-//     `data-cta="proposta"` do resto do site (é ele que a medição lê);
+//   · (a porta FRIA "Montar proposta agora" saiu em 2026-11-19: porta única,
+//     rizzo-os → SITE_MANIFESTO_MAPA §52);
 //   · os destinos de conteúdo, DERIVADOS do registro (`lib/nav.ts`): Portfólio
 //     o Blog (as notícias do dia, desde 2026-10-11) e depois o `MENU_TOPO`, na ordem
 //     e com o rótulo de lá;
@@ -44,8 +44,8 @@ import { Rodape } from "@/components/ar/home/Fecho";
 import { PanoHeader } from "@/components/secoes/PanoHeader";
 import { IconeWhats } from "@/components/athos/IconeWhats";
 import { HERO } from "@/content/home";
-import { CTA_PROPOSTA, CTA_WHATSAPP_FALAR, ITEM_BLOG, ITEM_PORTFOLIO, MENU_TOPO, ROTA_PORTAO } from "@/lib/nav";
-import { PROPOSTA_URL, SITE_URL } from "@/lib/site";
+import { CTA_WHATSAPP_FALAR, ITEM_BLOG, ITEM_PORTFOLIO, MENU_TOPO, ROTA_PORTAO } from "@/lib/nav";
+import { SITE_URL } from "@/lib/site";
 
 /** O H1 da página: o MESMO da home, lido da fonte (a OG desta rota lê daqui também). */
 const H1 = `${HERO.titulo} ${HERO.destaque}`;
@@ -119,14 +119,6 @@ export default function LinksPage() {
                 →
               </span>
             </Link>
-          </li>
-          <li>
-            <a className="lk-btn lk-proposta" data-cta="proposta" href={PROPOSTA_URL}>
-              {CTA_PROPOSTA}
-              <span className="lk-seta" aria-hidden>
-                →
-              </span>
-            </a>
           </li>
         </ul>
         <ul className="lk-destinos">

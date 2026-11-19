@@ -2,9 +2,7 @@
 // — "AR Home Diagonal". O trecho da página que fala de QUEM é a casa.
 import Image from "next/image";
 import Link from "next/link";
-import { PROPOSTA_URL } from "@/lib/site";
 import { ROTA_PORTAO } from "@/lib/nav";
-import { IconeWhats } from "@/components/athos/IconeWhats";
 import { DEPOIMENTOS, DEPOIMENTOS_FONTE, DEPOIMENTO_VIDEO, SOBRE_FOTOS, TIMELINE, CIDADES_HOME, VINHETA } from "@/content/landing-v3";
 import { VideoCasa } from "@/components/ar/VideoCasa";
 import { SOBRE_HOME, CIDADES_BLOCO, ESPECIALIDADES_BLOCO, ESPECIALIDADES_HOME } from "@/content/home";
@@ -309,14 +307,9 @@ export function Vinheta({ waText }: { waText: string }) {
           {VINHETA.antes} <span className="ouro">{VINHETA.acento}</span>
         </h2>
         <div className="vinheta-acoes">
-          <a className="btn" data-cta="proposta" href={PROPOSTA_URL}>
-            Montar proposta <span aria-hidden>→</span>
-          </a>
-          <Link className="vinheta-zap" href={ROTA_PORTAO} data-wa={waText}>
-            <span className="zap">
-              <IconeWhats />
-            </span>
-            Falar no WhatsApp
+          {/* Porta única: o WhatsApp do Mateus, pelo portão (rizzo-os → SITE_MANIFESTO_MAPA §52). */}
+          <Link className="btn" href={ROTA_PORTAO} data-wa={waText}>
+            Falar no WhatsApp <span aria-hidden>→</span>
           </Link>
         </div>
       </div>
