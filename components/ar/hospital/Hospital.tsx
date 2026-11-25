@@ -101,7 +101,7 @@ export function HospitalPoster({
   ];
   return (
     <section className="cid-poster" aria-labelledby="h-hosp" data-topo="escuro">
-      <MapaPraca mapa={HOSPITALAR.poster.mapa} />
+      <MapaPraca mapa={HOSPITALAR.poster.mapa} lugar="São Paulo/SP" />
       <i className="cid-poster-traco" aria-hidden />
       <div className="cid-poster-grade">
         <div className="cid-poster-numeros">

@@ -13,6 +13,19 @@
 // arquivos que não existem no repo (`vascular-goiania-redes-sociais.jpg`); a
 // regra da casa é dado real ou bloco ausente, então cada miniatura aponta pra
 // uma peça que está mesmo lá.
+//
+// O `alt` de cada miniatura é o da própria peça no acervo (`content/portfolio.ts`),
+// nunca redigitado: a peça trocada aqui troca a descrição junto. Peça que não
+// estiver no acervo derruba o build (seo-manutencao §C, alt em 100%). As telas
+// moram dentro do `.os-dir`, que já é `aria-hidden`: o alt é pro robô.
+import { PORTFOLIO } from "@/content/portfolio";
+
+function altDe(src: string): string {
+  const p = PORTFOLIO.find((x) => x.imagem === src);
+  if (!p) throw new Error(`Telas: ${src} não está em content/portfolio.ts, a miniatura ficaria sem alt`);
+  return p.alt;
+}
+
 const NAVY = "#0F172A";
 const CARTAO = "#161F38";
 // (o `CLARO` #1B2540 saiu junto com a pilha de cartões da tela 0 antiga — a
@@ -189,7 +202,7 @@ export function Telas() {
         <Topo onde="Início · 3 peças esperam você" />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gridAutoRows: UNIDADE, gap: 8 }}>
           <div style={{ ...tile, gridColumn: "span 4", gridRow: "span 2", background: OURO, color: "#F8FAFC" }}>
-            <img src="/portfolio/marketing-medico-vascular-brasilia-anuncio.webp" alt="" loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.9 }} />
+            <img src="/portfolio/marketing-medico-vascular-brasilia-anuncio.webp" alt={altDe("/portfolio/marketing-medico-vascular-brasilia-anuncio.webp")} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.9 }} />
             <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(11,17,32,.28) 0%, rgba(11,17,32,.72) 48%, rgba(11,17,32,.9) 100%)" }} />
             <div style={{ position: "relative", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
               <Glifo d={G.prancheta} />
@@ -443,11 +456,11 @@ export function Telas() {
             ))}
           </div>
         </div>
-        <Agenda dia="08" src="/portfolio/marketing-medico-redes-sociais-brasilia-mockup.webp" alt="" titulo="Varizes não são só estética" onde="Instagram · feed" estado="no ar · ver post ↗" cor={VERDE} />
-        <Agenda dia="10" src="/portfolio/marketing-clinica-angiologia-brasilia-site.webp" alt="" titulo="Check-up vascular" onde="Google Meu Negócio" estado="no ar · ver post ↗" cor={VERDE} />
-        <Agenda dia="11" src="/portfolio/marketing-clinica-endoscopia-brasilia-folder-exames.webp" alt="" titulo="Story · sábado" onde="Instagram · stories" estado="aguardando você" cor={OURO} />
-        <Agenda dia="12" src="/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp" alt="" titulo="Primeiro doppler" onde="TV · recepção" estado="agendado" cor={MUDO} />
-        <Agenda dia="13" src="/portfolio/marketing-clinica-urologia-rio-de-janeiro-site.webp" alt="" titulo="Mitos sobre escleroterapia" onde="Instagram · feed" estado="agendado" cor={MUDO} />
+        <Agenda dia="08" src="/portfolio/marketing-medico-redes-sociais-brasilia-mockup.webp" alt={altDe("/portfolio/marketing-medico-redes-sociais-brasilia-mockup.webp")} titulo="Varizes não são só estética" onde="Instagram · feed" estado="no ar · ver post ↗" cor={VERDE} />
+        <Agenda dia="10" src="/portfolio/marketing-clinica-angiologia-brasilia-site.webp" alt={altDe("/portfolio/marketing-clinica-angiologia-brasilia-site.webp")} titulo="Check-up vascular" onde="Google Meu Negócio" estado="no ar · ver post ↗" cor={VERDE} />
+        <Agenda dia="11" src="/portfolio/marketing-clinica-endoscopia-brasilia-folder-exames.webp" alt={altDe("/portfolio/marketing-clinica-endoscopia-brasilia-folder-exames.webp")} titulo="Story · sábado" onde="Instagram · stories" estado="aguardando você" cor={OURO} />
+        <Agenda dia="12" src="/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp" alt={altDe("/portfolio/marketing-hospital-oftalmologia-sobradinho-site.webp")} titulo="Primeiro doppler" onde="TV · recepção" estado="agendado" cor={MUDO} />
+        <Agenda dia="13" src="/portfolio/marketing-clinica-urologia-rio-de-janeiro-site.webp" alt={altDe("/portfolio/marketing-clinica-urologia-rio-de-janeiro-site.webp")} titulo="Mitos sobre escleroterapia" onde="Instagram · feed" estado="agendado" cor={MUDO} />
       </div>
     </>
   );

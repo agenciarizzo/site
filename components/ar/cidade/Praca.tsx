@@ -115,7 +115,7 @@ export function PracaPoster({
   return (
     <section className="cid-poster" aria-labelledby="h-cid" data-topo="escuro">
       {c.mapa ? (
-        <MapaPraca mapa={c.mapa} />
+        <MapaPraca mapa={c.mapa} lugar={`${c.cidade}/${c.uf}`} />
       ) : (
         <div className="cid-poster-campo" aria-hidden data-par="-0.06" dangerouslySetInnerHTML={{ __html: panoCidadeFaixa(t, 24, 8) }} />
       )}
