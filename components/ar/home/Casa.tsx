@@ -52,7 +52,7 @@ export function Depoimentos() {
             <p className="depo-texto">“{d.texto}”</p>
             <footer>
               <span className="depo-quem">
-                <Image className="depo-foto" src={d.foto} alt="" width={52} height={52} aria-hidden />
+                <Image className="depo-foto" src={d.foto} alt={`Foto de ${d.nome}`} width={52} height={52} aria-hidden />
                 <span>
                   <strong>{d.nome}</strong>
                   <br />
@@ -249,7 +249,7 @@ export function Cidades({ waText }: { waText: string }) {
           <img
             className="cidades-mapa"
             src="/mapa-brasil.webp"
-            alt=""
+            alt="Mapa do Brasil"
             aria-hidden="true"
             data-par="-0.15"
           />

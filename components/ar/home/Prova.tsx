@@ -166,8 +166,16 @@ export function Clientes() {
                         infinito, todas de tamanho livre dentro de uma caixa
                         fixa — o `object-fit: contain` é quem manda, e o
                         otimizador não teria o que otimizar. */}
+                    {/* Toda cópia leva o nome da marca no `alt` (seo-manutencao
+                        §C: alt em 100% das imagens). Antes só a 1ª volta da
+                        1ª faixa levava, e as faixas 2 e 3 são marcas DIFERENTES:
+                        2/3 da carteira ia pro HTML sem nome nenhum. Quem decide
+                        o que o leitor de tela lê continua sendo o `aria-hidden`
+                        (faixa e cópia), não o `alt` vazio. O "cliente da
+                        agência" já é o h2 da seção: repetido 400 vezes no alt
+                        seria densidade de palavra-chave (§G). */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={m.src} alt={i < linha.length && r === 0 ? `Logo ${m.nome}, cliente da Agência Rizzo` : ""} loading="lazy" />
+                    <img src={m.src} alt={`Logo ${m.nome}`} loading="lazy" aria-hidden={r === 0 && i >= linha.length ? true : undefined} />
                   </li>
                 ))}
               </ul>

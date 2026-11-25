@@ -11,13 +11,15 @@
 //
 // A atribuição é obrigatória (licença dos dados do OpenStreetMap e dos tiles
 // do MapTiler) e fica no canto, como o controle do Leaflet.
-export function MapaPraca({ mapa }: { mapa: string }) {
+// O `alt` nomeia o lugar (seo-manutencao §C, alt em 100%): o bloco é
+// `aria-hidden`, então o leitor de tela segue sem ler o mapa; o alt é pro robô.
+export function MapaPraca({ mapa, lugar }: { mapa: string; lugar: string }) {
   return (
     <>
       <div className="cid-mapa" aria-hidden data-par="-0.06">
         <picture>
           <source media="(max-width: 899px)" srcSet={`/mapas/${mapa}-alto.webp`} />
-          <img src={`/mapas/${mapa}-largo.webp`} alt="" width={1600} height={1000} loading="lazy" decoding="async" />
+          <img src={`/mapas/${mapa}-largo.webp`} alt={`Mapa de ${lugar}`} width={1600} height={1000} loading="lazy" decoding="async" />
         </picture>
       </div>
       <p className="cid-mapa-fonte">

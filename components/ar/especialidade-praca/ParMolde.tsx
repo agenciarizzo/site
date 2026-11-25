@@ -178,7 +178,7 @@ export function ParMolde({
         corpo={par.intro[par.intro.length - 1]}
         casa={casa}
         t={t}
-        fundo={mapa ? <MapaPraca mapa={mapa} /> : undefined}
+        fundo={mapa ? <MapaPraca mapa={mapa} lugar={local} /> : undefined}
       />
       {/* Um grupo só (a praça): em linhas, como na tela estreita, e não a faixa
           vertical, que com um grupo deixa um painel alto e vazio (revisão do lote 1). */}
