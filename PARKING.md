@@ -9,6 +9,60 @@ Aberto em 2026-08-23, na entrega **F1 · SEO técnico** (rizzo-os →
 
 ---
 
+## [I-01] Bing mostra 1 domínio de referência, e 36 sites de cliente linkam pra cá
+
+- **Estado (medido em 2026-11-25, HTML servido de 41 sites do cadastro):** 36 têm o
+  link da assinatura no HTML, seguível (sem `nofollow`), 27 apontando pra
+  `www.agenciarizzo.com.br` e 9 pro apex. O Bing Webmaster Tools mostra **1** domínio
+  (ortopedista.digital, cuja home de hoje nem tem o link). O link existe; o Bing é
+  que não o atribui.
+- **Causa provável, em ordem:**
+  1. **A propriedade do Bing é o apex** (a tela mostra `agenciarizzo.com.br/`), e o
+     host canônico é o `www` (o apex faz 308). O Bing credita o backlink ao host
+     exato que o link aponta: os 27 que apontam pro `www` caem numa propriedade que
+     não está cadastrada.
+  2. **O Bing só conta link de página que ele rastreou e indexou.** Site de cliente
+     que não está no índice do Bing (ou entrou há pouco) não gera backlink. O
+     relatório de backlinks do Bing é conhecido por ser esparso e atrasar semanas.
+- **Por que não decidi:** é configuração de conta no Bing (ação humana, fora do repo)
+  e código de OUTROS repositórios (fora do escopo desta sessão).
+- **Minha recomendação:**
+  1. No Bing Webmaster Tools, **adicionar `https://www.agenciarizzo.com.br/`** (ou
+     importar do Search Console, que traz o host certo) e enviar o sitemap nele. Os
+     backlinks aparecem na propriedade `www` em algumas semanas.
+  2. Em cada site de cliente, conferir `site:<domínio>` no Bing; o que der "Não há
+     resultados" entra no Bing Webmaster Tools do cliente (importar do GSC) e ganha
+     IndexNow. Sem isso não há backlink nem citação no ChatGPT/Copilot (§I).
+  3. Na próxima manutenção de cada repo, padronizar a assinatura (§K-8 da skill):
+     - **apontam pro apex:** bonvena.med.br, cardioclinicparauapebas.com.br,
+       clinicadeveias.com.br, policlinicadecorrente.com.br, sbhdf.org.br,
+       carlosportocarrero.com.br, draelielma.com.br, medicinador.com.br;
+     - **`nofollow` e rota antiga** (`/home/`, 3 saltos até a home): drfernandoferro.com.br;
+     - **sem link no HTML servido:** drafabyannemazutti.com.br, inmedonline.com.br,
+       uroclinicario.com.br, csremanso.med.br, ortopedista.digital (home),
+       drfranciscocarvalho.com (SPA: o link só nasce no JavaScript).
+- **Custo de não decidir:** o relatório segue dizendo 1; o link continua lá, só não
+  aparece no Bing (nem pesa no índice que o ChatGPT e o Copilot leem).
+- **Prazo sugerido:** item 1 hoje (5 minutos); itens 2 e 3 na manutenção de cada site.
+
+---
+
+## [C-03] Letreiro de clientes: o leitor de tela só ouve 1/3 das marcas
+
+- **Estado:** desde o #95 (2026-09-20) as faixas 2 e 3 do letreiro são `aria-hidden`.
+  Elas não são cópia da faixa 1: são marcas DIFERENTES (a carteira é dividida em
+  três). O leitor de tela ouve ~70 das ~210 marcas. Em 2026-11-25 o `alt` vazio saiu
+  (toda imagem com "Logo <nome>"), mas o que o leitor de tela lê ficou como estava.
+- **Por que não decidi:** é escolha de experiência, não bug. 210 nomes seguidos é
+  cansativo de ouvir, e o link "Ver a lista completa de clientes" já leva à lista.
+- **Minha recomendação:** tirar o `aria-hidden` das faixas 2 e 3 e deixar só nas
+  cópias (a 2ª volta de cada faixa), pra cada marca ser lida uma vez. É uma `<ul>`:
+  o leitor anuncia o tamanho e quem quer pula.
+- **Custo de não decidir:** baixo; nenhum efeito em SEO (o `alt` já está lá).
+- **Prazo sugerido:** quando o cliente olhar acessibilidade da home.
+
+---
+
 ## [C-01] Teto de description: 180 nesta entrega × 155 no Padrão Rizzo
 
 - **Estado:** a skill `seo-manutencao` (§C e "critério de pronto") manda `description`
