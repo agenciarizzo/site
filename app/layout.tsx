@@ -46,6 +46,10 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   // Produção indexa; preview e dev nascem noindex (ver INDEXABLE em lib/site.ts).
   robots: { index: INDEXABLE, follow: INDEXABLE },
+  // Verificação do Bing Webmaster Tools para a propriedade `www` (2026-11-25,
+  // PARKING [I-01]): a propriedade antiga era o apex, e os backlinks que apontam
+  // pro `www` caíam fora dela. O código não é segredo, é público por desenho.
+  verification: { other: { "msvalidate.01": "BA34BA1DD6CE981CF78CCFC28D1EF969" } },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
